@@ -1,0 +1,29 @@
+{
+  "name": "oicr-wfui-react",
+  "version": "0.0.1",
+  "description": "Set of base widgets",
+  "main": "lib/auto_text_link.js",
+  "scripts": {
+    "build": "babel src -d lib",
+    "start": "bash start.sh",
+    "test": "mocha --compilers js:babel-register --recursive test"
+  },
+  "author": "Koji Miyauchi",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^0.14.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.3.17",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-register": "^6.3.13",
+    "babelify": "^7.2.0",
+    "browserify": "^12.0.1",
+    "budo": "^7.0.4",
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4",
+    "react-addons-test-utils": "^0.14.3",
+    "react-dom": "^0.14.3"
+  }
+}
