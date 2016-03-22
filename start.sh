@@ -1,7 +1,7 @@
 #!/bin/bash
 # Bash Menu Script Example
-PS3='Please enter your choice: '
-options=`ls src`
+PS3='Please choose your component: '
+options=($(ls -d src/*/ | sed -E 's/src\///'))
 options+=('Quit')
 select opt in "${options[@]}"
 do
@@ -10,7 +10,7 @@ do
             break
             ;;
         *)
-            budo src/"$opt"/bundle.js --dir src/"$opt"/ --live -- -t babelify
+            budo src/"$opt"bundle.js --dir src/"$opt" --live -- -t babelify
         npm start
             ;;
     esac
