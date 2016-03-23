@@ -1,5 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import InputField from '../../src/InputField/input_field';
 import InputTable from '../../src/InputTable/input_table';
 
-ReactDOM.render( <InputTable type="text" label="Type Text" />, document.getElementById('app'));
+let config = {
+    label: "1. What is your weight measurement?",
+    description: (
+        <div>
+            <p>Before you begin:</p>
+            <ol>
+            <li>Adjust your scale to zero</li>
+            <li>Weigh your self with your clothes off, or wear light clothing. Remember to remove your shoe</li>
+            <li>Step on the scale. Make sure both feet oare fully on the scale</li>
+            </ol>
+        </div>
+    ),
+    fieldLabel: 'Enter your Weight:',
+    fieldType: 'or',
+    fields: [
+        <InputField type="text" />,
+        <InputField type="text" />
+    ]
+}
+ReactDOM.render( <InputTable {...config} />, document.getElementById('app'));

@@ -5,26 +5,26 @@ import React, { Component } from 'react';
  */
 class InputTable extends Component {
   render() {
+    const that = this;
+    if(this.props.fields){
+      var fields = (
+        <ul>
+          {this.props.fields.map(function(field, i){
+            if(that.props.fields.length-1 > i){
+              var condition = <span>{that.props.fieldType}</span>
+            }
+            return <li key={i}>{field}{condition}</li>
+          })}
+        </ul>
+      )
+    }
     return (
       <div className="wfui-input-table">
-          <style>
-
-          </style>
-          <label>1. What is your weight measurement?</label>
-          <div>
-            <p>Before you begin:</p>
-            <ol>
-              <li>Adjust your scale to zero</li>
-              <li>Weigh your self with your clothes off, or wear light clothing. Remember to remove your shoe</li>
-              <li>Step on the scale. Make sure both feet oare fully on the scale</li>
-            </ol>
-          </div>
+          <label>{this.props.label}</label>
+          {this.props.description}
           <div className="wfui-input-table__form">
-            <p>Enter your Weight:</p>
-            <ul>
-              <li className="wfui-input-table__form"><input type={this.props.type} /></li>
-              <li><input type={this.props.type} /></li>
-            </ul>
+            <p>{this.props.fieldLabel}</p>
+            {fields}
           </div>
       </div>
     )
@@ -35,8 +35,10 @@ class InputTable extends Component {
  * Property types
  */
 InputTable.propTypes = {
+  fieldType: React.PropTypes.oneOf(['and','or']),
 }
 InputTable.defaultProps = {
+  fieldType: 'and'
 }
 
 export default InputTable

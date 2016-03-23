@@ -11,7 +11,6 @@ do
             ;;
         *)
             budo src/"$opt"bundle.js --dir src/"$opt" --live -- -t babelify
-        npm start
             ;;
     esac
 done
