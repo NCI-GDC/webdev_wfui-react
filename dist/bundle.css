@@ -1,0 +1,16 @@
+.wfui-input-radios__container:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+.wfui-input-radios--col-2 .wfui-input-radios__radio {
+  float: left;
+  width: 50%; }
+
+.wfui-input-radios--col-3 .wfui-input-radios__radio {
+  float: left;
+  width: 33.3%; }
+
+.wfui-input-radios--col-4 .wfui-input-radios__radio {
+  float: left;
+  width: 25%; }

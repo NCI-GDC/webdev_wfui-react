@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-require('../../src/Radios/radios.scss');
 
 /**
  * Radios

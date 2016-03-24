@@ -53,7 +53,9 @@
 	window.WFUIJS.Description = __webpack_require__(159);
 	window.WFUIJS.InputField = __webpack_require__(160);
 	window.WFUIJS.InputTable = __webpack_require__(161);
-	window.WFUIJS.Radios = __webpack_require__(162);
+
+	__webpack_require__(162);
+	window.WFUIJS.Radios = __webpack_require__(164);
 
 /***/ },
 /* 1 */
@@ -19985,9 +19987,16 @@
 
 /***/ },
 /* 162 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 163 */,
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -20007,8 +20016,6 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(163);
-
 	/**
 	 * Radios
 	 */
@@ -20023,7 +20030,7 @@
 	  }
 
 	  _createClass(Radios, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      var _props = this.props;
 	      var label = _props.label;
@@ -20032,17 +20039,17 @@
 
 	      var className = "wfui-input-radios wfui-input-radios--col-" + this.props.columnNumber;
 	      return _react2.default.createElement(
-	        'div',
+	        "div",
 	        { className: className },
 	        _react2.default.createElement(
-	          'label',
+	          "label",
 	          null,
 	          label
 	        ),
 	        description,
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'wfui-input-radios__container' },
+	          "div",
+	          { className: "wfui-input-radios__container" },
 	          children
 	        )
 	      );
@@ -20069,12 +20076,6 @@
 	};
 
 	exports.default = Radios;
-
-/***/ },
-/* 163 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
 
 /***/ }
 /******/ ]);
