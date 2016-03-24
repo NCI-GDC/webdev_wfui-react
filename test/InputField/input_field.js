@@ -1,20 +1,21 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
+import jsdom from 'mocha-jsdom';
 import { expect } from 'chai';
 import InputField from '../../src/InputField/input_field';
 
 
 describe('InputField', () => {
   let renderer;
+  jsdom();
 
-  beforeEach(() => {
-    renderer = TestUtils.createRenderer();
-    renderer.render(
-      <InputField value="test" />
+  it('have default value', () => {
+    const field = TestUtils.renderIntoDocument(
+      <InputField defaultValue="this is test" />
     );
-  });
+    const fieldNode = ReactDOM.findDOMNode(field);
+    expect(fieldNode.value).toEqual('this is test');
 
-  it('write a test please', () => {
-    expect(true).to.be.true;
   });
 });
