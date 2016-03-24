@@ -54,11 +54,11 @@
 	window.WFUIJS.InputField = __webpack_require__(160);
 	window.WFUIJS.InputTable = __webpack_require__(161);
 
-	__webpack_require__(167);
-	window.WFUIJS.Grid = __webpack_require__(168);
+	__webpack_require__(162);
+	window.WFUIJS.Selection = __webpack_require__(164);
 
-	__webpack_require__(166);
-	window.WFUIJS.Grid = __webpack_require__(165);
+	__webpack_require__(165);
+	window.WFUIJS.Grid = __webpack_require__(166);
 
 /***/ },
 /* 1 */
@@ -19989,10 +19989,125 @@
 	exports.default = InputTable;
 
 /***/ },
-/* 162 */,
+/* 162 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
 /* 163 */,
-/* 164 */,
+/* 164 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	/**
+	 * Selection
+	 */
+
+	var Selection = function (_Component) {
+	  _inherits(Selection, _Component);
+
+	  function Selection() {
+	    _classCallCheck(this, Selection);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Selection).apply(this, arguments));
+	  }
+
+	  _createClass(Selection, [{
+	    key: "onHandleClick",
+
+
+	    /**
+	     * onHandleClick will check the radio if user focus on children elements (especially for input field)
+	     * @param  {event} e
+	     */
+	    value: function onHandleClick(e) {
+	      var type = this.props.type;
+
+	      if (type == "radio") {
+	        this.refs.radio.checked = true;
+	      } else {
+	        this.refs.radio.checked = !this.refs.radio.checked;
+	      }
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var _props = this.props;
+	      var label = _props.label;
+	      var name = _props.name;
+	      var value = _props.value;
+	      var defaultChecked = _props.defaultChecked;
+	      var children = _props.children;
+	      var type = _props.type;
+
+	      var className = "wfui-selection__input-" + type;
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "wfui-selection" },
+	        _react2.default.createElement(
+	          "label",
+	          { className: "wfui-selection__label", onClick: this.onHandleClick.bind(this) },
+	          _react2.default.createElement("input", { className: className, ref: "radio", type: type, name: name, value: value, defaultChecked: defaultChecked }),
+	          label,
+	          children
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Selection;
+	}(_react.Component);
+
+	/**
+	 * Property types
+	 */
+
+
+	Selection.propTypes = {
+	  label: _react2.default.PropTypes.string,
+	  name: _react2.default.PropTypes.string,
+	  value: _react2.default.PropTypes.string,
+	  type: _react2.default.PropTypes.oneOf(['radio', 'checkbox']),
+	  defaultChecked: _react2.default.PropTypes.bool
+	};
+	Selection.defaultProps = {
+	  label: '',
+	  name: '',
+	  value: '',
+	  type: 'radio',
+	  defaultChecked: false
+	};
+
+	exports.default = Selection;
+
+/***/ },
 /* 165 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -20039,7 +20154,7 @@
 
 	      var last = children.length - children.length % columnNumber;
 
-	      //Render Columns
+	      //Render rows and columns ( except last row if number of columns is different from colmunNumebr)
 	      //==========
 	      var grid,
 	          grid_rows = [[]],
@@ -20054,13 +20169,13 @@
 	      });
 	      grid = _react2.default.createElement(
 	        "div",
-	        { className: "wfui-input-grid__container" },
+	        { className: "wfui-grid__container" },
 	        grid_rows.map(function (row, i) {
 	          return _react2.default.createElement(
 	            "div",
-	            { className: "wfui-input-grid__row", key: i },
+	            { className: "wfui-grid__row", key: i },
 	            row.map(function (child, j) {
-	              var className = "wfui-input-grid__column wfui-input-grid--col-" + columnNumber;
+	              var className = "wfui-grid__column wfui-grid--col-" + columnNumber;
 	              return _react2.default.createElement(
 	                "div",
 	                { className: className, key: j },
@@ -20071,7 +20186,7 @@
 	        })
 	      ); //==========
 
-	      //Render Last Lines of Columns (in case last row has different number of columns)
+	      //Render last row (in case last row has different number of columns)
 	      var grid_last,
 	          grid_rows_last = [];
 	      children.map(function (child, i) {
@@ -20081,12 +20196,12 @@
 	      });
 	      grid_last = _react2.default.createElement(
 	        "div",
-	        { className: "wfui-input-grid__container" },
+	        { className: "wfui-grid__container" },
 	        _react2.default.createElement(
 	          "div",
-	          { className: "wfui-input-grid__row" },
+	          { className: "wfui-grid__row" },
 	          grid_rows_last.map(function (child, i) {
-	            var className = "wfui-input-grid__column wfui-input-grid--col-" + grid_rows_last.length;
+	            var className = "wfui-grid__column wfui-grid--col-" + grid_rows_last.length;
 	            return _react2.default.createElement(
 	              "div",
 	              { className: className, key: i },
@@ -20098,15 +20213,15 @@
 
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "wfui-input-grid" },
+	        { className: "wfui-grid" },
 	        _react2.default.createElement(
 	          "label",
-	          { className: "wfui-input-grid__label" },
+	          { className: "wfui-grid__label" },
 	          label
 	        ),
 	        _react2.default.createElement(
 	          "div",
-	          { className: "wfui-input-grid__description" },
+	          { className: "wfui-grid__description" },
 	          description
 	        ),
 	        grid,
@@ -20135,114 +20250,6 @@
 	};
 
 	exports.default = Grid;
-
-/***/ },
-/* 166 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 167 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 168 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	/**
-	 * Radio
-	 */
-
-	var Radio = function (_Component) {
-	  _inherits(Radio, _Component);
-
-	  function Radio() {
-	    _classCallCheck(this, Radio);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Radio).apply(this, arguments));
-	  }
-
-	  _createClass(Radio, [{
-	    key: "onHandleClick",
-
-
-	    /**
-	     * onHandleClick will check the radio if user focus on children elements (especially for input field)
-	     * @param  {event} e
-	     */
-	    value: function onHandleClick(e) {
-	      this.refs.radio.checked = true;
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      var _props = this.props;
-	      var label = _props.label;
-	      var name = _props.name;
-	      var value = _props.value;
-	      var defaultChecked = _props.defaultChecked;
-	      var children = _props.children;
-
-
-	      return _react2.default.createElement(
-	        "div",
-	        { className: "wfui-input-radio" },
-	        _react2.default.createElement(
-	          "label",
-	          { className: "wfui-input-radio__label", onClick: this.onHandleClick.bind(this) },
-	          _react2.default.createElement("input", { className: "wfui-input-radio__input", ref: "radio", type: "radio", name: name, value: value, defaultChecked: defaultChecked }),
-	          label,
-	          children
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Radio;
-	}(_react.Component);
-
-	/**
-	 * Property types
-	 */
-
-
-	Radio.propTypes = {
-	  label: _react2.default.PropTypes.string,
-	  name: _react2.default.PropTypes.string,
-	  value: _react2.default.PropTypes.string,
-	  defaultChecked: _react2.default.PropTypes.bool
-	};
-	Radio.defaultProps = {
-	  label: '',
-	  name: '',
-	  value: '',
-	  defaultChecked: false
-	};
-
-	exports.default = Radio;
 
 /***/ }
 /******/ ]);
