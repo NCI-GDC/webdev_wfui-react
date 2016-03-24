@@ -2,19 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import InputField from '../../src/InputField/input_field';
 import InputTable from '../../src/InputTable/input_table';
+import Description from '../../src/Description/description';
+require("!style!css!sass!./style.scss");
 
 let config = {
     label: "1. What is your weight measurement?",
-    description: (
-        <div>
-            <p>Before you begin:</p>
-            <ol>
-            <li>Adjust your scale to zero</li>
-            <li>Weigh your self with your clothes off, or wear light clothing. Remember to remove your shoe</li>
-            <li>Step on the scale. Make sure both feet oare fully on the scale</li>
-            </ol>
-        </div>
-    ),
+    description: <Description content="hello" />,
     fieldLabel: 'Enter your Weight:',
     fieldType: 'or'
 }

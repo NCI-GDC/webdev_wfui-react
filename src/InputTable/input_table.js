@@ -43,7 +43,10 @@ InputTable.propTypes = {
   label: React.PropTypes.string,
   fieldLabel: React.PropTypes.string,
   fieldType: React.PropTypes.oneOf(['and','or']),
-  description: React.PropTypes.element,
+  description: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.element,
+  ]),
 }
 InputTable.defaultProps = {
   label: '',

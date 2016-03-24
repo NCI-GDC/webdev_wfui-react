@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
+require('../../src/Radios/radios.scss');
 
 /**
- * Input table
+ * Radios
  */
 class Radios extends Component {
   render() {
     var {label, description, children} = this.props;
-
+    var className = "wfui-input-radios wfui-input-radios--col-" + this.props.columnNumber
     return (
-      <div className="wfui-input-radios">
+      <div className={className}>
           <label>{label}</label>
           {description}
-          {children}
+          <div className="wfui-input-radios__container">
+            {children}
+          </div>
       </div>
     )
   }
@@ -22,11 +25,16 @@ class Radios extends Component {
  */
 Radios.propTypes = {
   label: React.PropTypes.string,
-  description: React.PropTypes.element,
+  description: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.element,
+  ]),
+  columnNumber: React.PropTypes.number
 }
 Radios.defaultProps = {
   label: '',
-  description: ''
+  description: '',
+  columnNumber: 1
 }
 
 export default Radios

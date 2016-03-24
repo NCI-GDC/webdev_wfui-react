@@ -10,7 +10,8 @@ do
             break
             ;;
         *)
-            budo src/"$opt"bundle.js --dir src/"$opt" --live -- -t babelify
+            budo src/"$opt"bundle.js --dir src/"$opt" --live -- -t babelify &
+            /usr/bin/webpack --watch &
             ;;
     esac
 done
