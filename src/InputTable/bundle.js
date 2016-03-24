@@ -16,10 +16,12 @@ let config = {
         </div>
     ),
     fieldLabel: 'Enter your Weight:',
-    fieldType: 'or',
-    fields: [
-        <InputField type="text" />,
-        <InputField type="text" />
-    ]
+    fieldType: 'or'
 }
-ReactDOM.render( <InputTable {...config} />, document.getElementById('app'));
+ReactDOM.render(
+    <InputTable {...config}>
+        <InputField type="text" />
+        <InputField type="text" />
+    </InputTable>, 
+    document.getElementById('app')
+);

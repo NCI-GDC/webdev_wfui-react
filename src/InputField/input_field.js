@@ -5,11 +5,13 @@ import React, { Component } from 'react';
  */
 class InputField extends Component {
   render() {
+    var {label, type, defaultValue, placeholder, suffix} = this.props;
+    
     return (
-      <div className={"wfui-input-field wfui-input-field--"+ this.props.type}>
-          <label>{this.props.label}</label>
-          <input type={this.props.type} defaultValue={this.props.defaultValue} placeholder={this.props.placeholder} />
-          {this.props.suffix}
+      <div className={"wfui-input-field wfui-input-field--"+ type}>
+          <label>{label}</label>
+          <input type={type} defaultValue={defaultValue} placeholder={placeholder} />
+          {suffix}
       </div>
     )
   }

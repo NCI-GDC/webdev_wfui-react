@@ -5,27 +5,31 @@ import React, { Component } from 'react';
  */
 class InputTable extends Component {
   render() {
-    const that = this;
-    if(this.props.fields){
-      var fields = (
-        <ul>
-          {this.props.fields.map(function(field, i){
-            if(that.props.fields.length-1 > i){
-              var condition = <span>{that.props.fieldType}</span>
-            }
-            return <li key={i}>{field}{condition}</li>
-          })}
-        </ul>
+    var {label, fieldLabel, fieldType, description, children} = this.props;
+
+    //Render input fields
+    var fields;
+    if(children){
+      fields = (
+        <div className="wfui-input-table__form">
+          <p>{fieldLabel}</p>
+          <ul>
+            {children.map(function(field, i){
+              if(children.length-1 > i){
+                var condition = <span>{fieldType}</span>
+              }
+              return <li key={i}>{field}{condition}</li>
+            })}
+          </ul>
+        </div>
       )
     }
+
     return (
       <div className="wfui-input-table">
-          <label>{this.props.label}</label>
-          {this.props.description}
-          <div className="wfui-input-table__form">
-            <p>{this.props.fieldLabel}</p>
-            {fields}
-          </div>
+          <label>{label}</label>
+          {description}
+          {fields}
       </div>
     )
   }
@@ -35,10 +39,16 @@ class InputTable extends Component {
  * Property types
  */
 InputTable.propTypes = {
+  label: React.PropTypes.string,
+  fieldLabel: React.PropTypes.string,
   fieldType: React.PropTypes.oneOf(['and','or']),
+  description: React.PropTypes.element,
 }
 InputTable.defaultProps = {
-  fieldType: 'and'
+  label: '',
+  fieldLabel: '',
+  fieldType: 'and',
+  description: ''
 }
 
 export default InputTable
