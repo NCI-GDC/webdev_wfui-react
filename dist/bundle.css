@@ -1,0 +1,28 @@
+.wfui-grid .wfui-selection__label {
+  display: block;
+  height: 100%; }
+.wfui-grid__container {
+  display: table;
+  width: 100%; }
+
+.wfui-grid__row {
+  display: table-row; }
+
+.wfui-grid__column {
+  display: table-cell;
+  border: 1px solid #000; }
+
+.wfui-grid--col-1 {
+  width: 100%; }
+
+.wfui-grid--col-2 {
+  width: 50%; }
+
+.wfui-grid--col-3 {
+  width: 33.3%; }
+
+.wfui-grid--col-4 {
+  width: 25%; }
+
+.wfui-grid--col-5 {
+  width: 20%; }
