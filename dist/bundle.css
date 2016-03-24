@@ -1,20 +1,28 @@
-.wfui-input-radios__container:after {
-  content: "";
+.wfui-input-grid .wfui-input-radio__label {
+  display: block;
+  height: 100%; }
+.wfui-input-grid__container {
   display: table;
-  clear: both; }
+  width: 100%; }
 
-.wfui-input-radios--col-2 .wfui-input-radio {
-  float: left;
+.wfui-input-grid__row {
+  display: table-row; }
+
+.wfui-input-grid__column {
+  display: table-cell;
+  border: 1px solid #000; }
+
+.wfui-input-grid--col-1 {
+  width: 100%; }
+
+.wfui-input-grid--col-2 {
   width: 50%; }
 
-.wfui-input-radios--col-3 .wfui-input-radio {
-  float: left;
+.wfui-input-grid--col-3 {
   width: 33.3%; }
 
-.wfui-input-radios--col-4 .wfui-input-radio {
-  float: left;
+.wfui-input-grid--col-4 {
   width: 25%; }
 
-.wfui-input-radio__label {
-  display: block;
-  border: 1px solid #000; }
+.wfui-input-grid--col-5 {
+  width: 20%; }
