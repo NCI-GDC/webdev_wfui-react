@@ -54,8 +54,8 @@
 	window.WFUIJS.InputField = __webpack_require__(160);
 	window.WFUIJS.InputTable = __webpack_require__(161);
 
-	__webpack_require__(162);
-	window.WFUIJS.Radios = __webpack_require__(164);
+	__webpack_require__(163);
+	window.WFUIJS.Radios = __webpack_require__(162);
 
 /***/ },
 /* 1 */
@@ -19783,7 +19783,7 @@
 /* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -19817,7 +19817,7 @@
 	  }
 
 	  _createClass(InputField, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      var _props = this.props;
 	      var label = _props.label;
@@ -19828,14 +19828,14 @@
 
 
 	      return _react2.default.createElement(
-	        'div',
+	        "div",
 	        { className: "wfui-input-field wfui-input-field--" + type },
 	        _react2.default.createElement(
-	          'label',
-	          null,
+	          "label",
+	          { className: "wfui-input-field__label" },
 	          label
 	        ),
-	        _react2.default.createElement('input', { type: type, defaultValue: defaultValue, placeholder: placeholder }),
+	        _react2.default.createElement("input", { className: "wfui-input-field__input", type: type, defaultValue: defaultValue, placeholder: placeholder }),
 	        suffix
 	      );
 	    }
@@ -19987,13 +19987,6 @@
 
 /***/ },
 /* 162 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 163 */,
-/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -20043,10 +20036,14 @@
 	        { className: className },
 	        _react2.default.createElement(
 	          "label",
-	          null,
+	          { className: "wfui-input-radios__label" },
 	          label
 	        ),
-	        description,
+	        _react2.default.createElement(
+	          "div",
+	          { className: "wfui-input-radios__description" },
+	          description
+	        ),
 	        _react2.default.createElement(
 	          "div",
 	          { className: "wfui-input-radios__container" },
@@ -20076,6 +20073,12 @@
 	};
 
 	exports.default = Radios;
+
+/***/ },
+/* 163 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
 
 /***/ }
 /******/ ]);

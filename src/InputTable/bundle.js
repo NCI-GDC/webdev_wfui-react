@@ -6,7 +6,7 @@ import Description from '../../src/Description/description';
 
 let config = {
     label: "1. What is your weight measurement?",
-    description: <Description content="hello" />,
+    description: <Description content="<div><b>Before you begin</b><ol><li>Adjust your scale to zero</li><li>Weigh yourself with your clothes off, or wear light clothing. Remember to remove your shoes</li><li>Step on the scale. Make sure both feet are fully on the scale.</li></ol></div>" />,
     fieldLabel: 'Enter your Weight:',
     fieldType: 'or'
 }

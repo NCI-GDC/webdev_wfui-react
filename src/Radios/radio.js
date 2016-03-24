@@ -16,9 +16,9 @@ class Radio extends Component {
     var {label, name, value, defaultChecked, children} = this.props;
     
     return (
-      <div className="wfui-input-radios__radio">
-        <label onClick={this.onHandleClick.bind(this)}>
-          <input ref="radio" type="radio" name={name} value={value} defaultChecked={defaultChecked} />
+      <div className="wfui-input-radio">
+        <label className="wfui-input-radio__label" onClick={this.onHandleClick.bind(this)}>
+          <input className="wfui-input-radio__input" ref="radio" type="radio" name={name} value={value} defaultChecked={defaultChecked} />
           {label}
           {children}
         </label>

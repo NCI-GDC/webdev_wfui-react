@@ -3,14 +3,18 @@
   display: table;
   clear: both; }
 
-.wfui-input-radios--col-2 .wfui-input-radios__radio {
+.wfui-input-radios--col-2 .wfui-input-radio {
   float: left;
   width: 50%; }
 
-.wfui-input-radios--col-3 .wfui-input-radios__radio {
+.wfui-input-radios--col-3 .wfui-input-radio {
   float: left;
   width: 33.3%; }
 
-.wfui-input-radios--col-4 .wfui-input-radios__radio {
+.wfui-input-radios--col-4 .wfui-input-radio {
   float: left;
   width: 25%; }
+
+.wfui-input-radio__label {
+  display: block;
+  border: 1px solid #000; }

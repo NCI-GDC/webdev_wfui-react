@@ -9,8 +9,8 @@ class Radios extends Component {
     var className = "wfui-input-radios wfui-input-radios--col-" + this.props.columnNumber
     return (
       <div className={className}>
-          <label>{label}</label>
-          {description}
+          <label className="wfui-input-radios__label">{label}</label>
+          <div className="wfui-input-radios__description">{description}</div>
           <div className="wfui-input-radios__container">
             {children}
           </div>

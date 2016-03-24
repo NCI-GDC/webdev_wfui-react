@@ -9,8 +9,8 @@ class InputField extends Component {
     
     return (
       <div className={"wfui-input-field wfui-input-field--"+ type}>
-          <label>{label}</label>
-          <input type={type} defaultValue={defaultValue} placeholder={placeholder} />
+          <label className="wfui-input-field__label">{label}</label>
+          <input className="wfui-input-field__input" type={type} defaultValue={defaultValue} placeholder={placeholder} />
           {suffix}
       </div>
     )

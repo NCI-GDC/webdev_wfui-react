@@ -1,19 +1,27 @@
 .wfui-input-radios{
+    
     &__container:after{
         content: "";
         display: table;
         clear: both;
     }
-    &--col-2 &__radio{
+    &--col-2 .wfui-input-radio{
         float: left;
         width: 50%;
     }
-    &--col-3 &__radio{
+    &--col-3 .wfui-input-radio{
         float: left;
         width: 33.3%;
     }
-    &--col-4 &__radio{
+    &--col-4 .wfui-input-radio{
         float: left;
         width: 25%;
+    }
+}
+
+.wfui-input-radio{
+    &__label{
+        display: block;
+        border: 1px solid #000;
     }
 }
