@@ -23,7 +23,7 @@ class InputField extends Component {
 InputField.propTypes = {
   label: React.PropTypes.string,
   type: React.PropTypes.oneOf(['text','number','email']),
-  name: '',
+  name: React.PropTypes.string,
   placeholder: React.PropTypes.string,
   defaultValue: React.PropTypes.string,
   suffix: React.PropTypes.string,

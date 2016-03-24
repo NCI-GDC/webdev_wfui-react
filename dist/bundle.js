@@ -54,11 +54,11 @@
 	window.WFUIJS.InputField = __webpack_require__(160);
 	window.WFUIJS.InputTable = __webpack_require__(161);
 
-	__webpack_require__(169);
-	window.WFUIJS.Selection = __webpack_require__(170);
+	__webpack_require__(167);
+	window.WFUIJS.Selection = __webpack_require__(168);
 
-	__webpack_require__(166);
-	window.WFUIJS.Grid = __webpack_require__(165);
+	__webpack_require__(165);
+	window.WFUIJS.Grid = __webpack_require__(166);
 
 /***/ },
 /* 1 */
@@ -19856,7 +19856,7 @@
 	InputField.propTypes = {
 	  label: _react2.default.PropTypes.string,
 	  type: _react2.default.PropTypes.oneOf(['text', 'number', 'email']),
-	  name: '',
+	  name: _react2.default.PropTypes.string,
 	  placeholder: _react2.default.PropTypes.string,
 	  defaultValue: _react2.default.PropTypes.string,
 	  suffix: _react2.default.PropTypes.string
@@ -19996,6 +19996,12 @@
 /* 163 */,
 /* 164 */,
 /* 165 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -20140,21 +20146,13 @@
 	exports.default = Grid;
 
 /***/ },
-/* 166 */
+/* 167 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 167 */,
-/* 168 */,
-/* 169 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 170 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
