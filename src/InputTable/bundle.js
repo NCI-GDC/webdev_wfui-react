@@ -20,8 +20,8 @@ let config = {
 }
 ReactDOM.render(
     <InputTable {...config}>
-        <InputField type="text" />
-        <InputField type="text" />
+        <InputField type="text" suffix="pounds" />
+        <InputField type="text" suffix="kilograms" />
     </InputTable>, 
     document.getElementById('app')
 );

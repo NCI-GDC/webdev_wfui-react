@@ -8,6 +8,7 @@ class InputTable extends Component {
     var {label, fieldLabel, fieldType, description, children} = this.props;
 
     //Render input fields
+    //==========
     var fields;
     if(children){
       fields = (
@@ -16,14 +17,14 @@ class InputTable extends Component {
           <ul>
             {children.map(function(field, i){
               if(children.length-1 > i){
-                var condition = <span>{fieldType}</span>
+                var condition = <span>{fieldType.toUpperCase()}</span>
               }
               return <li key={i}>{field}{condition}</li>
             })}
           </ul>
         </div>
       )
-    }
+    }//==========
 
     return (
       <div className="wfui-input-table">
