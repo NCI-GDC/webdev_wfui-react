@@ -5,12 +5,22 @@ import React, { Component } from 'react';
  */
 class Description extends Component {
   render() {
-    var {content, type} = this.props;
+    var {content, classNames} = this.props;
     
-    return (
-      <div className={"wfui-description-field wfui-description-field--"+ type} dangerouslySetInnerHTML={{__html: content}} >
-      </div>
-    )
+    if (typeof(content) == 'string') {
+      return (
+        <div className={"wfui-description-field " + classNames} dangerouslySetInnerHTML={{__html: content}} >
+        </div>
+      );
+    }
+    else {// (typeof(content) == 'object')
+      return (
+        <div className={"wfui-description-field " + classNames}>
+          {content}
+        </div>
+      );
+    }
+
   }
 }
 
@@ -18,12 +28,15 @@ class Description extends Component {
  * Property types
  */
 Description.propTypes = {
-  content: React.PropTypes.string,
-  type: React.PropTypes.string,
+  content: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.element,
+  ]),
+  classNames: React.PropTypes.string,
 }
 Description.defaultProps = {
   content: '',
-  type: '',
+  classNames: '',
 }
 
 export default Description
