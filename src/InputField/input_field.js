@@ -6,7 +6,6 @@ import React, { Component } from 'react';
 class InputField extends Component {
   render() {
     var {label, type, defaultValue, placeholder, suffix, name} = this.props;
-    
     return (
       <div className={"wfui-input-field wfui-input-field--"+ type}>
           <label className="wfui-input-field__label">{label}</label>
