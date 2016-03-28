@@ -20,8 +20,10 @@ describe('InputField', () => {
     var { Simulate } = TestUtils;
     var input = TestUtils.findRenderedDOMComponentWithTag(comp, 'input')
     var inputNode = ReactDOM.findDOMNode(input)
-    inputNode.value = 'this is new text';
+
+    inputNode.value = 'simulate changing text';
     Simulate.change(inputNode);
-    expect(input.value).to.equal('this is new text');
+    expect(input.value).to.equal('simulate changing text');
+
   });
 });

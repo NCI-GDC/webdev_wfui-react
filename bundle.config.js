@@ -11,3 +11,5 @@ window.WFUIJS.Selection = require('./src/Selection/selection.js');
 
 require('./src/Grid/grid.scss');
 window.WFUIJS.Grid = require('./src/Grid/grid.js');
+
+window.WFUIJS.ReduxTodo = require('./src/ReduxTodo/bundle.js');
