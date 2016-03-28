@@ -2,8 +2,12 @@ window.React = require('react');
 window.ReactDOM = require('react-dom');
 
 window.WFUIJS = WFUIJS || {}
+
+require('./src/Description/description.scss');
 window.WFUIJS.Description = require('./src/Description/description.js');
+
 window.WFUIJS.InputField = require('./src/InputField/input_field.js');
+
 window.WFUIJS.InputTable = require('./src/InputTable/input_table.js');
 
 require('./src/Selection/selection.scss');
