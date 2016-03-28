@@ -60,7 +60,8 @@
 	__webpack_require__(165);
 	window.WFUIJS.Grid = __webpack_require__(166);
 
-	window.WFUIJS.ReduxTodo = __webpack_require__(167);
+	__webpack_require__(189);
+	window.WFUIJS.AddAnother = __webpack_require__(190);
 
 /***/ },
 /* 1 */
@@ -20265,292 +20266,7 @@
 	exports.default = Grid;
 
 /***/ },
-/* 167 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(158);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _redux = __webpack_require__(168);
-
-	var _reactRedux = __webpack_require__(178);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-	/**
-	 * Reducers
-	 **/
-	var todo = function todo(state, action) {
-	  switch (action.type) {
-	    case 'ADD_TODO':
-	      return {
-	        id: action.id,
-	        text: action.text,
-	        completed: false
-	      };
-	    case 'TOGGLE_TODO':
-	      if (state.id !== action.id) {
-	        return state;
-	      }
-
-	      return _extends({}, state, {
-	        completed: !state.completed
-	      });
-	    default:
-	      return state;
-	  }
-	};
-	var todos = function todos() {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
-	  var action = arguments[1];
-
-	  switch (action.type) {
-	    case 'ADD_TODO':
-	      return [].concat(_toConsumableArray(state), [todo(undefined, action)]);
-	    case 'TOGGLE_TODO':
-	      return state.map(function (t) {
-	        return todo(t, action);
-	      });
-	    default:
-	      return state;
-	  }
-	};
-	var visibilityFilter = function visibilityFilter() {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? 'SHOW_ALL' : arguments[0];
-	  var action = arguments[1];
-
-	  switch (action.type) {
-	    case 'SET_VISIBILITY_FILTER':
-	      return action.filter;
-	    default:
-	      return state;
-	  }
-	};
-	var todoApp = (0, _redux.combineReducers)({
-	  todos: todos,
-	  visibilityFilter: visibilityFilter
-	});
-
-	/**
-	 * Action Creators
-	 **/
-	var nextTodoId = 0;
-	var addTodo = function addTodo(text) {
-	  return {
-	    type: 'ADD_TODO',
-	    id: nextTodoId++,
-	    text: text
-	  };
-	};
-
-	var toggleTodo = function toggleTodo(id) {
-	  return {
-	    type: 'TOGGLE_TODO',
-	    id: id
-	  };
-	};
-
-	var setVisibilityFilter = function setVisibilityFilter(filter) {
-	  return {
-	    type: 'SET_VISIBILITY_FILTER',
-	    filter: filter
-	  };
-	};
-
-	var Component = _react2.default.Component;
-
-	/**
-	 * Presentation Components
-	 **/
-
-	var Link = function Link(_ref) {
-	  var active = _ref.active;
-	  var children = _ref.children;
-	  var _onClick = _ref.onClick;
-
-	  if (active) {
-	    return _react2.default.createElement(
-	      'span',
-	      null,
-	      children
-	    );
-	  }
-
-	  return _react2.default.createElement(
-	    'a',
-	    { href: '#',
-	      onClick: function onClick(e) {
-	        e.preventDefault();
-	        _onClick();
-	      }
-	    },
-	    children
-	  );
-	};
-
-	/**
-	 * Container Components
-	 **/
-	var mapStateToLinkProps = function mapStateToLinkProps(state, ownProps) {
-	  return {
-	    active: ownProps.filter === state.visibilityFilter
-	  };
-	};
-	var mapDispatchToLinkProps = function mapDispatchToLinkProps(dispatch, ownProps) {
-	  return {
-	    onClick: function onClick() {
-	      dispatch(setVisibilityFilter(ownProps.filter));
-	    }
-	  };
-	};
-	var FilterLink = (0, _reactRedux.connect)(mapStateToLinkProps, mapDispatchToLinkProps)(Link);
-
-	var Footer = function Footer() {
-	  return _react2.default.createElement(
-	    'p',
-	    null,
-	    'Show:',
-	    ' ',
-	    _react2.default.createElement(
-	      FilterLink,
-	      { filter: 'SHOW_ALL' },
-	      'All'
-	    ),
-	    ', ',
-	    _react2.default.createElement(
-	      FilterLink,
-	      { filter: 'SHOW_ACTIVE' },
-	      'Active'
-	    ),
-	    ', ',
-	    _react2.default.createElement(
-	      FilterLink,
-	      { filter: 'SHOW_COMPLETED' },
-	      'Completed'
-	    )
-	  );
-	};
-
-	var Todo = function Todo(_ref2) {
-	  var onClick = _ref2.onClick;
-	  var completed = _ref2.completed;
-	  var text = _ref2.text;
-	  return _react2.default.createElement(
-	    'li',
-	    {
-	      onClick: onClick,
-	      style: {
-	        textDecoration: completed ? 'line-through' : 'none'
-	      }
-	    },
-	    text
-	  );
-	};
-
-	var TodoList = function TodoList(_ref3) {
-	  var todos = _ref3.todos;
-	  var onTodoClick = _ref3.onTodoClick;
-	  return _react2.default.createElement(
-	    'ul',
-	    null,
-	    todos.map(function (todo) {
-	      return _react2.default.createElement(Todo, _extends({
-	        key: todo.id
-	      }, todo, {
-	        onClick: function onClick() {
-	          return onTodoClick(todo.id);
-	        }
-	      }));
-	    })
-	  );
-	};
-
-	var AddTodo = function AddTodo(_ref4) {
-	  var dispatch = _ref4.dispatch;
-
-	  var input = void 0;
-
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement('input', { ref: function ref(node) {
-	        input = node;
-	      } }),
-	    _react2.default.createElement(
-	      'button',
-	      { onClick: function onClick() {
-	          dispatch(addTodo(input.value));
-	          input.value = '';
-	        } },
-	      'Add Todo'
-	    )
-	  );
-	};
-	AddTodo = (0, _reactRedux.connect)()(AddTodo);
-
-	var getVisibleTodos = function getVisibleTodos(todos, filter) {
-	  switch (filter) {
-	    case 'SHOW_ALL':
-	      return todos;
-	    case 'SHOW_COMPLETED':
-	      return todos.filter(function (t) {
-	        return t.completed;
-	      });
-	    case 'SHOW_ACTIVE':
-	      return todos.filter(function (t) {
-	        return !t.completed;
-	      });
-	  }
-	};
-
-	var mapStateToTodoListProps = function mapStateToTodoListProps(state) {
-	  return {
-	    todos: getVisibleTodos(state.todos, state.visibilityFilter)
-	  };
-	};
-	var mapDispatchToTodoListProps = function mapDispatchToTodoListProps(dispatch) {
-	  return {
-	    onTodoClick: function onTodoClick(id) {
-	      dispatch(toggleTodo(id));
-	    }
-	  };
-	};
-	var VisibleTodoList = (0, _reactRedux.connect)(mapStateToTodoListProps, mapDispatchToTodoListProps)(TodoList);
-
-	var TodoApp = function TodoApp() {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(AddTodo, null),
-	    _react2.default.createElement(VisibleTodoList, null),
-	    _react2.default.createElement(Footer, null)
-	  );
-	};
-
-	_reactDom2.default.render(_react2.default.createElement(
-	  _reactRedux.Provider,
-	  { store: (0, _redux.createStore)(todoApp) },
-	  _react2.default.createElement(TodoApp, null)
-	), document.getElementById('app'));
-
-	exports.default = TodoApp;
-
-/***/ },
+/* 167 */,
 /* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -22061,6 +21777,233 @@
 
 	module.exports = invariant;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 189 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 190 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(158);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactRedux = __webpack_require__(178);
+
+	var _action_creators = __webpack_require__(191);
+
+	var _action_creators2 = _interopRequireDefault(_action_creators);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var addTodoAction = _action_creators2.default.addTodoAction;
+	var toggleTodoAction = _action_creators2.default.toggleTodoAction;
+	var setVisibilityFilterAction = _action_creators2.default.setVisibilityFilterAction;
+	var addAnotherAction = _action_creators2.default.addAnotherAction;
+	var editAnotherAction = _action_creators2.default.editAnotherAction;
+	var removeAnotherAction = _action_creators2.default.removeAnotherAction;
+
+	/**
+	 * Presentation Components
+	 **/
+
+	/**
+	 * Container Components
+	 **/
+
+	var Another = function Another(_ref) {
+	  var dispatch = _ref.dispatch;
+	  var component = _ref.component;
+	  var id = _ref.id;
+
+	  return _react2.default.createElement(
+	    'tr',
+	    { className: 'wfui-add-another__row' },
+	    _react2.default.createElement(
+	      'td',
+	      { className: 'wfui-add-another__col' },
+	      component
+	    ),
+	    _react2.default.createElement(
+	      'td',
+	      { className: 'wfui-add-another__col wfui-add-another__remove' },
+	      _react2.default.createElement(
+	        'button',
+	        { onClick: function onClick(e) {
+	            dispatch(removeAnotherAction(id));
+	          } },
+	        '-'
+	      )
+	    )
+	  );
+	};
+	Another = (0, _reactRedux.connect)()(Another);
+
+	var AnotherList = function AnotherList(_ref2) {
+	  var anothers = _ref2.anothers;
+	  var label = _ref2.label;
+
+	  if (anothers.length > 0) {
+	    var header = _react2.default.createElement(
+	      'tr',
+	      { className: 'wfui-add-another__row' },
+	      _react2.default.createElement(
+	        'th',
+	        { className: 'wfui-add-another__header' },
+	        label
+	      ),
+	      _react2.default.createElement(
+	        'th',
+	        { className: 'wfui-add-another__header' },
+	        'Remove'
+	      )
+	    );
+	  }
+	  return _react2.default.createElement(
+	    'table',
+	    { className: 'wfui-add-another' },
+	    _react2.default.createElement(
+	      'tbody',
+	      { className: 'wfui-add-another__tbody' },
+	      header,
+	      anothers.map(function (another) {
+	        return _react2.default.createElement(Another, _extends({ key: another.id }, another));
+	      })
+	    )
+	  );
+	};
+
+	var AddAnother = function AddAnother(_ref3) {
+	  var dispatch = _ref3.dispatch;
+	  var children = _ref3.children;
+	  var buttonLabel = _ref3.buttonLabel;
+
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'wfui-add-another__add' },
+	    _react2.default.createElement(
+	      'button',
+	      { onClick: function onClick() {
+	          dispatch(addAnotherAction(children));
+	        } },
+	      buttonLabel
+	    )
+	  );
+	};
+	AddAnother = (0, _reactRedux.connect)()(AddAnother);
+
+	//Connect to store
+	var mapStateToAnotherListProps = function mapStateToAnotherListProps(state) {
+	  return { anothers: state.anothersReducer };
+	};
+	AnotherList = (0, _reactRedux.connect)(mapStateToAnotherListProps)(AnotherList);
+
+	var AnotherTable = function AnotherTable(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(AnotherList, props),
+	    _react2.default.createElement(AddAnother, props)
+	  );
+	};
+
+	exports.default = AnotherTable;
+
+/***/ },
+/* 191 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(158);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _redux = __webpack_require__(168);
+
+	var _reactRedux = __webpack_require__(178);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * Action Creators
+	 **/
+	var nextAnotherId = 0;
+	var addAnotherAction = function addAnotherAction(component) {
+	  return {
+	    type: 'ADD_ANOTHER',
+	    id: nextAnotherId++,
+	    component: component
+	  };
+	};
+	var editAnotherAction = function editAnotherAction(id) {
+	  return {
+	    type: 'EDIT_ANOTHER',
+	    id: id
+	  };
+	};
+	var removeAnotherAction = function removeAnotherAction(id) {
+	  return {
+	    type: 'REMOVE_ANOTHER',
+	    id: id
+	  };
+	};
+
+	var nextTodoId = 0;
+	var addTodoAction = function addTodoAction(text) {
+	  return {
+	    type: 'ADD_TODO',
+	    id: nextTodoId++,
+	    text: text
+	  };
+	};
+
+	var toggleTodoAction = function toggleTodoAction(id) {
+	  return {
+	    type: 'TOGGLE_TODO',
+	    id: id
+	  };
+	};
+
+	var setVisibilityFilterAction = function setVisibilityFilterAction(filter) {
+	  return {
+	    type: 'SET_VISIBILITY_FILTER',
+	    filter: filter
+	  };
+	};
+
+	exports.default = {
+	  addAnotherAction: addAnotherAction,
+	  editAnotherAction: editAnotherAction,
+	  removeAnotherAction: removeAnotherAction,
+	  addTodoAction: addTodoAction,
+	  toggleTodoAction: toggleTodoAction,
+	  setVisibilityFilterAction: setVisibilityFilterAction
+	};
 
 /***/ }
 /******/ ]);

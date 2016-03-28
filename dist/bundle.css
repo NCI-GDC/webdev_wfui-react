@@ -26,3 +26,26 @@
 
 .wfui-grid--col-5 {
   width: 20%; }
+.wfui-add-another {
+  border-collapse: collapse;
+  width: 100%; }
+  .wfui-add-another__header {
+    color: #107FC9;
+    border: 1px solid #000; }
+  .wfui-add-another__col {
+    padding: 20px;
+    border: 1px solid #000; }
+  .wfui-add-another__add {
+    text-align: center;
+    padding: 10px;
+    background: #eee;
+    border: 1px solid #000; }
+  .wfui-add-another__remove {
+    text-align: center; }
+  .wfui-add-another__remove button {
+    background-color: #107FC9;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    border: 0px solid #000; }
