@@ -10,7 +10,7 @@ const css = require('../../dist/bundle.css');
 ReactDOM.render(
     <Grid 
         label="8. Over the last 2 weeks, how often have you been bothered by the following problems?" 
-        description={<Description content="Please choose the ONE that best describes your current situation." />}
+        description={<Description type="theme-blue" content="Please choose the ONE that best describes your current situation." />}
         columnNumber={3} >
         <Selection type="radio" label="Married and/or living with a partner" name="radios1" value="1" defaultChecked={true} />
         <Selection type="radio" label="Divored" name="radios1" value="2" />
@@ -24,7 +24,7 @@ document.getElementById('selection1'));
 ReactDOM.render(
     <Grid
         label="1. Have you ever used any hormonal contraceptives for any reason?"
-        description={<Description content="Full time means 30 hours or more per week. Part time means less than 30 hours per week." />}
+        description={<Description type="theme-purple" content="Full time means 30 hours or more per week. Part time means less than 30 hours per week." />}
         columnNumber={4}>
         <Selection type="checkbox" label="Full-time employed / self-employed" name="checkbox" value="1" />
         <Selection type="checkbox" label="Part-time employed / self-employed" name="checkbox" value="2" />

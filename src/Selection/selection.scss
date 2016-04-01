@@ -1,8 +1,16 @@
-.wfui-grid{
-    .wfui-selection{
+.wfui-selection{
+    padding: 10px;
+    &__input-checkbox,
+    &__input-radio{
+        margin-right: 5px;
     }
-    .wfui-selection__label{
-        display: block;
-        height: 100%;
+
+    //Input Table under grid
+    .wfui-input-table{
+        display: inline-block;
+    }
+    .wfui-input-table__form{
+        border: none;
+        padding: 0;
     }
 }

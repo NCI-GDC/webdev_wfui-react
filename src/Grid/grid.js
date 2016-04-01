@@ -40,7 +40,7 @@ class Grid extends Component {
       }
     })
     grid_last = (
-      <div className="wfui-grid__container">
+      <div className="wfui-grid__container wfui-grid__container--last">
         <div className="wfui-grid__row">
           {grid_rows_last.map(function(child, i){
             let className = "wfui-grid__column wfui-grid--col-"+grid_rows_last.length;

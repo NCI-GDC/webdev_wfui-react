@@ -13,13 +13,13 @@ class InputTable extends Component {
     if(children){
       fields = (
         <div className="wfui-input-table__form">
-          <p>{fieldLabel}</p>
-          <ul>
+          <p className="wfui-input-table__label">{fieldLabel}</p>
+          <ul className="wfui-input-table__ul">
             {children.map(function(field, i){
               if(children.length-1 > i){
-                var condition = <span>{fieldType.toUpperCase()}</span>
+                var condition = <span className="wfui-input-table__condition">{fieldType.toUpperCase()}</span>
               }
-              return <li key={i}>{field}{condition}</li>
+              return <li key={i} className="wfui-input-table__li">{field}{condition}</li>
             })}
           </ul>
         </div>

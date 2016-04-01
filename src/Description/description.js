@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 class Description extends Component {
   render() {
     var {content, type, classNames} = this.props;
-    var containerClassName = "wfui-description--" + type + " " + classNames;
+    var containerClassName = "wfui-description wfui-description--" + type + " " + classNames;
 
     if (typeof(content) == 'string') {
       return (

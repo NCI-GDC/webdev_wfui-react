@@ -6,11 +6,14 @@ import React, { Component } from 'react';
 class InputField extends Component {
   render() {
     var {label, type, defaultValue, placeholder, suffix, name} = this.props;
+    if(suffix){
+      var suffixField = <span className="wfui-input-field__suffix">suffix</span>
+    }
     return (
       <div className={"wfui-input-field wfui-input-field--"+ type}>
           <label className="wfui-input-field__label">{label}</label>
           <input className="wfui-input-field__input" type={type} defaultValue={defaultValue} placeholder={placeholder} name={name} />
-          {suffix}
+          {suffixField}
       </div>
     )
   }
