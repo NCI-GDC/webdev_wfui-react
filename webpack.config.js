@@ -5,7 +5,7 @@ module.exports = {
   entry: './bundle.config.js',
   output: {
     path: './dist/',
-    filename: 'bundle.js'
+    filename: 'wfui_bundle.js'
   },
   module: {
     loaders: [
@@ -24,6 +24,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin("bundle.css"),
+    new ExtractTextPlugin("wfui_bundle.css"),
   ]
 }

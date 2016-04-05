@@ -19,10 +19,14 @@
     padding: 10px;
     margin: 10px 0; }
 .wfui-input-field__label {
-  margin-right: 5px; }
+  margin-right: 5px;
+  font-weight: bold; }
 
-.wfui-input-field__suffix {
+.wfui-input-field__postfix {
   margin-left: 5px; }
+
+.wfui-input-field__prefix {
+  margin-right: 5px; }
 .wfui-input-table p, .wfui-input-table ul {
   margin: 0; }
 

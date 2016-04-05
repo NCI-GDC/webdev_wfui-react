@@ -21,22 +21,22 @@ let config3 = {
 
 ReactDOM.render( 
 	<Listbox {...config1} >
-		<ListboxOption value="Brain" />
-		<ListboxOption value="Leg" />
+		<ListboxOption value="1" label="Brain" />
+		<ListboxOption value="2" label="Leg" />
 	</Listbox>, 
 	document.getElementById('id1')
 );
 ReactDOM.render( 
 	<Listbox {...config2} >
-		<ListboxOption value="Right Leg" />
-		<ListboxOption value="Left Leg" />
+		<ListboxOption value="1" label="Right Leg" />
+		<ListboxOption value="2" label="Left Leg" />
 	</Listbox>, 
 	document.getElementById('id2')
 );
 ReactDOM.render( 
 	<Listbox {...config3} >
-		<ListboxOption value="Right Leg" />
-		<ListboxOption value="Left Leg2" />
+		<ListboxOption value="1" label="Right Leg" />
+		<ListboxOption value="2" label="Left Leg2" />
 	</Listbox>, 
 	document.getElementById('id3')
 );

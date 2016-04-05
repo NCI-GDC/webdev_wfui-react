@@ -1,8 +1,12 @@
 .wfui-input-field{
     &__label{
         margin-right: 5px;
+        font-weight: bold;
     }
-    &__suffix{
+    &__postfix{
         margin-left: 5px;
+    }
+    &__prefix{
+        margin-right: 5px;
     }
 }

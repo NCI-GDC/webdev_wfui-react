@@ -5,15 +5,19 @@ import React, { Component } from 'react';
  */
 class InputField extends Component {
   render() {
-    var {label, type, defaultValue, placeholder, suffix, name} = this.props;
-    if(suffix){
-      var suffixField = <span className="wfui-input-field__suffix">suffix</span>
+    var {label, type, defaultValue, placeholder, postfix, prefix, name, className} = this.props;
+    if(prefix){
+      var prefixField = <span className="wfui-input-field__prefix">{prefix}</span>
+    }
+    if(postfix){
+      var postfixField = <span className="wfui-input-field__postfix">{postfix}</span>
     }
     return (
-      <div className={"wfui-input-field wfui-input-field--"+ type}>
+      <div className={"wfui-input-field wfui-input-field--"+ type + ' ' + className}>
           <label className="wfui-input-field__label">{label}</label>
+          {prefixField}
           <input className="wfui-input-field__input" type={type} defaultValue={defaultValue} placeholder={placeholder} name={name} />
-          {suffixField}
+          {postfixField}
       </div>
     )
   }
@@ -28,7 +32,9 @@ InputField.propTypes = {
   name: React.PropTypes.string,
   placeholder: React.PropTypes.string,
   defaultValue: React.PropTypes.string,
-  suffix: React.PropTypes.string,
+  postfix: React.PropTypes.string,
+  prefix: React.PropTypes.string,
+  className: React.PropTypes.string,
 }
 InputField.defaultProps = {
   label: '',
@@ -36,7 +42,9 @@ InputField.defaultProps = {
   name: '',
   placeholder: '',
   defaultValue: '',
-  suffix: ''
+  postfix: '',
+  prefix: '',
+  className: '',
 }
 
 export default InputField

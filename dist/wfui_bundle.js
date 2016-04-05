@@ -52,22 +52,25 @@
 	window.WFUIJS = WFUIJS || {};
 
 	__webpack_require__(159);
-	window.WFUIJS.Description = __webpack_require__(161);
+	window.WFUIJS.modules.Description = __webpack_require__(161).default;
 
 	__webpack_require__(162);
-	window.WFUIJS.InputField = __webpack_require__(163);
+	window.WFUIJS.modules.InputField = __webpack_require__(163).default;
 
 	__webpack_require__(164);
-	window.WFUIJS.InputTable = __webpack_require__(165);
+	window.WFUIJS.modules.InputTable = __webpack_require__(165).default;
 
 	__webpack_require__(166);
-	window.WFUIJS.Selection = __webpack_require__(167);
+	window.WFUIJS.modules.Selection = __webpack_require__(167).default;
 
 	__webpack_require__(168);
-	window.WFUIJS.Grid = __webpack_require__(169);
+	window.WFUIJS.modules.Grid = __webpack_require__(169).default;
 
-	__webpack_require__(170);
-	window.WFUIJS.AddAnother = __webpack_require__(171);
+	window.WFUIJS.modules.ListboxOption = __webpack_require__(170).default;
+	window.WFUIJS.modules.Listbox = __webpack_require__(171).default;
+
+	__webpack_require__(172);
+	window.WFUIJS.modules.AddAnother = __webpack_require__(173).default;
 
 /***/ },
 /* 1 */
@@ -19862,26 +19865,36 @@
 	      var type = _props.type;
 	      var defaultValue = _props.defaultValue;
 	      var placeholder = _props.placeholder;
-	      var suffix = _props.suffix;
+	      var postfix = _props.postfix;
+	      var prefix = _props.prefix;
 	      var name = _props.name;
+	      var className = _props.className;
 
-	      if (suffix) {
-	        var suffixField = _react2.default.createElement(
+	      if (prefix) {
+	        var prefixField = _react2.default.createElement(
 	          "span",
-	          { className: "wfui-input-field__suffix" },
-	          "suffix"
+	          { className: "wfui-input-field__prefix" },
+	          prefix
+	        );
+	      }
+	      if (postfix) {
+	        var postfixField = _react2.default.createElement(
+	          "span",
+	          { className: "wfui-input-field__postfix" },
+	          postfix
 	        );
 	      }
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "wfui-input-field wfui-input-field--" + type },
+	        { className: "wfui-input-field wfui-input-field--" + type + ' ' + className },
 	        _react2.default.createElement(
 	          "label",
 	          { className: "wfui-input-field__label" },
 	          label
 	        ),
+	        prefixField,
 	        _react2.default.createElement("input", { className: "wfui-input-field__input", type: type, defaultValue: defaultValue, placeholder: placeholder, name: name }),
-	        suffixField
+	        postfixField
 	      );
 	    }
 	  }]);
@@ -19900,7 +19913,9 @@
 	  name: _react2.default.PropTypes.string,
 	  placeholder: _react2.default.PropTypes.string,
 	  defaultValue: _react2.default.PropTypes.string,
-	  suffix: _react2.default.PropTypes.string
+	  postfix: _react2.default.PropTypes.string,
+	  prefix: _react2.default.PropTypes.string,
+	  className: _react2.default.PropTypes.string
 	};
 	InputField.defaultProps = {
 	  label: '',
@@ -19908,7 +19923,9 @@
 	  name: '',
 	  placeholder: '',
 	  defaultValue: '',
-	  suffix: ''
+	  postfix: '',
+	  prefix: '',
+	  className: ''
 	};
 
 	exports.default = InputField;
@@ -20108,15 +20125,15 @@
 	      var defaultChecked = _props.defaultChecked;
 	      var children = _props.children;
 	      var type = _props.type;
+	      var className = _props.className;
 
-	      var className = "wfui-selection__input-" + type;
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "wfui-selection" },
+	        { className: "wfui-selection " + className },
 	        _react2.default.createElement(
 	          "label",
 	          { className: "wfui-selection__label", onClick: this.onHandleClick.bind(this) },
-	          _react2.default.createElement("input", { className: className, ref: "radio", type: type, name: name, value: value, defaultChecked: defaultChecked }),
+	          _react2.default.createElement("input", { className: "wfui-selection__input-" + type, ref: "radio", type: type, name: name, value: value, defaultChecked: defaultChecked }),
 	          label,
 	          children
 	        )
@@ -20137,14 +20154,16 @@
 	  name: _react2.default.PropTypes.string,
 	  value: _react2.default.PropTypes.string,
 	  type: _react2.default.PropTypes.oneOf(['radio', 'checkbox']),
-	  defaultChecked: _react2.default.PropTypes.bool
+	  defaultChecked: _react2.default.PropTypes.bool,
+	  className: _react2.default.PropTypes.string
 	};
 	Selection.defaultProps = {
 	  label: '',
 	  name: '',
 	  value: '',
 	  type: 'radio',
-	  defaultChecked: false
+	  defaultChecked: false,
+	  className: ''
 	};
 
 	exports.default = Selection;
@@ -20302,12 +20321,189 @@
 
 /***/ },
 /* 170 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	/**
+	 * ListboxOption
+	 */
+
+	var ListboxOption = function (_Component) {
+	  _inherits(ListboxOption, _Component);
+
+	  function ListboxOption() {
+	    _classCallCheck(this, ListboxOption);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(ListboxOption).apply(this, arguments));
+	  }
+
+	  _createClass(ListboxOption, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var value = _props.value;
+	      var label = _props.label;
+	      var className = _props.className;
+
+
+	      return _react2.default.createElement(
+	        'option',
+	        { value: value, className: className },
+	        label
+	      );
+	    }
+	  }]);
+
+	  return ListboxOption;
+	}(_react.Component);
+
+	/**
+	 * Property types
+	 */
+
+
+	ListboxOption.propTypes = {
+	  value: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.number, _react2.default.PropTypes.string]),
+	  label: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.number, _react2.default.PropTypes.string]),
+	  className: _react2.default.PropTypes.string
+	};
+	ListboxOption.defaultProps = {
+	  value: '',
+	  label: '',
+	  className: ''
+	};
+
+	exports.default = ListboxOption;
+
+/***/ },
+/* 171 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	/**
+	 * Listbox
+	 */
+
+	var Listbox = function (_Component) {
+	  _inherits(Listbox, _Component);
+
+	  function Listbox() {
+	    _classCallCheck(this, Listbox);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Listbox).apply(this, arguments));
+	  }
+
+	  _createClass(Listbox, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var label = _props.label;
+	      var placeholder = _props.placeholder;
+	      var defaultOption = _props.defaultOption;
+	      var children = _props.children;
+	      var description = _props.description;
+
+
+	      var options = [];
+	      children.map(function (list_box_option, i) {
+	        options.push(list_box_option);
+	      });
+
+	      var placeholder_option = placeholder ? _react2.default.createElement(
+	        'option',
+	        { value: '' },
+	        placeholder
+	      ) : '';
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: "wfui-list-box" },
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          label
+	        ),
+	        description,
+	        _react2.default.createElement(
+	          'select',
+	          { defaultValue: defaultOption },
+	          placeholder_option,
+	          options
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Listbox;
+	}(_react.Component);
+
+	/**
+	 * Property types
+	 */
+
+
+	Listbox.propTypes = {
+	  label: _react2.default.PropTypes.string,
+	  placeholder: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number]),
+	  defaultOption: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number]),
+	  description: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.object])
+	};
+	Listbox.defaultProps = {
+	  label: '',
+	  placeholder: '',
+	  defaultOption: '',
+	  description: '',
+	  children: []
+	};
+
+	exports.default = Listbox;
+
+/***/ },
+/* 172 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 171 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20326,9 +20522,9 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _reactRedux = __webpack_require__(172);
+	var _reactRedux = __webpack_require__(174);
 
-	var _action_creators = __webpack_require__(193);
+	var _action_creators = __webpack_require__(195);
 
 	var _action_creators2 = _interopRequireDefault(_action_creators);
 
@@ -20448,7 +20644,7 @@
 	exports.default = AnotherTable;
 
 /***/ },
-/* 172 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20456,11 +20652,11 @@
 	exports.__esModule = true;
 	exports.connect = exports.Provider = undefined;
 
-	var _Provider = __webpack_require__(173);
+	var _Provider = __webpack_require__(175);
 
 	var _Provider2 = _interopRequireDefault(_Provider);
 
-	var _connect = __webpack_require__(175);
+	var _connect = __webpack_require__(177);
 
 	var _connect2 = _interopRequireDefault(_connect);
 
@@ -20472,7 +20668,7 @@
 	exports.connect = _connect2["default"];
 
 /***/ },
-/* 173 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -20484,7 +20680,7 @@
 
 	var _react = __webpack_require__(1);
 
-	var _storeShape = __webpack_require__(174);
+	var _storeShape = __webpack_require__(176);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
@@ -20572,7 +20768,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 174 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20588,7 +20784,7 @@
 	});
 
 /***/ },
-/* 175 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -20610,27 +20806,27 @@
 
 	var _react = __webpack_require__(1);
 
-	var _storeShape = __webpack_require__(174);
+	var _storeShape = __webpack_require__(176);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _shallowEqual = __webpack_require__(176);
+	var _shallowEqual = __webpack_require__(178);
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _wrapActionCreators = __webpack_require__(177);
+	var _wrapActionCreators = __webpack_require__(179);
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
-	var _isPlainObject = __webpack_require__(188);
+	var _isPlainObject = __webpack_require__(190);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _hoistNonReactStatics = __webpack_require__(191);
+	var _hoistNonReactStatics = __webpack_require__(193);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-	var _invariant = __webpack_require__(192);
+	var _invariant = __webpack_require__(194);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -20940,7 +21136,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 176 */
+/* 178 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -20971,7 +21167,7 @@
 	}
 
 /***/ },
-/* 177 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20979,7 +21175,7 @@
 	exports.__esModule = true;
 	exports["default"] = wrapActionCreators;
 
-	var _redux = __webpack_require__(178);
+	var _redux = __webpack_require__(180);
 
 	function wrapActionCreators(actionCreators) {
 	  return function (dispatch) {
@@ -20988,7 +21184,7 @@
 	}
 
 /***/ },
-/* 178 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -20996,27 +21192,27 @@
 	exports.__esModule = true;
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
 
-	var _createStore = __webpack_require__(179);
+	var _createStore = __webpack_require__(181);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
-	var _combineReducers = __webpack_require__(183);
+	var _combineReducers = __webpack_require__(185);
 
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 
-	var _bindActionCreators = __webpack_require__(185);
+	var _bindActionCreators = __webpack_require__(187);
 
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 
-	var _applyMiddleware = __webpack_require__(186);
+	var _applyMiddleware = __webpack_require__(188);
 
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 
-	var _compose = __webpack_require__(187);
+	var _compose = __webpack_require__(189);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
-	var _warning = __webpack_require__(184);
+	var _warning = __webpack_require__(186);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -21042,7 +21238,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 179 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21051,7 +21247,7 @@
 	exports.ActionTypes = undefined;
 	exports["default"] = createStore;
 
-	var _isPlainObject = __webpack_require__(180);
+	var _isPlainObject = __webpack_require__(182);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
@@ -21265,13 +21461,13 @@
 	}
 
 /***/ },
-/* 180 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isHostObject = __webpack_require__(181),
-	    isObjectLike = __webpack_require__(182);
+	var isHostObject = __webpack_require__(183),
+	    isObjectLike = __webpack_require__(184);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -21336,7 +21532,7 @@
 	module.exports = isPlainObject;
 
 /***/ },
-/* 181 */
+/* 183 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21363,7 +21559,7 @@
 	module.exports = isHostObject;
 
 /***/ },
-/* 182 */
+/* 184 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21400,7 +21596,7 @@
 	module.exports = isObjectLike;
 
 /***/ },
-/* 183 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -21408,13 +21604,13 @@
 	exports.__esModule = true;
 	exports["default"] = combineReducers;
 
-	var _createStore = __webpack_require__(179);
+	var _createStore = __webpack_require__(181);
 
-	var _isPlainObject = __webpack_require__(180);
+	var _isPlainObject = __webpack_require__(182);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _warning = __webpack_require__(184);
+	var _warning = __webpack_require__(186);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -21535,7 +21731,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 184 */
+/* 186 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21564,7 +21760,7 @@
 	}
 
 /***/ },
-/* 185 */
+/* 187 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21622,7 +21818,7 @@
 	}
 
 /***/ },
-/* 186 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21640,7 +21836,7 @@
 	exports.__esModule = true;
 	exports["default"] = applyMiddleware;
 
-	var _compose = __webpack_require__(187);
+	var _compose = __webpack_require__(189);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -21694,7 +21890,7 @@
 	}
 
 /***/ },
-/* 187 */
+/* 189 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21728,13 +21924,13 @@
 	}
 
 /***/ },
-/* 188 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isHostObject = __webpack_require__(189),
-	    isObjectLike = __webpack_require__(190);
+	var isHostObject = __webpack_require__(191),
+	    isObjectLike = __webpack_require__(192);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -21799,7 +21995,7 @@
 	module.exports = isPlainObject;
 
 /***/ },
-/* 189 */
+/* 191 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21826,7 +22022,7 @@
 	module.exports = isHostObject;
 
 /***/ },
-/* 190 */
+/* 192 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21863,7 +22059,7 @@
 	module.exports = isObjectLike;
 
 /***/ },
-/* 191 */
+/* 193 */
 /***/ function(module, exports) {
 
 	/**
@@ -21906,7 +22102,7 @@
 	};
 
 /***/ },
-/* 192 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -21960,7 +22156,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 193 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21977,9 +22173,9 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _redux = __webpack_require__(178);
+	var _redux = __webpack_require__(180);
 
-	var _reactRedux = __webpack_require__(172);
+	var _reactRedux = __webpack_require__(174);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

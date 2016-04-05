@@ -4,19 +4,22 @@ window.ReactDOM = require('react-dom');
 window.WFUIJS = WFUIJS || {}
 
 require('./src/Description/description.scss');
-window.WFUIJS.Description = require('./src/Description/description.js');
+window.WFUIJS.modules.Description = require('./src/Description/description.js').default;
 
 require('./src/InputField/input_field.scss');
-window.WFUIJS.InputField = require('./src/InputField/input_field.js');
+window.WFUIJS.modules.InputField = require('./src/InputField/input_field.js').default;
 
 require('./src/InputTable/input_table.scss');
-window.WFUIJS.InputTable = require('./src/InputTable/input_table.js');
+window.WFUIJS.modules.InputTable = require('./src/InputTable/input_table.js').default;
 
 require('./src/Selection/selection.scss');
-window.WFUIJS.Selection = require('./src/Selection/selection.js');
+window.WFUIJS.modules.Selection = require('./src/Selection/selection.js').default;
 
 require('./src/Grid/grid.scss');
-window.WFUIJS.Grid = require('./src/Grid/grid.js');
+window.WFUIJS.modules.Grid = require('./src/Grid/grid.js').default;
+
+window.WFUIJS.modules.ListboxOption = require('./src/Listbox/listbox_option.js').default;
+window.WFUIJS.modules.Listbox = require('./src/Listbox/listbox.js').default;
 
 require('./src/AddAnother/add_another.scss');
-window.WFUIJS.AddAnother = require('./src/AddAnother/add_another.js');
+window.WFUIJS.modules.AddAnother = require('./src/AddAnother/add_another.js').default

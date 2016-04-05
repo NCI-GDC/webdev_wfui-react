@@ -5,7 +5,7 @@ import React, { Component } from 'react';
  */
 class Listbox extends Component {
   render() {
-    var {label, placeholder, defaultOption, children} = this.props;
+    var {label, placeholder, defaultOption, children, description} = this.props;
 
     var options = [];
     children.map(function(list_box_option, i) {
@@ -14,17 +14,14 @@ class Listbox extends Component {
 
     var placeholder_option = placeholder ? <option value="">{placeholder}</option> : ''; 
 
-
     return (
-      <div>
-
+      <div className={"wfui-list-box"}>
         <label>{label}</label>
-
+        {description}
         <select defaultValue={defaultOption}>
           {placeholder_option}
           {options}
         </select>
-
       </div>
     )
   }
@@ -43,11 +40,17 @@ Listbox.propTypes = {
     React.PropTypes.string,
     React.PropTypes.number,
   ]),
+  description: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.object,
+  ]),
 }
 Listbox.defaultProps = {
   label: '',
   placeholder: '',
   defaultOption: '',
+  description: '',
+  children: [],
 }
 
 export default Listbox

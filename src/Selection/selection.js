@@ -18,12 +18,11 @@ class Selection extends Component {
     }
   }
   render() {
-    var {label, name, value, defaultChecked, children, type} = this.props;
-    var className = "wfui-selection__input-"+type;
+    var {label, name, value, defaultChecked, children, type, className} = this.props;
     return (
-      <div className="wfui-selection">
+      <div className={"wfui-selection "+className}>
         <label className="wfui-selection__label" onClick={this.onHandleClick.bind(this)}>
-          <input className={className} ref="radio" type={type} name={name} value={value} defaultChecked={defaultChecked} />
+          <input className={"wfui-selection__input-"+type} ref="radio" type={type} name={name} value={value} defaultChecked={defaultChecked} />
           {label}
           {children}
         </label>
@@ -40,7 +39,8 @@ Selection.propTypes = {
   name: React.PropTypes.string,
   value: React.PropTypes.string,
   type: React.PropTypes.oneOf(['radio','checkbox']),
-  defaultChecked: React.PropTypes.bool
+  defaultChecked: React.PropTypes.bool,
+  className: React.PropTypes.string,
 }
 Selection.defaultProps = {
   label: '',
@@ -48,6 +48,7 @@ Selection.defaultProps = {
   value: '',
   type: 'radio',
   defaultChecked: false,
+  className: ''
 }
 
 export default Selection

@@ -5,11 +5,11 @@ import React, { Component } from 'react';
  */
 class ListboxOption extends Component {
   render() {
-    var {value} = this.props;
+    var {value, label, className} = this.props;
 
     return (
-      <option value={value}>
-        {value}
+      <option value={value} className={className}>
+        {label}
       </option>
     );
   }
@@ -23,9 +23,16 @@ ListboxOption.propTypes = {
     React.PropTypes.number,
     React.PropTypes.string,
   ]),
+  label: React.PropTypes.oneOfType([
+    React.PropTypes.number,
+    React.PropTypes.string,
+  ]),
+  className: React.PropTypes.string
 }
 ListboxOption.defaultProps = {
   value: '',
+  label: '',
+  className: ''
 }
 
 export default ListboxOption
