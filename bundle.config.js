@@ -1,7 +1,10 @@
 window.React = require('react');
 window.ReactDOM = require('react-dom');
-
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 window.WFUIJS = WFUIJS || {}
+window.WFUIJS.modules.createStore = createStore;
+window.WFUIJS.modules.Provider = Provider;
 
 require('./src/Description/description.scss');
 window.WFUIJS.modules.Description = require('./src/Description/description.js').default;
@@ -22,4 +25,5 @@ window.WFUIJS.modules.ListboxOption = require('./src/Listbox/listbox_option.js')
 window.WFUIJS.modules.Listbox = require('./src/Listbox/listbox.js').default;
 
 require('./src/AddAnother/add_another.scss');
-window.WFUIJS.modules.AddAnother = require('./src/AddAnother/add_another.js').default
+window.WFUIJS.modules.AnotherTable = require('./src/AddAnother/add_another.js').default;
+window.WFUIJS.modules.AddAnotherReducer = require('./src/AddAnother/reducers/reducers').default;

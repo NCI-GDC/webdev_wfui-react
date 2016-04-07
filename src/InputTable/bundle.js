@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import InputField from '../../src/InputField/input_field';
 import InputTable from '../../src/InputTable/input_table';
 import Description from '../../src/Description/description';
-const css = require('../../dist/bundle.css');
+const css = require('../../dist/wfui_bundle.css');
 
 let config = {
     label: "1. What is your weight measurement?",
