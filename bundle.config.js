@@ -1,10 +1,26 @@
+WFUIJS = WFUIJS || {}
+WFUIJS.modules = WFUIJS.modules || {}
 window.React = require('react');
 window.ReactDOM = require('react-dom');
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-window.WFUIJS = WFUIJS || {}
 window.WFUIJS.modules.createStore = createStore;
 window.WFUIJS.modules.Provider = Provider;
+
+window.WFUIJS.modules.EventEmitter = require('events').EventEmitter;
+window.WFUIJS.modules.assign = require('object-assign');
+window.WFUIJS.modules.FixedDataTable = require('fixed-data-table');
+window.WFUIJS.modules.ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+window.WFUIJS.modules.ReactRouter = require('react-router');
+var Dispatcher = require('flux').Dispatcher;
+window.WFUIJS.modules.AppDispatcher = WFUIJS.modules.assign(new Dispatcher(), {
+    handleViewAction: function(action){
+        this.dispatch({
+            source: 'VIEW_ACTION',
+            action: action
+        });
+    }
+});
 
 require('./src/Description/description.scss');
 window.WFUIJS.modules.Description = require('./src/Description/description.js').default;
