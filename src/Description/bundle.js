@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Description from '../../src/Description/description';
 const css = require('../../dist/wfui_bundle.css');
 
+
 var htmlText1 = (
 	"<p><b>Welcome to the beginning of the survey Nancy.</b> Please take your time and answer all of the questions as honestly as possible. the survey will automatically save your answers, so you can come back and continue the survey at any time.</p><p>To begin, we will ask you a few basic questions about your demographics.</p>"
 );
@@ -22,7 +23,14 @@ var element2 = (
 		Hormonal contraceptives include birth control pills, implants, patches, injections, and rings or intra-uterine devices that release female hormones.
 	</div>
 );
+var element3 = (
+	<div>
+		<p>
+			The DIN is an 8 digit number that</p>
+	</div>
+);
 ReactDOM.render( <Description content="simple text description" type="theme-blue" />, document.getElementById('description1'));
 ReactDOM.render( <Description content={htmlText1} type="theme-blue" classNames="extra-lalalalla awdawd" />, document.getElementById('description2'));
 ReactDOM.render( <Description content={element2} type="theme-purple" />, document.getElementById('description3'));
 ReactDOM.render( <Description content={element1} type="theme-red" />, document.getElementById('description4'));
+ReactDOM.render( <Description content={element3} type="theme-purple" imageSrc="icon-cancer-types.svg" imageDescription="This is the image above" />, document.getElementById('description5'));
