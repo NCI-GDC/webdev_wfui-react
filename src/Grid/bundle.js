@@ -26,14 +26,14 @@ ReactDOM.render(
         label="1. Have you ever used any hormonal contraceptives for any reason?"
         description={<Description type="theme-purple" content="Full time means 30 hours or more per week. Part time means less than 30 hours per week." />}
         columnNumber={4}>
-        <Selection type="checkbox" label="Full-time employed / self-employed" name="checkbox" value="1" />
-        <Selection type="checkbox" label="Part-time employed / self-employed" name="checkbox" value="2" />
-        <Selection type="checkbox" label="Retired" name="checkbox" value="3" />
-        <Selection type="checkbox" label="Looking after home and/or family" name="checkbox" value="4" />
-        <Selection type="checkbox" label="Unable to work because of sickness" name="checkbox" value="5" />
-        <Selection type="checkbox" label="Unemployed" name="checkbox" value="6" />
-        <Selection type="checkbox" label="Doing unpaid or voluntary work" name="checkbox" value="7" />
-        <Selection type="checkbox" label="Student" name="checkbox" value="8" />
+        <Selection type="checkbox" label="Full-time employed / self-employed" name="checkbox[]" value="1" />
+        <Selection type="checkbox" label="Part-time employed / self-employed" name="checkbox[]" value="2" />
+        <Selection type="checkbox" label="Retired" name="checkbox[]" value="3" />
+        <Selection type="checkbox" label="Looking after home and/or family" name="checkbox[]" value="4" />
+        <Selection type="checkbox" label="Unable to work because of sickness" name="checkbox[]" value="5" />
+        <Selection type="checkbox" label="Unemployed" name="checkbox[]" value="6" />
+        <Selection type="checkbox" label="Doing unpaid or voluntary work" name="checkbox[]" value="7" />
+        <Selection type="checkbox" label="Student" name="checkbox[]" value="8" />
     </Grid>,
 document.getElementById('selection2'));
 
