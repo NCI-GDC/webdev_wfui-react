@@ -6,7 +6,7 @@ import InputField from '../../src/InputField/input_field';
 const css = require('../../dist/wfui_bundle.css');
 
 ReactDOM.render(
-    <Selection label="Single, never married" name="selection1" value="5" />,
+    <Selection label="Single, never married" name="selection1" value="2" />,
 document.getElementById('selection1'));
 
 ReactDOM.render(

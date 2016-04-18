@@ -4,6 +4,11 @@ import React, { Component } from 'react';
  * Listbox
  */
 class Listbox extends Component {
+  onHandleChange(e){
+    if(this.props.onHandleChange){
+      this.props.onHandleChange(e);
+    }
+  }
   render() {
     var {label, placeholder, defaultOption, children, description, errors} = this.props;
 
@@ -24,7 +29,7 @@ class Listbox extends Component {
       <div className={"wfui-list-box"}>
         <label>{label}</label>
         {description}
-        <select className={errorClassName} defaultValue={defaultOption}>
+        <select className={errorClassName} defaultValue={defaultOption} onChange={this.onHandleChange.bind(this)}>
           {placeholder_option}
           {options}
         </select>

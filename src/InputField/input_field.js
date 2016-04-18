@@ -4,6 +4,14 @@ import React, { Component } from 'react';
  * Input field
  */
 class InputField extends Component {
+  constructor(){
+    super();
+  }
+  onHandleChange(e){
+    if(this.props.onHandleChange){
+      this.props.onHandleChange(e);
+    }
+  }
   render() {
     var {label, type, defaultValue, placeholder, postfix, prefix, name, className, errors} = this.props;
     if(prefix){
@@ -22,7 +30,7 @@ class InputField extends Component {
       <div className={"wfui-input-field wfui-input-field--"+ type + ' ' + className}>
           <label className="wfui-input-field__label">{label}</label>
           {prefixField}
-          <input className={"wfui-input-field__input"+ errorClassName} type={type} defaultValue={defaultValue} placeholder={placeholder} name={name} />
+          <input className={"wfui-input-field__input"+ errorClassName} type={type} defaultValue={defaultValue} placeholder={placeholder} name={name} onChange={this.onHandleChange.bind(this)} />
           {postfixField}
       </div>
     )

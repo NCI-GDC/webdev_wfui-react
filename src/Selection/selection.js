@@ -4,17 +4,21 @@ import React, { Component } from 'react';
  * Selection
  */
 class Selection extends Component {
-  
-  /**
-   * onHandleClick will check the radio if user focus on children elements (especially for input field)
-   * @param  {event} e
-   */
   onHandleClick(e) {
     var {type} = this.props;
     if(type=="radio"){
-      this.refs.radio.checked = true;
+      this.refs.selection.checked = true;
     }else{
-      this.refs.radio.checked = !this.refs.radio.checked;
+      this.refs.selection.checked = !this.refs.selection.checked;
+    }
+
+    //Pass data to a callback.
+    if(this.props.onHandleChange){
+      var res = {
+        checked: this.refs.selection.checked,
+        value: this.refs.selection.value
+      }
+      this.props.onHandleChange(res);
     }
   }
   render() {
@@ -22,8 +26,8 @@ class Selection extends Component {
     return (
       <div className={"wfui-selection "+className}>
         <label className="wfui-selection__label" onClick={this.onHandleClick.bind(this)}>
-          <input className={"wfui-selection__input-"+type} ref="radio" type={type} name={name} value={value} defaultChecked={defaultChecked} />
-          {label}
+          <input className={"wfui-selection__input-"+type} ref="selection" data-ref="selection" type={type} name={name} value={value} defaultChecked={defaultChecked} />
+          <span>{label}</span>
           {children}
         </label>
       </div>
