@@ -38,28 +38,45 @@
         float:left;
         text-align:right;
 
-        &__image{
-            width: 100%;
-            max-width: 100px;
-            height: auto;
-            float:right;
-            padding:2px;
-            border: 1px solid #AAA5A1;
+        &__imageGroup {
+            float: right;
+            background: white;
+            position: relative;
 
-        }
-        &__image:hover{
-            
-            
+            &:hover, &:hover &__enlargerIcon {
+                color: black; /*color for magnifying glass awesome font icon*/
+                cursor: pointer;
+            }
 
+            &__image{
+                width: 100%;
+                max-width: 100px;
+                height: auto;
+                float:right;
+                padding:2px;
+                border: 1px solid #AAA5A1;
+
+            }
+            &__enlargerIcon{
+                color: #464646;
+                text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white; 
+                position: absolute;
+                right: 1px;
+                z-index: 1;
+
+            }
         }
+        
+
     }
     &__imageDialog{
         display: none; /* Hidden by default */
 
 
         &--theme-visible {
+
             display: block;
-            position: absolute;
+            position: fixed;
             top:100px;
             left:0;
             right:0;
@@ -67,7 +84,6 @@
             margin-right:auto;
             z-index: 3000;
 
-            min-width:200px;
             max-width: 400px;
             height: auto;
             background-color: #ffffff;
@@ -95,15 +111,18 @@
             max-height: 100%;
 
             &__image {
-                min-width: 200px;
-                max-width: 400px;
+                width: 400px;
                 height: auto;
+                display: block;
+                text-align:center;
             }
         }
         &__footer {
             padding: 10px 25px;
             height: auto;  
             text-align: center; 
+            color: black;
+
         }
     }
 
@@ -112,7 +131,7 @@
 
         &--theme-visible {
             display: block;
-            position: absolute;
+            position: fixed;
             top:0;
             left: 0;
             right: 0;

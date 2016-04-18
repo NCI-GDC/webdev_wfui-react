@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import ReactDOM from 'react-dom';
 /**
  * Description
  */
@@ -7,44 +7,55 @@ class Description extends Component {
   constructor() {
     super();
     this.state = {
-      descriptionImagePopUp: false,
+      descriptionImagePopUpIsOpen: false,
     }
     this._onClickToggleViewImage = this._onClickToggleViewImage.bind(this);
     this._onClickCloseViewImage = this._onClickCloseViewImage.bind(this);
   }
   _onClickToggleViewImage(e) {
-    if(this.state.descriptionImagePopUp) {
-      this.setState({descriptionImagePopUp: false});
+    if(this.state.descriptionImagePopUpIsOpen) {
+      this._onClickCloseViewImage;
     }
     else {
-      this.setState({descriptionImagePopUp: true});
+      this.setState({ descriptionImagePopUpIsOpen: true });
+      document.body.appendChild(this.PORTAL);
+      ReactDOM.render(this.portalContent, this.PORTAL);
     }
   }
   _onClickCloseViewImage(e) {
-    this.setState({
-      descriptionImagePopUp: false,
-    })
+    this.setState({ descriptionImagePopUpIsOpen: false })
+    var portalNode = document.getElementById("descriptionImagePortalId");
+    document.body.removeChild(portalNode);
   }
 
+
   render() {
-    let image_config = {
+    var {content, type, imageSrc, imageDescription, classNames} = this.props;
+    
+
+    var image_config = {
       onClick: this._onClickToggleViewImage,
     };
-    var {content, type, imageSrc, imageDescription, classNames} = this.props;
     var containerClassName = "wfui-description wfui-description--" + type + " " + classNames;
     
-    //check if pop-up image needs to be rendered
-    var imageDialogClassName = "wfui-description__imageDialog";
-    var imageDialogOverlayClassName ="wfui-description__imageDialogOverlay";
-    if (this.state.descriptionImagePopUp) {
-      imageDialogClassName += "--theme-visible";
-      imageDialogOverlayClassName += "--theme-visible";
-    }
+    //based off of adding the dialog to the <body> tag,
+    //we remove/add the content directly instead of toggling --theme-visible.
+    var imageDialogClassName = "wfui-description__imageDialog--theme-visible";
+    var imageDialogOverlayClassName ="wfui-description__imageDialogOverlay--theme-visible";
+
+    //if imageSrc is passed, setup all image content and dialog
     if (imageSrc) {
-      var imageContent = <img {...image_config} className="wfui-description__imageContainer__image" src={imageSrc} />;
+      var imageContent = (
+        <div className="wfui-description__imageContainer__imageGroup" {...image_config}>
+          <i className="fa fa-search-plus fa-2x wfui-description__imageContainer__imageGroup__enlargerIcon"></i>
+          <img className="wfui-description__imageContainer__imageGroup__image" src={imageSrc} />
+        </div>
+      );
       var imageDialogContent = (
         <div className={imageDialogClassName}>
-          <span onClick={this._onClickCloseViewImage} className="wfui-description__imageDialog__closeButton">x</span>
+          <span onClick={this._onClickCloseViewImage} className="wfui-description__imageDialog__closeButton">
+            <i className="fa fa-times"></i>
+          </span>
           <div className="wfui-description__imageDialog__body">
             <img className="wfui-description__imageDialog__body__image" src={imageSrc} />
           </div>
@@ -53,13 +64,28 @@ class Description extends Component {
           </div>
         </div>
       );
-    }
+
+      //content to be rendered for the dialog and overlay/blanket
+      this.portalContent = (
+        <div>
+          {imageDialogContent}
+          //overlay/blanket
+          <div onClick={this._onClickCloseViewImage} className={imageDialogOverlayClassName}>
+          </div>
+        </div>
+      );
+
+      //create div node for where the dialog will be
+      this.PORTAL = document.createElement('div');
+      //add appropriate id so we can track it
+      this.PORTAL.setAttribute("id", "descriptionImagePortalId");
+    }/* END IF IMAGESRC ====== */
+    
 
 
 
-
-
-    if (typeof(content) == 'string') {
+    //RENDER
+    if (typeof(content) == 'string' && !imageSrc) {
       return (
         <div className={containerClassName} dangerouslySetInnerHTML={{__html: content}} >
         </div>
@@ -73,31 +99,24 @@ class Description extends Component {
           <div className="wfui-description__imageContainer">
             {imageContent}
           </div>
-          {imageDialogContent}
-          <div onClick={this._onClickCloseViewImage} className={imageDialogOverlayClassName}>
-          </div>
-
         </div>
       );
     }
-    else if (typeof(content) != 'string' && imageSrc) {
+    else if (typeof(content) == 'object' && imageSrc) {
       return (
-        <div className={containerClassName}>
+        <div className={containerClassName} >
           <div className="wfui-description__textContainer">
             {content}
           </div>
           <div className="wfui-description__imageContainer">
             {imageContent}
           </div>
-          {imageDialogContent}
-          <div onClick={this._onClickCloseViewImage} className={imageDialogOverlayClassName}>
-          </div>
         </div>
       );
     }
-    else {// (typeof(content) == 'object')
+    else {//typeof(content)==object && !imageSrc
       return (
-        <div className={containerClassName}>
+        <div className={containerClassName} >
           {content}
         </div>
       );
