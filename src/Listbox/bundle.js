@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Listbox from '../../src/Listbox/listbox';
 import ListboxOption from '../../src/Listbox/listbox_option';
 import InputField from '../../src/InputField/input_field';
+const css = require('../../dist/wfui_bundle.css');
 
 let config1 = {
 	label: 'Cancer Type',
@@ -12,10 +13,12 @@ let config2 = {
 	label: 'Leg Injury Location',
 	placeholder: '- Select a location -',
 	defaultOption: 'Left Leg',
+	errors: 1,
 }
 let config3 = {
 	label: 'Cancer cause',
 	defaultOption: 'Left Leg2',
+	errors: true,
 }
 
 

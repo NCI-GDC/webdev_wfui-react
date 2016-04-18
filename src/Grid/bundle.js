@@ -11,9 +11,19 @@ ReactDOM.render(
     <Grid 
         label="8. Over the last 2 weeks, how often have you been bothered by the following problems?" 
         description={<Description type="theme-blue" content="Please choose the ONE that best describes your current situation." />}
-        columnNumber={3} >
+        columnNumber={3} 
+        errors={true}>
         <Selection type="radio" label="Married and/or living with a partner" name="radios1" value="1" defaultChecked={true} />
         <Selection type="radio" label="Divored" name="radios1" value="2" />
+        <Selection type="radio" label="Widowed" name="radios1" value="3" />
+        <Selection type="radio" label="Separated" name="radios1" value="4" />
+        <Selection type="radio" label="Single, never married" name="radios1" value="5" />
+        <Selection type="radio" label="Widowed" name="radios1" value="3" />
+        <Selection type="radio" label="Separated" name="radios1" value="4" />
+        <Selection type="radio" label="Single, never married" name="radios1" value="5" />
+        <Selection type="radio" label="Widowed" name="radios1" value="3" />
+        <Selection type="radio" label="Separated" name="radios1" value="4" />
+        <Selection type="radio" label="Single, never married" name="radios1" value="5" />
         <Selection type="radio" label="Widowed" name="radios1" value="3" />
         <Selection type="radio" label="Separated" name="radios1" value="4" />
         <Selection type="radio" label="Single, never married" name="radios1" value="5" />
@@ -24,8 +34,9 @@ document.getElementById('selection1'));
 ReactDOM.render(
     <Grid
         label="1. Have you ever used any hormonal contraceptives for any reason?"
-        description={<Description type="theme-purple" content="Full time means 30 hours or more per week. Part time means less than 30 hours per week." />}
-        columnNumber={4}>
+        description={<Description type="theme-purple" content="Full time means 30 hours or more per week. Part time means less than 30 hours per week." imageSrc="../Description/reg.png" imageDescription="Part-time" />}
+        columnNumber={4}
+        errors={1} >
         <Selection type="checkbox" label="Full-time employed / self-employed" name="checkbox" value="1" />
         <Selection type="checkbox" label="Part-time employed / self-employed" name="checkbox" value="2" />
         <Selection type="checkbox" label="Retired" name="checkbox" value="3" />

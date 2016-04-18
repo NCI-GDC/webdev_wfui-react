@@ -5,10 +5,21 @@ import React, { Component } from 'react';
  */
 class Grid extends Component {
   render() {
-    var {label, description, children, columnNumber} = this.props;
+    var {label, description, children, columnNumber, errors} = this.props;
     var last = children.length -(children.length%columnNumber);
+
+    //check error flag for default
+    var errorClassName = '';
+    if(errors) {
+      if (children.length%columnNumber==0) {
+        errorClassName += '--theme-error-border-all';
+      }
+      else {
+        errorClassName += '--theme-error-border-parts';
+      }
+    }
     
-    //Render rows and columns ( except last row if number of columns is different from colmunNumebr)
+    //Render rows and columns ( except last row if number of columns is different from columnNumber)
     //==========
     var grid, grid_rows = [[]], index = 0;
     children.map(function(child, i){
@@ -18,7 +29,7 @@ class Grid extends Component {
       }
     })
     grid = (
-      <div className="wfui-grid__container">
+      <div className={"wfui-grid__container"+errorClassName}>
         {grid_rows.map(function(row, i){
           return (
             <div className="wfui-grid__row" key={i}>
@@ -40,7 +51,7 @@ class Grid extends Component {
       }
     })
     grid_last = (
-      <div className="wfui-grid__container wfui-grid__container--last">
+      <div className={"wfui-grid__container wfui-grid__container--last"+errorClassName}>
         <div className="wfui-grid__row">
           {grid_rows_last.map(function(child, i){
             let className = "wfui-grid__column wfui-grid--col-"+grid_rows_last.length;
@@ -54,8 +65,10 @@ class Grid extends Component {
       <div className="wfui-grid">
           <label className="wfui-grid__label">{label}</label>
           <div className="wfui-grid__description">{description}</div>
+          <div>
           {grid}
           {grid_last}
+          </div>
       </div>
     )
   }
@@ -70,12 +83,18 @@ Grid.propTypes = {
     React.PropTypes.string,
     React.PropTypes.element,
   ]),
-  columnNumber: React.PropTypes.number
+  columnNumber: React.PropTypes.number,
+  errors: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.number,
+    React.PropTypes.bool
+  ])
 }
 Grid.defaultProps = {
   label: '',
   description: '',
-  columnNumber: 1
+  columnNumber: 1,
+  errors: '',
 }
 
 export default Grid

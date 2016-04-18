@@ -5,20 +5,26 @@ import React, { Component } from 'react';
  */
 class Listbox extends Component {
   render() {
-    var {label, placeholder, defaultOption, children, description} = this.props;
+    var {label, placeholder, defaultOption, children, description, errors} = this.props;
 
     var options = [];
     children.map(function(list_box_option, i) {
       options.push(list_box_option);
     });
 
-    var placeholder_option = placeholder ? <option value="">{placeholder}</option> : ''; 
+    var placeholder_option = placeholder ? <option value="">{placeholder}</option> : null; 
+
+    //check error flag
+    var errorClassName = '';
+    if(errors) {
+      errorClassName += ' error';
+    }
 
     return (
       <div className={"wfui-list-box"}>
         <label>{label}</label>
         {description}
-        <select defaultValue={defaultOption}>
+        <select className={errorClassName} defaultValue={defaultOption}>
           {placeholder_option}
           {options}
         </select>
@@ -44,6 +50,11 @@ Listbox.propTypes = {
     React.PropTypes.string,
     React.PropTypes.object,
   ]),
+  errors: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.number,
+    React.PropTypes.bool
+  ]),
 }
 Listbox.defaultProps = {
   label: '',
@@ -51,6 +62,7 @@ Listbox.defaultProps = {
   defaultOption: '',
   description: '',
   children: [],
+  errors: '',
 }
 
 export default Listbox

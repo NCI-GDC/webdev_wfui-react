@@ -35,6 +35,6 @@ var element3 = (
 );
 ReactDOM.render( <Description content="simple text description" type="theme-blue" />, document.getElementById('description1'));
 ReactDOM.render( <Description content={htmlText1} type="theme-blue" imageSrc="icon-cancer-types.svg" imageDescription="This is the image above" classNames="extra-lalalalla awdawd" />, document.getElementById('description2'));
-ReactDOM.render( <Description content={htmlText2} type="theme-purple" imageSrc="reg.png" imageDescription="" />, document.getElementById('description3'));
+ReactDOM.render( <Description content={htmlText2} errors={1} type="theme-purple" imageSrc="reg.png" imageDescription="" />, document.getElementById('description3'));
 ReactDOM.render( <Description content={element1} type="theme-red" imageSrc="" imageDescription="This is the image above" />, document.getElementById('description4'));
-ReactDOM.render( <Description content={element3} type="theme-purple" imageSrc="wawdwda/awd" imageDescription="This is the image aboveThis is the image aboveThis is the image aboveThis is the image aboveThis is the image aboveThis is the image aboveThis is the image aboveThis is the image aboveThis is the image above" />, document.getElementById('description5'));
+ReactDOM.render( <Description content={element3} type="theme-purple" imageSrc="wawdwda" imageDescription="This is the image aboveThis is the image aboveThis is the image aboveThis is the image aboveThis is the image aboveThis is the image aboveThis is the image aboveThis is the image aboveThis is the image above" />, document.getElementById('description5'));

@@ -30,13 +30,21 @@ class Description extends Component {
 
 
   render() {
-    var {content, type, imageSrc, imageDescription, classNames} = this.props;
+    var {content, type, imageSrc, imageDescription, classNames, errors} = this.props;
     
 
     var image_config = {
       onClick: this._onClickToggleViewImage,
     };
-    var containerClassName = "wfui-description wfui-description--" + type + " " + classNames;
+    
+    //check error flag
+    var errorClassName = '';
+    if(errors) {
+      errorClassName += ' error';
+    }
+
+    var containerClassName = "wfui-description wfui-description--" + type + errorClassName + " " + classNames;
+
     
     //based off of adding the dialog to the <body> tag,
     //we remove/add the content directly instead of toggling --theme-visible.
@@ -69,7 +77,6 @@ class Description extends Component {
       this.portalContent = (
         <div>
           {imageDialogContent}
-          //overlay/blanket
           <div onClick={this._onClickCloseViewImage} className={imageDialogOverlayClassName}>
           </div>
         </div>
@@ -137,6 +144,11 @@ Description.propTypes = {
   classNames: React.PropTypes.string,
   imageSrc: React.PropTypes.string,
   imageDescription: React.PropTypes.string,
+  errors: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.number,
+    React.PropTypes.bool
+  ]),
 }
 Description.defaultProps = {
   content: '',
@@ -144,6 +156,7 @@ Description.defaultProps = {
   classNames: '',
   imageSrc: '',
   imageDescription: '',
+  errors: '',
 }
 
 export default Description

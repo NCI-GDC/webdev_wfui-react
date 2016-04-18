@@ -3,8 +3,24 @@
         display: table;
         border-collapse: collapse;
         width: 100%;
+        &--theme-error-border-all{
+            @extend .wfui-grid__container;
+            border: 2px solid #c62828;
+        }
+        &--theme-error-border-parts{
+            @extend .wfui-grid__container;
+            border: 2px solid #c62828;
+            border-bottom: none;
+        }
     }
-    &__container--last &__column{
+    &__container--last{
+        &--theme-error-border-parts{
+            border-right: 2px solid #c62828;
+            border-left: 2px solid #c62828;
+            border-bottom: 2px solid #c62828;
+        }
+    }
+    &__container--last &__column, &__container--last--theme-error-border-parts &__column{
         border-top: 0px solid #000;
     }
     &__row{
