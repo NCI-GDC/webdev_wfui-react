@@ -22,7 +22,7 @@ class Listbox extends Component {
     //check error flag
     var errorClassName = '';
     if(errors) {
-      errorClassName += ' error';
+      errorClassName += ' wfui-list-box--theme-error';
     }
 
     return (

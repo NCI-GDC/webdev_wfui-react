@@ -23,7 +23,7 @@ class InputField extends Component {
     //check error flag
     var errorClassName = '';
     if(errors) {
-      errorClassName += ' error';
+      errorClassName += ' wfui-input-field__input--theme-error';
     }
 
     return (

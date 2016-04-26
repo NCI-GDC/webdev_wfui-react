@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import InputField from '../../src/InputField/input_field';
 import InputTable from '../../src/InputTable/input_table';
 import Description from '../../src/Description/description';
+import Listbox from '../../src/Listbox/listbox';
+import ListboxOption from '../../src/Listbox/listbox_option';
 const css = require('../../dist/wfui_bundle.css');
 
 let config = {
@@ -11,9 +13,17 @@ let config = {
     fieldLabel: 'Enter your Weight:',
     fieldType: 'or'
 }
+let config1 = {
+	label: 'Cancer Type',
+	placeholder: '- Select one -',
+}
+
 ReactDOM.render(
     <InputTable {...config}>
-        <InputField type="text" suffix="pounds" />
+        <InputField error={true} type="text" suffix="pounds" />
+        <InputField type="text" suffix="kilograms" />
+        <InputField type="text" suffix="kilograms" />
+        <InputField type="text" suffix="kilograms" />
         <InputField type="text" suffix="kilograms" />
     </InputTable>, 
     document.getElementById('app')

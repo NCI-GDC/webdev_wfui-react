@@ -40,7 +40,7 @@ class Description extends Component {
     //check error flag
     var errorClassName = '';
     if(errors) {
-      errorClassName += ' error';
+      errorClassName += ' wfui-description--theme-error';
     }
 
     var containerClassName = "wfui-description wfui-description--" + type + errorClassName + " " + classNames;

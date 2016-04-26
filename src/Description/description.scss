@@ -31,6 +31,9 @@
         text-align: left;
         float:left;
     }
+    &--theme-error {
+        border: 1px solid #c62828;
+    }
     &__imageContainer{
         display: table-cell;
 
