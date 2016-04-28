@@ -1,0 +1,661 @@
+/* 
+ * Note hover/disabled styles set directly as they are not precisely the same as
+ * if we used straight opacity.
+ */
+
+/* Basic Button Style */
+.wfui-button,
+a.wfui-button,
+.wfui-button:visited {
+    background: #f2f2f2;
+    background: -webkit-linear-gradient(top, #fff 0%, #f2f2f2 100%);
+    background:    -moz-linear-gradient(top, #fff 0%, #f2f2f2 100%);
+    background:     -ms-linear-gradient(top, #fff 0%, #f2f2f2 100%);
+    background:      -o-linear-gradient(top, #fff 0%, #f2f2f2 100%);
+    background:         linear-gradient(to bottom, #fff 0%, #f2f2f2 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2',GradientType=0 );
+    border: 1px solid #ccc;
+    border-radius: 3.01px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #333;
+    cursor: pointer;
+    display: inline-block;
+    font-family: inherit;
+    font-size: 14px;
+    font-variant: normal;
+    font-weight: normal;
+    height: 2.1428571428571em; /* 30px - using ems so the fields increase in line with user specified font-sizes */
+    line-height: 1.42857142857143;   /* 20px */
+    margin: 0;
+    padding: 4px 10px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 white;
+    vertical-align: baseline;
+    white-space: nowrap;
+}
+.wfui-button ~ .wfui-button {
+    margin-left: 10px;
+}
+/* Ensure underlines not added by link styles */
+a.wfui-button:hover,
+a.wfui-button:active,
+a.wfui-button:focus {
+    text-decoration: none;
+}
+
+/* Control button height in Firefox. See http://www.experimentgarden.com/2010/11/firefox-buttontext-height-and-padding.html */
+.wfui-button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+.wfui-button:focus,
+.wfui-button:hover,
+.wfui-button-subtle.wfui-button:focus,
+.wfui-button-subtle.wfui-button:hover {
+    background: #f7f7f7;
+    background: -webkit-linear-gradient(top, #fff 0%, #f7f7f7 100%);
+    background:    -moz-linear-gradient(top, #fff 0%, #f7f7f7 100%);
+    background:     -ms-linear-gradient(top, #fff 0%, #f7f7f7 100%);
+    background:      -o-linear-gradient(top, #fff 0%, #f7f7f7 100%);
+    background:         linear-gradient(to bottom, #fff 0%, #f7f7f7 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f7f7f7',GradientType=0 );
+    border-color: #999;
+    color: #000;
+    text-decoration:none;
+}
+
+.wfui-button:active,
+.wfui-button.active,
+.wfui-header .wfui-button-split-more.active,
+.wfui-button-subtle.wfui-button:active,
+.wfui-button-subtle.wfui-button.active {
+    background-image: none;
+    background-color: #f2f2f2;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,.1);
+    text-shadow: none;
+    text-decoration:none;
+}
+
+/* Primary Buttons */
+.wfui-button.wfui-button-primary,
+.wfui-button.wfui-button-primary:visited {
+    background: #3068a2;
+    background: -webkit-linear-gradient(top, #4687ce 0%, #3068a2 100%);
+    background:    -moz-linear-gradient(top, #4687ce 0%, #3068a2 100%);
+    background:     -ms-linear-gradient(top, #4687ce 0%, #3068a2 100%);
+    background:      -o-linear-gradient(top, #4687ce 0%, #3068a2 100%);
+    background:         linear-gradient(to bottom, #4687ce 0%, #3068a2 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4687ce', endColorstr='#3068a2',GradientType=0 );
+    border-color: #486582;
+    color: #fff;
+    font-weight: bold;
+    -webkit-font-smoothing: antialiased; /* for chrome on mac */
+    text-shadow: 0 1px 0 #205081;
+}
+
+.wfui-button.wfui-button-primary:hover,
+.wfui-button.wfui-button-primary:focus {
+    background: #3673B5;
+    background: -webkit-linear-gradient(top, #5A94D3 0%, #3673B5 100%);
+    background:    -moz-linear-gradient(top, #5A94D3 0%, #3673B5 100%); 
+    background:     -ms-linear-gradient(top, #5A94D3 0%, #3673B5 100%);
+    background:      -o-linear-gradient(top, #5A94D3 0%, #3673B5 100%);
+    background:         linear-gradient(to bottom, #5A94D3 0%,#3673B5 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5A94D3', endColorstr='#3673B5',GradientType=0 );
+    border-color: #205081;
+    color: #fff;
+    text-shadow: 0 1px 0 #205081;
+}
+
+.wfui-button.wfui-button-primary:active {
+    background: #3673B5;
+    background-image: none;
+    background-color: #3673B5;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,.1);
+    text-shadow: none;
+    text-decoration:none;
+}
+
+/* Link style buttons - used for destructive/cancel actions ONLY */
+.wfui-button.wfui-button-link,
+.wfui-button.wfui-button-link:visited  {
+    background: transparent;
+    border-color: transparent;
+    color: #3b73af;
+    padding: 5px 0;
+    text-decoration: none;
+    text-shadow: none;
+    box-shadow: none;
+    filter: none;
+}
+
+.wfui-button.wfui-button-link:focus,
+.wfui-button.wfui-button-link:hover,
+.wfui-button.wfui-button-link:active,
+.wfui-buttons .wfui-button.wfui-button-link:focus,
+.wfui-buttons .wfui-button.wfui-button-link:hover,
+.wfui-buttons .wfui-button.wfui-button-link:active,
+.wfui-buttons .wfui-button.wfui-button-link[aria-pressed="true"] {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    text-decoration: underline;
+    filter: none;
+}
+
+/* Subtle/hybrid/entity action/mugger buttons */
+.wfui-button.wfui-button-subtle {
+    background: transparent;
+    border-color: transparent;
+    color: #707070;
+}
+.wfui-buttons .wfui-button.wfui-button-subtle {
+    border-radius: 3.01px;
+}
+.wfui-button.wfui-button-subtle .wfui-icon {
+    margin-right: 1px;
+}
+
+/* Compact Buttons */
+.wfui-button.wfui-button-compact {
+    font-size: 12px;
+    height: 2.16666666666667em; /* 26px with 12px font-size */
+    padding:  2px 8px 2px 8px;
+    line-height: 1.66666666666667;
+}
+
+/* End Compact Buttons */
+
+/* wfui-buttons groups buttons together into one button lozenge. */
+.wfui-buttons {
+    display: inline-block;
+    font-size: 0;
+}
+.wfui-buttons:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+.wfui-buttons .wfui-button {
+    border-radius: 0;
+    margin: 0;
+}
+.wfui-buttons .wfui-button:first-child {
+    border-top-left-radius: 3.01px;
+    border-bottom-left-radius: 3.01px;
+}
+.wfui-buttons .wfui-button:last-of-type {
+    border-top-right-radius: 3.01px;
+    border-bottom-right-radius: 3.01px;
+}
+.wfui-buttons + .wfui-buttons {
+    margin-left: 10px;
+}
+
+/* Grouped buttons go into toolbar style */
+.wfui-buttons .wfui-button:focus,
+.wfui-buttons .wfui-button:hover,
+.wfui-buttons .wfui-button:active {
+    border-color: #999;
+}
+.wfui-buttons .wfui-button[disabled],
+.wfui-buttons .wfui-button[disabled]:hover,
+.wfui-buttons .wfui-button[disabled]:focus,
+.wfui-buttons .wfui-button[disabled]:active,
+.wfui-buttons .wfui-button[aria-disabled="true"],
+.wfui-buttons .wfui-button[aria-disabled="true"]:hover,
+.wfui-buttons .wfui-button[aria-disabled="true"]:focus,
+.wfui-buttons .wfui-button[aria-disabled="true"]:active {
+    border-color: #ccc;
+}
+
+
+/* Grouped Primary Buttons */
+
+/* Primary Buttons */
+.wfui-buttons .wfui-button.wfui-button-primary {
+    background: #f2f2f2;
+    background: -webkit-linear-gradient(top, #fff 0%, #f2f2f2 100%);
+    background:    -moz-linear-gradient(top, #fff 0%, #f2f2f2 100%); 
+    background:     -ms-linear-gradient(top, #fff 0%, #f2f2f2 100%);
+    background:      -o-linear-gradient(top, #fff 0%, #f2f2f2 100%); 
+    background:         linear-gradient(to bottom, #fff 0%, #f2f2f2 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2',GradientType=0 );
+    border-color: #ccc;
+    color: #3b73af;
+    text-shadow: none;
+}
+
+.wfui-buttons .wfui-button ~ .wfui-button {
+    border-left-width: 0;
+    padding-left: 11px;
+}
+
+.wfui-buttons .wfui-button.wfui-button-primary:hover,
+.wfui-buttons .wfui-button.wfui-button-primary:focus,
+.wfui-buttons .wfui-button.wfui-button-primary:active {
+    border-color: #999;
+    color: #205081;
+}
+
+.wfui-buttons .wfui-button ~ .wfui-button:hover,
+.wfui-buttons .wfui-button ~ .wfui-button:focus,
+.wfui-buttons .wfui-button ~ .wfui-button:active {
+    border-width: 1px;
+    margin-left: -1px;
+    position: relative;
+}
+
+/* Selected buttons - NOT supported for free-standing primary buttons
+ARIA usage from http://www.paciellogroup.com/blog/misc/ARIA/togglebutton.html */
+.wfui-button[aria-pressed="true"],
+.wfui-buttons .wfui-button[aria-pressed="true"],
+.wfui-buttons .wfui-button[aria-pressed="true"].wfui-button-primary,
+.wfui-buttons .wfui-button[aria-pressed="true"].wfui-button-subtle {
+    background: #ccc;
+    background: -webkit-linear-gradient(top, #ccc 0%, #ddd 13%); 
+    background:    -moz-linear-gradient(top, #ccc 0%, #ddd 13%);
+    background:     -ms-linear-gradient(top, #ccc 0%, #ddd 13%); 
+    background:      -o-linear-gradient(top, #ccc 0%, #ddd 13%); 
+    background:         linear-gradient(to bottom, #ccc 0%, #ddd 13%);
+}
+
+.wfui-button[aria-pressed="true"].wfui-button-subtle,
+.wfui-buttons .wfui-button[aria-pressed="true"].wfui-button-subtle {
+    color: #333;
+    border-color: #ccc;
+}
+
+.wfui-buttons .wfui-button[aria-pressed="true"]:active {
+    background: #ccc;
+    box-shadow: inset 0px 3px 6px rgba(0,0,0,.2);
+}
+
+
+/* Disabled states (keep last to avoid excessive selector weight)
+---------------------------------------------------------------------- */
+.wfui-button[disabled],
+.wfui-button[disabled]:hover,
+.wfui-button[disabled]:focus,
+.wfui-button[disabled]:active,
+.wfui-button[aria-disabled="true"],
+.wfui-button[aria-disabled="true"]:hover,
+.wfui-button[aria-disabled="true"]:focus,
+.wfui-button[aria-disabled="true"]:active,
+.wfui-button[aria-disabled="true"][aria-pressed] {
+    background: #f2f2f2;
+    background: -webkit-linear-gradient(top, #fff 0%, #f2f2f2 100%);
+    background:    -moz-linear-gradient(top, #fff 0%, #f2f2f2 100%);
+    background:     -ms-linear-gradient(top, #fff 0%, #f2f2f2 100%);
+    background:      -o-linear-gradient(top, #fff 0%, #f2f2f2 100%);
+    background:         linear-gradient(to bottom, #fff 0%, #f2f2f2 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2',GradientType=0 );
+    border-color: #ccc;
+    box-shadow: none;
+    color: #999;
+    cursor: default;
+    text-shadow: none;
+}
+
+/* Subtle buttons have their own disabled stated*/
+.wfui-button.wfui-button-subtle[disabled],
+.wfui-button.wfui-button-subtle[aria-disabled="true"] {
+    border: 0;
+    background: none;
+}
+
+.wfui-button.wfui-button-primary[disabled],
+.wfui-button.wfui-button-primary[disabled]:hover,
+.wfui-button.wfui-button-primary[disabled]:focus,
+.wfui-button.wfui-button-primary[disabled]:active,
+.wfui-button.wfui-button-primary[aria-disabled="true"],
+.wfui-button.wfui-button-primary[aria-disabled="true"]:hover,
+.wfui-button.wfui-button-primary[aria-disabled="true"]:focus,
+.wfui-button.wfui-button-primary[aria-disabled="true"]:active {
+    background: #97b3d0;
+    background: -webkit-linear-gradient(top, #a2c3e6 0%, #97b3d0 100%);
+    background:    -moz-linear-gradient(top, #a2c3e6 0%, #97b3d0 100%);
+    background:     -ms-linear-gradient(top, #a2c3e6 0%, #97b3d0 100%);
+    background:      -o-linear-gradient(top, #a2c3e6 0%, #97b3d0 100%);
+    background:         linear-gradient(to bottom, #a2c3e6 0%, #97b3d0 100%);
+    border-color: #7f9cb9;
+    box-shadow:none;
+    color: #fff;
+    text-shadow: none;
+}
+
+.wfui-button.wfui-button-link[disabled],
+.wfui-button.wfui-button-link[disabled]:hover,
+.wfui-button.wfui-button-link[disabled]:focus,
+.wfui-button.wfui-button-link[disabled]:active,
+.wfui-button.wfui-button-link[aria-disabled="true"],
+.wfui-button.wfui-button-link[aria-disabled="true"]:hover,
+.wfui-button.wfui-button-link[aria-disabled="true"]:focus,
+.wfui-button.wfui-button-link[aria-disabled="true"]:active {
+    background: transparent;
+    border-color: transparent;
+    color: #999;
+    text-shadow: none;
+    text-decoration: none;
+    filter: none;
+}
+
+.wfui-buttons .wfui-button.wfui-button-primary[disabled],
+.wfui-buttons .wfui-button.wfui-button-primary[disabled]:hover,
+.wfui-buttons .wfui-button.wfui-button-primary[disabled]:focus,
+.wfui-buttons .wfui-button.wfui-button-primary[disabled]:active,
+.wfui-buttons .wfui-button.wfui-button-primary[aria-disabled="true"],
+.wfui-buttons .wfui-button.wfui-button-primary[aria-disabled="true"]:hover,
+.wfui-buttons .wfui-button.wfui-button-primary[aria-disabled="true"]:focus,
+.wfui-buttons .wfui-button.wfui-button-primary[aria-disabled="true"]:active {
+    background: #f2f2f2;
+    background: -webkit-linear-gradient(top, #fff 0%, #f2f2f2 100%);
+    background:    -moz-linear-gradient(top, #fff 0%, #f2f2f2 100%);
+    background:     -ms-linear-gradient(top, #fff 0%, #f2f2f2 100%);
+    background:      -o-linear-gradient(top, #fff 0%, #f2f2f2 100%);
+    background:         linear-gradient(to bottom, #fff 0%, #f2f2f2 100%);
+    border-color: #ccc;
+    color: #9dbbd9;
+    text-shadow: none;
+}
+
+
+/* Cross-component integration
+---------------------------------------------------------------------- */
+/* Icons Integration
+----------- */
+
+.wfui-button.wfui-button-compact .wfui-icon {
+    margin-top: -1px; /* icon is 1px off, adjust it so it is centered */
+}
+
+/* Dropdown3 button integration
+---------- */
+.wfui-button.wfui-dropdown3-trigger:first-child.active,
+.wfui-button.wfui-dropdown3-trigger.active {
+    /* square off bottom corners */
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-width: 0; /* avoid double border when the dropdown is active - increase padding to cater for this reduction */
+    padding-bottom: 5px; /* increase the padding to cater for the lack of border so the button doesn't change size */
+}
+.wfui-button-link.wfui-dropdown3-trigger:first-child.active,
+.wfui-button-link.wfui-dropdown3-trigger.active {
+    border-bottom-width: 1px;
+    box-shadow: none;
+    padding-bottom: 5px;
+}
+
+.wfui-buttons .wfui-button.wfui-button-subtle.wfui-dropdown3-trigger.active,
+.wfui-button.wfui-button-subtle.wfui-dropdown3-trigger.active {
+    border-color: #ccc;
+}
+.wfui-button.wfui-button-subtle.wfui-dropdown3-trigger:hover {
+    border-color: #999;
+}
+
+.wfui-button.wfui-dropdown3-trigger {
+    padding-right: 23px !important; /* 8px (arrow width) + 10px (right padding) + 5px (margin between arrow and logo) */
+    position: relative;
+}
+/*KT added feb25/2016 for wfui-dropdown3-trigger up arrow*/
+.wfui-button.wfui-dropdown3-trigger-active {
+    padding-right: 23px !important; /* 8px (arrow width) + 10px (right padding) + 5px (margin between arrow and logo) */
+    position: relative;
+}
+
+/* Compact Dropdown3 Trigger */
+.wfui-button.wfui-button-compact.wfui-dropdown3-trigger {
+    padding-right: 21px !important; /* 8px (arrow width) + 8px (right padding) + 5 (margin between arrow and logo) */
+}
+
+.wfui-button.wfui-button-compact.wfui-dropdown3-trigger:after {
+    margin-left: -16px; /*  Override the margin-left from below for to compensate for the smaller padding-right */
+}
+
+.wfui-button.wfui-button-compact.wfui-dropdown3-trigger:after {
+    top: 11px; /* position the top of the arrow in the middle - 26px (height) / 2 (halfway) - 2 (arrow height) */
+}
+/* adjust padding for smaller height */
+.wfui-button.wfui-dropdown3-trigger.wfui-button-compact:first-child.active,
+.wfui-button.wfui-dropdown3-trigger.wfui-button-compact.active {
+    padding-bottom: 3px; /* increase the padding to cater for the lack of border so the button doesn't change size */
+}
+
+/* End Compact Dropdown3 Trigger */
+
+/* Arrowless dropdown3 trigger */
+.wfui-button.wfui-dropdown3-trigger-arrowless {
+    padding-right:10px !important;
+}
+
+.wfui-button.wfui-button-compact.wfui-dropdown3-trigger-arrowless {
+    padding-right:8px !important;
+}
+
+.wfui-button.wfui-dropdown3-trigger-arrowless:after {
+    display:none;
+}
+/* end Arrowless dropdown3 trigger */
+
+
+.wfui-button.wfui-dropdown3-trigger:after {
+    border: 4px solid transparent;
+    content: "";
+    height: 0;
+    left: 100%; /* "left" + "margin-left" required because of webkit not working properly with "right" */
+    margin-left: -18px; /* push the arrow back inside the button */
+    margin-top: -2px;
+    opacity: 0.8;
+    position: absolute;
+    top: 50%;
+    width: 0;
+}
+/* arrow points upwards when dropdown open */
+.wfui-button.wfui-dropdown3-trigger-active:after{
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid black;
+    content: "";
+    height: 0;
+    left: 100%; /* "left" + "margin-left" required because of webkit not working properly with "right" */
+    margin-left: -18px; /* push the arrow back inside the button */
+    margin-top: -2px;
+    opacity: 0.8;
+    position: absolute;
+    top: 50%;
+    width: 0;
+}
+
+
+.wfui-button.wfui-dropdown3-trigger:after,
+.wfui-buttons .wfui-button.wfui-button-primary.wfui-dropdown3-trigger:after {
+    border-top-color: #333;
+}
+.wfui-button.wfui-button-primary.wfui-dropdown3-trigger:after {
+    border-top-color: #fff;
+}
+.wfui-button.wfui-dropdown3-trigger:hover:after,
+.wfui-button.wfui-dropdown3-trigger.active:after {
+    opacity: 1;
+}
+
+.wfui-button.wfui-dropdown3-trigger:after {
+    margin-top: 0;  /* make sure no margins intefere with the positioning*/
+    top: 13px;  /* position the top of the arrow in the middle - 30px (height) / 2 (halfway) - 2 (arrow height)*/
+}
+
+/* suppress old icon pattern for dropdown widget so we don't get double arrows */
+.wfui-button.wfui-dropdown3-trigger > .icon-dropdown,
+.wfui-button.wfui-dropdown3-trigger > .wfui-icon-dropdown {
+    display: none;
+}
+
+/* INPUT does not play with :after - dropdown3 does not support arrow styles for INPUT buttons */
+input.wfui-button.wfui-dropdown3-trigger {
+    padding-right: 10px !important; /* someone used important now we're all doomed */
+}
+input.wfui-button.wfui-dropdown3-trigger:after {
+    display: none;
+}
+
+/* Dropdown3-only / Split Button
+---------- */
+.wfui-button.wfui-dropdown3-trigger.wfui-button-split-more,
+.wfui-button.wfui-dropdown3-trigger.wfui-button-split-more.active {
+    /* don't touch vertical padding or things jump around, jump around, jump up jump up and get down */
+    padding-left: 5px;
+    padding-right: 10px;
+    text-align: left;
+    text-indent: -9999em;
+}
+
+/* remove the element border... */
+.wfui-button-split-main {
+    border-right: 0;
+}
+
+.wfui-button.wfui-dropdown3-trigger.wfui-button-split-more:hover {
+    border-left: 0;
+    margin-left: 0;
+}
+
+/* ...then replace it with a border on a pseudo element so we can control the height. */
+.wfui-button.wfui-dropdown3-trigger.wfui-button-split-more:before {
+    border-left: 1px solid #ccc;
+    bottom: 4px;
+    content: "";
+    display: block;
+    left: 0;
+    position: absolute;
+    top: 4px;
+}
+
+/* ...then extend it to full height border on hover */
+.wfui-button.wfui-button-split-main:hover + .wfui-button.wfui-dropdown3-trigger.wfui-button-split-more:before,
+.wfui-button.wfui-dropdown3-trigger.wfui-button-split-more.active:hover:before,
+.wfui-button.wfui-dropdown3-trigger.wfui-button-split-more.active:before,
+.wfui-button.wfui-dropdown3-trigger.wfui-button-split-more:hover:before {
+    border-left-color: #999; /* dark border for hover. */
+    bottom: -1px; /* -1 to pull it out over the border */
+    top: -1px; /* -1 to pull it out over the border */
+}
+/* ...and change the colour on dropdown .active */
+.wfui-button.wfui-dropdown3-trigger.wfui-button-split-more.active:before {
+    border-left-color: #ccc; /* lighter border for dropdown-active */
+}
+
+
+
+
+/* split button pair with action button and dropdown button */
+.wfui-btn-group-container {
+    width: auto;
+    display:inline-block;
+    position: relative;
+}
+.wfui-btn-group-container ~ .wfui-btn-group-container {
+    margin-left: 10px;
+}
+.wfui-button.wfui-btn-group-dropdownButton {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    margin-left: 0;
+    display: inline-block;
+    z-index:0;
+    position: relative;
+    padding-left: 5px;
+    float:left;
+}
+.wfui-button ~ .wfui-button.wfui-btn-group-dropdownButton{
+    margin-left: 0;
+}
+.wfui-btn-group-dropdown:hover,
+.wfui-btn-group-dropdown:focus  {
+    z-index: 1;
+}
+.wfui-button.wfui-btn-group-actionButton {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    margin-right: -1px;
+    display: inline-block;
+    z-index:0;
+    position: relative;
+    float:left;
+}
+.wfui-btn-group-actionButton:hover,
+.wfui-btn-group-actionButton:focus {
+    z-index: 1;
+}
+
+
+/* App Header Buttons and Split Button
+---------- */
+.wfui-header .wfui-nav .wfui-button,
+.wfui-header .wfui-nav .wfui-button-primary {
+    margin: 5px 0 0 10px;
+}
+
+.wfui-header .wfui-nav .wfui-button-split-main {
+    margin-right: 0;
+}
+
+/* long selector set required to avoid a jump in non-hover focus */
+.wfui-header .wfui-nav .wfui-buttons .wfui-button ~ .wfui-button:hover, 
+.wfui-header .wfui-nav .wfui-buttons .wfui-button ~ .wfui-button:focus, 
+.wfui-header .wfui-nav .wfui-buttons .wfui-button ~ .wfui-button:active,
+.wfui-header .wfui-nav .wfui-button-split-more {
+    margin-left: 0;
+}
+
+.wfui-header .wfui-nav .wfui-button-primary,
+.wfui-header .wfui-nav .wfui-button-primary:link,
+.wfui-header .wfui-nav .wfui-button-primary:visited {
+    background: #336ea9;
+    background-image: -moz-linear-gradient(top, #3b7fc4, #336ea9);
+    background-image: -ms-linear-gradient(top,  #3b7fc4, #336ea9);
+    background-image: -webkit-linear-gradient(top,  #3b7fc4, #336ea9);
+    background-image: -o-linear-gradient(top,  #3b7fc4, #336ea9);
+    background-image: linear-gradient(top,  #3b7fc4, #336ea9);
+    border: 0;
+    box-shadow: rgba(255, 255, 255, 0.1) 0 1px 0 0 inset, rgba(0, 0, 0, 0.2) 0 1px 1px 0;
+    color: #fff;    
+    text-shadow: 0 1px 0 #295989;
+}
+
+.wfui-header .wfui-nav .wfui-button.wfui-button-primary:focus,
+.wfui-header .wfui-nav .wfui-button.wfui-button-primary:hover {
+    background: #2D5F9C;
+    background-image: -moz-linear-gradient(top, #4796e6, #3773af);
+    background-image: -ms-linear-gradient(top, #4796e6, #3773af);
+    background-image: -webkit-linear-gradient(top, #4796e6, #3773af);
+    background-image: -o-linear-gradient(top, #4796e6, #3773af);
+    background-image: linear-gradient(top, #4796e6, #3773af);
+    color: #fff;    
+}
+
+.wfui-header .wfui-nav .wfui-button.wfui-button-primary:active,
+.wfui-header .wfui-nav .wfui-button.wfui-button-primary.active {
+    background-color: #3572b0;
+    background-image: none;
+}
+
+.wfui-header .wfui-nav .wfui-buttons .wfui-button-primary.wfui-dropdown3-trigger:after {
+    border-top-color: #fff;
+}
+
+.wfui-header .wfui-button-primary.wfui-dropdown3-trigger.wfui-button-split-more.active {
+    top: -1px;
+}
+
+.wfui-header .wfui-button-primary.wfui-button-split-main:hover + .wfui-button.wfui-dropdown3-trigger.wfui-button-split-more:before,
+.wfui-header .wfui-button-primary.wfui-dropdown3-trigger.wfui-button-split-more.active:hover:before,
+.wfui-header .wfui-button-primary.wfui-dropdown3-trigger.wfui-button-split-more.active:before,
+.wfui-header .wfui-button-primary.wfui-dropdown3-trigger.wfui-button-split-more:hover:before,
+.wfui-header .wfui-button-primary.wfui-dropdown3-trigger.wfui-button-split-more:before {
+    border-color: #1f4e7e;
+    bottom: 0;
+    top: 0;
+}

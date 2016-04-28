@@ -25,6 +25,8 @@
     width: 80%;
     text-align: left;
     float: left; }
+  .wfui-description--theme-error {
+    border: 1px solid #c62828; }
   .wfui-description__imageContainer {
     display: table-cell;
     width: 20%;
@@ -116,6 +118,9 @@
 
 .wfui-input-field__prefix {
   margin-right: 5px; }
+
+.wfui-input-field--theme-error {
+  border: 1px solid #c62828; }
 .wfui-input-table p, .wfui-input-table ul {
   margin: 0; }
 
@@ -217,8 +222,3 @@
     height: 30px;
     border-radius: 30px;
     border: 0px solid #000; }
-/*
-.error {
-    border: 1px solid #c62828;
-}
-*/
