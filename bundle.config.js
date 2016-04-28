@@ -2,9 +2,10 @@ WFUIJS = WFUIJS || {}
 WFUIJS.modules = WFUIJS.modules || {}
 window.React = require('react');
 window.ReactDOM = require('react-dom');
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 window.WFUIJS.modules.createStore = createStore;
+window.WFUIJS.modules.combineReducers = combineReducers;
 window.WFUIJS.modules.Provider = Provider;
 
 window.WFUIJS.modules.EventEmitter = require('events').EventEmitter;

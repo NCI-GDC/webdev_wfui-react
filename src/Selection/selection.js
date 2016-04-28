@@ -11,12 +11,12 @@ class Selection extends Component {
     }else{
       this.refs.selection.checked = !this.refs.selection.checked;
     }
-
     //Pass data to a callback.
     if(this.props.onHandleChange){
       var res = {
         checked: this.refs.selection.checked,
-        value: this.refs.selection.value
+        value: this.refs.selection.value,
+        name: this.refs.selection.name
       }
       this.props.onHandleChange(res);
     }

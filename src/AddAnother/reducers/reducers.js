@@ -14,12 +14,41 @@ const { addAnotherAction, editAnotherAction, removeAnotherAction } = actions;
  * Reducers
  **/
 
+/**
+ * Recursively iterate through children and change input field name ( In order to distinguish each fields )
+ */
+const renameFieldName = (props, postfix) => {
+  var _props = Object.assign({}, props);
+  Object.keys(_props).map(function(key, i){
+    if(key === 'children'){
+      _props[key] = _props[key].map(function(child, j){
+        return React.cloneElement(child, renameFieldName(child.props, postfix));
+      });
+    }else if(key === 'name'){
+      _props[key] += '_'+postfix;
+    }
+  });
+  return _props;
+}
+
 const anotherReducer = (state, action) => {
   switch(action.type){
       case 'ADD_ANOTHER':
+
+        let newComponent;
+        if(action.component.length === undefined){
+          let newProps = renameFieldName(action.component.props, action.id);
+          newComponent = React.cloneElement(action.component, newProps);
+        }else{
+          newComponent = action.component.map(function(component, i){
+            let props = renameFieldName(component.props, action.id);
+            props.key = i;
+            return React.cloneElement(component, props);
+          });
+        }
         return {
           id: action.id,
-          component: action.component,
+          component: newComponent,
           edited: false
         }
       case 'EDIT_ANOTHER':
@@ -61,58 +90,6 @@ const anothersReducer = (state = [], action) => {
   }
   return state;
 }
-
-const todoReducer = (state, action) => {
-  switch (action.type) {
-    case 'ADD_TODO':
-      return {
-        id: action.id,
-        text: action.text,
-        completed: false
-      };
-    case 'TOGGLE_TODO':
-      if (state.id !== action.id) {
-        return state;
-      }
-
-      return {
-        ...state,
-        completed: !state.completed
-      };
-    default:
-      return state;
-  }
-};
-const todosReducer = (state = [], action) => {
-  switch (action.type) {
-    case 'ADD_TODO':
-      return [
-        ...state,
-        todoReducer(undefined, action)
-      ];
-    case 'TOGGLE_TODO':
-      return state.map(t =>
-        todoReducer(t, action)
-      );
-    default:
-      return state;
-  }
-};
-const visibilityFilterReducer = (
-  state = 'SHOW_ALL',
-  action
-) => {
-  switch (action.type) {
-    case 'SET_VISIBILITY_FILTER':
-      return action.filter;
-    default:
-      return state;
-  }
-};
-const todoAppReducers = combineReducers({
-  todosReducer,
-  visibilityFilterReducer
-});
 
 const anothersReducers = combineReducers({
   anothersReducer
