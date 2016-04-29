@@ -1,0 +1,41 @@
+.wfui-layer {
+    background-color: transparent;
+    position: fixed;
+    z-index: 3000;
+    top: 100px; /* ADG default */
+
+    height: 80%; /* Fallback for older browsers */
+    height: -webkit-calc(100% - 200px);
+    height: calc(100% - 200px);
+}
+
+.wfui-layer-centered-x {
+    /* Assumes an explicit width is set */
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.wfui-layer[aria-hidden="true"] {
+    display: none;
+}
+
+
+/*
+ * Styles for WFUI docs
+ * by Koji Nov,2015
+ */
+.wfui_document{
+    border: 1px solid #ccc;
+    width: 500px;
+    margin-bottom: 30px;
+}
+.wfui_document th{
+    font-size: 10px;
+    background: #f5f5f5;
+}
+.wfui_document pre{
+    height: 300px;
+    overflow: scroll;
+}

@@ -23,6 +23,9 @@ window.WFUIJS.modules.AppDispatcher = WFUIJS.modules.assign(new Dispatcher(), {
     }
 });
 
+/**
+ * Form components
+ */
 require('./src/Description/description.scss');
 window.WFUIJS.modules.Description = require('./src/Description/description.js').default;
 
@@ -44,3 +47,23 @@ window.WFUIJS.modules.Listbox = require('./src/Listbox/listbox.js').default;
 require('./src/AddAnother/add_another.scss');
 window.WFUIJS.modules.AnotherTable = require('./src/AddAnother/add_another.js').default;
 window.WFUIJS.modules.AddAnotherReducer = require('./src/AddAnother/reducers/reducers').default;
+
+/**
+ * Old WFUI Components
+ */
+//Icon
+require('./src/Icon/icon.js');
+
+//Button
+require('./src/Button/button.scss');
+require('./src/Button/button.js');
+
+//Dialog
+require('./src/Dialog/dialog.js');
+require('./legacy/css/wfui-layer.0.scss');
+require('./src/Dialog/dialog.scss');
+require('./src/Dialog/dialog2.scss');
+
+//Dropdown
+require('./src/Dropdown/dropdown.scss');
+require('./src/Dropdown/dropdown.js');

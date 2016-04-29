@@ -1,4 +1,3 @@
-import React from 'react';
 WFUIJS.RCT = WFUIJS.RCT || {};
 WFUIJS.RCT.Button_1 = React.createClass({
 

@@ -1,0 +1,317 @@
+/**
+ * PAGE LAYOUT
+ */
+.wfui-header {
+    clear: both;
+    float: left;
+    width: 100%;
+}
+
+#content {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    clear: both;
+    position: relative;
+}
+
+#content:before {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/**
+ * GROUP/ITEM
+ */
+
+.wfui-group {
+    display: table;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-spacing: 0;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.wfui-group > .wfui-item {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: table-cell;
+    margin: 0;
+    vertical-align: top;
+}
+
+.wfui-group > .wfui-item + .wfui-item {
+    padding-left: 20px;
+}
+
+/* defensive header allowance */
+.wfui-layout .wfui-group > header {
+    display: table-caption;
+}
+
+/* .wfui-group-split: two items; alignment is left, then right (splits the layout). */
+.wfui-group.wfui-group-split > .wfui-item {
+    text-align: right;
+}
+.wfui-group.wfui-group-split > .wfui-item:first-child {
+    text-align: left;
+}
+
+/* .wfui-group-trio: three items; alignment is left, center, right */
+.wfui-group.wfui-group-trio > .wfui-item {
+    text-align: left;
+}
+.wfui-group.wfui-group-trio > .wfui-item + .wfui-item {
+    text-align: center;
+}
+.wfui-group.wfui-group-trio > .wfui-item + .wfui-item + .wfui-item {
+    text-align: right;
+}
+
+/**
+ * DEFAULT THEME SPACING
+ */
+
+#content {
+    margin: 0;
+    padding: 0;
+}
+
+/**
+ * PAGE DESIGN
+ */
+body {
+    background: #f5f5f5;
+    color: #333;
+}
+
+a {
+    color: #3b73af;
+    text-decoration: none;
+}
+a:focus,
+a:hover,
+a:active {
+    text-decoration: underline;
+}
+
+/**
+ * CONTENT PANEL
+ */
+#content > .wfui-panel {
+    background: #fff;
+    margin: 20px 0 0 0;
+    padding: 20px;
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 1px 0;
+}
+
+#content > .wfui-page-header {
+    padding: 20px;
+}
+#content > .wfui-page-header + .wfui-panel {
+    margin-top: 0;
+}
+
+#content > .wfui-page-header:first-child {
+    margin-top: 0;
+}
+.wfui-panel + .wfui-panel {
+    margin-top: 20px;
+}
+
+/*! AUI Page Panel */
+.wfui-page-panel {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-left-width: 0;
+    border-right-width: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    clear: both;
+    display: block;
+    margin: 20px 0 0 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+}
+.wfui-page-panel-inner {
+    border-spacing: 0;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+.wfui-page-panel-nav,
+.wfui-page-panel-content,
+.wfui-page-panel-item,
+.wfui-page-panel-sidebar {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: table-cell;
+    padding: 20px;
+    vertical-align: top;
+}
+.wfui-page-panel-nav {
+    border-right: 1px solid #ccc;
+    width: 240px;
+}
+.wfui-page-panel-sidebar {
+    width: 35%;
+}
+.wfui-page-panel-item {
+    padding: 0;
+}
+.wfui-page-panel-nav ~ .wfui-page-panel-sidebar {
+    width: 30%;
+}
+/* Page Panel Interops */
+.wfui-page-header + .wfui-page-panel,
+.wfui-navbar + .wfui-page-panel {
+    margin-top: 0;
+}
+.wfui-navbar + .wfui-page-panel {
+    border-top: none;
+}
+.wfui-page-panel-nav > .wfui-nav-vertical {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+/**
+ * Page variations
+ */
+.wfui-page-focused .wfui-page-header,
+.wfui-page-focused .wfui-page-panel,
+.wfui-page-focused #footer .footer-body,
+.wfui-page-fixed .wfui-header-inner,
+.wfui-page-fixed .wfui-page-header-inner,
+.wfui-page-fixed .wfui-navgroup-horizontal .wfui-navgroup-inner,
+.wfui-page-fixed .wfui-page-panel-inner,
+.wfui-page-fixed #footer .footer-body,
+.wfui-page-hybrid .wfui-page-header,
+.wfui-page-hybrid .wfui-navgroup-horizontal .wfui-navgroup-inner,
+.wfui-page-hybrid .wfui-page-panel-inner,
+.wfui-page-hybrid #footer .footer-body {
+    margin-left: auto;
+    margin-right: auto;
+    width: 980px;
+}
+
+/* extra width so left edge of hoverable content aligns with left edge of content while inactive. On hover, the hover affordance does extend outside the alignment but this looks better than the other way around. */
+.wfui-page-fixed .wfui-header-inner,
+.wfui-page-hybrid .wfui-navgroup-horizontal .wfui-navgroup-inner,
+.wfui-page-fixed .wfui-navgroup-horizontal .wfui-navgroup-inner {
+    width: 1000px; 
+}
+
+.wfui-page-focused-small .wfui-page-header,
+.wfui-page-focused-small .wfui-page-panel,
+.wfui-page-focused-small #footer .footer-body {
+    width: 400px;
+}
+.wfui-page-focused-medium .wfui-page-header,
+.wfui-page-focused-medium .wfui-page-panel,
+.wfui-page-focused-medium #footer .footer-body {
+    width: 600px;
+}
+.wfui-page-focused-large .wfui-page-header,
+.wfui-page-focused-large .wfui-page-panel,
+.wfui-page-focused-large #footer .footer-body {
+    width: 800px;
+}
+.wfui-page-focused-xlarge .wfui-page-header,
+.wfui-page-focused-xlarge .wfui-page-panel,
+.wfui-page-focused-xlarge #footer .footer-body {
+    width: 980px;
+}
+
+
+.wfui-page-focused .wfui-page-panel {
+    border-width: 1px;
+    border-radius: 5px;
+}
+
+.wfui-page-fixed .wfui-page-panel-inner,
+.wfui-page-fixed #content > .wfui-page-header {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.wfui-page-fixed .wfui-page-panel-nav:first-child, 
+.wfui-page-fixed .wfui-page-panel-content:first-child, 
+.wfui-page-fixed .wfui-page-panel-item:first-child, 
+.wfui-page-fixed .wfui-page-panel-sidebar:first-child,
+.wfui-page-hybrid .wfui-page-panel-nav:first-child, 
+.wfui-page-hybrid .wfui-page-panel-content:first-child, 
+.wfui-page-hybrid .wfui-page-panel-item:first-child, 
+.wfui-page-hybrid .wfui-page-panel-sidebar:first-child {
+    padding-left: 0;
+}
+.wfui-page-fixed .wfui-page-panel-nav:last-child, 
+.wfui-page-fixed .wfui-page-panel-content:last-child, 
+.wfui-page-fixed .wfui-page-panel-item:last-child, 
+.wfui-page-fixed .wfui-page-panel-sidebar:last-child,
+.wfui-page-hybrid .wfui-page-panel-nav:last-child, 
+.wfui-page-hybrid .wfui-page-panel-content:last-child, 
+.wfui-page-hybrid .wfui-page-panel-item:last-child, 
+.wfui-page-hybrid .wfui-page-panel-sidebar:last-child {
+    padding-right: 0;
+}
+
+/* reset to 100% inside page panel */
+.wfui-page-panel .wfui-page-header {
+    width: auto;
+}
+.wfui-page-panel .wfui-page-header-inner {
+    width: 100%;
+}
+
+
+/**
+ * TABS AS FIRST CHILD IN CONTENT
+ * Explicitly sets bg to white, changes horizontal hovers to work on grey.
+ * Remember these extend the standard component styles.
+ */
+
+#content > .wfui-tabs {
+    margin: 20px;
+    background: transparent;
+}
+
+#content > .wfui-tabs > .tabs-pane {
+    padding: 20px;
+}
+
+#content > .wfui-tabs.horizontal-tabs > .tabs-pane {
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    background: #fff;
+}
+
+#content > .wfui-tabs.horizontal-tabs > .tabs-menu {
+    display: table; /* stops a gap appearing */
+}
+
+/**
+ * AUI Forms inside of a focused page
+ */
+
+.wfui-page-focused .wfui-page-panel-content > h2:first-child {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+.wfui-page-focused .wfui-page-panel-content > form.wfui .buttons-container {
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
+    padding-top: 20px;
+}

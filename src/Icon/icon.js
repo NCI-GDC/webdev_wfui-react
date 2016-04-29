@@ -1,4 +1,3 @@
-import React from 'react';
 WFUIJS.RCT = WFUIJS.RCT || {};
 WFUIJS.RCT.Icon_2 = React.createClass({
   render: function() {
