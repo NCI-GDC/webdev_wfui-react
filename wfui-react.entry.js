@@ -1,18 +1,20 @@
 WFUIJS = WFUIJS || {}
 WFUIJS.modules = WFUIJS.modules || {}
+
+//React
 window.React = require('react');
 window.ReactDOM = require('react-dom');
+
+//Redux
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 window.WFUIJS.modules.createStore = createStore;
 window.WFUIJS.modules.combineReducers = combineReducers;
 window.WFUIJS.modules.Provider = Provider;
 
+//Flux
 window.WFUIJS.modules.EventEmitter = require('events').EventEmitter;
 window.WFUIJS.modules.assign = require('object-assign');
-window.WFUIJS.modules.FixedDataTable = require('fixed-data-table');
-window.WFUIJS.modules.ReactCSSTransitionGroup = require('react-addons-css-transition-group');
-window.WFUIJS.modules.ReactRouter = require('react-router');
 var Dispatcher = require('flux').Dispatcher;
 window.WFUIJS.modules.AppDispatcher = WFUIJS.modules.assign(new Dispatcher(), {
     handleViewAction: function(action){
@@ -22,6 +24,14 @@ window.WFUIJS.modules.AppDispatcher = WFUIJS.modules.assign(new Dispatcher(), {
         });
     }
 });
+
+//Fixed Data Table
+window.WFUIJS.modules.FixedDataTable = require('fixed-data-table');
+
+//Utilities
+require('./legacy/wfui-rct/util.js');
+window.WFUIJS.modules.ReactRouter = require('react-router');
+window.WFUIJS.modules.ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 /**
  * Form components
@@ -46,7 +56,14 @@ require('./src/Icon/icon.js');
 require('./src/Button/button.js');
 
 //Dialog
+require('./legacy/wfui-widget.0.js');
+require('./legacy/wfui-browser.0.js');
+require('./legacy/wfui-blanket.0');
+require('./legacy/wfui-layer.0.js');
 require('./src/Dialog/dialog.js');
 
 //Dropdown
 require('./src/Dropdown/dropdown.js');
+
+//Tabs
+require('./src/Tabs/tabs');

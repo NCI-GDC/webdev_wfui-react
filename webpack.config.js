@@ -2,7 +2,7 @@ var Promise = require('es6-promise').Promise; //To polyfill css-loader promise
 var ExtractTextPlugin = require("extract-text-webpack-plugin"); //To 
 
 module.exports = {
-  entry: ['./wfui-react.bundle.js', './wfui-react.bundle_css.js'],
+  entry: ['./wfui-base.entry.js','./wfui-react.entry.js', './wfui-react-css.entry.js'],
   output: {
     path: './dist/',
     filename: 'wfui_bundle.js'

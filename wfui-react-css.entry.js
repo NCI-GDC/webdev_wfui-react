@@ -1,3 +1,6 @@
+require('./legacy/css/fixed-data-table.min.scss');
+require('./legacy/css/react_animations.scss');
+
 require('./src/Description/description.scss');
 require('./src/InputField/input_field.scss');
 require('./src/InputTable/input_table.scss');
@@ -18,3 +21,6 @@ require('./src/Dialog/dialog2.scss');
 
 //Dropdown
 require('./src/Dropdown/dropdown.scss');
+
+//Tabs
+require('./src/Tabs/tabs.scss');
