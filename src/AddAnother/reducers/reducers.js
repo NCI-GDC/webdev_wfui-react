@@ -104,4 +104,9 @@ const anothersReducers = combineReducers({
   anothersReducer
 });
 
-export default anothersReducers
+export default {
+  _renameFieldName: renameFieldName,
+  _anotherReducer: anotherReducer,
+  _anothersReducer: anothersReducer,
+  AddAnotherReducer: anothersReducers
+}

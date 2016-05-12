@@ -41914,7 +41914,12 @@
 	  anothersReducer: anothersReducer
 	});
 
-	exports.default = anothersReducers;
+	exports.default = {
+	  _renameFieldName: renameFieldName,
+	  _anotherReducer: anotherReducer,
+	  _anothersReducer: anothersReducer,
+	  AddAnotherReducer: anothersReducers
+	};
 
 /***/ },
 /* 326 */
