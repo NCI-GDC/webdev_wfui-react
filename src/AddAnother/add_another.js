@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import actions from '../../src/AddAnother/actions/action_creators';
 const { addTodoAction, toggleTodoAction, setVisibilityFilterAction } = actions;
-const { addAnotherAction, editAnotherAction, removeAnotherAction } = actions;
+const { initAnotherAction, addAnotherAction, editAnotherAction, removeAnotherAction } = actions;
 
 /**
  * Presentation Components
@@ -47,7 +47,7 @@ let AnotherList = ({ anothers, tableLabel }) => {
 
 
 let AddAnother = ({ dispatch, children, buttonLabel }) => {
-  dispatch(addAnotherAction(children));
+  dispatch(initAnotherAction(children));
   return (
     <div className="wfui-add-another__add">
       <button onClick={(e) => {

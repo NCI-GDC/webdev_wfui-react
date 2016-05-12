@@ -34,7 +34,6 @@ const renameFieldName = (props, postfix) => {
 const anotherReducer = (state, action) => {
   switch(action.type){
       case 'ADD_ANOTHER':
-
         let newComponent;
         if(action.component.length === undefined){
           let newProps = renameFieldName(action.component.props, action.id);
@@ -64,6 +63,16 @@ const anotherReducer = (state, action) => {
 }
 const anothersReducer = (state = [], action) => {
   switch(action.type){
+      case 'INIT_ANOTHER':
+        if(state.length == 0){
+          return [
+            ...state,
+            anotherReducer(undefined, Object.assign({}, action, {type:"ADD_ANOTHER"}))
+          ];
+        }else{
+          return state;
+        }
+        break;
       case 'ADD_ANOTHER':
         return [
           ...state,

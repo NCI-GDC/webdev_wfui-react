@@ -7,6 +7,13 @@ import { Provider, connect } from 'react-redux';
  * Action Creators
  **/
 let nextAnotherId = 0;
+const initAnotherAction = (component) => {
+  return {
+    type: 'INIT_ANOTHER',
+    id: nextAnotherId++,
+    component
+  };
+};
 const addAnotherAction = (component) => {
   return {
     type: 'ADD_ANOTHER',
@@ -51,6 +58,7 @@ const setVisibilityFilterAction = (filter) => {
 };
 
 export default {
+  initAnotherAction: initAnotherAction,
   addAnotherAction: addAnotherAction,
   editAnotherAction: editAnotherAction,
   removeAnotherAction: removeAnotherAction,
