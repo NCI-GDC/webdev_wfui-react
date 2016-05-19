@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-class Description extends Component {
+class Label extends Component {
 	render(){
 		var {name, content, is_link, href, is_closeable} = this.props;
 
@@ -41,4 +41,4 @@ class Description extends Component {
 	}
 }
 
-export default Description
+export default Label
