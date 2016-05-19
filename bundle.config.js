@@ -70,3 +70,6 @@ require('./src/Dropdown/dropdown.js');
 
 //Label
 require('./src/Label/label.js');
+
+//Label
+require('./src/Tooltip/tooltip.js');

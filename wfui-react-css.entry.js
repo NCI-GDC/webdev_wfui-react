@@ -27,3 +27,6 @@ require('./src/Tabs/tabs.scss');
 
 //Label
 require('./src/Label/label.scss');
+
+//Label
+require('./src/Tooltip/tooltip.scss');

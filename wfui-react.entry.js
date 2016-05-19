@@ -70,3 +70,6 @@ require('./src/Tabs/tabs');
 
 //Label
 require('./src/Label/label');
+
+//Tooltip
+require('./src/Tooltip/tooltip');
