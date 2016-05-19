@@ -67,3 +67,6 @@ require('./src/Dialog/dialog2.scss');
 //Dropdown
 require('./src/Dropdown/dropdown.scss');
 require('./src/Dropdown/dropdown.js');
+
+//Label
+require('./src/Label/label.js');

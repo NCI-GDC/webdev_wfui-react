@@ -67,3 +67,6 @@ require('./src/Dropdown/dropdown.js');
 
 //Tabs
 require('./src/Tabs/tabs');
+
+//Label
+require('./src/Label/label');
