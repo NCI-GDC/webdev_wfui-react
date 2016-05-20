@@ -24,3 +24,9 @@ require('./src/Dropdown/dropdown.scss');
 
 //Tabs
 require('./src/Tabs/tabs.scss');
+
+//Label
+require('./src/Label/label.scss');
+
+//Tooltip
+require('./src/Tooltip/tooltip.scss');
