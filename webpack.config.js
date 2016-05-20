@@ -10,11 +10,13 @@ module.exports = {
   module: {
     loaders: [
       {
+        exclude: /(node_modules|bower_components)/,
         test: /\.js$/,
         exclode: /node_modules/,
         loader: 'babel',
         query: {
-          presets: ['es2015','react']
+          plugins: ['transform-decorators-legacy' ],
+          presets: ['react', 'es2015','stage-0']
         }
       },
       {

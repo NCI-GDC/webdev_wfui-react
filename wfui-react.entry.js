@@ -1,9 +1,14 @@
 WFUIJS = WFUIJS || {}
 WFUIJS.modules = WFUIJS.modules || {}
 
+/*****************************************************************
+ * Third Party
+ *****************************************************************/
+
 //React
 window.React = require('react');
 window.ReactDOM = require('react-dom');
+window.update = require('react/lib/update');
 
 //Redux
 import { createStore, combineReducers } from 'redux';
@@ -25,13 +30,21 @@ window.WFUIJS.modules.AppDispatcher = WFUIJS.modules.assign(new Dispatcher(), {
     }
 });
 
-//Fixed Data Table
+//Fixed Data Table [ https://facebook.github.io/fixed-data-table/ ]
 window.WFUIJS.modules.FixedDataTable = require('fixed-data-table');
+
+//React Drag And Drop [ https://gaearon.github.io/react-dnd/ ]
+window.WFUIJS.modules.HTML5Backend = require('react-dnd-html5-backend');
+window.WFUIJS.modules.ReactDnD = require('react-dnd');
 
 //Utilities
 require('./legacy/wfui-rct/util.js');
 window.WFUIJS.modules.ReactRouter = require('react-router');
 window.WFUIJS.modules.ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+
+/*****************************************************************
+ * Own Components
+ *****************************************************************/
 
 /**
  * Form components
