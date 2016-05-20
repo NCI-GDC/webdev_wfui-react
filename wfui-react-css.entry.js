@@ -28,5 +28,5 @@ require('./src/Tabs/tabs.scss');
 //Label
 require('./src/Label/label.scss');
 
-//Label
+//Tooltip
 require('./src/Tooltip/tooltip.scss');
