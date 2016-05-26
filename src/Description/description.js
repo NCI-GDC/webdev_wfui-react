@@ -152,7 +152,7 @@ Description.propTypes = {
 }
 Description.defaultProps = {
   content: '',
-  type: '',
+  type: 'grey',
   classNames: '',
   imageSrc: '',
   imageDescription: '',
