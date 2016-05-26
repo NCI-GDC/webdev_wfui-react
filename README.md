@@ -1,8 +1,24 @@
 # WFUI React
 
 # Installation
+## Install peer dependencies
+```
+npm install react@^0.14.7
+npm install react-dom@^0.14.7
+```
+## Install other dependencies
 ```
 npm install
+```
+
+## Install budo
+```
+npm install -g budo
+```
+
+## Install Webpack 
+```
+npm install -g webpack
 ```
 
 # Run Component (hot reload)
@@ -11,17 +27,15 @@ npm start
 http://192.168.59.3:9966/
 ```
 
-# Build Bundle 
+# Bundle files with webpack
 ```
 webpack
 ```
 
-# Test Components
+# Run testing
 ```
 npm test
 ```
-
-
 
 # Notes
 If
