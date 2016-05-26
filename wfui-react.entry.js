@@ -64,6 +64,11 @@ window.WFUIJS.modules.BootStrap = {
     "Tabs": require('react-bootstrap/lib/Tabs'),
     "Popover": require('react-bootstrap/lib/Popover'),
     "Modal": require('react-bootstrap/lib/Modal'),
+    "Form": require('react-bootstrap/lib/Form'),
+    "FormGroup": require('react-bootstrap/lib/FormGroup'),
+    "FormControl": require('react-bootstrap/lib/FormControl'),
+    "Col": require('react-bootstrap/lib/Col'),
+    "ControlLabel": require('react-bootstrap/lib/ControlLabel'),
 }
 
 /**

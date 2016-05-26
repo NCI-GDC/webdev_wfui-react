@@ -110,13 +110,13 @@ const Popup = React.createClass({
             <Button onClick={this.close}>Close</Button>
           </Modal.Footer>
         </Modal>
+        
       </div>
     );
   }
 });
 
 ReactDOM.render(<Popup/>, document.getElementById("Overlays"));
-
 
 const tabsInstance = (
   <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">

@@ -8,12 +8,13 @@ class InputField extends Component {
     super();
   }
   onHandleChange(e){
-    if(this.props.onHandleChange){
-      this.props.onHandleChange(e);
+    const {onHandleChange, preview} = this.props;
+    if(onHandleChange && !preview){
+      onHandleChange(e);
     }
   }
   render() {
-    var {label, type, defaultValue, placeholder, postfix, prefix, name, className, errors} = this.props;
+    var {label, type, defaultValue, placeholder, postfix, prefix, name, className, errors, description, preview} = this.props;
     if(prefix){
       var prefixField = <span className="wfui-input-field__prefix">{prefix}</span>
     }
@@ -27,11 +28,14 @@ class InputField extends Component {
     }
 
     return (
-      <div className={"wfui-input-field wfui-input-field--"+ type + ' ' + className}>
-          <label className="wfui-input-field__label">{label}</label>
-          {prefixField}
-          <input className={"wfui-input-field__input"+ errorClassName} type={type} defaultValue={defaultValue} placeholder={placeholder} name={name} onChange={this.onHandleChange.bind(this)} />
-          {postfixField}
+      <div className={"wfui-input-field"}>
+        {description}
+        <div className={"wfui-input-field--"+ type + ' ' + className}>
+            <label className="wfui-input-field__label">{label}</label>
+            {prefixField}
+            <input className={"wfui-input-field__input"+ errorClassName} type={type} defaultValue={defaultValue} placeholder={placeholder} name={name} onChange={this.onHandleChange.bind(this)} disabled={preview} />
+            {postfixField}
+        </div>
       </div>
     )
   }
