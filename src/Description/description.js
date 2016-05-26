@@ -31,7 +31,10 @@ class Description extends Component {
 
   render() {
     var {content, type, imageSrc, imageDescription, classNames, errors} = this.props;
-    
+
+    if (!content){
+      return <noscript />
+    }
 
     var image_config = {
       onClick: this._onClickToggleViewImage,
@@ -87,9 +90,6 @@ class Description extends Component {
       //add appropriate id so we can track it
       this.PORTAL.setAttribute("id", "descriptionImagePortalId");
     }/* END IF IMAGESRC ====== */
-    
-
-
 
     //RENDER
     if (typeof(content) == 'string' && !imageSrc) {
@@ -152,7 +152,7 @@ Description.propTypes = {
 }
 Description.defaultProps = {
   content: '',
-  type: 'grey',
+  type: 'theme-grey',
   classNames: '',
   imageSrc: '',
   imageDescription: '',
