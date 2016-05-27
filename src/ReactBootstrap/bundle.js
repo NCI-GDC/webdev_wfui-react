@@ -10,7 +10,7 @@ import Modal from 'react-bootstrap/lib/Modal';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
-const css = require('../../dist/wfui_bundle.css');
+const css = require('../../dist/wfui.bundle.css');
 
 
 const BUTTONS = ['Default', 'Primary', 'Success', 'Info', 'Warning', 'Danger', 'Link'];

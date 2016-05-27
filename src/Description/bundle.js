@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Description from '../../src/Description/description';
-const css = require('../../dist/wfui_bundle.css');
+const css = require('../../dist/wfui.bundle.css');
 
 
 var htmlText1 = (

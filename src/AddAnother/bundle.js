@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import anothersReducers from '../../src/AddAnother/reducers/reducers';
 const { AddAnotherReducer } = anothersReducers;
 import AnotherTable from '../../src/AddAnother/add_another.js';
-const css = require('../../dist/wfui_bundle.css');
+const css = require('../../dist/wfui.bundle.css');
 import InputField from '../../src/InputField/input_field';
 import Grid from '../../src/Grid/grid';
 import Selection from '../../src/Selection/selection';

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Label from '../../src/Label/label';
-const css = require('../../dist/wfui_bundle.css');
+const css = require('../../dist/wfui.bundle.css');
 
 ReactDOM.render(
 	<Label name="label" content="content" is_link={true} href="http://www.google.ca" is_closeable={true} />

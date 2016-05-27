@@ -23,7 +23,7 @@ window.WFUIJS.modules.AppDispatcher = WFUIJS.modules.assign(new Dispatcher(), {
 require('../../src/Icon/icon');
 require('../../src/Dropdown/dropdown');
 require('../../src/Button/button');
-const css = require('../../dist/wfui_bundle.css');
+const css = require('../../dist/wfui.bundle.css');
 
 ReactDOM.render( 
     <WFUIJS.RCT.Button_1 data={

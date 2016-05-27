@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Selection from '../../src/Selection/selection';
 import InputTable from '../../src/InputTable/input_table';
 import InputField from '../../src/InputField/input_field';
-const css = require('../../dist/wfui_bundle.css');
+const css = require('../../dist/wfui.bundle.css');
 
 ReactDOM.render(
     <Selection label="Single, never married" name="selection1" value="2" />,

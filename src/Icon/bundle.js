@@ -7,7 +7,7 @@ require('../../legacy/wfui.js');
 require('../../legacy/wfui-jquery-noconflict.js');
 require('../../legacy/wfui-rct/util.js');
 require('../../src/Icon/icon');
-const css = require('../../dist/wfui_bundle.css');
+const css = require('../../dist/wfui.bundle.css');
 
 ReactDOM.render( <WFUIJS.RCT.Icon_2 data={{name: 'spinner', size: '1x', is_spinning:true}} />, document.getElementById('icon1'));
 ReactDOM.render( <WFUIJS.RCT.Icon_2 data={{name: 'envelope', size: '2x'}} />, document.getElementById('icon2'));

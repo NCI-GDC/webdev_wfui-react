@@ -5,7 +5,7 @@ import InputTable from '../../src/InputTable/input_table';
 import Description from '../../src/Description/description';
 import Listbox from '../../src/Listbox/listbox';
 import ListboxOption from '../../src/Listbox/listbox_option';
-const css = require('../../dist/wfui_bundle.css');
+const css = require('../../dist/wfui.bundle.css');
 
 let config = {
     label: "1. What is your weight measurement?",

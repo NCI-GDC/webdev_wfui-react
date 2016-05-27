@@ -7,6 +7,6 @@ require('../../legacy/wfui.js');
 require('../../legacy/wfui-jquery-noconflict.js');
 require('../../legacy/wfui-rct/util.js');
 require('../../src/Tabs/tabs');
-const css = require('../../dist/wfui_bundle.css');
+const css = require('../../dist/wfui.bundle.css');
 
 ReactDOM.render( <WFUIJS.RCT.Tabs_1 />, document.getElementById('tabs'));

@@ -47741,6 +47741,10 @@
 	      var errors = _props.errors;
 
 
+	      if (!content) {
+	        return _react2.default.createElement('noscript', null);
+	      }
+
 	      var image_config = {
 	        onClick: this._onClickToggleViewImage
 	      };
@@ -47862,7 +47866,7 @@
 	};
 	Description.defaultProps = {
 	  content: '',
-	  type: '',
+	  type: 'theme-grey',
 	  classNames: '',
 	  imageSrc: '',
 	  imageDescription: '',

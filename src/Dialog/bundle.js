@@ -16,7 +16,7 @@ require('../../legacy/wfui-layer.0.js');
 require('../../src/Icon/icon');
 require('../../src/Button/button');
 require('../../src/Dialog/dialog');
-const css = require('../../dist/wfui_bundle.css');
+const css = require('../../dist/wfui.bundle.css');
 
 class DialogTest extends React.Component{
     _close(){

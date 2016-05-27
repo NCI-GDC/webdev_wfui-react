@@ -5,7 +5,7 @@ import Grid from '../../src/Grid/grid';
 import Description from '../../src/Description/description';
 import InputField from '../../src/InputField/input_field';
 import InputTable from '../../src/InputTable/input_table';
-const css = require('../../dist/wfui_bundle.css');
+const css = require('../../dist/wfui.bundle.css');
 
 ReactDOM.render(
     <Grid 
