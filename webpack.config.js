@@ -5,7 +5,7 @@ module.exports = {
   entry: {
     wfui:['./wfui-base.entry.js','./wfui-react.entry.js', './wfui-react-css.entry.js'],
     wfui_base: ['./wfui-base.entry.js'],
-    wfui_react: ['./wfui-react-css.entry.js']
+    wfui_react: ['./wfui-react.entry.js']
   },
   output: {
     path: './dist/',
