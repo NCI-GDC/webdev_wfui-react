@@ -14,7 +14,7 @@ window.update = require('react/lib/update');
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
-window.WFUIJS.modules.Redux = require('react');
+window.WFUIJS.modules.Redux = require('redux');
 window.WFUIJS.modules.ReactRedux = require('react-redux');
 
 window.WFUIJS.modules.createStore = createStore;
