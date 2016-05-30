@@ -16,8 +16,8 @@ const { initAnotherAction, addAnotherAction, editAnotherAction, removeAnotherAct
 let Another = ({ dispatch, component, id }) => {
   return (
     <tr className="wfui-add-another__row">
-      <td className="wfui-add-another__col">{component}</td>
-      <td className="wfui-add-another__col wfui-add-another__remove">
+      <td className="wfui-add-another__col main-column">{component}</td>
+      <td className="wfui-add-another__col wfui-add-another__remove del-column">
       <Button onClick={(e)=>{
         dispatch(removeAnotherAction(id));
       }}>Delete</Button>
@@ -31,8 +31,8 @@ let AnotherList = ({ anothers, tableLabel }) => {
   if(anothers.length > 0){
     var header = (
       <tr className="wfui-add-another__row">
-        <th className="wfui-add-another__header">{tableLabel}</th>
-        <th className="wfui-add-another__header">Remove</th>
+        <th className="wfui-add-another__header main-column">{tableLabel}</th>
+        <th className="wfui-add-another__header del-column">Remove</th>
       </tr>
     )
   }
