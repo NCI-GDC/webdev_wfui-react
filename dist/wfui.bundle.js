@@ -5119,6 +5119,10 @@
 
 	//Redux
 
+
+	window.WFUIJS.modules.Redux = __webpack_require__(26);
+	window.WFUIJS.modules.ReactRedux = __webpack_require__(24);
+
 	window.WFUIJS.modules.createStore = _redux.createStore;
 	window.WFUIJS.modules.combineReducers = _redux.combineReducers;
 	window.WFUIJS.modules.Provider = _reactRedux.Provider;
@@ -48803,19 +48807,7 @@
 	  value: true
 	});
 
-	var _react = __webpack_require__(26);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(189);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
 	var _redux = __webpack_require__(10);
-
-	var _reactRedux = __webpack_require__(24);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/**
 	 * Action Creators
