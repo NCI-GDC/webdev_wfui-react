@@ -80,7 +80,7 @@
 	//Redux
 
 
-	window.WFUIJS.modules.Redux = __webpack_require__(26);
+	window.WFUIJS.modules.Redux = __webpack_require__(10);
 	window.WFUIJS.modules.ReactRedux = __webpack_require__(24);
 
 	window.WFUIJS.modules.createStore = _redux.createStore;
