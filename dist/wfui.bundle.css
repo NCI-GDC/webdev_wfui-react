@@ -540,15 +540,6 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main, .fixedDataTableColu
     padding: 10px;
     background: #eee;
     border: 1px solid #000; }
-  .wfui-add-another__remove {
-    text-align: center; }
-  .wfui-add-another__remove button {
-    background-color: #107FC9;
-    color: #fff;
-    width: 30px;
-    height: 30px;
-    border-radius: 30px;
-    border: 0px solid #000; }
 /* 
  * Note hover/disabled styles set directly as they are not precisely the same as
  * if we used straight opacity.

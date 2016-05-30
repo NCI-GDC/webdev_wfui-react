@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/lib/Button';
 import actions from '../../src/AddAnother/actions/action_creators';
 const { addTodoAction, toggleTodoAction, setVisibilityFilterAction } = actions;
 const { initAnotherAction, addAnotherAction, editAnotherAction, removeAnotherAction } = actions;
@@ -16,9 +17,11 @@ let Another = ({ dispatch, component, id }) => {
   return (
     <tr className="wfui-add-another__row">
       <td className="wfui-add-another__col">{component}</td>
-      <td className="wfui-add-another__col wfui-add-another__remove"><button onClick={(e)=>{
+      <td className="wfui-add-another__col wfui-add-another__remove">
+      <Button onClick={(e)=>{
         dispatch(removeAnotherAction(id));
-      }}>-</button></td>
+      }}>Delete</Button>
+      </td>
     </tr>
   )
 };
@@ -50,10 +53,11 @@ let AddAnother = ({ dispatch, children, buttonLabel }) => {
   dispatch(initAnotherAction(children));
   return (
     <div className="wfui-add-another__add">
-      <button onClick={(e) => {
+      <Button onClick={(e) => {
         e.preventDefault();
         dispatch(addAnotherAction(children));
-      }}>{buttonLabel}</button>
+      }}>+ {buttonLabel}
+      </Button>
     </div>
   );
 };

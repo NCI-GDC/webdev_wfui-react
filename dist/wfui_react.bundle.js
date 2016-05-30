@@ -43610,6 +43610,10 @@
 
 	var _reactRedux = __webpack_require__(24);
 
+	var _Button = __webpack_require__(510);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
 	var _action_creators = __webpack_require__(467);
 
 	var _action_creators2 = _interopRequireDefault(_action_creators);
@@ -43649,11 +43653,11 @@
 	      'td',
 	      { className: 'wfui-add-another__col wfui-add-another__remove' },
 	      _react2.default.createElement(
-	        'button',
+	        _Button2.default,
 	        { onClick: function onClick(e) {
 	            dispatch(removeAnotherAction(id));
 	          } },
-	        '-'
+	        'Delete'
 	      )
 	    )
 	  );
@@ -43704,11 +43708,12 @@
 	    'div',
 	    { className: 'wfui-add-another__add' },
 	    _react2.default.createElement(
-	      'button',
+	      _Button2.default,
 	      { onClick: function onClick(e) {
 	          e.preventDefault();
 	          dispatch(addAnotherAction(children));
 	        } },
+	      '+ ',
 	      buttonLabel
 	    )
 	  );
