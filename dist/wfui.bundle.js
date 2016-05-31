@@ -48323,13 +48323,8 @@
 	      var last = children.length - children.length % columnNumber;
 
 	      //check error flag for default
-	      var errorClassName = '';
 	      if (errors) {
-	        if (children.length % columnNumber == 0) {
-	          errorClassName += '--theme-error-border-all';
-	        } else {
-	          errorClassName += '--theme-error-border-parts';
-	        }
+	        var errorClassName = 'wfui-grid__main--error';
 	      }
 
 	      //Render rows and columns ( except last row if number of columns is different from columnNumber)
@@ -48347,7 +48342,7 @@
 	      });
 	      grid = _react2.default.createElement(
 	        'div',
-	        { className: "wfui-grid__container" + errorClassName },
+	        { className: "wfui-grid__container" },
 	        grid_rows.map(function (row, i) {
 	          return _react2.default.createElement(
 	            'div',
@@ -48374,7 +48369,7 @@
 	      });
 	      grid_last = _react2.default.createElement(
 	        'div',
-	        { className: "wfui-grid__container wfui-grid__container--last" + errorClassName },
+	        { className: "wfui-grid__container wfui-grid__container--last" },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'wfui-grid__row' },
@@ -48404,7 +48399,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: "wfui-grid__main " + errorClassName },
 	          grid,
 	          grid_last
 	        )

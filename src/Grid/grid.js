@@ -9,14 +9,8 @@ class Grid extends Component {
     var last = children.length -(children.length%columnNumber);
 
     //check error flag for default
-    var errorClassName = '';
     if(errors) {
-      if (children.length%columnNumber==0) {
-        errorClassName += '--theme-error-border-all';
-      }
-      else {
-        errorClassName += '--theme-error-border-parts';
-      }
+      var errorClassName = 'wfui-grid__main--error';
     }
     
     //Render rows and columns ( except last row if number of columns is different from columnNumber)
@@ -29,7 +23,7 @@ class Grid extends Component {
       }
     })
     grid = (
-      <div className={"wfui-grid__container"+errorClassName}>
+      <div className={"wfui-grid__container"}>
         {grid_rows.map(function(row, i){
           return (
             <div className="wfui-grid__row" key={i}>
@@ -51,7 +45,7 @@ class Grid extends Component {
       }
     })
     grid_last = (
-      <div className={"wfui-grid__container wfui-grid__container--last"+errorClassName}>
+      <div className={"wfui-grid__container wfui-grid__container--last"}>
         <div className="wfui-grid__row">
           {grid_rows_last.map(function(child, i){
             let className = "wfui-grid__column wfui-grid--col-"+grid_rows_last.length;
@@ -65,9 +59,9 @@ class Grid extends Component {
       <div className="wfui-grid">
           <label className="wfui-grid__label">{label}</label>
           <div className="wfui-grid__description">{description}</div>
-          <div>
-          {grid}
-          {grid_last}
+          <div className={"wfui-grid__main "+errorClassName}>
+            {grid}
+            {grid_last}
           </div>
       </div>
     )

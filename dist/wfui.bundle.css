@@ -482,23 +482,15 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main, .fixedDataTableColu
   .wfui-selection .wfui-input-table__form {
     border: none;
     padding: 0; }
-.wfui-grid__container, .wfui-grid__container--theme-error-border-all, .wfui-grid__container--theme-error-border-parts {
+.wfui-grid__container {
   display: table;
   border-collapse: collapse;
   width: 100%; }
-  .wfui-grid__container--theme-error-border-all {
-    border: 2px solid #c62828; }
-  .wfui-grid__container--theme-error-border-parts {
-    border: 2px solid #c62828;
-    border-bottom: none; }
+  .wfui-grid__container--last {
+    margin-top: -1px; }
 
-.wfui-grid__container--last--theme-error-border-parts {
-  border-right: 2px solid #c62828;
-  border-left: 2px solid #c62828;
-  border-bottom: 2px solid #c62828; }
-
-.wfui-grid__container--last .wfui-grid__column, .wfui-grid__container--last--theme-error-border-parts .wfui-grid__column {
-  border-top: 0px solid #000; }
+.wfui-grid__main--error {
+  border: 2px solid #c62828; }
 
 .wfui-grid__row {
   display: table-row; }
