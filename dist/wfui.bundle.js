@@ -48209,7 +48209,6 @@
 	      } else {
 	        this.refs.selection.checked = !this.refs.selection.checked;
 	      }
-	      this.setState({ active: this.refs.selection.checked });
 	      //Pass data to a callback.
 	      if (this.props.onHandleChange) {
 	        var res = {
@@ -48233,10 +48232,9 @@
 	      var className = _props.className;
 	      var active = this.state.active;
 
-	      var activeClass = active ? "active" : "";
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "wfui-selection " + activeClass + " " + className },
+	        { className: "wfui-selection " + className },
 	        _react2.default.createElement(
 	          "label",
 	          { className: "wfui-selection__label", onClick: this.onHandleClick.bind(this) },

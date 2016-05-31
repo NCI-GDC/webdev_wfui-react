@@ -18,15 +18,15 @@ ReactDOM.render(
         <Selection type="radio" label="Widowed" name="radios1" value="3" />
         <Selection type="radio" label="Separated" name="radios1" value="4" />
         <Selection type="radio" label="Single, never married" name="radios1" value="5" />
-        <Selection type="radio" label="Widowed" name="radios1" value="3" />
-        <Selection type="radio" label="Separated" name="radios1" value="4" />
-        <Selection type="radio" label="Single, never married" name="radios1" value="5" />
-        <Selection type="radio" label="Widowed" name="radios1" value="3" />
-        <Selection type="radio" label="Separated" name="radios1" value="4" />
-        <Selection type="radio" label="Single, never married" name="radios1" value="5" />
-        <Selection type="radio" label="Widowed" name="radios1" value="3" />
-        <Selection type="radio" label="Separated" name="radios1" value="4" />
-        <Selection type="radio" label="Single, never married" name="radios1" value="5" />
+        <Selection type="radio" label="Widowed" name="radios1" value="6" />
+        <Selection type="radio" label="Separated" name="radios1" value="7" />
+        <Selection type="radio" label="Single, never married" name="radios1" value="8" />
+        <Selection type="radio" label="Widowed" name="radios1" value="9" />
+        <Selection type="radio" label="Separated" name="radios1" value="10" />
+        <Selection type="radio" label="Single, never married" name="radios1" value="11" />
+        <Selection type="radio" label="Widowed" name="radios1" value="12" />
+        <Selection type="radio" label="Separated" name="radios1" value="13" />
+        <Selection type="radio" label="Single, never married" name="radios1" value="14" />
     </Grid>,
 document.getElementById('selection1'));
 

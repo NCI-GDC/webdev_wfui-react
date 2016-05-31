@@ -15,7 +15,6 @@ class Selection extends Component {
     }else{
       this.refs.selection.checked = !this.refs.selection.checked;
     }
-    this.setState({active: this.refs.selection.checked});
     //Pass data to a callback.
     if(this.props.onHandleChange){
       var res = {
@@ -29,9 +28,8 @@ class Selection extends Component {
   render() {
     const {label, name, value, defaultChecked, children, type, className} = this.props;
     const {active} = this.state;
-    let activeClass = active ? "active":"";
     return (
-      <div className={`wfui-selection ${activeClass} ${className}`}>
+      <div className={`wfui-selection ${className}`}>
         <label className="wfui-selection__label" onClick={this.onHandleClick.bind(this)}>
           <input className={"wfui-selection__input-"+type} ref="selection" data-ref="selection" type={type} name={name} value={value} defaultChecked={defaultChecked} />
           <span>{label}</span>
