@@ -43153,7 +43153,10 @@
 	  function Selection() {
 	    _classCallCheck(this, Selection);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Selection).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Selection).call(this));
+
+	    _this.state = { active: false };
+	    return _this;
 	  }
 
 	  _createClass(Selection, [{
@@ -43166,6 +43169,7 @@
 	      } else {
 	        this.refs.selection.checked = !this.refs.selection.checked;
 	      }
+	      this.setState({ active: this.refs.selection.checked });
 	      //Pass data to a callback.
 	      if (this.props.onHandleChange) {
 	        var res = {
@@ -43187,10 +43191,12 @@
 	      var children = _props.children;
 	      var type = _props.type;
 	      var className = _props.className;
+	      var active = this.state.active;
 
+	      var activeClass = active ? "active" : "";
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "wfui-selection " + className },
+	        { className: "wfui-selection " + activeClass + " " + className },
 	        _react2.default.createElement(
 	          "label",
 	          { className: "wfui-selection__label", onClick: this.onHandleClick.bind(this) },
@@ -43283,8 +43289,9 @@
 	      var last = children.length - children.length % columnNumber;
 
 	      //check error flag for default
+	      var errorClassName = "";
 	      if (errors) {
-	        var errorClassName = 'wfui-grid__main--error';
+	        errorClassName = 'wfui-grid__main--error';
 	      }
 
 	      //Render rows and columns ( except last row if number of columns is different from columnNumber)

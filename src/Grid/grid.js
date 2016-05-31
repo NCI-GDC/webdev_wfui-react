@@ -9,8 +9,9 @@ class Grid extends Component {
     var last = children.length -(children.length%columnNumber);
 
     //check error flag for default
+    var errorClassName = "";
     if(errors) {
-      var errorClassName = 'wfui-grid__main--error';
+      errorClassName = 'wfui-grid__main--error';
     }
     
     //Render rows and columns ( except last row if number of columns is different from columnNumber)
