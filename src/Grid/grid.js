@@ -5,7 +5,7 @@ import React, { Component } from 'react';
  */
 class Grid extends Component {
   render() {
-    var {label, description, children, columnNumber, errors} = this.props;
+    var {expandColumn, label, description, children, columnNumber, errors} = this.props;
     var last = children.length -(children.length%columnNumber);
 
     //check error flag for default
@@ -18,10 +18,9 @@ class Grid extends Component {
     //==========
     var grid, grid_rows = [[]], index = 0;
     children.map(function(child, i){
-      if(i < last){
-        if(i!=0 && i%columnNumber==0){ grid_rows[++index] = []; }
-        grid_rows[index].push(child);
-      }
+      if(expandColumn && i >= last) return;
+      if(i!=0 && i%columnNumber==0){ grid_rows[++index] = []; }
+      grid_rows[index].push(child);
     })
     grid = (
       <div className={"wfui-grid__container"}>
@@ -38,23 +37,25 @@ class Grid extends Component {
       </div>
     )//==========
 
-    //Render last row (in case last row has different number of columns)
-    var grid_last, grid_rows_last = [];
-    children.map(function(child, i){
-      if(i >= last){
-        grid_rows_last.push(child);
-      }
-    })
-    grid_last = (
-      <div className={"wfui-grid__container wfui-grid__container--last"}>
-        <div className="wfui-grid__row">
-          {grid_rows_last.map(function(child, i){
-            let className = "wfui-grid__column wfui-grid--col-"+grid_rows_last.length;
-            return <div className={className} key={i}>{child}</div>
-          })}
+    if(expandColumn){
+      //Render last row (in case last row has different number of columns)
+      var grid_last, grid_rows_last = [];
+      children.map(function(child, i){
+        if(i >= last){
+          grid_rows_last.push(child);
+        }
+      })
+      grid_last = (
+        <div className={"wfui-grid__container wfui-grid__container--last"}>
+          <div className="wfui-grid__row">
+            {grid_rows_last.map(function(child, i){
+              let className = "wfui-grid__column wfui-grid--col-"+grid_rows_last.length;
+              return <div className={className} key={i}>{child}</div>
+            })}
+          </div>
         </div>
-      </div>
-    )//==========
+      )
+    }//==========
 
     return (
       <div className="wfui-grid">
@@ -90,6 +91,7 @@ Grid.defaultProps = {
   description: '',
   columnNumber: 1,
   errors: '',
+  expandColumn: false
 }
 
 export default Grid

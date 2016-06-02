@@ -132,42 +132,43 @@
 	window.WFUIJS.modules.BootStrap = {
 	    "Button": __webpack_require__(467),
 	    "Tabs": __webpack_require__(549),
-	    "Popover": __webpack_require__(565),
-	    "Modal": __webpack_require__(566),
-	    "Form": __webpack_require__(640),
-	    "FormGroup": __webpack_require__(641),
-	    "FormControl": __webpack_require__(642),
+	    "Tab": __webpack_require__(565),
+	    "Popover": __webpack_require__(574),
+	    "Modal": __webpack_require__(575),
+	    "Form": __webpack_require__(642),
+	    "FormGroup": __webpack_require__(643),
+	    "FormControl": __webpack_require__(644),
 	    "Col": __webpack_require__(553),
-	    "ControlLabel": __webpack_require__(646)
+	    "ControlLabel": __webpack_require__(648)
 	};
 
 	/**
 	 * Old WFUI Components
 	 */
 	//Icon
-	__webpack_require__(647);
+	__webpack_require__(649);
 
 	//Button
-	__webpack_require__(648);
+	__webpack_require__(650);
 
 	//Dialog
-	__webpack_require__(649);
-	__webpack_require__(650);
 	__webpack_require__(651);
 	__webpack_require__(652);
 	__webpack_require__(653);
-
-	//Dropdown
 	__webpack_require__(654);
-
-	//Tabs
 	__webpack_require__(655);
 
-	//Label
+	//Dropdown
 	__webpack_require__(656);
 
-	//Tooltip
+	//Tabs
 	__webpack_require__(657);
+
+	//Label
+	__webpack_require__(658);
+
+	//Tooltip
+	__webpack_require__(659);
 
 /***/ },
 /* 10 */
@@ -43278,6 +43279,7 @@
 	    key: 'render',
 	    value: function render() {
 	      var _props = this.props;
+	      var expandColumn = _props.expandColumn;
 	      var label = _props.label;
 	      var description = _props.description;
 	      var children = _props.children;
@@ -43298,12 +43300,11 @@
 	          grid_rows = [[]],
 	          index = 0;
 	      children.map(function (child, i) {
-	        if (i < last) {
-	          if (i != 0 && i % columnNumber == 0) {
-	            grid_rows[++index] = [];
-	          }
-	          grid_rows[index].push(child);
+	        if (expandColumn && i >= last) return;
+	        if (i != 0 && i % columnNumber == 0) {
+	          grid_rows[++index] = [];
 	        }
+	        grid_rows[index].push(child);
 	      });
 	      grid = _react2.default.createElement(
 	        'div',
@@ -43324,30 +43325,32 @@
 	        })
 	      ); //==========
 
-	      //Render last row (in case last row has different number of columns)
-	      var grid_last,
-	          grid_rows_last = [];
-	      children.map(function (child, i) {
-	        if (i >= last) {
-	          grid_rows_last.push(child);
-	        }
-	      });
-	      grid_last = _react2.default.createElement(
-	        'div',
-	        { className: "wfui-grid__container wfui-grid__container--last" },
-	        _react2.default.createElement(
+	      if (expandColumn) {
+	        //Render last row (in case last row has different number of columns)
+	        var grid_last,
+	            grid_rows_last = [];
+	        children.map(function (child, i) {
+	          if (i >= last) {
+	            grid_rows_last.push(child);
+	          }
+	        });
+	        grid_last = _react2.default.createElement(
 	          'div',
-	          { className: 'wfui-grid__row' },
-	          grid_rows_last.map(function (child, i) {
-	            var className = "wfui-grid__column wfui-grid--col-" + grid_rows_last.length;
-	            return _react2.default.createElement(
-	              'div',
-	              { className: className, key: i },
-	              child
-	            );
-	          })
-	        )
-	      ); //==========
+	          { className: "wfui-grid__container wfui-grid__container--last" },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'wfui-grid__row' },
+	            grid_rows_last.map(function (child, i) {
+	              var className = "wfui-grid__column wfui-grid--col-" + grid_rows_last.length;
+	              return _react2.default.createElement(
+	                'div',
+	                { className: className, key: i },
+	                child
+	              );
+	            })
+	          )
+	        );
+	      } //==========
 
 	      return _react2.default.createElement(
 	        'div',
@@ -43390,7 +43393,8 @@
 	  label: '',
 	  description: '',
 	  columnNumber: 1,
-	  errors: ''
+	  errors: '',
+	  expandColumn: false
 	};
 
 	exports.default = Grid;
@@ -55400,6 +55404,963 @@
 
 	'use strict';
 
+	var _inherits = __webpack_require__(468)['default'];
+
+	var _classCallCheck = __webpack_require__(483)['default'];
+
+	var _extends = __webpack_require__(484)['default'];
+
+	var _objectWithoutProperties = __webpack_require__(505)['default'];
+
+	var _interopRequireDefault = __webpack_require__(494)['default'];
+
+	exports.__esModule = true;
+
+	var _react = __webpack_require__(26);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _TabPane = __webpack_require__(566);
+
+	var _TabPane2 = _interopRequireDefault(_TabPane);
+
+	var _TabContainer = __webpack_require__(563);
+
+	var _TabContainer2 = _interopRequireDefault(_TabContainer);
+
+	var _TabContent = __webpack_require__(564);
+
+	var _TabContent2 = _interopRequireDefault(_TabContent);
+
+	var Tab = (function (_React$Component) {
+	  _inherits(Tab, _React$Component);
+
+	  function Tab() {
+	    _classCallCheck(this, Tab);
+
+	    _React$Component.apply(this, arguments);
+	  }
+
+	  Tab.prototype.render = function render() {
+	    var _props = this.props;
+	    var title = _props.title;
+	    var disabled = _props.disabled;
+	    var tabClassName = _props.tabClassName;
+
+	    var props = _objectWithoutProperties(_props, ['title', 'disabled', 'tabClassName']);
+
+	    return _react2['default'].createElement(_TabPane2['default'], props);
+	  };
+
+	  return Tab;
+	})(_react2['default'].Component);
+
+	Tab.propTypes = _extends({}, _TabPane2['default'].propTypes, {
+
+	  disabled: _react2['default'].PropTypes.bool,
+
+	  title: _react2['default'].PropTypes.node,
+
+	  /**
+	   * tabClassName is used as className for the associated NavItem
+	   */
+	  tabClassName: _react2['default'].PropTypes.string
+	});
+
+	Tab.Container = _TabContainer2['default'];
+	Tab.Content = _TabContent2['default'];
+	Tab.Pane = _TabPane2['default'];
+
+	exports['default'] = Tab;
+	module.exports = exports['default'];
+
+/***/ },
+/* 566 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	var _extends = __webpack_require__(484)['default'];
+
+	var _interopRequireDefault = __webpack_require__(494)['default'];
+
+	exports.__esModule = true;
+
+	var _classnames = __webpack_require__(495);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _domHelpersClassAddClass = __webpack_require__(567);
+
+	var _domHelpersClassAddClass2 = _interopRequireDefault(_domHelpersClassAddClass);
+
+	var _react = __webpack_require__(26);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactPropTypesLibElementType = __webpack_require__(496);
+
+	var _reactPropTypesLibElementType2 = _interopRequireDefault(_reactPropTypesLibElementType);
+
+	var _warning = __webpack_require__(396);
+
+	var _warning2 = _interopRequireDefault(_warning);
+
+	var _utilsBootstrapUtils = __webpack_require__(503);
+
+	var _utilsCreateChainedFunction = __webpack_require__(557);
+
+	var _utilsCreateChainedFunction2 = _interopRequireDefault(_utilsCreateChainedFunction);
+
+	var _utilsTabUtils = __webpack_require__(558);
+
+	var _Fade = __webpack_require__(569);
+
+	var _Fade2 = _interopRequireDefault(_Fade);
+
+	var TabPane = _react2['default'].createClass({
+	  displayName: 'TabPane',
+
+	  propTypes: {
+
+	    /**
+	     * Uniquely identify the TabPane amoung its siblings.
+	     */
+	    eventKey: _react.PropTypes.any,
+
+	    /**
+	     * Use animation when showing or hiding TabPanes. Use `false` to disable,
+	     * `true` to enable the default "Fade" animation or any Transition component.
+	     *
+	     */
+	    animation: _react.PropTypes.oneOfType([_react.PropTypes.bool, _reactPropTypesLibElementType2['default']]),
+
+	    /** @private **/
+	    id: _react.PropTypes.string,
+
+	    /** @private **/
+	    'aria-labelledby': _react.PropTypes.string,
+
+	    /**
+	     * Transition onEnter callback when animation is not `false`
+	     */
+	    onEnter: _react.PropTypes.func,
+
+	    /**
+	     * Transition onEntering callback when animation is not `false`
+	     */
+	    onEntering: _react.PropTypes.func,
+
+	    /**
+	     * Transition onEntered callback when animation is not `false`
+	     */
+	    onEntered: _react.PropTypes.func,
+
+	    /**
+	     * Transition onExit callback when animation is not `false`
+	     */
+	    onExit: _react.PropTypes.func,
+
+	    /**
+	     * Transition onExiting callback when animation is not `false`
+	     */
+	    onExiting: _react.PropTypes.func,
+
+	    /**
+	     * Transition onExited callback when animation is not `false`
+	     */
+	    onExited: _react.PropTypes.func,
+
+	    /**
+	     * Unmount the tab (remove it from the DOM) when it is no longer visible
+	     */
+	    unmountOnExit: _react.PropTypes.bool
+	  },
+
+	  contextTypes: {
+	    $bs_tabcontainer: _react.PropTypes.shape({
+	      getId: _react.PropTypes.func,
+	      unmountOnExit: _react.PropTypes.bool
+	    }),
+	    $bs_tabcontent: _react.PropTypes.shape({
+	      bsClass: _react.PropTypes.string,
+	      animation: _react.PropTypes.oneOfType([_react.PropTypes.bool, _reactPropTypesLibElementType2['default']]),
+	      activeKey: _react.PropTypes.any,
+	      onExited: _react.PropTypes.func,
+	      register: _react.PropTypes.func,
+	      unmountOnExit: _react.PropTypes.bool
+	    })
+	  },
+
+	  /**
+	   * We override the TabContainer context so Navs in TabPanes
+	   * don't conflict with the top level one.
+	   */
+	  childContextTypes: {
+	    $bs_tabcontainer: _react.PropTypes.oneOf([null])
+	  },
+
+	  componentWillMount: function componentWillMount() {
+	    this.exited = !this.isActive();
+	    this.registerWithParent();
+	  },
+
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+	    if (nextProps.eventKey !== this.props.eventKey) {
+	      this.unregisterWithParent();
+	      this.registerWithParent(nextProps, nextContext);
+	    }
+	  },
+
+	  componentWillUpdate: function componentWillUpdate(nextProps, _, nextContext) {
+	    if (this.isActive(nextProps, nextContext)) {
+	      this.exited = false;
+	    } else if (!this.exited && !this.getTransition(nextProps, nextContext)) {
+	      // Otherwise let handleHidden take care of marking exited.
+	      this.exited = true;
+	      this._fireExitedCallback = true;
+	    }
+	  },
+
+	  componentDidUpdate: function componentDidUpdate() {
+	    if (this._fireExitedCallback) {
+	      this._fireExitedCallback = false;
+	      this.onExited();
+	    }
+	  },
+
+	  componentWillUnmount: function componentWillUnmount() {
+	    this.unregisterWithParent();
+	  },
+
+	  getChildContext: function getChildContext() {
+	    return { $bs_tabcontainer: null };
+	  },
+
+	  getTransition: function getTransition() {
+	    var props = arguments.length <= 0 || arguments[0] === undefined ? this.props : arguments[0];
+	    var context = arguments.length <= 1 || arguments[1] === undefined ? this.context : arguments[1];
+
+	    context = this.getContext('$bs_tabcontent', context);
+	    return props.animation != null ? props.animation : context.animation;
+	  },
+
+	  getUnmountOnExit: function getUnmountOnExit() {
+	    var context = this.getContext('$bs_tabcontent', this.context);
+	    return this.props.unmountOnExit != null ? this.props.unmountOnExit : context.unmountOnExit;
+	  },
+
+	  isActive: function isActive() {
+	    var props = arguments.length <= 0 || arguments[0] === undefined ? this.props : arguments[0];
+	    var context = arguments.length <= 1 || arguments[1] === undefined ? this.context : arguments[1];
+
+	    return this.getContext('$bs_tabcontent', context).activeKey === props.eventKey;
+	  },
+
+	  render: function render() {
+	    var _classes;
+
+	    var active = this.isActive();
+	    var visible = active || !this.exited;
+	    var getId = this.getContext('$bs_tabcontainer').getId;
+	    var bsClass = this.props.bsClass || this.getContext('$bs_tabcontent').bsClass;
+
+	    var Transition = this.getTransition();
+
+	    if (!visible && !Transition && this.getUnmountOnExit()) {
+	      return null;
+	    }
+
+	    var classes = (_classes = {
+	      active: visible
+	    }, _classes[_utilsBootstrapUtils.prefix({ bsClass: bsClass }, 'pane')] = true, _classes);
+
+	    var _props = this.props;
+	    var eventKey = _props.eventKey;
+	    var id = _props.id;
+	    var labelledBy = _props['aria-labelledby'];
+	    var onExit = _props.onExit;
+	    var onExiting = _props.onExiting;
+	    var onExited = _props.onExited;
+	    var onEnter = _props.onEnter;
+	    var onEntering = _props.onEntering;
+	    var onEntered = _props.onEntered;
+
+	    if (typeof Transition === 'boolean') {
+	      Transition = Transition ? _Fade2['default'] : null;
+	    }
+
+	    if (getId) {
+	      process.env.NODE_ENV !== 'production' ? _warning2['default'](!(id || labelledBy), 'In the context of a TabContainer, TabPanes are given generated `id` and `aria-labelledby` ' + 'attributes for the sake of proper component accessibility. Any provided ones will be ignored. ' + 'To control these attributes directly provide a `generateChildId` prop to the parent TabContainer.') : undefined;
+	      id = getId(eventKey, _utilsTabUtils.PANE) || null;
+	      labelledBy = getId(eventKey, _utilsTabUtils.TAB) || null;
+	    }
+
+	    var tabPane = _react2['default'].createElement(
+	      'div',
+	      _extends({}, this.props, {
+	        id: id,
+	        role: 'tabpanel',
+	        'aria-hidden': !visible,
+	        'aria-labelledby': labelledBy,
+	        className: _classnames2['default'](this.props.className, classes, { 'in': !Transition })
+	      }),
+	      this.props.children
+	    );
+
+	    if (Transition) {
+	      tabPane = _react2['default'].createElement(
+	        Transition,
+	        {
+	          'in': active,
+	          onExit: onExit,
+	          onExiting: onExiting,
+	          onExited: _utilsCreateChainedFunction2['default'](this.handleExited, onExited),
+	          onEnter: _utilsCreateChainedFunction2['default'](this.handleEnter, onEnter),
+	          onEntering: onEntering,
+	          onEntered: onEntered,
+	          unmountOnExit: this.getUnmountOnExit()
+	        },
+	        tabPane
+	      );
+	    }
+
+	    return tabPane;
+	  },
+
+	  onExited: function onExited() {
+	    var context = this.getContext('$bs_tabcontent');
+	    if (context.onExited) {
+	      context.onExited(this.props.eventKey);
+	    }
+	  },
+
+	  handleEnter: function handleEnter(node) {
+	    // ref: https://github.com/react-bootstrap/react-overlays/issues/40
+	    if (this.isActive()) {
+	      _domHelpersClassAddClass2['default'](node, 'active');
+	      node.offsetWidth; // eslint-disable-line no-unused-expressions
+	    }
+	  },
+
+	  handleExited: function handleExited() {
+	    this.exited = true;
+	    this.onExited();
+	    this.forceUpdate();
+	  },
+
+	  registerWithParent: function registerWithParent() {
+	    var props = arguments.length <= 0 || arguments[0] === undefined ? this.props : arguments[0];
+	    var context = arguments.length <= 1 || arguments[1] === undefined ? this.context : arguments[1];
+
+	    var register = this.getContext('$bs_tabcontent', context).register;
+
+	    if (register) {
+	      this.unregister = register(props.eventKey);
+	    }
+	  },
+
+	  unregisterWithParent: function unregisterWithParent() {
+	    if (this.unregister) {
+	      this.unregister();
+	    }
+	  },
+
+	  getContext: function getContext(key) {
+	    var context = arguments.length <= 1 || arguments[1] === undefined ? this.context : arguments[1];
+
+	    return context[key] || {};
+	  }
+	});
+
+	exports['default'] = _utilsBootstrapUtils.bsClass('tab', TabPane);
+	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
+
+/***/ },
+/* 567 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var hasClass = __webpack_require__(568);
+
+	module.exports = function addClass(element, className) {
+	  if (element.classList) element.classList.add(className);else if (!hasClass(element)) element.className = element.className + ' ' + className;
+	};
+
+/***/ },
+/* 568 */
+/***/ function(module, exports) {
+
+	'use strict';
+	module.exports = function hasClass(element, className) {
+	  if (element.classList) return !!className && element.classList.contains(className);else return (' ' + element.className + ' ').indexOf(' ' + className + ' ') !== -1;
+	};
+
+/***/ },
+/* 569 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _inherits = __webpack_require__(468)['default'];
+
+	var _classCallCheck = __webpack_require__(483)['default'];
+
+	var _extends = __webpack_require__(484)['default'];
+
+	var _interopRequireDefault = __webpack_require__(494)['default'];
+
+	exports.__esModule = true;
+
+	var _react = __webpack_require__(26);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(495);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _reactOverlaysLibTransition = __webpack_require__(570);
+
+	var _reactOverlaysLibTransition2 = _interopRequireDefault(_reactOverlaysLibTransition);
+
+	var Fade = (function (_React$Component) {
+	  _inherits(Fade, _React$Component);
+
+	  function Fade() {
+	    _classCallCheck(this, Fade);
+
+	    _React$Component.apply(this, arguments);
+	  }
+
+	  // Explicitly copied from Transition for doc generation.
+	  // TODO: Remove duplication once #977 is resolved.
+
+	  Fade.prototype.render = function render() {
+	    var timeout = this.props.timeout;
+
+	    return _react2['default'].createElement(
+	      _reactOverlaysLibTransition2['default'],
+	      _extends({}, this.props, {
+	        timeout: timeout,
+	        className: _classnames2['default'](this.props.className, 'fade'),
+	        enteredClassName: 'in',
+	        enteringClassName: 'in'
+	      }),
+	      this.props.children
+	    );
+	  };
+
+	  return Fade;
+	})(_react2['default'].Component);
+
+	Fade.propTypes = {
+	  /**
+	   * Show the component; triggers the fade in or fade out animation
+	   */
+	  'in': _react2['default'].PropTypes.bool,
+
+	  /**
+	   * Unmount the component (remove it from the DOM) when it is faded out
+	   */
+	  unmountOnExit: _react2['default'].PropTypes.bool,
+
+	  /**
+	   * Run the fade in animation when the component mounts, if it is initially
+	   * shown
+	   */
+	  transitionAppear: _react2['default'].PropTypes.bool,
+
+	  /**
+	   * Duration of the fade animation in milliseconds, to ensure that finishing
+	   * callbacks are fired even if the original browser transition end events are
+	   * canceled
+	   */
+	  timeout: _react2['default'].PropTypes.number,
+
+	  /**
+	   * Callback fired before the component fades in
+	   */
+	  onEnter: _react2['default'].PropTypes.func,
+	  /**
+	   * Callback fired after the component starts to fade in
+	   */
+	  onEntering: _react2['default'].PropTypes.func,
+	  /**
+	   * Callback fired after the has component faded in
+	   */
+	  onEntered: _react2['default'].PropTypes.func,
+	  /**
+	   * Callback fired before the component fades out
+	   */
+	  onExit: _react2['default'].PropTypes.func,
+	  /**
+	   * Callback fired after the component starts to fade out
+	   */
+	  onExiting: _react2['default'].PropTypes.func,
+	  /**
+	   * Callback fired after the component has faded out
+	   */
+	  onExited: _react2['default'].PropTypes.func
+	};
+
+	Fade.defaultProps = {
+	  'in': false,
+	  timeout: 300,
+	  unmountOnExit: false,
+	  transitionAppear: false
+	};
+
+	exports['default'] = Fade;
+	module.exports = exports['default'];
+
+/***/ },
+/* 570 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(26);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(189);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _domHelpersTransitionProperties = __webpack_require__(571);
+
+	var _domHelpersTransitionProperties2 = _interopRequireDefault(_domHelpersTransitionProperties);
+
+	var _domHelpersEventsOn = __webpack_require__(573);
+
+	var _domHelpersEventsOn2 = _interopRequireDefault(_domHelpersEventsOn);
+
+	var _classnames = __webpack_require__(495);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var transitionEndEvent = _domHelpersTransitionProperties2['default'].end;
+
+	var UNMOUNTED = 0;
+	exports.UNMOUNTED = UNMOUNTED;
+	var EXITED = 1;
+	exports.EXITED = EXITED;
+	var ENTERING = 2;
+	exports.ENTERING = ENTERING;
+	var ENTERED = 3;
+	exports.ENTERED = ENTERED;
+	var EXITING = 4;
+
+	exports.EXITING = EXITING;
+	/**
+	 * The Transition component lets you define and run css transitions with a simple declarative api.
+	 * It works similar to React's own [CSSTransitionGroup](http://facebook.github.io/react/docs/animation.html#high-level-api-reactcsstransitiongroup)
+	 * but is specifically optimized for transitioning a single child "in" or "out".
+	 *
+	 * You don't even need to use class based css transitions if you don't want to (but it is easiest).
+	 * The extensive set of lifecyle callbacks means you have control over
+	 * the transitioning now at each step of the way.
+	 */
+
+	var Transition = (function (_React$Component) {
+	  _inherits(Transition, _React$Component);
+
+	  function Transition(props, context) {
+	    _classCallCheck(this, Transition);
+
+	    _React$Component.call(this, props, context);
+
+	    var initialStatus = undefined;
+	    if (props['in']) {
+	      // Start enter transition in componentDidMount.
+	      initialStatus = props.transitionAppear ? EXITED : ENTERED;
+	    } else {
+	      initialStatus = props.unmountOnExit ? UNMOUNTED : EXITED;
+	    }
+	    this.state = { status: initialStatus };
+
+	    this.nextCallback = null;
+	  }
+
+	  Transition.prototype.componentDidMount = function componentDidMount() {
+	    if (this.props.transitionAppear && this.props['in']) {
+	      this.performEnter(this.props);
+	    }
+	  };
+
+	  Transition.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	    if (nextProps['in'] && this.props.unmountOnExit) {
+	      if (this.state.status === UNMOUNTED) {
+	        // Start enter transition in componentDidUpdate.
+	        this.setState({ status: EXITED });
+	      }
+	    } else {
+	      this._needsUpdate = true;
+	    }
+	  };
+
+	  Transition.prototype.componentDidUpdate = function componentDidUpdate() {
+	    var status = this.state.status;
+
+	    if (this.props.unmountOnExit && status === EXITED) {
+	      // EXITED is always a transitional state to either ENTERING or UNMOUNTED
+	      // when using unmountOnExit.
+	      if (this.props['in']) {
+	        this.performEnter(this.props);
+	      } else {
+	        this.setState({ status: UNMOUNTED });
+	      }
+
+	      return;
+	    }
+
+	    // guard ensures we are only responding to prop changes
+	    if (this._needsUpdate) {
+	      this._needsUpdate = false;
+
+	      if (this.props['in']) {
+	        if (status === EXITING) {
+	          this.performEnter(this.props);
+	        } else if (status === EXITED) {
+	          this.performEnter(this.props);
+	        }
+	        // Otherwise we're already entering or entered.
+	      } else {
+	          if (status === ENTERING || status === ENTERED) {
+	            this.performExit(this.props);
+	          }
+	          // Otherwise we're already exited or exiting.
+	        }
+	    }
+	  };
+
+	  Transition.prototype.componentWillUnmount = function componentWillUnmount() {
+	    this.cancelNextCallback();
+	  };
+
+	  Transition.prototype.performEnter = function performEnter(props) {
+	    var _this = this;
+
+	    this.cancelNextCallback();
+	    var node = _reactDom2['default'].findDOMNode(this);
+
+	    // Not this.props, because we might be about to receive new props.
+	    props.onEnter(node);
+
+	    this.safeSetState({ status: ENTERING }, function () {
+	      _this.props.onEntering(node);
+
+	      _this.onTransitionEnd(node, function () {
+	        _this.safeSetState({ status: ENTERED }, function () {
+	          _this.props.onEntered(node);
+	        });
+	      });
+	    });
+	  };
+
+	  Transition.prototype.performExit = function performExit(props) {
+	    var _this2 = this;
+
+	    this.cancelNextCallback();
+	    var node = _reactDom2['default'].findDOMNode(this);
+
+	    // Not this.props, because we might be about to receive new props.
+	    props.onExit(node);
+
+	    this.safeSetState({ status: EXITING }, function () {
+	      _this2.props.onExiting(node);
+
+	      _this2.onTransitionEnd(node, function () {
+	        _this2.safeSetState({ status: EXITED }, function () {
+	          _this2.props.onExited(node);
+	        });
+	      });
+	    });
+	  };
+
+	  Transition.prototype.cancelNextCallback = function cancelNextCallback() {
+	    if (this.nextCallback !== null) {
+	      this.nextCallback.cancel();
+	      this.nextCallback = null;
+	    }
+	  };
+
+	  Transition.prototype.safeSetState = function safeSetState(nextState, callback) {
+	    // This shouldn't be necessary, but there are weird race conditions with
+	    // setState callbacks and unmounting in testing, so always make sure that
+	    // we can cancel any pending setState callbacks after we unmount.
+	    this.setState(nextState, this.setNextCallback(callback));
+	  };
+
+	  Transition.prototype.setNextCallback = function setNextCallback(callback) {
+	    var _this3 = this;
+
+	    var active = true;
+
+	    this.nextCallback = function (event) {
+	      if (active) {
+	        active = false;
+	        _this3.nextCallback = null;
+
+	        callback(event);
+	      }
+	    };
+
+	    this.nextCallback.cancel = function () {
+	      active = false;
+	    };
+
+	    return this.nextCallback;
+	  };
+
+	  Transition.prototype.onTransitionEnd = function onTransitionEnd(node, handler) {
+	    this.setNextCallback(handler);
+
+	    if (node) {
+	      _domHelpersEventsOn2['default'](node, transitionEndEvent, this.nextCallback);
+	      setTimeout(this.nextCallback, this.props.timeout);
+	    } else {
+	      setTimeout(this.nextCallback, 0);
+	    }
+	  };
+
+	  Transition.prototype.render = function render() {
+	    var status = this.state.status;
+	    if (status === UNMOUNTED) {
+	      return null;
+	    }
+
+	    var _props = this.props;
+	    var children = _props.children;
+	    var className = _props.className;
+
+	    var childProps = _objectWithoutProperties(_props, ['children', 'className']);
+
+	    Object.keys(Transition.propTypes).forEach(function (key) {
+	      return delete childProps[key];
+	    });
+
+	    var transitionClassName = undefined;
+	    if (status === EXITED) {
+	      transitionClassName = this.props.exitedClassName;
+	    } else if (status === ENTERING) {
+	      transitionClassName = this.props.enteringClassName;
+	    } else if (status === ENTERED) {
+	      transitionClassName = this.props.enteredClassName;
+	    } else if (status === EXITING) {
+	      transitionClassName = this.props.exitingClassName;
+	    }
+
+	    var child = _react2['default'].Children.only(children);
+	    return _react2['default'].cloneElement(child, _extends({}, childProps, {
+	      className: _classnames2['default'](child.props.className, className, transitionClassName)
+	    }));
+	  };
+
+	  return Transition;
+	})(_react2['default'].Component);
+
+	Transition.propTypes = {
+	  /**
+	   * Show the component; triggers the enter or exit animation
+	   */
+	  'in': _react2['default'].PropTypes.bool,
+
+	  /**
+	   * Unmount the component (remove it from the DOM) when it is not shown
+	   */
+	  unmountOnExit: _react2['default'].PropTypes.bool,
+
+	  /**
+	   * Run the enter animation when the component mounts, if it is initially
+	   * shown
+	   */
+	  transitionAppear: _react2['default'].PropTypes.bool,
+
+	  /**
+	   * A Timeout for the animation, in milliseconds, to ensure that a node doesn't
+	   * transition indefinately if the browser transitionEnd events are
+	   * canceled or interrupted.
+	   *
+	   * By default this is set to a high number (5 seconds) as a failsafe. You should consider
+	   * setting this to the duration of your animation (or a bit above it).
+	   */
+	  timeout: _react2['default'].PropTypes.number,
+
+	  /**
+	   * CSS class or classes applied when the component is exited
+	   */
+	  exitedClassName: _react2['default'].PropTypes.string,
+	  /**
+	   * CSS class or classes applied while the component is exiting
+	   */
+	  exitingClassName: _react2['default'].PropTypes.string,
+	  /**
+	   * CSS class or classes applied when the component is entered
+	   */
+	  enteredClassName: _react2['default'].PropTypes.string,
+	  /**
+	   * CSS class or classes applied while the component is entering
+	   */
+	  enteringClassName: _react2['default'].PropTypes.string,
+
+	  /**
+	   * Callback fired before the "entering" classes are applied
+	   */
+	  onEnter: _react2['default'].PropTypes.func,
+	  /**
+	   * Callback fired after the "entering" classes are applied
+	   */
+	  onEntering: _react2['default'].PropTypes.func,
+	  /**
+	   * Callback fired after the "enter" classes are applied
+	   */
+	  onEntered: _react2['default'].PropTypes.func,
+	  /**
+	   * Callback fired before the "exiting" classes are applied
+	   */
+	  onExit: _react2['default'].PropTypes.func,
+	  /**
+	   * Callback fired after the "exiting" classes are applied
+	   */
+	  onExiting: _react2['default'].PropTypes.func,
+	  /**
+	   * Callback fired after the "exited" classes are applied
+	   */
+	  onExited: _react2['default'].PropTypes.func
+	};
+
+	// Name the function so it is clearer in the documentation
+	function noop() {}
+
+	Transition.displayName = 'Transition';
+
+	Transition.defaultProps = {
+	  'in': false,
+	  unmountOnExit: false,
+	  transitionAppear: false,
+
+	  timeout: 5000,
+
+	  onEnter: noop,
+	  onEntering: noop,
+	  onEntered: noop,
+
+	  onExit: noop,
+	  onExiting: noop,
+	  onExited: noop
+	};
+
+	exports['default'] = Transition;
+
+/***/ },
+/* 571 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var canUseDOM = __webpack_require__(572);
+
+	var has = Object.prototype.hasOwnProperty,
+	    transform = 'transform',
+	    transition = {},
+	    transitionTiming,
+	    transitionDuration,
+	    transitionProperty,
+	    transitionDelay;
+
+	if (canUseDOM) {
+	  transition = getTransitionProperties();
+
+	  transform = transition.prefix + transform;
+
+	  transitionProperty = transition.prefix + 'transition-property';
+	  transitionDuration = transition.prefix + 'transition-duration';
+	  transitionDelay = transition.prefix + 'transition-delay';
+	  transitionTiming = transition.prefix + 'transition-timing-function';
+	}
+
+	module.exports = {
+	  transform: transform,
+	  end: transition.end,
+	  property: transitionProperty,
+	  timing: transitionTiming,
+	  delay: transitionDelay,
+	  duration: transitionDuration
+	};
+
+	function getTransitionProperties() {
+	  var endEvent,
+	      prefix = '',
+	      transitions = {
+	    O: 'otransitionend',
+	    Moz: 'transitionend',
+	    Webkit: 'webkitTransitionEnd',
+	    ms: 'MSTransitionEnd'
+	  };
+
+	  var element = document.createElement('div');
+
+	  for (var vendor in transitions) if (has.call(transitions, vendor)) {
+	    if (element.style[vendor + 'TransitionProperty'] !== undefined) {
+	      prefix = '-' + vendor.toLowerCase() + '-';
+	      endEvent = transitions[vendor];
+	      break;
+	    }
+	  }
+
+	  if (!endEvent && element.style.transitionProperty !== undefined) endEvent = 'transitionend';
+
+	  return { end: endEvent, prefix: prefix };
+	}
+
+/***/ },
+/* 572 */
+/***/ function(module, exports) {
+
+	'use strict';
+	module.exports = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+
+/***/ },
+/* 573 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var canUseDOM = __webpack_require__(572);
+	var on = function on() {};
+
+	if (canUseDOM) {
+	  on = (function () {
+
+	    if (document.addEventListener) return function (node, eventName, handler, capture) {
+	      return node.addEventListener(eventName, handler, capture || false);
+	    };else if (document.attachEvent) return function (node, eventName, handler) {
+	      return node.attachEvent('on' + eventName, handler);
+	    };
+	  })();
+	}
+
+	module.exports = on;
+
+/***/ },
+/* 574 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	var _extends = __webpack_require__(484)['default'];
 
 	var _interopRequireDefault = __webpack_require__(494)['default'];
@@ -55516,7 +56477,7 @@
 	// we don't want to expose the `style` property
 
 /***/ },
-/* 566 */
+/* 575 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55535,23 +56496,23 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _domHelpersEvents = __webpack_require__(567);
+	var _domHelpersEvents = __webpack_require__(576);
 
 	var _domHelpersEvents2 = _interopRequireDefault(_domHelpersEvents);
 
-	var _domHelpersOwnerDocument = __webpack_require__(574);
+	var _domHelpersOwnerDocument = __webpack_require__(581);
 
 	var _domHelpersOwnerDocument2 = _interopRequireDefault(_domHelpersOwnerDocument);
 
-	var _domHelpersUtilInDOM = __webpack_require__(569);
+	var _domHelpersUtilInDOM = __webpack_require__(572);
 
 	var _domHelpersUtilInDOM2 = _interopRequireDefault(_domHelpersUtilInDOM);
 
-	var _domHelpersUtilScrollbarSize = __webpack_require__(575);
+	var _domHelpersUtilScrollbarSize = __webpack_require__(582);
 
 	var _domHelpersUtilScrollbarSize2 = _interopRequireDefault(_domHelpersUtilScrollbarSize);
 
-	var _lodashCompatObjectPick = __webpack_require__(576);
+	var _lodashCompatObjectPick = __webpack_require__(583);
 
 	var _lodashCompatObjectPick2 = _interopRequireDefault(_lodashCompatObjectPick);
 
@@ -55563,15 +56524,15 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _reactOverlaysLibModal = __webpack_require__(605);
+	var _reactOverlaysLibModal = __webpack_require__(612);
 
 	var _reactOverlaysLibModal2 = _interopRequireDefault(_reactOverlaysLibModal);
 
-	var _reactOverlaysLibUtilsIsOverflowing = __webpack_require__(625);
+	var _reactOverlaysLibUtilsIsOverflowing = __webpack_require__(630);
 
 	var _reactOverlaysLibUtilsIsOverflowing2 = _interopRequireDefault(_reactOverlaysLibUtilsIsOverflowing);
 
-	var _reactPropTypesLibDeprecated = __webpack_require__(631);
+	var _reactPropTypesLibDeprecated = __webpack_require__(636);
 
 	var _reactPropTypesLibDeprecated2 = _interopRequireDefault(_reactPropTypesLibDeprecated);
 
@@ -55583,27 +56544,27 @@
 
 	var _utilsBootstrapUtils = __webpack_require__(503);
 
-	var _Fade = __webpack_require__(632);
+	var _Fade = __webpack_require__(569);
 
 	var _Fade2 = _interopRequireDefault(_Fade);
 
-	var _ModalDialog = __webpack_require__(635);
+	var _ModalDialog = __webpack_require__(637);
 
 	var _ModalDialog2 = _interopRequireDefault(_ModalDialog);
 
-	var _ModalBody = __webpack_require__(636);
+	var _ModalBody = __webpack_require__(638);
 
 	var _ModalBody2 = _interopRequireDefault(_ModalBody);
 
-	var _ModalHeader = __webpack_require__(637);
+	var _ModalHeader = __webpack_require__(639);
 
 	var _ModalHeader2 = _interopRequireDefault(_ModalHeader);
 
-	var _ModalTitle = __webpack_require__(638);
+	var _ModalTitle = __webpack_require__(640);
 
 	var _ModalTitle2 = _interopRequireDefault(_ModalTitle);
 
-	var _ModalFooter = __webpack_require__(639);
+	var _ModalFooter = __webpack_require__(641);
 
 	var _ModalFooter2 = _interopRequireDefault(_ModalFooter);
 
@@ -55852,50 +56813,22 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 567 */
+/* 576 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var on = __webpack_require__(568),
-	    off = __webpack_require__(570),
-	    filter = __webpack_require__(571);
+	var on = __webpack_require__(573),
+	    off = __webpack_require__(577),
+	    filter = __webpack_require__(578);
 
 	module.exports = { on: on, off: off, filter: filter };
 
 /***/ },
-/* 568 */
+/* 577 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var canUseDOM = __webpack_require__(569);
-	var on = function on() {};
-
-	if (canUseDOM) {
-	  on = (function () {
-
-	    if (document.addEventListener) return function (node, eventName, handler, capture) {
-	      return node.addEventListener(eventName, handler, capture || false);
-	    };else if (document.attachEvent) return function (node, eventName, handler) {
-	      return node.attachEvent('on' + eventName, handler);
-	    };
-	  })();
-	}
-
-	module.exports = on;
-
-/***/ },
-/* 569 */
-/***/ function(module, exports) {
-
-	'use strict';
-	module.exports = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
-
-/***/ },
-/* 570 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var canUseDOM = __webpack_require__(569);
+	var canUseDOM = __webpack_require__(572);
 	var off = function off() {};
 
 	if (canUseDOM) {
@@ -55913,13 +56846,13 @@
 	module.exports = off;
 
 /***/ },
-/* 571 */
+/* 578 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var contains = __webpack_require__(572),
-	    qsa = __webpack_require__(573);
+	var contains = __webpack_require__(579),
+	    qsa = __webpack_require__(580);
 
 	module.exports = function (selector, handler) {
 	  return function (e) {
@@ -55934,11 +56867,11 @@
 	};
 
 /***/ },
-/* 572 */
+/* 579 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var canUseDOM = __webpack_require__(569);
+	var canUseDOM = __webpack_require__(572);
 
 	var contains = (function () {
 	  var root = canUseDOM && document.documentElement;
@@ -55959,7 +56892,7 @@
 	module.exports = contains;
 
 /***/ },
-/* 573 */
+/* 580 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -55991,7 +56924,7 @@
 	};
 
 /***/ },
-/* 574 */
+/* 581 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -56006,12 +56939,12 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 575 */
+/* 582 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var canUseDOM = __webpack_require__(569);
+	var canUseDOM = __webpack_require__(572);
 
 	var size;
 
@@ -56036,14 +56969,14 @@
 	};
 
 /***/ },
-/* 576 */
+/* 583 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseFlatten = __webpack_require__(577),
-	    bindCallback = __webpack_require__(594),
-	    pickByArray = __webpack_require__(596),
-	    pickByCallback = __webpack_require__(597),
-	    restParam = __webpack_require__(604);
+	var baseFlatten = __webpack_require__(584),
+	    bindCallback = __webpack_require__(601),
+	    pickByArray = __webpack_require__(603),
+	    pickByCallback = __webpack_require__(604),
+	    restParam = __webpack_require__(611);
 
 	/**
 	 * Creates an object composed of the picked `object` properties. Property
@@ -56084,14 +57017,14 @@
 
 
 /***/ },
-/* 577 */
+/* 584 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayPush = __webpack_require__(578),
-	    isArguments = __webpack_require__(579),
-	    isArray = __webpack_require__(589),
-	    isArrayLike = __webpack_require__(580),
-	    isObjectLike = __webpack_require__(586);
+	var arrayPush = __webpack_require__(585),
+	    isArguments = __webpack_require__(586),
+	    isArray = __webpack_require__(596),
+	    isArrayLike = __webpack_require__(587),
+	    isObjectLike = __webpack_require__(593);
 
 	/**
 	 * The base implementation of `_.flatten` with added support for restricting
@@ -56131,7 +57064,7 @@
 
 
 /***/ },
-/* 578 */
+/* 585 */
 /***/ function(module, exports) {
 
 	/**
@@ -56157,11 +57090,11 @@
 
 
 /***/ },
-/* 579 */
+/* 586 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArrayLike = __webpack_require__(580),
-	    isObjectLike = __webpack_require__(586);
+	var isArrayLike = __webpack_require__(587),
+	    isObjectLike = __webpack_require__(593);
 
 	/** Used for native method references. */
 	var objectProto = Object.prototype;
@@ -56197,11 +57130,11 @@
 
 
 /***/ },
-/* 580 */
+/* 587 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getLength = __webpack_require__(581),
-	    isLength = __webpack_require__(588);
+	var getLength = __webpack_require__(588),
+	    isLength = __webpack_require__(595);
 
 	/**
 	 * Checks if `value` is array-like.
@@ -56218,10 +57151,10 @@
 
 
 /***/ },
-/* 581 */
+/* 588 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseProperty = __webpack_require__(582);
+	var baseProperty = __webpack_require__(589);
 
 	/**
 	 * Gets the "length" property value of `object`.
@@ -56239,10 +57172,10 @@
 
 
 /***/ },
-/* 582 */
+/* 589 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toObject = __webpack_require__(583);
+	var toObject = __webpack_require__(590);
 
 	/**
 	 * The base implementation of `_.property` without support for deep paths.
@@ -56261,12 +57194,12 @@
 
 
 /***/ },
-/* 583 */
+/* 590 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(584),
-	    isString = __webpack_require__(585),
-	    support = __webpack_require__(587);
+	var isObject = __webpack_require__(591),
+	    isString = __webpack_require__(592),
+	    support = __webpack_require__(594);
 
 	/**
 	 * Converts `value` to an object if it's not one.
@@ -56293,7 +57226,7 @@
 
 
 /***/ },
-/* 584 */
+/* 591 */
 /***/ function(module, exports) {
 
 	/**
@@ -56327,10 +57260,10 @@
 
 
 /***/ },
-/* 585 */
+/* 592 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObjectLike = __webpack_require__(586);
+	var isObjectLike = __webpack_require__(593);
 
 	/** `Object#toString` result references. */
 	var stringTag = '[object String]';
@@ -56368,7 +57301,7 @@
 
 
 /***/ },
-/* 586 */
+/* 593 */
 /***/ function(module, exports) {
 
 	/**
@@ -56386,7 +57319,7 @@
 
 
 /***/ },
-/* 587 */
+/* 594 */
 /***/ function(module, exports) {
 
 	/** Used for native method references. */
@@ -56488,7 +57421,7 @@
 
 
 /***/ },
-/* 588 */
+/* 595 */
 /***/ function(module, exports) {
 
 	/**
@@ -56514,12 +57447,12 @@
 
 
 /***/ },
-/* 589 */
+/* 596 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getNative = __webpack_require__(590),
-	    isLength = __webpack_require__(588),
-	    isObjectLike = __webpack_require__(586);
+	var getNative = __webpack_require__(597),
+	    isLength = __webpack_require__(595),
+	    isObjectLike = __webpack_require__(593);
 
 	/** `Object#toString` result references. */
 	var arrayTag = '[object Array]';
@@ -56560,10 +57493,10 @@
 
 
 /***/ },
-/* 590 */
+/* 597 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isNative = __webpack_require__(591);
+	var isNative = __webpack_require__(598);
 
 	/**
 	 * Gets the native function at `key` of `object`.
@@ -56582,12 +57515,12 @@
 
 
 /***/ },
-/* 591 */
+/* 598 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isFunction = __webpack_require__(592),
-	    isHostObject = __webpack_require__(593),
-	    isObjectLike = __webpack_require__(586);
+	var isFunction = __webpack_require__(599),
+	    isHostObject = __webpack_require__(600),
+	    isObjectLike = __webpack_require__(593);
 
 	/** Used to detect host constructors (Safari > 5). */
 	var reIsHostCtor = /^\[object .+?Constructor\]$/;
@@ -56637,10 +57570,10 @@
 
 
 /***/ },
-/* 592 */
+/* 599 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(584);
+	var isObject = __webpack_require__(591);
 
 	/** `Object#toString` result references. */
 	var funcTag = '[object Function]';
@@ -56681,7 +57614,7 @@
 
 
 /***/ },
-/* 593 */
+/* 600 */
 /***/ function(module, exports) {
 
 	/**
@@ -56708,10 +57641,10 @@
 
 
 /***/ },
-/* 594 */
+/* 601 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var identity = __webpack_require__(595);
+	var identity = __webpack_require__(602);
 
 	/**
 	 * A specialized version of `baseCallback` which only supports `this` binding
@@ -56753,7 +57686,7 @@
 
 
 /***/ },
-/* 595 */
+/* 602 */
 /***/ function(module, exports) {
 
 	/**
@@ -56779,10 +57712,10 @@
 
 
 /***/ },
-/* 596 */
+/* 603 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toObject = __webpack_require__(583);
+	var toObject = __webpack_require__(590);
 
 	/**
 	 * A specialized version of `_.pick` which picks `object` properties specified
@@ -56813,10 +57746,10 @@
 
 
 /***/ },
-/* 597 */
+/* 604 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseForIn = __webpack_require__(598);
+	var baseForIn = __webpack_require__(605);
 
 	/**
 	 * A specialized version of `_.pick` which picks `object` properties `predicate`
@@ -56841,11 +57774,11 @@
 
 
 /***/ },
-/* 598 */
+/* 605 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseFor = __webpack_require__(599),
-	    keysIn = __webpack_require__(601);
+	var baseFor = __webpack_require__(606),
+	    keysIn = __webpack_require__(608);
 
 	/**
 	 * The base implementation of `_.forIn` without support for callback
@@ -56864,10 +57797,10 @@
 
 
 /***/ },
-/* 599 */
+/* 606 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var createBaseFor = __webpack_require__(600);
+	var createBaseFor = __webpack_require__(607);
 
 	/**
 	 * The base implementation of `baseForIn` and `baseForOwn` which iterates
@@ -56887,10 +57820,10 @@
 
 
 /***/ },
-/* 600 */
+/* 607 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toObject = __webpack_require__(583);
+	var toObject = __webpack_require__(590);
 
 	/**
 	 * Creates a base function for `_.forIn` or `_.forInRight`.
@@ -56920,18 +57853,18 @@
 
 
 /***/ },
-/* 601 */
+/* 608 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayEach = __webpack_require__(602),
-	    isArguments = __webpack_require__(579),
-	    isArray = __webpack_require__(589),
-	    isFunction = __webpack_require__(592),
-	    isIndex = __webpack_require__(603),
-	    isLength = __webpack_require__(588),
-	    isObject = __webpack_require__(584),
-	    isString = __webpack_require__(585),
-	    support = __webpack_require__(587);
+	var arrayEach = __webpack_require__(609),
+	    isArguments = __webpack_require__(586),
+	    isArray = __webpack_require__(596),
+	    isFunction = __webpack_require__(599),
+	    isIndex = __webpack_require__(610),
+	    isLength = __webpack_require__(595),
+	    isObject = __webpack_require__(591),
+	    isString = __webpack_require__(592),
+	    support = __webpack_require__(594);
 
 	/** `Object#toString` result references. */
 	var arrayTag = '[object Array]',
@@ -57062,7 +57995,7 @@
 
 
 /***/ },
-/* 602 */
+/* 609 */
 /***/ function(module, exports) {
 
 	/**
@@ -57090,7 +58023,7 @@
 
 
 /***/ },
-/* 603 */
+/* 610 */
 /***/ function(module, exports) {
 
 	/** Used to detect unsigned integer values. */
@@ -57120,7 +58053,7 @@
 
 
 /***/ },
-/* 604 */
+/* 611 */
 /***/ function(module, exports) {
 
 	/** Used as the `TypeError` message for "Functions" methods. */
@@ -57184,7 +58117,7 @@
 
 
 /***/ },
-/* 605 */
+/* 612 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*eslint-disable react/prop-types */
@@ -57206,47 +58139,47 @@
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _reactPropTypesLibMountable = __webpack_require__(606);
+	var _reactPropTypesLibMountable = __webpack_require__(613);
 
 	var _reactPropTypesLibMountable2 = _interopRequireDefault(_reactPropTypesLibMountable);
 
-	var _reactPropTypesLibElementType = __webpack_require__(608);
+	var _reactPropTypesLibElementType = __webpack_require__(615);
 
 	var _reactPropTypesLibElementType2 = _interopRequireDefault(_reactPropTypesLibElementType);
 
-	var _Portal = __webpack_require__(609);
+	var _Portal = __webpack_require__(616);
 
 	var _Portal2 = _interopRequireDefault(_Portal);
 
-	var _ModalManager = __webpack_require__(612);
+	var _ModalManager = __webpack_require__(619);
 
 	var _ModalManager2 = _interopRequireDefault(_ModalManager);
 
-	var _utilsOwnerDocument = __webpack_require__(610);
+	var _utilsOwnerDocument = __webpack_require__(617);
 
 	var _utilsOwnerDocument2 = _interopRequireDefault(_utilsOwnerDocument);
 
-	var _utilsAddEventListener = __webpack_require__(628);
+	var _utilsAddEventListener = __webpack_require__(633);
 
 	var _utilsAddEventListener2 = _interopRequireDefault(_utilsAddEventListener);
 
-	var _utilsAddFocusListener = __webpack_require__(629);
+	var _utilsAddFocusListener = __webpack_require__(634);
 
 	var _utilsAddFocusListener2 = _interopRequireDefault(_utilsAddFocusListener);
 
-	var _domHelpersUtilInDOM = __webpack_require__(569);
+	var _domHelpersUtilInDOM = __webpack_require__(572);
 
 	var _domHelpersUtilInDOM2 = _interopRequireDefault(_domHelpersUtilInDOM);
 
-	var _domHelpersActiveElement = __webpack_require__(630);
+	var _domHelpersActiveElement = __webpack_require__(635);
 
 	var _domHelpersActiveElement2 = _interopRequireDefault(_domHelpersActiveElement);
 
-	var _domHelpersQueryContains = __webpack_require__(572);
+	var _domHelpersQueryContains = __webpack_require__(579);
 
 	var _domHelpersQueryContains2 = _interopRequireDefault(_domHelpersQueryContains);
 
-	var _utilsGetContainer = __webpack_require__(611);
+	var _utilsGetContainer = __webpack_require__(618);
 
 	var _utilsGetContainer2 = _interopRequireDefault(_utilsGetContainer);
 
@@ -57698,14 +58631,14 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 606 */
+/* 613 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _common = __webpack_require__(607);
+	var _common = __webpack_require__(614);
 
 	/**
 	 * Checks whether a prop provides a DOM element
@@ -57730,7 +58663,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 607 */
+/* 614 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -57769,7 +58702,7 @@
 	}
 
 /***/ },
-/* 608 */
+/* 615 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57782,7 +58715,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _common = __webpack_require__(607);
+	var _common = __webpack_require__(614);
 
 	/**
 	 * Checks whether a prop provides a type of element.
@@ -57815,7 +58748,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 609 */
+/* 616 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57832,15 +58765,15 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _reactPropTypesLibMountable = __webpack_require__(606);
+	var _reactPropTypesLibMountable = __webpack_require__(613);
 
 	var _reactPropTypesLibMountable2 = _interopRequireDefault(_reactPropTypesLibMountable);
 
-	var _utilsOwnerDocument = __webpack_require__(610);
+	var _utilsOwnerDocument = __webpack_require__(617);
 
 	var _utilsOwnerDocument2 = _interopRequireDefault(_utilsOwnerDocument);
 
-	var _utilsGetContainer = __webpack_require__(611);
+	var _utilsGetContainer = __webpack_require__(618);
 
 	var _utilsGetContainer2 = _interopRequireDefault(_utilsGetContainer);
 
@@ -57950,7 +58883,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 610 */
+/* 617 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57963,7 +58896,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _domHelpersOwnerDocument = __webpack_require__(574);
+	var _domHelpersOwnerDocument = __webpack_require__(581);
 
 	var _domHelpersOwnerDocument2 = _interopRequireDefault(_domHelpersOwnerDocument);
 
@@ -57974,7 +58907,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 611 */
+/* 618 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57996,7 +58929,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 612 */
+/* 619 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58007,23 +58940,23 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _domHelpersStyle = __webpack_require__(613);
+	var _domHelpersStyle = __webpack_require__(620);
 
 	var _domHelpersStyle2 = _interopRequireDefault(_domHelpersStyle);
 
-	var _domHelpersClass = __webpack_require__(621);
+	var _domHelpersClass = __webpack_require__(628);
 
 	var _domHelpersClass2 = _interopRequireDefault(_domHelpersClass);
 
-	var _domHelpersUtilScrollbarSize = __webpack_require__(575);
+	var _domHelpersUtilScrollbarSize = __webpack_require__(582);
 
 	var _domHelpersUtilScrollbarSize2 = _interopRequireDefault(_domHelpersUtilScrollbarSize);
 
-	var _utilsIsOverflowing = __webpack_require__(625);
+	var _utilsIsOverflowing = __webpack_require__(630);
 
 	var _utilsIsOverflowing2 = _interopRequireDefault(_utilsIsOverflowing);
 
-	var _utilsManageAriaHidden = __webpack_require__(627);
+	var _utilsManageAriaHidden = __webpack_require__(632);
 
 	function findIndexOf(arr, cb) {
 	  var idx = -1;
@@ -58157,15 +59090,15 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 613 */
+/* 620 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var camelize = __webpack_require__(614),
-	    hyphenate = __webpack_require__(616),
-	    _getComputedStyle = __webpack_require__(618),
-	    removeStyle = __webpack_require__(620);
+	var camelize = __webpack_require__(621),
+	    hyphenate = __webpack_require__(623),
+	    _getComputedStyle = __webpack_require__(625),
+	    removeStyle = __webpack_require__(627);
 
 	var has = Object.prototype.hasOwnProperty;
 
@@ -58186,7 +59119,7 @@
 	};
 
 /***/ },
-/* 614 */
+/* 621 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58196,7 +59129,7 @@
 	 */
 
 	'use strict';
-	var camelize = __webpack_require__(615);
+	var camelize = __webpack_require__(622);
 	var msPattern = /^-ms-/;
 
 	module.exports = function camelizeStyleName(string) {
@@ -58204,7 +59137,7 @@
 	};
 
 /***/ },
-/* 615 */
+/* 622 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -58218,7 +59151,7 @@
 	};
 
 /***/ },
-/* 616 */
+/* 623 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58229,7 +59162,7 @@
 
 	"use strict";
 
-	var hyphenate = __webpack_require__(617);
+	var hyphenate = __webpack_require__(624);
 	var msPattern = /^ms-/;
 
 	module.exports = function hyphenateStyleName(string) {
@@ -58237,7 +59170,7 @@
 	};
 
 /***/ },
-/* 617 */
+/* 624 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -58249,14 +59182,14 @@
 	};
 
 /***/ },
-/* 618 */
+/* 625 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var babelHelpers = __webpack_require__(619);
+	var babelHelpers = __webpack_require__(626);
 
-	var _utilCamelizeStyle = __webpack_require__(614);
+	var _utilCamelizeStyle = __webpack_require__(621);
 
 	var _utilCamelizeStyle2 = babelHelpers.interopRequireDefault(_utilCamelizeStyle);
 
@@ -58302,7 +59235,7 @@
 	};
 
 /***/ },
-/* 619 */
+/* 626 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -58338,7 +59271,7 @@
 	})
 
 /***/ },
-/* 620 */
+/* 627 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -58348,39 +59281,19 @@
 	};
 
 /***/ },
-/* 621 */
+/* 628 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = {
-	  addClass: __webpack_require__(622),
-	  removeClass: __webpack_require__(624),
-	  hasClass: __webpack_require__(623)
+	  addClass: __webpack_require__(567),
+	  removeClass: __webpack_require__(629),
+	  hasClass: __webpack_require__(568)
 	};
 
 /***/ },
-/* 622 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var hasClass = __webpack_require__(623);
-
-	module.exports = function addClass(element, className) {
-	  if (element.classList) element.classList.add(className);else if (!hasClass(element)) element.className = element.className + ' ' + className;
-	};
-
-/***/ },
-/* 623 */
-/***/ function(module, exports) {
-
-	'use strict';
-	module.exports = function hasClass(element, className) {
-	  if (element.classList) return !!className && element.classList.contains(className);else return (' ' + element.className + ' ').indexOf(' ' + className + ' ') !== -1;
-	};
-
-/***/ },
-/* 624 */
+/* 629 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -58390,7 +59303,7 @@
 	};
 
 /***/ },
-/* 625 */
+/* 630 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58400,11 +59313,11 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _domHelpersQueryIsWindow = __webpack_require__(626);
+	var _domHelpersQueryIsWindow = __webpack_require__(631);
 
 	var _domHelpersQueryIsWindow2 = _interopRequireDefault(_domHelpersQueryIsWindow);
 
-	var _domHelpersOwnerDocument = __webpack_require__(574);
+	var _domHelpersOwnerDocument = __webpack_require__(581);
 
 	var _domHelpersOwnerDocument2 = _interopRequireDefault(_domHelpersOwnerDocument);
 
@@ -58435,7 +59348,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 626 */
+/* 631 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -58445,7 +59358,7 @@
 	};
 
 /***/ },
-/* 627 */
+/* 632 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -58497,7 +59410,7 @@
 	}
 
 /***/ },
-/* 628 */
+/* 633 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58506,11 +59419,11 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _domHelpersEventsOn = __webpack_require__(568);
+	var _domHelpersEventsOn = __webpack_require__(573);
 
 	var _domHelpersEventsOn2 = _interopRequireDefault(_domHelpersEventsOn);
 
-	var _domHelpersEventsOff = __webpack_require__(570);
+	var _domHelpersEventsOff = __webpack_require__(577);
 
 	var _domHelpersEventsOff2 = _interopRequireDefault(_domHelpersEventsOff);
 
@@ -58526,7 +59439,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 629 */
+/* 634 */
 /***/ function(module, exports) {
 
 	/**
@@ -58562,12 +59475,12 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 630 */
+/* 635 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var babelHelpers = __webpack_require__(619);
+	var babelHelpers = __webpack_require__(626);
 
 	exports.__esModule = true;
 
@@ -58576,7 +59489,7 @@
 	 */
 	exports['default'] = activeElement;
 
-	var _ownerDocument = __webpack_require__(574);
+	var _ownerDocument = __webpack_require__(581);
 
 	var _ownerDocument2 = babelHelpers.interopRequireDefault(_ownerDocument);
 
@@ -58591,7 +59504,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 631 */
+/* 636 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58629,537 +59542,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 632 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _inherits = __webpack_require__(468)['default'];
-
-	var _classCallCheck = __webpack_require__(483)['default'];
-
-	var _extends = __webpack_require__(484)['default'];
-
-	var _interopRequireDefault = __webpack_require__(494)['default'];
-
-	exports.__esModule = true;
-
-	var _react = __webpack_require__(26);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(495);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _reactOverlaysLibTransition = __webpack_require__(633);
-
-	var _reactOverlaysLibTransition2 = _interopRequireDefault(_reactOverlaysLibTransition);
-
-	var Fade = (function (_React$Component) {
-	  _inherits(Fade, _React$Component);
-
-	  function Fade() {
-	    _classCallCheck(this, Fade);
-
-	    _React$Component.apply(this, arguments);
-	  }
-
-	  // Explicitly copied from Transition for doc generation.
-	  // TODO: Remove duplication once #977 is resolved.
-
-	  Fade.prototype.render = function render() {
-	    var timeout = this.props.timeout;
-
-	    return _react2['default'].createElement(
-	      _reactOverlaysLibTransition2['default'],
-	      _extends({}, this.props, {
-	        timeout: timeout,
-	        className: _classnames2['default'](this.props.className, 'fade'),
-	        enteredClassName: 'in',
-	        enteringClassName: 'in'
-	      }),
-	      this.props.children
-	    );
-	  };
-
-	  return Fade;
-	})(_react2['default'].Component);
-
-	Fade.propTypes = {
-	  /**
-	   * Show the component; triggers the fade in or fade out animation
-	   */
-	  'in': _react2['default'].PropTypes.bool,
-
-	  /**
-	   * Unmount the component (remove it from the DOM) when it is faded out
-	   */
-	  unmountOnExit: _react2['default'].PropTypes.bool,
-
-	  /**
-	   * Run the fade in animation when the component mounts, if it is initially
-	   * shown
-	   */
-	  transitionAppear: _react2['default'].PropTypes.bool,
-
-	  /**
-	   * Duration of the fade animation in milliseconds, to ensure that finishing
-	   * callbacks are fired even if the original browser transition end events are
-	   * canceled
-	   */
-	  timeout: _react2['default'].PropTypes.number,
-
-	  /**
-	   * Callback fired before the component fades in
-	   */
-	  onEnter: _react2['default'].PropTypes.func,
-	  /**
-	   * Callback fired after the component starts to fade in
-	   */
-	  onEntering: _react2['default'].PropTypes.func,
-	  /**
-	   * Callback fired after the has component faded in
-	   */
-	  onEntered: _react2['default'].PropTypes.func,
-	  /**
-	   * Callback fired before the component fades out
-	   */
-	  onExit: _react2['default'].PropTypes.func,
-	  /**
-	   * Callback fired after the component starts to fade out
-	   */
-	  onExiting: _react2['default'].PropTypes.func,
-	  /**
-	   * Callback fired after the component has faded out
-	   */
-	  onExited: _react2['default'].PropTypes.func
-	};
-
-	Fade.defaultProps = {
-	  'in': false,
-	  timeout: 300,
-	  unmountOnExit: false,
-	  transitionAppear: false
-	};
-
-	exports['default'] = Fade;
-	module.exports = exports['default'];
-
-/***/ },
-/* 633 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(26);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(189);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _domHelpersTransitionProperties = __webpack_require__(634);
-
-	var _domHelpersTransitionProperties2 = _interopRequireDefault(_domHelpersTransitionProperties);
-
-	var _domHelpersEventsOn = __webpack_require__(568);
-
-	var _domHelpersEventsOn2 = _interopRequireDefault(_domHelpersEventsOn);
-
-	var _classnames = __webpack_require__(495);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var transitionEndEvent = _domHelpersTransitionProperties2['default'].end;
-
-	var UNMOUNTED = 0;
-	exports.UNMOUNTED = UNMOUNTED;
-	var EXITED = 1;
-	exports.EXITED = EXITED;
-	var ENTERING = 2;
-	exports.ENTERING = ENTERING;
-	var ENTERED = 3;
-	exports.ENTERED = ENTERED;
-	var EXITING = 4;
-
-	exports.EXITING = EXITING;
-	/**
-	 * The Transition component lets you define and run css transitions with a simple declarative api.
-	 * It works similar to React's own [CSSTransitionGroup](http://facebook.github.io/react/docs/animation.html#high-level-api-reactcsstransitiongroup)
-	 * but is specifically optimized for transitioning a single child "in" or "out".
-	 *
-	 * You don't even need to use class based css transitions if you don't want to (but it is easiest).
-	 * The extensive set of lifecyle callbacks means you have control over
-	 * the transitioning now at each step of the way.
-	 */
-
-	var Transition = (function (_React$Component) {
-	  _inherits(Transition, _React$Component);
-
-	  function Transition(props, context) {
-	    _classCallCheck(this, Transition);
-
-	    _React$Component.call(this, props, context);
-
-	    var initialStatus = undefined;
-	    if (props['in']) {
-	      // Start enter transition in componentDidMount.
-	      initialStatus = props.transitionAppear ? EXITED : ENTERED;
-	    } else {
-	      initialStatus = props.unmountOnExit ? UNMOUNTED : EXITED;
-	    }
-	    this.state = { status: initialStatus };
-
-	    this.nextCallback = null;
-	  }
-
-	  Transition.prototype.componentDidMount = function componentDidMount() {
-	    if (this.props.transitionAppear && this.props['in']) {
-	      this.performEnter(this.props);
-	    }
-	  };
-
-	  Transition.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-	    if (nextProps['in'] && this.props.unmountOnExit) {
-	      if (this.state.status === UNMOUNTED) {
-	        // Start enter transition in componentDidUpdate.
-	        this.setState({ status: EXITED });
-	      }
-	    } else {
-	      this._needsUpdate = true;
-	    }
-	  };
-
-	  Transition.prototype.componentDidUpdate = function componentDidUpdate() {
-	    var status = this.state.status;
-
-	    if (this.props.unmountOnExit && status === EXITED) {
-	      // EXITED is always a transitional state to either ENTERING or UNMOUNTED
-	      // when using unmountOnExit.
-	      if (this.props['in']) {
-	        this.performEnter(this.props);
-	      } else {
-	        this.setState({ status: UNMOUNTED });
-	      }
-
-	      return;
-	    }
-
-	    // guard ensures we are only responding to prop changes
-	    if (this._needsUpdate) {
-	      this._needsUpdate = false;
-
-	      if (this.props['in']) {
-	        if (status === EXITING) {
-	          this.performEnter(this.props);
-	        } else if (status === EXITED) {
-	          this.performEnter(this.props);
-	        }
-	        // Otherwise we're already entering or entered.
-	      } else {
-	          if (status === ENTERING || status === ENTERED) {
-	            this.performExit(this.props);
-	          }
-	          // Otherwise we're already exited or exiting.
-	        }
-	    }
-	  };
-
-	  Transition.prototype.componentWillUnmount = function componentWillUnmount() {
-	    this.cancelNextCallback();
-	  };
-
-	  Transition.prototype.performEnter = function performEnter(props) {
-	    var _this = this;
-
-	    this.cancelNextCallback();
-	    var node = _reactDom2['default'].findDOMNode(this);
-
-	    // Not this.props, because we might be about to receive new props.
-	    props.onEnter(node);
-
-	    this.safeSetState({ status: ENTERING }, function () {
-	      _this.props.onEntering(node);
-
-	      _this.onTransitionEnd(node, function () {
-	        _this.safeSetState({ status: ENTERED }, function () {
-	          _this.props.onEntered(node);
-	        });
-	      });
-	    });
-	  };
-
-	  Transition.prototype.performExit = function performExit(props) {
-	    var _this2 = this;
-
-	    this.cancelNextCallback();
-	    var node = _reactDom2['default'].findDOMNode(this);
-
-	    // Not this.props, because we might be about to receive new props.
-	    props.onExit(node);
-
-	    this.safeSetState({ status: EXITING }, function () {
-	      _this2.props.onExiting(node);
-
-	      _this2.onTransitionEnd(node, function () {
-	        _this2.safeSetState({ status: EXITED }, function () {
-	          _this2.props.onExited(node);
-	        });
-	      });
-	    });
-	  };
-
-	  Transition.prototype.cancelNextCallback = function cancelNextCallback() {
-	    if (this.nextCallback !== null) {
-	      this.nextCallback.cancel();
-	      this.nextCallback = null;
-	    }
-	  };
-
-	  Transition.prototype.safeSetState = function safeSetState(nextState, callback) {
-	    // This shouldn't be necessary, but there are weird race conditions with
-	    // setState callbacks and unmounting in testing, so always make sure that
-	    // we can cancel any pending setState callbacks after we unmount.
-	    this.setState(nextState, this.setNextCallback(callback));
-	  };
-
-	  Transition.prototype.setNextCallback = function setNextCallback(callback) {
-	    var _this3 = this;
-
-	    var active = true;
-
-	    this.nextCallback = function (event) {
-	      if (active) {
-	        active = false;
-	        _this3.nextCallback = null;
-
-	        callback(event);
-	      }
-	    };
-
-	    this.nextCallback.cancel = function () {
-	      active = false;
-	    };
-
-	    return this.nextCallback;
-	  };
-
-	  Transition.prototype.onTransitionEnd = function onTransitionEnd(node, handler) {
-	    this.setNextCallback(handler);
-
-	    if (node) {
-	      _domHelpersEventsOn2['default'](node, transitionEndEvent, this.nextCallback);
-	      setTimeout(this.nextCallback, this.props.timeout);
-	    } else {
-	      setTimeout(this.nextCallback, 0);
-	    }
-	  };
-
-	  Transition.prototype.render = function render() {
-	    var status = this.state.status;
-	    if (status === UNMOUNTED) {
-	      return null;
-	    }
-
-	    var _props = this.props;
-	    var children = _props.children;
-	    var className = _props.className;
-
-	    var childProps = _objectWithoutProperties(_props, ['children', 'className']);
-
-	    Object.keys(Transition.propTypes).forEach(function (key) {
-	      return delete childProps[key];
-	    });
-
-	    var transitionClassName = undefined;
-	    if (status === EXITED) {
-	      transitionClassName = this.props.exitedClassName;
-	    } else if (status === ENTERING) {
-	      transitionClassName = this.props.enteringClassName;
-	    } else if (status === ENTERED) {
-	      transitionClassName = this.props.enteredClassName;
-	    } else if (status === EXITING) {
-	      transitionClassName = this.props.exitingClassName;
-	    }
-
-	    var child = _react2['default'].Children.only(children);
-	    return _react2['default'].cloneElement(child, _extends({}, childProps, {
-	      className: _classnames2['default'](child.props.className, className, transitionClassName)
-	    }));
-	  };
-
-	  return Transition;
-	})(_react2['default'].Component);
-
-	Transition.propTypes = {
-	  /**
-	   * Show the component; triggers the enter or exit animation
-	   */
-	  'in': _react2['default'].PropTypes.bool,
-
-	  /**
-	   * Unmount the component (remove it from the DOM) when it is not shown
-	   */
-	  unmountOnExit: _react2['default'].PropTypes.bool,
-
-	  /**
-	   * Run the enter animation when the component mounts, if it is initially
-	   * shown
-	   */
-	  transitionAppear: _react2['default'].PropTypes.bool,
-
-	  /**
-	   * A Timeout for the animation, in milliseconds, to ensure that a node doesn't
-	   * transition indefinately if the browser transitionEnd events are
-	   * canceled or interrupted.
-	   *
-	   * By default this is set to a high number (5 seconds) as a failsafe. You should consider
-	   * setting this to the duration of your animation (or a bit above it).
-	   */
-	  timeout: _react2['default'].PropTypes.number,
-
-	  /**
-	   * CSS class or classes applied when the component is exited
-	   */
-	  exitedClassName: _react2['default'].PropTypes.string,
-	  /**
-	   * CSS class or classes applied while the component is exiting
-	   */
-	  exitingClassName: _react2['default'].PropTypes.string,
-	  /**
-	   * CSS class or classes applied when the component is entered
-	   */
-	  enteredClassName: _react2['default'].PropTypes.string,
-	  /**
-	   * CSS class or classes applied while the component is entering
-	   */
-	  enteringClassName: _react2['default'].PropTypes.string,
-
-	  /**
-	   * Callback fired before the "entering" classes are applied
-	   */
-	  onEnter: _react2['default'].PropTypes.func,
-	  /**
-	   * Callback fired after the "entering" classes are applied
-	   */
-	  onEntering: _react2['default'].PropTypes.func,
-	  /**
-	   * Callback fired after the "enter" classes are applied
-	   */
-	  onEntered: _react2['default'].PropTypes.func,
-	  /**
-	   * Callback fired before the "exiting" classes are applied
-	   */
-	  onExit: _react2['default'].PropTypes.func,
-	  /**
-	   * Callback fired after the "exiting" classes are applied
-	   */
-	  onExiting: _react2['default'].PropTypes.func,
-	  /**
-	   * Callback fired after the "exited" classes are applied
-	   */
-	  onExited: _react2['default'].PropTypes.func
-	};
-
-	// Name the function so it is clearer in the documentation
-	function noop() {}
-
-	Transition.displayName = 'Transition';
-
-	Transition.defaultProps = {
-	  'in': false,
-	  unmountOnExit: false,
-	  transitionAppear: false,
-
-	  timeout: 5000,
-
-	  onEnter: noop,
-	  onEntering: noop,
-	  onEntered: noop,
-
-	  onExit: noop,
-	  onExiting: noop,
-	  onExited: noop
-	};
-
-	exports['default'] = Transition;
-
-/***/ },
-/* 634 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var canUseDOM = __webpack_require__(569);
-
-	var has = Object.prototype.hasOwnProperty,
-	    transform = 'transform',
-	    transition = {},
-	    transitionTiming,
-	    transitionDuration,
-	    transitionProperty,
-	    transitionDelay;
-
-	if (canUseDOM) {
-	  transition = getTransitionProperties();
-
-	  transform = transition.prefix + transform;
-
-	  transitionProperty = transition.prefix + 'transition-property';
-	  transitionDuration = transition.prefix + 'transition-duration';
-	  transitionDelay = transition.prefix + 'transition-delay';
-	  transitionTiming = transition.prefix + 'transition-timing-function';
-	}
-
-	module.exports = {
-	  transform: transform,
-	  end: transition.end,
-	  property: transitionProperty,
-	  timing: transitionTiming,
-	  delay: transitionDelay,
-	  duration: transitionDuration
-	};
-
-	function getTransitionProperties() {
-	  var endEvent,
-	      prefix = '',
-	      transitions = {
-	    O: 'otransitionend',
-	    Moz: 'transitionend',
-	    Webkit: 'webkitTransitionEnd',
-	    ms: 'MSTransitionEnd'
-	  };
-
-	  var element = document.createElement('div');
-
-	  for (var vendor in transitions) if (has.call(transitions, vendor)) {
-	    if (element.style[vendor + 'TransitionProperty'] !== undefined) {
-	      prefix = '-' + vendor.toLowerCase() + '-';
-	      endEvent = transitions[vendor];
-	      break;
-	    }
-	  }
-
-	  if (!endEvent && element.style.transitionProperty !== undefined) endEvent = 'transitionend';
-
-	  return { end: endEvent, prefix: prefix };
-	}
-
-/***/ },
-/* 635 */
+/* 637 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59229,7 +59612,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 636 */
+/* 638 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59280,7 +59663,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 637 */
+/* 639 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59387,7 +59770,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 638 */
+/* 640 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59438,7 +59821,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 639 */
+/* 641 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59500,7 +59883,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 640 */
+/* 642 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59584,7 +59967,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 641 */
+/* 643 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59609,7 +59992,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactPropTypesLibDeprecated = __webpack_require__(631);
+	var _reactPropTypesLibDeprecated = __webpack_require__(636);
 
 	var _reactPropTypesLibDeprecated2 = _interopRequireDefault(_reactPropTypesLibDeprecated);
 
@@ -59724,7 +60107,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 642 */
+/* 644 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -59759,11 +60142,11 @@
 
 	var _utilsBootstrapUtils = __webpack_require__(503);
 
-	var _FormControlFeedback = __webpack_require__(643);
+	var _FormControlFeedback = __webpack_require__(645);
 
 	var _FormControlFeedback2 = _interopRequireDefault(_FormControlFeedback);
 
-	var _FormControlStatic = __webpack_require__(645);
+	var _FormControlStatic = __webpack_require__(647);
 
 	var _FormControlStatic2 = _interopRequireDefault(_FormControlStatic);
 
@@ -59841,7 +60224,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 643 */
+/* 645 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59868,7 +60251,7 @@
 
 	var _utilsBootstrapUtils = __webpack_require__(503);
 
-	var _Glyphicon = __webpack_require__(644);
+	var _Glyphicon = __webpack_require__(646);
 
 	var _Glyphicon2 = _interopRequireDefault(_Glyphicon);
 
@@ -59945,7 +60328,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 644 */
+/* 646 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59964,7 +60347,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactPropTypesLibDeprecated = __webpack_require__(631);
+	var _reactPropTypesLibDeprecated = __webpack_require__(636);
 
 	var _reactPropTypesLibDeprecated2 = _interopRequireDefault(_reactPropTypesLibDeprecated);
 
@@ -60011,7 +60394,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 645 */
+/* 647 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60083,7 +60466,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 646 */
+/* 648 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -60177,7 +60560,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 647 */
+/* 649 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -60233,7 +60616,7 @@
 	});
 
 /***/ },
-/* 648 */
+/* 650 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -60453,7 +60836,7 @@
 	});
 
 /***/ },
-/* 649 */
+/* 651 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -60498,7 +60881,7 @@
 	})(WFUIJS.$);
 
 /***/ },
-/* 650 */
+/* 652 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -60520,7 +60903,7 @@
 	})(WFUIJS.$);
 
 /***/ },
-/* 651 */
+/* 653 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -60591,7 +60974,7 @@
 	})(WFUIJS.$);
 
 /***/ },
-/* 652 */
+/* 654 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -60678,7 +61061,7 @@
 	})(WFUIJS.$);
 
 /***/ },
-/* 653 */
+/* 655 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -61065,7 +61448,7 @@
 	})(WFUIJS.$);
 
 /***/ },
-/* 654 */
+/* 656 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -61244,7 +61627,7 @@
 	})(WFUIJS.$);
 
 /***/ },
-/* 655 */
+/* 657 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -61393,7 +61776,7 @@
 	});
 
 /***/ },
-/* 656 */
+/* 658 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -61482,7 +61865,7 @@
 	exports.default = Label;
 
 /***/ },
-/* 657 */
+/* 659 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

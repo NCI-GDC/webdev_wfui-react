@@ -66,6 +66,7 @@ window.WFUIJS.modules.AddAnotherReducer = require('./src/AddAnother/reducers/red
 window.WFUIJS.modules.BootStrap = {
     "Button": require('react-bootstrap/lib/Button'),
     "Tabs": require('react-bootstrap/lib/Tabs'),
+    "Tab": require('react-bootstrap/lib/Tab'),
     "Popover": require('react-bootstrap/lib/Popover'),
     "Modal": require('react-bootstrap/lib/Modal'),
     "Form": require('react-bootstrap/lib/Form'),
