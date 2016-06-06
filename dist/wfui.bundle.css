@@ -368,7 +368,7 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main, .fixedDataTableColu
         color: black;
         /*color for magnifying glass awesome font icon*/
         cursor: pointer; }
-      .wfui-description__imageContainer__imageGroup__image {
+      .wfui-description__imageContainer__imageGroup img {
         width: 100%;
         max-width: 100px;
         height: auto;
@@ -412,7 +412,7 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main, .fixedDataTableColu
     .wfui-description__imageDialog__body {
       min-height: 93px;
       max-height: 100%; }
-      .wfui-description__imageDialog__body__image {
+      .wfui-description__imageDialog__body img {
         width: 400px;
         height: auto;
         display: block;

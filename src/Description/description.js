@@ -30,7 +30,7 @@ class Description extends Component {
 
 
   render() {
-    var {content, type, imageSrc, imageDescription, classNames, errors} = this.props;
+    var {children, content, type, classNames, errors} = this.props;
 
     if (!content){
       return <noscript />
@@ -55,11 +55,11 @@ class Description extends Component {
     var imageDialogOverlayClassName ="wfui-description__imageDialogOverlay--theme-visible";
 
     //if imageSrc is passed, setup all image content and dialog
-    if (imageSrc) {
+    if (children) {
       var imageContent = (
         <div className="wfui-description__imageContainer__imageGroup" {...image_config}>
           <i className="fa fa-search-plus fa-2x wfui-description__imageContainer__imageGroup__enlargerIcon"></i>
-          <img className="wfui-description__imageContainer__imageGroup__image" src={imageSrc} />
+          {children}
         </div>
       );
       var imageDialogContent = (
@@ -68,10 +68,10 @@ class Description extends Component {
             <i className="fa fa-times"></i>
           </span>
           <div className="wfui-description__imageDialog__body">
-            <img className="wfui-description__imageDialog__body__image" src={imageSrc} />
+            {children}
           </div>
           <div className="wfui-description__imageDialog__footer">
-            <span>{imageDescription}</span>
+            <span>{children.props.title}</span>
           </div>
         </div>
       );
@@ -92,13 +92,13 @@ class Description extends Component {
     }/* END IF IMAGESRC ====== */
 
     //RENDER
-    if (typeof(content) == 'string' && !imageSrc) {
+    if (typeof(content) == 'string' && !children) {
       return (
         <div className={containerClassName} dangerouslySetInnerHTML={{__html: content}} >
         </div>
       );
     }
-    else if (typeof(content) == 'string' && imageSrc) {
+    else if (typeof(content) == 'string' && children) {
       return (
         <div className={containerClassName} >
           <div className="wfui-description__textContainer" dangerouslySetInnerHTML={{__html: content}} >
@@ -109,7 +109,7 @@ class Description extends Component {
         </div>
       );
     }
-    else if (typeof(content) == 'object' && imageSrc) {
+    else if (typeof(content) == 'object' && children) {
       return (
         <div className={containerClassName} >
           <div className="wfui-description__textContainer">
@@ -121,7 +121,7 @@ class Description extends Component {
         </div>
       );
     }
-    else {//typeof(content)==object && !imageSrc
+    else {//typeof(content)==object && !children
       return (
         <div className={containerClassName} >
           {content}
@@ -142,8 +142,6 @@ Description.propTypes = {
   ]),
   type: React.PropTypes.string,
   classNames: React.PropTypes.string,
-  imageSrc: React.PropTypes.string,
-  imageDescription: React.PropTypes.string,
   errors: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.number,
@@ -154,8 +152,6 @@ Description.defaultProps = {
   content: '',
   type: 'theme-grey',
   classNames: '',
-  imageSrc: '',
-  imageDescription: '',
   errors: '',
 }
 

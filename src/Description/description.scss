@@ -52,7 +52,7 @@
                 cursor: pointer;
             }
 
-            &__image{
+            img {
                 width: 100%;
                 max-width: 100px;
                 height: auto;
@@ -61,6 +61,7 @@
                 border: 1px solid #AAA5A1;
 
             }
+            
             &__enlargerIcon{
                 color: #464646;
                 text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white; 
@@ -113,8 +114,7 @@
         &__body {
             min-height: 93px;
             max-height: 100%;
-
-            &__image {
+            img {
                 width: 400px;
                 height: auto;
                 display: block;
