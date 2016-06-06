@@ -369,8 +369,7 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main, .fixedDataTableColu
         /*color for magnifying glass awesome font icon*/
         cursor: pointer; }
       .wfui-description__imageContainer__imageGroup img {
-        width: 100%;
-        max-width: 100px;
+        width: 100px;
         height: auto;
         float: right;
         padding: 2px;
