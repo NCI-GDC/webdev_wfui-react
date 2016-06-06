@@ -42698,14 +42698,15 @@
 	    key: 'render',
 	    value: function render() {
 	      var _props = this.props;
-	      var children = _props.children;
+	      var src = _props.src;
+	      var imageTitle = _props.imageTitle;
 	      var content = _props.content;
 	      var type = _props.type;
 	      var classNames = _props.classNames;
 	      var errors = _props.errors;
 
 
-	      if (!content && !children) {
+	      if (!content && !src) {
 	        return _react2.default.createElement('noscript', null);
 	      }
 
@@ -42727,12 +42728,12 @@
 	      var imageDialogOverlayClassName = "wfui-description__imageDialogOverlay--theme-visible";
 
 	      //if imageSrc is passed, setup all image content and dialog
-	      if (children) {
+	      if (src) {
 	        var imageContent = _react2.default.createElement(
 	          'div',
 	          _extends({ className: 'wfui-description__imageContainer__imageGroup' }, image_config),
 	          _react2.default.createElement('i', { className: 'fa fa-search-plus fa-2x wfui-description__imageContainer__imageGroup__enlargerIcon' }),
-	          children
+	          _react2.default.createElement('img', { className: 'wfui-description__imageContainer__imageGroup__image', src: src })
 	        );
 	        var imageDialogContent = _react2.default.createElement(
 	          'div',
@@ -42745,7 +42746,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'wfui-description__imageDialog__body' },
-	            children
+	            _react2.default.createElement('img', { className: 'wfui-description__imageDialog__body__image', src: src })
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -42753,7 +42754,7 @@
 	            _react2.default.createElement(
 	              'span',
 	              null,
-	              children.props.title
+	              imageTitle
 	            )
 	          )
 	        );
@@ -42773,9 +42774,9 @@
 	      } /* END IF IMAGESRC ====== */
 
 	      //RENDER
-	      if (typeof content == 'string' && !children) {
+	      if (typeof content == 'string' && !src) {
 	        return _react2.default.createElement('div', { className: containerClassName, dangerouslySetInnerHTML: { __html: content } });
-	      } else if (typeof content == 'string' && children) {
+	      } else if (typeof content == 'string' && src) {
 	        return _react2.default.createElement(
 	          'div',
 	          { className: containerClassName },
@@ -42786,7 +42787,7 @@
 	            imageContent
 	          )
 	        );
-	      } else if ((typeof content === 'undefined' ? 'undefined' : _typeof(content)) == 'object' && children) {
+	      } else if ((typeof content === 'undefined' ? 'undefined' : _typeof(content)) == 'object' && src) {
 	        return _react2.default.createElement(
 	          'div',
 	          { className: containerClassName },
@@ -42802,7 +42803,7 @@
 	          )
 	        );
 	      } else {
-	        //typeof(content)==object && !children
+	        //typeof(content)==object && !src
 	        return _react2.default.createElement(
 	          'div',
 	          { className: containerClassName },

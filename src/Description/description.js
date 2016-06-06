@@ -30,9 +30,9 @@ class Description extends Component {
 
 
   render() {
-    var {children, content, type, classNames, errors} = this.props;
+    var {src, imageTitle, content, type, classNames, errors} = this.props;
 
-    if (!content && !children){
+    if (!content && !src){
       return <noscript />
     }
 
@@ -55,11 +55,11 @@ class Description extends Component {
     var imageDialogOverlayClassName ="wfui-description__imageDialogOverlay--theme-visible";
 
     //if imageSrc is passed, setup all image content and dialog
-    if (children) {
+    if (src) {
       var imageContent = (
         <div className="wfui-description__imageContainer__imageGroup" {...image_config}>
           <i className="fa fa-search-plus fa-2x wfui-description__imageContainer__imageGroup__enlargerIcon"></i>
-          {children}
+          <img className="wfui-description__imageContainer__imageGroup__image" src={src} />
         </div>
       );
       var imageDialogContent = (
@@ -68,10 +68,10 @@ class Description extends Component {
             <i className="fa fa-times"></i>
           </span>
           <div className="wfui-description__imageDialog__body">
-            {children}
+            <img className="wfui-description__imageDialog__body__image" src={src} />
           </div>
           <div className="wfui-description__imageDialog__footer">
-            <span>{children.props.title}</span>
+            <span>{imageTitle}</span>
           </div>
         </div>
       );
@@ -92,13 +92,13 @@ class Description extends Component {
     }/* END IF IMAGESRC ====== */
 
     //RENDER
-    if (typeof(content) == 'string' && !children) {
+    if (typeof(content) == 'string' && !src) {
       return (
         <div className={containerClassName} dangerouslySetInnerHTML={{__html: content}} >
         </div>
       );
     }
-    else if (typeof(content) == 'string' && children) {
+    else if (typeof(content) == 'string' && src) {
       return (
         <div className={containerClassName} >
           <div className="wfui-description__textContainer" dangerouslySetInnerHTML={{__html: content}} >
@@ -109,7 +109,7 @@ class Description extends Component {
         </div>
       );
     }
-    else if (typeof(content) == 'object' && children) {
+    else if (typeof(content) == 'object' && src) {
       return (
         <div className={containerClassName} >
           <div className="wfui-description__textContainer">
@@ -121,7 +121,7 @@ class Description extends Component {
         </div>
       );
     }
-    else {//typeof(content)==object && !children
+    else {//typeof(content)==object && !src
       return (
         <div className={containerClassName} >
           {content}
