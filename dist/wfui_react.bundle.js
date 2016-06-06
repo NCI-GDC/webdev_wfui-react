@@ -42705,7 +42705,7 @@
 	      var errors = _props.errors;
 
 
-	      if (!content) {
+	      if (!content && !children) {
 	        return _react2.default.createElement('noscript', null);
 	      }
 

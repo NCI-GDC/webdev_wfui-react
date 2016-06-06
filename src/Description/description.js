@@ -32,7 +32,7 @@ class Description extends Component {
   render() {
     var {children, content, type, classNames, errors} = this.props;
 
-    if (!content){
+    if (!content && !children){
       return <noscript />
     }
 
