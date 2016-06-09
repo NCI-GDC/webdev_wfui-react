@@ -42870,12 +42870,16 @@
 	  function InputField() {
 	    _classCallCheck(this, InputField);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(InputField).call(this));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InputField).call(this));
+
+	    _this.state = { value: "" };
+	    return _this;
 	  }
 
 	  _createClass(InputField, [{
 	    key: "onHandleChange",
 	    value: function onHandleChange(e) {
+	      this.setState({ value: e.target.value });
 	      var _props = this.props;
 	      var onHandleChange = _props.onHandleChange;
 	      var preview = _props.preview;
@@ -42883,6 +42887,16 @@
 	      if (onHandleChange && !preview) {
 	        onHandleChange(e);
 	      }
+	    }
+	  }, {
+	    key: "componentDidMount",
+	    value: function componentDidMount() {
+	      this.setState({ value: this.props.value });
+	    }
+	  }, {
+	    key: "componentWillReceiveProps",
+	    value: function componentWillReceiveProps(props) {
+	      this.setState({ value: props.value });
 	    }
 	  }, {
 	    key: "render",
@@ -42899,6 +42913,7 @@
 	      var errors = _props2.errors;
 	      var description = _props2.description;
 	      var preview = _props2.preview;
+	      var value = this.state.value;
 
 	      if (prefix) {
 	        var prefixField = _react2.default.createElement(
@@ -42919,7 +42934,6 @@
 	      if (errors) {
 	        errorClassName += ' wfui-input-field__input--theme-error';
 	      }
-
 	      return _react2.default.createElement(
 	        "div",
 	        { className: "wfui-input-field" },
@@ -42933,7 +42947,7 @@
 	            label
 	          ),
 	          prefixField,
-	          _react2.default.createElement("input", { className: "wfui-input-field__input" + errorClassName, type: type, defaultValue: defaultValue, placeholder: placeholder, name: name, onChange: this.onHandleChange.bind(this), disabled: preview }),
+	          _react2.default.createElement("input", { className: "wfui-input-field__input" + errorClassName, type: type, defaultValue: defaultValue, value: value, placeholder: placeholder, name: name, onChange: this.onHandleChange.bind(this), disabled: preview }),
 	          postfixField
 	        )
 	      );

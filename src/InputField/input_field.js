@@ -6,15 +6,24 @@ import React, { Component } from 'react';
 class InputField extends Component {
   constructor(){
     super();
+    this.state={value:""}
   }
   onHandleChange(e){
+    this.setState({value:e.target.value})
     const {onHandleChange, preview} = this.props;
     if(onHandleChange && !preview){
       onHandleChange(e);
     }
   }
+  componentDidMount() {
+    this.setState({value: this.props.value})
+  }
+  componentWillReceiveProps(props) {
+    this.setState({value: props.value})
+  }
   render() {
     var {label, type, defaultValue, placeholder, postfix, prefix, name, className, errors, description, preview} = this.props;
+    var {value} = this.state;
     if(prefix){
       var prefixField = <span className="wfui-input-field__prefix">{prefix}</span>
     }
@@ -26,14 +35,13 @@ class InputField extends Component {
     if(errors) {
       errorClassName += ' wfui-input-field__input--theme-error';
     }
-
     return (
       <div className={"wfui-input-field"}>
         {description}
         <div className={"wfui-input-field--"+ type + ' ' + className}>
             <label className="wfui-input-field__label">{label}</label>
             {prefixField}
-            <input className={"wfui-input-field__input"+ errorClassName} type={type} defaultValue={defaultValue} placeholder={placeholder} name={name} onChange={this.onHandleChange.bind(this)} disabled={preview} />
+            <input className={"wfui-input-field__input"+ errorClassName} type={type} defaultValue={defaultValue} value={value} placeholder={placeholder} name={name} onChange={this.onHandleChange.bind(this)} disabled={preview} />
             {postfixField}
         </div>
       </div>

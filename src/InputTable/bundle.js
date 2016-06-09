@@ -19,12 +19,13 @@ let config1 = {
 }
 
 ReactDOM.render(
-    <InputTable {...config}>
-        <InputField error={true} type="text" suffix="pounds" />
+    <InputTable {...config} children={[
+        <InputField error={true} type="text" suffix="pounds" />,
+        <InputField type="text" suffix="kilograms" />,
+        <InputField type="text" suffix="kilograms" />,
+        <InputField type="text" suffix="kilograms" />,
         <InputField type="text" suffix="kilograms" />
-        <InputField type="text" suffix="kilograms" />
-        <InputField type="text" suffix="kilograms" />
-        <InputField type="text" suffix="kilograms" />
+    ]}>
     </InputTable>, 
     document.getElementById('app')
 );
