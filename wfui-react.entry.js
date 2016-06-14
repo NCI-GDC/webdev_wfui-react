@@ -74,6 +74,8 @@ window.WFUIJS.modules.BootStrap = {
     "FormControl": require('react-bootstrap/lib/FormControl'),
     "Col": require('react-bootstrap/lib/Col'),
     "ControlLabel": require('react-bootstrap/lib/ControlLabel'),
+    "DropdownButton": require('react-bootstrap/lib/DropdownButton'),
+    "MenuItem": require('react-bootstrap/lib/MenuItem'),
 }
 
 /**
