@@ -46,7 +46,7 @@
 
 	__webpack_require__(1);
 	__webpack_require__(9);
-	module.exports = __webpack_require__(720);
+	module.exports = __webpack_require__(718);
 
 
 /***/ },
@@ -5181,37 +5181,36 @@
 	    "Col": __webpack_require__(561),
 	    "ControlLabel": __webpack_require__(656),
 	    "DropdownButton": __webpack_require__(657),
-	    "MenuItem": __webpack_require__(706),
-	    "Panel": __webpack_require__(707)
+	    "MenuItem": __webpack_require__(706)
 	};
 
 	/**
 	 * Old WFUI Components
 	 */
 	//Icon
-	__webpack_require__(709);
+	__webpack_require__(707);
 
 	//Button
-	__webpack_require__(710);
+	__webpack_require__(708);
 
 	//Dialog
+	__webpack_require__(709);
+	__webpack_require__(710);
 	__webpack_require__(711);
 	__webpack_require__(712);
 	__webpack_require__(713);
-	__webpack_require__(714);
-	__webpack_require__(715);
 
 	//Dropdown
-	__webpack_require__(716);
+	__webpack_require__(714);
 
 	//Tabs
-	__webpack_require__(717);
+	__webpack_require__(715);
 
 	//Label
-	__webpack_require__(718);
+	__webpack_require__(716);
 
 	//Tooltip
-	__webpack_require__(719);
+	__webpack_require__(717);
 
 /***/ },
 /* 10 */
@@ -69236,518 +69235,6 @@
 
 /***/ },
 /* 707 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _objectWithoutProperties = __webpack_require__(513)['default'];
-
-	var _extends = __webpack_require__(492)['default'];
-
-	var _interopRequireDefault = __webpack_require__(502)['default'];
-
-	exports.__esModule = true;
-
-	var _classnames = __webpack_require__(503);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _react = __webpack_require__(26);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _styleMaps = __webpack_require__(506);
-
-	var _utilsBootstrapUtils = __webpack_require__(511);
-
-	var _Collapse = __webpack_require__(708);
-
-	var _Collapse2 = _interopRequireDefault(_Collapse);
-
-	var Panel = _react2['default'].createClass({
-	  displayName: 'Panel',
-
-	  propTypes: {
-	    collapsible: _react2['default'].PropTypes.bool,
-	    onSelect: _react2['default'].PropTypes.func,
-	    header: _react2['default'].PropTypes.node,
-	    id: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.number]),
-	    footer: _react2['default'].PropTypes.node,
-	    defaultExpanded: _react2['default'].PropTypes.bool,
-	    expanded: _react2['default'].PropTypes.bool,
-	    eventKey: _react2['default'].PropTypes.any,
-	    headerRole: _react2['default'].PropTypes.string,
-	    panelRole: _react2['default'].PropTypes.string,
-
-	    onEnter: _Collapse2['default'].propTypes.onEnter,
-	    onEntering: _Collapse2['default'].propTypes.onEntering,
-	    onEntered: _Collapse2['default'].propTypes.onEntered,
-	    onExit: _Collapse2['default'].propTypes.onExit,
-	    onExiting: _Collapse2['default'].propTypes.onExiting,
-	    onExited: _Collapse2['default'].propTypes.onExited
-	  },
-
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      defaultExpanded: false
-	    };
-	  },
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      expanded: this.props.defaultExpanded
-	    };
-	  },
-
-	  handleSelect: function handleSelect(e) {
-	    e.persist();
-	    e.selected = true;
-
-	    if (this.props.onSelect) {
-	      this.props.onSelect(this.props.eventKey, e);
-	    } else {
-	      e.preventDefault();
-	    }
-
-	    if (e.selected) {
-	      this.handleToggle();
-	    }
-	  },
-
-	  handleToggle: function handleToggle() {
-	    this.setState({ expanded: !this.state.expanded });
-	  },
-
-	  isExpanded: function isExpanded() {
-	    return this.props.expanded != null ? this.props.expanded : this.state.expanded;
-	  },
-
-	  render: function render() {
-	    var _props = this.props;
-	    var headerRole = _props.headerRole;
-	    var panelRole = _props.panelRole;
-
-	    var props = _objectWithoutProperties(_props, ['headerRole', 'panelRole']);
-
-	    return _react2['default'].createElement(
-	      'div',
-	      _extends({}, props, {
-	        className: _classnames2['default'](this.props.className, _utilsBootstrapUtils.getClassSet(this.props)),
-	        id: this.props.collapsible ? null : this.props.id, onSelect: null
-	      }),
-	      this.renderHeading(headerRole),
-	      this.props.collapsible ? this.renderCollapsibleBody(panelRole) : this.renderBody(),
-	      this.renderFooter()
-	    );
-	  },
-
-	  renderCollapsibleBody: function renderCollapsibleBody(panelRole) {
-	    var collapseProps = {
-	      onEnter: this.props.onEnter,
-	      onEntering: this.props.onEntering,
-	      onEntered: this.props.onEntered,
-	      onExit: this.props.onExit,
-	      onExiting: this.props.onExiting,
-	      onExited: this.props.onExited,
-	      'in': this.isExpanded()
-	    };
-	    var props = {
-	      className: _utilsBootstrapUtils.prefix(this.props, 'collapse'),
-	      id: this.props.id,
-	      ref: 'panel',
-	      'aria-hidden': !this.isExpanded()
-	    };
-	    if (panelRole) {
-	      props.role = panelRole;
-	    }
-
-	    return _react2['default'].createElement(
-	      _Collapse2['default'],
-	      collapseProps,
-	      _react2['default'].createElement(
-	        'div',
-	        props,
-	        this.renderBody()
-	      )
-	    );
-	  },
-
-	  renderBody: function renderBody() {
-	    var _this = this;
-
-	    var allChildren = this.props.children;
-	    var bodyElements = [];
-	    var panelBodyChildren = [];
-	    var bodyClass = _utilsBootstrapUtils.prefix(this.props, 'body');
-
-	    function getProps() {
-	      return { key: bodyElements.length };
-	    }
-
-	    function addPanelChild(child) {
-	      bodyElements.push(_react.cloneElement(child, getProps()));
-	    }
-
-	    function addPanelBody(children) {
-	      bodyElements.push(_react2['default'].createElement(
-	        'div',
-	        _extends({ className: bodyClass }, getProps()),
-	        children
-	      ));
-	    }
-
-	    function maybeRenderPanelBody() {
-	      if (panelBodyChildren.length === 0) {
-	        return;
-	      }
-
-	      addPanelBody(panelBodyChildren);
-	      panelBodyChildren = [];
-	    }
-
-	    // Handle edge cases where we should not iterate through children.
-	    if (!Array.isArray(allChildren) || allChildren.length === 0) {
-	      if (this.shouldRenderFill(allChildren)) {
-	        addPanelChild(allChildren);
-	      } else {
-	        addPanelBody(allChildren);
-	      }
-	    } else {
-	      allChildren.forEach(function (child) {
-	        if (_this.shouldRenderFill(child)) {
-	          maybeRenderPanelBody();
-
-	          // Separately add the filled element.
-	          addPanelChild(child);
-	        } else {
-	          panelBodyChildren.push(child);
-	        }
-	      });
-
-	      maybeRenderPanelBody();
-	    }
-
-	    return bodyElements;
-	  },
-
-	  shouldRenderFill: function shouldRenderFill(child) {
-	    return _react2['default'].isValidElement(child) && child.props.fill != null;
-	  },
-
-	  renderHeading: function renderHeading(headerRole) {
-	    var header = this.props.header;
-
-	    if (!header) {
-	      return null;
-	    }
-
-	    if (!_react2['default'].isValidElement(header) || Array.isArray(header)) {
-	      header = this.props.collapsible ? this.renderCollapsibleTitle(header, headerRole) : header;
-	    } else {
-	      var className = _classnames2['default'](_utilsBootstrapUtils.prefix(this.props, 'title'), header.props.className);
-
-	      if (this.props.collapsible) {
-	        header = _react.cloneElement(header, {
-	          className: className,
-	          children: this.renderAnchor(header.props.children, headerRole)
-	        });
-	      } else {
-	        header = _react.cloneElement(header, { className: className });
-	      }
-	    }
-
-	    return _react2['default'].createElement(
-	      'div',
-	      { className: _utilsBootstrapUtils.prefix(this.props, 'heading') },
-	      header
-	    );
-	  },
-
-	  renderAnchor: function renderAnchor(header, headerRole) {
-	    return _react2['default'].createElement(
-	      'a',
-	      {
-	        href: '#' + (this.props.id || ''),
-	        'aria-controls': this.props.collapsible ? this.props.id : null,
-	        className: this.isExpanded() ? null : 'collapsed',
-	        'aria-expanded': this.isExpanded(),
-	        'aria-selected': this.isExpanded(),
-	        onClick: this.handleSelect,
-	        role: headerRole
-	      },
-	      header
-	    );
-	  },
-
-	  renderCollapsibleTitle: function renderCollapsibleTitle(header, headerRole) {
-	    return _react2['default'].createElement(
-	      'h4',
-	      { className: _utilsBootstrapUtils.prefix(this.props, 'title'), role: 'presentation' },
-	      this.renderAnchor(header, headerRole)
-	    );
-	  },
-
-	  renderFooter: function renderFooter() {
-	    if (!this.props.footer) {
-	      return null;
-	    }
-
-	    return _react2['default'].createElement(
-	      'div',
-	      { className: _utilsBootstrapUtils.prefix(this.props, 'footer') },
-	      this.props.footer
-	    );
-	  }
-	});
-
-	var PANEL_STATES = _styleMaps.State.values().concat(_styleMaps.DEFAULT, _styleMaps.PRIMARY);
-
-	exports['default'] = _utilsBootstrapUtils.bsStyles(PANEL_STATES, _styleMaps.DEFAULT, _utilsBootstrapUtils.bsClass('panel', Panel));
-	module.exports = exports['default'];
-
-/***/ },
-/* 708 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _inherits = __webpack_require__(476)['default'];
-
-	var _classCallCheck = __webpack_require__(491)['default'];
-
-	var _extends = __webpack_require__(492)['default'];
-
-	var _interopRequireDefault = __webpack_require__(502)['default'];
-
-	exports.__esModule = true;
-
-	var _domHelpersStyle = __webpack_require__(628);
-
-	var _domHelpersStyle2 = _interopRequireDefault(_domHelpersStyle);
-
-	var _react = __webpack_require__(26);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(503);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _reactOverlaysLibTransition = __webpack_require__(578);
-
-	var _reactOverlaysLibTransition2 = _interopRequireDefault(_reactOverlaysLibTransition);
-
-	var _utilsCreateChainedFunction = __webpack_require__(565);
-
-	var _utilsCreateChainedFunction2 = _interopRequireDefault(_utilsCreateChainedFunction);
-
-	var capitalize = function capitalize(str) {
-	  return str[0].toUpperCase() + str.substr(1);
-	};
-
-	// reading a dimension prop will cause the browser to recalculate,
-	// which will let our animations work
-	var triggerBrowserReflow = function triggerBrowserReflow(node) {
-	  return node.offsetHeight;
-	};
-
-	var MARGINS = {
-	  height: ['marginTop', 'marginBottom'],
-	  width: ['marginLeft', 'marginRight']
-	};
-
-	function getDimensionValue(dimension, elem) {
-	  var value = elem['offset' + capitalize(dimension)];
-	  var margins = MARGINS[dimension];
-
-	  return value + parseInt(_domHelpersStyle2['default'](elem, margins[0]), 10) + parseInt(_domHelpersStyle2['default'](elem, margins[1]), 10);
-	}
-
-	var Collapse = (function (_React$Component) {
-	  _inherits(Collapse, _React$Component);
-
-	  function Collapse(props, context) {
-	    _classCallCheck(this, Collapse);
-
-	    _React$Component.call(this, props, context);
-
-	    this.onEnterListener = this.handleEnter.bind(this);
-	    this.onEnteringListener = this.handleEntering.bind(this);
-	    this.onEnteredListener = this.handleEntered.bind(this);
-	    this.onExitListener = this.handleExit.bind(this);
-	    this.onExitingListener = this.handleExiting.bind(this);
-	  }
-
-	  // Explicitly copied from Transition for doc generation.
-	  // TODO: Remove duplication once #977 is resolved.
-
-	  Collapse.prototype.render = function render() {
-	    var enter = _utilsCreateChainedFunction2['default'](this.onEnterListener, this.props.onEnter);
-	    var entering = _utilsCreateChainedFunction2['default'](this.onEnteringListener, this.props.onEntering);
-	    var entered = _utilsCreateChainedFunction2['default'](this.onEnteredListener, this.props.onEntered);
-	    var exit = _utilsCreateChainedFunction2['default'](this.onExitListener, this.props.onExit);
-	    var exiting = _utilsCreateChainedFunction2['default'](this.onExitingListener, this.props.onExiting);
-
-	    return _react2['default'].createElement(
-	      _reactOverlaysLibTransition2['default'],
-	      _extends({
-	        ref: 'transition'
-	      }, this.props, {
-	        'aria-expanded': this.props.role ? this.props['in'] : null,
-	        className: _classnames2['default'](this.props.className, { width: this._dimension() === 'width' }),
-	        exitedClassName: 'collapse',
-	        exitingClassName: 'collapsing',
-	        enteredClassName: 'collapse in',
-	        enteringClassName: 'collapsing',
-	        onEnter: enter,
-	        onEntering: entering,
-	        onEntered: entered,
-	        onExit: exit,
-	        onExiting: exiting,
-	        onExited: this.props.onExited
-	      }),
-	      this.props.children
-	    );
-	  };
-
-	  /* -- Expanding -- */
-
-	  Collapse.prototype.handleEnter = function handleEnter(elem) {
-	    var dimension = this._dimension();
-	    elem.style[dimension] = '0';
-	  };
-
-	  Collapse.prototype.handleEntering = function handleEntering(elem) {
-	    var dimension = this._dimension();
-
-	    elem.style[dimension] = this._getScrollDimensionValue(elem, dimension);
-	  };
-
-	  Collapse.prototype.handleEntered = function handleEntered(elem) {
-	    var dimension = this._dimension();
-	    elem.style[dimension] = null;
-	  };
-
-	  /* -- Collapsing -- */
-
-	  Collapse.prototype.handleExit = function handleExit(elem) {
-	    var dimension = this._dimension();
-
-	    elem.style[dimension] = this.props.getDimensionValue(dimension, elem) + 'px';
-	  };
-
-	  Collapse.prototype.handleExiting = function handleExiting(elem) {
-	    var dimension = this._dimension();
-
-	    triggerBrowserReflow(elem);
-	    elem.style[dimension] = '0';
-	  };
-
-	  Collapse.prototype._dimension = function _dimension() {
-	    return typeof this.props.dimension === 'function' ? this.props.dimension() : this.props.dimension;
-	  };
-
-	  // for testing
-
-	  Collapse.prototype._getTransitionInstance = function _getTransitionInstance() {
-	    return this.refs.transition;
-	  };
-
-	  Collapse.prototype._getScrollDimensionValue = function _getScrollDimensionValue(elem, dimension) {
-	    return elem['scroll' + capitalize(dimension)] + 'px';
-	  };
-
-	  return Collapse;
-	})(_react2['default'].Component);
-
-	Collapse.propTypes = {
-	  /**
-	   * Show the component; triggers the expand or collapse animation
-	   */
-	  'in': _react2['default'].PropTypes.bool,
-
-	  /**
-	   * Unmount the component (remove it from the DOM) when it is collapsed
-	   */
-	  unmountOnExit: _react2['default'].PropTypes.bool,
-
-	  /**
-	   * Run the expand animation when the component mounts, if it is initially
-	   * shown
-	   */
-	  transitionAppear: _react2['default'].PropTypes.bool,
-
-	  /**
-	   * Duration of the collapse animation in milliseconds, to ensure that
-	   * finishing callbacks are fired even if the original browser transition end
-	   * events are canceled
-	   */
-	  timeout: _react2['default'].PropTypes.number,
-
-	  /**
-	   * Callback fired before the component expands
-	   */
-	  onEnter: _react2['default'].PropTypes.func,
-	  /**
-	   * Callback fired after the component starts to expand
-	   */
-	  onEntering: _react2['default'].PropTypes.func,
-	  /**
-	   * Callback fired after the component has expanded
-	   */
-	  onEntered: _react2['default'].PropTypes.func,
-	  /**
-	   * Callback fired before the component collapses
-	   */
-	  onExit: _react2['default'].PropTypes.func,
-	  /**
-	   * Callback fired after the component starts to collapse
-	   */
-	  onExiting: _react2['default'].PropTypes.func,
-	  /**
-	   * Callback fired after the component has collapsed
-	   */
-	  onExited: _react2['default'].PropTypes.func,
-
-	  /**
-	   * The dimension used when collapsing, or a function that returns the
-	   * dimension
-	   *
-	   * _Note: Bootstrap only partially supports 'width'!
-	   * You will need to supply your own CSS animation for the `.width` CSS class._
-	   */
-	  dimension: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.oneOf(['height', 'width']), _react2['default'].PropTypes.func]),
-
-	  /**
-	   * Function that returns the height or width of the animating DOM node
-	   *
-	   * Allows for providing some custom logic for how much the Collapse component
-	   * should animate in its specified dimension. Called with the current
-	   * dimension prop value and the DOM node.
-	   */
-	  getDimensionValue: _react2['default'].PropTypes.func,
-
-	  /**
-	   * ARIA role of collapsible element
-	   */
-	  role: _react2['default'].PropTypes.string
-	};
-
-	Collapse.defaultProps = {
-	  'in': false,
-	  timeout: 300,
-	  unmountOnExit: false,
-	  transitionAppear: false,
-
-	  dimension: 'height',
-	  getDimensionValue: getDimensionValue
-	};
-
-	exports['default'] = Collapse;
-	module.exports = exports['default'];
-
-/***/ },
-/* 709 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -69803,7 +69290,7 @@
 	});
 
 /***/ },
-/* 710 */
+/* 708 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -70023,7 +69510,7 @@
 	});
 
 /***/ },
-/* 711 */
+/* 709 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -70068,7 +69555,7 @@
 	})(WFUIJS.$);
 
 /***/ },
-/* 712 */
+/* 710 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -70090,7 +69577,7 @@
 	})(WFUIJS.$);
 
 /***/ },
-/* 713 */
+/* 711 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -70161,7 +69648,7 @@
 	})(WFUIJS.$);
 
 /***/ },
-/* 714 */
+/* 712 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -70248,7 +69735,7 @@
 	})(WFUIJS.$);
 
 /***/ },
-/* 715 */
+/* 713 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -70635,7 +70122,7 @@
 	})(WFUIJS.$);
 
 /***/ },
-/* 716 */
+/* 714 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -70814,7 +70301,7 @@
 	})(WFUIJS.$);
 
 /***/ },
-/* 717 */
+/* 715 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -70963,7 +70450,7 @@
 	});
 
 /***/ },
-/* 718 */
+/* 716 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71052,7 +70539,7 @@
 	exports.default = Label;
 
 /***/ },
-/* 719 */
+/* 717 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71142,52 +70629,64 @@
 	exports.default = Tooltip;
 
 /***/ },
-/* 720 */
+/* 718 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+	__webpack_require__(719);
 	__webpack_require__(721);
-	__webpack_require__(723);
 
+	__webpack_require__(722);
+	__webpack_require__(723);
 	__webpack_require__(724);
 	__webpack_require__(725);
 	__webpack_require__(726);
 	__webpack_require__(727);
-	__webpack_require__(728);
-	__webpack_require__(729);
 
 	/**
 	 * Old WFUI Components
 	 */
 	//Button
-	__webpack_require__(730);
+	__webpack_require__(728);
 
 	//Dialog
+	__webpack_require__(729);
+	__webpack_require__(730);
 	__webpack_require__(731);
-	__webpack_require__(732);
-	__webpack_require__(733);
 
 	//Dropdown
-	__webpack_require__(734);
+	__webpack_require__(732);
 
 	//Tabs
-	__webpack_require__(735);
+	__webpack_require__(733);
 
 	//Label
-	__webpack_require__(736);
+	__webpack_require__(734);
 
 	//Tooltip
-	__webpack_require__(737);
+	__webpack_require__(735);
 
 /***/ },
+/* 719 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 720 */,
 /* 721 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 722 */,
+/* 722 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
 /* 723 */
 /***/ function(module, exports) {
 
@@ -71261,18 +70760,6 @@
 
 /***/ },
 /* 735 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 736 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 737 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
