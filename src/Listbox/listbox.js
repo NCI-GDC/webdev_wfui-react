@@ -27,11 +27,13 @@ class Listbox extends Component {
 
     return (
       <div className={"wfui-list-box"}>
-        <label>{label}</label>
-        {description}
-        <select className={errorClassName} defaultValue={defaultOption} onChange={this.onHandleChange.bind(this)}>
-          {placeholder_option}
-          {options}
+       	{description}
+	<div className={"wfui-list-box-fields"}>
+		<label>{label}</label>
+        	<select className={errorClassName} defaultValue={defaultOption} onChange={this.onHandleChange.bind(this)}>
+          	{placeholder_option}
+         	{options}
+	</div>
         </select>
       </div>
     )
