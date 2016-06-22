@@ -1,13 +1,14 @@
+import React, { Component } from 'react';
+import Growl from './Growl/growl.react';
 
-var React = require('react');
-var Growl = require('./Growl/growl.react');
+class AppGrowl extends Component {
 
-var AppGrowl = React.createClass({
+	constructor(){
+		super()
+		this.state = { growler: null, wrapper: null }
+	}
 
-	growler: null,
-	wrapper: null,
-
-	componentWillMount: function() {
+	componentWillMount() {
 		/** 
 		* Example usage.
 		*
@@ -19,18 +20,17 @@ var AppGrowl = React.createClass({
 		*/
 		//Growl.noAnimations();
 		Growl.setDelay(5000);
-	},
+	};
 
-	componentDidMount: function() {
+	componentDidMount() {
 		if(this.wrapper === null) {
-			this.wrapper = this.getDOMNode();
+			this.setState({ wrapper: this.getDOMNode() });
 		}
-
-		this.growler = this.refs.growler;
+		this.setState({ growler: this.refs.growler });
 
 		var self = this;
 
-	},
+	};
 
 	/*
 	 * Somewhere in your app, you need a function that gets called and can reference the DemoApp.growler variable
@@ -38,21 +38,21 @@ var AppGrowl = React.createClass({
 	 * controller component.
 	 *
 	 */
-	notify: function(level, msg) {
-		this.growler.addNotification({ level: level, msg: msg });
-	},
+	notify(level, msg) {
+		this.state.growler.addNotification({ level: level, msg: msg });
+	};
 
 	/* 
 	 * This just for demo.
 	 */
-	handleNotificationTrigger: function(e) {
+	handleNotificationTrigger(e) {
 		e.preventDefault();
 		var form = e.target;
 		var lvl = document.getElementById('growlLevel').value;
 		var msg = document.getElementById('growlMsg').value;
 
 		this.notify(lvl, msg);
-	},
+	};
 
 
 	/*
@@ -60,7 +60,7 @@ var AppGrowl = React.createClass({
 	 * in order to make layout and redraws work optimally.
 	 *
 	 */
-	render: function() {
+	render() {
 		return (<div className="component-demo-app">
 				<Growl ref="growler"></Growl>
 				<form onSubmit={this.handleNotificationTrigger}>
@@ -76,9 +76,11 @@ var AppGrowl = React.createClass({
 				</form>
 			</div>
 		);
-	}
+	};
 
-});
+}
+
+export default AppGrowl
 
 // React.render(
 //   <AppGrowl />,

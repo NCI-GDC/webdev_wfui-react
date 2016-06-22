@@ -130,7 +130,7 @@
 	window.WFUIJS.modules.AddAnotherReducer = __webpack_require__(507).default;
 
 	//Alert
-	window.WFUIJS.modules.AppGrowl = __webpack_require__(549);
+	window.WFUIJS.modules.AppGrowl = __webpack_require__(549).default;
 
 	window.WFUIJS.modules.BootStrap = {
 	    "Button": __webpack_require__(467),
@@ -53330,111 +53330,150 @@
 
 	'use strict';
 
-	var React = __webpack_require__(26);
-	var Growl = __webpack_require__(550);
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 
-	var AppGrowl = React.createClass({
-		displayName: 'AppGrowl',
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _react = __webpack_require__(26);
 
-		growler: null,
-		wrapper: null,
+	var _react2 = _interopRequireDefault(_react);
 
-		componentWillMount: function componentWillMount() {
-			/** 
-	  * Example usage.
-	  *
-	  * If you do not have CSS transitions setup on each growl, you will need to call Growl.noAnimations() 
-	  * otherwise the growls will not be removed after the delay.
-	  *
-	  * When setting the delay(ms), include any time you have for the animation you use to show the growl. (2s animation + 6s visible = 8s)
-	  *
-	  */
-			//Growl.noAnimations();
-			Growl.setDelay(5000);
-		},
+	var _growl = __webpack_require__(550);
 
-		componentDidMount: function componentDidMount() {
-			if (this.wrapper === null) {
-				this.wrapper = this.getDOMNode();
-			}
+	var _growl2 = _interopRequireDefault(_growl);
 
-			this.growler = this.refs.growler;
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-			var self = this;
-		},
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-		/*
-	  * Somewhere in your app, you need a function that gets called and can reference the DemoApp.growler variable
-	  * and call addNotification. Feel free to put in actions or in a App Model change observer, or leave in your root
-	  * controller component.
-	  *
-	  */
-		notify: function notify(level, msg) {
-			this.growler.addNotification({ level: level, msg: msg });
-		},
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-		/* 
-	  * This just for demo.
-	  */
-		handleNotificationTrigger: function handleNotificationTrigger(e) {
-			e.preventDefault();
-			var form = e.target;
-			var lvl = document.getElementById('growlLevel').value;
-			var msg = document.getElementById('growlMsg').value;
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-			this.notify(lvl, msg);
-		},
+	var AppGrowl = function (_Component) {
+		_inherits(AppGrowl, _Component);
 
-		/*
-	  * Recommend creating the Growl component at the top-most level of you app that you can
-	  * in order to make layout and redraws work optimally.
-	  *
-	  */
-		render: function render() {
-			return React.createElement(
-				'div',
-				{ className: 'component-demo-app' },
-				React.createElement(Growl, { ref: 'growler' }),
-				React.createElement(
-					'form',
-					{ onSubmit: this.handleNotificationTrigger },
-					React.createElement(
-						'h3',
-						null,
-						'Trigger a growl notification.'
-					),
-					React.createElement(
-						'select',
-						{ name: 'level', id: 'growlLevel' },
-						React.createElement(
-							'option',
-							{ value: 'info' },
-							'Info'
-						),
-						React.createElement(
-							'option',
-							{ value: 'warn' },
-							'Warn'
-						),
-						React.createElement(
-							'option',
-							{ value: 'error' },
-							'Error'
-						),
-						React.createElement(
-							'option',
-							{ value: 'success' },
-							'Success'
-						)
-					),
-					React.createElement('input', { type: 'text', name: 'msg', id: 'growlMsg' }),
-					React.createElement('input', { type: 'submit', value: 'Growl!' })
-				)
-			);
+		function AppGrowl() {
+			_classCallCheck(this, AppGrowl);
+
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AppGrowl).call(this));
+
+			_this.state = { growler: null, wrapper: null };
+			return _this;
 		}
 
-	});
+		_createClass(AppGrowl, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+				/** 
+	   * Example usage.
+	   *
+	   * If you do not have CSS transitions setup on each growl, you will need to call Growl.noAnimations() 
+	   * otherwise the growls will not be removed after the delay.
+	   *
+	   * When setting the delay(ms), include any time you have for the animation you use to show the growl. (2s animation + 6s visible = 8s)
+	   *
+	   */
+				//Growl.noAnimations();
+				_growl2.default.setDelay(5000);
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				if (this.wrapper === null) {
+					this.setState({ wrapper: this.getDOMNode() });
+				}
+				this.setState({ growler: this.refs.growler });
+
+				var self = this;
+			}
+		}, {
+			key: 'notify',
+
+
+			/*
+	   * Somewhere in your app, you need a function that gets called and can reference the DemoApp.growler variable
+	   * and call addNotification. Feel free to put in actions or in a App Model change observer, or leave in your root
+	   * controller component.
+	   *
+	   */
+			value: function notify(level, msg) {
+				this.state.growler.addNotification({ level: level, msg: msg });
+			}
+		}, {
+			key: 'handleNotificationTrigger',
+
+
+			/* 
+	   * This just for demo.
+	   */
+			value: function handleNotificationTrigger(e) {
+				e.preventDefault();
+				var form = e.target;
+				var lvl = document.getElementById('growlLevel').value;
+				var msg = document.getElementById('growlMsg').value;
+
+				this.notify(lvl, msg);
+			}
+		}, {
+			key: 'render',
+
+
+			/*
+	   * Recommend creating the Growl component at the top-most level of you app that you can
+	   * in order to make layout and redraws work optimally.
+	   *
+	   */
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'component-demo-app' },
+					_react2.default.createElement(_growl2.default, { ref: 'growler' }),
+					_react2.default.createElement(
+						'form',
+						{ onSubmit: this.handleNotificationTrigger },
+						_react2.default.createElement(
+							'h3',
+							null,
+							'Trigger a growl notification.'
+						),
+						_react2.default.createElement(
+							'select',
+							{ name: 'level', id: 'growlLevel' },
+							_react2.default.createElement(
+								'option',
+								{ value: 'info' },
+								'Info'
+							),
+							_react2.default.createElement(
+								'option',
+								{ value: 'warn' },
+								'Warn'
+							),
+							_react2.default.createElement(
+								'option',
+								{ value: 'error' },
+								'Error'
+							),
+							_react2.default.createElement(
+								'option',
+								{ value: 'success' },
+								'Success'
+							)
+						),
+						_react2.default.createElement('input', { type: 'text', name: 'msg', id: 'growlMsg' }),
+						_react2.default.createElement('input', { type: 'submit', value: 'Growl!' })
+					)
+				);
+			}
+		}]);
+
+		return AppGrowl;
+	}(_react.Component);
+
+	exports.default = AppGrowl;
 
 	// React.render(
 	//   <AppGrowl />,
