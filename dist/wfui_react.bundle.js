@@ -45514,7 +45514,7 @@
 	        errorClassName += ' wfui-input-field__input--theme-error';
 	      }
 	      var inputFieldElement = hideField ? "" : _react2.default.createElement(
-	        "div",
+	        "span",
 	        null,
 	        prefixField,
 	        _react2.default.createElement("input", { className: "wfui-input-field__input" + errorClassName, type: type, defaultValue: defaultValue, value: value, placeholder: placeholder, name: name, onChange: this.onHandleChange.bind(this), disabled: preview }),
