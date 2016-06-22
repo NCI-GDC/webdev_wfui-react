@@ -5170,7 +5170,7 @@
 	window.WFUIJS.modules.AddAnotherReducer = __webpack_require__(507).default;
 
 	//Alert
-	window.WFUIJS.modules.AppGrowl = __webpack_require__(549).default;
+	window.WFUIJS.modules.AppGrowl = __webpack_require__(549);
 
 	window.WFUIJS.modules.BootStrap = {
 	    "Button": __webpack_require__(467),
@@ -70785,6 +70785,9 @@
 	//Tooltip
 	__webpack_require__(731);
 
+	//Growl Alert
+	__webpack_require__(732);
+
 /***/ },
 /* 715 */
 /***/ function(module, exports) {
@@ -70878,6 +70881,12 @@
 
 /***/ },
 /* 731 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 732 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

@@ -30,3 +30,6 @@ require('./src/Label/label.scss');
 
 //Tooltip
 require('./src/Tooltip/tooltip.scss');
+
+//Growl Alert
+require('./src/Growl/growl.scss');

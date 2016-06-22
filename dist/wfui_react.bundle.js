@@ -130,7 +130,7 @@
 	window.WFUIJS.modules.AddAnotherReducer = __webpack_require__(507).default;
 
 	//Alert
-	window.WFUIJS.modules.AppGrowl = __webpack_require__(549).default;
+	window.WFUIJS.modules.AppGrowl = __webpack_require__(549);
 
 	window.WFUIJS.modules.BootStrap = {
 	    "Button": __webpack_require__(467),

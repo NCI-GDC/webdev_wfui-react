@@ -64,7 +64,7 @@ window.WFUIJS.modules.AnotherTable = require('./src/AddAnother/add_another.js').
 window.WFUIJS.modules.AddAnotherReducer = require('./src/AddAnother/reducers/reducers').default;
 
 //Alert
-window.WFUIJS.modules.AppGrowl = require('./src/Growl/growl').default;
+window.WFUIJS.modules.AppGrowl = require('./src/Growl/growl.js');
 
 window.WFUIJS.modules.BootStrap = {
     "Button": require('react-bootstrap/lib/Button'),
