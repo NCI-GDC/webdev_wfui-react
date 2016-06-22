@@ -36,9 +36,9 @@ class InputField extends Component {
       errorClassName += ' wfui-input-field__input--theme-error';
     }
     var inputFieldElement = hideField ? "" :
-			      {prefixField}
-                              <input className={"wfui-input-field__input"+ errorClassName} type={type} defaultValue={defaultValue} value={value} placeholder={placeholder} name={name} onChange={this.onHandleChange.bind(this)} disabled={preview} />
-                              {postfixField};
+			    <div>{prefixField}
+                            <input className={"wfui-input-field__input"+ errorClassName} type={type} defaultValue={defaultValue} value={value} placeholder={placeholder} name={name} onChange={this.onHandleChange.bind(this)} disabled={preview} />
+                            {postfixField}</div>;
     return (
       <div className={"wfui-input-field"}>
         {description}

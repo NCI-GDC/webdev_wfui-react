@@ -50553,11 +50553,13 @@
 	      if (errors) {
 	        errorClassName += ' wfui-input-field__input--theme-error';
 	      }
-	      var inputFieldElement = hideField ? "" : { prefixField: prefixField };
-	      _react2.default.createElement("input", { className: "wfui-input-field__input" + errorClassName, type: type, defaultValue: defaultValue, value: value, placeholder: placeholder, name: name, onChange: this.onHandleChange.bind(this), disabled: preview });
-	      {
-	        postfixField;
-	      };
+	      var inputFieldElement = hideField ? "" : _react2.default.createElement(
+	        "div",
+	        null,
+	        prefixField,
+	        _react2.default.createElement("input", { className: "wfui-input-field__input" + errorClassName, type: type, defaultValue: defaultValue, value: value, placeholder: placeholder, name: name, onChange: this.onHandleChange.bind(this), disabled: preview }),
+	        postfixField
+	      );
 	      return _react2.default.createElement(
 	        "div",
 	        { className: "wfui-input-field" },
