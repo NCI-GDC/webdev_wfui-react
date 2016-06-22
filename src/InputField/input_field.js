@@ -22,7 +22,7 @@ class InputField extends Component {
     this.setState({value: props.value})
   }
   render() {
-    var {label, type, defaultValue, placeholder, postfix, prefix, name, className, errors, description, preview} = this.props;
+    var {label, type, defaultValue, placeholder, postfix, prefix, name, className, errors, description, preview, hideField} = this.props;
     var {value} = this.state;
     if(prefix){
       var prefixField = <span className="wfui-input-field__prefix">{prefix}</span>
@@ -35,7 +35,7 @@ class InputField extends Component {
     if(errors) {
       errorClassName += ' wfui-input-field__input--theme-error';
     }
-    var inputFieldElement = hideField : "" ?
+    var inputFieldElement = hideField ? "" :
 			      {prefixField}
                               <input className={"wfui-input-field__input"+ errorClassName} type={type} defaultValue={defaultValue} value={value} placeholder={placeholder} name={name} onChange={this.onHandleChange.bind(this)} disabled={preview} />
                               {postfixField};
