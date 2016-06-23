@@ -9,10 +9,10 @@ var delay = 3000;
 var animations = true;
 var maxShown = 8;
 
-var movePosition = function() {
+var movePosition = function(topOffset = 0) {
 	var y = position.slice(0, 1);
 	if(y == "t") {
-		holder.style.top = "0px";
+		holder.style.top = String(topOffset + 30) + "px";
 		holder.style.bottom = "auto";
 	} else {
 		holder.style.top = "auto";
@@ -47,8 +47,8 @@ var Growl = React.createClass({
 	ERROR: 'error',
 	SUCCESS: 'success',
 
-	// Use these statics to configure all Growls from anywhere in your application
-	statics: {
+	// // Use these statics to configure all Growls from anywhere in your application
+	// statics: {
 		setPosition: function(pos) {
 			if(inArray(pos, valid_positions)) {
 				position = pos;
@@ -57,7 +57,7 @@ var Growl = React.createClass({
 			}
 
 			if(holder !== null) {
-				movePosition();
+				movePosition(this.state.topOffset);
 			}
 		},
 		setMaxToShow: function(ct) {
@@ -73,18 +73,19 @@ var Growl = React.createClass({
 		noAnimations: function() {
 			animations = false;
 			SingleGrowl.noAnimations();
-		}		
-	},
+		},	
+	// },
 
 	getInitialState: function() {
 		return {
-			notifications: []
+			notifications: [],
+			topOffset: 0
 		}
 	},
 
 	getDefaultProps: function() {		
 		return {};
-	},	
+	},
 
 	handleRemovedNotification: function(uid) {
 		var notifications = this.state.notifications;
@@ -95,7 +96,24 @@ var Growl = React.createClass({
 	},
 
 	addNotification: function(note) {
-		var n = this.state.notifications;
+		// Configuration
+		if(holder === null) {
+			holder = this.getDOMNode();
+		}
+		if(note.topOffset){
+			this.setState({topOffset: note.topOffset});
+		}
+		if(note.delay){
+			this.setDelay(note.delay);
+		}
+		if(note.position && inArray(note.position, valid_positions) ){
+			this.setPosition(note.position);
+		}
+		this.setMaxToShow(8);
+		movePosition(this.state.topOffset);
+
+
+		var n = this.state.notifications;	
 		var self = this;
 		try {
 			if(note.level) {

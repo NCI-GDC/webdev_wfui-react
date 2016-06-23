@@ -2115,7 +2115,8 @@ body {
   padding: 0.2em 0; }
 
 .growl-wrapper {
-  position: absolute;
+  z-index: 50000;
+  position: fixed;
   width: 20%;
   height: auto; }
   .growl-wrapper.empty {

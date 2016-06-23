@@ -31,7 +31,8 @@ body {
 }
 
 .growl-wrapper {
-  position: absolute;
+  z-index:50000;
+  position: fixed;
   width: 20%;
   height: auto;
   &.empty { display: none; }

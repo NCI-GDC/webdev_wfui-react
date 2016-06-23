@@ -63,8 +63,11 @@ window.WFUIJS.modules.Listbox = require('./src/Listbox/listbox.js').default;
 window.WFUIJS.modules.AnotherTable = require('./src/AddAnother/add_another.js').default;
 window.WFUIJS.modules.AddAnotherReducer = require('./src/AddAnother/reducers/reducers').default;
 
-//Alert
+//Growl
 window.WFUIJS.modules.Growl = require('./src/Growl/growl.react.js');
+
+// //PNotify
+// window.WFUIJS.modules.Growl = require('./src/PNotify/pnotify.js');
 
 window.WFUIJS.modules.BootStrap = {
     "Button": require('react-bootstrap/lib/Button'),
