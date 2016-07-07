@@ -81,6 +81,7 @@ window.WFUIJS.modules.BootStrap = {
     "Col": require('react-bootstrap/lib/Col'),
     "ControlLabel": require('react-bootstrap/lib/ControlLabel'),
     "DropdownButton": require('react-bootstrap/lib/DropdownButton'),
+    "SplitButton": require('react-bootstrap/lib/SplitButton'),
     "MenuItem": require('react-bootstrap/lib/MenuItem'),
     "Alert": require('react-bootstrap/lib/Alert'),
     "Fade": require('react-bootstrap/lib/Fade'),
