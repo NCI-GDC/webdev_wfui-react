@@ -45643,6 +45643,7 @@
 	      var fieldType = _props.fieldType;
 	      var description = _props.description;
 	      var children = _props.children;
+	      var className = _props.className;
 
 	      //Get the number of inputs
 
@@ -45685,7 +45686,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'wfui-input-table', onClick: this._onClickValidateOrAnd },
+	        { className:  true ? className : "", onClick: this._onClickValidateOrAnd },
 	        _react2.default.createElement(
 	          'label',
 	          null,
