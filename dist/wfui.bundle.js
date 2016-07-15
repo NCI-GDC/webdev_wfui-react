@@ -50462,7 +50462,7 @@
 /* 537 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -50499,7 +50499,7 @@
 	  }
 
 	  _createClass(InputField, [{
-	    key: 'onHandleChange',
+	    key: "onHandleChange",
 	    value: function onHandleChange(e) {
 	      var _props = this.props;
 	      var min = _props.min;
@@ -50519,17 +50519,17 @@
 	      }
 	    }
 	  }, {
-	    key: 'componentDidMount',
+	    key: "componentDidMount",
 	    value: function componentDidMount() {
 	      this.setState({ value: this.props.value });
 	    }
 	  }, {
-	    key: 'componentWillReceiveProps',
+	    key: "componentWillReceiveProps",
 	    value: function componentWillReceiveProps(props) {
 	      this.setState({ value: props.value });
 	    }
 	  }, {
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      var _props3 = this.props;
 	      var label = _props3.label;
@@ -50550,18 +50550,18 @@
 	      var max = _props3.max;
 	      var value = this.state.value;
 
-	      console.log(value, 'this.state');
+
 	      if (prefix) {
 	        var prefixField = _react2.default.createElement(
-	          'span',
-	          { className: 'wfui-input-field__prefix' },
+	          "span",
+	          { className: "wfui-input-field__prefix" },
 	          prefix
 	        );
 	      }
 	      if (postfix) {
 	        var postfixField = _react2.default.createElement(
-	          'span',
-	          { className: 'wfui-input-field__postfix' },
+	          "span",
+	          { className: "wfui-input-field__postfix" },
 	          postfix
 	        );
 	      }
@@ -50571,22 +50571,22 @@
 	        errorClassName += ' wfui-input-field__input--theme-error';
 	      }
 	      var inputFieldElement = hideField ? "" : _react2.default.createElement(
-	        'span',
+	        "span",
 	        null,
 	        prefixField,
-	        _react2.default.createElement('input', { className: "wfui-input-field__input" + errorClassName, type: type, defaultValue: defaultValue, value: value, placeholder: placeholder, name: name, onChange: this.onHandleChange.bind(this), onBlur: onBlur, disabled: preview, maxLength: maxLength, min: min, max: max }),
+	        _react2.default.createElement("input", { className: "wfui-input-field__input" + errorClassName, type: type, defaultValue: defaultValue, value: value, placeholder: placeholder, name: name, onChange: this.onHandleChange.bind(this), onBlur: onBlur, disabled: preview, maxLength: maxLength, min: min, max: max }),
 	        postfixField
 	      );
 	      return _react2.default.createElement(
-	        'div',
+	        "div",
 	        { className: "wfui-input-field" },
 	        description,
 	        _react2.default.createElement(
-	          'div',
+	          "div",
 	          { className: "wfui-input-field--" + type + ' ' + className },
 	          _react2.default.createElement(
-	            'label',
-	            { className: 'wfui-input-field__label' },
+	            "label",
+	            { className: "wfui-input-field__label" },
 	            label
 	          ),
 	          inputFieldElement

@@ -29,7 +29,7 @@ class InputField extends Component {
   render() {
     var {label, type, defaultValue, placeholder, postfix, prefix, name, className, errors, description, preview, hideField, maxLength, onBlur, min, max} = this.props;
     var {value} = this.state;
-    console.log(value, 'this.state');
+
     if(prefix){
       var prefixField = <span className="wfui-input-field__prefix">{prefix}</span>
     }
