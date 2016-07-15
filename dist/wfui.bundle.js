@@ -50501,10 +50501,18 @@
 	  _createClass(InputField, [{
 	    key: "onHandleChange",
 	    value: function onHandleChange(e) {
-	      this.setState({ value: e.target.value });
 	      var _props = this.props;
-	      var onHandleChange = _props.onHandleChange;
-	      var preview = _props.preview;
+	      var min = _props.min;
+	      var max = _props.max;
+
+	      var val = e.target.value;
+	      val = min ? Math.max(min, val) : val;
+	      val = max ? Math.min(max, val) : val;
+
+	      this.setState({ value: val });
+	      var _props2 = this.props;
+	      var onHandleChange = _props2.onHandleChange;
+	      var preview = _props2.preview;
 
 	      if (onHandleChange && !preview) {
 	        onHandleChange(e);
@@ -50523,23 +50531,23 @@
 	  }, {
 	    key: "render",
 	    value: function render() {
-	      var _props2 = this.props;
-	      var label = _props2.label;
-	      var type = _props2.type;
-	      var defaultValue = _props2.defaultValue;
-	      var placeholder = _props2.placeholder;
-	      var postfix = _props2.postfix;
-	      var prefix = _props2.prefix;
-	      var name = _props2.name;
-	      var className = _props2.className;
-	      var errors = _props2.errors;
-	      var description = _props2.description;
-	      var preview = _props2.preview;
-	      var hideField = _props2.hideField;
-	      var maxLength = _props2.maxLength;
-	      var onBlur = _props2.onBlur;
-	      var min = _props2.min;
-	      var max = _props2.max;
+	      var _props3 = this.props;
+	      var label = _props3.label;
+	      var type = _props3.type;
+	      var defaultValue = _props3.defaultValue;
+	      var placeholder = _props3.placeholder;
+	      var postfix = _props3.postfix;
+	      var prefix = _props3.prefix;
+	      var name = _props3.name;
+	      var className = _props3.className;
+	      var errors = _props3.errors;
+	      var description = _props3.description;
+	      var preview = _props3.preview;
+	      var hideField = _props3.hideField;
+	      var maxLength = _props3.maxLength;
+	      var onBlur = _props3.onBlur;
+	      var min = _props3.min;
+	      var max = _props3.max;
 	      var value = this.state.value;
 
 	      if (prefix) {

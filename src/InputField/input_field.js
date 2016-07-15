@@ -9,7 +9,12 @@ class InputField extends Component {
     this.state={value:""}
   }
   onHandleChange(e){
-    this.setState({value:e.target.value})
+    var {min, max} = this.props;
+    var val = e.target.value;
+    val = min ? Math.max(min, val) : val;
+    val = max ? Math.min(max, val) : val;
+    
+    this.setState({value: val})
     const {onHandleChange, preview} = this.props;
     if(onHandleChange && !preview){
       onHandleChange(e);
