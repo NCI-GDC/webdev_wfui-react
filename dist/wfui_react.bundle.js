@@ -45498,6 +45498,8 @@
 	      var hideField = _props2.hideField;
 	      var maxLength = _props2.maxLength;
 	      var onBlur = _props2.onBlur;
+	      var min = _props2.min;
+	      var max = _props2.max;
 	      var value = this.state.value;
 
 	      if (prefix) {
@@ -45523,7 +45525,7 @@
 	        "span",
 	        null,
 	        prefixField,
-	        _react2.default.createElement("input", { className: "wfui-input-field__input" + errorClassName, type: type, defaultValue: defaultValue, value: value, placeholder: placeholder, name: name, onChange: this.onHandleChange.bind(this), onBlur: onBlur, disabled: preview, maxLength: maxLength }),
+	        _react2.default.createElement("input", { className: "wfui-input-field__input" + errorClassName, type: type, defaultValue: defaultValue, value: value, placeholder: placeholder, name: name, onChange: this.onHandleChange.bind(this), onBlur: onBlur, disabled: preview, maxLength: maxLength, min: min, max: max }),
 	        postfixField
 	      );
 	      return _react2.default.createElement(
