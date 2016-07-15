@@ -13,7 +13,9 @@ class InputField extends Component {
     var val = e.target.value;
     val = min ? Math.max(min, val) : val;
     val = max ? Math.min(max, val) : val;
-    
+
+	console.log(this.props);
+	    
     this.setState({value: val})
     const {onHandleChange, preview} = this.props;
     if(onHandleChange && !preview){

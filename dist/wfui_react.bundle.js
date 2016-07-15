@@ -45469,6 +45469,8 @@
 	      val = min ? Math.max(min, val) : val;
 	      val = max ? Math.min(max, val) : val;
 
+	      console.log(this.props);
+
 	      this.setState({ value: val });
 	      var _props2 = this.props;
 	      var onHandleChange = _props2.onHandleChange;
