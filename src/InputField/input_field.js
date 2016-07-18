@@ -9,10 +9,15 @@ class InputField extends Component {
     this.state={value:""}
   }
   onHandleChange(e){
-    this.setState({value:e.target.value})
+    var {min, max} = this.props;
+    var val = e.target.value;
+
+    val = min ? Math.max(min, val) : val;
+    val = max ? Math.min(max, val) : val;
+
     const {onHandleChange, preview} = this.props;
     if(onHandleChange && !preview){
-      onHandleChange(e);
+      onHandleChange(e, val);
     }
   }
   componentDidMount() {
@@ -22,8 +27,9 @@ class InputField extends Component {
     this.setState({value: props.value})
   }
   render() {
-    var {label, type, defaultValue, placeholder, postfix, prefix, name, className, errors, description, preview, hideField, maxLength} = this.props;
+    var {label, type, defaultValue, placeholder, postfix, prefix, name, className, errors, description, preview, hideField, maxLength, onBlur, min, max} = this.props;
     var {value} = this.state;
+
     if(prefix){
       var prefixField = <span className="wfui-input-field__prefix">{prefix}</span>
     }
@@ -36,11 +42,11 @@ class InputField extends Component {
       errorClassName += ' wfui-input-field__input--theme-error';
     }
     var inputFieldElement = hideField ? "" :
-			    <span>
-			      {prefixField}
-                              <input className={"wfui-input-field__input"+ errorClassName} type={type} defaultValue={defaultValue} value={value} placeholder={placeholder} name={name} onChange={this.onHandleChange.bind(this)} disabled={preview} maxLength={maxLength} />
-                              {postfixField}
-			    </span>;
+          <span>
+            {prefixField}
+              <input className={"wfui-input-field__input"+ errorClassName} type={type} defaultValue={defaultValue} value={value} placeholder={placeholder} name={name} onChange={this.onHandleChange.bind(this)} onBlur={onBlur} disabled={preview} maxLength={maxLength} min={min} max={max} />
+              {postfixField}
+          </span>;
     return (
       <div className={"wfui-input-field"}>
         {description}

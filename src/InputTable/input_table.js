@@ -24,7 +24,7 @@ class InputTable extends Component {
     */
   }
   render() {
-    var {label, fieldLabel, fieldType, description, children} = this.props;
+    var {label, fieldLabel, fieldType, description, children, className} = this.props;
 
     //Get the number of inputs
     this.numOfInputs = children.length;
@@ -50,7 +50,7 @@ class InputTable extends Component {
     }//==========
 
     return (
-      <div className="wfui-input-table" onClick={this._onClickValidateOrAnd}>
+      <div className={"wfui-input-table " + className ? className : "" } onClick={this._onClickValidateOrAnd}>
           <label>{label}</label>
           {description}
           {fields}
