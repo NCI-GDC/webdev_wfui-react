@@ -43556,6 +43556,7 @@
 	      var children = _props.children;
 	      var description = _props.description;
 	      var errors = _props.errors;
+	      var value = _props.value;
 
 
 	      var options = [];
@@ -43589,7 +43590,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'select',
-	            { className: errorClassName, defaultValue: defaultOption, onChange: this.onHandleChange.bind(this) },
+	            { className: errorClassName, defaultValue: defaultOption, value: value, onChange: this.onHandleChange.bind(this) },
 	            placeholder_option,
 	            options
 	          )

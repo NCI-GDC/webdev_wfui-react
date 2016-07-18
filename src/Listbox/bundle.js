@@ -8,6 +8,7 @@ const css = require('../../dist/wfui.bundle.css');
 let config1 = {
 	label: 'Cancer Type',
 	placeholder: '- Select one -',
+	value: 2
 }
 let config2 = {
 	label: 'Leg Injury Location',

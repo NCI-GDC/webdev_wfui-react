@@ -10,7 +10,7 @@ class Listbox extends Component {
     }
   }
   render() {
-    var {label, placeholder, defaultOption, children, description, errors} = this.props;
+    var {label, placeholder, defaultOption, children, description, errors, value} = this.props;
 
     var options = [];
     children.map(function(list_box_option, i) {
@@ -30,7 +30,7 @@ class Listbox extends Component {
        	{description}
 	    <div className={"wfui-list-box-fields"}>
 		  <label>{label}</label>
-          <select className={errorClassName} defaultValue={defaultOption} onChange={this.onHandleChange.bind(this)}>
+          <select className={errorClassName} defaultValue={defaultOption} value={value} onChange={this.onHandleChange.bind(this)}>
       	    {placeholder_option}
        	    {options}
           </select>
