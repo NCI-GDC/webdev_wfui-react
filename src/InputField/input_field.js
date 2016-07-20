@@ -8,6 +8,10 @@ class InputField extends Component {
     super();
     this.state={value:""}
   }
+  onHandleClick(e){
+    const {stopPropagation} = this.props;
+    if(stopPropagation) e.stopPropagation();
+  }
   onHandleChange(e){
     var {min, max} = this.props;
     var val = e.target.value;
@@ -44,7 +48,7 @@ class InputField extends Component {
     var inputFieldElement = hideField ? "" :
           <span>
             {prefixField}
-              <input className={"wfui-input-field__input"+ errorClassName} type={type} defaultValue={defaultValue} value={value} placeholder={placeholder} name={name} onChange={this.onHandleChange.bind(this)} onBlur={onBlur} disabled={preview} maxLength={maxLength} min={min} max={max} />
+              <input className={"wfui-input-field__input"+ errorClassName} type={type} defaultValue={defaultValue} value={value} placeholder={placeholder} name={name} onChange={this.onHandleChange.bind(this)} onClick={this.onHandleClick.bind(this)} onBlur={onBlur} disabled={preview} maxLength={maxLength} min={min} max={max} />
               {postfixField}
           </span>;
     return (
@@ -75,7 +79,8 @@ InputField.propTypes = {
     React.PropTypes.string,
     React.PropTypes.number,
     React.PropTypes.bool
-  ])
+  ]),
+  stopPropagation: React.PropTypes.bool
 }
 InputField.defaultProps = {
   label: '',
@@ -86,7 +91,8 @@ InputField.defaultProps = {
   postfix: '',
   prefix: '',
   className: '',
-  errors: ''
+  errors: '',
+  stopPropagation: false
 }
 
 export default InputField

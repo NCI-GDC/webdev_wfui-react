@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom'
 
 /**
  * Selection
@@ -9,11 +10,10 @@ class Selection extends Component {
     this.state = { active: false }
   }
   onHandleClick(e) {
+    
     var {type} = this.props;
     if(type=="radio"){
       this.refs.selection.checked = true;
-    }else{
-      this.refs.selection.checked = !this.refs.selection.checked;
     }
     //Pass data to a callback.
     if(this.props.onHandleChange){

@@ -59,6 +59,26 @@ ReactDOM.render(
                 <InputField type="text" label="Minutes:" />
             </InputTable>
         </Selection>
-        <Selection type="radio" label="Don't know" name="radios3" value="1" />
+        <Selection type="radio" label="Don't know" name="radios3" value="1">
+            <InputField type="text" label="Minutes:" />
+        </Selection>
     </Grid>,
 document.getElementById('selection3'));
+
+
+ReactDOM.render(
+    <Grid
+        label="1. On average, how many hours per day do you usually sleep, including naps?"
+        description={<Description content="A day refers to a 24 hour period" />}
+        columnNumber={2} >
+        <Selection type="checkbox" name="radios3" value="0">
+            <InputTable fieldType='and' stopPropagation={true} >
+                <InputField type="text" label="Hours:" />
+                <InputField type="text" label="Minutes:" />
+            </InputTable>
+        </Selection>
+        <Selection type="checkbox" label="Don't know" name="radios3" value="1">
+            <InputField type="text" label="Minutes:" stopPropagation={true} />
+        </Selection>
+    </Grid>,
+document.getElementById('selection4'));

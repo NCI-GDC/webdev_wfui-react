@@ -9,19 +9,11 @@ class InputTable extends Component {
     this.state = {
       refs: '',
     }
-    this._onClickValidateOrAnd = this._onClickValidateOrAnd.bind(this);
+    this.onHandleClick = this.onHandleClick.bind(this);
   }
-  _onClickValidateOrAnd(e) {
-    //if there are no children then this function is not executed.
-    /*
-    this.setState({ refs: this.refs['allInputs'] });
-    console.log(this.state.refs);
-    console.log(this);
-    console.log(this.numOfInputs);
-    for (var i = 0; i < this.numOfInputs; i++) {
-      console.log("child of <ul> ref #"+i, this.state.refs.children[i].children[0].children[1].value);
-    };
-    */
+  onHandleClick(e) {
+    const {stopPropagation} = this.props;
+    if(stopPropagation) e.stopPropagation();
   }
   render() {
     var {label, fieldLabel, fieldType, description, children, className} = this.props;
@@ -50,7 +42,7 @@ class InputTable extends Component {
     }//==========
 
     return (
-      <div className={"wfui-input-table " + className ? className : "" } onClick={this._onClickValidateOrAnd}>
+      <div className={"wfui-input-table " + className ? className : "" } onClick={this.onHandleClick}>
           <label>{label}</label>
           {description}
           {fields}
@@ -70,12 +62,14 @@ InputTable.propTypes = {
     React.PropTypes.string,
     React.PropTypes.element,
   ]),
+  stopPropagation: React.PropTypes.bool
 }
 InputTable.defaultProps = {
   label: '',
   fieldLabel: '',
   fieldType: 'and',
-  description: ''
+  description: '',
+  stopPropagation: false
 }
 
 export default InputTable

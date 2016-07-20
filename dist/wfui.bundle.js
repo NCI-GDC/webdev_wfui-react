@@ -47928,6 +47928,13 @@
 	  }
 
 	  _createClass(InputField, [{
+	    key: "onHandleClick",
+	    value: function onHandleClick(e) {
+	      var stopPropagation = this.props.stopPropagation;
+
+	      if (stopPropagation) e.stopPropagation();
+	    }
+	  }, {
 	    key: "onHandleChange",
 	    value: function onHandleChange(e) {
 	      var _props = this.props;
@@ -48003,7 +48010,7 @@
 	        "span",
 	        null,
 	        prefixField,
-	        _react2.default.createElement("input", { className: "wfui-input-field__input" + errorClassName, type: type, defaultValue: defaultValue, value: value, placeholder: placeholder, name: name, onChange: this.onHandleChange.bind(this), onBlur: onBlur, disabled: preview, maxLength: maxLength, min: min, max: max }),
+	        _react2.default.createElement("input", { className: "wfui-input-field__input" + errorClassName, type: type, defaultValue: defaultValue, value: value, placeholder: placeholder, name: name, onChange: this.onHandleChange.bind(this), onClick: this.onHandleClick.bind(this), onBlur: onBlur, disabled: preview, maxLength: maxLength, min: min, max: max }),
 	        postfixField
 	      );
 	      return _react2.default.createElement(
@@ -48041,7 +48048,8 @@
 	  postfix: _react2.default.PropTypes.string,
 	  prefix: _react2.default.PropTypes.string,
 	  className: _react2.default.PropTypes.string,
-	  errors: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number, _react2.default.PropTypes.bool])
+	  errors: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number, _react2.default.PropTypes.bool]),
+	  stopPropagation: _react2.default.PropTypes.bool
 	};
 	InputField.defaultProps = {
 	  label: '',
@@ -48052,7 +48060,8 @@
 	  postfix: '',
 	  prefix: '',
 	  className: '',
-	  errors: ''
+	  errors: '',
+	  stopPropagation: false
 	};
 
 	exports.default = InputField;
@@ -48096,23 +48105,16 @@
 	    _this.state = {
 	      refs: ''
 	    };
-	    _this._onClickValidateOrAnd = _this._onClickValidateOrAnd.bind(_this);
+	    _this.onHandleClick = _this.onHandleClick.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(InputTable, [{
-	    key: '_onClickValidateOrAnd',
-	    value: function _onClickValidateOrAnd(e) {
-	      //if there are no children then this function is not executed.
-	      /*
-	      this.setState({ refs: this.refs['allInputs'] });
-	      console.log(this.state.refs);
-	      console.log(this);
-	      console.log(this.numOfInputs);
-	      for (var i = 0; i < this.numOfInputs; i++) {
-	        console.log("child of <ul> ref #"+i, this.state.refs.children[i].children[0].children[1].value);
-	      };
-	      */
+	    key: 'onHandleClick',
+	    value: function onHandleClick(e) {
+	      var stopPropagation = this.props.stopPropagation;
+
+	      if (stopPropagation) e.stopPropagation();
 	    }
 	  }, {
 	    key: 'render',
@@ -48166,7 +48168,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className:  true ? className : "", onClick: this._onClickValidateOrAnd },
+	        { className:  true ? className : "", onClick: this.onHandleClick },
 	        _react2.default.createElement(
 	          'label',
 	          null,
@@ -48190,13 +48192,15 @@
 	  label: _react2.default.PropTypes.string,
 	  fieldLabel: _react2.default.PropTypes.string,
 	  fieldType: _react2.default.PropTypes.oneOf(['and', 'or']),
-	  description: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element])
+	  description: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
+	  stopPropagation: _react2.default.PropTypes.bool
 	};
 	InputTable.defaultProps = {
 	  label: '',
 	  fieldLabel: '',
 	  fieldType: 'and',
-	  description: ''
+	  description: '',
+	  stopPropagation: false
 	};
 
 	exports.default = InputTable;
@@ -48205,7 +48209,7 @@
 /* 462 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -48216,6 +48220,10 @@
 	var _react = __webpack_require__(26);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(189);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -48242,14 +48250,12 @@
 	  }
 
 	  _createClass(Selection, [{
-	    key: "onHandleClick",
+	    key: 'onHandleClick',
 	    value: function onHandleClick(e) {
 	      var type = this.props.type;
 
 	      if (type == "radio") {
 	        this.refs.selection.checked = true;
-	      } else {
-	        this.refs.selection.checked = !this.refs.selection.checked;
 	      }
 	      //Pass data to a callback.
 	      if (this.props.onHandleChange) {
@@ -48262,7 +48268,7 @@
 	      }
 	    }
 	  }, {
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
 	      var _props = this.props;
 	      var label = _props.label;
@@ -48275,14 +48281,14 @@
 	      var active = this.state.active;
 
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "wfui-selection " + className },
+	        'div',
+	        { className: 'wfui-selection ' + className },
 	        _react2.default.createElement(
-	          "label",
-	          { className: "wfui-selection__label", onClick: this.onHandleClick.bind(this) },
-	          _react2.default.createElement("input", { className: "wfui-selection__input-" + type, ref: "selection", "data-ref": "selection", type: type, name: name, value: value, defaultChecked: defaultChecked }),
+	          'label',
+	          { className: 'wfui-selection__label', onClick: this.onHandleClick.bind(this) },
+	          _react2.default.createElement('input', { className: "wfui-selection__input-" + type, ref: 'selection', 'data-ref': 'selection', type: type, name: name, value: value, defaultChecked: defaultChecked }),
 	          _react2.default.createElement(
-	            "span",
+	            'span',
 	            null,
 	            label
 	          ),

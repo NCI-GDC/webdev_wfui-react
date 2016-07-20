@@ -14,7 +14,7 @@ class Listbox extends Component {
 
     var options = [];
     children.map(function(list_box_option, i) {
-      options.push(list_box_option);
+      options.push(list_box_option);  
     });
 
     var placeholder_option = placeholder ? <option value="">{placeholder}</option> : null; 
