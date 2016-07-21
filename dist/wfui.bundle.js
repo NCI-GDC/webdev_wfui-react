@@ -47939,14 +47939,18 @@
 	    key: "onHandleChange",
 	    value: function onHandleChange(e) {
 	      var _props = this.props;
+	      var type = _props.type;
 	      var min = _props.min;
 	      var max = _props.max;
 
 	      var val = e.target.value;
 
-	      val = min ? Math.max(min, val) : val;
-	      val = max ? Math.min(max, val) : val;
+	      if (type == "number") {
+	        val = typeof min != "undefined" ? Math.max(min, Number(val)) : Number(val);
+	        val = typeof max != "undefined" ? Math.min(max, Number(val)) : Number(val);
+	      }
 
+	      this.setState({ value: val });
 	      var _props2 = this.props;
 	      var onHandleChange = _props2.onHandleChange;
 	      var preview = _props2.preview;

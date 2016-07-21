@@ -13,12 +13,15 @@ class InputField extends Component {
     if(stopPropagation) e.stopPropagation();
   }
   onHandleChange(e){
-    var {min, max} = this.props;
+    var {type, min, max} = this.props;
     var val = e.target.value;
+    
+    if(type == "number"){
+      val = (typeof min != "undefined") ? Math.max(min, Number(val)) : Number(val);
+      val = (typeof max != "undefined") ? Math.min(max, Number(val)) : Number(val);
+    }
 
-    val = min ? Math.max(min, val) : val;
-    val = max ? Math.min(max, val) : val;
-
+    this.setState({value: val})
     const {onHandleChange, preview} = this.props;
     if(onHandleChange && !preview){
       onHandleChange(e, val);

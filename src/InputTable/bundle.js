@@ -23,8 +23,8 @@ ReactDOM.render(
         <InputField error={true} type="text" suffix="pounds" />,
         <InputField type="text" suffix="kilograms" />,
         <InputField type="text" suffix="kilograms" />,
-        <InputField type="text" suffix="kilograms" />,
-        <InputField type="text" suffix="kilograms" />
+        <InputField type="text" type={"number"} suffix="kilograms" min={0} max={10} />,
+        <InputField type="text" type={"number"} suffix="kilograms" min={-10} max={10} />
     ]}>
     </InputTable>, 
     document.getElementById('app')
