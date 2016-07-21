@@ -47832,7 +47832,7 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: containerClassName },
-	          _react2.default.createElement('div', { className: 'wfui-description__textContainer', dangerouslySetInnerHTML: { __html: content } }),
+	          _react2.default.createElement('div', { className: 'wfui-description__textContainer', dangerouslySetInnerHTML: { __html: content.replace(/\n/g, "<br>") } }),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'wfui-description__imageContainer' },
