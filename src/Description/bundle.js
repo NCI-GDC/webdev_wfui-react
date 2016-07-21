@@ -7,7 +7,7 @@ var htmlText1 = (
 	"<p><b>Welcome to the beginning of the survey Nancy.</b> Please take your time and answer all of the questions as honestly as possible. the survey will automatically save your answers, so you can come back and continue the survey at any time.</p><p>To begin, we will ask you a few basic questions about your demographics.</p>"
 );
 var htmlText2 = (
-	"<p><b>Welcome to the beginning \n of the survey Nancy.</b></p>"
+	"<p><b>Welcome to the beginning of the survey Nancy.</b></p>"
 );
 var element1 = (
 	<div>
