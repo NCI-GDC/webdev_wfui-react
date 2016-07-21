@@ -93,14 +93,13 @@ class Description extends Component {
 
     //RENDER
     if (typeof(content) == 'string' && !src) {
-      console.log(content);
+
       return (
         <div className={containerClassName} dangerouslySetInnerHTML={{__html: content.replace(/\n/g, "<br/>") }} >
         </div>
       );
     }
     else if (typeof(content) == 'string' && src) {
-      console.log(content);
       return (
         <div className={containerClassName} >
           <div className="wfui-description__textContainer" dangerouslySetInnerHTML={{__html: content.replace(/\n/g, "<br/>") }} >
