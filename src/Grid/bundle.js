@@ -72,13 +72,13 @@ ReactDOM.render(
         description={<Description content="A day refers to a 24 hour period" />}
         columnNumber={2} >
         <Selection type="checkbox" name="radios3" value="0">
-            <InputTable fieldType='and' stopPropagation={true} >
+            <InputTable fieldType='and' >
                 <InputField type="text" label="Hours:" />
                 <InputField type="text" label="Minutes:" />
             </InputTable>
         </Selection>
         <Selection type="checkbox" label="Don't know" name="radios3" value="1">
-            <InputField type="text" label="Minutes:" stopPropagation={true} />
+            <InputField type="text" label="Minutes:" />
         </Selection>
     </Grid>,
 document.getElementById('selection4'));

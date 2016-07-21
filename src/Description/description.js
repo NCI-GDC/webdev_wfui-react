@@ -94,7 +94,7 @@ class Description extends Component {
     //RENDER
     if (typeof(content) == 'string' && !src) {
       return (
-        <div className={containerClassName} dangerouslySetInnerHTML={{__html: content}} >
+        <div className={containerClassName} dangerouslySetInnerHTML={{__html: content.replace('\n','<br/>')}} >
         </div>
       );
     }
