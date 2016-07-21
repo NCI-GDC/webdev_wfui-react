@@ -42786,9 +42786,10 @@
 
 	      //RENDER
 	      if (typeof content == 'string' && !src) {
-
+	        console.log(content);
 	        return _react2.default.createElement('div', { className: containerClassName, dangerouslySetInnerHTML: { __html: content.replace(/\n/g, "<br/>") } });
 	      } else if (typeof content == 'string' && src) {
+	        console.log(content);
 	        return _react2.default.createElement(
 	          'div',
 	          { className: containerClassName },
