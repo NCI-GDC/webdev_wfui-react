@@ -95,14 +95,14 @@ class Description extends Component {
     if (typeof(content) == 'string' && !src) {
 
       return (
-        <div className={containerClassName} dangerouslySetInnerHTML={{__html: content.replace(/\n/g, "<br>") }} >
+        <div className={containerClassName} dangerouslySetInnerHTML={{__html: content.replace(/\n/g, "<br/>") }} >
         </div>
       );
     }
     else if (typeof(content) == 'string' && src) {
       return (
         <div className={containerClassName} >
-          <div className="wfui-description__textContainer" dangerouslySetInnerHTML={{__html: content.replace(/\n/g, "<br>") }} >
+          <div className="wfui-description__textContainer" dangerouslySetInnerHTML={{__html: content.replace(/\n/g, "<br/>") }} >
           </div>
           <div className="wfui-description__imageContainer">
             {imageContent}
