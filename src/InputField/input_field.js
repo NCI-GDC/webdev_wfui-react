@@ -8,6 +8,20 @@ class InputField extends Component {
     super();
     this.state={value:""}
   }
+  onHandleBlur(){
+    const {onBlur, onHandleChange, preview} = this.props;
+    if(type == "number"){
+      val = (typeof min != "undefined") ? Math.max(min, Number(val)) : Number(val);
+      val = (typeof max != "undefined") ? Math.min(max, Number(val)) : Number(val);
+    }
+    this.setState({value: val})
+    if(onHandleChange && !preview){
+      onHandleChange(e, val);
+    }
+    if(onBlur){
+      onBlur();
+    }
+  }
   onHandleClick(e){
     const {stopPropagation} = this.props;
     if(stopPropagation) e.stopPropagation();
@@ -16,11 +30,6 @@ class InputField extends Component {
     var {type, min, max} = this.props;
     var val = e.target.value;
     
-    if(type == "number"){
-      val = (typeof min != "undefined") ? Math.max(min, Number(val)) : Number(val);
-      val = (typeof max != "undefined") ? Math.min(max, Number(val)) : Number(val);
-    }
-
     this.setState({value: val})
     const {onHandleChange, preview} = this.props;
     if(onHandleChange && !preview){
@@ -51,7 +60,7 @@ class InputField extends Component {
     var inputFieldElement = hideField ? "" :
           <span>
             {prefixField}
-              <input className={"wfui-input-field__input"+ errorClassName} type={type} defaultValue={defaultValue} value={value} placeholder={placeholder} name={name} onChange={this.onHandleChange.bind(this)} onClick={this.onHandleClick.bind(this)} onBlur={onBlur} disabled={preview} maxLength={maxLength} min={min} max={max} />
+              <input className={"wfui-input-field__input"+ errorClassName} type={type} defaultValue={defaultValue} value={value} placeholder={placeholder} name={name} onChange={this.onHandleChange.bind(this)} onClick={this.onHandleClick.bind(this)} onBlur={this.onHandleBlur.bind(this)} disabled={preview} maxLength={maxLength} min={min} max={max} />
               {postfixField}
           </span>;
     return (
