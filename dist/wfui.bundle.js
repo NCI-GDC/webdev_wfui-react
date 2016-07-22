@@ -47935,6 +47935,9 @@
 	      var onBlur = _props.onBlur;
 	      var onHandleChange = _props.onHandleChange;
 	      var preview = _props.preview;
+	      var type = _props.type;
+	      var min = _props.min;
+	      var max = _props.max;
 
 	      if (type == "number") {
 	        val = typeof min != "undefined" ? Math.max(min, Number(val)) : Number(val);
@@ -47958,17 +47961,12 @@
 	  }, {
 	    key: "onHandleChange",
 	    value: function onHandleChange(e) {
-	      var _props2 = this.props;
-	      var type = _props2.type;
-	      var min = _props2.min;
-	      var max = _props2.max;
-
 	      var val = e.target.value;
 
 	      this.setState({ value: val });
-	      var _props3 = this.props;
-	      var onHandleChange = _props3.onHandleChange;
-	      var preview = _props3.preview;
+	      var _props2 = this.props;
+	      var onHandleChange = _props2.onHandleChange;
+	      var preview = _props2.preview;
 
 	      if (onHandleChange && !preview) {
 	        onHandleChange(e, val);
@@ -47987,23 +47985,23 @@
 	  }, {
 	    key: "render",
 	    value: function render() {
-	      var _props4 = this.props;
-	      var label = _props4.label;
-	      var type = _props4.type;
-	      var defaultValue = _props4.defaultValue;
-	      var placeholder = _props4.placeholder;
-	      var postfix = _props4.postfix;
-	      var prefix = _props4.prefix;
-	      var name = _props4.name;
-	      var className = _props4.className;
-	      var errors = _props4.errors;
-	      var description = _props4.description;
-	      var preview = _props4.preview;
-	      var hideField = _props4.hideField;
-	      var maxLength = _props4.maxLength;
-	      var onBlur = _props4.onBlur;
-	      var min = _props4.min;
-	      var max = _props4.max;
+	      var _props3 = this.props;
+	      var label = _props3.label;
+	      var type = _props3.type;
+	      var defaultValue = _props3.defaultValue;
+	      var placeholder = _props3.placeholder;
+	      var postfix = _props3.postfix;
+	      var prefix = _props3.prefix;
+	      var name = _props3.name;
+	      var className = _props3.className;
+	      var errors = _props3.errors;
+	      var description = _props3.description;
+	      var preview = _props3.preview;
+	      var hideField = _props3.hideField;
+	      var maxLength = _props3.maxLength;
+	      var onBlur = _props3.onBlur;
+	      var min = _props3.min;
+	      var max = _props3.max;
 	      var value = this.state.value;
 
 

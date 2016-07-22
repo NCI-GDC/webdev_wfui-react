@@ -9,7 +9,7 @@ class InputField extends Component {
     this.state={value:""}
   }
   onHandleBlur(){
-    const {onBlur, onHandleChange, preview} = this.props;
+    const {onBlur, onHandleChange, preview, type, min, max} = this.props;
     if(type == "number"){
       val = (typeof min != "undefined") ? Math.max(min, Number(val)) : Number(val);
       val = (typeof max != "undefined") ? Math.min(max, Number(val)) : Number(val);
@@ -27,7 +27,6 @@ class InputField extends Component {
     if(stopPropagation) e.stopPropagation();
   }
   onHandleChange(e){
-    var {type, min, max} = this.props;
     var val = e.target.value;
     
     this.setState({value: val})
