@@ -47930,7 +47930,7 @@
 
 	  _createClass(InputField, [{
 	    key: "onHandleBlur",
-	    value: function onHandleBlur() {
+	    value: function onHandleBlur(e) {
 	      var _props = this.props;
 	      var onBlur = _props.onBlur;
 	      var onHandleChange = _props.onHandleChange;
@@ -47939,6 +47939,7 @@
 	      var min = _props.min;
 	      var max = _props.max;
 
+	      var val = e.target.value;
 	      if (type == "number") {
 	        val = typeof min != "undefined" ? Math.max(min, Number(val)) : Number(val);
 	        val = typeof max != "undefined" ? Math.min(max, Number(val)) : Number(val);

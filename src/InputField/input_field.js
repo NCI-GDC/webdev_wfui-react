@@ -8,8 +8,9 @@ class InputField extends Component {
     super();
     this.state={value:""}
   }
-  onHandleBlur(){
+  onHandleBlur(e){
     const {onBlur, onHandleChange, preview, type, min, max} = this.props;
+    var val = e.target.value;
     if(type == "number"){
       val = (typeof min != "undefined") ? Math.max(min, Number(val)) : Number(val);
       val = (typeof max != "undefined") ? Math.min(max, Number(val)) : Number(val);
