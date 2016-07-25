@@ -47949,7 +47949,7 @@
 	        onHandleChange(e, val);
 	      }
 	      if (onBlur) {
-	        onBlur();
+	        onBlur(e);
 	      }
 	    }
 	  }, {

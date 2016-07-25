@@ -20,7 +20,7 @@ class InputField extends Component {
       onHandleChange(e, val);
     }
     if(onBlur){
-      onBlur();
+      onBlur(e);
     }
   }
   onHandleClick(e){
