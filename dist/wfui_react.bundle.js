@@ -42900,16 +42900,16 @@
 	      var max = _props.max;
 
 	      var val = e.target.value;
-	      if (type == "number") {
-	        val = typeof min != "undefined" ? Math.max(min, Number(val)) : Number(val);
-	        val = typeof max != "undefined" ? Math.min(max, Number(val)) : Number(val);
-	      }
+	      // if(type == "number"){
+	      //   val = (typeof min != "undefined") ? Math.max(min, Number(val)) : Number(val);
+	      //   val = (typeof max != "undefined") ? Math.min(max, Number(val)) : Number(val);
+	      // }
 	      this.setState({ value: val });
 	      if (onHandleChange && !preview) {
 	        onHandleChange(e, val);
 	      }
 	      if (onBlur) {
-	        onBlur(e);
+	        onBlur(e, val);
 	      }
 	    }
 	  }, {
