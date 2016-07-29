@@ -45570,7 +45570,11 @@
 	        _react2.default.createElement(
 	          "div",
 	          { className: "wfui-input-field--" + type + ' ' + className },
-	          _react2.default.createElement("label", { className: "wfui-input-field__label", dangerouslySetInnerHTML: { __html: label.replace(/\n/g, "<br/>") } }),
+	          _react2.default.createElement(
+	            "label",
+	            { className: "wfui-input-field__label" },
+	            label
+	          ),
 	          inputFieldElement
 	        )
 	      );
@@ -45715,7 +45719,11 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className:  true ? className : "", onClick: this.onHandleClick },
-	        _react2.default.createElement('label', { dangerouslySetInnerHTML: { __html: label.replace(/\n/g, "<br/>") } }),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          label
+	        ),
 	        description,
 	        fields
 	      );
@@ -45829,7 +45837,11 @@
 	          'label',
 	          { className: 'wfui-selection__label', onClick: this.onHandleClick.bind(this) },
 	          _react2.default.createElement('input', { className: "wfui-selection__input-" + type, ref: 'selection', 'data-ref': 'selection', type: type, name: name, value: value, defaultChecked: defaultChecked }),
-	          _react2.default.createElement('span', { dangerouslySetInnerHTML: { __html: label.replace(/\n/g, "<br/>") } }),
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            label
+	          ),
 	          children
 	        )
 	      );
@@ -45980,11 +45992,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'wfui-grid' },
-	        _react2.default.createElement(
-	          'label',
-	          { className: 'wfui-grid__label' },
-	          label
-	        ),
+	        _react2.default.createElement('label', { className: 'wfui-grid__label', dangerouslySetInnerHTML: { __html: label.replace(/\n/g, "<br/>") } }),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'wfui-grid__description' },

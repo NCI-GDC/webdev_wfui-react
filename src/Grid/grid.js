@@ -59,7 +59,7 @@ class Grid extends Component {
 
     return (
       <div className="wfui-grid">
-          <label className="wfui-grid__label">{label}</label>
+          <label className="wfui-grid__label" dangerouslySetInnerHTML={{__html: label.replace(/\n/g, "<br/>") }}></label>
           <div className="wfui-grid__description">{description}</div>
           <div className={"wfui-grid__main "+errorClassName}>
             {grid}

@@ -32,7 +32,7 @@ class Selection extends Component {
       <div className={`wfui-selection ${className}`}>
         <label className="wfui-selection__label" onClick={this.onHandleClick.bind(this)}>
           <input className={"wfui-selection__input-"+type} ref="selection" data-ref="selection" type={type} name={name} value={value} defaultChecked={defaultChecked} />
-          <span dangerouslySetInnerHTML={{__html: label.replace(/\n/g, "<br/>") }}></span>
+          <span>{label}</span>
           {children}
         </label>
       </div>

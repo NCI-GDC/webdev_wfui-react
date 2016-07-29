@@ -67,7 +67,7 @@ class InputField extends Component {
       <div className={"wfui-input-field"}>
         {description}
         <div className={"wfui-input-field--"+ type + ' ' + className}>
-            <label className="wfui-input-field__label" dangerouslySetInnerHTML={{__html: label.replace(/\n/g, "<br/>") }}></label>
+            <label className="wfui-input-field__label">{label}</label>
             {inputFieldElement}
         </div>
       </div>
