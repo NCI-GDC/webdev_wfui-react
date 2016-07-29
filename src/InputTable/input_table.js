@@ -27,7 +27,7 @@ class InputTable extends Component {
     if(children){
       fields = (
         <div className="wfui-input-table__form">
-          <p className="wfui-input-table__label" dangerouslySetInnerHTML={{__html: fieldLabel.replace(/\n/g, "<br/>") }}></p>
+          <p className="wfui-input-table__label">{fieldLabel}</p>
           <ul className="wfui-input-table__ul" ref="allInputs">
             {children.map(function(field, i){
               if(children.length-1 > i){
