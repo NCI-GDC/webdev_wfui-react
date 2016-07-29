@@ -45715,11 +45715,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className:  true ? className : "", onClick: this.onHandleClick },
-	        _react2.default.createElement(
-	          'label',
-	          { dangerouslySetInnerHTML: { __html: label.replace(/\n/g, "<br/>") } },
-	          label
-	        ),
+	        _react2.default.createElement('label', { dangerouslySetInnerHTML: { __html: content.replace(/\n/g, "<br/>") } }),
 	        description,
 	        fields
 	      );

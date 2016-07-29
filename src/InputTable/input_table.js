@@ -43,7 +43,7 @@ class InputTable extends Component {
 
     return (
       <div className={"wfui-input-table " + className ? className : "" } onClick={this.onHandleClick}>
-          <label dangerouslySetInnerHTML={{__html: label.replace(/\n/g, "<br/>") }}>{label}</label>
+          <label dangerouslySetInnerHTML={{__html: content.replace(/\n/g, "<br/>") }}></label>
           {description}
           {fields}
       </div>
