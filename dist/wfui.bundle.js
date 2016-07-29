@@ -50610,11 +50610,7 @@
 	        _react2.default.createElement(
 	          "div",
 	          { className: "wfui-input-field--" + type + ' ' + className },
-	          _react2.default.createElement(
-	            "label",
-	            { className: "wfui-input-field__label" },
-	            label
-	          ),
+	          _react2.default.createElement("label", { className: "wfui-input-field__label", dangerouslySetInnerHTML: { __html: label.replace(/\n/g, "<br/>") } }),
 	          inputFieldElement
 	        )
 	      );
@@ -50728,11 +50724,7 @@
 	        fields = _react2.default.createElement(
 	          'div',
 	          { className: 'wfui-input-table__form' },
-	          _react2.default.createElement(
-	            'p',
-	            { className: 'wfui-input-table__label' },
-	            fieldLabel
-	          ),
+	          _react2.default.createElement('p', { className: 'wfui-input-table__label', dangerouslySetInnerHTML: { __html: fieldLabel.replace(/\n/g, "<br/>") } }),
 	          _react2.default.createElement(
 	            'ul',
 	            { className: 'wfui-input-table__ul', ref: 'allInputs' },
@@ -50761,7 +50753,7 @@
 	        { className:  true ? className : "", onClick: this.onHandleClick },
 	        _react2.default.createElement(
 	          'label',
-	          null,
+	          { dangerouslySetInnerHTML: { __html: label.replace(/\n/g, "<br/>") } },
 	          label
 	        ),
 	        description,
