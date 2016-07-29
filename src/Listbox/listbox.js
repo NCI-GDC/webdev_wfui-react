@@ -29,7 +29,7 @@ class Listbox extends Component {
       <div className={"wfui-list-box"}>
        	{description}
 	    <div className={"wfui-list-box-fields"}>
-		  <label>{label}</label>
+		  <label dangerouslySetInnerHTML={{__html: label.replace(/\n/g, "<br/>") }}></label>
           <select className={errorClassName} defaultValue={defaultOption} value={value} onChange={this.onHandleChange.bind(this)}>
       	    {placeholder_option}
        	    {options}
