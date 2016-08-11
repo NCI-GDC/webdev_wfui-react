@@ -76,7 +76,7 @@
     &__imageDialog{
 
         position: fixed;
-        top:100px;
+        top: 30%;
         left:0;
         right:0;
         margin-left:auto;
@@ -99,7 +99,7 @@
             color: #aaaaaa;
             position: absolute;
             top: -5px;
-            right: 0;
+            right: 1px;
             font-size: 28px;
             font-weight: bold;
 
@@ -118,6 +118,7 @@
             img {
                 height: auto;
                 text-align:center;
+                margin-top: 26px;
             }
         }
         &__footer {

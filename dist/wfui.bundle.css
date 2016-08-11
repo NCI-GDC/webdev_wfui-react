@@ -382,7 +382,7 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main, .fixedDataTableColu
         z-index: 1; }
   .wfui-description__imageDialog {
     position: fixed;
-    top: 100px;
+    top: 30%;
     left: 0;
     right: 0;
     margin-left: auto;
@@ -402,7 +402,7 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main, .fixedDataTableColu
       color: #aaaaaa;
       position: absolute;
       top: -5px;
-      right: 0;
+      right: 1px;
       font-size: 28px;
       font-weight: bold; }
       .wfui-description__imageDialog__closeButton:hover, .wfui-description__imageDialog__closeButton:focus {
@@ -416,7 +416,8 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main, .fixedDataTableColu
       display: inline-block; }
       .wfui-description__imageDialog__body img {
         height: auto;
-        text-align: center; }
+        text-align: center;
+        margin-top: 26px; }
     .wfui-description__imageDialog__footer {
       padding: 10px 25px;
       height: auto;
