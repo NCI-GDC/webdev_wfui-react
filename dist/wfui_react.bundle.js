@@ -42680,7 +42680,9 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Description).call(this));
 
 	    _this.state = {
-	      descriptionImagePopUpIsOpen: false
+	      descriptionImagePopUpIsOpen: false,
+	      imgWidth: 0,
+	      imgHeight: 0
 	    };
 	    _this._onClickToggleViewImage = _this._onClickToggleViewImage.bind(_this);
 	    _this._onClickCloseViewImage = _this._onClickCloseViewImage.bind(_this);
@@ -42706,6 +42708,25 @@
 	      document.body.removeChild(portalNode);
 	    }
 	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      var src = this.props.src;
+
+	      if (src) {
+	        var img = new Image();
+	        img.src = src;
+	        img.onload = function (e) {
+
+	          _this2.setState({
+	            imgWidth: e.target.width,
+	            imgHeight: e.target.height
+	          });
+	        };
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _props = this.props;
@@ -42715,7 +42736,9 @@
 	      var type = _props.type;
 	      var classNames = _props.classNames;
 	      var errors = _props.errors;
-
+	      var _state = this.state;
+	      var imgWidth = _state.imgWidth;
+	      var imgHeight = _state.imgHeight;
 
 	      if (!content && !src) {
 	        return _react2.default.createElement('noscript', null);
@@ -42748,25 +42771,31 @@
 	        );
 	        var imageDialogContent = _react2.default.createElement(
 	          'div',
-	          { className: imageDialogClassName },
-	          _react2.default.createElement(
-	            'span',
-	            { onClick: this._onClickCloseViewImage, className: 'wfui-description__imageDialog__closeButton' },
-	            _react2.default.createElement('i', { className: 'fa fa-times' })
-	          ),
+	          { className: 'wfui-description__imageDialog', onClick: this._onClickCloseViewImage },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'wfui-description__imageDialog__body' },
-	            _react2.default.createElement('img', { className: 'wfui-description__imageDialog__body__image', src: src })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'wfui-description__imageDialog__footer' },
+	            { className: imageDialogClassName, onClick: function onClick(e) {
+	                e.stopPropagation();
+	              } },
 	            _react2.default.createElement(
 	              'span',
-	              null,
-	              imageTitle
-	            )
+	              { onClick: this._onClickCloseViewImage, className: 'wfui-description__imageDialog__closeButton' },
+	              _react2.default.createElement('i', { className: 'fa fa-times' })
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'wfui-description__imageDialog__body' },
+	              _react2.default.createElement('img', { className: 'wfui-description__imageDialog__body__image', src: src, width: imgWidth, height: imgHeight })
+	            ),
+	            imageTitle ? _react2.default.createElement(
+	              'div',
+	              { className: 'wfui-description__imageDialog__footer' },
+	              _react2.default.createElement(
+	                'span',
+	                null,
+	                imageTitle
+	              )
+	            ) : ""
 	          )
 	        );
 

@@ -74,22 +74,20 @@
 
     }
     &__imageDialog{
-        display: none; /* Hidden by default */
 
+        position: fixed;
+        top:100px;
+        left:0;
+        right:0;
+        margin-left:auto;
+        margin-right:auto;
+        z-index: 3000;
+        height: auto;
+        text-align: center;
 
         &--theme-visible {
-
-            display: block;
-            position: fixed;
-            top:100px;
-            left:0;
-            right:0;
-            margin-left:auto;
-            margin-right:auto;
-            z-index: 3000;
-
-            max-width: 400px;
-            height: auto;
+            position: relative;
+            display: inline-block;
             background-color: #ffffff;
             border: 1px solid #ffffff;
             border-radius: 3px;
@@ -99,7 +97,9 @@
 
         &__closeButton {
             color: #aaaaaa;
-            float: right;
+            position: absolute;
+            top: -5px;
+            right: 0;
             font-size: 28px;
             font-weight: bold;
 
@@ -113,10 +113,10 @@
         &__body {
             min-height: 93px;
             max-height: 100%;
+            text-align: center;
+            display: inline-block;
             img {
-                width: 400px;
                 height: auto;
-                display: block;
                 text-align:center;
             }
         }

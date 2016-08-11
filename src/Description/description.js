@@ -8,6 +8,8 @@ class Description extends Component {
     super();
     this.state = {
       descriptionImagePopUpIsOpen: false,
+      imgWidth: 0,
+      imgHeight: 0,
     }
     this._onClickToggleViewImage = this._onClickToggleViewImage.bind(this);
     this._onClickCloseViewImage = this._onClickCloseViewImage.bind(this);
@@ -27,11 +29,23 @@ class Description extends Component {
     var portalNode = document.getElementById("descriptionImagePortalId");
     document.body.removeChild(portalNode);
   }
+  componentDidMount(){
+    const {src} = this.props;
+    if(src){
+      var img = new Image();
+      img.src = src;
+      img.onload = (e)=>{
 
-
+        this.setState({
+          imgWidth: e.target.width,
+          imgHeight: e.target.height
+        });
+      }
+    }
+  }
   render() {
     var {src, imageTitle, content, type, classNames, errors} = this.props;
-
+    var {imgWidth, imgHeight} = this.state;
     if (!content && !src){
       return <noscript />
     }
@@ -63,15 +77,15 @@ class Description extends Component {
         </div>
       );
       var imageDialogContent = (
-        <div className={imageDialogClassName}>
-          <span onClick={this._onClickCloseViewImage} className="wfui-description__imageDialog__closeButton">
-            <i className="fa fa-times"></i>
-          </span>
-          <div className="wfui-description__imageDialog__body">
-            <img className="wfui-description__imageDialog__body__image" src={src} />
-          </div>
-          <div className="wfui-description__imageDialog__footer">
-            <span>{imageTitle}</span>
+        <div className="wfui-description__imageDialog" onClick={this._onClickCloseViewImage}>
+          <div className={imageDialogClassName} onClick={(e)=>{e.stopPropagation()}}>
+            <span onClick={this._onClickCloseViewImage} className="wfui-description__imageDialog__closeButton">
+              <i className="fa fa-times"></i>
+            </span>
+            <div className="wfui-description__imageDialog__body">
+              <img className="wfui-description__imageDialog__body__image" src={src} width={imgWidth} height={imgHeight} />
+            </div>
+            {imageTitle?<div className="wfui-description__imageDialog__footer"><span>{imageTitle}</span></div>:""}
           </div>
         </div>
       );

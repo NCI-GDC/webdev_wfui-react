@@ -381,19 +381,18 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main, .fixedDataTableColu
         right: 1px;
         z-index: 1; }
   .wfui-description__imageDialog {
-    display: none;
-    /* Hidden by default */ }
+    position: fixed;
+    top: 100px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 3000;
+    height: auto;
+    text-align: center; }
     .wfui-description__imageDialog--theme-visible {
-      display: block;
-      position: fixed;
-      top: 100px;
-      left: 0;
-      right: 0;
-      margin-left: auto;
-      margin-right: auto;
-      z-index: 3000;
-      max-width: 400px;
-      height: auto;
+      position: relative;
+      display: inline-block;
       background-color: #ffffff;
       border: 1px solid #ffffff;
       border-radius: 3px;
@@ -401,7 +400,9 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main, .fixedDataTableColu
       box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.6); }
     .wfui-description__imageDialog__closeButton {
       color: #aaaaaa;
-      float: right;
+      position: absolute;
+      top: -5px;
+      right: 0;
       font-size: 28px;
       font-weight: bold; }
       .wfui-description__imageDialog__closeButton:hover, .wfui-description__imageDialog__closeButton:focus {
@@ -410,11 +411,11 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main, .fixedDataTableColu
         cursor: pointer; }
     .wfui-description__imageDialog__body {
       min-height: 93px;
-      max-height: 100%; }
+      max-height: 100%;
+      text-align: center;
+      display: inline-block; }
       .wfui-description__imageDialog__body img {
-        width: 400px;
         height: auto;
-        display: block;
         text-align: center; }
     .wfui-description__imageDialog__footer {
       padding: 10px 25px;

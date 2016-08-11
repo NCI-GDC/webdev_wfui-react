@@ -32,7 +32,7 @@ var element3 = (
 		</p>
 	</div>
 );
-ReactDOM.render( <Description content="simple text description" src="icon-cancer-types.svg" />, document.getElementById('description1'));
+ReactDOM.render( <Description content="simple text description" src="test.png" imageTitle={"imageTitle"} />, document.getElementById('description1'));
 ReactDOM.render( <Description type="theme-blue" classNames="extra-lalalalla awdawd"></Description>, document.getElementById('description2'));
 ReactDOM.render( <Description content={htmlText2} errors={1} type="theme-purple" imageDescription="" />, document.getElementById('description3'));
 ReactDOM.render( <Description content={element1} type="theme-red" />, document.getElementById('description4'));
