@@ -48279,10 +48279,7 @@
 	  function Selection() {
 	    _classCallCheck(this, Selection);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Selection).call(this));
-
-	    _this.state = { active: false };
-	    return _this;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Selection).call(this));
 	  }
 
 	  _createClass(Selection, [{
@@ -48314,11 +48311,13 @@
 	      var children = _props.children;
 	      var type = _props.type;
 	      var className = _props.className;
-	      var active = this.state.active;
+	      var active = _props.active;
+
+	      var activeClassName = active ? " active" : "";
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'wfui-selection ' + className },
+	        { className: 'wfui-selection ' + className + ' ' + activeClassName },
 	        _react2.default.createElement(
 	          'label',
 	          { className: 'wfui-selection__label', onClick: this.onHandleClick.bind(this) },
@@ -48348,7 +48347,8 @@
 	  value: _react2.default.PropTypes.string,
 	  type: _react2.default.PropTypes.oneOf(['radio', 'checkbox']),
 	  defaultChecked: _react2.default.PropTypes.bool,
-	  className: _react2.default.PropTypes.string
+	  className: _react2.default.PropTypes.string,
+	  active: _react2.default.PropTypes.bool
 	};
 	Selection.defaultProps = {
 	  label: '',

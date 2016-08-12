@@ -478,6 +478,8 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main, .fixedDataTableColu
   padding: 10px; }
   .wfui-selection__input-checkbox, .wfui-selection__input-radio {
     margin-right: 5px; }
+  .wfui-selection.active {
+    background: #eee; }
   .wfui-selection .wfui-input-table {
     display: inline-block; }
   .wfui-selection .wfui-input-table__form {

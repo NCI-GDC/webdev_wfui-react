@@ -7,7 +7,6 @@ import ReactDOM from 'react-dom'
 class Selection extends Component {
   constructor(){
     super()
-    this.state = { active: false }
   }
   onHandleClick(e) {
     
@@ -26,10 +25,11 @@ class Selection extends Component {
     }
   }
   render() {
-    const {label, name, value, defaultChecked, children, type, className} = this.props;
-    const {active} = this.state;
+    const {label, name, value, defaultChecked, children, type, className, active} = this.props;
+    let activeClassName = active ? " active" : "";
+
     return (
-      <div className={`wfui-selection ${className}`}>
+      <div className={`wfui-selection ${className} ${activeClassName}`}>
         <label className="wfui-selection__label" onClick={this.onHandleClick.bind(this)}>
           <input className={"wfui-selection__input-"+type} ref="selection" data-ref="selection" type={type} name={name} value={value} defaultChecked={defaultChecked} />
           <span>{label}</span>
@@ -50,6 +50,7 @@ Selection.propTypes = {
   type: React.PropTypes.oneOf(['radio','checkbox']),
   defaultChecked: React.PropTypes.bool,
   className: React.PropTypes.string,
+  active: React.PropTypes.bool,
 }
 Selection.defaultProps = {
   label: '',

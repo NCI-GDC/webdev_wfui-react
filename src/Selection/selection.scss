@@ -4,6 +4,9 @@
     &__input-radio{
         margin-right: 5px;
     }
+    &.active{
+        background: #eee;
+    }
 
     //Input Table under grid
     .wfui-input-table{
