@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import Button from 'react-bootstrap/lib/Button';
-import actions from '../../src/AddAnother/actions/action_creators';
+import actions from './actions/action_creators';
 const { addTodoAction, toggleTodoAction, setVisibilityFilterAction } = actions;
 const { initAnotherAction, addAnotherAction, editAnotherAction, removeAnotherAction } = actions;
 
