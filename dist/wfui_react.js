@@ -25147,12 +25147,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 264 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+	var _react = __webpack_require__(26);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	WFUIJS.RCT = WFUIJS.RCT || {};
-	WFUIJS.RCT.Icon_2 = React.createClass({
+	WFUIJS.RCT.Icon_2 = _react2.default.createClass({
 	    displayName: 'Icon_2',
 
 	    render: function render() {
@@ -25196,7 +25202,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            iconClasses += ' fa-stack-' + data.stack;
 	        }
 
-	        return React.createElement('i', { className: iconClasses });
+	        return _react2.default.createElement('i', { className: iconClasses });
 	    }
 
 	});

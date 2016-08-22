@@ -1,4 +1,5 @@
-var React = require('react');
+import React, { Component } from 'react';
+
 WFUIJS.RCT = WFUIJS.RCT || {};
 WFUIJS.RCT.Icon_2 = React.createClass({
   render: function() {
