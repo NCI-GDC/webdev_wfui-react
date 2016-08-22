@@ -3,7 +3,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin"); //To
 
 module.exports = {
   entry: {
-    'dist/wfui_base': ['./wfui-base.entry.js', './wfui-css.entry.js'],
+    'dist/wfui_base': ['./wfui-base.entry.js', './wfui-react-css.entry.js'],
     'lib/AddAnother': ['./src/AddAnother/add_another.js'],
     'lib/Description': ['./src/Description/description.js'],
     'lib/Grid': ['./src/Grid/grid.js'],
