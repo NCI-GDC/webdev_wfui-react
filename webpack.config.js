@@ -3,13 +3,22 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin"); //To
 
 module.exports = {
   entry: {
-    wfui:['./wfui-base.entry.js','./wfui-react.entry.js', './wfui-react-css.entry.js'],
-    wfui_base: ['./wfui-base.entry.js'],
-    wfui_react: ['./wfui-react.entry.js']
+    'dist/wfui_base': ['./wfui-base.entry.js', './wfui-react-css.entry.js'],
+    'lib/AddAnother': ['./src/AddAnother/add_another.js'],
+    'lib/Description': ['./src/Description/description.js'],
+    'lib/Grid': ['./src/Grid/grid.js'],
+    'lib/Growl': ['./src/Growl/growl.react.js'],
+    'lib/Icon': ['./src/Icon/icon.js'],
+    'lib/InputField': ['./src/InputField/input_field.js'],
+    'lib/InputTable': ['./src/InputTable/input_table.js'],
+    'lib/Label': ['./src/Label/label.js'],
+    'lib/Listbox': ['./src/Listbox/listbox.js'],
+    'lib/Selection': ['./src/Selection/selection.js'],
+    'lib/Tooltip': ['./src/Tooltip/tooltip.js'],
   },
   output: {
-    path: './dist/',
-    filename: '[name].bundle.js'
+    path: './',
+    filename: '[name].js'
   },
   module: {
     loaders: [
@@ -32,6 +41,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin("wfui.bundle.css"),
+    new ExtractTextPlugin("dist/wfui.bundle.css"),
   ]
 }

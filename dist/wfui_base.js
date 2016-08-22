@@ -44,7 +44,8 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(1);
+	__webpack_require__(1);
+	module.exports = __webpack_require__(9);
 
 
 /***/ },
@@ -2927,7 +2928,7 @@
 
 	            tplCache: {},
 
-	            // A set of initialization functions for WFUI components that will be
+	            // A set of initialization functions for WFUI components that will be 
 	            // called upon page ready
 	            inits: [],
 
@@ -3003,7 +3004,7 @@
 	// 1. jquery-1.8.3.js
 	// 2. wfui.js
 	// 3. wfui-jquery-noconflict.js
-	//
+	// 
 	$.noConflict(true);
 
 /***/ },
@@ -3204,8 +3205,8 @@
 							$.widget.extend({}, value);
 							// Copy everything else by reference
 						} else {
-								target[key] = value;
-							}
+							target[key] = value;
+						}
 					}
 				}
 			}
@@ -3595,6 +3596,7 @@
 	    'use strict';
 
 	    // Helper variable to create unique names for the transport iframes:
+
 	    var counter = 0;
 
 	    // The iframe transport accepts four additional options:
@@ -5092,6 +5094,117 @@
 
 	    });
 	});
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	__webpack_require__(10);
+
+	__webpack_require__(12);
+	__webpack_require__(13);
+	__webpack_require__(14);
+	__webpack_require__(15);
+	__webpack_require__(16);
+	__webpack_require__(17);
+
+	/**
+	 * Old WFUI Components
+	 */
+	//Dialog
+	__webpack_require__(18);
+	__webpack_require__(19);
+	__webpack_require__(20);
+
+	//Label
+	__webpack_require__(21);
+
+	//Tooltip
+	__webpack_require__(22);
+
+	//Growl Alert
+	__webpack_require__(23);
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 11 */,
+/* 12 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 16 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 18 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 21 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 22 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
 
 /***/ }
 /******/ ]);
