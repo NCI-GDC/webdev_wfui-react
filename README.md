@@ -29,7 +29,7 @@ http://192.168.59.3:9966/
 
 # Bundle files with webpack
 ```
-webpack
+npm run build
 ```
 
 # Run testing
