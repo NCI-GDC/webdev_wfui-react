@@ -1,10 +1,10 @@
 {
   "name": "wfui-react",
   "version": "0.0.1",
-  "description": "Set of base widgets",
-  "main": "lib/auto_text_link.js",
+  "description": "WFUI Components",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "scripts/build.sh",
     "start": "bash start.sh",
     "test": "mocha --require mocha.config.js --compilers js:babel-register --recursive test"
   },

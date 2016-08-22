@@ -33,6 +33,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin("dist/wfui.bundle.css"),
+    new ExtractTextPlugin("wfui.bundle.css"),
   ]
 }

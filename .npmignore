@@ -7,3 +7,4 @@ test
 webpack.config.js
 mocha.config.js
 start.sh
+scripts
