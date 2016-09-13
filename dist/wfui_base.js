@@ -5119,23 +5119,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	__webpack_require__(15);
 	__webpack_require__(16);
 	__webpack_require__(17);
-
-	/**
-	 * Old WFUI Components
-	 */
-	//Dialog
 	__webpack_require__(18);
-	__webpack_require__(19);
-	__webpack_require__(20);
-
-	//Label
-	__webpack_require__(21);
-
-	//Tooltip
-	__webpack_require__(22);
-
-	//Growl Alert
-	__webpack_require__(23);
 
 /***/ },
 /* 10 */
@@ -5182,36 +5166,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 18 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 19 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 20 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 21 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 22 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 23 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
