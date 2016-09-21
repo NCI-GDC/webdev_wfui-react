@@ -7,3 +7,4 @@ require('./src/Selection/selection.scss');
 require('./src/Grid/grid.scss');
 require('./src/AddAnother/add_another.scss');
 require('./src/Label/label.scss');
+require('./src/Loading/loading.scss');

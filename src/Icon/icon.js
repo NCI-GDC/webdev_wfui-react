@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
-WFUIJS.RCT = WFUIJS.RCT || {};
-WFUIJS.RCT.Icon_2 = React.createClass({
-  render: function() {
+export default class Icon extends Component {
+  render() {
     var data;
     var iconClasses = '';
  
@@ -48,4 +47,4 @@ WFUIJS.RCT.Icon_2 = React.createClass({
     );
   }
 
-});
+}
