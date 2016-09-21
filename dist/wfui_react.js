@@ -25643,11 +25643,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "wfui-loading wfui-loading__type-" + type, style: { color: color, width: width, height: height } },
+	        { className: "wfui-loading wfui-loading__type-" + type, style: { width: width ? width : "auto", height: height ? height : "auto" } },
 	        _react2.default.createElement(
 	          "p",
 	          null,
-	          _react2.default.createElement("i", { className: "fa fa-spinner fa-spin" })
+	          _react2.default.createElement("i", { className: "fa fa-spinner fa-spin", style: { color: color } })
 	        )
 	      );
 	    }
@@ -25658,9 +25658,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	Loading.defaultProps = {
 	  type: 'fixed',
-	  color: '#000000',
-	  width: 'auto',
-	  height: 'auto'
+	  color: '#000000'
 	};
 
 	exports.default = Loading;
