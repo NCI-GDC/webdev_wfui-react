@@ -25639,11 +25639,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var width = _props.width;
 	      var height = _props.height;
 	      var type = _props.type;
+	      var color = _props.color;
 
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "wfui-loading wfui-loading__type-" + type },
-	        _react2.default.createElement("i", { className: "fa fa-spinner fa-spin" })
+	        { className: "wfui-loading wfui-loading__type-" + type, style: { color: color, width: width, height: height } },
+	        _react2.default.createElement(
+	          "p",
+	          null,
+	          _react2.default.createElement("i", { className: "fa fa-spinner fa-spin" })
+	        )
 	      );
 	    }
 	  }]);
@@ -25652,7 +25657,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	}(_react.Component);
 
 	Loading.defaultProps = {
-	  type: 'fixed'
+	  type: 'fixed',
+	  color: '#000000',
+	  width: 'auto',
+	  height: 'auto'
 	};
 
 	exports.default = Loading;
