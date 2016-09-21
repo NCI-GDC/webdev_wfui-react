@@ -306,7 +306,7 @@ a.wfui-label:active {
   top: 50%;
   margin-top: -50px;
   margin-left: -50px;
-  font-size: 100%; }
+  font-size: 100px; }
 
 .wfui-loading__type-fixed p {
   position: fixed;
