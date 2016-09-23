@@ -25773,7 +25773,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _require = __webpack_require__(275);
+	var _require = __webpack_require__(268);
 
 	var Util = _require.Util;
 	var ListFilter = _require.ListFilter;
@@ -25905,6 +25905,60 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Util = exports.visibilityFilterReducer = exports.Showing = exports.Pagenate = exports.AlphabetFilter = exports.KeywordFilter = exports.ListFilter = exports.actions = undefined;
+
+	var _action_creators = __webpack_require__(269);
+
+	var _action_creators2 = _interopRequireDefault(_action_creators);
+
+	var _ListFilter2 = __webpack_require__(270);
+
+	var _ListFilter3 = _interopRequireDefault(_ListFilter2);
+
+	var _KeywordFilter2 = __webpack_require__(271);
+
+	var _KeywordFilter3 = _interopRequireDefault(_KeywordFilter2);
+
+	var _AlphabetFilter2 = __webpack_require__(272);
+
+	var _AlphabetFilter3 = _interopRequireDefault(_AlphabetFilter2);
+
+	var _Pagenate2 = __webpack_require__(273);
+
+	var _Pagenate3 = _interopRequireDefault(_Pagenate2);
+
+	var _Showing2 = __webpack_require__(274);
+
+	var _Showing3 = _interopRequireDefault(_Showing2);
+
+	var _visibility_filter = __webpack_require__(275);
+
+	var _visibility_filter2 = _interopRequireDefault(_visibility_filter);
+
+	var _util = __webpack_require__(276);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.actions = _action_creators2.default;
+	exports.ListFilter = _ListFilter3.default;
+	exports.KeywordFilter = _KeywordFilter3.default;
+	exports.AlphabetFilter = _AlphabetFilter3.default;
+	exports.Pagenate = _Pagenate3.default;
+	exports.Showing = _Showing3.default;
+	exports.visibilityFilterReducer = _visibility_filter2.default;
+	exports.Util = _util2.default;
+
+/***/ },
+/* 269 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -25928,7 +25982,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25948,7 +26002,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactRedux = __webpack_require__(193);
 
-	var _action_creators = __webpack_require__(268);
+	var _action_creators = __webpack_require__(269);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26014,7 +26068,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = ListFilter;
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26034,7 +26088,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactRedux = __webpack_require__(193);
 
-	var _action_creators = __webpack_require__(268);
+	var _action_creators = __webpack_require__(269);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26079,7 +26133,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = KeywordFilter;
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26099,7 +26153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactRedux = __webpack_require__(193);
 
-	var _action_creators = __webpack_require__(268);
+	var _action_creators = __webpack_require__(269);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26195,7 +26249,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = AlphabetFilter;
 
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26215,7 +26269,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactRedux = __webpack_require__(193);
 
-	var _action_creators = __webpack_require__(268);
+	var _action_creators = __webpack_require__(269);
 
 	var _util = __webpack_require__(266);
 
@@ -26323,7 +26377,124 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = Pagenate;
 
 /***/ },
-/* 273 */
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(22);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(193);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var mapStateToShowingProps = function mapStateToShowingProps(state) {
+	    return {
+	        pageFilter: state.visibilityFilterReducer.pageFilter
+	    };
+	};
+	var Showing = (_dec = (0, _reactRedux.connect)(mapStateToShowingProps), _dec(_class = function (_React$Component) {
+	    _inherits(Showing, _React$Component);
+
+	    function Showing() {
+	        _classCallCheck(this, Showing);
+
+	        return _possibleConstructorReturn(this, (Showing.__proto__ || Object.getPrototypeOf(Showing)).apply(this, arguments));
+	    }
+
+	    _createClass(Showing, [{
+	        key: 'render',
+	        value: function render() {
+	            var _props = this.props;
+	            var numPerPage = _props.numPerPage;
+	            var total = _props.total;
+	            var pageFilter = _props.pageFilter;
+
+	            var showing = 0;
+	            if (pageFilter) {
+	                if (total > 0) {
+	                    if (pageFilter * numPerPage > total) {
+	                        showing = (pageFilter - 1) * numPerPage + 1 + "-" + total;
+	                    } else {
+	                        showing = (pageFilter - 1) * numPerPage + 1 + "-" + pageFilter * numPerPage;
+	                    }
+	                }
+	            } else {
+	                showing = numPerPage;
+	            }
+	            return _react2.default.createElement(
+	                'span',
+	                null,
+	                'Showing ',
+	                showing,
+	                ' of ',
+	                total
+	            );
+	        }
+	    }]);
+
+	    return Showing;
+	}(_react2.default.Component)) || _class);
+	exports.default = Showing;
+
+/***/ },
+/* 275 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Reducer for visibility filter
+	 */
+	var visibilityFilterReducer = function visibilityFilterReducer() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? { pageFilter: 1 } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+
+	        case 'SET_VISIBILITY_FILTER':
+	            var newState = JSON.parse(JSON.stringify(state));
+	            if (typeof action.checked == 'undefined') {
+	                newState[action.filter] = action.keyword;
+	            } else {
+	                newState[action.filter][action.keyword] = action.checked;
+	            }
+	            return newState;
+
+	        case 'RESET_VISIBILITY_FILTER':
+	            var newState = JSON.parse(JSON.stringify(state));
+	            Object.keys(newState).map(function (key, i) {
+	                newState[key] = "";
+	            });
+	            return newState;
+
+	    }
+	    return state;
+	};
+	exports.default = visibilityFilterReducer;
+
+/***/ },
+/* 276 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -26405,177 +26576,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    genListMap: genListMap,
 	    genAlphabetMap: genAlphabetMap
 	};
-
-/***/ },
-/* 274 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.default = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _dec, _class;
-
-	var _react = __webpack_require__(22);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(193);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var mapStateToShowingProps = function mapStateToShowingProps(state) {
-	    return {
-	        pageFilter: state.visibilityFilterReducer.pageFilter
-	    };
-	};
-	var Showing = (_dec = (0, _reactRedux.connect)(mapStateToShowingProps), _dec(_class = function (_React$Component) {
-	    _inherits(Showing, _React$Component);
-
-	    function Showing() {
-	        _classCallCheck(this, Showing);
-
-	        return _possibleConstructorReturn(this, (Showing.__proto__ || Object.getPrototypeOf(Showing)).apply(this, arguments));
-	    }
-
-	    _createClass(Showing, [{
-	        key: 'render',
-	        value: function render() {
-	            var _props = this.props;
-	            var numPerPage = _props.numPerPage;
-	            var total = _props.total;
-	            var pageFilter = _props.pageFilter;
-
-	            var showing = 0;
-	            if (pageFilter) {
-	                if (total > 0) {
-	                    if (pageFilter * numPerPage > total) {
-	                        showing = (pageFilter - 1) * numPerPage + 1 + "-" + total;
-	                    } else {
-	                        showing = (pageFilter - 1) * numPerPage + 1 + "-" + pageFilter * numPerPage;
-	                    }
-	                }
-	            } else {
-	                showing = numPerPage;
-	            }
-	            return _react2.default.createElement(
-	                'span',
-	                null,
-	                'Showing ',
-	                showing,
-	                ' of ',
-	                total
-	            );
-	        }
-	    }]);
-
-	    return Showing;
-	}(_react2.default.Component)) || _class);
-	exports.default = Showing;
-
-/***/ },
-/* 275 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.Util = exports.visibilityFilterReducer = exports.Showing = exports.Pagenate = exports.AlphabetFilter = exports.KeywordFilter = exports.ListFilter = exports.actions = undefined;
-
-	var _action_creators = __webpack_require__(268);
-
-	var _action_creators2 = _interopRequireDefault(_action_creators);
-
-	var _ListFilter2 = __webpack_require__(269);
-
-	var _ListFilter3 = _interopRequireDefault(_ListFilter2);
-
-	var _KeywordFilter2 = __webpack_require__(270);
-
-	var _KeywordFilter3 = _interopRequireDefault(_KeywordFilter2);
-
-	var _AlphabetFilter2 = __webpack_require__(271);
-
-	var _AlphabetFilter3 = _interopRequireDefault(_AlphabetFilter2);
-
-	var _Pagenate2 = __webpack_require__(272);
-
-	var _Pagenate3 = _interopRequireDefault(_Pagenate2);
-
-	var _Showing2 = __webpack_require__(274);
-
-	var _Showing3 = _interopRequireDefault(_Showing2);
-
-	var _visibility_filter = __webpack_require__(276);
-
-	var _visibility_filter2 = _interopRequireDefault(_visibility_filter);
-
-	var _util = __webpack_require__(273);
-
-	var _util2 = _interopRequireDefault(_util);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.actions = _action_creators2.default;
-	exports.ListFilter = _ListFilter3.default;
-	exports.KeywordFilter = _KeywordFilter3.default;
-	exports.AlphabetFilter = _AlphabetFilter3.default;
-	exports.Pagenate = _Pagenate3.default;
-	exports.Showing = _Showing3.default;
-	exports.visibilityFilterReducer = _visibility_filter2.default;
-	exports.Util = _util2.default;
-
-/***/ },
-/* 276 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Reducer for visibility filter
-	 */
-	var visibilityFilterReducer = function visibilityFilterReducer() {
-	    var state = arguments.length <= 0 || arguments[0] === undefined ? { pageFilter: 1 } : arguments[0];
-	    var action = arguments[1];
-
-	    switch (action.type) {
-
-	        case 'SET_VISIBILITY_FILTER':
-	            var newState = JSON.parse(JSON.stringify(state));
-	            if (typeof action.checked == 'undefined') {
-	                newState[action.filter] = action.keyword;
-	            } else {
-	                newState[action.filter][action.keyword] = action.checked;
-	            }
-	            return newState;
-
-	        case 'RESET_VISIBILITY_FILTER':
-	            var newState = JSON.parse(JSON.stringify(state));
-	            Object.keys(newState).map(function (key, i) {
-	                newState[key] = "";
-	            });
-	            return newState;
-
-	    }
-	    return state;
-	};
-	exports.default = visibilityFilterReducer;
 
 /***/ }
 /******/ ])
