@@ -46,9 +46,13 @@ const capitalize = (string) => {
 }
 
 const scrollTop = () => {
+    var _$;
     if(WFUIJS.$){
-        WFUIJS.$("html, body").animate({scrollTop: $(".jumper").offset().top}, 'fast');
+        _$ = WFUIJS.$;
+    }else if($){
+        _$ = $;
     }
+    if(_$) _$("html, body").animate({scrollTop: _$(".jumper").offset().top}, 'fast');
 }
 
 export default {

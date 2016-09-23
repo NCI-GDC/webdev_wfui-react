@@ -10,7 +10,7 @@ export default class Twitter extends React.Component{
         super(props);
     }
     render(){
-        const {twitterAccount} = this.props;
+        const {twitterAccount, limit} = this.props;
         const urlSafeTwitter = encodeURIComponent(twitterAccount);
         const twitterLink = `https://twitter.com/${urlSafeTwitter}`;
         return (
@@ -22,7 +22,7 @@ export default class Twitter extends React.Component{
                     className="twitter-timeline"
                     data-dnt="true"
                     data-chrome="noheader nofooter"
-                    data-tweet-limit="3"
+                    data-tweet-limit={limit}
                     href={twitterLink}>
                 </a>
                 <div className="view-all-link">
