@@ -1,4 +1,5 @@
-export actions from './actions/action_creators';
+var {filter, resetFilter} = require('./actions/action_creators');
+export const actions = {filter, resetFilter}
 export ListFilter from './components/ListFilter';
 export KeywordFilter from './components/KeywordFilter';
 export AlphabetFilter from './components/AlphabetFilter';

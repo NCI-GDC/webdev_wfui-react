@@ -6,9 +6,8 @@ export const filter = (filter, value) => {
     }
 }
 
-export const resetfilter = (filter) => {
+export const resetFilter = () => {
     return {
-        type: 'SET_VISIBILITY_FILTER',
-        filter: filter,
+        type: 'RESET_VISIBILITY_FILTER'
     }
 }

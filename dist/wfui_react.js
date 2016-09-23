@@ -25923,11 +25923,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.FiltersUtil = exports.visibilityFilterReducer = exports.Showing = exports.Pagenate = exports.AlphabetFilter = exports.KeywordFilter = exports.ListFilter = exports.actions = undefined;
 
-	var _action_creators = __webpack_require__(269);
-
-	var _action_creators2 = _interopRequireDefault(_action_creators);
-
-	var _ListFilter2 = __webpack_require__(270);
+	var _ListFilter2 = __webpack_require__(269);
 
 	var _ListFilter3 = _interopRequireDefault(_ListFilter2);
 
@@ -25957,7 +25953,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.actions = _action_creators2.default;
+	var _require = __webpack_require__(270);
+
+	var filter = _require.filter;
+	var resetFilter = _require.resetFilter;
+	var actions = exports.actions = { filter: filter, resetFilter: resetFilter };
 	exports.ListFilter = _ListFilter3.default;
 	exports.KeywordFilter = _KeywordFilter3.default;
 	exports.AlphabetFilter = _AlphabetFilter3.default;
@@ -25968,30 +25968,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 269 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	var filter = exports.filter = function filter(_filter, value) {
-	    return {
-	        type: 'SET_VISIBILITY_FILTER',
-	        filter: _filter,
-	        keyword: value
-	    };
-	};
-
-	var resetfilter = exports.resetfilter = function resetfilter(filter) {
-	    return {
-	        type: 'SET_VISIBILITY_FILTER',
-	        filter: filter
-	    };
-	};
-
-/***/ },
-/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26011,7 +25987,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactRedux = __webpack_require__(193);
 
-	var _action_creators = __webpack_require__(269);
+	var _action_creators = __webpack_require__(270);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26077,6 +26053,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = ListFilter;
 
 /***/ },
+/* 270 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var filter = exports.filter = function filter(_filter, value) {
+	    return {
+	        type: 'SET_VISIBILITY_FILTER',
+	        filter: _filter,
+	        keyword: value
+	    };
+	};
+
+	var resetFilter = exports.resetFilter = function resetFilter() {
+	    return {
+	        type: 'RESET_VISIBILITY_FILTER'
+	    };
+	};
+
+/***/ },
 /* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -26097,7 +26096,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactRedux = __webpack_require__(193);
 
-	var _action_creators = __webpack_require__(269);
+	var _action_creators = __webpack_require__(270);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26162,7 +26161,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactRedux = __webpack_require__(193);
 
-	var _action_creators = __webpack_require__(269);
+	var _action_creators = __webpack_require__(270);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26278,7 +26277,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactRedux = __webpack_require__(193);
 
-	var _action_creators = __webpack_require__(269);
+	var _action_creators = __webpack_require__(270);
 
 	var _util = __webpack_require__(266);
 
