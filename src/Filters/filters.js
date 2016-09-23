@@ -1,23 +1,23 @@
 import React from 'react';
 import {connect} from 'react-redux'
-var {Util, ListFilter, KeywordFilter, AlphabetFilter, Pagenate, Showing, filter} = require('./index');
+var {FiltersUtil, ListFilter, KeywordFilter, AlphabetFilter, Pagenate, Showing, filter} = require('./index');
 const NumberPerPage = 3;
 
 const mapStateToFiltersProps = (state) => {
 
-    var filtered = Util.applyListFilter(state.dataReducer, state.visibilityFilterReducer.companyFilter, 'company')
-    filtered = Util.applyKeywordFilter(filtered, state.visibilityFilterReducer.keywordFilter)
-    filtered = Util.applyAlphabetFilter(filtered, state.visibilityFilterReducer.alphabetFilter, 'fname')
+    var filtered = FiltersUtil.applyListFilter(state.dataReducer, state.visibilityFilterReducer.companyFilter, 'company')
+    filtered = FiltersUtil.applyKeywordFilter(filtered, state.visibilityFilterReducer.keywordFilter)
+    filtered = FiltersUtil.applyAlphabetFilter(filtered, state.visibilityFilterReducer.alphabetFilter, 'fname')
     
-    var pagenated = Util.applyPageFilter(filtered, state.visibilityFilterReducer.pageFilter, NumberPerPage)
+    var pagenated = FiltersUtil.applyPageFilter(filtered, state.visibilityFilterReducer.pageFilter, NumberPerPage)
 
     return {
         data: state.dataReducer,
         filtered: filtered,
         pagenated: pagenated,
         filters: state.visibilityFilterReducer,
-        companyMap: Util.genListMap(state.dataReducer, 'company'),
-        alphabetMap: Util.genAlphabetMap(state.dataReducer, 'fname')
+        companyMap: FiltersUtil.genListMap(state.dataReducer, 'company'),
+        alphabetMap: FiltersUtil.genAlphabetMap(state.dataReducer, 'fname')
     }
 }
 @connect(mapStateToFiltersProps)

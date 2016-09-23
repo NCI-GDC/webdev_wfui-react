@@ -5,4 +5,4 @@ export AlphabetFilter from './components/AlphabetFilter';
 export Pagenate from './components/Pagenate';
 export Showing from './components/Showing';
 export visibilityFilterReducer from './reducers/visibility_filter';
-export Util from './util/util';
+export FiltersUtil from './util/util';

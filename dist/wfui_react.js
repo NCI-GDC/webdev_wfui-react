@@ -85,7 +85,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.Filters = exports.Util = exports.Loading = exports.Selection = exports.Listbox = exports.Label = exports.InputTable = exports.InputField = exports.Icon = exports.Grid = exports.Description = exports.AddAnother = undefined;
+	exports.Twitter = exports.Filters = exports.Util = exports.Loading = exports.Selection = exports.Listbox = exports.Label = exports.InputTable = exports.InputField = exports.Icon = exports.Grid = exports.Description = exports.AddAnother = undefined;
 
 	var _add_another = __webpack_require__(21);
 
@@ -135,6 +135,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _filters2 = _interopRequireDefault(_filters);
 
+	var _twitter = __webpack_require__(277);
+
+	var _twitter2 = _interopRequireDefault(_twitter);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.AddAnother = _add_another2.default;
@@ -149,6 +153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Loading = _loading2.default;
 	exports.Util = _util2.default;
 	exports.Filters = _filters2.default;
+	exports.Twitter = _twitter2.default;
 
 /***/ },
 /* 21 */
@@ -25775,7 +25780,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(268);
 
-	var Util = _require.Util;
+	var FiltersUtil = _require.FiltersUtil;
 	var ListFilter = _require.ListFilter;
 	var KeywordFilter = _require.KeywordFilter;
 	var AlphabetFilter = _require.AlphabetFilter;
@@ -25787,19 +25792,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var mapStateToFiltersProps = function mapStateToFiltersProps(state) {
 
-	    var filtered = Util.applyListFilter(state.dataReducer, state.visibilityFilterReducer.companyFilter, 'company');
-	    filtered = Util.applyKeywordFilter(filtered, state.visibilityFilterReducer.keywordFilter);
-	    filtered = Util.applyAlphabetFilter(filtered, state.visibilityFilterReducer.alphabetFilter, 'fname');
+	    var filtered = FiltersUtil.applyListFilter(state.dataReducer, state.visibilityFilterReducer.companyFilter, 'company');
+	    filtered = FiltersUtil.applyKeywordFilter(filtered, state.visibilityFilterReducer.keywordFilter);
+	    filtered = FiltersUtil.applyAlphabetFilter(filtered, state.visibilityFilterReducer.alphabetFilter, 'fname');
 
-	    var pagenated = Util.applyPageFilter(filtered, state.visibilityFilterReducer.pageFilter, NumberPerPage);
+	    var pagenated = FiltersUtil.applyPageFilter(filtered, state.visibilityFilterReducer.pageFilter, NumberPerPage);
 
 	    return {
 	        data: state.dataReducer,
 	        filtered: filtered,
 	        pagenated: pagenated,
 	        filters: state.visibilityFilterReducer,
-	        companyMap: Util.genListMap(state.dataReducer, 'company'),
-	        alphabetMap: Util.genAlphabetMap(state.dataReducer, 'fname')
+	        companyMap: FiltersUtil.genListMap(state.dataReducer, 'company'),
+	        alphabetMap: FiltersUtil.genAlphabetMap(state.dataReducer, 'fname')
 	    };
 	};
 	var Filters = (_dec = (0, _reactRedux.connect)(mapStateToFiltersProps), _dec(_class = function (_React$Component) {
@@ -25912,7 +25917,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.Util = exports.visibilityFilterReducer = exports.Showing = exports.Pagenate = exports.AlphabetFilter = exports.KeywordFilter = exports.ListFilter = exports.actions = undefined;
+	exports.FiltersUtil = exports.visibilityFilterReducer = exports.Showing = exports.Pagenate = exports.AlphabetFilter = exports.KeywordFilter = exports.ListFilter = exports.actions = undefined;
 
 	var _action_creators = __webpack_require__(269);
 
@@ -25955,7 +25960,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Pagenate = _Pagenate3.default;
 	exports.Showing = _Showing3.default;
 	exports.visibilityFilterReducer = _visibility_filter2.default;
-	exports.Util = _util2.default;
+	exports.FiltersUtil = _util2.default;
 
 /***/ },
 /* 269 */
@@ -26576,6 +26581,90 @@ return /******/ (function(modules) { // webpackBootstrap
 	    genListMap: genListMap,
 	    genAlphabetMap: genAlphabetMap
 	};
+
+/***/ },
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(22);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Twitter = function (_React$Component) {
+	    _inherits(Twitter, _React$Component);
+
+	    function Twitter(props) {
+	        _classCallCheck(this, Twitter);
+
+	        var script = document.createElement('script');
+	        script.src = 'http://platform.twitter.com/widgets.js';
+	        script.async = true;
+	        document.body.appendChild(script);
+
+	        return _possibleConstructorReturn(this, (Twitter.__proto__ || Object.getPrototypeOf(Twitter)).call(this, props));
+	    }
+
+	    _createClass(Twitter, [{
+	        key: 'render',
+	        value: function render() {
+	            var twitterAccount = this.props.twitterAccount;
+
+	            var urlSafeTwitter = encodeURIComponent(twitterAccount);
+	            var twitterLink = 'https://twitter.com/' + urlSafeTwitter;
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h2',
+	                    { className: 'title block-title blog-title twitter' },
+	                    'Twitter: ',
+	                    _react2.default.createElement(
+	                        'a',
+	                        { href: twitterLink },
+	                        '@',
+	                        twitterAccount
+	                    )
+	                ),
+	                _react2.default.createElement('a', {
+	                    className: 'twitter-timeline',
+	                    'data-dnt': 'true',
+	                    'data-chrome': 'noheader nofooter',
+	                    'data-tweet-limit': '3',
+	                    href: twitterLink }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'view-all-link' },
+	                    _react2.default.createElement(
+	                        'a',
+	                        { href: twitterLink },
+	                        'Follow on Twitter'
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Twitter;
+	}(_react2.default.Component);
+
+	exports.default = Twitter;
 
 /***/ }
 /******/ ])
