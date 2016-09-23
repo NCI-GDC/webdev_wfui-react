@@ -1,7 +1,7 @@
 /**
  * Reducer for visibility filter
  */
-const visibilityFilterReducer = (state = {}, action) => {
+const visibilityFilterReducer = (state = {pageFilter:1}, action) => {
     switch(action.type){
 
         case 'SET_VISIBILITY_FILTER':

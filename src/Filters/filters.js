@@ -1,87 +1,51 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import {filterByCompany, filterByKeyword} from './actions/action_creators';
+var {Util, ListFilter, KeywordFilter, AlphabetFilter, Pagenate, Showing, filter} = require('./index');
+const NumberPerPage = 3;
 
 const mapStateToFiltersProps = (state) => {
-    const genCompanyMap = (state) => {
-        var map = {}
-        state.forEach((person, i)=>{
-            if(!map[person.company]){
-                map[person.company] = true
-            }
-        });
-        return map
-    }
-    const applyCompanyFilter = (state, company) => {
-        return state.filter((person, i)=>{
-            if(!company){
-                return true
-            }
-            return person.company == company
-        });
-    }
 
-    const applyKeywordFilter = (state, keywords) => {
-        return state.filter((state, i)=>{
-            if(!keywords) return true;
-            const keys = keywords.split(" ");
-            let result = false;
-            keys.forEach((key, j)=>{
-                key = key.toLowerCase();
-                if(!key) return false;
-                if(state.name.fname.toLowerCase().includes(key)
-                    || state.name.lname.toLowerCase().includes(key)
-                    || state.company.toLowerCase().includes(key) ){
-                        result = true
-                }
-            });
-            return result;
-        });
-    }
-
-    var filtered = applyCompanyFilter(state.dataReducer, state.visibilityFilterReducer.companyFilter)
-    filtered = applyKeywordFilter(filtered, state.visibilityFilterReducer.keywordFilter)
+    var filtered = Util.applyListFilter(state.dataReducer, state.visibilityFilterReducer.companyFilter, 'company')
+    filtered = Util.applyKeywordFilter(filtered, state.visibilityFilterReducer.keywordFilter)
+    filtered = Util.applyAlphabetFilter(filtered, state.visibilityFilterReducer.alphabetFilter, 'fname')
+    
+    var pagenated = Util.applyPageFilter(filtered, state.visibilityFilterReducer.pageFilter, NumberPerPage)
 
     return {
         data: state.dataReducer,
         filtered: filtered,
+        pagenated: pagenated,
         filters: state.visibilityFilterReducer,
-        companyMap: genCompanyMap(state.dataReducer)
+        companyMap: Util.genListMap(state.dataReducer, 'company'),
+        alphabetMap: Util.genAlphabetMap(state.dataReducer, 'fname')
     }
 }
 @connect(mapStateToFiltersProps)
 class Filters extends React.Component{
-    onHandleChange(e){
-        const {dispatch} = this.props;
-        e.preventDefault();
-        dispatch(filterByKeyword(e.target.value));
-    }
     onHandleTagChange(e){
         const {dispatch} = this.props;
         e.preventDefault();
-        dispatch(filterByCompany(e.target.value));
+        dispatch(filter('companyFilter', e.target.value));
     }
     render(){
-        const {filtered, data, filters, companyMap} = this.props;
-        
+        const {pagenated, filtered, data, filters, companyMap, alphabetMap} = this.props;
+
         return(
             <div>
                 <div>
                     <label>By Tag:</label>
-                    <select onChange={this.onHandleTagChange.bind(this)} value={filters.companyFilter}>
-                        <option default value="">show all</option>
-                        {Object.keys(companyMap).map((key, i)=>{
-                            return <option key={i} default value={key}>{key}</option>
-                        })}
-                    </select>
+                    <ListFilter filterName="company" filterMap={companyMap} />
                     <label>By Keyword:</label>
-                    <input onChange={this.onHandleChange.bind(this)} type="text" defaultValue={filtered.keywordFilter} placeholder="Enter Keywords"/>
+                    <KeywordFilter />
+                    <AlphabetFilter alphabetMap={alphabetMap} />
+                    <Showing numPerPage={NumberPerPage} total={filtered.length} />
                 </div>
+                <Pagenate items={filtered} numPerPage={NumberPerPage} scroll={true} />
                 <ul>
-                {filtered.map((item, i)=>{
+                {pagenated.map((item, i)=>{
                     return (
                         <li key={i}>
-                            <p><b>Name: </b>{item.name.fname} {item.name.lname}</p>
+                            <p><b>Name: </b>{item.fname} {item.lname}</p>
                             <p><b>Age: </b>{item.age}</p>
                             <p><b>Company: </b>{item.company}</p>
                         </li>
@@ -92,5 +56,4 @@ class Filters extends React.Component{
         )
     }
 }
-
 export default Filters

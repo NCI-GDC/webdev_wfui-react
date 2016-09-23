@@ -25682,6 +25682,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	var WFUIJS = WFUIJS || {};
+
 	var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 	var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -25728,7 +25730,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	var scrollTop = function scrollTop() {
-	    WFUIJS.$("html, body").animate({ scrollTop: $(".jumper").offset().top }, 'fast');
+	    if (WFUIJS.$) {
+	        WFUIJS.$("html, body").animate({ scrollTop: $(".jumper").offset().top }, 'fast');
+	    }
 	};
 
 	exports.default = {
@@ -25761,8 +25765,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactRedux = __webpack_require__(193);
 
-	var _action_creators = __webpack_require__(268);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25771,49 +25773,33 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var _require = __webpack_require__(275);
+
+	var Util = _require.Util;
+	var ListFilter = _require.ListFilter;
+	var KeywordFilter = _require.KeywordFilter;
+	var AlphabetFilter = _require.AlphabetFilter;
+	var Pagenate = _require.Pagenate;
+	var Showing = _require.Showing;
+	var filter = _require.filter;
+
+	var NumberPerPage = 3;
+
 	var mapStateToFiltersProps = function mapStateToFiltersProps(state) {
-	    var genCompanyMap = function genCompanyMap(state) {
-	        var map = {};
-	        state.forEach(function (person, i) {
-	            if (!map[person.company]) {
-	                map[person.company] = true;
-	            }
-	        });
-	        return map;
-	    };
-	    var applyCompanyFilter = function applyCompanyFilter(state, company) {
-	        return state.filter(function (person, i) {
-	            if (!company) {
-	                return true;
-	            }
-	            return person.company == company;
-	        });
-	    };
 
-	    var applyKeywordFilter = function applyKeywordFilter(state, keywords) {
-	        return state.filter(function (state, i) {
-	            if (!keywords) return true;
-	            var keys = keywords.split(" ");
-	            var result = false;
-	            keys.forEach(function (key, j) {
-	                key = key.toLowerCase();
-	                if (!key) return false;
-	                if (state.name.fname.toLowerCase().includes(key) || state.name.lname.toLowerCase().includes(key) || state.company.toLowerCase().includes(key)) {
-	                    result = true;
-	                }
-	            });
-	            return result;
-	        });
-	    };
+	    var filtered = Util.applyListFilter(state.dataReducer, state.visibilityFilterReducer.companyFilter, 'company');
+	    filtered = Util.applyKeywordFilter(filtered, state.visibilityFilterReducer.keywordFilter);
+	    filtered = Util.applyAlphabetFilter(filtered, state.visibilityFilterReducer.alphabetFilter, 'fname');
 
-	    var filtered = applyCompanyFilter(state.dataReducer, state.visibilityFilterReducer.companyFilter);
-	    filtered = applyKeywordFilter(filtered, state.visibilityFilterReducer.keywordFilter);
+	    var pagenated = Util.applyPageFilter(filtered, state.visibilityFilterReducer.pageFilter, NumberPerPage);
 
 	    return {
 	        data: state.dataReducer,
 	        filtered: filtered,
+	        pagenated: pagenated,
 	        filters: state.visibilityFilterReducer,
-	        companyMap: genCompanyMap(state.dataReducer)
+	        companyMap: Util.genListMap(state.dataReducer, 'company'),
+	        alphabetMap: Util.genAlphabetMap(state.dataReducer, 'fname')
 	    };
 	};
 	var Filters = (_dec = (0, _reactRedux.connect)(mapStateToFiltersProps), _dec(_class = function (_React$Component) {
@@ -25826,29 +25812,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    _createClass(Filters, [{
-	        key: 'onHandleChange',
-	        value: function onHandleChange(e) {
-	            var dispatch = this.props.dispatch;
-
-	            e.preventDefault();
-	            dispatch((0, _action_creators.filterByKeyword)(e.target.value));
-	        }
-	    }, {
 	        key: 'onHandleTagChange',
 	        value: function onHandleTagChange(e) {
 	            var dispatch = this.props.dispatch;
 
 	            e.preventDefault();
-	            dispatch((0, _action_creators.filterByCompany)(e.target.value));
+	            dispatch(filter('companyFilter', e.target.value));
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var _props = this.props;
+	            var pagenated = _props.pagenated;
 	            var filtered = _props.filtered;
 	            var data = _props.data;
 	            var filters = _props.filters;
 	            var companyMap = _props.companyMap;
+	            var alphabetMap = _props.alphabetMap;
 
 
 	            return _react2.default.createElement(
@@ -25862,33 +25842,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        null,
 	                        'By Tag:'
 	                    ),
-	                    _react2.default.createElement(
-	                        'select',
-	                        { onChange: this.onHandleTagChange.bind(this), value: filters.companyFilter },
-	                        _react2.default.createElement(
-	                            'option',
-	                            { 'default': true, value: '' },
-	                            'show all'
-	                        ),
-	                        Object.keys(companyMap).map(function (key, i) {
-	                            return _react2.default.createElement(
-	                                'option',
-	                                { key: i, 'default': true, value: key },
-	                                key
-	                            );
-	                        })
-	                    ),
+	                    _react2.default.createElement(ListFilter, { filterName: 'company', filterMap: companyMap }),
 	                    _react2.default.createElement(
 	                        'label',
 	                        null,
 	                        'By Keyword:'
 	                    ),
-	                    _react2.default.createElement('input', { onChange: this.onHandleChange.bind(this), type: 'text', defaultValue: filtered.keywordFilter, placeholder: 'Enter Keywords' })
+	                    _react2.default.createElement(KeywordFilter, null),
+	                    _react2.default.createElement(AlphabetFilter, { alphabetMap: alphabetMap }),
+	                    _react2.default.createElement(Showing, { numPerPage: NumberPerPage, total: filtered.length })
 	                ),
+	                _react2.default.createElement(Pagenate, { items: filtered, numPerPage: NumberPerPage, scroll: true }),
 	                _react2.default.createElement(
 	                    'ul',
 	                    null,
-	                    filtered.map(function (item, i) {
+	                    pagenated.map(function (item, i) {
 	                        return _react2.default.createElement(
 	                            'li',
 	                            { key: i },
@@ -25900,9 +25868,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    null,
 	                                    'Name: '
 	                                ),
-	                                item.name.fname,
+	                                item.fname,
 	                                ' ',
-	                                item.name.lname
+	                                item.lname
 	                            ),
 	                            _react2.default.createElement(
 	                                'p',
@@ -25944,21 +25912,670 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	var filterByCompany = exports.filterByCompany = function filterByCompany(name) {
+	var filter = exports.filter = function filter(_filter, value) {
 	    return {
 	        type: 'SET_VISIBILITY_FILTER',
-	        filter: 'companyFilter',
-	        keyword: name
+	        filter: _filter,
+	        keyword: value
 	    };
 	};
 
-	var filterByKeyword = exports.filterByKeyword = function filterByKeyword(keyword) {
+	var resetfilter = exports.resetfilter = function resetfilter(filter) {
 	    return {
 	        type: 'SET_VISIBILITY_FILTER',
-	        filter: 'keywordFilter',
-	        keyword: keyword
+	        filter: filter
 	    };
 	};
+
+/***/ },
+/* 269 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(22);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(193);
+
+	var _action_creators = __webpack_require__(268);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var mapStateToListFilterProps = function mapStateToListFilterProps(state) {
+	    return { filters: state.visibilityFilterReducer };
+	};
+	var ListFilter = (_dec = (0, _reactRedux.connect)(mapStateToListFilterProps), _dec(_class = function (_React$Component) {
+	    _inherits(ListFilter, _React$Component);
+
+	    function ListFilter() {
+	        _classCallCheck(this, ListFilter);
+
+	        return _possibleConstructorReturn(this, (ListFilter.__proto__ || Object.getPrototypeOf(ListFilter)).apply(this, arguments));
+	    }
+
+	    _createClass(ListFilter, [{
+	        key: 'onHandleTagChange',
+	        value: function onHandleTagChange(e) {
+	            var _props = this.props;
+	            var dispatch = _props.dispatch;
+	            var filterName = _props.filterName;
+
+	            e.preventDefault();
+	            dispatch((0, _action_creators.filter)(filterName + 'Filter', e.target.value));
+	            dispatch((0, _action_creators.filter)('pageFilter', 1));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _props2 = this.props;
+	            var filterName = _props2.filterName;
+	            var filters = _props2.filters;
+	            var filterMap = _props2.filterMap;
+
+	            var filterKey = filterName + 'Filter';
+	            return _react2.default.createElement(
+	                'select',
+	                { onChange: this.onHandleTagChange.bind(this), value: filters[filterKey] },
+	                _react2.default.createElement(
+	                    'option',
+	                    { 'default': true, value: '' },
+	                    'show all'
+	                ),
+	                filterMap && Object.keys(filterMap).map(function (key, i) {
+	                    return _react2.default.createElement(
+	                        'option',
+	                        { key: i, 'default': true, value: key },
+	                        key
+	                    );
+	                })
+	            );
+	        }
+	    }]);
+
+	    return ListFilter;
+	}(_react2.default.Component)) || _class);
+	exports.default = ListFilter;
+
+/***/ },
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(22);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(193);
+
+	var _action_creators = __webpack_require__(268);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var mapStateToKeywordFilterProps = function mapStateToKeywordFilterProps(state) {
+	    return { keywordFilter: state.visibilityFilterReducer["keywordFilter"] };
+	};
+	var KeywordFilter = (_dec = (0, _reactRedux.connect)(mapStateToKeywordFilterProps), _dec(_class = function (_React$Component) {
+	    _inherits(KeywordFilter, _React$Component);
+
+	    function KeywordFilter() {
+	        _classCallCheck(this, KeywordFilter);
+
+	        return _possibleConstructorReturn(this, (KeywordFilter.__proto__ || Object.getPrototypeOf(KeywordFilter)).apply(this, arguments));
+	    }
+
+	    _createClass(KeywordFilter, [{
+	        key: 'onHandleChange',
+	        value: function onHandleChange(e) {
+	            e.preventDefault();
+	            var dispatch = this.props.dispatch;
+
+	            dispatch((0, _action_creators.filter)('keywordFilter', e.target.value));
+	            dispatch((0, _action_creators.filter)('pageFilter', 1));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var keywordFilter = this.props.keywordFilter;
+
+	            return _react2.default.createElement('input', { onChange: this.onHandleChange.bind(this), type: 'text', defaultValue: keywordFilter, placeholder: 'Enter Keywords' });
+	        }
+	    }]);
+
+	    return KeywordFilter;
+	}(_react2.default.Component)) || _class);
+	exports.default = KeywordFilter;
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(22);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(193);
+
+	var _action_creators = __webpack_require__(268);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var mapStateToAlphabetFilterProps = function mapStateToAlphabetFilterProps(state) {
+	    return { AlphabetFilter: state.visibilityFilterReducer["keywordFilter"] };
+	};
+	var AlphabetFilter = (_dec = (0, _reactRedux.connect)(mapStateToAlphabetFilterProps), _dec(_class = function (_React$Component) {
+	    _inherits(AlphabetFilter, _React$Component);
+
+	    function AlphabetFilter() {
+	        _classCallCheck(this, AlphabetFilter);
+
+	        return _possibleConstructorReturn(this, (AlphabetFilter.__proto__ || Object.getPrototypeOf(AlphabetFilter)).apply(this, arguments));
+	    }
+
+	    _createClass(AlphabetFilter, [{
+	        key: 'onHandleAlphabet',
+	        value: function onHandleAlphabet(e) {
+	            e.preventDefault();
+	            var dispatch = this.props.dispatch;
+
+	            dispatch((0, _action_creators.filter)('alphabetFilter', e.target.dataset.key));
+	            dispatch((0, _action_creators.filter)('pageFilter', 1));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            var _props = this.props;
+	            var alphabetMap = _props.alphabetMap;
+	            var alphabetFilter = _props.alphabetFilter;
+	            var showing = _props.showing;
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'alphabet-paginate' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'container' },
+	                    _react2.default.createElement(
+	                        'nav',
+	                        { className: 'alphabet-nav' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: '#', 'data-key': '', onClick: this.onHandleAlphabet.bind(this) },
+	                                '#'
+	                            )
+	                        ),
+	                        Object.keys(alphabetMap).map(function (key, i) {
+	                            var activeClass = alphabetFilter == key ? "active" : "";
+	                            if (alphabetMap[key]) {
+	                                return _react2.default.createElement(
+	                                    'span',
+	                                    { key: i, className: activeClass },
+	                                    _react2.default.createElement(
+	                                        'a',
+	                                        { href: '#', 'data-key': key, onClick: _this2.onHandleAlphabet.bind(_this2) },
+	                                        key.toUpperCase()
+	                                    )
+	                                );
+	                            } else {
+	                                return _react2.default.createElement(
+	                                    'span',
+	                                    { key: i },
+	                                    key.toUpperCase()
+	                                );
+	                            }
+	                        }),
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            'showing ',
+	                            showing
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return AlphabetFilter;
+	}(_react2.default.Component)) || _class);
+	exports.default = AlphabetFilter;
+
+/***/ },
+/* 272 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(22);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(193);
+
+	var _action_creators = __webpack_require__(268);
+
+	var _util = __webpack_require__(266);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var getPages = function getPages(items, numOfContents) {
+	    var num = Math.ceil(items.length / numOfContents);
+	    var pages = [];
+	    for (var i = 0; i < num; i++) {
+	        pages.push(i + 1);
+	    }
+	    return pages;
+	};
+
+	var mapStateToPagenateProps = function mapStateToPagenateProps(state) {
+	    return { current: Number(state.visibilityFilterReducer.pageFilter) };
+	};
+
+	var Pagenate = (_dec = (0, _reactRedux.connect)(mapStateToPagenateProps), _dec(_class = function (_React$Component) {
+	    _inherits(Pagenate, _React$Component);
+
+	    function Pagenate() {
+	        _classCallCheck(this, Pagenate);
+
+	        return _possibleConstructorReturn(this, (Pagenate.__proto__ || Object.getPrototypeOf(Pagenate)).apply(this, arguments));
+	    }
+
+	    _createClass(Pagenate, [{
+	        key: 'onHandleClick',
+	        value: function onHandleClick(e) {
+	            e.preventDefault();
+	            var _props = this.props;
+	            var dispatch = _props.dispatch;
+	            var scroll = _props.scroll;
+
+	            if (scroll) _util2.default.scrollTop();
+	            dispatch((0, _action_creators.filter)('pageFilter', e.target.getAttribute("data-page")));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            var _props2 = this.props;
+	            var items = _props2.items;
+	            var numPerPage = _props2.numPerPage;
+	            var current = _props2.current;
+
+	            var pages = getPages(items, numPerPage);
+
+	            if (pages.length > 1) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: 'paginate' },
+	                    _react2.default.createElement(
+	                        'ul',
+	                        null,
+	                        current > 1 ? _react2.default.createElement(
+	                            'li',
+	                            null,
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: '#', 'data-page': current - 1, onClick: this.onHandleClick.bind(this) },
+	                                '« Prev'
+	                            )
+	                        ) : "",
+	                        pages.map(function (page, i) {
+	                            return _react2.default.createElement(
+	                                'li',
+	                                { key: i, className: page == current ? "active" : "" },
+	                                _react2.default.createElement(
+	                                    'a',
+	                                    { href: '#', 'data-page': page, onClick: _this2.onHandleClick.bind(_this2) },
+	                                    page
+	                                )
+	                            );
+	                        }),
+	                        current < pages.length ? _react2.default.createElement(
+	                            'li',
+	                            null,
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: '#', 'data-page': current + 1, onClick: this.onHandleClick.bind(this) },
+	                                'Next »'
+	                            )
+	                        ) : ""
+	                    )
+	                );
+	            } else {
+	                return _react2.default.createElement('noscript', null);
+	            }
+	        }
+	    }]);
+
+	    return Pagenate;
+	}(_react2.default.Component)) || _class);
+	exports.default = Pagenate;
+
+/***/ },
+/* 273 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var applyPageFilter = function applyPageFilter(state, page, numPerPage) {
+	    var _state = state.slice();
+	    var _page = page ? page : 1;
+	    return _state.splice((Number(_page) - 1) * numPerPage, numPerPage);
+	};
+
+	var applyAlphabetFilter = function applyAlphabetFilter(state, keyword, property) {
+	    return state.filter(function (item, i) {
+	        if (!keyword) return true;
+	        return item[property].charAt(0).toLowerCase() == keyword;
+	    });
+	};
+
+	var applyListFilter = function applyListFilter(state, value, property) {
+	    return state.filter(function (item, i) {
+	        if (!value) {
+	            return true;
+	        }
+	        return item[property] == value;
+	    });
+	};
+
+	var applyKeywordFilter = function applyKeywordFilter(state, keywords) {
+	    return state.filter(function (state, i) {
+	        if (!keywords) return true;
+	        var keys = keywords.split(" ");
+	        var result = false;
+	        keys.forEach(function (key, j) {
+	            key = key.toLowerCase();
+	            if (!key) return false;
+	            if (state.fname.toLowerCase().includes(key) || state.lname.toLowerCase().includes(key) || state.company.toLowerCase().includes(key)) {
+	                result = true;
+	            }
+	        });
+	        return result;
+	    });
+	};
+
+	var genListMap = function genListMap(state, property) {
+	    var map = {};
+	    state.forEach(function (item, i) {
+	        if (!map[item[property]]) {
+	            map[item[property]] = true;
+	        }
+	    });
+	    return map;
+	};
+
+	var genAlphabetMap = function genAlphabetMap(state, property) {
+	    var alphabet = "abcdefghijklmnopqrstuvwxyz";
+	    var alphabetMap = {};
+
+	    var _loop = function _loop() {
+	        var key = alphabet.charAt(i);
+	        var filter = state.filter(function (item, j) {
+	            return key == (item[property] && item[property].charAt(0).toLowerCase());
+	        });
+	        alphabetMap[key] = filter.length > 0;
+	    };
+
+	    for (var i = 0, len = alphabet.length; i < len; i++) {
+	        _loop();
+	    }
+	    return alphabetMap;
+	};
+
+	exports.default = {
+	    applyAlphabetFilter: applyAlphabetFilter,
+	    applyListFilter: applyListFilter,
+	    applyKeywordFilter: applyKeywordFilter,
+	    applyPageFilter: applyPageFilter,
+	    genListMap: genListMap,
+	    genAlphabetMap: genAlphabetMap
+	};
+
+/***/ },
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(22);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(193);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var mapStateToShowingProps = function mapStateToShowingProps(state) {
+	    return {
+	        pageFilter: state.visibilityFilterReducer.pageFilter
+	    };
+	};
+	var Showing = (_dec = (0, _reactRedux.connect)(mapStateToShowingProps), _dec(_class = function (_React$Component) {
+	    _inherits(Showing, _React$Component);
+
+	    function Showing() {
+	        _classCallCheck(this, Showing);
+
+	        return _possibleConstructorReturn(this, (Showing.__proto__ || Object.getPrototypeOf(Showing)).apply(this, arguments));
+	    }
+
+	    _createClass(Showing, [{
+	        key: 'render',
+	        value: function render() {
+	            var _props = this.props;
+	            var numPerPage = _props.numPerPage;
+	            var total = _props.total;
+	            var pageFilter = _props.pageFilter;
+
+	            var showing = 0;
+	            if (pageFilter) {
+	                if (total > 0) {
+	                    if (pageFilter * numPerPage > total) {
+	                        showing = (pageFilter - 1) * numPerPage + 1 + "-" + total;
+	                    } else {
+	                        showing = (pageFilter - 1) * numPerPage + 1 + "-" + pageFilter * numPerPage;
+	                    }
+	                }
+	            } else {
+	                showing = numPerPage;
+	            }
+	            return _react2.default.createElement(
+	                'span',
+	                null,
+	                'Showing ',
+	                showing,
+	                ' of ',
+	                total
+	            );
+	        }
+	    }]);
+
+	    return Showing;
+	}(_react2.default.Component)) || _class);
+	exports.default = Showing;
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Util = exports.visibilityFilterReducer = exports.Showing = exports.Pagenate = exports.AlphabetFilter = exports.KeywordFilter = exports.ListFilter = exports.actions = undefined;
+
+	var _action_creators = __webpack_require__(268);
+
+	var _action_creators2 = _interopRequireDefault(_action_creators);
+
+	var _ListFilter2 = __webpack_require__(269);
+
+	var _ListFilter3 = _interopRequireDefault(_ListFilter2);
+
+	var _KeywordFilter2 = __webpack_require__(270);
+
+	var _KeywordFilter3 = _interopRequireDefault(_KeywordFilter2);
+
+	var _AlphabetFilter2 = __webpack_require__(271);
+
+	var _AlphabetFilter3 = _interopRequireDefault(_AlphabetFilter2);
+
+	var _Pagenate2 = __webpack_require__(272);
+
+	var _Pagenate3 = _interopRequireDefault(_Pagenate2);
+
+	var _Showing2 = __webpack_require__(274);
+
+	var _Showing3 = _interopRequireDefault(_Showing2);
+
+	var _visibility_filter = __webpack_require__(276);
+
+	var _visibility_filter2 = _interopRequireDefault(_visibility_filter);
+
+	var _util = __webpack_require__(273);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.actions = _action_creators2.default;
+	exports.ListFilter = _ListFilter3.default;
+	exports.KeywordFilter = _KeywordFilter3.default;
+	exports.AlphabetFilter = _AlphabetFilter3.default;
+	exports.Pagenate = _Pagenate3.default;
+	exports.Showing = _Showing3.default;
+	exports.visibilityFilterReducer = _visibility_filter2.default;
+	exports.Util = _util2.default;
+
+/***/ },
+/* 276 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Reducer for visibility filter
+	 */
+	var visibilityFilterReducer = function visibilityFilterReducer() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? { pageFilter: 1 } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+
+	        case 'SET_VISIBILITY_FILTER':
+	            var newState = JSON.parse(JSON.stringify(state));
+	            if (typeof action.checked == 'undefined') {
+	                newState[action.filter] = action.keyword;
+	            } else {
+	                newState[action.filter][action.keyword] = action.checked;
+	            }
+	            return newState;
+
+	        case 'RESET_VISIBILITY_FILTER':
+	            var newState = JSON.parse(JSON.stringify(state));
+	            Object.keys(newState).map(function (key, i) {
+	                newState[key] = "";
+	            });
+	            return newState;
+
+	    }
+	    return state;
+	};
+	exports.default = visibilityFilterReducer;
 
 /***/ }
 /******/ ])

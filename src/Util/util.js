@@ -1,3 +1,5 @@
+var WFUIJS = WFUIJS || {}
+
 const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" , "Saturday"];
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -44,7 +46,9 @@ const capitalize = (string) => {
 }
 
 const scrollTop = () => {
-    WFUIJS.$("html, body").animate({scrollTop: $(".jumper").offset().top}, 'fast');
+    if(WFUIJS.$){
+        WFUIJS.$("html, body").animate({scrollTop: $(".jumper").offset().top}, 'fast');
+    }
 }
 
 export default {

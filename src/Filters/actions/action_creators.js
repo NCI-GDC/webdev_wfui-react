@@ -1,15 +1,14 @@
-export const filterByCompany = (name) => {
+export const filter = (filter, value) => {
     return {
         type: 'SET_VISIBILITY_FILTER',
-        filter: 'companyFilter',
-        keyword: name,
+        filter: filter,
+        keyword: value,
     }
 }
 
-export const filterByKeyword = (keyword) => {
+export const resetfilter = (filter) => {
     return {
         type: 'SET_VISIBILITY_FILTER',
-        filter: 'keywordFilter',
-        keyword: keyword,
+        filter: filter,
     }
 }
