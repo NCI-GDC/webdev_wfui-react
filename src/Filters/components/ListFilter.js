@@ -20,7 +20,7 @@ export default class ListFilter extends React.Component{
             <select onChange={this.onHandleTagChange.bind(this)} value={filters[filterKey]}>
                 <option default value="">show all</option>
                 {filterMap && Object.keys(filterMap).map((key, i)=>{
-                    return <option key={i} default value={key}>{key}</option>
+                    return <option key={i} default value={key}>{filterMap[key]}</option>
                 })}
             </select>
         )

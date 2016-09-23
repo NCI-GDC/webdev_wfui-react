@@ -26056,7 +26056,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    return _react2.default.createElement(
 	                        'option',
 	                        { key: i, 'default': true, value: key },
-	                        key
+	                        filterMap[key]
 	                    );
 	                })
 	            );
