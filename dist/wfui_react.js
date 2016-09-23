@@ -25735,9 +25735,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	var scrollTop = function scrollTop() {
+	    var _$;
 	    if (WFUIJS.$) {
-	        WFUIJS.$("html, body").animate({ scrollTop: $(".jumper").offset().top }, 'fast');
+	        _$ = WFUIJS.$;
+	    } else if ($) {
+	        _$ = $;
 	    }
+	    if (_$) _$("html, body").animate({ scrollTop: _$(".jumper").offset().top }, 'fast');
 	};
 
 	exports.default = {
@@ -26624,7 +26628,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _createClass(Twitter, [{
 	        key: 'render',
 	        value: function render() {
-	            var twitterAccount = this.props.twitterAccount;
+	            var _props = this.props;
+	            var twitterAccount = _props.twitterAccount;
+	            var limit = _props.limit;
 
 	            var urlSafeTwitter = encodeURIComponent(twitterAccount);
 	            var twitterLink = 'https://twitter.com/' + urlSafeTwitter;
@@ -26646,7 +26652,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    className: 'twitter-timeline',
 	                    'data-dnt': 'true',
 	                    'data-chrome': 'noheader nofooter',
-	                    'data-tweet-limit': '3',
+	                    'data-tweet-limit': limit,
 	                    href: twitterLink }),
 	                _react2.default.createElement(
 	                    'div',
