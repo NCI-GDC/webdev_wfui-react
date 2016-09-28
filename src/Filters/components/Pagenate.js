@@ -20,9 +20,13 @@ const mapStateToPagenateProps = (state) => {
 export default class Pagenate extends React.Component{
     onHandleClick(e){
         e.preventDefault();
-        const {dispatch, scroll} = this.props;
+        const {dispatch, scroll, onHandleClick} = this.props;
         if(scroll) Util.scrollTop();
         dispatch(filter('pageFilter', e.target.getAttribute("data-page")));
+
+        if(onHandleClick && typeof onHandleClick == 'function'){
+            onHandleClick(e);
+        }
     }
     render(){
         const {items, numPerPage, current} = this.props;

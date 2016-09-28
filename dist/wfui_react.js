@@ -26348,9 +26348,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var _props = this.props;
 	            var dispatch = _props.dispatch;
 	            var scroll = _props.scroll;
+	            var onHandleClick = _props.onHandleClick;
 
 	            if (scroll) _util2.default.scrollTop();
 	            dispatch((0, _action_creators.filter)('pageFilter', e.target.getAttribute("data-page")));
+
+	            if (onHandleClick && typeof onHandleClick == 'function') {
+	                onHandleClick(e);
+	            }
 	        }
 	    }, {
 	        key: 'render',
