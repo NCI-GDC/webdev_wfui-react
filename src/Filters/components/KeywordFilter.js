@@ -6,7 +6,7 @@ const mapStateToKeywordFilterProps = (state) => {
     return { keywordFilter: state.visibilityFilterReducer["keywordFilter"] };
 };
 @connect(mapStateToKeywordFilterProps)
-export default class KeywordFilter extends React.Component{
+class KeywordFilter extends React.Component{
     onHandleChange(e){
         e.preventDefault();
         const {dispatch} = this.props;
@@ -14,9 +14,13 @@ export default class KeywordFilter extends React.Component{
         dispatch(filter('pageFilter', 1));
     }
     render(){
-        const {keywordFilter} = this.props;
+        const {keywordFilter, placeholder} = this.props;
         return (
-            <input onChange={this.onHandleChange.bind(this)} type="text" defaultValue={keywordFilter} placeholder="Enter Keywords"/>
+            <input onChange={this.onHandleChange.bind(this)} type="text" defaultValue={keywordFilter} placeholder={placeholder} />
         )
     }
 }
+KeywordFilter.defaultProps = {
+  placeholder: 'Enter Keywords'
+}
+export default KeywordFilter

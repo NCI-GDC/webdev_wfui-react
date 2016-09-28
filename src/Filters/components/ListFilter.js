@@ -6,7 +6,7 @@ const mapStateToListFilterProps = (state) => {
     return { filters: state.visibilityFilterReducer };
 };
 @connect(mapStateToListFilterProps)
-export default class ListFilter extends React.Component{
+class ListFilter extends React.Component{
     onHandleTagChange(e){
         const {dispatch, filterName} = this.props;
         e.preventDefault();
@@ -14,11 +14,11 @@ export default class ListFilter extends React.Component{
         dispatch(filter('pageFilter', 1));
     }
     render(){
-        const {filterName, filters, filterMap} = this.props;
+        const {filterName, filters, filterMap, labelShowAll} = this.props;
         var filterKey = filterName+'Filter';
         return (
             <select onChange={this.onHandleTagChange.bind(this)} value={filters[filterKey]}>
-                <option default value="">show all</option>
+                <option default value="">{labelShowAll}</option>
                 {filterMap && Object.keys(filterMap).map((key, i)=>{
                     return <option key={i} default value={key}>{filterMap[key]}</option>
                 })}
@@ -26,3 +26,7 @@ export default class ListFilter extends React.Component{
         )
     }
 }
+ListFilter.defaultProps = {
+  labelShowAll: 'Show All'
+}
+export default ListFilter

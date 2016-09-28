@@ -25975,7 +25975,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.default = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -26027,6 +26026,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var filterName = _props2.filterName;
 	            var filters = _props2.filters;
 	            var filterMap = _props2.filterMap;
+	            var labelShowAll = _props2.labelShowAll;
 
 	            var filterKey = filterName + 'Filter';
 	            return _react2.default.createElement(
@@ -26035,7 +26035,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                _react2.default.createElement(
 	                    'option',
 	                    { 'default': true, value: '' },
-	                    'show all'
+	                    labelShowAll
 	                ),
 	                filterMap && Object.keys(filterMap).map(function (key, i) {
 	                    return _react2.default.createElement(
@@ -26050,6 +26050,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    return ListFilter;
 	}(_react2.default.Component)) || _class);
+
+	ListFilter.defaultProps = {
+	    labelShowAll: 'Show All'
+	};
 	exports.default = ListFilter;
 
 /***/ },
@@ -26084,7 +26088,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.default = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -26130,14 +26133,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var keywordFilter = this.props.keywordFilter;
+	            var _props = this.props;
+	            var keywordFilter = _props.keywordFilter;
+	            var placeholder = _props.placeholder;
 
-	            return _react2.default.createElement('input', { onChange: this.onHandleChange.bind(this), type: 'text', defaultValue: keywordFilter, placeholder: 'Enter Keywords' });
+	            return _react2.default.createElement('input', { onChange: this.onHandleChange.bind(this), type: 'text', defaultValue: keywordFilter, placeholder: placeholder });
 	        }
 	    }]);
 
 	    return KeywordFilter;
 	}(_react2.default.Component)) || _class);
+
+	KeywordFilter.defaultProps = {
+	    placeholder: 'Enter Keywords'
+	};
 	exports.default = KeywordFilter;
 
 /***/ },
