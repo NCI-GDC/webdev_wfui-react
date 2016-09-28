@@ -8,10 +8,14 @@ const mapStateToListFilterProps = (state) => {
 @connect(mapStateToListFilterProps)
 class ListFilter extends React.Component{
     onHandleTagChange(e){
-        const {dispatch, filterName} = this.props;
+        const {dispatch, filterName, onHandleChange} = this.props;
         e.preventDefault();
         dispatch(filter(filterName+'Filter', e.target.value));
         dispatch(filter('pageFilter', 1));
+
+        if(onHandleChange && typeof onHandleChange == 'function'){
+            onHandleChange(e);
+        }
     }
     render(){
         const {filterName, filters, filterMap, labelShowAll} = this.props;
@@ -20,7 +24,7 @@ class ListFilter extends React.Component{
             <select onChange={this.onHandleTagChange.bind(this)} value={filters[filterKey]}>
                 <option default value="">{labelShowAll}</option>
                 {filterMap && Object.keys(filterMap).map((key, i)=>{
-                    return <option key={i} default value={key}>{filterMap[key]}</option>
+                    return <option key={i} value={key}>{filterMap[key]}</option>
                 })}
             </select>
         )

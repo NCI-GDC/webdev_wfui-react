@@ -42,7 +42,7 @@ const genListMap = (state, property) => {
     var map = {}
     state.forEach((item, i)=>{
         if(!map[item[property]]){
-            map[item[property]] = true
+            map[item[property]] = item[property]
         }
     });
     return map

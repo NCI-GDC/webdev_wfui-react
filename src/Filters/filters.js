@@ -34,7 +34,7 @@ class Filters extends React.Component{
             <div>
                 <div>
                     <label>By Tag:</label>
-                    <ListFilter filterName="company" filterMap={companyMap} />
+                    <ListFilter filterName="company" filterMap={companyMap} onHandleChange={()=>{console.log('aa')}} />
                     <label>By Keyword:</label>
                     <KeywordFilter />
                     <AlphabetFilter alphabetMap={alphabetMap} />

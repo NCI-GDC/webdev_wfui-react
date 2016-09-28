@@ -9,9 +9,13 @@ const mapStateToKeywordFilterProps = (state) => {
 class KeywordFilter extends React.Component{
     onHandleChange(e){
         e.preventDefault();
-        const {dispatch} = this.props;
+        const {dispatch, onHandleChange} = this.props;
         dispatch(filter('keywordFilter', e.target.value));
         dispatch(filter('pageFilter', 1));
+
+        if(onHandleChange && typeof onHandleChange == 'function'){
+            onHandleChange(e);
+        }
     }
     render(){
         const {keywordFilter, placeholder} = this.props;

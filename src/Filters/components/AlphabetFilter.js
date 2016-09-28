@@ -9,9 +9,13 @@ const mapStateToAlphabetFilterProps = (state) => {
 export default class AlphabetFilter extends React.Component{
     onHandleAlphabet(e){
         e.preventDefault();
-        const {dispatch} = this.props;
+        const {dispatch, onHandleClick} = this.props;
         dispatch(filter('alphabetFilter', e.target.dataset.key));
         dispatch(filter('pageFilter', 1));
+
+        if(onHandleClick && typeof onHandleClick == 'function'){
+            onHandleClick(e);
+        }
     }
     render(){
         const {alphabetMap, alphabetFilter, showing} = this.props;

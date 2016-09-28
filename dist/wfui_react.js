@@ -25851,7 +25851,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        null,
 	                        'By Tag:'
 	                    ),
-	                    _react2.default.createElement(ListFilter, { filterName: 'company', filterMap: companyMap }),
+	                    _react2.default.createElement(ListFilter, { filterName: 'company', filterMap: companyMap, onHandleChange: function onHandleChange() {
+	                            console.log('aa');
+	                        } }),
 	                    _react2.default.createElement(
 	                        'label',
 	                        null,
@@ -26014,10 +26016,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var _props = this.props;
 	            var dispatch = _props.dispatch;
 	            var filterName = _props.filterName;
+	            var onHandleChange = _props.onHandleChange;
 
 	            e.preventDefault();
 	            dispatch((0, _action_creators.filter)(filterName + 'Filter', e.target.value));
 	            dispatch((0, _action_creators.filter)('pageFilter', 1));
+
+	            if (onHandleChange && typeof onHandleChange == 'function') {
+	                onHandleChange(e);
+	            }
 	        }
 	    }, {
 	        key: 'render',
@@ -26040,7 +26047,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                filterMap && Object.keys(filterMap).map(function (key, i) {
 	                    return _react2.default.createElement(
 	                        'option',
-	                        { key: i, 'default': true, value: key },
+	                        { key: i, value: key },
 	                        filterMap[key]
 	                    );
 	                })
@@ -26125,17 +26132,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: 'onHandleChange',
 	        value: function onHandleChange(e) {
 	            e.preventDefault();
-	            var dispatch = this.props.dispatch;
+	            var _props = this.props;
+	            var dispatch = _props.dispatch;
+	            var onHandleChange = _props.onHandleChange;
 
 	            dispatch((0, _action_creators.filter)('keywordFilter', e.target.value));
 	            dispatch((0, _action_creators.filter)('pageFilter', 1));
+
+	            if (onHandleChange && typeof onHandleChange == 'function') {
+	                onHandleChange(e);
+	            }
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _props = this.props;
-	            var keywordFilter = _props.keywordFilter;
-	            var placeholder = _props.placeholder;
+	            var _props2 = this.props;
+	            var keywordFilter = _props2.keywordFilter;
+	            var placeholder = _props2.placeholder;
 
 	            return _react2.default.createElement('input', { onChange: this.onHandleChange.bind(this), type: 'text', defaultValue: keywordFilter, placeholder: placeholder });
 	        }
@@ -26196,20 +26209,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: 'onHandleAlphabet',
 	        value: function onHandleAlphabet(e) {
 	            e.preventDefault();
-	            var dispatch = this.props.dispatch;
+	            var _props = this.props;
+	            var dispatch = _props.dispatch;
+	            var onHandleClick = _props.onHandleClick;
 
 	            dispatch((0, _action_creators.filter)('alphabetFilter', e.target.dataset.key));
 	            dispatch((0, _action_creators.filter)('pageFilter', 1));
+
+	            if (onHandleClick && typeof onHandleClick == 'function') {
+	                onHandleClick(e);
+	            }
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var _this2 = this;
 
-	            var _props = this.props;
-	            var alphabetMap = _props.alphabetMap;
-	            var alphabetFilter = _props.alphabetFilter;
-	            var showing = _props.showing;
+	            var _props2 = this.props;
+	            var alphabetMap = _props2.alphabetMap;
+	            var alphabetFilter = _props2.alphabetFilter;
+	            var showing = _props2.showing;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -26561,7 +26580,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var map = {};
 	    state.forEach(function (item, i) {
 	        if (!map[item[property]]) {
-	            map[item[property]] = true;
+	            map[item[property]] = item[property];
 	        }
 	    });
 	    return map;
