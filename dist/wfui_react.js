@@ -26027,6 +26027,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }
 	    }, {
+	        key: 'sortObjectByValue',
+	        value: function sortObjectByValue(obj) {
+
+	            var sorted = [];
+	            Object.keys(obj).forEach(function (key, i) {
+	                sorted.push({ key: [key], value: obj[key] });
+	            });
+	            return sorted.sort(function (a, b) {
+	                var tA = a.value.toUpperCase();
+	                var tB = b.value.toUpperCase();
+	                return tA < tB ? -1 : tA > tB ? 1 : 0;
+	                return;
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var _props2 = this.props;
@@ -26036,6 +26051,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var labelShowAll = _props2.labelShowAll;
 
 	            var filterKey = filterName + 'Filter';
+	            var sorted = this.sortObjectByValue(filterMap);
+
 	            return _react2.default.createElement(
 	                'select',
 	                { onChange: this.onHandleTagChange.bind(this), value: filters[filterKey] },
@@ -26044,11 +26061,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    { 'default': true, value: '' },
 	                    labelShowAll
 	                ),
-	                filterMap && Object.keys(filterMap).map(function (key, i) {
+	                sorted && sorted.map(function (obj, i) {
 	                    return _react2.default.createElement(
 	                        'option',
-	                        { key: i, value: key },
-	                        filterMap[key]
+	                        { key: i, value: obj.key },
+	                        obj.value
 	                    );
 	                })
 	            );

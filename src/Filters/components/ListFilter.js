@@ -17,14 +17,29 @@ class ListFilter extends React.Component{
             onHandleChange(e);
         }
     }
+    sortObjectByValue(obj){
+
+        var sorted = [];
+        Object.keys(obj).forEach((key, i)=>{
+            sorted.push({key:[key],value:obj[key]});
+        })
+        return sorted.sort((a, b)=>{
+            var tA = a.value.toUpperCase();
+            var tB = b.value.toUpperCase();
+            return (tA < tB) ? -1 : (tA > tB) ? 1 : 0;
+            return 
+        })
+    }
     render(){
         const {filterName, filters, filterMap, labelShowAll} = this.props;
         var filterKey = filterName+'Filter';
+        var sorted = this.sortObjectByValue(filterMap)
+
         return (
             <select onChange={this.onHandleTagChange.bind(this)} value={filters[filterKey]}>
                 <option default value="">{labelShowAll}</option>
-                {filterMap && Object.keys(filterMap).map((key, i)=>{
-                    return <option key={i} value={key}>{filterMap[key]}</option>
+                {sorted && sorted.map((obj, i)=>{
+                    return <option key={i} value={obj.key}>{obj.value}</option>
                 })}
             </select>
         )
