@@ -10,13 +10,13 @@ export default class Twitter extends React.Component{
         super(props);
     }
     render(){
-        const {twitterAccount, limit} = this.props;
+        const {twitterAccount, limit, title, followLinkText} = this.props;
         const urlSafeTwitter = encodeURIComponent(twitterAccount);
         const twitterLink = `https://twitter.com/${urlSafeTwitter}`;
         return (
             <div>
                 <h2 className="title block-title blog-title twitter">
-                    Twitter: <a href={twitterLink}>@{twitterAccount}</a>
+                    { title ? title : <div>Twitter : <a href={twitterLink}>@{twitterAccount}</a></div>}
                 </h2>
                 <a
                     className="twitter-timeline"
@@ -26,7 +26,7 @@ export default class Twitter extends React.Component{
                     href={twitterLink}>
                 </a>
                 <div className="view-all-link">
-                    <a href={twitterLink}>Follow on Twitter</a>
+                    <a href={twitterLink}>{ followLinkText ? followLinkText : "Follow on Twitter" }</a>
                 </div>
             </div>
         )

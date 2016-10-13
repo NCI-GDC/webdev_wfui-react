@@ -26680,6 +26680,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var _props = this.props;
 	            var twitterAccount = _props.twitterAccount;
 	            var limit = _props.limit;
+	            var title = _props.title;
+	            var followLinkText = _props.followLinkText;
 
 	            var urlSafeTwitter = encodeURIComponent(twitterAccount);
 	            var twitterLink = 'https://twitter.com/' + urlSafeTwitter;
@@ -26689,12 +26691,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	                _react2.default.createElement(
 	                    'h2',
 	                    { className: 'title block-title blog-title twitter' },
-	                    'Twitter: ',
-	                    _react2.default.createElement(
-	                        'a',
-	                        { href: twitterLink },
-	                        '@',
-	                        twitterAccount
+	                    title ? title : _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        'Twitter : ',
+	                        _react2.default.createElement(
+	                            'a',
+	                            { href: twitterLink },
+	                            '@',
+	                            twitterAccount
+	                        )
 	                    )
 	                ),
 	                _react2.default.createElement('a', {
@@ -26709,7 +26715,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    _react2.default.createElement(
 	                        'a',
 	                        { href: twitterLink },
-	                        'Follow on Twitter'
+	                        followLinkText ? followLinkText : "Follow on Twitter"
 	                    )
 	                )
 	            );
