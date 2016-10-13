@@ -1,6 +1,6 @@
 {
   "name": "wfui-react",
-  "version": "0.0.1",
+  "version": "1.2.14",
   "description": "WFUI Components",
   "main": "lib/index.js",
   "scripts": {

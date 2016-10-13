@@ -3,7 +3,7 @@ import React from 'react';
 export default class Twitter extends React.Component{
     constructor(props){
         const script = document.createElement('script');
-        script.src = 'http://platform.twitter.com/widgets.js';
+        script.src = '//platform.twitter.com/widgets.js';
         script.async = true;
         document.body.appendChild(script);
 

@@ -24,8 +24,8 @@ class ListFilter extends React.Component{
             sorted.push({key:[key],value:obj[key]});
         })
         return sorted.sort((a, b)=>{
-            var tA = a.value.toUpperCase();
-            var tB = b.value.toUpperCase();
+            var tA = (a.value && a.value.toUpperCase()) || a.value;
+            var tB = (b.value && b.value.toUpperCase()) || b.value;
             return (tA < tB) ? -1 : (tA > tB) ? 1 : 0;
             return 
         })
