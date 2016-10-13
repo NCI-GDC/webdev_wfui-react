@@ -16,7 +16,7 @@ export default class Twitter extends React.Component{
         return (
             <div>
                 <h2 className="title block-title blog-title twitter">
-                    { title ? title : <div>Twitter : <a href={twitterLink}>@{twitterAccount}</a></div>}
+                    { title ? <div dangerouslySetInnerHTML={{__html: title }} /> : <div>Twitter : <a href={twitterLink}>@{twitterAccount}</a></div>}
                 </h2>
                 <a
                     className="twitter-timeline"

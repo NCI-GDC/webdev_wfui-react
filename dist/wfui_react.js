@@ -26691,7 +26691,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                _react2.default.createElement(
 	                    'h2',
 	                    { className: 'title block-title blog-title twitter' },
-	                    title ? title : _react2.default.createElement(
+	                    title ? _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: title } }) : _react2.default.createElement(
 	                        'div',
 	                        null,
 	                        'Twitter : ',
