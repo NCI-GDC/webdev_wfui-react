@@ -80,7 +80,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/*! jQuery v1.8.3 jquery.com | jquery.org/license */
 	(function (e, t) {
@@ -516,7 +516,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      } else for (; s < o;) {
 	        if (n.call(e[s], s, e[s++]) === !1) break;
 	      }return e;
-	    }, trim: d && !d.call("﻿ ") ? function (e) {
+	    }, trim: d && !d.call("\uFEFF\xA0") ? function (e) {
 	      return e == null ? "" : d.call(e);
 	    } : function (e) {
 	      return e == null ? "" : (e + "").replace(b, "");
@@ -2536,7 +2536,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
 	 * wfui.js

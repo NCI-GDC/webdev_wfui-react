@@ -33,6 +33,10 @@ const timestampToDate = (timestamp, type) =>{
         case 3:
             return monthNamesShort[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
             break;
+
+        case 4:
+            return monthNamesShort[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear() +  " " + date.toString().match(/\((.*)\)/).pop();
+            break;
     }
 }
 
