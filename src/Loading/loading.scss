@@ -1,0 +1,34 @@
+.wfui-loading{
+    i{
+        position: relative;
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        left: 50%;
+        top: 50%;
+        margin-top: -50px;
+        margin-left: -50px;
+        font-size: 100px;
+    }
+    &__type-fixed p{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: rgba(#000, 0.2);
+        z-index: 9999;
+        margin: 0;
+    }
+    &__type-absolute{
+        position: relative;
+        p{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            margin: 0;
+        }
+    }
+}

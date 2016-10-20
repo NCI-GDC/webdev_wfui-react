@@ -1,0 +1,19 @@
+.wfui-selection{
+    padding: 10px;
+    &__input-checkbox,
+    &__input-radio{
+        margin-right: 5px;
+    }
+    &.active{
+        background: #eee;
+    }
+
+    //Input Table under grid
+    .wfui-input-table{
+        display: inline-block;
+    }
+    .wfui-input-table__form{
+        border: none;
+        padding: 0;
+    }
+}
