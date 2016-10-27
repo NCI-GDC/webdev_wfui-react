@@ -30,12 +30,16 @@ const timestampToDate = (timestamp, type) =>{
             return dayNames[date.getDay()] +  ", " + monthNames[date.getMonth()] + " " + date.getDate() + ", " + strTime + ", " + date.getFullYear();
             break;
 
-        case 3:
+        case 3: //Sep 1, 2016
             return monthNamesShort[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
             break;
 
-        case 4:
+        case 4: //Sep 1, 2016 EDT
             return monthNamesShort[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear() +  " " + date.toString().match(/\((.*)\)/).pop();
+            break;
+
+        case 5: //Sep, 2016
+            return monthNamesShort[date.getMonth()] + ", " + date.getFullYear();
             break;
     }
 }

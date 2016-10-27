@@ -8,7 +8,7 @@ var {visibilityFilterReducer} = require('./index');
 
 var Faker = require('faker')
 var data = [];
-for(var i=0; i<100; i++){
+for(var i=0; i<1; i++){
     var person = {}
     person.fname = Faker.name.firstName();
     person.lname = Faker.name.lastName();
@@ -16,6 +16,8 @@ for(var i=0; i<100; i++){
     person.company = Faker.company.companyName();
     data.push(person);
 }
+data.push({'fname':'dsfjpoifjs &amp; asdpfapsdf', 'lname':'dsfjpoifjs &amp; asdpfapsdf', 'company':'sfadsa &amp; adsf'});
+data.push({'fname':'dsfjpoifjs & asdpfapsdf', 'lname':'dsfjpoifjs & asdpfapsdf', 'company':'sfadsa & adsf'});
 
 const filtersReducers = combineReducers({
     dataReducer,

@@ -25709,11 +25709,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	            break;
 
 	        case 3:
+	            //Sep 1, 2016
 	            return monthNamesShort[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
 	            break;
 
 	        case 4:
+	            //Sep 1, 2016 EDT
 	            return monthNamesShort[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear() + " " + date.toString().match(/\((.*)\)/).pop();
+	            break;
+
+	        case 5:
+	            //Sep, 2016
+	            return monthNamesShort[date.getMonth()] + ", " + date.getFullYear();
 	            break;
 	    }
 	};
