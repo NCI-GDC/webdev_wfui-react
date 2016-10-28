@@ -1,12 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
-import Spinner from '../src/Spinner/Spinner';
+import { Test, Test2 } from '../src/Test/Test';
 
-storiesOf('Spinner', module)
+storiesOf('Test', module)
   .addWithInfo(
     'Basic',
     () => (
-        <Spinner type="Basic" />
+        <Test2 itemAsProp={<Test var1="hi" var2="hello" />} />
     ),
     { inline: true }
 );
