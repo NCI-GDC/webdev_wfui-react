@@ -24,12 +24,14 @@ class FilteredList extends React.Component {
       const filtereddata = this.applySearch(this.generateFilteredArticles(data));
 
       return (
-         <List
-            data={filtereddata}
-            itemDisplay={itemDisplay}
-            pageSize={pageSize}
-            currentPage={currentPage}
-         />
+         <div>
+            <List
+                data={filtereddata}
+                itemDisplay={itemDisplay}
+                pageSize={pageSize}
+                currentPage={currentPage}
+            />
+         </div>
       );
    }
 }
@@ -42,6 +44,7 @@ FilteredList.propTypes = {
     currentPage: React.PropTypes.number,
     filterList: React.PropTypes.arrayOf(React.PropTypes.func),
     searchTerm: React.PropTypes.string,
+    itemsPerPage: React.PropTypes.number,
 };
 
 FilteredList.defaultProps = {

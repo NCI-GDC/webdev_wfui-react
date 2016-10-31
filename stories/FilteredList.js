@@ -6,6 +6,9 @@ import Spinner from '../src/Spinner/Spinner';
 storiesOf('Filtered List', module)
   .addWithInfo(
     'Basic Example',
+    `
+        Note:  React StoryBook messes up the source, look directly at the story file for an example.
+    `,
     () => {
         const animalData = [
             {
@@ -35,12 +38,13 @@ storiesOf('Filtered List', module)
 
         const filterList = [catFilter];
 
-
         const ItemDisplay = ({ data }) => (
             <div>
-                Item:
-                Species: { data.species }
-                Colour: { data.colour }
+                <ul>
+                    <li>Item:</li>
+                    <li>Species: { data.species }</li>
+                    <li>Colour: { data.colour }</li>
+                </ul>
             </div>
         );
 
@@ -55,5 +59,5 @@ storiesOf('Filtered List', module)
             filterList={filterList}
         />);
     },
-    { inline: true }
+    { source: true, inline: true }
 );
