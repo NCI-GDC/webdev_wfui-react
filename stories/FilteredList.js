@@ -1,9 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import FilteredList from '../src/FilteredList/FilteredList';
-import Spinner from '../src/Spinner/Spinner';
 
-storiesOf('Filtered List', module)
+storiesOf('FilteredList', module)
   .addWithInfo(
     'Basic Example',
     `
@@ -51,13 +50,9 @@ storiesOf('Filtered List', module)
             </div>
         );
 
-        /* 
-
         const PaginatorDisplay = () => (
             <div>Paginator</div>
         );
-
-        */
 
         return (<FilteredList
             itemDisplay={<ItemDisplay />}
@@ -66,5 +61,5 @@ storiesOf('Filtered List', module)
             filterList={filterList}
         />);
     },
-    { source: true, inline: true }
+    { source: false, inline: true }
 );

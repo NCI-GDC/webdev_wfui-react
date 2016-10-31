@@ -9,23 +9,32 @@ class TabbedList extends React.Component {
     }
 
     getActiveTagContents() {
-        for (const tab of this.state.injectedElements) {
+        const { injectedElements } = this.state;
+
+        for (const tab of injectedElements) {
             if (tab.props.active) {
                 return tab.props.children;
             }
         }
 
-        /* Default.  This should never be returned. */
+        /* If there is no active tab, then display the first tab */
+        if (injectedElements.length > 0) {
+            this.handleTabClick(0);
+        }
+
+        /* Return an empty div when there is no tab. */
         return <div />;
     }
 
     handleTabClick(clickedTabIndex) {
+        const { injectedElements } = this.state;
+
         /* Clone the children */
-        const tempChildren = this.state.injectedElements.slice(0);
+        const tempChildren = injectedElements.slice(0);
 
         /* Remove active tags from others and inject 'active' class into ith element */
-        for (let i = 0; i < this.state.injectedElements.length; i += 1) {
-            const tab = this.state.injectedElements[i];
+        for (let i = 0; i < injectedElements.length; i += 1) {
+            const tab = injectedElements[i];
             if (i === clickedTabIndex) {
                 tempChildren[i] = React.cloneElement(tab, { active: true });
             } else {
@@ -51,9 +60,11 @@ class TabbedList extends React.Component {
     }
 
     render() {
+        const { injectedElements } = this.state;
+
         return (
             <div className={this.props.className}>
-                {this.state.injectedElements}
+                { injectedElements }
                 <div>
                     {this.getActiveTagContents()}
                 </div>

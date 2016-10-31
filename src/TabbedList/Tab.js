@@ -4,9 +4,9 @@ class Tab extends React.Component {
    /* Renders the Tab (the tab part) */
     render() {
         return (
-            <div className={this.props.className} onClick={this.props.onClick} >
+            <a href="#" className={this.props.className} onClick={this.props.onClick} >
                {this.props.title}
-            </div>
+            </a>
         );
     }
 }

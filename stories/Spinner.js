@@ -4,9 +4,16 @@ import Spinner from '../src/Spinner/Spinner';
 
 storiesOf('Spinner', module)
   .addWithInfo(
-    'Basic',
+    'Type 1',
     () => (
-        <Spinner type="Basic" />
+        <Spinner type={1} />
+    ),
+    { inline: true }
+)
+    .addWithInfo(
+    'Type 2',
+    () => (
+        <Spinner type={2} />
     ),
     { inline: true }
 );
