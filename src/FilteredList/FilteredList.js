@@ -1,9 +1,9 @@
 import React from 'react';
 import List from './List';
+import Search from './searchUtil';
 
 /*
- * Applies the filtering to the articles and then passes its' props to List for
- * display.
+ * Applies the filtering to the articles and then passes its' props to List for display.
  */
 class FilteredList extends React.Component {
    generateFilteredArticles(articles) {
@@ -14,12 +14,19 @@ class FilteredList extends React.Component {
       }
       return filteredArticles;
    }
+   applySearch(articles) {
+      //const { searchTerm } = this.props;
+      //return Search.search(articles, searchTerm);
+      return articles;
+   }
    render() {
-      const { Article, articleList, pageSize, currentPage } = this.props;
+      const { itemDisplay, paginatorDisplay, data, pageSize, currentPage } = this.props;
+      const filtereddata = this.applySearch(this.generateFilteredArticles(data));
+
       return (
          <List
-            articleList={articleList}
-            Article={Article}
+            data={filtereddata}
+            itemDisplay={itemDisplay}
             pageSize={pageSize}
             currentPage={currentPage}
          />
@@ -28,9 +35,20 @@ class FilteredList extends React.Component {
 }
 
 FilteredList.propTypes = {
-    Article: React.PropTypes.func.required,
-    articleList: React.PropTypes.arrayOf(React.PropTypes.object),
+    itemDisplay: React.PropTypes.element.isRequired,
+    paginatorDisplay: React.PropTypes.element.isRequired,
+    data: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
     pageSize: React.PropTypes.number,
-    currentPage: React.propTypes.number,
+    currentPage: React.PropTypes.number,
     filterList: React.PropTypes.arrayOf(React.PropTypes.func),
+    searchTerm: React.PropTypes.string,
 };
+
+FilteredList.defaultProps = {
+    pageSize: 5,
+    currentPage: 1,
+    filterList: [],
+    searchTerm: '',
+};
+
+export default FilteredList;
