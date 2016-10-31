@@ -1,7 +1,7 @@
 /* Basic string search.  Prioritizes matches in the 'title' field.
-   Also uses tokens of form field_name:"match" (eg. author:"Billy Bob") 
+   Also uses tokens of form field_name:"match" (eg. author:"Billy Bob")
    to allow to mandate matches in particlar fields.  Unfortunately more
-   advanced (n-gram, filtering etc.) is not possible since we cannot 
+   advanced (n-gram, filtering etc.) is not possible since we cannot
    have a precomputed. */
 const Search = {
    search: (data, searchTerm) => {
@@ -91,15 +91,13 @@ const Search = {
          return { fieldTokens, stringToken: subStr };
       }
 
-
+      /* Returns a list of points sorted by their match quality */
       function exec() {
          const tokens = tokenize(data, searchTerm);
          for (const item of data) {
             item.searchTokenScore = scoreItem(tokens, data);
          }
          data.sort((a, b) => b.searchTokenScore - a.searchTokenScore);
-
-         
          return data.filter(item => item.searchTokenScore > 0);
       }
 

@@ -10,6 +10,7 @@ storiesOf('Filtered List', module)
         Note:  React StoryBook messes up the source, look directly at the story file for an example.
     `,
     () => {
+        /* Each element of this array is displayed as a post */
         const animalData = [
             {
                 species: 'Cat',
@@ -29,6 +30,7 @@ storiesOf('Filtered List', module)
             },
         ];
 
+        /* This filters out all items of species 'cat' */
         const catFilter = (item) => {
             if (item.species === 'Cat') {
                 return false;
@@ -38,6 +40,7 @@ storiesOf('Filtered List', module)
 
         const filterList = [catFilter];
 
+        /* Each element from the array is injected into this for display */
         const ItemDisplay = ({ data }) => (
             <div>
                 <ul>
@@ -48,9 +51,13 @@ storiesOf('Filtered List', module)
             </div>
         );
 
+        /* 
+
         const PaginatorDisplay = () => (
             <div>Paginator</div>
         );
+
+        */
 
         return (<FilteredList
             itemDisplay={<ItemDisplay />}
