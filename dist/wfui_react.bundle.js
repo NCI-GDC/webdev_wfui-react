@@ -43672,7 +43672,7 @@
 	        "span",
 	        null,
 	        prefixField,
-	        _react2.default.createElement("input", { className: "wfui-input-field__input" + errorClassName, type: type, defaultValue: defaultValue, value: value, placeholder: placeholder, name: name, onHandleFocus: this.onHandleFocus.bind(this), onChange: this.onHandleChange.bind(this), onClick: this.onHandleClick.bind(this), onBlur: this.onHandleBlur.bind(this), disabled: preview, maxLength: maxLength, min: min, max: max }),
+	        _react2.default.createElement("input", { className: "wfui-input-field__input" + errorClassName, type: type, defaultValue: defaultValue, value: value, placeholder: placeholder, name: name, onFocus: this.onHandleFocus.bind(this), onChange: this.onHandleChange.bind(this), onClick: this.onHandleClick.bind(this), onBlur: this.onHandleBlur.bind(this), disabled: preview, maxLength: maxLength, min: min, max: max }),
 	        postfixField
 	      );
 	      return _react2.default.createElement(
