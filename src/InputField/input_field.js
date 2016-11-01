@@ -23,6 +23,12 @@ class InputField extends Component {
       onBlur(e, val);
     }
   }
+  onHandleFocus(e){
+    const {onHandleFocus} = this.props;
+    if(onHandleFocus){
+      onHandleFocus(e);
+    }
+  }
   onHandleClick(e){
     const {stopPropagation} = this.props;
     if(stopPropagation) e.stopPropagation();

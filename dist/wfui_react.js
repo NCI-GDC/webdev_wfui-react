@@ -25021,6 +25021,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }
 	  }, {
+	    key: "onHandleFocus",
+	    value: function onHandleFocus(e) {
+	      var onHandleFocus = this.props.onHandleFocus;
+
+	      if (onHandleFocus) {
+	        onHandleFocus(e);
+	      }
+	    }
+	  }, {
 	    key: "onHandleClick",
 	    value: function onHandleClick(e) {
 	      var stopPropagation = this.props.stopPropagation;
