@@ -27,6 +27,11 @@ class InputField extends Component {
     const {stopPropagation} = this.props;
     if(stopPropagation) e.stopPropagation();
   }
+  onHandleonFocus(e){
+    if(onHandleonFocus){
+      onHandleonFocus(e);
+    }
+  }
   onHandleChange(e){
     var val = e.target.value;
     
@@ -60,7 +65,7 @@ class InputField extends Component {
     var inputFieldElement = hideField ? "" :
           <span>
             {prefixField}
-              <input className={"wfui-input-field__input"+ errorClassName} type={type} defaultValue={defaultValue} value={value} placeholder={placeholder} name={name} onChange={this.onHandleChange.bind(this)} onClick={this.onHandleClick.bind(this)} onBlur={this.onHandleBlur.bind(this)} disabled={preview} maxLength={maxLength} min={min} max={max} />
+              <input className={"wfui-input-field__input"+ errorClassName} type={type} defaultValue={defaultValue} value={value} placeholder={placeholder} name={name} onFocus={this.onHandleonFocus.bind(this)} onChange={this.onHandleChange.bind(this)} onClick={this.onHandleClick.bind(this)} onBlur={this.onHandleBlur.bind(this)} disabled={preview} maxLength={maxLength} min={min} max={max} />
               {postfixField}
           </span>;
     return (
