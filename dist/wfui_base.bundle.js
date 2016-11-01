@@ -69,7 +69,7 @@
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/*! jQuery v1.8.3 jquery.com | jquery.org/license */
 	(function (e, t) {
@@ -505,7 +505,7 @@
 	      } else for (; s < o;) {
 	        if (n.call(e[s], s, e[s++]) === !1) break;
 	      }return e;
-	    }, trim: d && !d.call("﻿ ") ? function (e) {
+	    }, trim: d && !d.call("\uFEFF\xA0") ? function (e) {
 	      return e == null ? "" : d.call(e);
 	    } : function (e) {
 	      return e == null ? "" : (e + "").replace(b, "");
@@ -2525,7 +2525,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
 	 * wfui.js
@@ -2927,7 +2927,7 @@
 
 	            tplCache: {},
 
-	            // A set of initialization functions for WFUI components that will be
+	            // A set of initialization functions for WFUI components that will be 
 	            // called upon page ready
 	            inits: [],
 
@@ -3003,7 +3003,7 @@
 	// 1. jquery-1.8.3.js
 	// 2. wfui.js
 	// 3. wfui-jquery-noconflict.js
-	//
+	// 
 	$.noConflict(true);
 
 /***/ },
@@ -3204,8 +3204,8 @@
 							$.widget.extend({}, value);
 							// Copy everything else by reference
 						} else {
-								target[key] = value;
-							}
+							target[key] = value;
+						}
 					}
 				}
 			}
@@ -3595,6 +3595,7 @@
 	    'use strict';
 
 	    // Helper variable to create unique names for the transport iframes:
+
 	    var counter = 0;
 
 	    // The iframe transport accepts four additional options:
