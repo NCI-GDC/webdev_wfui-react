@@ -22,30 +22,6 @@ import {
     Alert,
 } from 'react-bootstrap';
 
-const editorScope = {
-    React,
-    ButtonToolbar,
-    Button,
-    ProgressBar,
-    MenuItem,
-    Tooltip,
-    OverlayTrigger,
-    Nav,
-    Navbar,
-    NavItem,
-    NavDropdown,
-    Tab,
-    Row,
-    Col,
-    Pagination,
-    Pager,
-    Label,
-    Badge,
-    Alert,
-    Grid,
-    Image
-}
-
 import StoryAvator from './StoryAvator';
 import StoryDialog from './StoryDialog';
 import StoryButton from './StoryButton';
@@ -57,13 +33,13 @@ import StoryPopover from './StoryPopover';
 import StoryPane from './StoryPane';
 import StoryTable from './StoryTable'; 
 
-import StoryBadges from 'raw!./StoryBadges.example';
+import StoryBadgesCode from 'raw!./StoryBadges.example';
 
 storiesOf('ReactBootstrap', module)
 .addWithInfo2(
     'Badges',
-    StoryBadges,
-    { source: true, static: true, editor: { show: true, editorScope }}
+    () => StoryBadgesCode,
+    { source: true, static: true, editor: { show: true, editorScope: { Badge } }},
 )
 .addWithInfo(
     'Buttons',
