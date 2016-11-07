@@ -82,5 +82,5 @@ storiesOf('TabbedList', module)
             </TabbedList>
         </div>
     ),
-    { inline: true }
+    { inline: true, source: true, static: true }
 );

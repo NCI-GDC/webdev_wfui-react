@@ -69,5 +69,5 @@ storiesOf('FilteredList', module)
             filterList={filterList}
         />);
     },
-    { source: false, inline: true }
+    { source: false, inline: true, static: true }
 );
