@@ -20,11 +20,11 @@ class FilteredList extends React.Component {
       return articles;
    }
    render() {
-      const { itemDisplay, paginatorDisplay, data, pageSize, currentPage } = this.props;
+      const { itemDisplay, className, paginatorDisplay, data, pageSize, currentPage } = this.props;
       const filtereddata = this.applySearch(this.generateFilteredArticles(data));
 
       return (
-         <div>
+         <div className={className}>
             <List
                 data={filtereddata}
                 itemDisplay={itemDisplay}
@@ -37,6 +37,7 @@ class FilteredList extends React.Component {
 }
 
 FilteredList.propTypes = {
+    className: React.PropTypes.string,
     itemDisplay: React.PropTypes.element.isRequired,
     paginatorDisplay: React.PropTypes.element.isRequired,
     data: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
@@ -52,6 +53,7 @@ FilteredList.defaultProps = {
     currentPage: 1,
     filterList: [],
     searchTerm: '',
+    itemsPerPage: -1,
 };
 
 export default FilteredList;

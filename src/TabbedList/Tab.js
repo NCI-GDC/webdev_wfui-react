@@ -4,7 +4,7 @@ class Tab extends React.Component {
    /* Renders the Tab (the tab part) */
     render() {
         return (
-            <a href="#" className={this.props.className} onClick={this.props.onClick} >
+            <a href="#openTab" className={this.props.className} onClick={this.props.onClick} >
                {this.props.title}
             </a>
         );
