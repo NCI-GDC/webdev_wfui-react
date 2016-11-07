@@ -3,8 +3,9 @@ import React from 'react';
 class Tab extends React.Component {
    /* Renders the Tab (the tab part) */
     render() {
+        const { className, onClick, active } = this.props;
         return (
-            <a href="#openTab" className={this.props.className} onClick={this.props.onClick} >
+            <a href="#openTab" className={`${className} ${active ? 'active' : ''}`} onClick={onClick} >
                {this.props.title}
             </a>
         );

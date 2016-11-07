@@ -8,8 +8,8 @@ const Search = {
       /* Todo: Replace with continuous Knuth-Morris-Pratt */
       function occurrences(str, subString, allowOverlapping = false) {
          /* Prevent errors with empty fields */
-         str += "";
-         subString += "";
+         str += '';
+         subString += '';
 
          if (subString.length <= 0) return (str.length + 1);
 

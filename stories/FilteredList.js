@@ -5,9 +5,6 @@ import FilteredList from '../src/FilteredList/FilteredList';
 storiesOf('FilteredList', module)
   .addWithInfo(
     'Basic Example',
-    `
-        Note:  React StoryBook messes up the source, look directly at the story file for an example.
-    `,
     () => {
         /* Each element of this array is displayed as a post */
         const animalData = [
@@ -44,8 +41,8 @@ storiesOf('FilteredList', module)
         const filterList = [catFilter];
 
         const style = {
-            'border': '1px solid #000000',
-            'padding': '10px 10px 10px 10px',
+            border: '1px solid #000000',
+            padding: '10px 10px 10px 10px',
         };
 
         /* Each element from the array is injected into this for display */

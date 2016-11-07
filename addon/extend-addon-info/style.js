@@ -1,5 +1,5 @@
 export default {
-    baseFonts : {
+    baseFonts: {
         fontFamily: `
             -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto",
             "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif
@@ -12,14 +12,14 @@ export default {
       padding: '0 0 5px 0',
       fontSize: 25,
       borderBottom: '1px solid #EEE',
-      fontFamily: 'sans-serif'
+      fontFamily: 'sans-serif',
     },
     pre: {
-        fontSize: '.88em', 
-        fontFamily: 'Menlo, Monaco, "Courier New", monospace', 
-        backgroundColor: '#fafafa', 
-        padding: '.5rem', 
-        lineHeight: 1.5, 
-        overflowX: 'scroll', 
-    }
-} 
+        fontSize: '.88em',
+        fontFamily: 'Menlo, Monaco, "Courier New", monospace',
+        backgroundColor: '#fafafa',
+        padding: '.5rem',
+        lineHeight: 1.5,
+        overflowX: 'scroll',
+    },
+};
