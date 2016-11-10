@@ -48,6 +48,7 @@ class FilteredList extends React.Component {
        };
        return Paginator;
    }
+   
    render() {
       const { itemDisplay, className, paginatorDisplay, data, pageSize } = this.props;
       const { currentPage } = this.state;

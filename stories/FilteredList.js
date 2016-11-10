@@ -52,7 +52,6 @@ storiesOf('FilteredList', module)
             }
             return true;
         };
-
         const filterList = [catFilter];
 
         const style = {
@@ -83,13 +82,13 @@ storiesOf('FilteredList', module)
         /* Each element from the array is injected into this for display */
         const ItemDisplay = ({ data }) => (
             <div style={style}>
-            <h1>
-                { data.name }
-            </h1>
-            <ul >
-                <li>Species: { data.species }</li>
-                <li>Colour: { data.colour }</li>
-            </ul>
+                <h1>
+                    { data.name }
+                </h1>
+                <ul >
+                    <li>Species: { data.species }</li>
+                    <li>Colour: { data.colour }</li>
+                </ul>
             </div>
         );
 
@@ -102,5 +101,5 @@ storiesOf('FilteredList', module)
             filterList={filterList}
         />);
     },
-    { source: false, inline: true, static: true }
+    { source: false, inline: true, static: true },
 );

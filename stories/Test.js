@@ -8,5 +8,5 @@ storiesOf('Testing', module)
     () => (
         <Test2 itemAsProp={<Test var1="hi" var2="hello" />} />
     ),
-    { inline: true }
+    { inline: true },
 );

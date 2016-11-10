@@ -1,3 +1,8 @@
+/* We use unconvential things for fast computation here which makes
+ * a lot of eslint rules irrelevant */
+
+/* eslint-disable */
+
 /* Basic string search.  Prioritizes matches in the 'title' field.
    Also uses tokens of form field_name:"match" (eg. author:"Billy Bob")
    to allow to mandate matches in particlar fields.  Unfortunately more
