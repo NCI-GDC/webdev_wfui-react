@@ -9,7 +9,7 @@ class List extends React.Component {
       const numArticles = data.length;
       const startingArticle = pageSize * (currentPage - 1);
 
-      for (let i = startingArticle; i < startingArticle + pageSize; i += 1) {
+      for (let i = startingArticle; i < startingArticle + pageSize && i < numArticles; i += 1) {
          activeData.push(data[i]);
       }
 

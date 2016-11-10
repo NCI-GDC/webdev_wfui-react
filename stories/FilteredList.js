@@ -66,9 +66,13 @@ storiesOf('FilteredList', module)
             const events = [];
             for (let i = currentPage - 3; i < currentPage + 3; i += 1) {
                 const handler = getOpenPage(i);
-                if (handler) {
+                if (i === currentPage) {
                     events.push(
-                        <a href="#" onClick={handler}>{ i }</a>,
+                        <a> {i} </a>,
+                    );
+                } else if (handler) {
+                    events.push(
+                        <button href="#" onClick={handler}>{ i }</button>,
                     );
                 }
             }
