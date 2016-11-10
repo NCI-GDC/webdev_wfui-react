@@ -9,14 +9,14 @@ class List extends React.Component {
       const numArticles = data.length;
       const startingArticle = pageSize * (currentPage - 1);
 
-      for (let i = startingArticle; i < numArticles; i += 1) {
+      for (let i = startingArticle; i < startingArticle + pageSize; i += 1) {
          activeData.push(data[i]);
       }
 
       /* New article object with data injected into it. */
-      const itemDisplays = activeData.map(item =>
+      const itemDisplays = activeData.map(item => (
          React.cloneElement(itemDisplay, { data: item })
-      );
+      ));
 
       return (
          <div>

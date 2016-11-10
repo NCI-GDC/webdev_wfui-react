@@ -14,6 +14,21 @@ storiesOf('FilteredList', module)
                 colour: 'White',
             },
             {
+                name: 'Kermit',
+                species: 'Bird',
+                colour: 'Green',
+            },
+            {
+                name: 'Molly',
+                species: 'Dog',
+                colour: 'Black',
+            },
+            {
+                name: 'Hammy',
+                species: 'Hamster',
+                colour: 'Brown',
+            },
+            {
                 name: 'Bojack',
                 species: 'Dog',
                 colour: 'Brown',
@@ -45,6 +60,26 @@ storiesOf('FilteredList', module)
             padding: '10px 10px 10px 10px',
         };
 
+        /* Paginator is injected with an additional prop 
+         * which contains a method getOpenPage for generating
+         * event handlers that change the page. */
+        const PaginatorDisplay = ({ currentPage, numPages, getOpenPage }) => {
+            const events = [];
+            for (let i = currentPage - 3; i < currentPage + 3; i += 1) {
+                const handler = getOpenPage(i);
+                if (handler) {
+                    events.push(
+                        <a href="#" onClick={handler}>{ i }</a>,
+                    );
+                }
+            }
+            return (
+                <div>
+                    { events }
+                </div>
+            );
+        };
+
         /* Each element from the array is injected into this for display */
         const ItemDisplay = ({ data }) => (
             <div style={style}>
@@ -58,14 +93,12 @@ storiesOf('FilteredList', module)
             </div>
         );
 
-        const PaginatorDisplay = () => (
-            <div>Paginator</div>
-        );
 
         return (<FilteredList
             itemDisplay={<ItemDisplay />}
             paginatorDisplay={<PaginatorDisplay />}
             data={animalData}
+            pageSize={2}
             filterList={filterList}
         />);
     },
