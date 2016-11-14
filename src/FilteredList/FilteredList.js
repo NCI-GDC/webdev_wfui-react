@@ -21,14 +21,17 @@ class FilteredList extends React.Component {
       return filteredArticles;
    }
    applySearch(articles) {
-      // const { searchTerm } = this.props;
-      // return Search.search(articles, searchTerm);
+      const { searchTerm } = this.props;
+      if (searchTerm) {
+        return Search.search(articles, searchTerm);
+      }
       return articles;
    }
    generatePaginatorObject() {
        const { currentPage } = this.state;
        const { pageSize, data } = this.props;
-       const numPages = Math.ceil(data.length / pageSize);
+       const dataLength = data ? data.length : 0;
+       const numPages = Math.ceil(dataLength / pageSize);
 
        const Paginator = {
            currentPage,
@@ -48,11 +51,13 @@ class FilteredList extends React.Component {
        };
        return Paginator;
    }
-   
    render() {
-      const { itemDisplay, className, paginatorDisplay, data, pageSize } = this.props;
+      const { itemDisplay, className, paginatorDisplay, data, pageSize, sortFunction } = this.props;
       const { currentPage } = this.state;
       const filteredData = this.applySearch(this.generateFilteredArticles(data));
+      if (sortFunction) {
+        filteredData.sort(sortFunction);
+      }
 
       const paginatorObject = this.generatePaginatorObject();
       const InjectedPaginatorDisplay = React.cloneElement(
@@ -77,20 +82,22 @@ class FilteredList extends React.Component {
 FilteredList.propTypes = {
     className: React.PropTypes.string,
     itemDisplay: React.PropTypes.element.isRequired,
-    paginatorDisplay: React.PropTypes.element.isRequired,
+    paginatorDisplay: React.PropTypes.element,
     data: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
     pageSize: React.PropTypes.number,
     currentPage: React.PropTypes.number,
     filterList: React.PropTypes.arrayOf(React.PropTypes.func),
+    sortFunction: React.PropTypes.func,
     searchTerm: React.PropTypes.string,
 };
 
 FilteredList.defaultProps = {
-    pageSize: 5,
+    pageSize: 1000,
     paginatorDisplay: <span />,
     currentPage: 1,
     filterList: [],
     searchTerm: '',
+    sortFunction: undefined,
 };
 
 export default FilteredList;
