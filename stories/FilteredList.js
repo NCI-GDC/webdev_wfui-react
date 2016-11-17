@@ -47,7 +47,7 @@ storiesOf('FilteredList', module)
 
         /* This filters out all items of species 'cat' */
         const catFilter = (item) => {
-            if (item.species === 'Cat') {
+            if (item.species !== 'Cat') {
                 return true;
             }
             return false;
@@ -142,9 +142,9 @@ storiesOf('FilteredList', module)
                 this.state = {
                     data: [],
                     searchTerm: '',
-                    filteredContributor: undefined,
-                    filteredTopic: undefined,
-                    filteredType: undefined,
+                    filteredContributor: '',
+                    filteredTopic: '',
+                    filteredType: '',
                 };
             }
             componentDidMount() {

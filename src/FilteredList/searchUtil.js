@@ -40,7 +40,7 @@ const Search = {
        * but does not support recursion inside of the object tree itself. If a fieldname is specified,
        * only strings that are in a subtree rooted at in an object with the key fieldname are counted.
        * This is used for specified matching. */
-      function getTotalStringMatches(item, subStr, fieldName = '', depth=0, underField = false) {
+      function getTotalStringMatches(item, subStr, depth=0) {
          /* Avoid crashing if some idiot puts a recursive loop in their object */
          if(depth > 50){
             console.warning("FilteredList recursive data warning!")
@@ -77,13 +77,12 @@ const Search = {
          let itemScore = 0;
 
          /* If the string never occurs, then do not display the item. */
-         for (const fieldToken of tokens.fieldTokens) {
+         /*for (const fieldToken of tokens.fieldTokens) {
             const occurenceCt = occurrences(item[fieldToken.left], fieldToken.right);
             if (occurenceCt < 1) {
                return -1000;
             }
-         }
-
+         }*/
          itemScore += getTotalStringMatches(item, tokens.stringToken);
 
          /* Matches in title field are weighted heavier */
@@ -109,7 +108,7 @@ const Search = {
          }
 
          /* Extracts a single string token for the rest...*/
-         const stringsRegularExpression = /\b\w*/;
+         const stringsRegularExpression = /\b[\w|\s]*/;
          const stringTokens = stringsRegularExpression.exec(searchTerm);
 
          let subStr = '';
@@ -118,6 +117,7 @@ const Search = {
                subStr += s;
             }
          }
+         console.log(subStr);
          return { fieldTokens, stringToken: subStr };
       }
 

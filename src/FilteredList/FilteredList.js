@@ -30,7 +30,9 @@ class FilteredList extends React.Component {
    generatePaginatorObject() {
        const { currentPage } = this.state;
        const { pageSize, data } = this.props;
-       const dataLength = data ? data.length : 0;
+
+       const filteredData = this.applySearch(this.generateFilteredArticles(data));
+       const dataLength = filteredData ? filteredData.length : 0;
        const numPages = Math.ceil(dataLength / pageSize);
 
        const Paginator = {
@@ -64,7 +66,7 @@ class FilteredList extends React.Component {
           paginatorDisplay,
           paginatorObject,
       );
-
+      
       return (
          <div className={className}>
             <List
