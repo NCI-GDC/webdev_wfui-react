@@ -9,6 +9,7 @@
   "license": "MIT",
   "author": "Koji Miyauchi",
   "scripts": {
+    "build": "scripts/build.sh",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
