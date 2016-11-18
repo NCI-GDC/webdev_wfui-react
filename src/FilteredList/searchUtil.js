@@ -1,16 +1,17 @@
-/* We use unconvential things for fast computation here which makes
- * a lot of eslint rules irrelevant */
-
+/* We use some unconvential things for fast computation here which makes
+ * a lot of eslint rules irrelevant. */
 /* eslint-disable */
 
 /* Basic string search.  Prioritizes matches in the 'title' field.
    Also uses tokens of form field_name:"match" (eg. author:"Billy Bob")
    to allow to mandate matches in particlar fields.  Unfortunately more
    advanced (n-gram, filtering etc.) is not possible since we cannot
-   have a precomputed. */
+   have a precomputed index. */
 const Search = {
    search: (data, searchTerm) => {
-      /* Todo: Replace with continuous Knuth-Morris-Pratt */
+      /* Runs a version of knuth morris pratt that continues even when
+       * it finds a match to efficiently find the number of substrings
+       * in the given string. */
       function occurrences(str, subString, allowOverlapping = false) {
          /* Prevent errors with empty fields */
          str += '';
@@ -35,18 +36,39 @@ const Search = {
          return n;
       }
 
-      /* Gets the total number of string matches using recursion.  Works with non-flat objets. */
-      function getTotalStringMatches(subStr, item) {
-         let ct = 0;
-
-         for (const field of item) {
-            if (typeof field === 'string') {
-               ct += occurrences(field, subStr);
-            } else {
-               ct += getTotalStringMatches(subStr, field);
-            }
+      /* Gets the total number of string matches using recursion.  Works with non-flat objects
+       * but does not support recursion inside of the object tree itself. If a fieldname is specified,
+       * only strings that are in a subtree rooted at in an object with the key fieldname are counted.
+       * This is used for specified matching. */
+      function getTotalStringMatches(item, subStr, depth=0) {
+         /* Avoid crashing if some idiot puts a recursive loop in their object */
+         if(depth > 50){
+            console.warning("FilteredList recursive data warning!")
+            return 0;
          }
 
+         let ct = 0;
+
+         if(!item){
+            return 0; 
+         }
+
+         /* Note: Strings are dangerous since substrings are counted as properties of strings. */
+         if(typeof item === 'string') {
+            ct += occurrences(item, subStr);
+            const keys = Object.keys(item);
+            for (const key of keys) {
+               if(typeof item !== 'string'){
+                  ct += getTotalStringMatches(item[key], subStr, depth+1);
+               }
+            }
+         }
+         else{
+            const keys = Object.keys(item);
+            for (const key of keys) {
+               ct += getTotalStringMatches(item[key], subStr, depth+1);
+            }
+         }
          return ct;
       }
 
@@ -55,17 +77,16 @@ const Search = {
          let itemScore = 0;
 
          /* If the string never occurs, then do not display the item. */
-         for (const fieldToken of tokens.fieldTokens) {
+         /*for (const fieldToken of tokens.fieldTokens) {
             const occurenceCt = occurrences(item[fieldToken.left], fieldToken.right);
             if (occurenceCt < 1) {
                return -1000;
             }
-         }
-
-         itemScore += getTotalStringMatches(tokens.stringToken, item);
+         }*/
+         itemScore += getTotalStringMatches(item, tokens.stringToken);
 
          /* Matches in title field are weighted heavier */
-         itemScore += 1000 * getTotalStringMatches(tokens.stringToken, item.title);
+         itemScore += 1000 * getTotalStringMatches(item.title, tokens.stringToken);
 
          return itemScore;
       }
@@ -75,24 +96,28 @@ const Search = {
          const fieldsRegularExpression = /\b\w*:"\w*"/;
          const fieldsRegularExpressionResults = fieldsRegularExpression.exec(searchTerm);
          const fieldTokens = [];
-         for (const result of fieldsRegularExpressionResults){
-            const split = result.split(':');
-            const field = {
-               left: split[0],
-               right: split[1].replace('"', ''),
-            };
-            fieldTokens.push(field);
+         if(fieldsRegularExpressionResults){ // Note: regex.exec returns null instead of [""] on failure
+            for (const result of fieldsRegularExpressionResults){
+               const split = result.split(':');
+               const field = {
+                  left: split[0],
+                  right: split[1].replace('"', ''),
+               };
+               fieldTokens.push(field);
+            }
          }
 
          /* Extracts a single string token for the rest...*/
-         const stringsRegularExpression = /\b\w*/;
+         const stringsRegularExpression = /\b[\w|\s]*/;
          const stringTokens = stringsRegularExpression.exec(searchTerm);
 
          let subStr = '';
-         for (const s of stringTokens) {
-            subStr += s;
+         if(stringTokens){
+            for (const s of stringTokens) {
+               subStr += s;
+            }
          }
-
+         console.log(subStr);
          return { fieldTokens, stringToken: subStr };
       }
 
@@ -100,7 +125,7 @@ const Search = {
       function exec() {
          const tokens = tokenize(data, searchTerm);
          for (const item of data) {
-            item.searchTokenScore = scoreItem(tokens, data);
+            item.searchTokenScore = scoreItem(tokens, item);
          }
          data.sort((a, b) => b.searchTokenScore - a.searchTokenScore);
          return data.filter(item => item.searchTokenScore > 0);

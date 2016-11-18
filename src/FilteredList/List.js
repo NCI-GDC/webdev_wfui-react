@@ -6,7 +6,7 @@ class List extends React.Component {
 
       /* Calculates the list of articles that should be displayed on the current page */
       const activeData = [];
-      const numArticles = data.length;
+      const numArticles = data ? data.length : 0;
       const startingArticle = pageSize * (currentPage - 1);
 
       for (let i = startingArticle; i < startingArticle + pageSize && i < numArticles; i += 1) {
