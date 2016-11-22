@@ -1,7 +1,7 @@
 #!/bin/sh
 
-rm -rf dist
-./node_modules/.bin/webpack
+#rm -rf dist
+#./node_modules/.bin/webpack
 #./node_modules/.bin/webpack --output-filename=dist/WFUI.js
 #./node_modules/.bin/webpack --output-filename=dist/WFUI.min.js --optimize-minimize
 
