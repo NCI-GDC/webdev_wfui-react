@@ -55,7 +55,7 @@ class FilteredTable extends React.Component {
    }
 
    render() {
-      const { itemDisplay, 
+      const { itemDisplay,
               className,
               paginatorDisplay,
               data,

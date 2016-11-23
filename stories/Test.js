@@ -6,7 +6,16 @@ storiesOf('Testing', module)
   .addWithInfo(
     'Prop Injection',
     () => (
-        <Test2 itemAsProp={<Test var1="hi" var2="hello" />} />
+        <Test2>
+            <span>
+                lol
+            </span>
+            <div>
+                <div> div1 </div>
+                <div> div2 </div>
+                <div> div3 </div>
+            </div>
+        </Test2>
     ),
     { inline: true },
 );

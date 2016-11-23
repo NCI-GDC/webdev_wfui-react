@@ -8,12 +8,13 @@ const Test = ({ var1, var2, content }) => (
       </div>
 );
 
-const Test2 = ({ itemAsProp }) => {
-   const additionalProps = {
-      content: 'Testing',
-   };
-   React.cloneElement(itemAsProp, additionalProps);
-   return itemAsProp;
+const Test2 = ( props ) => {
+   return (
+      <div>
+            { console.log(props.children) }
+            { props.children }
+      </div>
+   );
 };
 
 export { Test };

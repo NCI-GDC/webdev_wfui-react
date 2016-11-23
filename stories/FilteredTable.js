@@ -10,7 +10,28 @@ storiesOf('FilteredTable', module)
 
         const ItemDisplay = ({ data }) => {
             const { personid, email, role, cgp, dlp, added } = data;
-            
+            return (
+                <hr>
+                    <td>
+                        { personid }
+                    </td>
+                    <td>
+                        { email }
+                    </td>
+                    <td>
+                        { role }
+                    </td>
+                    <td>
+                        { cgp }
+                    </td>
+                    <td>
+                        { dlp }
+                    </td>
+                    <td>
+                        { added }
+                    </td>
+                </hr>
+            );
         };
 
         /* A container is needed to fetch from API */
