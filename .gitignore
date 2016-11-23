@@ -1,7 +1,6 @@
 node_modules
 .DS_Store
 npm-debug.log
-yarn.lock
 
 # Ignore OS files
 .DS_Store
@@ -11,4 +10,4 @@ yarn.lock
 .Trashes
 ehthumbs.db
 Thumbs.db
-
+yarn-error.log
