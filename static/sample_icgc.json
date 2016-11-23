@@ -1,0 +1,35 @@
+[
+   {
+      "personid": "1025418",
+      "email": "williamA@oicr.on.ca",
+      "role": "CGP Admin",
+      "cgp": "Blood Cancer",
+      "dlp": "Acute Myeloid Leukemia - TARGET, US (AML-US)",
+      "added": {
+         "date": 0,
+         "by": "ollie@oicr.on.ca"
+      }
+   },
+   {
+      "personid": "1025419",
+      "email": "williamB@oicr.on.ca",
+      "role": "CGP Admin",
+      "cgp": "Blood Cancer",
+      "dlp": "Acute Myeloid Leukemia - TARGET, US (LAML-US)",
+      "added": {
+         "date": 0,
+         "by": "ollie@oicr.on.ca"
+      }
+   },
+   {
+      "personid": "1025419",
+      "email": "williamB@oicr.on.ca",
+      "role": "CGP Admin",
+      "cgp": "Blood Cancer",
+      "dlp": "Acute Myeloid Leukemia - TARGET, US (LAML-US)",
+      "added": {
+         "date": 0,
+         "by": "ollie@oicr.on.ca"
+      }
+   }
+]

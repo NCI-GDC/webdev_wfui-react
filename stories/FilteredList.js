@@ -220,7 +220,7 @@ storiesOf('FilteredList', module)
             }
             render() {
                 return (
-                    <div>
+                    <span>
                         {this.generateFilterUI()}
                         <FilteredList
                             searchTerm={this.state.searchTerm}
@@ -228,7 +228,7 @@ storiesOf('FilteredList', module)
                             data={this.state.data}
                             itemDisplay={<ItemDisplay />}
                         />
-                    </div>
+                    </span>
                 );
             }
         }
@@ -239,4 +239,3 @@ storiesOf('FilteredList', module)
     },
     { },
 );
-

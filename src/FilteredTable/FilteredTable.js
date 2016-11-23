@@ -1,11 +1,11 @@
 import React from 'react';
-import List from './List';
+import List from './Table';
 import Search from './searchUtil';
 
 /*
  * Applies the filtering to the articles and then passes its' props to List for display.
  */
-class FilteredList extends React.Component {
+class FilteredTable extends React.Component {
    constructor(props) {
        super(props);
        this.state = {
@@ -53,13 +53,20 @@ class FilteredList extends React.Component {
        };
        return Paginator;
    }
+
    render() {
-      const { itemDisplay, className, paginatorDisplay, data, pageSize, sortFunction } = this.props;
+      const { itemDisplay, 
+              className,
+              paginatorDisplay,
+              data,
+              pageSize,
+              sortable,
+              selectable,
+              onSelectionChange,
+            } = this.props;
+
       const { currentPage } = this.state;
       const filteredData = this.applySearch(this.generateFilteredArticles(data));
-      if (sortFunction) {
-        filteredData.sort(sortFunction);
-      }
 
       const paginatorObject = this.generatePaginatorObject();
       const InjectedPaginatorDisplay = React.cloneElement(
@@ -74,6 +81,8 @@ class FilteredList extends React.Component {
                 itemDisplay={itemDisplay}
                 pageSize={pageSize}
                 currentPage={currentPage}
+                selectable={selectable}
+                onSelectionChange={onSelectionChange}
             />
             { InjectedPaginatorDisplay }
          </div>
@@ -81,7 +90,7 @@ class FilteredList extends React.Component {
    }
 }
 
-FilteredList.propTypes = {
+FilteredTable.propTypes = {
     className: React.PropTypes.string,
     itemDisplay: React.PropTypes.element.isRequired,
     paginatorDisplay: React.PropTypes.element,
@@ -91,15 +100,18 @@ FilteredList.propTypes = {
     filterList: React.PropTypes.arrayOf(React.PropTypes.func),
     sortFunction: React.PropTypes.func,
     searchTerm: React.PropTypes.string,
+    selectable: React.PropTypes.bool,
+    onSelectionChange: React.PropTypes.func,
 };
 
-FilteredList.defaultProps = {
+FilteredTable.defaultProps = {
     pageSize: 1000,
     paginatorDisplay: <span />,
     currentPage: 1,
     filterList: [],
     searchTerm: '',
     sortFunction: undefined,
+    selectable: false,
 };
 
-export default FilteredList;
+export default FilteredTable;
