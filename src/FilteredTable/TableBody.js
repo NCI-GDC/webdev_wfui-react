@@ -28,7 +28,7 @@ class TableBody extends React.Component {
          const row = [];
          if (selectable) {
             row.push(
-                <td>
+                <td key={idx}>
                     <input
                         type="checkbox"
                         checked={checks[idx]}
@@ -37,9 +37,9 @@ class TableBody extends React.Component {
                 </td>,
             );
          }
-         for (const cell of rowData) {
+         rowData.forEach((cell) => {
              row.push(<td>{cell(item)}</td>);
-         }
+         });
          return (
              <tr>{ row }</tr>
          );

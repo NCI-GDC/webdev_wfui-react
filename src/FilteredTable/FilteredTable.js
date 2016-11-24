@@ -24,6 +24,31 @@ class FilteredTable extends React.Component {
        });
    }
 
+   /* This is called when a individual item's checkbox is clicked */
+    onCheck(index) {
+        const { checkedItems } = this.state;
+
+        const newArray = checkedItems.slice(0);
+        newArray[index] = !newArray[index];
+        this.setState({ checkedItems: newArray });
+    }
+
+    onAllCheck() {
+        const { checkedItems } = this.state;
+
+        const newArray = this.state.checkedItems.slice(0);
+
+        if (checkedItems.every(item => item)) {
+            /* If all items are checked, then uncheck everything */
+            newArray.fill(false);
+        } else {
+            /* Else check everything */
+            newArray.fill(true);
+        }
+
+        this.setState({ checkedItems: newArray });
+    }
+
    generateFilteredArticles(articles) {
       const { filterList } = this.props;
       let filteredArticles = articles;
@@ -41,26 +66,18 @@ class FilteredTable extends React.Component {
       return articles;
    }
 
-   /* This is called when a individual item's checkbox is clicked */
-    onCheck(index) {
-        const { checkedItems } = this.state;
-        const newArray = checkedItems.slice(0);
-        newArray[index] = !newArray[index];
-        this.setState({ checkedItems: newArray });
-    }
+   /* Return a list of the indices of all selected items */
+   selectionChanged() {
+       const { onSelectionChange } = this.props;
+       const { checkedItems } = this.state;
 
-    onAllCheck() {
-        const { checkedItems } = this.state;
-        const newArray = this.state.checkedItems.slice(0);
-        /* If all items are checked, then uncheck everything */
-        if (checkedItems.every(item => item)) {
-            newArray.fill(false);
-        } else {
-            /* Else check everything */
-            newArray.fill(true);
-        }
-        this.setState({ checkedItems: newArray });
-    }
+       const selectedItems = [];
+       checkedItems.forEach((val, idx) => {
+           selectedItems.push(idx);
+       });
+
+       onSelectionChange(selectedItems);
+   }
 
    generatePaginatorObject() {
        const { currentPage } = this.state;

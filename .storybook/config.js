@@ -7,6 +7,7 @@ function loadStories() {
   require('../stories/TwitterFeed');
   require('../stories/Spinner');
   require('../stories/FilteredList');
+  require('../stories/FilteredTable');
   require('../stories/TabbedList');
   require('../stories/Test');
 }
