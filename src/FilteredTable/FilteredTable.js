@@ -107,15 +107,13 @@ class FilteredTable extends React.Component {
    }
 
     render() {
-      const { rowData,
+      const { rows,
               className,
               paginatorDisplay,
               data,
               pageSize,
-              sortable,
               selectable,
               onSelectionChange,
-              rowNames,
             } = this.props;
 
       const { checkedItems, currentPage } = this.state;
@@ -133,12 +131,11 @@ class FilteredTable extends React.Component {
          <table className={className}>
             <TableBody
                 data={filteredData}
-                rowData={rowData}
+                rows={rows}
                 pageSize={pageSize}
                 currentPage={currentPage}
                 selectable={selectable}
                 onSelectionChange={onSelectionChange}
-                rowNames={rowNames}
                 onCheck={this.onCheck}
                 onAllCheck={this.onAllCheck}
                 checks={checkedItems}
@@ -150,7 +147,6 @@ class FilteredTable extends React.Component {
 
 FilteredTable.propTypes = {
     className: React.PropTypes.string,
-    rowData: React.PropTypes.arrayOf(React.PropTypes.func).isRequired,
     paginatorDisplay: React.PropTypes.element,
     data: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
     pageSize: React.PropTypes.number,
@@ -159,7 +155,7 @@ FilteredTable.propTypes = {
     searchTerm: React.PropTypes.string,
     selectable: React.PropTypes.bool,
     onSelectionChange: React.PropTypes.func,
-    rowNames: React.PropTypes.arrayOf(React.PropTypes.string),
+    rows: React.PropTypes.arrayOf(React.PropTypes.object),
 };
 
 FilteredTable.defaultProps = {
@@ -168,7 +164,6 @@ FilteredTable.defaultProps = {
     currentPage: 1,
     filterList: [],
     searchTerm: '',
-    sortFunction: undefined,
     selectable: false,
 };
 

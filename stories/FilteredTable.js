@@ -8,15 +8,36 @@ storiesOf('FilteredTable', module)
     () => {
         const icgcSampleDataAPI = '/sample_icgc.json';
 
-        const rowsNames = ['Person ID', 'Email', 'Role', 'Project', 'Data Level Project', 'Added', 'Actions'];
-        const rowData = [
-            data => data.personid,
-            data => data.email,
-            data => data.role,
-            data => data.cgp,
-            data => data.dlp,
-            data => '',
-            data => '',
+        const rows = [
+            {
+                name: 'Person ID',
+                display: data => data.personid,
+            },
+            {
+                name: 'Email',
+                display: data => data.email,
+                sortingKey: data => data.email,
+            },
+            {
+                name: 'Role',
+                display: data => data.role,
+            },
+            {
+                name: 'Project',
+                display: data => data.cgp,
+            },
+            {
+                name: 'Data Level Project',
+                display: data => data.dlp,
+            },
+            {
+                name: 'Added',
+                display: data => ' ',
+            },
+            {
+                name: 'Actions',
+                display: data => ' ',
+            },
         ];
 
         /* A container is needed to fetch from API */
@@ -31,6 +52,7 @@ storiesOf('FilteredTable', module)
                     filteredType: '',
                 };
             }
+
             componentDidMount() {
                 this.mounted = true;
                 fetch(icgcSampleDataAPI)
@@ -42,9 +64,11 @@ storiesOf('FilteredTable', module)
                         }
                 });
             }
+
             componentWillUnmount() {
                 this.mounted = false;
             }
+
             getFilters() {
                 const { filteredCGP, filteredDLP } = this.state;
                 return [
@@ -54,6 +78,7 @@ storiesOf('FilteredTable', module)
                             (item.dlp === filteredDLP)),
                 ];
             }
+
             generateFilterUI() {
                 const { filteredCGP, filteredDLP, searchTerm } = this.state;
                 const CGPList = [];
@@ -94,6 +119,7 @@ storiesOf('FilteredTable', module)
                     </div>
                 );
             }
+            
             render() {
                 return (
                     <div>
@@ -102,8 +128,7 @@ storiesOf('FilteredTable', module)
                             searchTerm={this.state.searchTerm}
                             filterList={this.getFilters()}
                             data={this.state.data}
-                            rowData={rowData}
-                            rowNames={rowsNames}
+                            rows={rows}
                             selectable
                         />
                     </div>

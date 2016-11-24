@@ -1,18 +1,44 @@
 import React from 'react';
 
 class TableBody extends React.Component {
+  constructor(props) {
+       super(props);
+
+       this.state = {
+           sortedIdx: -1,
+           sortedOrientation: 'desc',
+       };
+   }
+
+   toggleSort(idx) {
+       const { sortedIdx, sortedOrientation } = this.state;
+       if (sortedIdx === idx) {
+           if (sortedOrientation === 'desc') {
+               this.setState({ sortedOrientation: 'asc' });
+           } else {
+               /* Disable sorting if you click twice on the same label */
+               this.setState({ sortedIdx: -1 });
+           }
+       } else {
+           this.setState({ sortedOrientation: 'desc' });
+           this.setState({ sortedIdx: idx });
+       }
+   }
+
+
 
    render() {
-      const { data,
+      const { rows,
+              data,
               pageSize,
               currentPage,
-              rowNames,
               selectable,
-              rowData,
               onCheck,
               onAllCheck,
               checks,
             } = this.props;
+
+      const { sortedIdx, sortedOrientation } = this.state;
 
       /* Calculates the Table of articles that should be displayed on the current page */
       const activeData = [];
@@ -23,11 +49,24 @@ class TableBody extends React.Component {
          activeData.push(data[i]);
       }
 
+      let sortedData = activeData;
+
+      /* Handle sorting */
+      if (sortedIdx !== -1) {
+        sortedData = sortedData.sort((a, b) => {
+            const getSortingData = rows[sortedIdx].sortingKey;
+            if (sortedOrientation === 'desc') {
+                return getSortingData(a) > getSortingData(b);
+            }
+            return getSortingData(a) < getSortingData(b);
+        });
+      }
+
       /* Form row using the provided data functions. */
-      const itemDisplays = activeData.map((item, idx) => {
-         const row = [];
+      const itemDisplays = sortedData.map((item, idx) => {
+         const rowItems = [];
          if (selectable) {
-            row.push(
+            rowItems.push(
                 <td key={idx}>
                     <input
                         type="checkbox"
@@ -37,15 +76,24 @@ class TableBody extends React.Component {
                 </td>,
             );
          }
-         rowData.forEach((cell) => {
-             row.push(<td>{cell(item)}</td>);
+         rows.forEach((cell) => {
+             rowItems.push(<td>{cell.display(item)}</td>);
          });
          return (
-             <tr>{ row }</tr>
+             <tr>{ rowItems }</tr>
          );
       });
 
-      const headerRow = rowNames.map(name => <th key={name}> {name} </th>);
+      /* Setup the header row and onClick for sorting if applicable */
+      const headerRow = rows.map((cell, idx) =>
+        <th key={cell.name}>
+            { cell.sortingKey ? 
+                <a href="#" onClick={() => this.toggleSort(idx)}>{cell.name}</a> :
+                cell.name
+            }
+        </th>
+      );
+
       return (
          <tbody>
             <tr>
@@ -70,12 +118,11 @@ class TableBody extends React.Component {
 }
 
 TableBody.propTypes = {
-    rowData: React.PropTypes.arrayOf(React.PropTypes.func).isRequired,
     data: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
     pageSize: React.PropTypes.number,
     currentPage: React.PropTypes.number,
     selectable: React.PropTypes.bool,
-    rowNames: React.PropTypes.arrayOf(React.PropTypes.string),
+    rows: React.PropTypes.arrayOf(React.PropTypes.object),
     onCheck: React.PropTypes.func,
     onAllCheck: React.PropTypes.func,
     checks: React.PropTypes.arrayOf(React.PropTypes.bool),
