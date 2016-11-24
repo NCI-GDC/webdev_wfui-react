@@ -1,38 +1,23 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
-import FilteredList from '../src/FilteredTable/FilteredTable';
+import FilteredTable from '../src/FilteredTable/FilteredTable';
 
 storiesOf('FilteredTable', module)
   .addWithInfo(
     'ICGC Testing',
     () => {
-        const collaboratoryPubmedAPI = '/sample_icgc.json';
+        const icgcSampleDataAPI = '/sample_icgc.json';
 
-        const ItemDisplay = ({ data }) => {
-            const { personid, email, role, cgp, dlp, added } = data;
-            return (
-                <hr>
-                    <td>
-                        { personid }
-                    </td>
-                    <td>
-                        { email }
-                    </td>
-                    <td>
-                        { role }
-                    </td>
-                    <td>
-                        { cgp }
-                    </td>
-                    <td>
-                        { dlp }
-                    </td>
-                    <td>
-                        { added }
-                    </td>
-                </hr>
-            );
-        };
+        const rowsNames = ['Person ID', 'Email', 'Role', 'Project', 'Data Level Project', 'Added', 'Actions'];
+        const rowData = [
+            data => data.personid,
+            data => data.email,
+            data => data.role,
+            data => data.cgp,
+            data => data.dlp,
+            data => '',
+            data => '',
+        ];
 
         /* A container is needed to fetch from API */
         class FilteredListContainer extends React.Component {
@@ -48,11 +33,11 @@ storiesOf('FilteredTable', module)
             }
             componentDidMount() {
                 this.mounted = true;
-                fetch(collaboratoryPubmedAPI)
+                fetch(icgcSampleDataAPI)
                     .then(response => response.json())
                     .then((response) => {
                         if (this.mounted) {
-                            const data = response.pub_pre;
+                            const data = response;
                             this.setState({ data });
                         }
                 });
@@ -74,8 +59,8 @@ storiesOf('FilteredTable', module)
                 const CGPList = [];
                 const DLPList = [];
                 for (const item of this.state.data) {
-                    const CGP = item.project;
-                    const DLP = item.project;
+                    const CGP = item.cgp;
+                    const DLP = item.dlp;
                     if (CGPList.indexOf(CGP) === -1) {
                         CGPList.push(CGP);
                     }
@@ -95,7 +80,8 @@ storiesOf('FilteredTable', module)
                         <input
                             type="text"
                             placeholder="Enter keywords"
-                            value={searchTerm} onChange={e => this.setState({ searchTerm: e.target.value })} 
+                            value={searchTerm}
+                            onChange={e => this.setState({ searchTerm: e.target.value })}
                         />
                         <select selected={filteredCGP} onChange={e => this.setState({ filteredCGP: e.target.value })}>
                             <option value="">All Projects</option>
@@ -108,16 +94,17 @@ storiesOf('FilteredTable', module)
                     </div>
                 );
             }
-
             render() {
                 return (
                     <div>
                         {this.generateFilterUI()}
-                        <FilteredList
+                        <FilteredTable
                             searchTerm={this.state.searchTerm}
                             filterList={this.getFilters()}
                             data={this.state.data}
-                            itemDisplay={<ItemDisplay />}
+                            rowData={rowData}
+                            rowNames={rowsNames}
+                            selectable
                         />
                     </div>
                 );

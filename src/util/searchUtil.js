@@ -9,10 +9,13 @@
    have a precomputed index. */
 const Search = {
    search: (data, searchTerm) => {
+
       /* Runs a version of knuth morris pratt that continues even when
        * it finds a match to efficiently find the number of substrings
        * in the given string. */
       function occurrences(str, subString, allowOverlapping = false) {
+         str = str.toLowerCase();
+         subString = subString.toLowerCase();
          /* Prevent errors with empty fields */
          str += '';
          subString += '';

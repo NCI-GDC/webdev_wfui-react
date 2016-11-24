@@ -6,7 +6,7 @@ storiesOf('Testing', module)
   .addWithInfo(
     'Prop Injection',
     () => (
-        <Test2>
+        <Test2 lol={<div>hel<span>lo</span></div>}>
             <span>
                 lol
             </span>

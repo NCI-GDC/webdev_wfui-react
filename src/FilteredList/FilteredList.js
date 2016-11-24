@@ -1,6 +1,6 @@
 import React from 'react';
 import List from './List';
-import Search from './searchUtil';
+import Search from '../util/searchUtil';
 
 /*
  * Applies the filtering to the articles and then passes its' props to List for display.

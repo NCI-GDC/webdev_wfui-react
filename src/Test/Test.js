@@ -9,10 +9,12 @@ const Test = ({ var1, var2, content }) => (
 );
 
 const Test2 = ( props ) => {
+   const newChildren = React.Children.toArray(props.children);
+   newChildren.push(<div>CATS</div>);
    return (
       <div>
-            { console.log(props.children) }
-            { props.children }
+            { console.log( props ) }
+            { React.cloneElement(<cat />, { children:newChildren }) }
       </div>
    );
 };
