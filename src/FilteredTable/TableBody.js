@@ -10,8 +10,9 @@ class TableBody extends React.Component {
        };
    }
 
-   toggleSort(idx) {
+   toggleSort(event, idx) {
        const { sortedIdx, sortedOrientation } = this.state;
+       event.preventDefault();
        if (sortedIdx === idx) {
            if (sortedOrientation === 'desc') {
                this.setState({ sortedOrientation: 'asc' });
@@ -67,20 +68,20 @@ class TableBody extends React.Component {
          const rowItems = [];
          if (selectable) {
             rowItems.push(
-                <td key={idx}>
+                <td key={`td_${idx}`}>
                     <input
                         type="checkbox"
                         checked={checks[idx]}
-                        onClick={() => onCheck(idx)}
+                        onChange={() => onCheck(idx)}
                     />
                 </td>,
             );
          }
-         rows.forEach((cell) => {
-             rowItems.push(<td>{cell.display(item)}</td>);
+         rows.forEach((cell, rowIdx) => {
+             rowItems.push(<td key={`td_${idx}_${rowIdx}`}>{cell.display(item)}</td>);
          });
          return (
-             <tr>{ rowItems }</tr>
+             <tr key={`td_${idx}`}>{ rowItems }</tr>
          );
       });
 
@@ -88,7 +89,7 @@ class TableBody extends React.Component {
       const headerRow = rows.map((cell, idx) =>
         <th key={cell.name}>
             { cell.sortingKey ? 
-                <a href="#" onClick={() => this.toggleSort(idx)}>{cell.name}</a> :
+                <a href="#" onClick={(e) => this.toggleSort(e, idx)}>{cell.name}</a> :
                 cell.name
             }
         </th>
@@ -102,7 +103,7 @@ class TableBody extends React.Component {
                     <th>
                         <input
                             type="Checkbox"
-                            onClick={onAllCheck}
+                            onChange={onAllCheck}
                             checked={checks.every(item => item)}
                         />
                     </th>
