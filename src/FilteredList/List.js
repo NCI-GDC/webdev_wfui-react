@@ -2,7 +2,7 @@ import React from 'react';
 
 class List extends React.Component {
    render() {
-      const { itemDisplay, data, pageSize, currentPage } = this.props;
+      const { itemDisplay, data, pageSize, currentPage, container } = this.props;
 
       /* Calculates the list of articles that should be displayed on the current page */
       const activeData = [];
@@ -15,14 +15,15 @@ class List extends React.Component {
 
       /* New article object with data injected into it. */
       const itemDisplays = activeData.map((item, idx) => (
-         React.cloneElement(itemDisplay, { data: item, idx })
+         React.cloneElement(itemDisplay, { data: item, key: idx, idx })
       ));
 
-      return (
-         <div>
-            { itemDisplays }
-         </div>
+      /* Populates the container element passed to this with the items */
+      const populatedContainer = React.cloneElement(
+          container,
+          { children: itemDisplays },
       );
+      return populatedContainer;
    }
 }
 
@@ -31,6 +32,7 @@ List.propTypes = {
     data: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
     pageSize: React.PropTypes.number,
     currentPage: React.PropTypes.number,
+    container: React.PropTypes.element,
 };
 
 export default List;

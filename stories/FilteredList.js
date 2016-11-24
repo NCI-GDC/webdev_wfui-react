@@ -68,7 +68,7 @@ storiesOf('FilteredList', module)
                 const handler = getOpenPage(i);
                 if (i === currentPage) {
                     events.push(
-                        <a> {i} </a>,
+                        <a key={i}> {i} </a>,
                     );
                 } else if (handler) {
                     events.push(
@@ -103,6 +103,33 @@ storiesOf('FilteredList', module)
             data={animalData}
             pageSize={2}
             filterList={filterList}
+        />);
+    },
+    { source: false, inline: true, static: true },
+)
+.addWithInfo(
+    'Custom Container',
+    () => {
+        /* Each element of this array is displayed as a post */
+        const animalData = [
+            { name: 'Grover' },
+            { name: 'Grover' },
+            { name: 'Grover' },
+            { name: 'Grover' },
+            { name: 'Grover' },
+            { name: 'Grover' },
+            { name: 'Grover' },
+            { name: 'Grover' },
+        ];
+
+        /* Each element from the array is injected into this for display */
+        const ItemDisplay = ({ data }) =>
+            <li> { data.name } </li>;
+
+        return (<FilteredList
+            itemDisplay={<ItemDisplay />}
+            data={animalData}
+            container={<ol className="lol" />}
         />);
     },
     { source: false, inline: true, static: true },

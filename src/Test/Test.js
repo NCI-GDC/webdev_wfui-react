@@ -1,20 +1,24 @@
 import React from 'react';
 
-const Test = ({ var1, var2, content }) => (
+const Test = ({ var1, var2 }) => (
       <div>
-         Var1: { var1 }
-         Var2: { var2 }
-         Hello: { content }
-      </div>
+                  <div>
+                        <div>
+                            <div>
+                                Test
+                            </div>
+                        </div>
+                  </div>
+            </div>
 );
 
 const Test2 = ( props ) => {
    const newChildren = React.Children.toArray(props.children);
    newChildren.push(<div>CATS</div>);
+   const test = React.cloneElement(props.lol, {children: <i> WHAT IS UP </i> });
+   console.log(props);
    return (
       <div>
-            { console.log( props ) }
-            { React.cloneElement(<cat />, { children:newChildren }) }
       </div>
    );
 };

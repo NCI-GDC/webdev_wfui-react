@@ -6,15 +6,8 @@ storiesOf('Testing', module)
   .addWithInfo(
     'Prop Injection',
     () => (
-        <Test2 lol={<div>hel<span>lo</span></div>}>
-            <span>
-                lol
-            </span>
-            <div>
-                <div> div1 </div>
-                <div> div2 </div>
-                <div> div3 </div>
-            </div>
+        <Test2 lol={<li>hel</li>}>
+            <Test />
         </Test2>
     ),
     { inline: true },
