@@ -12,6 +12,7 @@ class FilteredList extends React.Component {
            currentPage: props.currentPage,
        };
    }
+
    generateFilteredArticles(articles) {
       const { filterList } = this.props;
       let filteredArticles = articles;
@@ -20,6 +21,7 @@ class FilteredList extends React.Component {
       ));
       return filteredArticles;
    }
+
    applySearch(articles) {
       const { searchTerm } = this.props;
       if (searchTerm) {
@@ -27,6 +29,7 @@ class FilteredList extends React.Component {
       }
       return articles;
    }
+
    generatePaginatorObject() {
        const { currentPage } = this.state;
        const { pageSize, data } = this.props;
@@ -53,6 +56,7 @@ class FilteredList extends React.Component {
        };
        return Paginator;
    }
+
    render() {
       const { itemDisplay, className, paginatorDisplay, data, pageSize, sortFunction } = this.props;
       const { currentPage } = this.state;
@@ -66,9 +70,9 @@ class FilteredList extends React.Component {
           paginatorDisplay,
           paginatorObject,
       );
-      
+
       return (
-         <div>
+         <div className={className}>
             <List
                 data={filteredData}
                 itemDisplay={itemDisplay}

@@ -14,8 +14,8 @@ class List extends React.Component {
       }
 
       /* New article object with data injected into it. */
-      const itemDisplays = activeData.map(item => (
-         React.cloneElement(itemDisplay, { data: item })
+      const itemDisplays = activeData.map((item, idx) => (
+         React.cloneElement(itemDisplay, { data: item, idx })
       ));
 
       return (
