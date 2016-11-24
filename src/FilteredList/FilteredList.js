@@ -58,7 +58,7 @@ class FilteredList extends React.Component {
    }
 
    render() {
-      const { itemDisplay, className, paginatorDisplay, data, pageSize, sortFunction, container } = this.props;
+      const { itemDisplay, paginatorDisplay, data, pageSize, sortFunction, container } = this.props;
       const { currentPage } = this.state;
       const filteredData = this.applySearch(this.generateFilteredArticles(data));
       if (sortFunction) {
@@ -87,7 +87,6 @@ class FilteredList extends React.Component {
 }
 
 FilteredList.propTypes = {
-    className: React.PropTypes.string,
     itemDisplay: React.PropTypes.element.isRequired,
     container: React.PropTypes.element,
     paginatorDisplay: React.PropTypes.element,
