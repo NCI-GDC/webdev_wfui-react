@@ -9,6 +9,7 @@ class FilteredTable extends React.Component {
    constructor(props) {
        super(props);
        this.onCheck = this.onCheck.bind(this);
+       this.onAllCheck = this.onAllCheck.bind(this);
 
        this.state = {
            currentPage: props.currentPage,
@@ -35,7 +36,6 @@ class FilteredTable extends React.Component {
 
     onAllCheck() {
         const { checkedItems } = this.state;
-
         const newArray = this.state.checkedItems.slice(0);
 
         if (checkedItems.every(item => item)) {
