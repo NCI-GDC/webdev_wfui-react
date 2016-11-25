@@ -209,7 +209,7 @@ FilteredTable.propTypes = {
     searchTerm: React.PropTypes.string,
     selectable: React.PropTypes.bool,
     onSelectionChange: React.PropTypes.func,
-    rows: React.PropTypes.arrayOf(React.PropTypes.object),
+    itemFormat: React.PropTypes.arrayOf(React.PropTypes.object),
 };
 
 FilteredTable.defaultProps = {
