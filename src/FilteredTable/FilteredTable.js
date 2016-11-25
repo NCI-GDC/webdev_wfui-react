@@ -105,9 +105,10 @@ class FilteredTable extends React.Component {
 
        const selectedItems = [];
        checkedItems.forEach((val, idx) => {
-           selectedItems.push(idx);
+           if (val) {
+                selectedItems.push(idx);
+           }
        });
-       console.log('kek');
        onSelectionChange(selectedItems);
    }
 
