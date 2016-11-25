@@ -8,7 +8,7 @@ storiesOf('FilteredTable', module)
     () => {
         const icgcSampleDataAPI = '/sample_icgc.json';
 
-        const rows = [
+        const itemFormat = [
             {
                 name: 'Person ID',
                 display: data => data.personid,
@@ -128,7 +128,7 @@ storiesOf('FilteredTable', module)
                             searchTerm={this.state.searchTerm}
                             filterList={this.getFilters()}
                             data={this.state.data}
-                            rows={rows}
+                            itemFormat={itemFormat}
                             selectable
                         />
                     </div>

@@ -2,7 +2,7 @@ import React from 'react';
 
 class TableBody extends React.Component {
    render() {
-      const { rows,
+      const { itemFormat,
               data,
               pageSize,
               currentPage,
@@ -34,7 +34,7 @@ class TableBody extends React.Component {
                 </td>,
             );
          }
-         rows.forEach((cell, rowIdx) => {
+         itemFormat.forEach((cell, rowIdx) => {
              rowItems.push(<td key={`td_${idx}_${rowIdx}`}>{cell.display(item)}</td>);
          });
          return (
@@ -55,7 +55,7 @@ TableBody.propTypes = {
     pageSize: React.PropTypes.number.isRequired,
     currentPage: React.PropTypes.number.isRequired,
     selectable: React.PropTypes.bool.isRequired,
-    rows: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    itemFormat: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
     onCheck: React.PropTypes.func.isRequired,
     checks: React.PropTypes.arrayOf(React.PropTypes.bool).isRequired,
 };

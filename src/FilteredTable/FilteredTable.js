@@ -66,7 +66,7 @@ class FilteredTable extends React.Component {
    }
 
    generateFilteredArticles(articles) {
-      const { filterList, rows } = this.props;
+      const { filterList, itemFormat } = this.props;
       const { sortedIdx, sortedOrientation } = this.state;
 
       let filteredArticles = articles;
@@ -77,7 +77,7 @@ class FilteredTable extends React.Component {
       /* Now sort the articles*/
       if (sortedIdx !== -1) {
         filteredArticles = filteredArticles.sort((a, b) => {
-            const getSortingData = rows[sortedIdx].sortingKey;
+            const getSortingData = itemFormat[sortedIdx].sortingKey;
             if (sortedOrientation === 'desc') {
                 return getSortingData(a) > getSortingData(b);
             }
@@ -137,7 +137,7 @@ class FilteredTable extends React.Component {
    }
 
     render() {
-      const { rows,
+      const { itemFormat,
               className,
               paginatorDisplay,
               data,
@@ -156,7 +156,7 @@ class FilteredTable extends React.Component {
       );
 
       /* Setup the header row and onClick for sorting if applicable */
-      const headerRow = rows.map((cell, idx) =>
+      const headerRow = itemFormat.map((cell, idx) =>
         <th key={cell.name}>
             { cell.sortingKey ?
                 <a href="#sort" onClick={e => this.toggleSort(e, idx)}>{cell.name}</a> :
@@ -186,7 +186,7 @@ class FilteredTable extends React.Component {
             </thead>
             <TableBody
                 data={filteredData}
-                rows={rows}
+                itemFormat={itemFormat}
                 pageSize={pageSize}
                 currentPage={currentPage}
                 selectable={selectable}
