@@ -8,13 +8,13 @@ import Search from '../util/searchUtil';
 class FilteredTable extends React.Component {
    constructor(props) {
        super(props);
-
        this.onCheck = this.onCheck.bind(this);
-       this.onAllCheck = this.onAllCheck.bind(this);
 
        this.state = {
            currentPage: props.currentPage,
            checkedItems: (new Array(props.data.length)).fill(false),
+           sortedIdx: -1,
+           sortedOrientation: 'desc',
        };
    }
 
@@ -49,12 +49,42 @@ class FilteredTable extends React.Component {
         this.setState({ checkedItems: newArray });
     }
 
+    toggleSort(event, idx) {
+       const { sortedIdx, sortedOrientation } = this.state;
+       event.preventDefault();
+       if (sortedIdx === idx) {
+           if (sortedOrientation === 'desc') {
+               this.setState({ sortedOrientation: 'asc' });
+           } else {
+               /* Disable sorting if you click twice on the same label */
+               this.setState({ sortedIdx: -1 });
+           }
+       } else {
+           this.setState({ sortedOrientation: 'desc' });
+           this.setState({ sortedIdx: idx });
+       }
+   }
+
    generateFilteredArticles(articles) {
-      const { filterList } = this.props;
+      const { filterList, rows } = this.props;
+      const { sortedIdx, sortedOrientation } = this.state;
+
       let filteredArticles = articles;
       filterList.forEach(filter => (
          filteredArticles = filteredArticles.filter(filter)
       ));
+
+      /* Now sort the articles*/
+      if (sortedIdx !== -1) {
+        filteredArticles = filteredArticles.sort((a, b) => {
+            const getSortingData = rows[sortedIdx].sortingKey;
+            if (sortedOrientation === 'desc') {
+                return getSortingData(a) > getSortingData(b);
+            }
+            return getSortingData(a) < getSortingData(b);
+        });
+      }
+
       return filteredArticles;
    }
 
@@ -117,7 +147,6 @@ class FilteredTable extends React.Component {
             } = this.props;
 
       const { checkedItems, currentPage } = this.state;
-
       const filteredData = this.applySearch(this.generateFilteredArticles(data));
 
       const paginatorObject = this.generatePaginatorObject();
@@ -126,9 +155,35 @@ class FilteredTable extends React.Component {
           paginatorObject,
       );
 
+      /* Setup the header row and onClick for sorting if applicable */
+      const headerRow = rows.map((cell, idx) =>
+        <th key={cell.name}>
+            { cell.sortingKey ?
+                <a href="#sort" onClick={e => this.toggleSort(e, idx)}>{cell.name}</a> :
+                cell.name
+            }
+        </th>,
+      );
 
       return (
          <table className={className}>
+            <thead>
+                <tr>
+                    {
+                        selectable ?
+                        <th>
+                            <input
+                                type="Checkbox"
+                                onChange={this.onAllCheck}
+                                checked={checkedItems.every(item => item)}
+                            />
+                        </th>
+                        :
+                        null
+                    }
+                    { headerRow }
+                </tr>
+            </thead>
             <TableBody
                 data={filteredData}
                 rows={rows}
@@ -137,8 +192,7 @@ class FilteredTable extends React.Component {
                 selectable={selectable}
                 onSelectionChange={onSelectionChange}
                 onCheck={this.onCheck}
-                onAllCheck={this.onAllCheck}
-                checks={checkedItems}
+                checks={this.state.checkedItems}
             />
          </table>
       );
