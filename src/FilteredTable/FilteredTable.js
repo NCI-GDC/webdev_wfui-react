@@ -32,6 +32,7 @@ class FilteredTable extends React.Component {
         const newArray = checkedItems.slice(0);
         newArray[index] = !newArray[index];
         this.setState({ checkedItems: newArray });
+        this.selectionChanged();
     }
 
     onAllCheck() {
@@ -47,6 +48,7 @@ class FilteredTable extends React.Component {
         }
 
         this.setState({ checkedItems: newArray });
+        this.selectionChanged();
     }
 
     toggleSort(event, idx) {
@@ -105,7 +107,7 @@ class FilteredTable extends React.Component {
        checkedItems.forEach((val, idx) => {
            selectedItems.push(idx);
        });
-
+       console.log('kek');
        onSelectionChange(selectedItems);
    }
 
