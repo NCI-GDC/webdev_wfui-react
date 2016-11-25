@@ -1,6 +1,6 @@
 {
   "name": "wfui-react",
-  "version": "2.0.0-alpha-001",
+  "version": "2.0.0",
   "description": "A collection of components for use in OICR React projects.",
   "repository": {
     "type": "git",
