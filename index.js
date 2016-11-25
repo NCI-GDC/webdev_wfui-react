@@ -1,4 +1,4 @@
-var FilteredList = reqiure('./lib/FilteredList/FilteredList').default;
+var FilteredList = require('./lib/FilteredList/FilteredList').default;
 var Spinner = require('./lib/Spinner/Spinner');
 var TabbedList = require('./lib/TabbedList/TabbedList');
 var Tab = require('./lib/TabbedList/Tab');
