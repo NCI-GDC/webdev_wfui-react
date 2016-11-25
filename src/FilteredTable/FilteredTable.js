@@ -31,8 +31,11 @@ class FilteredTable extends React.Component {
 
         const newArray = checkedItems.slice(0);
         newArray[index] = !newArray[index];
-        this.setState({ checkedItems: newArray });
-        this.selectionChanged();
+
+        /* We do this since setstate does not immediately mutate the state */
+        this.setState({ checkedItems: newArray },
+            () => this.selectionChanged(),
+        );
     }
 
     onAllCheck() {
@@ -221,6 +224,7 @@ FilteredTable.defaultProps = {
     currentPage: 1,
     filterList: [],
     searchTerm: '',
+    onSelectionChange: () => undefined,
     selectable: false,
 };
 
