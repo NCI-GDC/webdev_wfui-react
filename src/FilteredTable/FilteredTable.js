@@ -50,8 +50,9 @@ class FilteredTable extends React.Component {
             newArray.fill(true);
         }
 
-        this.setState({ checkedItems: newArray });
-        this.selectionChanged();
+        this.setState({ checkedItems: newArray },
+            () => this.selectionChanged(),
+        );
     }
 
     toggleSort(event, idx) {

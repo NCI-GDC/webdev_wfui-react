@@ -1,0 +1,100 @@
+[
+   {
+      "cgp_info":{
+         "cgp_public_nid":"1002113",
+         "title":"Bone Cancer - Ewing sarcoma",
+         "nickname":null,
+         "primary_country":"France",
+         "country_flag":[
+            "fr"
+         ],
+         "partner_country":"N\/A",
+         "organ_system":"Bone",
+         "organ_short":"bon",
+         "organ_long":"bone",
+         "tumor_type":"Bone Cancer",
+         "tumor_subtype":"Ewing sarcoma",
+         "project_nickname":null,
+         "public_page_url":"<a href=\"http:\/\/icgc.local.icgc.org\/icgc\/cgp\/60\/355\/1002113\">http:\/\/icgc.local.icgc.org\/icgc\/cgp\/60\/355\/1002113<\/a>",
+         "created":"16 Dec 2014",
+         "last_modified":"16 Dec 2014"
+      },
+      "dlp_info":{
+         "1014259":{
+            "info":{
+               "nid":"1014259",
+               "title":"France - Bone Cancer Ewing sarcoma BOCA-FR",
+               "project_code":"BOCA-FR",
+               "data_donors":100
+            },
+            "publication":[
+
+            ],
+            "people":[
+
+            ]
+         }
+      }
+   },
+   {
+      "cgp_info":{
+         "cgp_public_nid":"1006059",
+         "title":"Soft Tissue Cancer - Leiomyosarcoma",
+         "nickname":null,
+         "primary_country":"France",
+         "country_flag":[
+            "fr"
+         ],
+         "partner_country":"N\/A",
+         "organ_system":"Soft Tissue",
+         "organ_short":"sof",
+         "organ_long":"soft-tissue",
+         "tumor_type":"Soft Tissue Cancer",
+         "tumor_subtype":"Leiomyosarcoma",
+         "project_nickname":null,
+         "public_page_url":"<a href=\"http:\/\/icgc.local.icgc.org\/icgc\/cgp\/93\/355\/1006059\">http:\/\/icgc.local.icgc.org\/icgc\/cgp\/93\/355\/1006059<\/a>",
+         "created":"12 Mar 2014",
+         "last_modified":"12 Mar 2014"
+      },
+      "dlp_info":[
+
+      ]
+   },
+   {
+      "cgp_info":{
+         "cgp_public_nid":"1000245",
+         "title":"Breast Cancer - Asian phenotype",
+         "nickname":null,
+         "primary_country":"South Korea",
+         "country_flag":[
+            "kr"
+         ],
+         "partner_country":"N\/A",
+         "organ_system":"Breast",
+         "organ_short":"bre",
+         "organ_long":"breast",
+         "tumor_type":"Breast Cancer",
+         "tumor_subtype":"Asian phenotype",
+         "project_nickname":null,
+         "public_page_url":"<a href=\"http:\/\/icgc.local.icgc.org\/icgc\/cgp\/61\/414\/1000245\">http:\/\/icgc.local.icgc.org\/icgc\/cgp\/61\/414\/1000245<\/a>",
+         "created":"30 Mar 2012",
+         "last_modified":"30 Mar 2012"
+      },
+      "dlp_info":{
+         "1007599":{
+            "info":{
+               "nid":"1007599",
+               "title":"South Korea - Breast cancer BRCA-KR",
+               "project_code":"BRCA-KR",
+               "data_donors":33
+            },
+            "publication":[
+
+            ],
+            "people":[
+
+            ]
+         }
+      }
+   }
+]

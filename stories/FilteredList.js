@@ -84,14 +84,14 @@ storiesOf('FilteredList', module)
         };
 
         /* Each element from the array is injected into this for display */
-        const ItemDisplay = ({ data }) => (
+        const ItemDisplay = (props) => (
             <div style={style}>
                 <h1>
-                    { data.name }
+                    { props.name }
                 </h1>
                 <ul >
-                    <li>Species: { data.species }</li>
-                    <li>Colour: { data.colour }</li>
+                    <li>Species: { props.species }</li>
+                    <li>Colour: { props.colour }</li>
                 </ul>
             </div>
         );
@@ -123,8 +123,8 @@ storiesOf('FilteredList', module)
         ];
 
         /* Each element from the array is injected into this for display */
-        const ItemDisplay = ({ data }) =>
-            <li> { data.name } </li>;
+        const ItemDisplay = (props) =>
+            <li> { props.name } </li>;
 
         return (<FilteredList
             itemDisplay={<ItemDisplay />}
@@ -139,8 +139,8 @@ storiesOf('FilteredList', module)
     () => {
         const collaboratoryPubmedAPI = '/list_pub_pre.json';
 
-        const ItemDisplay = ({ data }) => {
-            const { type, title, body, date, pmid, link, topic, author, contributor } = data;
+        const ItemDisplay = (props) => {
+            const { type, title, body, date, pmid, link, topic, author, contributor } = props;
             const capitalizedType = type.charAt(0).toUpperCase() + type.slice(1);
             const url = link || (pmid ? `https://www.ncbi.nlm.nih.gov/pubmed/${pmid}` : null);
 

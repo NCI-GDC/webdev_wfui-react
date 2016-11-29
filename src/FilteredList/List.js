@@ -21,7 +21,12 @@ class List extends React.Component {
 
       /* New article object with data injected into it. */
       const itemDisplays = activeData.map((item, idx) => (
-         React.cloneElement(itemDisplay, { data: item, key: idx, idx })
+         React.cloneElement(
+             itemDisplay,
+             Object.assign({},
+             item,
+             { key: idx, idx }),
+          )
       ));
 
       /* Populates the container element passed to this with the items */
