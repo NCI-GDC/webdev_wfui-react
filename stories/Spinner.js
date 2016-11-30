@@ -6,7 +6,7 @@ storiesOf('Spinner', module)
   .addWithInfo(
     'Type 1',
     () => (
-        <Spinner type={1} />
+        <Spinner type={1} fontSize="20" />
     ),
     { inline: true }
 )
