@@ -58,7 +58,7 @@ class FilteredList extends React.Component {
    }
 
    render() {
-      const { itemDisplay, paginatorDisplay, data, pageSize, sortFunction, container, onDisplay } = this.props;
+      const { itemDisplay, paginatorDisplay, data, pageSize, sortFunction, container, onDisplay, onNumOfListChange } = this.props;
       const { currentPage } = this.state;
       const filteredData = this.applySearch(this.generateFilteredArticles(data));
       if (sortFunction) {
@@ -80,6 +80,7 @@ class FilteredList extends React.Component {
                 container={container}
                 currentPage={currentPage}
                 onDisplay={onDisplay}
+                onNumOfListChange={onNumOfListChange}
             />
             { InjectedPaginatorDisplay }
          </div>
@@ -98,6 +99,7 @@ FilteredList.propTypes = {
     sortFunction: React.PropTypes.func,
     searchTerm: React.PropTypes.string,
     onDisplay: React.PropTypes.func,
+    onNumOfListChange: React.PropTypes.func,
 };
 
 FilteredList.defaultProps = {
@@ -109,6 +111,7 @@ FilteredList.defaultProps = {
     searchTerm: '',
     sortFunction: undefined,
     onDisplay: () => undefined,
+    onNumOfListChange: () => undefined,
 };
 
 export default FilteredList;

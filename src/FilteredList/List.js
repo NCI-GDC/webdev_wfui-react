@@ -1,41 +1,44 @@
 import React from 'react';
 
 class List extends React.Component {
-   render() {
-      const { itemDisplay, data, pageSize, currentPage, container, onDisplay } = this.props;
+    render() {
+       const { itemDisplay, data, pageSize, currentPage, container, onDisplay, onNumOfListChange } = this.props;
 
-      /* Calculates the list of articles that should be displayed on the current page */
-      const activeData = [];
-      const numArticles = data ? data.length : 0;
+        /* Calculates the list of articles that should be displayed on the current page */
+        const activeData = [];
+        const numArticles = data ? data.length : 0;
 
-      const startingArticle = pageSize * (currentPage - 1);
-      const lastArticle = Math.min(startingArticle + pageSize, numArticles);
+        const startingArticle = pageSize * (currentPage - 1);
+        const lastArticle = Math.min(startingArticle + pageSize, numArticles);
 
-      for (let i = startingArticle; i < lastArticle; i += 1) {
-         activeData.push(data[i]);
-      }
+        for (let i = startingArticle; i < lastArticle; i += 1) {
+            activeData.push(data[i]);
+        }
 
-      /* onDisplay is provided for cases that the client needs to see
-       * the range of articles being displayed */
-      onDisplay({ starting: startingArticle, last: lastArticle });
+        /* onDisplay is provided for cases that the client needs to see
+        * the range of articles being displayed */
+        onDisplay({ starting: startingArticle, last: lastArticle });
 
-      /* New article object with data injected into it. */
-      const itemDisplays = activeData.map((item, idx) => (
-         React.cloneElement(
-             itemDisplay,
-             Object.assign({},
-             item,
-             { key: idx, idx }),
-          )
-      ));
+        /* New article object with data injected into it. */
+        const itemDisplays = activeData.map((item, idx) => (
+            React.cloneElement(
+                itemDisplay,
+                Object.assign({},
+                item,
+                { key: idx, idx }),
+            )
+        ));
 
-      /* Populates the container element passed to this with the items */
-      const populatedContainer = React.cloneElement(
-          container,
-          { children: itemDisplays },
-      );
-      return populatedContainer;
-   }
+        /* Return number of item  */
+        onNumOfListChange(itemDisplays.length);
+
+        /* Populates the container element passed to this with the items */
+        const populatedContainer = React.cloneElement(
+            container,
+            { children: itemDisplays },
+        );
+        return populatedContainer;
+    }
 }
 
 List.propTypes = {
@@ -45,6 +48,7 @@ List.propTypes = {
     currentPage: React.PropTypes.number,
     container: React.PropTypes.element,
     onDisplay: React.PropTypes.func,
+    onNumOfListChange: React.PropTypes.func,
 };
 
 export default List;
