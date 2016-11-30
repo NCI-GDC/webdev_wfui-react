@@ -16,6 +16,14 @@ const calcActiveData = ({ data, pageSize, currentPage }) => {
 };
 
 class List extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            numOfItems: 0,
+            startingArticle: 0,
+            lastArticle: 0,
+        };
+    }
     render() {
         const { itemDisplay, data, pageSize, currentPage, container } = this.props;
 
@@ -39,12 +47,23 @@ class List extends React.Component {
     }
     componentDidUpdate() {
         const { onDisplay, onNumOfListChange } = this.props;
-        const { activeData, startingArticle, lastArticle } = calcActiveData(this.props);
-        /* Return number of articles. */
-        onNumOfListChange(activeData.length);
-        /* onDisplay is provided for cases that the client needs to see
-        * the range of articles being displayed */
-        onDisplay({ starting: startingArticle, last: lastArticle });
+        const { activeData, startingArticle, lastArticle} = calcActiveData(this.props);
+
+        /* Only setState and invoke callbacks when the state is changed to avoid infinite loop */
+        if ( activeData.length !== this.state.numOfItems ||
+            startingArticle !== this.state.startingArticle ||
+            lastArticle !== this.state.lastArticle) {
+            this.setState({
+                numOfItems: activeData.length,
+                startingArticle,
+                lastArticle,
+            });
+            /* Return number of articles. */
+            onNumOfListChange(activeData.length);
+            /* onDisplay is provided for cases that the client needs to see
+            * the range of articles being displayed */
+            onDisplay({ starting: startingArticle, last: lastArticle });
+        }
     }
 }
 

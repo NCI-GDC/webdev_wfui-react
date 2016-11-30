@@ -96,14 +96,31 @@ storiesOf('FilteredList', module)
             </div>
         );
 
+        class FilteredListContainer extends React.Component {
+            constructor() {
+                super();
+                this.state = { numOfItems : 0, starting: 0, last: 0 }
+            }
+            render() {
+                const { numOfItems, starting, last } = this.state;
+                return (
+                    <div>
+                        <FilteredList
+                            itemDisplay={<ItemDisplay />}
+                            paginatorDisplay={<PaginatorDisplay />}
+                            data={animalData}
+                            pageSize={2}
+                            filterList={filterList}
+                            onNumOfListChange={(n)=>{ this.setState({numOfItems: n}) }}
+                            onDisplay={({starting,last})=>{ this.setState({starting, last}) }}
+                        />
+                        <div>Showing: {numOfItems} ({starting}-{last})</div>
+                    </div>
+                );
+            }
+        }
 
-        return (<FilteredList
-            itemDisplay={<ItemDisplay />}
-            paginatorDisplay={<PaginatorDisplay />}
-            data={animalData}
-            pageSize={2}
-            filterList={filterList}
-        />);
+        return (<FilteredListContainer />);
     },
     { source: false, inline: true, static: true },
 )
