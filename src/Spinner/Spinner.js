@@ -8,10 +8,11 @@ const css = [
 
 class Spinner extends React.Component {
     render() {
-        const { type, color, fontSize } = this.props;
+        const { type, color, fontSize, margin} = this.props;
         const style = {
             color,
-            fontSize: fontSize
+            fontSize: fontSize,
+            margin
         };
 
         return (
