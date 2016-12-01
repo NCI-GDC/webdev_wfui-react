@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
-import TwitterFeed from '../src/TwitterFeed/TwitterFeed';
+import TwitterFeed from '../../src/TwitterFeed/TwitterFeed';
 
 storiesOf('TwitterFeed', module)
   .addWithInfo(
@@ -8,17 +8,17 @@ storiesOf('TwitterFeed', module)
     () => (
         <TwitterFeed twitterAccount="GA4GH" />
     ),
-    { inline: true },
+    { source: true, static: true },
 ).addWithInfo(
     'Limited to 2 Tweets',
     () => (
         <TwitterFeed limit="2" twitterAccount="GA4GH" />
     ),
-    { inline: true },
+    { source: true, static: true },
 ).addWithInfo(
     'French Language',
     () => (
         <TwitterFeed language="fr" twitterAccount="GA4GH" />
     ),
-    { inline: true },
+    { source: true, static: true },
 );

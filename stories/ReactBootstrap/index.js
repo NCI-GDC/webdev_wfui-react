@@ -24,7 +24,9 @@ import {
     Badge,
     Alert,
 } from 'react-bootstrap';
+
 import 'bootstrap/dist/css/bootstrap.css';
+import '../../styles/custom.css';
 
 storiesOf('ReactBootstrap', module)
 .addWithInfo(
@@ -39,14 +41,14 @@ storiesOf('ReactBootstrap', module)
             <Label bsStyle="danger">Danger</Label>
         </div>
     ),
-    { inline: true, source: true, static: true }
+    { source: true, static: true }
 )
 .addWithInfo(
     'Badges',
     () => (
         <p>Badges <Badge>42</Badge></p>
     ),
-    { inline: true, source: true, static: true }
+    { source: true, static: true }
 )
 .addWithInfo(
     'Buttons',
@@ -74,7 +76,7 @@ storiesOf('ReactBootstrap', module)
             </ButtonGroup>
         </div>
     ),
-    { inline: true, source: true, static: true }
+    { source: true, static: true }
 )
 .addWithInfo(
     'Dropdown',
@@ -100,7 +102,7 @@ storiesOf('ReactBootstrap', module)
             </ButtonToolbar>
         )
     },
-    { inline: true, source: true, static: true }
+    { source: true, static: true }
 )
 .addWithInfo(
     'Modal',
@@ -161,7 +163,7 @@ storiesOf('ReactBootstrap', module)
 
         return <Example />
     },
-    { inline: true }
+    { source: true, static: true },
 )
 .addWithInfo(
     'Tabs',
@@ -210,7 +212,7 @@ storiesOf('ReactBootstrap', module)
             </Row>
         </Tab.Container>
     ),
-    { inline: true }
+    { source: true, static: true },
 )
 .addWithInfo(
     'Nav',
@@ -234,7 +236,7 @@ storiesOf('ReactBootstrap', module)
         </Nav>
     </Navbar>
     ),
-    { inline: true }
+    { source: true, static: true },
 )
 .addWithInfo(
     'Tooltip',
@@ -244,9 +246,6 @@ storiesOf('ReactBootstrap', module)
         );
         return (
             <ButtonToolbar>
-                <OverlayTrigger placement="top" overlay={tooltip}>
-                <Button bsStyle="default">Holy guacamole!</Button>
-                </OverlayTrigger>
 
                 <OverlayTrigger placement="bottom" overlay={tooltip}>
                 <Button bsStyle="default">Holy guacamole!</Button>
@@ -261,9 +260,9 @@ storiesOf('ReactBootstrap', module)
                 </OverlayTrigger>
 
             </ButtonToolbar>
-        )
+        );
     },
-    { inline: true }
+    { source: true, static: true },
 )
 .addWithInfo(
     'Popover',
@@ -278,9 +277,9 @@ storiesOf('ReactBootstrap', module)
             <OverlayTrigger trigger="click" placement="bottom" overlay={popoverBottom}>
                 <Button>Holy guacamole!</Button>
             </OverlayTrigger>
-        )
+        );
     },
-    { inline: true }
+    { source: true, static: true },
 )
 .addWithInfo(
     'Pagination',
@@ -312,7 +311,7 @@ storiesOf('ReactBootstrap', module)
                     activePage={this.state.activePage}
                     onSelect={this.handleSelect} />
                 );
-            }
+            },
         });
         return (
             <div>
@@ -322,9 +321,9 @@ storiesOf('ReactBootstrap', module)
                     <Pager.Item disabled next href="#">Next &rarr;</Pager.Item>
                 </Pager>
             </div>   
-        )
+        );
     },
-    { inline: true }
+    { source: true, static: true },
 )
 .addWithInfo(
     'Alert',
@@ -344,5 +343,5 @@ storiesOf('ReactBootstrap', module)
             </Alert>
         </div>
     ),
-    { inline: true, source: true, static: true }
-)
+    { source: true, static: true },
+);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
-import TabbedList from '../src/TabbedList/TabbedList';
-import Tab from '../src/TabbedList/Tab';
+import TabbedList from '../../src/TabbedList/TabbedList';
+import Tab from '../../src/TabbedList/Tab';
 
 storiesOf('TabbedList', module)
   .addWithInfo(
