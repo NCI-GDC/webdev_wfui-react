@@ -66,10 +66,6 @@ class FilteredList extends React.Component {
       }
 
       const paginatorObject = this.generatePaginatorObject();
-      const InjectedPaginatorDisplay = React.cloneElement(
-          paginatorDisplay,
-          paginatorObject,
-      );
 
       return (
          <div>
@@ -81,7 +77,7 @@ class FilteredList extends React.Component {
                 currentPage={currentPage}
                 onDisplay={onDisplay}
             />
-            { InjectedPaginatorDisplay }
+            { paginatorDisplay ? React.cloneElement(paginatorDisplay, paginatorObject) : null }
          </div>
       );
    }
@@ -102,7 +98,6 @@ FilteredList.propTypes = {
 
 FilteredList.defaultProps = {
     pageSize: 1000,
-    paginatorDisplay: <span />,
     currentPage: 1,
     filterList: [],
     container: <div />,
