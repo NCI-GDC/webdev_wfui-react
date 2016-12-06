@@ -95,10 +95,14 @@ class FilteredTable extends React.Component {
    }
 
    applySearch(articles) {
-      const { searchTerm } = this.props;
+      const { searchTerm, onNumOfListChange } = this.props;
       if (searchTerm) {
         return Search.search(articles, searchTerm);
       }
+
+      /* Return number of articles. */
+      onNumOfListChange(articles.length);
+
       return articles;
    }
 
@@ -171,7 +175,7 @@ class FilteredTable extends React.Component {
             }
         </th>,
       );
-
+      
       return (
          <table className={className}>
             <thead>
@@ -217,6 +221,7 @@ FilteredTable.propTypes = {
     selectable: React.PropTypes.bool,
     onSelectionChange: React.PropTypes.func,
     itemFormat: React.PropTypes.arrayOf(React.PropTypes.object),
+    onNumOfListChange: React.PropTypes.func,
 };
 
 FilteredTable.defaultProps = {
@@ -227,6 +232,7 @@ FilteredTable.defaultProps = {
     searchTerm: '',
     onSelectionChange: () => undefined,
     selectable: false,
+    onNumOfListChange: () => undefined,
 };
 
 export default FilteredTable;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
-import { Test, Test2 } from '../src/Test/Test';
+import { Test, Test2 } from '../../src/Test/Test';
 
 storiesOf('Testing', module)
   .addWithInfo(
