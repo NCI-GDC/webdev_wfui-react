@@ -18,11 +18,33 @@ import {
     Pager,
     Label,
     Badge,
+    Grid,
     Alert,
 } from 'react-bootstrap';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import '../../styles/custom.css';
+const editorScope = {
+    React,
+    ButtonToolbar,
+    Button,
+    ProgressBar,
+    MenuItem,
+    Tooltip,
+    OverlayTrigger,
+    Nav,
+    Navbar,
+    NavItem,
+    NavDropdown,
+    Tab,
+    Row,
+    Col,
+    Pagination,
+    Pager,
+    Label,
+    Badge,
+    Alert,
+    Grid,
+    Image
+}
 
 import StoryAvator from './StoryAvator';
 import StoryDialog from './StoryDialog';
@@ -33,20 +55,15 @@ import StoryForms from './StoryForms';
 import StoryIcons from './StoryIcons';
 import StoryPopover from './StoryPopover';
 import StoryPane from './StoryPane';
-import StoryTable from './StoryTable';
+import StoryTable from './StoryTable'; 
+
+import StoryBadges from 'raw!./StoryBadges.example';
 
 storiesOf('ReactBootstrap', module)
-.addWithInfo(
-    'Avator (Image)',
-    () => StoryAvator,
-    { source: true, static: true }
-)
-.addWithInfo(
+.addWithInfo2(
     'Badges',
-    () => (
-        <p>Badges <Badge>42</Badge></p>
-    ),
-    { source: true, static: true }
+    StoryBadges,
+    { source: true, static: true, editor: { show: true, editorScope }}
 )
 .addWithInfo(
     'Buttons',

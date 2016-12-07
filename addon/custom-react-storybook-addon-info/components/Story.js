@@ -6,6 +6,8 @@ import PropTable from './PropTable';
 import Node from './Node';
 import { baseFonts } from './theme';
 import { Pre } from './markdown';
+import Playground from 'component-playground';
+import jsxToString from 'jsx-to-string';
 
 const stylesheet = {
   link: {
@@ -141,7 +143,7 @@ export default class Story extends React.Component {
     return (
       <div>
         <div style={stylesheet.children}>
-          { this.props.children }
+          { this.props.showEditor && this.props.editorScope ?  <Playground codeText={jsxToString(this.props.children)} scope={this.props.editorScope} /> : this.props.children }
         </div>
         <a style={linkStyle} onClick={openOverlay}>?</a>
         <div style={infoStyle}>
@@ -203,18 +205,17 @@ export default class Story extends React.Component {
       <div>
         <h1 style={stylesheet.source.h1}>Story Source</h1>
         <Pre>
-        {React.Children.map(this.props.children, (root, idx) => (
-          <Node key={idx} depth={0} node={root} />
-        ))}
+        {React.Children.map(this.props.children, (root, idx) => {
+          return <Node key={idx} depth={0} node={root} />
+        })}
         </Pre>
+        
       </div>
     );
   }
 
   _getStatic() {
     
-    console.log(this.props.children);
-
     if (!this.props.showStatic) {
       return null;
     }

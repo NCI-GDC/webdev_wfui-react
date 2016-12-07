@@ -1,6 +1,8 @@
 import React from 'react';
 import _Story from './components/Story';
 import { H1, H2, H3, H4, H5, H6, Code, P, UL, A, LI } from './components/markdown';
+import Playground from 'component-playground';
+
 export const Story = _Story;
 
 const defaultOptions = {
@@ -25,9 +27,62 @@ const defaultMtrcConf = {
 };
 
 export default {
-  addWithInfo(storyName, info, storyFn, _options) {
+  addWithInfo(storyName, info, storyExample, _options) {
+    if (typeof storyExample !== 'function') {
+      if (typeof info === 'function') {
+        _options = storyExample;
+        storyExample = info;
+        info = '';
+      } else {
+        throw new Error('No story defining function has been specified');
+      }
+    }
 
-    if (typeof storyFn !== 'function') {
+    const options = {
+      ...defaultOptions,
+      ..._options
+    };
+
+    // props.propTables can only be either an array of components or null
+    // propTables option is allowed to be set to 'false' (a boolean)
+    // if the option is false, replace it with null to avoid react warnings
+    if (!options.propTables) {
+      options.propTables = null;
+    }
+
+    const mtrcConf = { ...defaultMtrcConf };
+    if (_options && _options.mtrcConf) {
+      Object.assign(mtrcConf, _options.mtrcConf);
+    }
+
+    if(options.editor && options.editor.show && !options.editor.editorScope){
+      console.error('Story [' + storyName + ']: Editor feature is enabled but "editorScope is missing.');
+    }
+
+    this.add(storyName, (context) => {
+      const props = {
+        info,
+        context,
+        showInline: Boolean(options.inline),
+        showHeader: Boolean(options.header),
+        showSource: Boolean(options.source),
+        showStatic: Boolean(options.static),
+        showEditor: Boolean(options.editor && options.editor.show),
+        editorScope: options.editor && options.editor.editorScope,
+        propTables: options.propTables,
+        mtrcConf
+      };
+
+      return (
+        <Story {...props}>
+          {storyFn(context)}
+        </Story>
+      );
+    });
+  },
+  addWithInfo2(storyName, info, storyFn, _options) {
+    console.log(storyName, info, storyFn, _options)
+    if (!storyFn) {
       if (typeof info === 'function') {
         _options = storyFn;
         storyFn = info;
@@ -54,6 +109,10 @@ export default {
       Object.assign(mtrcConf, _options.mtrcConf);
     }
 
+    if(options.editor && options.editor.show && !options.editor.editorScope){
+      console.error('Story [' + storyName + ']: Editor feature is enabled but "editorScope is missing.');
+    }
+
     this.add(storyName, (context) => {
       const props = {
         info,
@@ -62,6 +121,8 @@ export default {
         showHeader: Boolean(options.header),
         showSource: Boolean(options.source),
         showStatic: Boolean(options.static),
+        showEditor: Boolean(options.editor && options.editor.show),
+        editorScope: options.editor && options.editor.editorScope,
         propTables: options.propTables,
         mtrcConf
       };
