@@ -19,10 +19,51 @@ class FilteredTable extends React.Component {
        };
    }
 
-   componentWillReceiveProps(props) {
-       this.setState({
-           checkedItems: (new Array(props.data.length)).fill(false),
-       });
+   componentWillReceiveProps(nextProps) {
+       /* We need to sync the selected items when some are added
+        * or deleted from the list.  Note, this runs in worst case
+        * O(A + B + D*min(A,B)) where D is the size of the difference.*/
+
+       /* Also note:  JSON.stringify is the cheapest arbitrary comparison function
+        * since it runs on native code */
+        const { checkedItems } = this.state;
+        const thisData = this.props.data;
+        const nextData = nextProps.data;
+        if (thisData.length !== nextData.length) {
+            let u = 0; /* Pointer to current object on old data */
+            let z = 0; /* ... on the new checklist/new data. */
+            const newCheckedItems = new Array(nextData.length).fill(false);
+            while (u < thisData.length && z < nextData.length) {
+                if (JSON.stringify(thisData[u]) === JSON.stringify.stringify(nextProps[z])) {
+                    newCheckedItems[z] = checkedItems[u];
+                    u += 1;
+                    z += 1;
+                } else {
+                    /* Check if the item was deleted */
+                    let p = z + 1;
+                    while (p < nextData.length) {
+                        if (JSON.stringify(thisData[u]) === JSON.stringify.stringify(nextData[z])) {
+                            /* Item was found later in the list,
+                             * now add it and all elements in between. */
+                            z = p + 1; /* Set all items inbetween as checked */
+                            newCheckedItems[z + 1] = checkedItems[u];
+                            u += 1;
+                            break;
+                        }
+                        p += 1;
+                    }
+                    if (p === nextData.length) {
+                        /* Then item was deleted */
+                        u += 1;
+                    }
+                }
+                /* When we hit the end the rest of the items are unchecked anyways
+                 * so we don't actually need to do anything */
+            }
+            this.setState({
+                checkedItems: newCheckedItems,
+            });
+       }
    }
 
    /* This is called when a individual item's checkbox is clicked */
@@ -175,7 +216,7 @@ class FilteredTable extends React.Component {
             }
         </th>,
       );
-      
+
       return (
          <table className={className}>
             <thead>

@@ -2,7 +2,6 @@ import React from 'react';
 
 /* Calculates the list of articles that should be displayed on the current page */
 const calcActiveData = ({ data, pageSize, currentPage }) => {
-
     const activeData = [];
     const numArticles = data ? data.length : 0;
 
