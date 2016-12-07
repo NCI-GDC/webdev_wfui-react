@@ -34,7 +34,7 @@ class FilteredTable extends React.Component {
             let z = 0; /* ... on the new checklist/new data. */
             const newCheckedItems = new Array(nextData.length).fill(false);
             while (u < thisData.length && z < nextData.length) {
-                if (JSON.stringify(thisData[u]) === JSON.stringify.stringify(nextData[z])) {
+                if (JSON.stringify(thisData[u]) === JSON.stringify(nextData[z])) {
                     newCheckedItems[z] = checkedItems[u];
                     u += 1;
                     z += 1;
@@ -42,7 +42,7 @@ class FilteredTable extends React.Component {
                     /* Check if the item was deleted */
                     let p = z + 1;
                     while (p < nextData.length) {
-                        if (JSON.stringify(thisData[u]) === JSON.stringify.stringify(nextData[z])) {
+                        if (JSON.stringify(thisData[u]) === JSON.stringify(nextData[z])) {
                             /* Item was found later in the list,
                              * now add it and all elements in between. */
                             z = p + 1; /* Set all items inbetween as checked */
