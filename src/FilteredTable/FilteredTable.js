@@ -34,7 +34,7 @@ class FilteredTable extends React.Component {
             let z = 0; /* ... on the new checklist/new data. */
             const newCheckedItems = new Array(nextData.length).fill(false);
             while (u < thisData.length && z < nextData.length) {
-                if (JSON.stringify(thisData[u]) === JSON.stringify.stringify(nextProps[z])) {
+                if (JSON.stringify(thisData[u]) === JSON.stringify.stringify(nextData[z])) {
                     newCheckedItems[z] = checkedItems[u];
                     u += 1;
                     z += 1;
