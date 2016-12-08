@@ -124,6 +124,7 @@ class FilteredListContainer extends React.Component {
                     filterList={this.getFilters()}
                     data={this.state.data}
                     itemFormat={itemFormat}
+                    onResultsNumUpdate={count => console.log(count)}
                     selectable
                 />
             </div>
