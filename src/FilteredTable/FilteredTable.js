@@ -65,6 +65,8 @@ class FilteredTable extends React.Component {
                 checkedItems: newCheckedItems,
             });
        }
+
+       this.onFilter(this.generateFilteredArticles(this.applySearch(nextProps.data)));
    }
 
    /* This is called when a individual item's checkbox is clicked */
@@ -146,8 +148,6 @@ class FilteredTable extends React.Component {
         });
       }
 
-      this.onFilter(filteredArticles);
-
       return filteredArticles;
    }
 
@@ -155,7 +155,6 @@ class FilteredTable extends React.Component {
       const { searchTerm } = this.props;
       if (searchTerm) {
         const filteredArticles = Search.search(articles, searchTerm);
-        this.onFilter(filteredArticles);
         return filteredArticles;
       }
 
