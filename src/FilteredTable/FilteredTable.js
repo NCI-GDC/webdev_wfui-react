@@ -10,7 +10,7 @@ class FilteredTable extends React.Component {
        super(props);
        this.onCheck = this.onCheck.bind(this);
        this.onAllCheck = this.onAllCheck.bind(this);
-
+       this.lastResultsCount = -1;
        this.state = {
            currentPage: props.currentPage,
            checkedItems: (new Array(props.data.length)).fill(false),
@@ -22,10 +22,11 @@ class FilteredTable extends React.Component {
    componentWillReceiveProps(nextProps) {
        /* We need to sync the selected items when some are added
         * or deleted from the list.  Note, this runs in worst case
-        * O(A + B + D*min(A,B)) where D is the size of the difference.*/
+        * O(A + B + D*max(A,B)) where D is the size of the difference
+        * and A and B are the lengths of each list. */
 
        /* Also note:  JSON.stringify is the cheapest arbitrary comparison function
-        * since it runs on native code */
+        * since it runs on native code. */
         const { checkedItems } = this.state;
         const thisData = this.props.data;
         const nextData = nextProps.data;
@@ -65,6 +66,11 @@ class FilteredTable extends React.Component {
             });
        }
    }
+
+    componentDidUpdate() {
+        const { data } = this.props;
+        this.onFilter(this.generateFilteredArticles(this.applySearch(data)));
+    }
 
    /* This is called when a individual item's checkbox is clicked */
     onCheck(index) {
@@ -112,6 +118,20 @@ class FilteredTable extends React.Component {
        }
    }
 
+   /* Passes the list of filtered articles to the callbacks in the props. */
+   onFilter(filteredArticles) {
+      const { onResultsNumUpdate } = this.props;
+
+       /* Now sort the articles*/
+      const resultsCount = filteredArticles.length;
+      if (this.lastResultsCount !== resultsCount) {
+          this.lastResultsCount = resultsCount;
+          if (onResultsNumUpdate) {
+              onResultsNumUpdate(resultsCount);
+          }
+      }
+   }
+
    generateFilteredArticles(articles) {
       const { filterList, itemFormat } = this.props;
       const { sortedIdx, sortedOrientation } = this.state;
@@ -121,7 +141,6 @@ class FilteredTable extends React.Component {
          filteredArticles = filteredArticles.filter(filter)
       ));
 
-      /* Now sort the articles*/
       if (sortedIdx !== -1) {
         filteredArticles = filteredArticles.sort((a, b) => {
             const getSortingData = itemFormat[sortedIdx].sortingKey;
@@ -136,13 +155,11 @@ class FilteredTable extends React.Component {
    }
 
    applySearch(articles) {
-      const { searchTerm, onNumOfListChange } = this.props;
+      const { searchTerm } = this.props;
       if (searchTerm) {
-        return Search.search(articles, searchTerm);
+        const filteredArticles = Search.search(articles, searchTerm);
+        return filteredArticles;
       }
-
-      /* Return number of articles. */
-      onNumOfListChange(articles.length);
 
       return articles;
    }
@@ -200,7 +217,6 @@ class FilteredTable extends React.Component {
 
       const { checkedItems, currentPage } = this.state;
       const filteredData = this.applySearch(this.generateFilteredArticles(data));
-
       const paginatorObject = this.generatePaginatorObject();
       const InjectedPaginatorDisplay = React.cloneElement(
           paginatorDisplay,
@@ -262,7 +278,7 @@ FilteredTable.propTypes = {
     selectable: React.PropTypes.bool,
     onSelectionChange: React.PropTypes.func,
     itemFormat: React.PropTypes.arrayOf(React.PropTypes.object),
-    onNumOfListChange: React.PropTypes.func,
+    onResultsNumUpdate: React.PropTypes.func,
 };
 
 FilteredTable.defaultProps = {
@@ -271,9 +287,7 @@ FilteredTable.defaultProps = {
     currentPage: 1,
     filterList: [],
     searchTerm: '',
-    onSelectionChange: () => undefined,
     selectable: false,
-    onNumOfListChange: () => undefined,
 };
 
 export default FilteredTable;
