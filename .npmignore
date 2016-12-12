@@ -9,3 +9,5 @@ mocha.config.js
 start.sh
 scripts
 stories
+static
+addons

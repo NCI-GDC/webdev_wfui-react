@@ -65,9 +65,12 @@ class FilteredTable extends React.Component {
                 checkedItems: newCheckedItems,
             });
        }
-
-       this.onFilter(this.generateFilteredArticles(this.applySearch(nextProps.data)));
    }
+
+    componentDidUpdate() {
+        const { data } = this.props;
+        this.onFilter(this.generateFilteredArticles(this.applySearch(data)));
+    }
 
    /* This is called when a individual item's checkbox is clicked */
     onCheck(index) {
