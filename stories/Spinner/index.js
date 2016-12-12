@@ -1,19 +1,17 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import Spinner from '../../src/Spinner/Spinner';
+import StoryType1 from 'raw!./StoryType1.src';
+import StoryType2 from 'raw!./StoryType2.src';
 
 storiesOf('Spinner', module)
-  .addWithInfo(
+.addWithInfo(
     'Type 1',
-        () => (
-            <Spinner type={1} fontSize="20" margin="100px auto" />
-        ),
-        { source: true, static: true }
-    )
-    .addWithInfo(
+    () => StoryType1,
+    { scope: { Spinner } }
+)
+.addWithInfo(
     'Type 2',
-    () => (
-        <Spinner type={2} fontSize="20" margin="20px" />
-    ),
-    { source: true, static: true }
+    () => StoryType2,
+    { scope: { Spinner } }
 );

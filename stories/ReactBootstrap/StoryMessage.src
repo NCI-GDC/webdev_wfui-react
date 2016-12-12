@@ -1,0 +1,17 @@
+const example = (
+    <div>
+        <Alert bsStyle="warning">
+            <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+        </Alert>
+        <Alert bsStyle="success">
+            <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+        </Alert>
+        <Alert bsStyle="danger">
+            <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+        </Alert>
+        <Alert bsStyle="info">
+            <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+        </Alert>
+    </div>
+)
+return example

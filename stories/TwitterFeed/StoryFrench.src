@@ -1,0 +1,5 @@
+const example = (
+    <TwitterFeed language="fr" twitterAccount="GA4GH" />
+);
+
+return example;

@@ -1,0 +1,7 @@
+const example = (
+    <div>
+        <ProgressBar now={60} label={`60%`} />
+        <ProgressBar active now={45} />
+    </div>
+)
+return example;
