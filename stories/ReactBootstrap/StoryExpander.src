@@ -1,11 +1,4 @@
-import React from 'react';
-import {
-    Collapse,
-    Button,
-    Well,
-} from 'react-bootstrap';
-
-class ExpanderExample extends React.Component {
+class Example extends React.Component {
   constructor(...args) {
     super(...args);
 
@@ -31,4 +24,4 @@ class ExpanderExample extends React.Component {
   }
 }
 
-export default <ExpanderExample />
+return <Example />

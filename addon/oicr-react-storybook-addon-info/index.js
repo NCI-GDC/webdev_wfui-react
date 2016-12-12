@@ -8,6 +8,8 @@ const defaultOptions = {
   inline: false,
   header: true,
   source: true,
+  edirot: true,
+  scope: {},
   propTables: [],
 };
 
@@ -65,8 +67,8 @@ export default {
         showHeader: Boolean(options.header),
         showSource: Boolean(options.source),
         showStatic: Boolean(options.static),
-        showEditor: Boolean(options.editor && options.editor.show),
-        editorScope: options.editor && Object.assign({}, { React }, options.editor.editorScope),
+        showEditor: Boolean(options.editor),
+        editorScope: Object.assign({}, { React }, options.scope),
         propTables: options.propTables,
         mtrcConf
       };

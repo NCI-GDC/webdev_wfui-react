@@ -1,12 +1,4 @@
-import React from 'react';
-import {
-    ButtonToolbar,
-    DropdownButton,
-    SplitButton,
-    MenuItem,
-} from 'react-bootstrap';
-
-export default (
+const example = (
     <ButtonToolbar>
     <DropdownButton bsStyle="default" title="Dropdown" id={`dropdown-basic-1`}>
         <MenuItem eventKey="1">Action</MenuItem>
@@ -26,3 +18,5 @@ export default (
     </SplitButton>
     </ButtonToolbar>
 );
+
+return example;

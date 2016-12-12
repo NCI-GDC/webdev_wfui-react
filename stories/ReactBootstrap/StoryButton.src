@@ -1,11 +1,4 @@
-import React from 'react';
-import {
-    ButtonToolbar,
-    Button,
-    ButtonGroup,
-} from 'react-bootstrap';
-
-export default (
+const example = (
     <div>
         <ButtonToolbar>
             <Button>Default</Button>
@@ -29,3 +22,4 @@ export default (
         </ButtonGroup>
     </div>
 )
+return example;

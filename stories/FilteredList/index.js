@@ -1,23 +1,23 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import FilteredList from '../../src/FilteredList/FilteredList';
-import StoryBasicExample from './StoryBasicExample';
-import StoryRealUseCase from './StoryRealUseCase';
-import StoryCustomContainer from './StoryCustomContainer';
+import StoryBasicExample from 'raw!./StoryBasicExample.src';
+import StoryRealUseCase from 'raw!./StoryRealUseCase.src';
+import StoryCustomContainer from 'raw!./StoryCustomContainer.src';
 
 storiesOf('FilteredList', module)
   .addWithInfo(
     'Basic Example',
     () => StoryBasicExample,
-    { source: true, static: true },
+    { scope: { FilteredList } },
 )
 .addWithInfo(
     'Real Use Case',
     () => StoryRealUseCase,
-    { source: true, static: true },
+    { scope: { FilteredList } },
 )
 .addWithInfo(
     'Custom Container',
     () => StoryCustomContainer,
-    { source: true, static: true },
+    { scope: { FilteredList } },
 );

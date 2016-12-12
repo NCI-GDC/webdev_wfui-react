@@ -304,7 +304,7 @@ export default class Story extends React.Component {
             <style>{".CodeMirror{height: auto !important;}"}</style>
             <h3>Source</h3>
             <div style={stylesheet.preview.code} >
-              <CodeMirror value={this.state.code} onChange={(code)=>{this.setState({code:code})}} options={{lineNumbers: true, mode: 'javascript'}} />
+              <CodeMirror value={this.state.code} onChange={(code)=>{this.setState({code:code})}} options={{lineNumbers: true, mode: 'jsx'}} />
             </div>
             <h3>Static HTML</h3>
             <div style={stylesheet.preview.code} >

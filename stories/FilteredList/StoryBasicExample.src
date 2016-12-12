@@ -1,7 +1,4 @@
-import React from 'react';
-import FilteredList from '../../src/FilteredList/FilteredList';
-
-/* Each element of this array is displayed as a post */
+// Each element of this array is displayed as a post
 const animalData = [
     {
         name: 'Grover',
@@ -40,7 +37,7 @@ const animalData = [
     },
 ];
 
-/* This filters out all items of species 'cat' */
+// This filters out all items of species 'cat'
 const catFilter = (item) => {
     if (item.species !== 'Cat') {
         return true;
@@ -115,4 +112,4 @@ class FilteredListContainer extends React.Component {
     }
 }
 
-export default <FilteredListContainer />
+return <FilteredListContainer />

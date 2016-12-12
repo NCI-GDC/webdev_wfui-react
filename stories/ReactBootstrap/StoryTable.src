@@ -1,10 +1,4 @@
-import React from 'react';
-import {
-    Table,
-} from 'react-bootstrap';
-
-
-export default (
+const example = (
     <Table striped bordered condensed hover>
         <thead>
             <tr>
@@ -35,3 +29,4 @@ export default (
         </tbody>
     </Table>
 )
+return example;

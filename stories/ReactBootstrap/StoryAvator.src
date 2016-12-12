@@ -1,9 +1,5 @@
-import React from 'react';
-import { Grid, Row, Col, Image } from 'react-bootstrap';
-import FilteredTable from '../../src/FilteredTable/FilteredTable';
-
-export default (
-    <Grid>
+const example = (
+  <Grid>
         <Row>
         <Col xs={4} md={2}>
         <Image src="https://dummyimage.com/100x100/000/fff" rounded />
@@ -15,5 +11,6 @@ export default (
         <Image src="https://dummyimage.com/100x100/000/fff" thumbnail />
         </Col>
         </Row>
-    </Grid>
-)
+  </Grid>
+);
+return example

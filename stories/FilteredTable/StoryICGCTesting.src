@@ -1,6 +1,3 @@
-import React from 'react';
-import FilteredTable from '../../src/FilteredTable/FilteredTable';
-
 const icgcSampleDataAPI = '/sample_icgc.json';
 
 const itemFormat = [
@@ -131,4 +128,4 @@ class FilteredListContainer extends React.Component {
         );
     }
 }
-export default <FilteredListContainer />;
+return <FilteredListContainer />;

@@ -1,9 +1,4 @@
-import React from 'react';
-import {
-    Glyphicon,
-} from 'react-bootstrap';
-
-export default (
+const example = (
     <div>
         <Glyphicon glyph="asterisk" />
         <Glyphicon glyph="envelope" />
@@ -16,3 +11,4 @@ export default (
         <Glyphicon glyph="align-left" />
     </div>
 )
+return example;
