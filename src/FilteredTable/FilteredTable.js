@@ -17,6 +17,7 @@ class FilteredTable extends React.Component {
            sortedIdx: -1,
            sortedOrientation: 'desc',
        };
+       this.onFilter(this.generateFilteredArticles(this.applySearch(props.data)));
    }
 
    componentWillReceiveProps(nextProps) {
@@ -25,7 +26,7 @@ class FilteredTable extends React.Component {
         * O(A + B + D*max(A,B)) where D is the size of the difference
         * and A and B are the lengths of each list. */
 
-       /* Also note:  JSON.stringify is the cheapest arbitrary comparison function
+       /* Also note: JSON.stringify is the cheapest arbitrary comparison function
         * since it runs on native code. */
         const { checkedItems } = this.state;
         const thisData = this.props.data;
