@@ -1,6 +1,10 @@
 import React from 'react';
 import { configure, setAddon } from '@kadira/storybook';
-import InfoAddon from '../addon/custom-react-storybook-addon-info';
+import InfoAddon from '../addon/oicr-react-storybook-addon-info';
+import '../addon/oicr-react-storybook-addon-info/styles/custom.css';
+import '../addon/oicr-react-storybook-addon-info/styles/codemirror.css';
+import '../addon/oicr-react-storybook-addon-info/styles/monokai.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
 setAddon(InfoAddon);
 
 function loadStories() {
@@ -9,8 +13,6 @@ function loadStories() {
   require('../stories/FilteredTable');
   require('../stories/TwitterFeed');
   require('../stories/Spinner');
-  // require('../stories/TabbedList');
-  // require('../stories/Test');
 }
 
 configure(loadStories, module);

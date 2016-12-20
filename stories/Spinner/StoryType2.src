@@ -1,0 +1,4 @@
+const example = (
+    <Spinner type={2} fontSize="20" margin="20px" />
+);
+return example;

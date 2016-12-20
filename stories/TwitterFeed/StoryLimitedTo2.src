@@ -1,0 +1,5 @@
+const example = (
+    <TwitterFeed limit="2" twitterAccount="GA4GH" />
+);
+
+return example;

@@ -1,0 +1,16 @@
+const example = (
+  <Grid>
+        <Row>
+        <Col xs={4} md={2}>
+        <Image src="https://dummyimage.com/100x100/000/fff" rounded />
+        </Col>
+        <Col xs={4} md={2}>
+        <Image src="https://dummyimage.com/100x100/000/fff" circle />
+        </Col>
+        <Col xs={4} md={2}>
+        <Image src="https://dummyimage.com/100x100/000/fff" thumbnail />
+        </Col>
+        </Row>
+  </Grid>
+);
+return example

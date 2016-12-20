@@ -1,282 +1,120 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import {
-    ButtonToolbar,
-    Button,
-    ProgressBar,
-    MenuItem,
-    Tooltip,
-    OverlayTrigger,
-    Nav,
-    Navbar,
-    NavItem,
-    NavDropdown,
-    Tab,
-    Row,
-    Col,
-    Pagination,
-    Pager,
-    Label,
-    Badge,
-    Alert,
+    ButtonToolbar, Button, ButtonGroup, ProgressBar, MenuItem, Tooltip,
+    OverlayTrigger, Nav, Navbar, NavItem, NavDropdown, Tab, Row,
+    Col, Pagination, Pager, Label, Badge, Grid, Alert, Image, Table,
+    Popover, Modal, DropdownButton, SplitButton, Collapse, Glyphicon,
+    Well, FormGroup, ControlLabel, FormControl, HelpBlock, Checkbox, Radio,
 } from 'react-bootstrap';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import '../../styles/custom.css';
-
-import StoryAvator from './StoryAvator';
-import StoryDialog from './StoryDialog';
-import StoryButton from './StoryButton';
-import StoryDropdown from './StoryDropdown';
-import StoryExpander from './StoryExpander';
-import StoryForms from './StoryForms';
-import StoryIcons from './StoryIcons';
-import StoryPopover from './StoryPopover';
-import StoryPane from './StoryPane';
-import StoryTable from './StoryTable';
+import StoryAvator from 'raw!./StoryAvator.src';
+import StoryBadgesCode from 'raw!./StoryBadges.src';
+import StoryButton from 'raw!./StoryButton.src';
+import StoryDialog from 'raw!./StoryDialog.src';
+import StoryDropdown from 'raw!./StoryDropdown.src';
+import StoryExpander from 'raw!./StoryExpander.src';
+import StoryForms from 'raw!./StoryForms.src';
+import StoryHeader from 'raw!./StoryHeader.src';
+import StoryLabels from 'raw!./StoryLabels.src';
+import StoryIcons from 'raw!./StoryIcons.src';
+import StoryPopover from 'raw!./StoryPopover.src';
+import StoryMessage from 'raw!./StoryMessage.src';
+import StoryPane from 'raw!./StoryPane.src';
+import StoryProgress from 'raw!./StoryProgress.src';
+import StoryTable from 'raw!./StoryTable.src'; 
+import StoryTabs from 'raw!./StoryTabs.src';
+import StoryTooltip from 'raw!./StoryTooltip.src';
+import StoryPagination from 'raw!./StoryPagination.src';
 
 storiesOf('ReactBootstrap', module)
 .addWithInfo(
-    'Avator (Image)',
+    'Avator',
     () => StoryAvator,
-    { source: true, static: true }
+    { scope: { Grid, Col, Image, Row } },
 )
 .addWithInfo(
     'Badges',
-    () => (
-        <p>Badges <Badge>42</Badge></p>
-    ),
-    { source: true, static: true }
+    () => StoryBadgesCode,
+    { scope: { Badge } },
 )
 .addWithInfo(
     'Buttons',
     () => StoryButton,
-    { source: true, static: true }
+    { scope: { ButtonToolbar, Button, ButtonGroup } },
 )
 .addWithInfo(
     'Dialog (Modal)',
     () => StoryDialog,
-    { source: true, static: true },
+    { scope: { Button, Popover, Tooltip, Modal, OverlayTrigger } },
 )
 .addWithInfo(
     'Dropdown',
     () => StoryDropdown,
-    { source: true, static: true }
+    { scope: { ButtonToolbar, DropdownButton, SplitButton, MenuItem } },
 )
 .addWithInfo(
     'Expander (Collapse)',
     () => StoryExpander,
-    { source: true, static: true }
+    { scope: { Collapse, Button, Well }}
 )
 .addWithInfo(
     'Forms',
     () => StoryForms,
-    { source: true, static: true }
+    { scope: { FormGroup, ControlLabel, FormControl, HelpBlock, Checkbox, Radio, Button } },
 )
 .addWithInfo(
     'Header (Nav)',
-    () => (
-        <Navbar>
-            <Navbar.Header>
-            <Navbar.Brand>
-                <a href="#">React-Bootstrap</a>
-            </Navbar.Brand>
-            </Navbar.Header>
-            <Nav>
-            <NavItem eventKey={1} href="#">Link</NavItem>
-            <NavItem eventKey={2} href="#">Link</NavItem>
-            <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-                <MenuItem eventKey={3.1}>Action</MenuItem>
-                <MenuItem eventKey={3.2}>Another action</MenuItem>
-                <MenuItem eventKey={3.3}>Something else here</MenuItem>
-                <MenuItem divider />
-                <MenuItem eventKey={3.3}>Separated link</MenuItem>
-            </NavDropdown>
-        </Nav>
-    </Navbar>
-    ),
-    { source: true, static: true },
-)
+    () => StoryHeader,
+    { scope: { Nav, Navbar, NavItem, NavDropdown, MenuItem } },
+)   
 .addWithInfo(
     'Icons',
     () => StoryIcons,
-    { source: true, static: true }
+    { scope: { Glyphicon } },
 )
 .addWithInfo(
     'Inline Dialog(Popover)',
     () => StoryPopover,
-    { source: true, static: true }
+    { scope: { Popover, OverlayTrigger, Button } }
 )
 .addWithInfo(
     'Labels',
-    () => (
-        <div>
-            <Label bsStyle="default">Default</Label>&nbsp;
-            <Label bsStyle="primary">Primary</Label>&nbsp;
-            <Label bsStyle="success">Success</Label>&nbsp;
-            <Label bsStyle="info">Info</Label>&nbsp;
-            <Label bsStyle="warning">Warning</Label>&nbsp;
-            <Label bsStyle="danger">Danger</Label>
-        </div>
-    ),
-    { source: true, static: true }
+    () => StoryLabels,
+    { scope: { Label } }
 )
 .addWithInfo(
     'Message (Alert)',
-    () => (
-        <div>
-            <Alert bsStyle="warning">
-                <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
-            </Alert>
-            <Alert bsStyle="success">
-                <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
-            </Alert>
-            <Alert bsStyle="danger">
-                <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
-            </Alert>
-            <Alert bsStyle="info">
-                <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
-            </Alert>
-        </div>
-    ),
-    { source: true, static: true },
+    () => StoryMessage,
+    { scope: { Alert } },
 )
 .addWithInfo(
     'Pane (Grid)',
     () => StoryPane,
-    { source: true, static: true },
+    { scope: { Grid, Row, Col } },
 )
 .addWithInfo(
     'Progress Indicator',
-    () => (
-        <div>
-            <ProgressBar now={60} label={`60%`} />
-            <ProgressBar active now={45} />
-        </div>
-    ),
-    { source: true, static: true }
+    () => StoryProgress,
+    { scope: { ProgressBar } }
 )
 .addWithInfo(
     'Table',
     () => StoryTable,
-    { source: true, static: true },
+    { scope: { Table } },
 )
 .addWithInfo(
     'Tabs',
-    () => (
-        <Tab.Container id="tabs-with-dropdown" defaultActiveKey="first">
-            <Row className="clearfix">
-            <Col sm={12}>
-                <Nav bsStyle="tabs">
-                <NavItem eventKey="first">
-                    Tab 1
-                </NavItem>
-                <NavItem eventKey="second">
-                    Tab 2
-                </NavItem>
-                <NavDropdown eventKey="3" title="Dropdown" id="nav-dropdown-within-tab">
-                    <MenuItem eventKey="3.1">Action</MenuItem>
-                    <MenuItem eventKey="3.2">Another action</MenuItem>
-                    <MenuItem eventKey="3.3">Something else here</MenuItem>
-                    <MenuItem divider />
-                    <MenuItem eventKey="3.4">Separated link</MenuItem>
-                </NavDropdown>
-                </Nav>
-            </Col>
-            <Col sm={12}>
-                <Tab.Content animation>
-                <Tab.Pane eventKey="first">
-                    Tab 1 content
-                </Tab.Pane>
-                <Tab.Pane eventKey="second">
-                    Tab 2 content
-                </Tab.Pane>
-                <Tab.Pane eventKey="3.1">
-                    Tab 3.1 content
-                </Tab.Pane>
-                <Tab.Pane eventKey="3.2">
-                    Tab 3.2 content
-                </Tab.Pane>
-                <Tab.Pane eventKey="3.3">
-                    Tab 3.3 content
-                </Tab.Pane>
-                <Tab.Pane eventKey="3.4">
-                    Tab 3.4 content
-                </Tab.Pane>
-                </Tab.Content>
-            </Col>
-            </Row>
-        </Tab.Container>
-    ),
-    { source: true, static: true },
+    () => StoryTabs,
+    { scope: { Tab, Row, Col, Nav, NavItem, NavDropdown, MenuItem } },
 )
 .addWithInfo(
     'Tooltip',
-    () => {
-        const tooltip = (
-            <Tooltip id="tooltip"><strong>Holy guacamole!</strong> Check this info.</Tooltip>
-        );
-        return (
-            <ButtonToolbar>
-
-                <OverlayTrigger placement="bottom" overlay={tooltip}>
-                <Button bsStyle="default">Holy guacamole!</Button>
-                </OverlayTrigger>
-
-                <OverlayTrigger placement="left" overlay={tooltip}>
-                <Button bsStyle="default">Holy guacamole!</Button>
-                </OverlayTrigger>
-
-                <OverlayTrigger placement="right" overlay={tooltip}>
-                <Button bsStyle="default">Holy guacamole!</Button>
-                </OverlayTrigger>
-
-            </ButtonToolbar>
-        );
-    },
-    { source: true, static: true },
+    () => StoryTooltip,
+    { scope: { Tooltip, OverlayTrigger, Button, ButtonToolbar } },
 )
 .addWithInfo(
     'Pagination',
-    () => {
-        const PaginationAdvanced = React.createClass({
-            getInitialState() {
-                return {
-                activePage: 1
-                };
-            },
-
-            handleSelect(eventKey) {
-                this.setState({
-                activePage: eventKey
-                });
-            },
-
-            render() {
-                return (
-                <Pagination
-                    prev
-                    next
-                    first
-                    last
-                    ellipsis
-                    boundaryLinks
-                    items={20}
-                    maxButtons={5}
-                    activePage={this.state.activePage}
-                    onSelect={this.handleSelect} />
-                );
-            },
-        });
-        return (
-            <div>
-                <PaginationAdvanced />
-                <Pager>
-                    <Pager.Item previous href="#">&larr; Previous</Pager.Item>
-                    <Pager.Item disabled next href="#">Next &rarr;</Pager.Item>
-                </Pager>
-            </div>   
-        );
-    },
-    { source: true, static: true },
-)
+    () => StoryPagination,
+    { scope: { Pagination, Pager } },
+);

@@ -3,11 +3,11 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import MTRC from 'markdown-to-react-components';
 import PropTable from './PropTable';
-import Node from './Node';
 import { baseFonts } from './theme';
 import { Pre } from './markdown';
-import Playground from 'component-playground';
-import jsxToString from 'jsx-to-string';
+import { transform } from 'babel-standalone';
+import CodeMirror from 'react-codemirror';
+import { ButtonGroup, Button, Glyphicon, Row, Col  } from 'react-bootstrap';
 
 const stylesheet = {
   link: {
@@ -52,6 +52,10 @@ const stylesheet = {
     marginBottom: 0,
   },
   header: {
+    div: {
+      position: 'relative',
+      borderBottom: '1px solid #ddd'
+    },
     h1: {
       margin: '20px 0 0 0',
       padding: 0,
@@ -67,6 +71,11 @@ const stylesheet = {
       borderBottom: '1px solid #eee',
       marginBottom: 10,
     },
+    btnmenu: {
+      position: 'absolute',
+      right: 0,
+      bottom: 10
+    }
   },
   source: {
     h1: {
@@ -76,6 +85,14 @@ const stylesheet = {
       borderBottom: '1px solid #EEE',
     },
   },
+  preview: {
+    code: {
+      border: '1px solid #ddd'
+    },
+    codeMirror: {
+      marginTop: 20
+    }
+  },
   propTableHead: {
     margin: '20px 0 0 0',
   },
@@ -84,82 +101,29 @@ const stylesheet = {
 export default class Story extends React.Component {
   constructor(...args) {
     super(...args);
-    this.state = { open: false };
+    this.state = { open: false, code: "", activeTab: 1};
+
     MTRC.configure(this.props.mtrcConf);
   }
 
-  _renderStory() {
-    return (
-      <div>
-        { this.props.children }
-      </div>
-    );
+  componentDidMount() {
+    this.setState({ code: this.props.storyCode });
   }
 
-  _renderInline() {
-    return (
-      <div>
-        <div style={stylesheet.infoPage}>
-          <div style={stylesheet.infoBody} >
-            { this._getInfoHeader() }
-          </div>
-        </div>
-        <div>
-            { this._renderStory() }
-        </div>
-        <div style={stylesheet.infoPage}>
-          <div style={stylesheet.infoBody} >
-            { this._getInfoContent() }
-            { this._getPropTables() }
-            { this._getSourceCode() }
-            { this._getStatic() }
-          </div>
-        </div>
-      </div>
-    );
-  }
+  _compileCode(scope, code) {
+    if(!code) return;
 
-  _renderOverlay() {
-    const linkStyle = {
-      ...stylesheet.link.base,
-      ...stylesheet.link.topRight,
-    };
-
-    const infoStyle = Object.assign({}, stylesheet.info);
-    if (!this.state.open) {
-      infoStyle.display = 'none';
+    try {
+      var compiledCode = transform(`
+        ((${Object.keys(scope).join(",")}) => {${code}});
+      `, { presets: ["es2015", "react", "stage-1"] }).code;
+      const tempScope = [];
+      Object.keys(scope).forEach(s => tempScope.push(scope[s]));
+      let comp = eval(compiledCode).apply(null, tempScope);
+      return comp;
+    } catch (err) {
+      return <p>{err.toString()}</p>;
     }
-
-    const openOverlay = () => {
-      this.setState({ open: true });
-      return false;
-    };
-
-    const closeOverlay = () => {
-      this.setState({ open: false });
-      return false;
-    };
-
-    return (
-      <div>
-        <div style={stylesheet.children}>
-          { this.props.showEditor && this.props.editorScope ?  <Playground codeText={jsxToString(this.props.children)} scope={this.props.editorScope} /> : this.props.children }
-        </div>
-        <a style={linkStyle} onClick={openOverlay}>?</a>
-        <div style={infoStyle}>
-          <a style={linkStyle} onClick={closeOverlay}>×</a>
-          <div style={stylesheet.infoPage}>
-            <div style={stylesheet.infoBody}>
-              { this._getInfoHeader() }
-              { this._getInfoContent() }
-              { this._getPropTables() }
-              { this._getSourceCode() }
-              { this._getStatic() }
-            </div>
-          </div>
-        </div>
-      </div>
-    );
   }
 
   _getInfoHeader() {
@@ -168,11 +132,26 @@ export default class Story extends React.Component {
     }
 
     return (
-      <div style={stylesheet.header.body}>
-        <h1 style={stylesheet.header.h1}>{this.props.context.kind}</h1>
+      <div style={stylesheet.header.div}>
+        <h2>{this.props.context.kind}</h2>
         <h2 style={stylesheet.header.h2}>{this.props.context.story}</h2>
+        { this._getButtonMenu() }
       </div>
     );
+  }
+
+  _onTabChange(activeTab, proxy, e) {
+    this.setState({activeTab:activeTab});
+  }
+  _getButtonMenu() {
+    const { activeTab } = this.state;
+    return (
+      <ButtonGroup style={stylesheet.header.btnmenu}>
+        <Button className={ activeTab==1 ? 'btn-primary':'' } onClick={this._onTabChange.bind(this, 1)} ><Glyphicon glyph="eye-open" /></Button>
+        <Button className={ activeTab==2 ? 'btn-primary':'' } onClick={this._onTabChange.bind(this, 2)} ><Glyphicon glyph="info-sign" /></Button>
+        <Button className={ activeTab==3 ? 'btn-primary':'' } onClick={this._onTabChange.bind(this, 3)} ><Glyphicon glyph="pencil" /></Button>
+      </ButtonGroup>
+    )
   }
 
   _getInfoContent() {
@@ -196,53 +175,53 @@ export default class Story extends React.Component {
     );
   }
 
-  _getSourceCode() {
-    if (!this.props.showSource) {
+  _getSourceCode(source) {
+    if (!source) {
       return null;
     }
-
     return (
       <div>
         <h1 style={stylesheet.source.h1}>Story Source</h1>
-        <Pre>
-        {React.Children.map(this.props.children, (root, idx) => {
-          return <Node key={idx} depth={0} node={root} />
-        })}
-        </Pre>
-        
+        <Pre>{source}</Pre>
       </div>
-    );
+    )
   }
 
-  _getStatic() {
-    
-    if (!this.props.showStatic) {
+  _getStatic(component) {
+    if (!component) {
       return null;
     }
-
     return (
       <div>
         <h1 style={stylesheet.source.h1}>Story Static</h1>
         <Pre>
-        { html.prettyPrint(ReactDOMServer.renderToStaticMarkup(this.props.children)) }
+        {html.prettyPrint(ReactDOMServer.renderToStaticMarkup(component))}
         </Pre>
       </div>
     );
   }
 
-  _getPropTables() {
+  _getPropTables(component) {
+    const { editorScope } = this.props;
     const types = new Map();
+    const children = component;
 
-    if (this.props.propTables === null) {
+    if (this.props.editorScope === null) {
       return null;
     }
 
-    if (!this.props.children) {
-      return null;
-    }
+    let components = (
+      <div>
+        {Object.keys(editorScope).map((key,i)=>{
+          if(key=='React') return;
+          let Comp = editorScope[key];
+          return <Comp key={i}/>;
+        })}
+      </div>
+    );
 
-    if (this.props.propTables) {
-      this.props.propTables.forEach(function (type) {
+    if (components.props.children.propTables) {
+      components.props.children.propTables.forEach(function (type) {
         types.set(type, true);
       });
     }
@@ -268,7 +247,7 @@ export default class Story extends React.Component {
     }
 
     // extract components from children
-    extract(this.props.children);
+    extract(components.props.children);
 
     const array = Array.from(types.keys());
     array.sort(function (a, b) {
@@ -299,11 +278,53 @@ export default class Story extends React.Component {
   }
 
   render() {
-    if (this.props.showInline) {
-      return this._renderInline();
+    
+    const { showEditor, storyCode, editorScope } = this.props;
+    const { code, activeTab } = this.state;
+
+    let contents;
+    if(activeTab == 1){
+      contents = (
+        <div style={{marginTop: 20}}>
+          {this._compileCode(editorScope, storyCode)}
+        </div>
+      )
+    }else if(activeTab == 2){
+      contents = (
+        <div>
+          { this._getInfoContent() }
+          { this._getPropTables() }
+        </div>
+      )
+    } else if(activeTab == 3) {
+      const editableComp = this._compileCode(editorScope, code);
+      contents = (
+        <Row>
+          <Col md={6}>
+            <style>{".CodeMirror{height: auto !important;}"}</style>
+            <h3>Source</h3>
+            <div style={stylesheet.preview.code} >
+              <CodeMirror value={this.state.code} onChange={(code)=>{this.setState({code:code})}} options={{lineNumbers: true, mode: 'jsx'}} />
+            </div>
+            <h3>Static HTML</h3>
+            <div style={stylesheet.preview.code} >
+              <CodeMirror value={html.prettyPrint(ReactDOMServer.renderToStaticMarkup(editableComp))} options={{lineNumbers: true, readOnly:true }} />
+            </div>
+          </Col>
+          <Col md={6} style={stylesheet.preview.codeMirror} >
+            {editableComp}
+          </Col>
+        </Row>
+      )
     }
 
-    return this._renderOverlay();
+    return (
+      <div>
+        { this._getInfoHeader() }  
+        { contents }
+      </div>
+    )
+
   }
 }
 
