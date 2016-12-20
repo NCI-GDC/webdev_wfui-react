@@ -35,6 +35,34 @@ const itemFormat = [
     },
 ];
 
+/* Paginator is injected with an additional prop 
+    * which contains a method getOpenPage for generating
+    * event handlers that change the page. */
+const PaginatorDisplay = ({ currentPage, numPages, getOpenPage }) => {
+    const events = [];
+    const maxShowingPages = 10;
+    const lowerPageLimit = currentPage - (maxShowingPages / 2);
+    const upperPageLimit = currentPage + (maxShowingPages / 2);
+    for (let i = lowerPageLimit; i < upperPageLimit; i += 1) {
+        const handler = getOpenPage(i);
+        if (i === currentPage) {
+            events.push(
+                <a key={i}> {i} </a>,
+            );
+        } else if (handler) {
+            events.push(
+                <button href="#" onClick={handler}>{ i }</button>,
+            );
+        }
+    }
+    return (
+        <div>
+            { events }
+        </div>
+    );
+};
+
+
 /* A container is needed to fetch from API */
 class FilteredListContainer extends React.Component {
     constructor(props) {
@@ -45,6 +73,7 @@ class FilteredListContainer extends React.Component {
             filteredContributor: '',
             filteredTopic: '',
             filteredType: '',
+            count: 0,
         };
     }
 
@@ -123,10 +152,13 @@ class FilteredListContainer extends React.Component {
                     searchTerm={this.state.searchTerm}
                     filterList={this.getFilters()}
                     data={this.state.data}
+                    pageSize={5}
                     itemFormat={itemFormat}
-                    onResultsNumUpdate={count => console.log(count)}
+                    paginatorDisplay={<PaginatorDisplay />}
+                    onResultsNumUpdate={count => this.setState({ count })}
                     selectable
                 />
+                { this.state.count } Maching the Criteria
             </div>
         );
     }

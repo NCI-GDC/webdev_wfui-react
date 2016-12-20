@@ -218,11 +218,6 @@ class FilteredTable extends React.Component {
 
       const { checkedItems, currentPage } = this.state;
       const filteredData = this.applySearch(this.generateFilteredArticles(data));
-      const paginatorObject = this.generatePaginatorObject();
-      const InjectedPaginatorDisplay = React.cloneElement(
-          paginatorDisplay,
-          paginatorObject,
-      );
 
       /* Setup the header row and onClick for sorting if applicable */
       const headerRow = itemFormat.map((cell, idx) =>
@@ -234,37 +229,54 @@ class FilteredTable extends React.Component {
         </th>,
       );
 
-      return (
-         <table className={className}>
-            <thead>
-                <tr>
-                    {
-                        selectable ?
-                        <th>
-                            <input
-                                type="Checkbox"
-                                onChange={this.onAllCheck}
-                                checked={checkedItems.every(item => item)}
-                            />
-                        </th>
-                        :
-                        null
-                    }
-                    { headerRow }
-                </tr>
-            </thead>
-            <TableBody
-                data={filteredData}
-                itemFormat={itemFormat}
-                pageSize={pageSize}
-                currentPage={currentPage}
-                selectable={selectable}
-                onSelectionChange={onSelectionChange}
-                onCheck={this.onCheck}
-                checks={this.state.checkedItems}
-            />
-         </table>
-      );
+      /* We have to do this to avoid breaking backwards compatibility */
+      const table = (
+            <table className={className}>
+                <thead>
+                    <tr>
+                        {
+                            selectable ?
+                            <th>
+                                <input
+                                    type="Checkbox"
+                                    onChange={this.onAllCheck}
+                                    checked={checkedItems.every(item => item)}
+                                />
+                            </th>
+                            :
+                            null
+                        }
+                        { headerRow }
+                    </tr>
+                </thead>
+                <TableBody
+                    data={filteredData}
+                    itemFormat={itemFormat}
+                    pageSize={pageSize}
+                    currentPage={currentPage}
+                    selectable={selectable}
+                    onSelectionChange={onSelectionChange}
+                    onCheck={this.onCheck}
+                    checks={this.state.checkedItems}
+                />
+            </table>
+        );
+
+        if (paginatorDisplay) {
+            const paginatorObject = this.generatePaginatorObject();
+            const InjectedPaginatorDisplay = React.cloneElement(
+                paginatorDisplay,
+                paginatorObject,
+            );
+            return (
+                <div>
+                    {table}
+                    {InjectedPaginatorDisplay}
+                </div>
+            );
+        }
+        
+        return table;
    }
 }
 
@@ -284,7 +296,7 @@ FilteredTable.propTypes = {
 
 FilteredTable.defaultProps = {
     pageSize: 1000,
-    paginatorDisplay: <span />,
+    paginatorDisplay: null,
     currentPage: 1,
     filterList: [],
     searchTerm: '',
