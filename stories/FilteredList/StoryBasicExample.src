@@ -105,6 +105,7 @@ class FilteredListContainer extends React.Component {
                     filterList={filterList}
                     onNumOfListChange={(n)=>{ this.setState({numOfItems: n}) }}
                     onDisplay={({starting,last})=>{ this.setState({starting, last}) }}
+                    onListDidMount={(data)=>{ console.log('list did mount', data); }}
                 />
                 <div>Showing: {numOfItems} ({starting}-{last})</div>
             </div>

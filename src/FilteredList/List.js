@@ -23,6 +23,10 @@ class List extends React.Component {
             lastArticle: 0,
         };
     }
+    componentDidMount(){
+        const { onListDidMount, data } = this.props;
+        onListDidMount(data);
+    }
     render() {
         const { itemDisplay, data, pageSize, currentPage, container } = this.props;
 
@@ -74,6 +78,7 @@ List.propTypes = {
     container: React.PropTypes.element,
     onDisplay: React.PropTypes.func,
     onNumOfListChange: React.PropTypes.func,
+    onListDidMount: React.PropTypes.func,
 };
 
 export default List;
