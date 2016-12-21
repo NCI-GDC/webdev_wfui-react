@@ -1,6 +1,5 @@
 var FilteredList = require('./lib/FilteredList/FilteredList').default;
 var Spinner = require('./lib/Spinner/Spinner').default;
-var Tab = require('./lib/TabbedList/Tab').default;
 var TwitterFeed = require('./lib/TwitterFeed/TwitterFeed').default;
 var FilteredList = require('./lib/FilteredList/FilteredList').default;
 var FilteredTable = require('./lib/FilteredTable/FilteredTable').default;
