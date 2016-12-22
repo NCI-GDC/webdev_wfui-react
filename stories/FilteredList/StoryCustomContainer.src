@@ -17,5 +17,6 @@ const ItemDisplay = (props) =>
 return <FilteredList
     itemDisplay={<ItemDisplay />}
     data={animalData}
+    onListDidMount={(data)=>{ console.log('list did mount', data); }}
     container={<ol className="lol" />}
 />;

@@ -66,7 +66,7 @@ class FilteredList extends React.Component {
       }
 
       const paginatorObject = this.generatePaginatorObject();
-
+      
       return (
          <div>
             <List
@@ -97,6 +97,7 @@ FilteredList.propTypes = {
     searchTerm: React.PropTypes.string,
     onDisplay: React.PropTypes.func,
     onNumOfListChange: React.PropTypes.func,
+    onListDidMount: React.PropTypes.func,
 };
 
 FilteredList.defaultProps = {
