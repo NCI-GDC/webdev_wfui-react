@@ -1,0 +1,4 @@
+const example = (
+    <PasswordValidator password="" password_confirm="" onValidateStatusChange={(status)=>{ console.log(status) }} />
+);
+return example;

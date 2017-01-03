@@ -13,6 +13,7 @@ function loadStories() {
   require('../stories/FilteredTable');
   require('../stories/TwitterFeed');
   require('../stories/Spinner');
+  require('../stories/PasswordValidator');
 }
 
 configure(loadStories, module);
