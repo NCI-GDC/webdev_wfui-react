@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 setAddon(InfoAddon);
 
 function loadStories() {
+  require('../stories/Test');
   require('../stories/ReactBootstrap');
   require('../stories/FilteredList');
   require('../stories/FilteredTable');
