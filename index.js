@@ -6,11 +6,11 @@ const PasswordValidator = require('./lib/PasswordValidator/PasswordValidator').d
 const RB = require('react-bootstrap');
 
 module.exports = {
-    FilteredList,
-    Spinner,
-    TwitterFeed,
-    FilteredTable,
-    PasswordValidator,
+    FilteredList: FilteredList,
+    Spinner: Spinner,
+    TwitterFeed: TwitterFeed,
+    FilteredTable: FilteredTable,
+    PasswordValidator: PasswordValidator,
     // React Bootstrap
     Accordion: RB.Accordion,
     Alert: RB.Alert,
