@@ -11,3 +11,8 @@ scripts
 stories
 static
 addons
+addon
+.eslintrc
+.storybook
+Readme.md
+yarn.lock
