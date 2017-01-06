@@ -1,9 +1,10 @@
-const FilteredList = require('./lib/FilteredList/FilteredList').default;
-const Spinner = require('./lib/Spinner/Spinner').default;
-const TwitterFeed = require('./lib/TwitterFeed/TwitterFeed').default;
-const FilteredTable = require('./lib/FilteredTable/FilteredTable').default;
-const PasswordValidator = require('./lib/PasswordValidator/PasswordValidator').default;
 const RB = require('react-bootstrap');
+const FilteredList = require('./FilteredList/FilteredList').default;
+const Spinner = require('./Spinner/Spinner').default;
+const TwitterFeed = require('./TwitterFeed/TwitterFeed').default;
+const FilteredTable = require('./FilteredTable/FilteredTable').default;
+const PasswordValidator = require('./PasswordValidator/PasswordValidator').default;
+require('./i18n/i18n.js');
 
 module.exports = {
     FilteredList: FilteredList,
