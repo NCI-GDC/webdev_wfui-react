@@ -54,7 +54,6 @@
     "bootstrap": "^3.3.7",
     "react-bootstrap": "^0.30.7"
   },
-  "main": "dist/index.js",
   "engines": {
     "npm": "^3.0.0"
   }
