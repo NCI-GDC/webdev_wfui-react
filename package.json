@@ -8,9 +8,10 @@
   },
   "license": "MIT",
   "author": "Koji Miyauchi",
+  "main": "lib/index.js",
   "scripts": {
     "build": "scripts/build.sh",
-    "storybook": "start-storybook -s ./static -p 6006 -h 192.168.56.101",
+    "storybook": "start-storybook -s ./static -p 6006 -h 192.168.56.102",
     "build-storybook": "build-storybook"
   },
   "devDependencies": {
