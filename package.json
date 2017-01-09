@@ -52,7 +52,8 @@
   "dependencies": {
     "babel-runtime": "^6.11.6",
     "bootstrap": "^3.3.7",
-    "react-bootstrap": "^0.30.7"
+    "react-bootstrap": "^0.30.7",
+    "react-notification-system": "^0.2.11"
   },
   "engines": {
     "npm": "^3.0.0"

@@ -1,4 +1,5 @@
 import React from 'react';
+require('../i18n/i18n');
 
 const { Component, PropTypes } = React;
 

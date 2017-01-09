@@ -15,6 +15,7 @@ function loadStories() {
   require('../stories/TwitterFeed');
   require('../stories/Spinner');
   require('../stories/PasswordValidator');
+  require('../stories/Notification');
 }
 
 configure(loadStories, module);
