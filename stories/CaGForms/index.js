@@ -9,12 +9,12 @@ import StorySelection from 'raw!./StorySelection.src';
 import { Description, Grid, InputField, InputTable, Listbox, ListboxOption, Selection } from '../../src/';
 
 // Load Styles for development
-require('../../src/CaGForms/Description/description.scss');
-require('../../src/CaGForms/Grid/grid.scss');
-require('../../src/CaGForms/InputField/input_field.scss');
-require('../../src/CaGForms/InputTable/input_table.scss');
-require('../../src/CaGForms/Listbox/listbox.scss');
-require('../../src/CaGForms/Selection/selection.scss');
+import '../../src/CaGForms/Description/description.scss';
+import '../../src/CaGForms/Grid/grid.scss';
+import '../../src/CaGForms/InputField/input_field.scss';
+import '../../src/CaGForms/InputTable/input_table.scss';
+import '../../src/CaGForms/Listbox/listbox.scss';
+import '../../src/CaGForms/Selection/selection.scss';
 
 storiesOf('CaG Forms', module)
 .addWithInfo(

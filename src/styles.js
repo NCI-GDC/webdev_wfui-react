@@ -5,3 +5,5 @@ require('./CaGForms/InputField/input_field.scss');
 require('./CaGForms/InputTable/input_table.scss');
 require('./CaGForms/Listbox/listbox.scss');
 require('./CaGForms/Selection/selection.scss');
+
+require('./FullCalendar/fullcalendar.min.css');

@@ -24,6 +24,7 @@ function loadStories() {
   require('../stories/DashboardBox');
   require('../stories/TimezonePicker');
   require('../stories/CaGForms');
+  require('../stories/FullCalendar');
 }
 
 configure(loadStories, module);
