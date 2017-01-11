@@ -81,11 +81,17 @@ class DraggableItem extends React.Component {
     }
     componentWillMount() {
         const { children } = this.props;
-        children.forEach( (child, i) => {
-            if(child.type == DraggableHandle){
+        if(children.length){
+            children.forEach( (child, i) => {
+                if(child.type == DraggableHandle){
+                    this.setState({ hasHandle: true });
+                }
+            });
+        } else {
+            if(children.type == DraggableHandle){
                 this.setState({ hasHandle: true });
             }
-        });
+        }
     }
     render() {
         const { className, children, text, isDragging, connectDragSource, connectDropTarget, connectDragPreview} = this.props;
