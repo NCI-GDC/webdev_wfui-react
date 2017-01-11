@@ -1,6 +1,7 @@
 import React from 'react';
 import { Glyphicon } from 'react-bootstrap';
 import style from './style';
+import classNames from 'classnames';
 
 const { Component, PropTypes } = React;
 
@@ -64,10 +65,11 @@ class PasswordValidator extends Component {
             }
         }
         render() {
-            const { label, validations, password, password_confirm } = this.props;
+            const { className, label, validations, password, password_confirm } = this.props;
+            const classes = 'wfui-password-validator';
 
             return (
-                <div className="wfui-password-validator">
+                <div className={classNames(className, classes)}>
                     <p style={style.title}>{label}</p>
                     <ul style={style.ul}>
                         {validations.map((validation, i) => {
@@ -86,6 +88,7 @@ PasswordValidator.propTypes = {
     password: PropTypes.string,
     password_confirm: PropTypes.string,
     onValidateStatusChange: PropTypes.func,
+    className: PropTypes.string,
 };
 PasswordValidator.defaultProps = {
     label: 'Your password must have:',

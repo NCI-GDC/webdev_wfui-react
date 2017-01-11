@@ -7,6 +7,7 @@ import Spinner from './Spinner/Spinner';
 import TwitterFeed from './TwitterFeed/TwitterFeed';
 import FilteredTable from './FilteredTable/FilteredTable';
 import PasswordValidator from './PasswordValidator/PasswordValidator';
+import Draggable from './Draggable/Draggable';
 
 require('./i18n/i18n.js');
 
@@ -16,6 +17,7 @@ module.exports = {
     TwitterFeed,
     FilteredTable,
     PasswordValidator,
+    Draggable,
     // Third Party Components
     NotificationSystem,
     Dropzone,

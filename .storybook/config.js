@@ -17,6 +17,7 @@ function loadStories() {
   require('../stories/PasswordValidator');
   require('../stories/Notification');
   require('../stories/Dropzone');
+  require('../stories/Draggable');
 }
 
 configure(loadStories, module);
