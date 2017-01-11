@@ -14,7 +14,11 @@ const style = {
     },
     container: {
         listStyleType: 'none',
+        paddingLeft: 0,
     },
+    grid: {
+        columnWidth: 300,
+    }
 };
 
 @DragDropContext(HTML5Backend)
@@ -25,7 +29,7 @@ class Draggable extends React.Component {
         this.onHandleEndDrag = this.onHandleEndDrag.bind(this);
     }
     componentWillMount() {
-        const { children } = this.props;
+        const { children, type } = this.props;
         this.setState({
             items: children.map((child, i) => {
                 return React.cloneElement(
@@ -34,6 +38,7 @@ class Draggable extends React.Component {
                         moveItem : this.onHandleMoveItem,
                         endDrag : this.onHandleEndDrag,
                         key: i,
+                        type,
                     }),
                 )
             })
@@ -59,10 +64,10 @@ class Draggable extends React.Component {
         }));
     }
     render() {
-        const { className } = this.props;
+        const { className, type } = this.props;
         const { items } = this.state;
         return (
-            <ul className={classNames(className, 'wfui-draggable')} style={style.container} >
+            <ul className={classNames(className, 'wfui-draggable')} style={ type==='grid' ? {...style.container, ...style.grid} : {...style.container} } >
                 {items.map((item, i) => {
                     return React.cloneElement( item, Object.assign({}, item.props, { index: i }) )
                 })}
@@ -73,10 +78,12 @@ class Draggable extends React.Component {
 
 Draggable.propTypes = {
     children: React.PropTypes.node,
+    type: React.PropTypes.oneOf(['stack', 'grid']).isRequired,
     onHandleEndDrag: React.PropTypes.func,
 };
 
 Draggable.defaultProps = {
+    type: 'stack',
     onHandleEndDrag: () => undefined,
 }
 

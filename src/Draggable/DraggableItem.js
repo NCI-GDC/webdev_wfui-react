@@ -40,7 +40,7 @@ const itemTarget = {
         if (dragIndex === hoverIndex) {
             return;
         }
-
+        
         // Determine rectangle on screen
         const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
 
@@ -54,8 +54,10 @@ const itemTarget = {
         const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
         // Draggin downwards
-        if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-            return;
+        if(props.type === 'stack' ){
+            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+                return;
+            }
         }
 
         // Perform the action
@@ -102,7 +104,7 @@ class DraggableItem extends React.Component {
         // Make only DraggableHandle enable to drag.
         if( hasHandle ){
             return connectDragPreview(connectDropTarget(
-                <li className={classNames(className, classes)} style={{ opacity }}>
+                <li className={classNames(className, classes)} style={{ opacity, breakInside:'avoid' }}>
                     {children.map((child, i) => {
                         if(child.type == DraggableHandle){
                             return connectDragSource(<div key={i} className="wfui-draggable-handle">{child}</div>);
@@ -114,17 +116,19 @@ class DraggableItem extends React.Component {
         }
         // Entire content is draggable.
         return connectDragSource(connectDropTarget(
-            <li className={classNames(className, classes)} style={{ opacity }}>{ children }</li>
+            <li className={classNames(className, classes)} style={{ opacity, breakInside:'avoid' }}>{ children }</li>
         ));
     }
 }
 
 DraggableItem.propTypes = {
     children: React.PropTypes.node.isRequired,
+    type: React.PropTypes.oneOf(['stack', 'grid']).isRequired,
     moveItem: React.PropTypes.func,
     endDrag: React.PropTypes.func,
 };
 DraggableItem.defaultProps = {
+    type: 'stack',
     moveItem: () => undefined,
     endDrag: () => undefined,
 };
