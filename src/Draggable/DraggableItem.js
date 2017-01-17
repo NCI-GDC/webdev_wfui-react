@@ -26,7 +26,6 @@ const itemSource = {
         }
     },
     endDrag(props) {
-        console.log(props);
         props.endDrag()
     }
 }

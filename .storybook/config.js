@@ -18,6 +18,7 @@ function loadStories() {
   require('../stories/Notification');
   require('../stories/Dropzone');
   require('../stories/Draggable');
+  require('../stories/TimezonePicker');
 }
 
 configure(loadStories, module);
