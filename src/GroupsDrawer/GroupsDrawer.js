@@ -1,6 +1,7 @@
 import React, { cloneElement, Component, PropTypes } from 'react';
 import DrawerButton from '../Drawer/DrawerButton';
 import DefaultGroupsItem from './DefaultGroupsItem';
+import DefaultFooterItem from './DefaultFooterItem';
 import Spinner from '../Spinner/Spinner';
 
 const defaultSpinner = (
@@ -32,7 +33,7 @@ class GroupsDrawer extends Component {
 
         return (
             <div className="groups-drawer-footer">
-                {footer.map()}
+                {cloneElement(footerContainer, { children: footerComponent })}
             </div>
         );
     }
@@ -98,6 +99,7 @@ GroupsDrawer.defaultProps = {
     footerContainer: <li className="list-inline" />,
     spinnerFormat: defaultSpinner,
     groupsItemFormat: <DefaultGroupsItem />,
+    footerItemFormat: <DefaultFooterItem />,
 };
 
 export default GroupsDrawer;

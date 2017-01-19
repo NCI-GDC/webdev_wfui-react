@@ -41,7 +41,18 @@ const data = {
             link: '#',
         }
     ],
-}
+    footer: [
+        {
+            title: 'Manage Groups',
+            link: '#',
+        },
+        {
+            title: 'Customize Dashboard',
+            link: '#',
+        }
+    ],
+};
+
 const example = (
     <GroupsDrawer data={data} />
 );
