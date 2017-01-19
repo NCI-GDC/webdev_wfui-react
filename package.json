@@ -8,6 +8,7 @@
   },
   "license": "MIT",
   "author": "Koji Miyauchi",
+  "main": "lib/index.js",
   "scripts": {
     "build": "scripts/build.sh",
     "storybook": "start-storybook -s ./static -p 6006 -h 192.168.56.101",
@@ -51,9 +52,13 @@
   "dependencies": {
     "babel-runtime": "^6.11.6",
     "bootstrap": "^3.3.7",
-    "react-bootstrap": "^0.30.7"
+    "classnames": "^2.2.5",
+    "react-bootstrap": "^0.30.7",
+    "react-dnd": "^2.1.4",
+    "react-dnd-html5-backend": "^2.1.2",
+    "react-dropzone": "^3.8.0",
+    "react-notification-system": "^0.2.11"
   },
-  "main": "dist/index.js",
   "engines": {
     "npm": "^3.0.0"
   }

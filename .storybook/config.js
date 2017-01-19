@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 setAddon(InfoAddon);
 
 function loadStories() {
+  require('../stories/Test');
   require('../stories/ReactBootstrap');
   require('../stories/Drawer');
   require('../stories/GroupsDrawer');
@@ -16,6 +17,10 @@ function loadStories() {
   require('../stories/FilteredTable');
   require('../stories/TwitterFeed');
   require('../stories/Spinner');
+  require('../stories/PasswordValidator');
+  require('../stories/Notification');
+  require('../stories/Dropzone');
+  require('../stories/Draggable');
 }
 
 configure(loadStories, module);

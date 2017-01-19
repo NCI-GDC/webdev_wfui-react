@@ -1,0 +1,25 @@
+class Example extends React.Component {
+    constructor() {
+        super();
+        this._addNotification = this._addNotification.bind(this);
+    }
+    _addNotification(event) {
+        event.preventDefault();
+        this._notificationSystem.addNotification({
+        message: 'Notification message',
+            level: 'success'
+        });
+    }
+    componentDidMount() {
+        this._notificationSystem = this.refs.notificationSystem;
+    }
+    render() {
+        return (
+            <div>
+                <button onClick={this._addNotification}>Add notification</button>
+                <NotificationSystem ref="notificationSystem" />
+            </div>
+        )
+    }
+}
+return <Example />

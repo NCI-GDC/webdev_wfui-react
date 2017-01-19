@@ -1,11 +1,11 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import Story from 'raw!./Story.src';
-import Test from '../../src/Test';
+import { Dropzone } from '../../src/';
 
-storiesOf('Testing', module)
+storiesOf('Dropzone', module)
   .addWithInfo(
-    'Prop Injection',
+    'Default View',
     () => Story,
-    { scope: { Test } }
+    { scope: { Dropzone }, source: true, static: true },
 );
