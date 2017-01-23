@@ -1,0 +1,65 @@
+const temp = [
+    {
+        title: 'JIRA',
+        hasIcon: true,
+        buttons: [
+            {
+                name: 'Create Issue',
+                onClick: () => alert('click'),
+                bsStyle: 'primary',
+            }
+        ],
+        configs: [
+            {
+                href: '#',
+                name: 'Link 1',
+            }, {
+                href: '#',
+                name: 'Link 2',
+            }
+        ]
+    },
+    {
+        title: 'WIKI',
+        hasIcon: true,
+        buttons: [
+            {
+                name: 'Button 1',
+                onClick: () => alert('Button 1'),
+                bsStyle: 'primary',
+            }, {
+                name: 'Button 2',
+                onClick: () => alert('Button 2'),
+                bsStyle: 'primary',
+            }
+        ],
+        configs: [
+            {
+                href: '#',
+                name: 'Link 1',
+            }, {
+                href: '#',
+                name: 'Link 2',
+            }
+        ]
+    }
+]
+class Example extends React.Component {
+    render() {
+        const { data } = this.props;
+
+        return (
+            <div className="container">
+                { data.map((box, idx) => {
+                        return (
+                            <DashboardBox {...box}>
+                                <p>Hello</p>
+                            </DashboardBox>
+                        );
+                    })}
+            </div>
+        )
+    }
+}
+
+return <Example data={temp} />;
