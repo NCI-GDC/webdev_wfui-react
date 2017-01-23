@@ -17,7 +17,7 @@ const userMenu = [
     }, {
         title: 'Log Out',
         link: '#',
-        icon: 'off',
+        icon: 'log-out',
     }
 ]
 

@@ -12,8 +12,8 @@ class DefaultFooterItem extends Component {
 }
 
 DefaultFooterItem.propTypes = {
-    title: PropTypes.string.isRequired,
-    link: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    link: PropTypes.string,
 };
 
 export default DefaultFooterItem;

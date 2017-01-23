@@ -67,6 +67,7 @@ class GroupsDrawer extends Component {
 }
 
 GroupsDrawer.propTypes = {
+    popoverTitle: PropTypes.string,
     data: PropTypes.shape({
         groups: PropTypes.arrayOf(PropTypes.shape({
             icon: PropTypes.string.isRequired,
@@ -78,7 +79,7 @@ GroupsDrawer.propTypes = {
             link: PropTypes.string.isRequired,
         })),
     }),
-    spinnerDisplay: PropTypes.element,
+    spinnerFormat: PropTypes.element,
     groupsItemFormat: PropTypes.element,
     footerItemFormat: PropTypes.element,
     groupsContainer: PropTypes.element,

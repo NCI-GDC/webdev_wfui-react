@@ -21,9 +21,9 @@ class DefaultGroupsItem extends Component {
 }
 
 DefaultGroupsItem.propTypes = {
-    icon: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    link: PropTypes.string.isRequired,
+    icon: PropTypes.string,
+    title: PropTypes.string,
+    link: PropTypes.string,
 };
 
 export default DefaultGroupsItem;

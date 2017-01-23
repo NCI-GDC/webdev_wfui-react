@@ -51,7 +51,7 @@ storiesOf('ReactBootstrap', module)
 .addWithInfo(
     'Dropdown',
     () => StoryDropdown,
-    { scope: { ButtonToolbar, DropdownButton, SplitButton, MenuItem } },
+    { scope: { ButtonToolbar, DropdownButton, SplitButton, MenuItem, Button } },
 )
 .addWithInfo(
     'Expander (Collapse)',
