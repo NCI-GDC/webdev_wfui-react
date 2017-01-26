@@ -8,6 +8,9 @@ class Selection extends Component {
   constructor(){
     super()
   }
+  onHandleClickB(e) {
+    e.stopPropagation();
+  }
   onHandleClick(e) {
     
     var {type} = this.props;
@@ -32,7 +35,7 @@ class Selection extends Component {
       <div className={`wfui-selection ${className} ${activeClassName}`}>
         <label className="wfui-selection__label" onClick={this.onHandleClick.bind(this)}>
           <input className={"wfui-selection__input-"+type} ref="selection" data-ref="selection" type={type} name={name} value={value} defaultChecked={defaultChecked} />
-          <span>{label}</span>
+          <span onClick={this.onHandleClickB.bind(this)}>{label}</span>
           {children}
         </label>
       </div>
