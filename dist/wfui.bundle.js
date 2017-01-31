@@ -48947,26 +48947,24 @@
 	  }
 
 	  _createClass(Selection, [{
-	    key: 'onHandleClickB',
-	    value: function onHandleClickB(e) {
-	      e.stopPropagation();
-	    }
-	  }, {
 	    key: 'onHandleClick',
 	    value: function onHandleClick(e) {
-	      var type = this.props.type;
 
-	      if (type == "radio") {
-	        this.refs.selection.checked = true;
-	      }
-	      //Pass data to a callback.
-	      if (this.props.onHandleChange) {
-	        var res = {
-	          checked: this.refs.selection.checked,
-	          value: this.refs.selection.value,
-	          name: this.refs.selection.name
-	        };
-	        this.props.onHandleChange(res);
+	      if (e.target.id != 'ws-label') {
+	        var type = this.props.type;
+
+	        if (type == "radio") {
+	          this.refs.selection.checked = true;
+	        }
+	        //Pass data to a callback.
+	        if (this.props.onHandleChange) {
+	          var res = {
+	            checked: this.refs.selection.checked,
+	            value: this.refs.selection.value,
+	            name: this.refs.selection.name
+	          };
+	          this.props.onHandleChange(res);
+	        }
 	      }
 	    }
 	  }, {
@@ -48989,11 +48987,13 @@
 	        { className: 'wfui-selection ' + className + ' ' + activeClassName },
 	        _react2.default.createElement(
 	          'label',
-	          { className: 'wfui-selection__label', onClick: this.onHandleClick.bind(this) },
-	          _react2.default.createElement('input', { className: "wfui-selection__input-" + type, ref: 'selection', 'data-ref': 'selection', type: type, name: name, value: value, defaultChecked: defaultChecked }),
+	          { id: 'ws-label', className: 'wfui-selection__label', onClick: this.onHandleClick.bind(this) },
+	          _react2.default.createElement('input', { id: 'ws-input', className: "wfui-selection__input-" + type, ref: 'selection', 'data-ref': 'selection', type: type, name: name, value: value, defaultChecked: defaultChecked }),
 	          _react2.default.createElement(
 	            'span',
-	            { onClick: this.onHandleClickB.bind(this) },
+	            { id: 'ws-label', onClick: function onClick(e) {
+	                e.stopPropagation();
+	              } },
 	            label
 	          ),
 	          children

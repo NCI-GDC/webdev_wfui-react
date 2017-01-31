@@ -8,23 +8,24 @@ class Selection extends Component {
   constructor(){
     super()
   }
-  onHandleClickB(e) {
-    e.stopPropagation();
-  }
   onHandleClick(e) {
+
+    if(e.target.id != 'ws-label'){
     
-    var {type} = this.props;
-    if(type=="radio"){
-      this.refs.selection.checked = true;
-    }
-    //Pass data to a callback.
-    if(this.props.onHandleChange){
-      var res = {
-        checked: this.refs.selection.checked,
-        value: this.refs.selection.value,
-        name: this.refs.selection.name
+      var {type} = this.props;
+      if(type=="radio"){
+        this.refs.selection.checked = true;
       }
-      this.props.onHandleChange(res);
+      //Pass data to a callback.
+      if(this.props.onHandleChange){
+        var res = {
+          checked: this.refs.selection.checked,
+          value: this.refs.selection.value,
+          name: this.refs.selection.name
+        }
+        this.props.onHandleChange(res);
+      }
+
     }
   }
   render() {
@@ -33,9 +34,9 @@ class Selection extends Component {
 
     return (
       <div className={`wfui-selection ${className} ${activeClassName}`}>
-        <label className="wfui-selection__label" onClick={this.onHandleClick.bind(this)}>
-          <input className={"wfui-selection__input-"+type} ref="selection" data-ref="selection" type={type} name={name} value={value} defaultChecked={defaultChecked} />
-          <span onClick={this.onHandleClickB.bind(this)}>{label}</span>
+        <label id="ws-label" className="wfui-selection__label" onClick={this.onHandleClick.bind(this)}>
+          <input id="ws-input" className={"wfui-selection__input-"+type} ref="selection" data-ref="selection" type={type} name={name} value={value} defaultChecked={defaultChecked} />
+          <span id="ws-label" onClick={(e)=>{ e.stopPropagation() }}>{label}</span>
           {children}
         </label>
       </div>
