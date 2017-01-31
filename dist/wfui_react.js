@@ -24132,10 +24132,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _react2.default.createElement('input', { className: "wfui-selection__input-" + type, ref: 'selection', 'data-ref': 'selection', type: type, name: name, value: value, defaultChecked: defaultChecked }),
 	          _react2.default.createElement(
 	            'span',
-	            null,
+	            { onClick: function onClick(e) {
+	                e.stopPropagation();
+	              } },
 	            label
 	          ),
-	          children
+	          children ? children : null
 	        )
 	      );
 	    }
