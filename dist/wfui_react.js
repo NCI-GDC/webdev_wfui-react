@@ -24101,6 +24101,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (type == "radio") {
 	        this.refs.selection.checked = true;
 	      }
+
+	      console.log(e.target);
+
 	      //Pass data to a callback.
 	      if (this.props.onHandleChange) {
 	        var res = {
@@ -24108,9 +24111,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          value: this.refs.selection.value,
 	          name: this.refs.selection.name
 	        };
-	        if (e.target.id != 'ws-label' && e.target.id != 'ws-input') {
-	          this.props.onHandleChange(res);
-	        }
+	        this.props.onHandleChange(res);
 	      }
 	    }
 	  }, {
@@ -24137,7 +24138,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _react2.default.createElement('input', { id: 'ws-input', className: "wfui-selection__input-" + type, ref: 'selection', 'data-ref': 'selection', type: type, name: name, value: value, defaultChecked: defaultChecked }),
 	          _react2.default.createElement(
 	            'span',
-	            { id: 'ws-label' },
+	            { id: 'ws-label', onClick: function onClick(e) {
+	                e.stopPropagation();
+	              } },
 	            label
 	          ),
 	          children ? children : null
