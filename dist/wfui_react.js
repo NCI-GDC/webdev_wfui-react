@@ -24093,6 +24093,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(Selection, [{
 	    key: 'onHandleClick',
 	    value: function onHandleClick(e) {
+
+	      console.log(e);
+
 	      var type = this.props.type;
 
 	      if (type == "radio") {
@@ -24129,7 +24132,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _react2.default.createElement(
 	          'label',
 	          { className: 'wfui-selection__label', onClick: this.onHandleClick.bind(this) },
-	          _react2.default.createElement('input', { className: "wfui-selection__input-" + type, ref: 'selection', 'data-ref': 'selection', type: type, name: name, value: value, defaultChecked: defaultChecked }),
+	          _react2.default.createElement('input', { onClick: function onClick(e) {
+	              e.stopPropagation();
+	            }, className: "wfui-selection__input-" + type, ref: 'selection', 'data-ref': 'selection', type: type, name: name, value: value, defaultChecked: defaultChecked }),
 	          _react2.default.createElement(
 	            'span',
 	            { onClick: function onClick(e) {

@@ -10,6 +10,8 @@ class Selection extends Component {
   }
   onHandleClick(e) {
     
+    console.log(e);
+
     var {type} = this.props;
     if(type=="radio"){
       this.refs.selection.checked = true;
@@ -31,7 +33,7 @@ class Selection extends Component {
     return (
       <div className={`wfui-selection ${className} ${activeClassName}`}>
         <label className="wfui-selection__label" onClick={this.onHandleClick.bind(this)}>
-          <input className={"wfui-selection__input-"+type} ref="selection" data-ref="selection" type={type} name={name} value={value} defaultChecked={defaultChecked} />
+          <input onClick={(e)=>{ e.stopPropagation() }} className={"wfui-selection__input-"+type} ref="selection" data-ref="selection" type={type} name={name} value={value} defaultChecked={defaultChecked} />
           <span onClick={(e)=>{ e.stopPropagation() }}>{label}</span>
           { children ? children : null }
         </label>
