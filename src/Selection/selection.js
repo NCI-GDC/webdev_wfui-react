@@ -34,8 +34,8 @@ class Selection extends Component {
 
     return (
       <div className={`wfui-selection ${className} ${activeClassName}`}>
-        <label className="wfui-selection__label" onClick={this.onHandleClick}>
-          <input id="ws-input" className={"wfui-selection__input-"+type} ref="selection" data-ref="selection" type={type} name={name} value={value} defaultChecked={defaultChecked} />
+        <label className="wfui-selection__label" onClick={(e)=>{ e.preventDefault() }}>
+          <input id="ws-input" onClick={this.onHandleClick} className={"wfui-selection__input-"+type} ref="selection" data-ref="selection" type={type} name={name} value={value} defaultChecked={defaultChecked} />
           <span id="ws-label" onClick={(e)=>{ e.stopPropagation() }} >{label}</span>
           { children ? children : null }
         </label>
