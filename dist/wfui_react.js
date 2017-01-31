@@ -24087,7 +24087,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function Selection() {
 	    _classCallCheck(this, Selection);
 
-	    return _possibleConstructorReturn(this, (Selection.__proto__ || Object.getPrototypeOf(Selection)).call(this));
+	    var _this = _possibleConstructorReturn(this, (Selection.__proto__ || Object.getPrototypeOf(Selection)).call(this));
+
+	    _this.onHandleClick = _this.onHandleClick.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(Selection, [{
@@ -24111,6 +24114,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      var _props = this.props,
 	          label = _props.label,
 	          name = _props.name,
@@ -24128,9 +24133,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        { className: 'wfui-selection ' + className + ' ' + activeClassName },
 	        _react2.default.createElement(
 	          'label',
-	          { className: 'wfui-selection__label', onClick: this.onHandleClick.bind(this) },
+	          { className: 'wfui-selection__label', onClick: this.onHandleClick },
 	          _react2.default.createElement('input', { onClick: function onClick(e) {
-	              e.stopPropagation();
+	              e.stopPropagation();_this2.onHandleClick(e);
 	            }, className: "wfui-selection__input-" + type, ref: 'selection', 'data-ref': 'selection', type: type, name: name, value: value, defaultChecked: defaultChecked }),
 	          _react2.default.createElement(
 	            'span',

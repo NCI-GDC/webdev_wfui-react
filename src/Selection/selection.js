@@ -6,7 +6,8 @@ import ReactDOM from 'react-dom'
  */
 class Selection extends Component {
   constructor(){
-    super()
+    super();
+    this.onHandleClick = this.onHandleClick.bind(this);
   }
   onHandleClick(e) {
     
@@ -30,8 +31,8 @@ class Selection extends Component {
 
     return (
       <div className={`wfui-selection ${className} ${activeClassName}`}>
-        <label className="wfui-selection__label" onClick={this.onHandleClick.bind(this)}>
-          <input onClick={(e)=>{ e.stopPropagation() }} className={"wfui-selection__input-"+type} ref="selection" data-ref="selection" type={type} name={name} value={value} defaultChecked={defaultChecked} />
+        <label className="wfui-selection__label" onClick={this.onHandleClick}>
+          <input onClick={(e)=>{ e.stopPropagation(); this.onHandleClick(e); }} className={"wfui-selection__input-"+type} ref="selection" data-ref="selection" type={type} name={name} value={value} defaultChecked={defaultChecked} />
           <span onClick={(e)=>{ e.stopPropagation() }}>{label}</span>
           { children ? children : null }
         </label>
