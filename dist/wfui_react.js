@@ -24093,9 +24093,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(Selection, [{
 	    key: 'onHandleClick',
 	    value: function onHandleClick(e) {
-
-	      console.log(e);
-
 	      var type = this.props.type;
 
 	      if (type == "radio") {

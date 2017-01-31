@@ -10,8 +10,6 @@ class Selection extends Component {
   }
   onHandleClick(e) {
     
-    console.log(e);
-
     var {type} = this.props;
     if(type=="radio"){
       this.refs.selection.checked = true;
