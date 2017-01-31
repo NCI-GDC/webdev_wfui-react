@@ -24108,14 +24108,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	          value: this.refs.selection.value,
 	          name: this.refs.selection.name
 	        };
-	        this.props.onHandleChange(res);
+	        if (e.target.id != 'ws-label' && e.target.id != 'ws-input') {
+	          this.props.onHandleChange(res);
+	        }
 	      }
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-
 	      var _props = this.props,
 	          label = _props.label,
 	          name = _props.name,
@@ -24134,14 +24134,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _react2.default.createElement(
 	          'label',
 	          { className: 'wfui-selection__label', onClick: this.onHandleClick },
-	          _react2.default.createElement('input', { onClick: function onClick(e) {
-	              e.stopPropagation();_this2.onHandleClick(e);
-	            }, className: "wfui-selection__input-" + type, ref: 'selection', 'data-ref': 'selection', type: type, name: name, value: value, defaultChecked: defaultChecked }),
+	          _react2.default.createElement('input', { id: 'ws-input', className: "wfui-selection__input-" + type, ref: 'selection', 'data-ref': 'selection', type: type, name: name, value: value, defaultChecked: defaultChecked }),
 	          _react2.default.createElement(
 	            'span',
-	            { onClick: function onClick(e) {
-	                e.stopPropagation();
-	              } },
+	            { id: 'ws-label' },
 	            label
 	          ),
 	          children ? children : null

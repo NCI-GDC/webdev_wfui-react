@@ -22,7 +22,9 @@ class Selection extends Component {
         value: this.refs.selection.value,
         name: this.refs.selection.name
       }
-      this.props.onHandleChange(res);
+      if(e.target.id != 'ws-label' && e.target.id != 'ws-input') {
+        this.props.onHandleChange(res);
+      }
     }
   }
   render() {
@@ -32,8 +34,8 @@ class Selection extends Component {
     return (
       <div className={`wfui-selection ${className} ${activeClassName}`}>
         <label className="wfui-selection__label" onClick={this.onHandleClick}>
-          <input onClick={(e)=>{ e.stopPropagation(); this.onHandleClick(e); }} className={"wfui-selection__input-"+type} ref="selection" data-ref="selection" type={type} name={name} value={value} defaultChecked={defaultChecked} />
-          <span onClick={(e)=>{ e.stopPropagation() }}>{label}</span>
+          <input id="ws-input" className={"wfui-selection__input-"+type} ref="selection" data-ref="selection" type={type} name={name} value={value} defaultChecked={defaultChecked} />
+          <span id="ws-label" >{label}</span>
           { children ? children : null }
         </label>
       </div>
