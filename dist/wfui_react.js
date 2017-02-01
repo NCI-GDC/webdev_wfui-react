@@ -24087,10 +24087,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function Selection() {
 	    _classCallCheck(this, Selection);
 
-	    var _this = _possibleConstructorReturn(this, (Selection.__proto__ || Object.getPrototypeOf(Selection)).call(this));
-
-	    _this.onHandleClick = _this.onHandleClick.bind(_this);
-	    return _this;
+	    return _possibleConstructorReturn(this, (Selection.__proto__ || Object.getPrototypeOf(Selection)).call(this));
 	  }
 
 	  _createClass(Selection, [{
@@ -24103,7 +24100,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (type == "radio") {
 	          this.refs.selection.checked = true;
 	        }
-
 	        //Pass data to a callback.
 	        if (this.props.onHandleChange) {
 	          var res = {
@@ -24135,8 +24131,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        { className: 'wfui-selection ' + className + ' ' + activeClassName },
 	        _react2.default.createElement(
 	          'label',
-	          { id: 'ws-label', className: 'wfui-selection__label' },
-	          _react2.default.createElement('input', { id: 'ws-input', onClick: this.onHandleClick, className: "wfui-selection__input-" + type, ref: 'selection', 'data-ref': 'selection', type: type, name: name, value: value, defaultChecked: defaultChecked }),
+	          { id: 'ws-label', className: 'wfui-selection__label', onClick: this.onHandleClick.bind(this) },
+	          _react2.default.createElement('input', { id: 'ws-input', className: "wfui-selection__input-" + type, ref: 'selection', 'data-ref': 'selection', type: type, name: name, value: value, defaultChecked: defaultChecked }),
 	          _react2.default.createElement(
 	            'span',
 	            { id: 'ws-label', onClick: function onClick(e) {
@@ -24144,7 +24140,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	              } },
 	            label
 	          ),
-	          children ? children : null
+	          children
 	        )
 	      );
 	    }
