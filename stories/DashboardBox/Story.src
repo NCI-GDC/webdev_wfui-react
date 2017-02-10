@@ -1,7 +1,7 @@
 const temp = [
     {
         title: 'JIRA',
-        hasIcon: true,
+        imageURL: imageFile,
         buttons: [
             {
                 name: 'Create Issue',
@@ -21,7 +21,6 @@ const temp = [
     },
     {
         title: 'WIKI',
-        hasIcon: true,
         buttons: [
             {
                 name: 'Button 1',
@@ -52,7 +51,7 @@ class Example extends React.Component {
             <div className="container">
                 { data.map((box, idx) => {
                         return (
-                            <DashboardBox {...box}>
+                            <DashboardBox {...box} key={idx}>
                                 <p>Hello</p>
                             </DashboardBox>
                         );

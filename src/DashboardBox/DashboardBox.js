@@ -1,5 +1,6 @@
 import React from 'react';
 import { ButtonToolbar, Button, DropdownButton, Glyphicon, MenuItem, Panel } from 'react-bootstrap';
+import classNames from 'classnames';
 
 class DashboardBox extends React.Component {
     renderConfigs() {
@@ -25,12 +26,12 @@ class DashboardBox extends React.Component {
     }
 
     renderHeader() {
-        const { hasIcon, title, buttons, configs } = this.props;
+        const { imageURL, title, buttons, configs } = this.props;
 
         return (
             <div className="widget__header">
                 <div className="widget__header__title">
-                    { hasIcon && <span className={`appicon appicon-${title}`} aria-hidden="true" />}
+                    { imageURL && <img src={imageURL} alt={`${title} Logo`} />}
                     <h2 className="widget__header__title">{ title }</h2>
                 </div>
                 <ButtonToolbar className="widget__header__buttons">
@@ -51,10 +52,10 @@ class DashboardBox extends React.Component {
     }
 
     render() {
-        const { title, children } = this.props;
+        const { className, children } = this.props;
 
         return (
-            <Panel className={`widget widget-${title}`} header={this.renderHeader()}>
+            <Panel className={classNames(className, 'wfui-dashboardBox')} header={this.renderHeader()}>
                 <div className="widget__body">{ children }</div>
             </ Panel>
         );
@@ -63,7 +64,7 @@ class DashboardBox extends React.Component {
 
 DashboardBox.propTypes = {
     title: React.PropTypes.string,
-    hasIcon: React.PropTypes.bool,
+    imageURL: React.PropTypes.string,
     buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
         href: React.PropTypes.string,
         name: React.PropTypes.string,
@@ -83,7 +84,7 @@ DashboardBox.propTypes = {
 
 DashboardBox.defaultTypes = {
     title: '',
-    hasIcon: false,
+    imageURL: '',
     buttons: [],
     configs: [],
     children: [],

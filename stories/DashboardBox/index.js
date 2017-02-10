@@ -5,14 +5,15 @@ import Story from 'raw!./Story.src';
 import StoryDraggableDashboard from 'raw!./StoryDraggableDashboard.src';
 import { Draggable } from '../../src/';
 import DashboardBox from '../../src/DashboardBox/DashboardBox';
+import imageFile from './icon.svg';
 
 storiesOf('DashboardBox', module)
 .addWithInfo(
     'Default View',
     () => Story,
-    { scope: { DashboardBox }, source: true, static: true },
+    { scope: { DashboardBox, imageFile }, source: true, static: true },
 ).addWithInfo(
     'Draggable Grid View',
     () => StoryDraggableDashboard,
-    { scope: { Draggable, DashboardBox, Glyphicon }, source: true, static: true },
+    { scope: { Draggable, DashboardBox, Glyphicon, imageFile }, source: true, static: true },
 );
