@@ -7,3 +7,6 @@
 
 rm -rf lib
 ./node_modules/.bin/babel src --out-dir lib
+
+rm -rf dist
+./node_modules/.bin/webpack

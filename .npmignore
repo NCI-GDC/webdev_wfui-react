@@ -16,3 +16,4 @@ addon
 .storybook
 Readme.md
 yarn.lock
+bundle.log
