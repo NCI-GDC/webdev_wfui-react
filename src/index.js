@@ -9,6 +9,7 @@ import TwitterFeed from './TwitterFeed/TwitterFeed';
 import FilteredTable from './FilteredTable/FilteredTable';
 import PasswordValidator from './PasswordValidator/PasswordValidator';
 import Draggable from './Draggable/Draggable';
+import DashboardBox from './DashboardBox/DashboardBox';
 
 require('./i18n/i18n.js');
 
@@ -19,6 +20,7 @@ module.exports = {
     FilteredTable,
     PasswordValidator,
     Draggable,
+    DashboardBox,
     // Third Party Components
     NotificationSystem,
     Dropzone,
