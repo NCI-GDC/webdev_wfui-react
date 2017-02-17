@@ -3,7 +3,7 @@
 ## How to add your component into WFUI
 1. Create a directory in ```src/``` and place your component. Your index file or component file has to **export** your module.
 2. Add your component in ```src/index.js```
-3. run ```npm build``` to transpile src directory with babel
+3. run ```npm run build``` to transpile src directory with babel
 
 ## How to add your component into Storybook
 1. Create a directory in ```stories/``` and create ```index.js``` file.
