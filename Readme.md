@@ -7,8 +7,8 @@
 
 ## How to add your component into Storybook
 1. Create a directory in ```stories/``` and create ```index.js``` file.
-2. You can reference other stories ( Test ) is simple one and easy to understand.
-3. Create Story.src file which contains example code how to use your component.
+2. You can copy other stories ( Test ) is simple one and easy to understand.
+3. Create Story.src file which contains your example code how to use your component.
 4. Load the .src file with using raw-loader like ```import Story from 'raw!./Story.src';```
 5. Set story with the codes, names and title .etc. You have to pass your component in **scope**
 ```
@@ -19,9 +19,9 @@ import Test from '../../src/Test';
 
 storiesOf('Component Name', module)
   .addWithInfo(
-    'Story Name ( e.g. Default )',
+    'Story Name',
     () => Story,
     { scope: { Test } }
 );
 ```
-6. Finally, you need load your story into storybook by modifing ```.storybook/config.js```
+6. Finally, you need to load your story into storybook by modifing ```.storybook/config.js```
