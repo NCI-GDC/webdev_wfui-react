@@ -31,7 +31,7 @@ class Draggable extends React.Component {
     componentWillMount() {
         const { children, type } = this.props;
         this.setState({
-            items: children.map((child, i) => {
+            items: children.length ? children.map((child, i) => {
                 return React.cloneElement(
                     child,
                     Object.assign({}, child.props, {
@@ -41,7 +41,7 @@ class Draggable extends React.Component {
                         type,
                     }),
                 )
-            })
+            }) : [children]
         });
     }
     onHandleEndDrag() {
