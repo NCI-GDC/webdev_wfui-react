@@ -25,24 +25,27 @@ const style = {
 class Draggable extends React.Component {
     constructor() {
         super();
+        this.state = { items: [] }
         this.onHandleMoveItem = this.onHandleMoveItem.bind(this);
         this.onHandleEndDrag = this.onHandleEndDrag.bind(this);
     }
     componentWillMount() {
         const { children, type } = this.props;
-        this.setState({
-            items: children.length ? children.map((child, i) => {
-                return React.cloneElement(
-                    child,
-                    Object.assign({}, child.props, {
-                        moveItem : this.onHandleMoveItem,
-                        endDrag : this.onHandleEndDrag,
-                        key: i,
-                        type,
-                    }),
-                )
-            }) : [children]
-        });
+        if (children) {
+            this.setState({
+                items: children.length ? children.map((child, i) => {
+                    return React.cloneElement(
+                        child,
+                        Object.assign({}, child.props, {
+                            moveItem : this.onHandleMoveItem,
+                            endDrag : this.onHandleEndDrag,
+                            key: i,
+                            type,
+                        }),
+                    )
+                }) : [children]
+            });
+        }
     }
     onHandleEndDrag() {
         const { onHandleEndDrag } = this.props;
