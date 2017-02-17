@@ -30,7 +30,13 @@ class Draggable extends React.Component {
         this.onHandleEndDrag = this.onHandleEndDrag.bind(this);
     }
     componentWillMount() {
-        const { children, type } = this.props;
+        this.setItems(this.props);
+    }
+    componentWillReceiveProps(props) {
+        this.setItems(props);
+    }
+    setItems(props) {
+        const { children, type } = props;
         if (children) {
             this.setState({
                 items: children.length ? children.map((child, i) => {
