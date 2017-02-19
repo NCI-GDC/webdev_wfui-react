@@ -30,7 +30,6 @@ class Draggable extends React.Component {
         this.setItems(this.props);
     }
     componentWillReceiveProps(props) {
-        console.log('aa');
         this.setItems(props);
     }
     setItems(props) {
