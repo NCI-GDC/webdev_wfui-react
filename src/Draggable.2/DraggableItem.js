@@ -81,8 +81,14 @@ class DraggableItem extends React.Component {
         this.state = { hasHandle: false };
     }
     componentWillMount() {
-        const { children } = this.props;
-        if(children.length){
+        this.checkHasHandle(this.props);
+    }
+    componentWillReceiveProps(props) {
+        this.checkHasHandle(props);
+    }
+    checkHasHandle(props) {
+        const { children } = props.children.props;
+        if(typeof children === 'object' && children.length){
             children.forEach( (child, i) => {
                 if(child.type == DraggableHandle){
                     this.setState({ hasHandle: true });
@@ -91,11 +97,14 @@ class DraggableItem extends React.Component {
         } else {
             if(children.type == DraggableHandle){
                 this.setState({ hasHandle: true });
+            }else{
+                this.setState({ hasHandle: false });
             }
         }
     }
     render() {
-        const { className, children, text, isDragging, connectDragSource, connectDropTarget, connectDragPreview} = this.props;
+        const { className, text, isDragging, connectDragSource, connectDropTarget, connectDragPreview} = this.props;
+        const { children } = this.props.children.props;
         const { hasHandle } = this.state;
         const opacity = isDragging ? 0.3 : 1;
         const classes = 'wfui-draggable-item';
@@ -104,12 +113,12 @@ class DraggableItem extends React.Component {
         if( hasHandle ){
             return connectDragPreview(connectDropTarget(
                 <li className={classNames(className, classes)} style={{ opacity, breakInside:'avoid' }}>
-                    {children.map((child, i) => {
+                    {typeof children ==='object' ? children.map((child, i) => {
                         if(child.type == DraggableHandle){
                             return connectDragSource(<div key={i} className="wfui-draggable-handle">{child}</div>);
                         }
                         return <div key={i}>{child}</div>;
-                    })}
+                    }) : children }
                 </li>
             ));
         }
