@@ -16,16 +16,13 @@ const style = {
         listStyleType: 'none',
         paddingLeft: 0,
     },
-    grid: {
-        columnWidth: 300,
-    }
 };
 
 @DragDropContext(HTML5Backend)
 class Draggable extends React.Component {
     constructor() {
         super();
-        this.state = { items: [] }
+        this.state = { items: [], columnWidth: 300 }
         this.onHandleMoveItem = this.onHandleMoveItem.bind(this);
         this.onHandleEndDrag = this.onHandleEndDrag.bind(this);
     }
@@ -73,14 +70,21 @@ class Draggable extends React.Component {
         }));
     }
     render() {
-        const { className, type } = this.props;
+        const { className, type, columnCount } = this.props;
         const { items } = this.state;
         return (
-            <ul className={classNames(className, 'wfui-draggable')} style={ type==='grid' ? {...style.container, ...style.grid} : {...style.container} } >
-                {items.map((item, i) => {
-                    return React.cloneElement( item, Object.assign({}, item.props, { index: i }) )
-                })}
-            </ul>
+            <div className={classNames(className, 'wfui-draggable')} >
+                <ul
+                    style={
+                        type==='grid' ?
+                        {...style.container, columnCount } : {...style.container}
+                    }
+                >
+                    {items.map((item, i) => {
+                        return React.cloneElement( item, Object.assign({}, item.props, { index: i }) )
+                    })}
+                </ul>
+            </div>
         )
     }
 }
@@ -88,12 +92,14 @@ class Draggable extends React.Component {
 Draggable.propTypes = {
     children: React.PropTypes.node,
     type: React.PropTypes.oneOf(['stack', 'grid']).isRequired,
+    columnCount: React.PropTypes.number,
     onHandleEndDrag: React.PropTypes.func,
 };
 
 Draggable.defaultProps = {
     type: 'stack',
     onHandleEndDrag: () => undefined,
+    columnCount: 3,
 }
 
 Draggable.Item = DraggableItem;
