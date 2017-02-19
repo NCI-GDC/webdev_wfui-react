@@ -22,26 +22,25 @@ const style = {
 class Draggable extends React.Component {
     constructor() {
         super();
-        this.state = { items: [], columnWidth: 300 }
+        this.state = { columnWidth: 300, indexes: [] }
         this.onHandleMoveItem = this.onHandleMoveItem.bind(this);
         this.onHandleEndDrag = this.onHandleEndDrag.bind(this);
     }
     componentWillMount() {
         // this.setItems(this.props);
-        this.setState({ items: this.props.items });
+        this.setState({ indexes: this.props.items.map((item,i) => (i))})
     }
     onHandleEndDrag() {
         const { onHandleEndDrag } = this.props;
-        const { items } = this.state;
-        this.props.onHandleEndDrag({ items });
+        const { indexes } = this.state;
+        this.props.onHandleEndDrag({ indexes });
     }
     onHandleMoveItem(dragIndex, hoverIndex) {
-
-        const { items } = this.state;
-        const dragItem = items[dragIndex];
+        const { indexes } = this.state;
+        const dragItem = indexes[dragIndex];
 
         this.setState(update(this.state, {
-            items: {
+            indexes: {
                 $splice: [
                 [dragIndex, 1],
                 [hoverIndex, 0, dragItem]
@@ -50,8 +49,9 @@ class Draggable extends React.Component {
         }));
     }
     render() {
-        const { className, type, columnCount } = this.props;
-        const { items } = this.state;
+        const { className, type, columnCount, items } = this.props;
+        const { indexes } = this.state;
+
         return (
             <div className={classNames(className, 'wfui-draggable')} >
                 <ul
@@ -60,7 +60,7 @@ class Draggable extends React.Component {
                         {...style.container, columnCount } : {...style.container}
                     }
                 >
-                    {items.map((item, i) => {
+                    {indexes.map((idx, i) => {
                         return (
                             <DraggableItem
                                 moveItem={this.onHandleMoveItem}
@@ -68,7 +68,7 @@ class Draggable extends React.Component {
                                 key={i}
                                 index={i}
                             >
-                                {item}
+                                {items[idx]}
                             </DraggableItem>
                         )
                     })}
