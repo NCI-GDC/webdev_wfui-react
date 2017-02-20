@@ -103,7 +103,7 @@ class DraggableItem extends React.Component {
         // Make only DraggableHandle enable to drag.
         if( hasHandle ){
             return connectDragPreview(connectDropTarget(
-                <li className={classNames(className, classes)} style={{ opacity, breakInside:'avoid', pageBreakInside: 'avoid', overflowX: 'auto' }}>
+                <li className={classNames(className, classes)} style={{ opacity, breakInside:'avoid', pageBreakInside: 'avoid' }}>
                     {children.map((child, i) => {
                         if(child.type == DraggableHandle){
                             return connectDragSource(<div key={i} className="wfui-draggable-handle">{child}</div>);
@@ -115,7 +115,7 @@ class DraggableItem extends React.Component {
         }
         // Entire content is draggable.
         return connectDragSource(connectDropTarget(
-            <li className={classNames(className, classes)} style={{ opacity, breakInside:'avoid', pageBreakInside: 'avoid', overflowX: 'auto' }}>{ children }</li>
+            <li className={classNames(className, classes)} style={{ opacity, breakInside:'avoid', pageBreakInside: 'avoid' }}>{ children }</li>
         ));
     }
 }
