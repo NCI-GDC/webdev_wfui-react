@@ -1,0 +1,74 @@
+// _links-list.scss
+
+// Links list base
+.links-list {
+  @include font-base(13px, 600);
+  @include no-margin;
+  @include no-padding;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style-type: none;
+
+  li {
+    margin: {
+      top: $spacer-sm;
+      bottom: $spacer-sm;
+    }   
+  }
+  a {
+    @include margin-rt-lt-base($size-lt: 0, $size-rt: $spacer-sm);
+    font-size: inherit;
+    font-weight: inherit;
+  }
+}
+
+// Links list primary
+.links-list--no-wrap {
+  @extend .links-list;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+// Links list primary
+.links-list--primary {
+  @extend .links-list;
+  @include padding-base;
+
+  background-color: $primary-main-med-light;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+
+  li {
+    @include border-base;
+
+    border: {
+      top: none;
+      left: none;
+      bottom: none;
+      color: $primary-accent-dark;
+    }
+    display: inline-block;
+    flex-basis: 100%;
+    text-align: center;
+
+    &:last-of-type {
+      border-right: none;
+    }
+  }
+
+  a {
+    @include no-margin;
+  }
+}
+
+// Links list secondary
+.links-list--secondary {
+  @extend .links-list--primary;
+  background-color: $white;
+  li {
+    border-color: $primary-main-med;
+  }
+} 

@@ -1,0 +1,45 @@
+// _popover.scss
+
+// Only use to display popover box for styling
+.popover--demo {
+  position: relative;
+  display: block;
+}
+
+.popover {
+  border-radius: 0;
+
+  .popover-title {
+    @include font-base(13px, 600);
+    background-color: $white;
+    border-bottom: none;
+    display: flex;
+    text-align: center;
+  }
+  .popover-content {
+    h4 {
+      margin: {
+        top: $spacer-sm;
+        bottom: $spacer-sm;
+      }
+    }
+    .row {
+      margin: {
+        top: $spacer-md;
+        bottom: $spacer-md;
+      }
+      &:first-child {
+        margin-top: 0;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    .popover-content__card {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+}

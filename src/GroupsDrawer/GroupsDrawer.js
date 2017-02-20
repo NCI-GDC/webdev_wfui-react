@@ -32,9 +32,9 @@ class GroupsDrawer extends Component {
         );
 
         return (
-            <div className="groups-drawer-footer">
+            <ul className="groups-drawer-footer links-list--primary">
                 {cloneElement(footerContainer, { children: footerComponent })}
-            </div>
+            </ul>
         );
     }
 
@@ -45,6 +45,7 @@ class GroupsDrawer extends Component {
                 {(groups && groups.length > 0) ? this.renderGroups() : null}
                 {(footer && footer.length > 0) ? this.renderFooter() : null}
             </div>
+
         );
     }
 
@@ -88,7 +89,7 @@ GroupsDrawer.propTypes = {
 };
 
 GroupsDrawer.defaultProps = {
-    bsStyle: 'default',
+    bsStyle: 'link',
     title: '',
     isIcon: true,
     icon: 'th',

@@ -28,22 +28,22 @@ class UserDrawer extends Component {
         );
 
         return (
-            <li className="list-unstyled">
-                {menuItems}
-            </li>
+            <div className="clearfix row">
+                <div className="col-md-12">
+                    <ul className="links-list--no-wrap list-unstyled">
+                        {menuItems}
+                    </ul>                
+                </div>
+            </div>
         );
     }
 
     renderUserInfo() {
         const { userInfo } = this.props;
         return (
-            <div className="user-drawer-info">
-                <div className="col-xs-3" style={{ minWidth: '40px', minHeight: '40px', padding: '0' }}>
-                    <img width={40} height={40} src={userInfo.image} />
-                </div>
-                <div className="col-xs-9">
-                    <p style={{ lineHeight: '40px' }}>{userInfo.email}</p>
-                </div>
+            <div className="popover-title">
+                { userInfo.image ? <img width={40} height={40} src={userInfo.image} /> : ''}
+                <span className="is-lower-case is-aligned-left"><h3>{userInfo.email}</h3></span>
             </div>
         );
     }
@@ -68,7 +68,7 @@ class UserDrawer extends Component {
                 <div className="users-drawer">
                     { this.renderUserInfo() }
                 </div>
-                <div className="users-drawer">
+                <div className="popover-content">
                     { userMenu.length > 0 ?
                         this.renderUserMenu() : this.renderSpinner() }
                 </div>
@@ -110,6 +110,7 @@ UserDrawer.defaultProps = {
     },
     spinnerFormat: defaultSpinner,
     useCaret: true,
+    bsStyle: 'link',
 };
 
 export default UserDrawer;
