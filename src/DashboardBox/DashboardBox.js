@@ -56,7 +56,7 @@ class DashboardBox extends React.Component {
 
         return (
             <Panel className={classNames(className, 'wfui-dashboardBox')} header={this.renderHeader()}>
-                <div className="widget__body">{ children }</div>
+                <div className="widget__body" style={{ overflowX: 'auto' }}>{ children }</div>
             </ Panel>
         );
     }
