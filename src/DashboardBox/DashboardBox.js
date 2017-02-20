@@ -30,7 +30,7 @@ class DashboardBox extends React.Component {
         return (
             <header className="widget__header">
                 <span>{ imageURL && <img src={imageURL} width="32" height="32" alt={`${title} Logo`} />}</span>
-                <h2 className="widget__header__title">Institutional Repository</h2>
+                <h2 className="widget__header__title">{title}</h2>
                 <div className="widget__header__buttons">
                     {
                     buttons &&
