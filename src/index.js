@@ -12,6 +12,7 @@ import Draggable from './Draggable/Draggable';
 import DashboardBox from './DashboardBox/DashboardBox';
 import UserDrawer from './UserDrawer/UserDrawer';
 import Drawer from './Drawer/Drawer';
+import GroupsDrawer from './GroupsDrawer/GroupsDrawer';
 
 require('./i18n/i18n.js');
 
@@ -25,6 +26,7 @@ module.exports = {
     DashboardBox,
     UserDrawer,
     Drawer,
+    GroupsDrawer,
     // Third Party Components
     NotificationSystem,
     Dropzone,

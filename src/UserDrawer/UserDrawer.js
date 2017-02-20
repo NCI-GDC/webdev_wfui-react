@@ -32,7 +32,7 @@ class UserDrawer extends Component {
                 <div className="col-md-12">
                     <ul className="links-list--no-wrap list-unstyled">
                         {menuItems}
-                    </ul>                
+                    </ul>
                 </div>
             </div>
         );
