@@ -78,7 +78,7 @@ class Draggable extends React.Component {
                 <ul
                     style={
                         type==='grid' ?
-                        {...style.container, columnCount } : {...style.container}
+                        {...style.container, columnCount, MozColumnCount:columnCount } : {...style.container}
                     }
                 >
                     {items.map((item, i) => {
