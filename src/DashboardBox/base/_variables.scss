@@ -1,0 +1,26 @@
+// _variables.scss
+
+// Global colors
+$white: #fff;
+$black: #000;
+$primary-main-light: #fafafa;
+$primary-main-med-light: darken($primary-main-light, 10%);
+$primary-main-med: #cccccc; //borders
+$primary-main-dark: darken($primary-main-med, 10%);
+$primary-accent-light: #6ea06e;
+$primary-accent-dark: #467946;
+
+// Global fonts
+$base-font-size: 16px;
+$font-color-main: #34353c; 
+$font-color-accent-primary: $primary-accent-dark;
+$font-color-accent-secondary: #3695a7;
+$sans-serif: "Open Sans", Helvetica, Arial, sans-serif;
+
+// Spacing
+$spacer-sm: 4px;
+$spacer-md: $spacer-sm*2;
+$spacer-lg: $spacer-md*2;
+
+// borders
+$primary-border: 1px solid $primary-main-med;

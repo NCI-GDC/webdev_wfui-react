@@ -8,7 +8,7 @@ class DashboardBox extends React.Component {
 
         return (
             <DropdownButton
-                bsStyle="default"
+                bsStyle="link"
                 title={<Glyphicon glyph="cog" />}
                 id="wfui-dashboardBox-config"
                 noCaret
@@ -24,17 +24,14 @@ class DashboardBox extends React.Component {
             </DropdownButton>
         );
     }
-
     renderHeader() {
         const { imageURL, title, buttons, configs } = this.props;
 
         return (
-            <div className="widget__header">
-                <div className="widget__header__title">
-                    { imageURL && <img src={imageURL} alt={`${title} Logo`} />}
-                    <h2 className="widget__header__title">{ title }</h2>
-                </div>
-                <ButtonToolbar className="widget__header__buttons">
+            <header className="widget__header">
+                <span>{ imageURL && <img src={imageURL} width="32" height="32" alt={`${title} Logo`} />}</span>
+                <h2 className="widget__header__title">Institutional Repository</h2>
+                <div className="widget__header__buttons">
                     {
                     buttons &&
                     buttons.map((item, idx) =>
@@ -45,9 +42,9 @@ class DashboardBox extends React.Component {
                             onClick={item.onClick}
                         >{item.name}</Button>)
                     }
-                    { configs && this.renderConfigs() }
-                </ButtonToolbar>
-            </div>
+                </div>
+                { configs && this.renderConfigs() }
+            </header>
         );
     }
 
@@ -55,9 +52,10 @@ class DashboardBox extends React.Component {
         const { className, children } = this.props;
 
         return (
-            <Panel className={classNames(className, 'wfui-dashboardBox')} header={this.renderHeader()}>
+            <div className={classNames(className, 'widget wfui-dashboardBox')}>
+                {this.renderHeader()}
                 <div className="widget__body" style={{ overflowX: 'auto'}}>{ children }</div>
-            </ Panel>
+            </div>
         );
     }
 }

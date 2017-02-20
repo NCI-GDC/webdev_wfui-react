@@ -1,0 +1,38 @@
+// _widget.scss
+
+.widget {
+  @include border-base;
+  margin: {
+    top: $spacer-lg;
+    bottom: $spacer-lg;
+  }
+
+  .widget__header {
+    @include border-base;
+    @include padding-base;
+    align-items: center;
+    background-color: $primary-main-light;
+    border: {
+      top: none;
+      left: none;
+      right: none;
+    }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+
+    .widget__header__title {
+      margin: 0 auto 0 0;
+    }
+  }
+  .widget__body {
+    @include padding-base;
+    
+    .widget__body__header {
+      margin: {
+        top: $spacer-md;
+        bottom: $spacer-md;
+      }          
+    }
+  }
+}

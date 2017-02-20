@@ -7,3 +7,4 @@ require('./CaGForms/Listbox/listbox.scss');
 require('./CaGForms/Selection/selection.scss');
 
 require('./FullCalendar/fullcalendar.min.css');
+require('./DashboardBox/index.scss');

@@ -6,6 +6,7 @@ import StoryDraggableDashboard from 'raw!./StoryDraggableDashboard.src';
 import { Draggable } from '../../src/';
 import DashboardBox from '../../src/DashboardBox/DashboardBox';
 import imageFile from './icon.svg';
+import '../../src/DashboardBox/index.scss';
 
 storiesOf('DashboardBox', module)
 .addWithInfo(
