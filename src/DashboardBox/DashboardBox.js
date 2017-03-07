@@ -12,6 +12,7 @@ class DashboardBox extends React.Component {
                 title={<Glyphicon glyph="cog" />}
                 id="wfui-dashboardBox-config"
                 noCaret
+                pullRight
             >
                 {configs.map((item, idx) =>
                     <MenuItem

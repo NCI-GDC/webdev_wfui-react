@@ -19,7 +19,7 @@ class GroupsDrawer extends Component {
                 ...group,
             }),
         );
-        return cloneElement(groupsContainer, { className: 'groups-drawer-body', children: groupsComponent });
+        return cloneElement(groupsContainer, { className: 'groups-drawer-body row', children: groupsComponent });
     }
 
     renderFooter() {
