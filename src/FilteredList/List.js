@@ -49,7 +49,7 @@ class List extends React.Component {
         return populatedContainer;
     }
     componentDidUpdate() {
-        const { onDisplay, onNumOfListChange } = this.props;
+        const { onDisplay, onNumOfListChange, data } = this.props;
         const { activeData, startingArticle, lastArticle} = calcActiveData(this.props);
 
         /* Only setState and invoke callbacks when the state is changed to avoid infinite loop */
@@ -62,7 +62,7 @@ class List extends React.Component {
                 lastArticle,
             });
             /* Return number of articles. */
-            onNumOfListChange(activeData.length);
+            onNumOfListChange(data.length);
             /* onDisplay is provided for cases that the client needs to see
             * the range of articles being displayed */
             onDisplay({ starting: startingArticle, last: lastArticle });
