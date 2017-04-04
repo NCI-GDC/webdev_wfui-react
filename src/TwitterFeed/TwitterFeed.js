@@ -40,16 +40,16 @@ class TwitterFeed extends React.Component {
 
 TwitterFeed.propTypes = {
     twitterAccount: React.PropTypes.string.isRequired,
-    limit: React.PropTypes.number,
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
+    limit: React.PropTypes.string,
+    width: React.PropTypes.string,
+    height: React.PropTypes.string,
     language: React.PropTypes.string,
 };
 
 TwitterFeed.defaultProps = {
-    limit: 5,
+    limit: '5',
     language: 'en',
-    width: 300,
+    width: '300',
 };
 
 
