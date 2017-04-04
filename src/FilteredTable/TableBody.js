@@ -35,10 +35,10 @@ class TableBody extends React.Component {
             );
          }
          itemFormat.forEach((cell, rowIdx) => {
-             rowItems.push(<td key={`td_${idx}_${rowIdx}`}>{cell.display(item)}</td>);
+             rowItems.push(<td key={`td_${idx}_${rowIdx}`} className={cell.className}>{cell.display(item)}</td>);
          });
          return (
-             <tr key={`td_${idx}`}>{ rowItems }</tr>
+             <tr key={`td_${idx}`} className={(idx + 1) % 2 === 0 ? 'even' : 'odd'}>{ rowItems }</tr>
          );
       });
 
