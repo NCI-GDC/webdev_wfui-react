@@ -85,31 +85,73 @@ class Pie extends React.Component {
             }
         })
     }
+    renderCircle(node, ids, params, data) {
+        
+        const { pointSize, innovationTypeColors } = this.props;
+        const { stageId, cancerId, innovName } = ids;
+        const { innerRadius, outerRadius, startAngle, endAngle } = params;
+        const innovId = toMachineName(innovName);
+        const group = node.append('g');
+        const dataFilteredByInnovationType = data.filter((pj) => (pj.innovations.includes(innovName)));
+
+        // Calculate points to draw a circle.
+        if (dataFilteredByInnovationType.length > 0) {
+            const arc = d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius).startAngle(startAngle).endAngle(endAngle);
+            const path = group.append("svg:path").attr("class", "arc").attr("d", arc);
+            const pos = path[0][0].getPointAtLength(0);
+
+            group.append('circle')
+                .attr("id", `circle_${stageId}_${cancerId}_${innovId}`)
+                .attr("cx", pos.x)
+                .attr("cy", pos.y)
+                .attr("fill", innovationTypeColors[innovName])
+                .attr("r", pointSize)
+
+            group.append("text")
+                .attr("id", `text_${stageId}_${cancerId}_${innovId}`)
+                .style("font-size", pointSize)
+                .style("text-anchor", "middle")
+                .style("fill", "#fff")
+                .attr("dx", pos.x)
+                .attr("dy", pos.y + pointSize / 2.5)
+                .text(dataFilteredByInnovationType.length)
+
+            // Bind data to circle
+            group.selectAll('circle')
+                .data([dataFilteredByInnovationType])
+                .on('mouseover', (d) => {
+                    console.log(d)
+                })
+
+        }
+    }
     renderPie(raw) {
+        console.log(this.props);
+        const { width, height, pointSize, firstSegmentRatio, pieTotalHeight, config, innovationTypeColors, colors } = this.props;
         
         // Dimensions of sunburst.
-        const width = 750;
-        const height = 750;
+        // const width = 750;
+        // const height = 750;
         const radius = Math.min(width, height) / 2;
 
-        const pointSize = 10;
-        const firstSegmentRatio = 2;
-        const pieTotalHeight = 240; // Need accurate calculation
+        // const pointSize = 10;
+        // const firstSegmentRatio = 2;
+        // const pieTotalHeight = 240; // Need accurate calculation
 
         // Mapping of step names to colors.
-        const colors = ["#525252", "#757575", "#9c9c9c", "#c3c3c3", "#e5e5e5"];
-        const innovationTypeColors = {
-            'Diagnostic/Biomakers': '#dc3912',
-            'Health Services': '#109618',
-            'Healthcare IT/Software': '#990099',
-            'Med Tech': '#ff9900',
-            'Therapeutics': '#3366cc',
-        };
+        // const colors = ["#525252", "#757575", "#9c9c9c", "#c3c3c3", "#e5e5e5"];
+        // const innovationTypeColors = {
+        //     'Diagnostic/Biomakers': '#dc3912',
+        //     'Health Services': '#109618',
+        //     'Healthcare IT/Software': '#990099',
+        //     'Med Tech': '#ff9900',
+        //     'Therapeutics': '#3366cc',
+        // };
 
         // Draw circle.
         const drawCircle = (node, ids, params, data) => {
             const { stageId, cancerId, innovName } = ids;
-            const { innerRadius, outerRadius, startAngle, endAngle} = params;
+            const { innerRadius, outerRadius, startAngle, endAngle } = params;
             const innovId = toMachineName(innovName);
             const group = node.append('g');
             const dataFilteredByInnovationType = data.filter((pj) => (pj.innovations.includes(innovName)));
@@ -120,15 +162,12 @@ class Pie extends React.Component {
                 const path = group.append("svg:path").attr("class", "arc").attr("d", arc);
                 const pos = path[0][0].getPointAtLength(0);
 
-                group.append("circle")
+                group.append('circle')
                     .attr("id", `circle_${stageId}_${cancerId}_${innovId}`)
                     .attr("cx", pos.x)
                     .attr("cy", pos.y)
                     .attr("fill", innovationTypeColors[innovName])
                     .attr("r", pointSize)
-                    .on('mouseover', () => {
-                        console.log(dataFilteredByInnovationType)
-                    })
 
                 group.append("text")
                     .attr("id", `text_${stageId}_${cancerId}_${innovId}`)
@@ -139,35 +178,42 @@ class Pie extends React.Component {
                     .attr("dy", pos.y + pointSize / 2.5)
                     .text(dataFilteredByInnovationType.length)
 
+                // Bind data to circle
+                group.selectAll('circle')
+                    .data([dataFilteredByInnovationType])
+                    .on('mouseover', (d) => {
+                        console.log(d)
+                    })
+
             }
         }
         
-        const config = {
-            type: [
-                'Brain',
-                'Breast',
-                'Heme',
-                'Lung',
-                'Other',
-                'Ovarian',
-                'Pancreatic',
-                'Prostate',
-            ],
-            innovation: [
-                'Diagnostic/Biomakers',
-                'Health Services',
-                'Healthcare IT/Software',
-                'Med Tech',
-                'Therapeutics',``
-            ],
-            stage: [
-                'Adoption',
-                'Dissemination',
-                'Late Translation',
-                'Early Translation',
-                'Discovery',
-            ],
-        };
+        // const config = {
+        //     type: [
+        //         'Brain',
+        //         'Breast',
+        //         'Heme',
+        //         'Lung',
+        //         'Other',
+        //         'Ovarian',
+        //         'Pancreatic',
+        //         'Prostate',
+        //     ],
+        //     innovation: [
+        //         'Diagnostic/Biomakers',
+        //         'Health Services',
+        //         'Healthcare IT/Software',
+        //         'Med Tech',
+        //         'Therapeutics',
+        //     ],
+        //     stage: [
+        //         'Adoption',
+        //         'Dissemination',
+        //         'Late Translation',
+        //         'Early Translation',
+        //         'Discovery',
+        //     ],
+        // };
 
         const pieHeight = pieTotalHeight / config.stage.length;
 

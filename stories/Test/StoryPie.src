@@ -1,4 +1,50 @@
+const config = {
+    type: [
+        'Brain',
+        'Breast',
+        'Heme',
+        'Lung',
+        'Other',
+        'Ovarian',
+        'Pancreatic',
+        'Prostate',
+    ],
+    innovation: [
+        'Diagnostic/Biomakers',
+        'Health Services',
+        'Healthcare IT/Software',
+        'Med Tech',
+        'Therapeutics',
+    ],
+    stage: [
+        'Adoption',
+        'Dissemination',
+        'Late Translation',
+        'Early Translation',
+        'Discovery',
+    ],
+};
+
+const colors = ["#525252", "#757575", "#9c9c9c", "#c3c3c3", "#e5e5e5"];
+
+const innovationTypeColors = {
+    'Diagnostic/Biomakers': '#dc3912',
+    'Health Services': '#109618',
+    'Healthcare IT/Software': '#990099',
+    'Med Tech': '#ff9900',
+    'Therapeutics': '#3366cc',
+};
+
 const example = (
-    <Pie />
+    <Pie
+        width={750}
+        height={750}
+        pointSize={10}
+        firstSegmentRatio={2}
+        pieTotalHeight={240}
+        config={config}
+        innovationTypeColors={innovationTypeColors}
+        colors={colors}
+    />
 );
 return example;
