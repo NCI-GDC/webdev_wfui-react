@@ -13,6 +13,7 @@ import DashboardBox from './DashboardBox/DashboardBox';
 import UserDrawer from './UserDrawer/UserDrawer';
 import Drawer from './Drawer/Drawer';
 import GroupsDrawer from './GroupsDrawer/GroupsDrawer';
+import DisqusFeed from './DisqusFeed/index.js'
 
 require('./i18n/i18n.js');
 
@@ -27,6 +28,7 @@ module.exports = {
     UserDrawer,
     Drawer,
     GroupsDrawer,
+    DisqusFeed,
     // Third Party Components
     NotificationSystem,
     Dropzone,
