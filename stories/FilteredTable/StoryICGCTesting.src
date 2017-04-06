@@ -149,11 +149,13 @@ class FilteredListContainer extends React.Component {
                     searchTerm={this.state.searchTerm}
                     filterList={this.getFilters()}
                     data={this.state.data}
-                    pageSize={5}
+                    pageSize={100}
                     itemFormat={itemFormat}
                     paginatorDisplay={<PaginatorDisplay />}
                     onResultsNumUpdate={count => this.setState({ count })}
                     selectable
+                    simpleSearch
+                    searchKeys={["personid", "email", "role", "cgp", "dlp"]}
                 />
                 { this.state.count } Maching the Criteria
             </div>

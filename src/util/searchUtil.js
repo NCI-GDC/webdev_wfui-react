@@ -141,7 +141,20 @@ const Search = {
       }
 
       return exec();
-   },
+    },
+    simpleSearch: (data, searchTerm, searchKeys) => {
+        const filtered = data.filter(item => {
+            const keys = searchKeys || Object.keys(item);
+            const terms = searchTerm.toLowerCase().split(" ");
+            return terms.every((term) => {
+                return keys.some((key) => {
+                    const field = item[key].toLowerCase();
+                    return field.indexOf(term) >= 0;
+                });
+            });
+        });
+        return filtered;
+    },
 };
 
 export default Search;
