@@ -62,7 +62,7 @@ class List extends React.Component {
                 lastArticle,
             });
             /* Return number of articles. */
-            onNumOfListChange(data.length);
+            onNumOfListChange(data.length, data);
             /* onDisplay is provided for cases that the client needs to see
             * the range of articles being displayed */
             onDisplay({ starting: startingArticle, last: lastArticle });
