@@ -10,15 +10,16 @@
  */
 export const wfuiFetch = (input, init, dispatch = f => f) => {
     let hasCanceled = false;
+    const appId = (init.headers && init.headers.app_id) || 0;
 
-    dispatch({ type: 'FETCH_REQUEST', requestId: init.requestId });
+    dispatch({ type: 'FETCH_REQUEST', requestId: init.requestId, appId });
     const promise = new Promise((resolve, reject) => {
 
         let fetchTimer;
-        const timer5s = setTimeout(() => { dispatch({ type: 'FETCH_REQUEST_5S', requestId: init.requestId }); }, 5000);
-        const timer8s = setTimeout(() => { dispatch({ type: 'FETCH_REQUEST_8S', requestId: init.requestId }); }, 8000);
+        const timer5s = setTimeout(() => { dispatch({ type: 'FETCH_REQUEST_5S', requestId: init.requestId, appId }); }, 5000);
+        const timer8s = setTimeout(() => { dispatch({ type: 'FETCH_REQUEST_8S', requestId: init.requestId, appId }); }, 8000);
         const timeout = setTimeout(() => {
-            dispatch({ type: 'FETCH_REQUEST_TIMEOUT', requestId: init.requestId });
+            dispatch({ type: 'FETCH_REQUEST_TIMEOUT', requestId: init.requestId, appId });
             reject('timeout');
             clearTimeout(fetchTimer);
         }, init.timeout || 300000);
@@ -30,9 +31,9 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                 clearTimeout(timer8s);
                 clearTimeout(timeout);
                 if (response.ok) {
-                    dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId });
+                    dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId, appId });
                 } else {
-                    dispatch({ type: 'FETCH_FAILURE', requestId: init.requestId, statusText: response.statusText });
+                    dispatch({ type: 'FETCH_FAILURE', requestId: init.requestId, statusText: response.statusText, appId });
                 }
                 return hasCanceled ? reject({ isCanceled: true }) : resolve(response);
             })
@@ -43,7 +44,7 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                     wrappedFetch(n - 1);
                 }, init.retryDelay || 3000);
                 } else {
-                    dispatch({ type: 'FETCH_RETRY_FAILURE', requestId: init.requestId, statusText: error.message });
+                    dispatch({ type: 'FETCH_RETRY_FAILURE', requestId: init.requestId, statusText: error.message, appId });
                     return hasCanceled ? reject({ isCanceled: true }) : reject(error);
                 }
             });
