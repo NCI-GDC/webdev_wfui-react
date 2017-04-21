@@ -13,7 +13,8 @@ import DashboardBox from './DashboardBox/DashboardBox';
 import UserDrawer from './UserDrawer/UserDrawer';
 import Drawer from './Drawer/Drawer';
 import GroupsDrawer from './GroupsDrawer/GroupsDrawer';
-import DisqusFeed from './DisqusFeed/index.js'
+import DisqusFeed from './DisqusFeed/index.js';
+import { wfuiFetch, wfuiFetchReducer } from './util/wfuiFetch';
 
 require('./i18n/i18n.js');
 
@@ -37,4 +38,9 @@ module.exports = {
     ...bootstrap,
     // CaG Forms
     ...cagforms,
+    // WFUI Fetch
+    Utils: {
+        wfuiFetch,
+        wfuiFetchReducer,
+    },
 };
