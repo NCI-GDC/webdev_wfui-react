@@ -10,7 +10,7 @@
  */
 export const wfuiFetch = (input, init, dispatch = f => f) => {
     let hasCanceled = false;
-    const appId = (init.headers && init.headers.app_id) || 0;
+    const appId = (init.headers && init.headers['app-id']) || 0;
 
     dispatch({ type: 'FETCH_REQUEST', requestId: init.requestId, appId });
     const promise = new Promise((resolve, reject) => {
