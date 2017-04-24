@@ -1,0 +1,374 @@
+/* Note: modify the full calendar height in js/calendar.js line 113 */
+
+/* ----------------------------------
+General
+---------------------------------- */
+.fc-unthemed th, 
+.fc-unthemed td, 
+.fc-unthemed thead, 
+.fc-unthemed tbody, 
+.fc-unthemed .fc-divider, 
+.fc-unthemed .fc-row, 
+.fc-unthemed .fc-content, 
+.fc-unthemed .fc-popover, 
+.fc-unthemed .fc-list-view, 
+.fc-unthemed .fc-list-heading td {
+  border-color: #ccc;
+}
+
+.fc-unthemed .fc-divider, 
+.fc-unthemed .fc-popover .fc-header, 
+.fc-unthemed .fc-list-heading td {
+  background-color: #f5f5f5;
+}
+
+/* ----------------------------------
+Toggle, default browser checkboxes OK per Kim
+---------------------------------- */
+.toggle-bar .checkbox-inline {
+  border: 1px solid #848484;
+  border-radius: 3px;
+  color: #fff;
+  font-weight: 600;
+  padding: 5px 7.5px;
+}
+
+.toggle-bar .checkbox-inline input[type=checkbox] {
+  position: static;
+  margin-left: 0;
+  margin-right: 5px;
+  vertical-align: top;
+}
+
+.toggle-bar .checkbox-inline:nth-of-type(1) {
+  background-color: #9f7baf;
+}
+.toggle-bar .checkbox-inline:nth-of-type(2) {
+  background-color: #54afdb;
+}
+.toggle-bar .checkbox-inline:nth-of-type(3) {
+  background-color: #f8a642;
+}
+.toggle-bar .checkbox-inline:nth-of-type(4) {
+  background-color: #8ec549;
+}
+
+/* ----------------------------------
+.header
+---------------------------------- */
+.header {
+  width: 100%;
+  height: 70px;
+  position: relative;
+}
+
+.header span {
+  display: inline-block;
+}
+
+/* ----------------------------------
+.toggle Bar
+---------------------------------- */
+.toggle-bar {
+  float: right;
+  width: 50%;
+  position: relative;
+}
+
+.toggle-bar div {
+  display: inline-block;
+  width: 24%;
+  text-align: center;
+}
+
+.toggle-1,
+.toggle-2,
+.toggle-3,
+.toggle-4 {
+  width: 60px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  background-color: #CCCCCC;
+}
+
+/* ----------------------------------
+Calendar
+---------------------------------- */
+/* table */
+.fc th {
+  background-color: #f5f5f5;
+  padding: 7.5px;
+  text-align: left;
+}
+
+.fc th span {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+tr:first-child > td > .fc-day-grid-event {
+  margin-top: 0;
+}
+
+/* .fc-more-cell */
+.fc-more-cell .fc-more {
+  display: inline-block;
+  margin-top: 2.5px;
+  margin-bottom: 2.5px;
+}
+
+.fc-more-cell .fc-more:after {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 3px;
+  vertical-align: middle;
+  border-top: 5px dashed;
+  border-top: 5px solid;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+a.fc-more {
+  text-decoration: underline;
+}
+
+/*  calendar */
+.fc-ltr .fc-basic-view .fc-day-top .fc-day-number {
+  float: left;
+  font-weight: 600;
+}
+
+.fc-basic-view .fc-week-number, .fc-basic-view .fc-day-number {
+  padding: 5px 7.5px 0 7.5px;
+}
+
+.fc-event-container .fc-event {
+  background-color: #f5f5f5;
+  color: #000;
+  border-radius: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 5px;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  border-right-width: 5px;
+}
+
+.event-source-1 {
+  border-color: #9f7baf;
+}
+
+.event-source-2 {
+  border-color: #54afdb;
+}
+
+.event-source-3 {
+  border-color: #f8a642;
+}
+
+.event-source-4 {
+  border-color: #8ec549;
+}
+
+/* .fc-toolbar */
+.fc-toolbar-wrapper {
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+
+.fc-toolbar.fc-header-toolbar {
+  text-align: center;
+  width: 320px;
+  margin: 0 auto;
+  padding: 15px 0;
+}
+
+/* .fc-button */
+.fc-state-default {
+  background-color: #f5f5f5;
+  border-color: #ccc;  
+  color: #333;
+}
+
+.fc-state-default:hover {
+  color: #333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+
+.fc-state-default.fc-corner-right,
+.fc-state-default.fc-corner-left {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;  
+}
+
+.fc button {
+  padding: 0 0.25em;
+  font-size: 1.2em;
+}
+
+.fc-button {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 0.9em;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border-radius: 4px;  
+}
+
+/* .fc-left & .fc-right icons */
+.fc button .fc-icon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 18px;
+}
+
+.fc-icon-left-single-arrow:after,
+.fc-icon-right-single-arrow:after {
+  color: #939393;
+  font-weight: 400;
+  font-size: inherit;
+}
+
+.fc-icon-left-single-arrow:after {
+  content: "\e079";
+}
+
+.fc-icon-right-single-arrow:after {
+  content: "\e080";
+}
+
+/* ----------------------------------
+.fc-popover
+---------------------------------- */
+.fc-popover .fc-header {
+  padding: 7.5px;
+}
+
+.fc-more-popover .fc-event-container {
+  padding: 15px;
+}
+
+.fc-unthemed .fc-popover .fc-header .fc-close {
+  font-size: initial;
+  margin-top: 0;  
+}
+
+.fc-icon-x:after {
+  top: 0;
+  line-height: 20px;
+}
+
+/* ----------------------------------
+.event-popup
+---------------------------------- */
+.event-popup {
+  display: none;
+  position: absolute;
+  z-index: 2;
+
+  background-color: #fff;
+  border: 1px solid #d8d8d8;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);  
+}
+
+.event-popup:before{
+  content: '';
+  background-color: #fff;
+  display: block;
+  width: 15px; 
+  height: 15px;
+  border: 1px solid #d8d8d8;
+  position: absolute;
+  z-index: 2;
+  top: -7.5px;
+  left: 15px;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.event-popup > div {
+  padding: 15px;
+  position: relative;
+  z-index: 3;
+
+  background-color: #fff;
+  border-radius: 3px;
+}
+
+.event-popup h5 {
+ margin-top: 5px;
+ margin-bottom: 10px;
+}
+
+.event-popup h5 > a { 
+  color: #000;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.event-popup.event-source-1 h5 > a {
+  color: #9f7baf;
+}
+
+.event-popup.event-source-2 h5 > a {
+  color: #54afdb;
+}
+
+.event-popup.event-source-3 h5 > a {
+  color: #f8a642;
+}
+
+.event-popup.event-source-4 h5 > a {
+  color: #8ec549;
+}
+
+.event-popup .event-day,
+.event-popup .event-time {
+  font-weight: 500;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.event-popup .event-location,
+.event-popup .event-description {
+  font-size: 13px;
+}
+
+.event-popup .event-location {
+  margin-top: 10px;
+  margin-bottom: 10px; 
+}
+
+.event-popup .event-location > span {
+  font-weight: 500;
+}
+
+.event-popup .event-description {
+  font-weight: 500;
+}
