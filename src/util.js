@@ -1,6 +1,6 @@
-import { wfuiFetch, wfuiFetchReducer } from './util/wfuiFetch';
+import { wfuiFetch, fetchReducer } from './util/wfuiFetch';
 
 module.exports = {
     wfuiFetch,
-    wfuiFetchReducer,
+    fetchReducer,
 };
