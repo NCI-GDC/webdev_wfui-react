@@ -1,0 +1,40 @@
+class Example extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            isFetching: false,
+            fetch5s: false,
+            fetch8s: false,
+            status: '',
+            error: '',
+            timeout: false,
+            retried: false,
+        }
+    }
+    componentDidMount() {
+        this.onRetry();
+    }
+    onRetry() {
+        this.setState({
+            isFetching: true,
+            fetch5s: false,
+            fetch8s: false,
+            status: '',
+            error: '',
+            timeout: false,
+            retried: false,
+        });
+        setTimeout(() => {this.setState({ fetch5s: true })}, 5000);
+        setTimeout(() => {this.setState({ fetch8s: true })}, 8000);
+        setTimeout(() => {this.setState({ isFetching: false, status: 'fail', timeout: true })}, 10000);        
+    }
+    render() {
+        return (
+            <LoadingComponent {...this.state} onRetry={this.onRetry.bind(this)}>
+                <div>Content is loaded.</div>
+            </LoadingComponent>
+        );
+    }
+}
+
+return <Example />;
