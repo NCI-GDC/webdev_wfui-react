@@ -59,54 +59,64 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
     };
 };
 
-
 /**
  * This reducer will add fetching state of specific API calles.
  * @param {Object} state - redux state.
  * @param {Object} action - redux payload
- * @param {string} requestId - Unique ID for each API request.
  */
-export const wfuiFetchReducer = (state, action, requestId) => {
-    // Return if it's not object
-    if (!((!!state) && (state.constructor === Object))) return state;
-    // Return if it's not the same requestId.
-    if (action.requestId !== requestId) return state;
+export const fetchReducer = (state = {}, action) => {
+
+    // Return if request Id doesn't exist
+    if (!action.requestId) return state;
 
     const _state = JSON.parse(JSON.stringify(state));
-    if (!_state.fetch) _state.fetch = { isFetching: false, fetch5s: false, fetch8s: false, status: '', error: '', timeout: false, retried: false };
 
+    if (!_state[action.requestId]) _state[action.requestId] = { isFetching: false, fetch5s: false, fetch8s: false, status: '', error: '', timeout: false, retried: false, lastUpdated: false };
+    const lastUpdate = new Date().getTime();
     switch (action.type) {
+        case 'FETCH_INIT':
+            _state[action.requestId].status = _state[action.requestId].error = '';
+            _state[action.requestId].isFetching = _state[action.requestId].fetch5s = _state[action.requestId].fetch8s = _state[action.requestId].timeout = _state[action.requestId].retried = false;
+            _state[action.requestId].lastUpdated = lastUpdate;
+            return _state;
         case 'FETCH_REQUEST':
-            _state.fetch.isFetching = true;
-            _state.fetch.status = _state.fetch.error = '';
-            _state.fetch.fetch5s = _state.fetch.fetch8s = _state.fetch.timeout = _state.fetch.retried;
+            _state[action.requestId].isFetching = true;
+            _state[action.requestId].status = _state[action.requestId].error = '';
+            _state[action.requestId].fetch5s = _state[action.requestId].fetch8s = _state[action.requestId].timeout = _state[action.requestId].retried = false;
+            _state[action.requestId].lastUpdated = lastUpdate;
             return _state;
         case 'FETCH_REQUEST_5S':
-            _state.fetch.fetch5s = true;
+            _state[action.requestId].fetch5s = true;
+            _state[action.requestId].lastUpdated = lastUpdate;
             return _state;
         case 'FETCH_REQUEST_8S':
-            _state.fetch.fetch8s = true;
+            _state[action.requestId].fetch8s = true;
+            _state[action.requestId].lastUpdated = lastUpdate;
             return _state;
         case 'FETCH_REQUEST_TIMEOUT':
-            _state.fetch.isFetching = _state.fetch.fetch5s = _state.fetch.fetch8s = false;
-            _state.fetch.status = 'fail';
-            _state.fetch.timeout = true;
+            _state[action.requestId].isFetching = _state[action.requestId].fetch5s = _state[action.requestId].fetch8s = false;
+            _state[action.requestId].status = 'fail';
+            _state[action.requestId].timeout = true;
+            _state[action.requestId].lastUpdated = lastUpdate;
             return _state;
         case 'FETCH_SUCCESS':
-            _state.fetch.isFetching = _state.fetch.fetch5s = _state.fetch.fetch8s = false;
-            _state.fetch.status = 'success';
+            _state[action.requestId].isFetching = _state[action.requestId].fetch5s = _state[action.requestId].fetch8s = false;
+            _state[action.requestId].status = 'success';
+            _state[action.requestId].lastUpdated = lastUpdate;
             return _state;
         case 'FETCH_FAILURE':
-            _state.fetch.isFetching = _state.fetch.fetch5s = _state.fetch.fetch8s = false;
-            _state.fetch.status = 'fail';
-            _state.fetch.error = action.statusText;
+            _state[action.requestId].isFetching = _state[action.requestId].fetch5s = _state[action.requestId].fetch8s = false;
+            _state[action.requestId].status = 'fail';
+            _state[action.requestId].error = action.statusText;
+            _state[action.requestId].lastUpdated = lastUpdate;
             return _state;
         case 'FETCH_RETRY_FAILURE':
-            _state.fetch.isFetching = _state.fetch.fetch5s = _state.fetch.fetch8s = false;
-            _state.fetch.status = 'fail';
-            _state.fetch.retried = true;
+            _state[action.requestId].isFetching = _state[action.requestId].fetch5s = _state[action.requestId].fetch8s = false;
+            _state[action.requestId].status = 'fail';
+            _state[action.requestId].retried = true;
+            _state[action.requestId].lastUpdated = lastUpdate;
             return _state;
         default :
             return _state;
     }
-}
+};
