@@ -67,7 +67,8 @@
     "react-dnd-html5-backend": "^2.1.2",
     "react-dropzone": "^3.8.0",
     "react-notification-system": "^0.2.11",
-    "react-timezone": "^0.1.0"
+    "react-timezone": "^0.1.0",
+    "reselect": "^3.0.0"
   },
   "engines": {
     "npm": "^3.0.0"
