@@ -15,6 +15,7 @@ import Drawer from './Drawer/Drawer';
 import GroupsDrawer from './GroupsDrawer/GroupsDrawer';
 import DisqusFeed from './DisqusFeed/index.js';
 import LoadingComponent from './LoadingComponent/LoadingComponent.js';
+import FormFields from './FormFields';
 
 require('./i18n/i18n.js');
 
@@ -39,4 +40,5 @@ module.exports = {
     // CaG Forms
     ...cagforms,
     LoadingComponent,
+    FormFields,
 };
