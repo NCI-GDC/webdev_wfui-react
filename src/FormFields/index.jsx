@@ -53,6 +53,16 @@ export const renderTextArea = ({ input, label, help, placeholder, type, onHandle
     </div>
 );
 
+export const renderCheckbox = ({ label, input, help, required, meta: { touched, error } }) => (
+    <FormGroup validationState={touched && error ? 'error' : null}>
+        <Checkbox {...input}>
+            {label} {required && <b style={{ color: 'red' }}>*</b>}
+        </Checkbox>
+        <HelpBlock>{touched && error && <span>{error}</span>}</HelpBlock>
+        {help && <div className="form-description" dangerouslySetInnerHTML={{ __html: help }} />}
+    </FormGroup>
+);
+
 export const renderCheckboxs = ({ label, options, input, help, required, disabled, meta: { touched, error } }) => (
     <div className="wfui-form-item">
         <ControlLabel>{label}</ControlLabel>{required && <b style={{ color: 'red' }}> *</b>}
@@ -80,6 +90,16 @@ export const renderCheckboxs = ({ label, options, input, help, required, disable
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
     </div>
+);
+
+export const renderRadio = ({ label, input, help, required, meta: { touched, error } }) => (
+    <FormGroup validationState={touched && error ? 'error' : null}>
+        <Radio {...input}>
+            {label} {required && <b style={{ color: 'red' }}>*</b>}
+        </Radio>
+        <HelpBlock>{touched && error && <span>{error}</span>}</HelpBlock>
+        {help && <div className="form-description" dangerouslySetInnerHTML={{ __html: help }} />}
+    </FormGroup>
 );
 
 export const renderRadios = ({ label, options, input, help, required, disabled, meta: { touched, error } }) => (
