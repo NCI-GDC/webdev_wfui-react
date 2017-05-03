@@ -54,13 +54,16 @@ export const renderTextArea = ({ input, label, help, placeholder, type, onHandle
 );
 
 export const renderCheckbox = ({ label, input, help, required, meta: { touched, error } }) => (
-    <FormGroup validationState={touched && error ? 'error' : null}>
-        <Checkbox {...input}>
-            {label} {required && <b style={{ color: 'red' }}>*</b>}
-        </Checkbox>
-        <HelpBlock>{touched && error && <span>{error}</span>}</HelpBlock>
-        {help && <div className="form-description" dangerouslySetInnerHTML={{ __html: help }} />}
-    </FormGroup>
+    <div className="wfui-form-item">
+        {label && <ControlLabel>{label}</ControlLabel>}{required && <b style={{ color: 'red' }}> *</b>}
+        <FormGroup validationState={touched && error ? 'error' : null}>
+            <Checkbox {...input}>
+                {label} {required && <b style={{ color: 'red' }}>*</b>}
+            </Checkbox>
+            <HelpBlock>{touched && error && <span>{error}</span>}</HelpBlock>
+            {help && <div className="form-description" dangerouslySetInnerHTML={{ __html: help }} />}
+        </FormGroup>
+    </div>
 );
 
 export const renderCheckboxs = ({ label, options, input, help, required, disabled, meta: { touched, error } }) => (
@@ -93,13 +96,16 @@ export const renderCheckboxs = ({ label, options, input, help, required, disable
 );
 
 export const renderRadio = ({ label, input, help, required, meta: { touched, error } }) => (
-    <FormGroup validationState={touched && error ? 'error' : null}>
-        <Radio {...input}>
-            {label} {required && <b style={{ color: 'red' }}>*</b>}
-        </Radio>
-        <HelpBlock>{touched && error && <span>{error}</span>}</HelpBlock>
-        {help && <div className="form-description" dangerouslySetInnerHTML={{ __html: help }} />}
-    </FormGroup>
+    <div className="wfui-form-item">
+        {label && <ControlLabel>{label}</ControlLabel>}{required && <b style={{ color: 'red' }}> *</b>}
+        <FormGroup validationState={touched && error ? 'error' : null}>
+            <Radio {...input}>
+                {label} {required && <b style={{ color: 'red' }}>*</b>}
+            </Radio>
+            <HelpBlock>{touched && error && <span>{error}</span>}</HelpBlock>
+            {help && <div className="form-description" dangerouslySetInnerHTML={{ __html: help }} />}
+        </FormGroup>
+    </div>
 );
 
 export const renderRadios = ({ label, options, input, help, required, disabled, meta: { touched, error } }) => (
