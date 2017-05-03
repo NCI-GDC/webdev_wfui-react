@@ -37,16 +37,7 @@ class Draggable extends React.Component {
         if (children) {
             this.setState({
                 items: children.length ? children.map((child, i) => {
-                    return React.cloneElement(
-                        child,
-                        Object.assign({}, child.props, {
-                            moveItem : this.onHandleMoveItem,
-                            endDrag : this.onHandleEndDrag,
-                            key: i,
-                            index: i,
-                            type,
-                        }),
-                    )
+                    return child
                 }) : [children]
             });
         }
@@ -57,9 +48,12 @@ class Draggable extends React.Component {
         this.props.onHandleEndDrag({ items });
     }
     onHandleMoveItem(dragIndex, hoverIndex) {
-
+        const { onHandleItemMove } = this.props;
         const { items } = this.state;
         const dragItem = items[dragIndex];
+        if(dragIndex !== hoverIndex){
+            onHandleItemMove({ from: dragIndex, to: hoverIndex});
+        }
 
         this.setState(update(this.state, {
             items: {
@@ -69,6 +63,7 @@ class Draggable extends React.Component {
                 ]
             }
         }));
+
     }
     render() {
         const { className, type, columnCount } = this.props;
@@ -82,7 +77,16 @@ class Draggable extends React.Component {
                     }
                 >
                     {items.map((item, i) => {
-                        return item;
+                        return React.cloneElement(
+                            item,
+                            Object.assign({}, item.props, {
+                                moveItem : this.onHandleMoveItem,
+                                endDrag : this.onHandleEndDrag,
+                                key: i,
+                                index: i,
+                                type,
+                            }),
+                        )
                     })}
                 </ul>
             </div>
@@ -95,11 +99,13 @@ Draggable.propTypes = {
     type: React.PropTypes.oneOf(['stack', 'grid']).isRequired,
     columnCount: React.PropTypes.number,
     onHandleEndDrag: React.PropTypes.func,
+    onHandleItemMove: React.PropTypes.func,
 };
 
 Draggable.defaultProps = {
     type: 'stack',
     onHandleEndDrag: () => undefined,
+    onHandleItemMove: () => undefined,
     columnCount: 3,
 }
 

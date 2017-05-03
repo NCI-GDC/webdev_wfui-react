@@ -33,12 +33,10 @@ const itemSource = {
 const itemTarget = {
     hover(props, monitor, component) {
         const dragIndex = monitor.getItem().index;
+        const id = monitor.getItem().id;
         const hoverIndex = props.index;
 
-        // Return if dragging by itself.
-        if (dragIndex === hoverIndex) {
-            return;
-        }
+        if (!monitor.isOver({shallow: true})) return
         
         // Determine rectangle on screen
         const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
@@ -54,7 +52,13 @@ const itemTarget = {
 
         // Draggin downwards
         if(props.type === 'stack' ){
+            // Dragging downwards
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+                return;
+            }
+
+            // Dragging upwards
+            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                 return;
             }
         }
@@ -70,34 +74,40 @@ const itemTarget = {
 @DropTarget(ItemTypes.Item, itemTarget, connect => ({
     connectDropTarget: connect.dropTarget()
 }))
-@DragSource(ItemTypes.Item, itemSource, (connect, monitor) => ({
-    connectDragSource: connect.dragSource(),
-    connectDragPreview: connect.dragPreview(),
-    isDragging: monitor.isDragging(),
-}))
+@DragSource(ItemTypes.Item, itemSource, (connect, monitor) => {
+    const dragItem = monitor.getItem();
+    return {
+        connectDragSource: connect.dragSource(),
+        connectDragPreview: connect.dragPreview(),
+        // isDragging: monitor.isDragging(), not working well
+        dragIndex: dragItem && dragItem.index,
+    }
+})
 class DraggableItem extends React.Component {
     constructor() {
         super();
         this.state = { hasHandle: false };
     }
-    componentWillMount() {
-        const { children } = this.props;
+    componentWillReceiveProps(props) {
+        const { children } = props;
+        let hasHandle = false;
         if(children.length){
             children.forEach( (child, i) => {
                 if(child.type == DraggableHandle){
-                    this.setState({ hasHandle: true });
+                    hasHandle = true;
                 }
             });
         } else {
             if(children.type == DraggableHandle){
-                this.setState({ hasHandle: true });
+                hasHandle = true;
             }
         }
+        this.setState({ hasHandle });
     }
     render() {
-        const { className, children, text, isDragging, connectDragSource, connectDropTarget, connectDragPreview} = this.props;
+        const { className, children, text, isDragging, dragIndex, index, connectDragSource, connectDropTarget, connectDragPreview} = this.props;
         const { hasHandle } = this.state;
-        const opacity = isDragging ? 0.3 : 1;
+        const opacity = (dragIndex === index) ? 0.3 : 1;
         const classes = 'wfui-draggable-item';
         
         // Make only DraggableHandle enable to drag.
@@ -114,9 +124,9 @@ class DraggableItem extends React.Component {
             ));
         }
         // Entire content is draggable.
-        return connectDragSource(connectDropTarget(
+        return connectDragPreview(connectDragSource(connectDropTarget(
             <li className={classNames(className, classes)} style={{ opacity, breakInside:'avoid', pageBreakInside: 'avoid' }}>{ children }</li>
-        ));
+        )));
     }
 }
 
