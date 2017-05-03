@@ -145,7 +145,7 @@ export class renderAddAnother extends React.Component {
                                         <Draggable.Handle>
                                             <Glyphicon glyph="fullscreen" style={{ transform: 'rotate(45deg)' }} />
                                         </Draggable.Handle>
-                                        {childComponent(field)}
+                                        {childComponent(field, i)}
                                     </Draggable.Item>
                                 ))}
                         </Draggable>
