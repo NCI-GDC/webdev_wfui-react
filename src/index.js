@@ -1,5 +1,3 @@
-import * as bootstrap from 'react-bootstrap';
-import * as cagforms from './CaGForms/';
 import NotificationSystem from 'react-notification-system';
 import Dropzone from 'react-dropzone';
 import TimezonePicker from 'react-timezone';
@@ -19,7 +17,9 @@ import * as FormFields from './FormFields';
 
 require('./i18n/i18n.js');
 
-module.exports = {
+export * from 'react-bootstrap';
+
+export {
     FilteredList,
     Spinner,
     TwitterFeed,
@@ -35,10 +35,6 @@ module.exports = {
     NotificationSystem,
     Dropzone,
     TimezonePicker,
-    // React Bootstrap
-    ...bootstrap,
-    // CaG Forms
-    ...cagforms,
     LoadingComponent,
     FormFields,
 };

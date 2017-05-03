@@ -1,7 +1,10 @@
 /* global FileReader */
 /* eslint react/prop-types : 0 */
 import React from 'react';
-import { Button, FormGroup, FormControl, ControlLabel, HelpBlock, Checkbox, Radio, Draggable, Glyphicon, TimezonePicker, Dropzone } from '../';
+import Dropzone from 'react-dropzone';
+import TimezonePicker from 'react-timezone';
+import { Button, FormGroup, FormControl, ControlLabel, HelpBlock, Checkbox, Radio, Glyphicon } from '../index';
+import Draggable from '../Draggable/Draggable';
 
 /**
  * Reusable field component.
