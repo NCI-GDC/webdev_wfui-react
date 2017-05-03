@@ -52,7 +52,7 @@ class Draggable extends React.Component {
         const { items } = this.state;
         const dragItem = items[dragIndex];
         if(dragIndex !== hoverIndex){
-            onHandleItemMove({ from: dragIndex, to: hoverIndex});
+            onHandleItemMove(dragIndex, hoverIndex);
         }
 
         this.setState(update(this.state, {

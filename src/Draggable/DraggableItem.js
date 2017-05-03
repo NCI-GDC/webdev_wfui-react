@@ -105,7 +105,7 @@ class DraggableItem extends React.Component {
         this.setState({ hasHandle });
     }
     render() {
-        const { className, children, text, isDragging, dragIndex, index, connectDragSource, connectDropTarget, connectDragPreview} = this.props;
+        const { id, className, children, text, isDragging, dragIndex, index, connectDragSource, connectDropTarget, connectDragPreview} = this.props;
         const { hasHandle } = this.state;
         const opacity = (dragIndex === index) ? 0.3 : 1;
         const classes = 'wfui-draggable-item';
@@ -113,7 +113,7 @@ class DraggableItem extends React.Component {
         // Make only DraggableHandle enable to drag.
         if( hasHandle ){
             return connectDragPreview(connectDropTarget(
-                <li className={classNames(className, classes)} style={{ opacity, breakInside:'avoid', pageBreakInside: 'avoid' }}>
+                <li id={id} className={classNames(className, classes)} style={{ opacity, breakInside:'avoid', pageBreakInside: 'avoid' }}>
                     {children.map((child, i) => {
                         if(child.type == DraggableHandle){
                             return connectDragSource(<div key={i} className="wfui-draggable-handle">{child}</div>);
@@ -125,7 +125,7 @@ class DraggableItem extends React.Component {
         }
         // Entire content is draggable.
         return connectDragPreview(connectDragSource(connectDropTarget(
-            <li className={classNames(className, classes)} style={{ opacity, breakInside:'avoid', pageBreakInside: 'avoid' }}>{ children }</li>
+            <li id={id} className={classNames(className, classes)} style={{ opacity, breakInside:'avoid', pageBreakInside: 'avoid' }}>{ children }</li>
         )));
     }
 }
@@ -133,11 +133,13 @@ class DraggableItem extends React.Component {
 DraggableItem.propTypes = {
     children: React.PropTypes.node.isRequired,
     type: React.PropTypes.oneOf(['stack', 'grid']).isRequired,
+    id: React.PropTypes.string,
     moveItem: React.PropTypes.func,
     endDrag: React.PropTypes.func,
 };
 DraggableItem.defaultProps = {
     type: 'stack',
+    id: '',
     moveItem: () => undefined,
     endDrag: () => undefined,
 };
