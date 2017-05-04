@@ -76,6 +76,7 @@ export const renderCheckboxs = ({ label, options, input, help, required, disable
                     name={input.name}
                     value={option}
                     disabled={disabled}
+                    checked={input.value && input.value.includes(option)}
                     onChange={(e) => {
                         const newValue = [...input.value];
                         if (e.target.checked) {
