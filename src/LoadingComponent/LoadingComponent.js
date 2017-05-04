@@ -25,11 +25,14 @@ class LoadingComponent extends React.Component {
                 </div>
             );
         }
-        return (
-            <div className="wfui-loading-component">
-                { children }
-            </div>
-        );
+        if (status === 'success') {
+            return (
+                <div className="wfui-loading-component">
+                    { children }
+                </div>
+            );
+        }
+        return null;
     }
 }
 
