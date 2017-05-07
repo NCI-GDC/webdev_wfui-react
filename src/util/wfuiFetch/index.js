@@ -31,7 +31,10 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                 clearTimeout(timer8s);
                 clearTimeout(timeout);
                 if (response.ok) {
-                    dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId, appId });
+                    const contentType = response.headers.get('content-type');
+                    if (contentType && contentType.indexOf('application/json') !== -1) {
+                        dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId, appId });
+                    }
                 } else {
                     dispatch({ type: 'FETCH_FAILURE', requestId: init.requestId, statusText: response.statusText, appId });
                 }

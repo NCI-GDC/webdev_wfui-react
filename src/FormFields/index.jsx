@@ -53,11 +53,11 @@ export const renderTextArea = ({ input, label, help, placeholder, type, onHandle
     </div>
 );
 
-export const renderSingleCheckbox = ({ label, option, input, help, required, meta: { touched, error } }) => (
+export const renderSingleCheckbox = ({ label, option, input, help, required, disabled, meta: { touched, error } }) => (
     <div className="wfui-form-item">
         {label && <ControlLabel>{label}</ControlLabel>}{required && <b style={{ color: 'red' }}> *</b>}
         <FormGroup validationState={touched && error ? 'error' : null}>
-            <Checkbox {...input}>
+            <Checkbox {...input} disabled={disabled}>
                 {option} {required && <b style={{ color: 'red' }}>*</b>}
             </Checkbox>
             <HelpBlock>{touched && error && <span>{error}</span>}</HelpBlock>
