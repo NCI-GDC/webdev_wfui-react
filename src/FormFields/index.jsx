@@ -3,15 +3,16 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import TimezonePicker from 'react-timezone';
+import classNames from 'classnames';
 import { Button, FormGroup, FormControl, ControlLabel, HelpBlock, Checkbox, Radio, Glyphicon } from '../index';
 import Draggable from '../Draggable/Draggable';
 
 /**
  * Reusable field component.
  */
-export const renderField = ({ input, label, help, placeholder, type, onHandleChange, required, disabled, meta: { touched, error } }) => (
-    <div className="wfui-form-item">
-        <ControlLabel>{label}</ControlLabel>{required && <b style={{ color: 'red' }}> *</b>}
+export const renderField = ({ className, input, label, help, placeholder, type, onHandleChange, required, disabled, meta: { touched, error } }) => (
+    <div className={classNames(className, 'wfui-form-item')} >
+        <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-input" validationState={touched && error ? 'error' : null}>
             <FormControl
                     {...input} placeholder={placeholder || label} type={type}
@@ -28,9 +29,9 @@ export const renderField = ({ input, label, help, placeholder, type, onHandleCha
     </div>
 );
 
-export const renderTextArea = ({ input, label, help, placeholder, type, onHandleChange, required, disabled, meta: { touched, error }, rows }) => (
-    <div className="wfui-form-item">
-        <ControlLabel>{label}</ControlLabel>{required && <b style={{ color: 'red' }}> *</b>}
+export const renderTextArea = ({ className, input, label, help, placeholder, type, onHandleChange, required, disabled, meta: { touched, error }, rows }) => (
+    <div className={classNames(className, 'wfui-form-item')}>
+        <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-textarea" validationState={touched && error ? 'error' : null}>
             <FormControl
                     {...input}
@@ -53,12 +54,12 @@ export const renderTextArea = ({ input, label, help, placeholder, type, onHandle
     </div>
 );
 
-export const renderSingleCheckbox = ({ label, option, input, help, required, disabled, meta: { touched, error } }) => (
-    <div className="wfui-form-item">
-        {label && <ControlLabel>{label}</ControlLabel>}{required && <b style={{ color: 'red' }}> *</b>}
+export const renderSingleCheckbox = ({ className, label, option, input, help, required, disabled, meta: { touched, error } }) => (
+    <div className={classNames(className, 'wfui-form-item')}>
+        {label && <ControlLabel>{label}:</ControlLabel>}{required && <b className="required"> *</b>}
         <FormGroup validationState={touched && error ? 'error' : null}>
             <Checkbox {...input} disabled={disabled}>
-                {option} {required && <b style={{ color: 'red' }}>*</b>}
+                {option} {required && <b className="required">*</b>}
             </Checkbox>
             <HelpBlock>{touched && error && <span>{error}</span>}</HelpBlock>
             {help && <div className="form-description" dangerouslySetInnerHTML={{ __html: help }} />}
@@ -66,9 +67,9 @@ export const renderSingleCheckbox = ({ label, option, input, help, required, dis
     </div>
 );
 
-export const renderCheckboxs = ({ label, options, input, help, required, disabled, meta: { touched, error } }) => (
-    <div className="wfui-form-item">
-        <ControlLabel>{label}</ControlLabel>{required && <b style={{ color: 'red' }}> *</b>}
+export const renderCheckboxs = ({ className, label, options, input, help, required, disabled, meta: { touched, error } }) => (
+    <div className={classNames(className, 'wfui-form-item')}>
+        <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-checkboxes" validationState={touched && error ? 'error' : null}>
             {options.map((option, i) => (
                 <Checkbox
@@ -96,9 +97,9 @@ export const renderCheckboxs = ({ label, options, input, help, required, disable
     </div>
 );
 
-export const renderRadios = ({ label, options, input, help, required, disabled, meta: { touched, error } }) => (
-    <div className="wfui-form-item">
-        <ControlLabel>{label}</ControlLabel>{required && <b style={{ color: 'red' }}> *</b>}
+export const renderRadios = ({ className, label, options, input, help, required, disabled, meta: { touched, error } }) => (
+    <div className={classNames(className, 'wfui-form-item')}>
+        <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-radios" validationState={touched && error ? 'error' : null}>
             {options.map((option, i) => (
                 <Radio
@@ -117,9 +118,9 @@ export const renderRadios = ({ label, options, input, help, required, disabled, 
     </div>
 );
 
-export const renderSelect = ({ label, options, input, help, required, disabled, meta: { touched, error } }) => (
-    <div className="wfui-form-item">
-        <ControlLabel>{label}</ControlLabel>{required && <b style={{ color: 'red' }}> *</b>}
+export const renderSelect = ({ className, label, options, input, help, required, disabled, meta: { touched, error } }) => (
+    <div className={classNames(className, 'wfui-form-item')}>
+        <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-radios" validationState={touched && error ? 'error' : null}>
             <FormControl {...input} onChange={input.onChange} componentClass="select">
             {options.map((option, i) => (
@@ -127,6 +128,7 @@ export const renderSelect = ({ label, options, input, help, required, disabled, 
                     key={i}
                     name={input.name}
                     value={option}
+                    disabled={disabled}
                     onChange={e => (input.onChange(e.target.value))}
                 >
                     {option}
@@ -141,10 +143,10 @@ export const renderSelect = ({ label, options, input, help, required, disabled, 
 
 export class renderAddAnother extends React.Component {
     render() {
-        const { fields, childComponent, draggable, label, help, required, disabled, meta: { touched, error } } = this.props;
+        const { className, fields, childComponent, draggable, label, help, required, disabled, meta: { touched, error } } = this.props;
         return (
-            <div className="wfui-form-item">
-                <ControlLabel>{label}</ControlLabel>{required && <b style={{ color: 'red' }}> *</b>}
+            <div className={classNames(className, 'wfui-form-item')}>
+                <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
                 <FormGroup className="wfui-form-radios" validationState={touched && error ? 'error' : null}>
                     { draggable && fields.length > 0 &&
                         <Draggable
@@ -175,9 +177,9 @@ export class renderAddAnother extends React.Component {
 }
 
 
-export const renderTimezone = ({ label, placeholder, input, help, required, meta: { touched, error } }) => (
-    <div>
-        <ControlLabel>{label}</ControlLabel>{required && <b style={{ color: 'red' }}> *</b>}
+export const renderTimezone = ({ className, label, placeholder, input, help, required, meta: { touched, error } }) => (
+    <div className={classNames(className, 'wfui-form-item')}>
+        <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup validationState={touched && error ? 'error' : null}>
             <TimezonePicker
                 {...input}
@@ -191,11 +193,11 @@ export const renderTimezone = ({ label, placeholder, input, help, required, meta
     </div>
 );
 
-export const renderPhoto = ({ input, label, required, help, meta: { touched, error } }) => {
+export const renderPhoto = ({ className, input, label, required, help, meta: { touched, error } }) => {
     return (
         input.value ?
-        <div>
-            <ControlLabel>{label}</ControlLabel>{required && <b style={{ color: 'red' }}> *</b>}
+        <div className={classNames(className, 'wfui-form-item')}>
+            <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
             <p>
                 <img
                     style={{ height: 100 }}
@@ -208,8 +210,8 @@ export const renderPhoto = ({ input, label, required, help, meta: { touched, err
                 </Button>
             </div>
         </div> :
-        <div>
-            <ControlLabel>{label}</ControlLabel>{required && <b style={{ color: 'red' }}> *</b>}
+        <div className={classNames(className, 'wfui-form-item')}>
+            <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
             <Dropzone
                 {...input}
                 name={input.name}
