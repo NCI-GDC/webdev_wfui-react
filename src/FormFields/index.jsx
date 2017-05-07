@@ -12,7 +12,7 @@ import Draggable from '../Draggable/Draggable';
  */
 export const renderField = ({ className, input, label, help, placeholder, type, onHandleChange, required, disabled, meta: { touched, error } }) => (
     <div className={classNames(className, 'wfui-form-item')} >
-        <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
+        <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-input" validationState={touched && error ? 'error' : null}>
             <FormControl
                     {...input} placeholder={placeholder || label} type={type}
@@ -31,7 +31,7 @@ export const renderField = ({ className, input, label, help, placeholder, type, 
 
 export const renderTextArea = ({ className, input, label, help, placeholder, type, onHandleChange, required, disabled, meta: { touched, error }, rows }) => (
     <div className={classNames(className, 'wfui-form-item')}>
-        <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
+        <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-textarea" validationState={touched && error ? 'error' : null}>
             <FormControl
                     {...input}
@@ -56,9 +56,9 @@ export const renderTextArea = ({ className, input, label, help, placeholder, typ
 
 export const renderSingleCheckbox = ({ className, label, option, input, help, required, disabled, meta: { touched, error } }) => (
     <div className={classNames(className, 'wfui-form-item')}>
-        {label && <ControlLabel>{label}:</ControlLabel>}{required && <b className="required"> *</b>}
+        {label && <ControlLabel>{label}</ControlLabel>}{required && <b className="required"> *</b>}
         <FormGroup validationState={touched && error ? 'error' : null}>
-            <Checkbox {...input} disabled={disabled}>
+            <Checkbox className={input.checked ? 'active' : ''} {...input} disabled={disabled}>
                 {option} {required && <b className="required">*</b>}
             </Checkbox>
             <HelpBlock>{touched && error && <span>{error}</span>}</HelpBlock>
@@ -69,7 +69,7 @@ export const renderSingleCheckbox = ({ className, label, option, input, help, re
 
 export const renderCheckboxs = ({ className, label, options, input, help, required, disabled, meta: { touched, error } }) => (
     <div className={classNames(className, 'wfui-form-item')}>
-        <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
+        <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-checkboxes" validationState={touched && error ? 'error' : null}>
             {options.map((option, i) => (
                 <Checkbox
@@ -78,6 +78,7 @@ export const renderCheckboxs = ({ className, label, options, input, help, requir
                     value={option}
                     disabled={disabled}
                     checked={input.value && input.value.includes(option)}
+                    className={input.value && input.value.includes(option) ? 'active' : ''}
                     onChange={(e) => {
                         const newValue = [...input.value];
                         if (e.target.checked) {
@@ -99,10 +100,11 @@ export const renderCheckboxs = ({ className, label, options, input, help, requir
 
 export const renderRadios = ({ className, label, options, input, help, required, disabled, meta: { touched, error } }) => (
     <div className={classNames(className, 'wfui-form-item')}>
-        <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
+        <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-radios" validationState={touched && error ? 'error' : null}>
             {options.map((option, i) => (
                 <Radio
+                    className={input.value === option ? 'active' : ''}
                     key={i}
                     name={input.name}
                     value={option}
@@ -120,8 +122,8 @@ export const renderRadios = ({ className, label, options, input, help, required,
 
 export const renderSelect = ({ className, label, options, input, help, required, disabled, meta: { touched, error } }) => (
     <div className={classNames(className, 'wfui-form-item')}>
-        <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
-        <FormGroup className="wfui-form-radios" validationState={touched && error ? 'error' : null}>
+        <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
+        <FormGroup className="wfui-form-select" validationState={touched && error ? 'error' : null}>
             <FormControl {...input} onChange={input.onChange} componentClass="select">
             {options.map((option, i) => (
                 <option
@@ -146,7 +148,7 @@ export class renderAddAnother extends React.Component {
         const { className, fields, childComponent, draggable, label, help, required, disabled, meta: { touched, error } } = this.props;
         return (
             <div className={classNames(className, 'wfui-form-item')}>
-                <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
+                <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
                 <FormGroup className="wfui-form-radios" validationState={touched && error ? 'error' : null}>
                     { draggable && fields.length > 0 &&
                         <Draggable
@@ -167,7 +169,7 @@ export class renderAddAnother extends React.Component {
                         </Draggable>
                     }
                     { !draggable && fields.map(childComponent) }
-                    <Button bsStyle="primary" onClick={() => { fields.push(); }}>Add Another Item</Button>
+                    <Button bsStyle="default" className="add-btn" onClick={() => { fields.push(); }}>Add Another Item</Button>
                     <HelpBlock> {touched && error && <span>{error}</span>} </HelpBlock>
                     {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
                 </FormGroup>
@@ -179,7 +181,7 @@ export class renderAddAnother extends React.Component {
 
 export const renderTimezone = ({ className, label, placeholder, input, help, required, meta: { touched, error } }) => (
     <div className={classNames(className, 'wfui-form-item')}>
-        <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
+        <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup validationState={touched && error ? 'error' : null}>
             <TimezonePicker
                 {...input}
@@ -197,7 +199,7 @@ export const renderPhoto = ({ className, input, label, required, help, meta: { t
     return (
         input.value ?
         <div className={classNames(className, 'wfui-form-item')}>
-            <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
+            <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
             <p>
                 <img
                     style={{ height: 100 }}
@@ -211,7 +213,7 @@ export const renderPhoto = ({ className, input, label, required, help, meta: { t
             </div>
         </div> :
         <div className={classNames(className, 'wfui-form-item')}>
-            <ControlLabel>{label}:</ControlLabel>{required && <b className="required"> *</b>}
+            <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
             <Dropzone
                 {...input}
                 name={input.name}
