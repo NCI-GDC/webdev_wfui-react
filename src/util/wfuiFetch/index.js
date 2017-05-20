@@ -13,6 +13,18 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
     const appId = (init.headers && init.headers['app-id']) || 0;
 
     dispatch({ type: 'FETCH_REQUEST', requestId: init.requestId, appId });
+    if (!input) {
+        const promise = new Promise((resolve) => {
+            dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId, appId });
+            return resolve();
+        });
+        return {
+            promise,
+            abort() {
+                hasCanceled = true;
+            },
+        };
+    }
     const promise = new Promise((resolve, reject) => {
 
         let fetchTimer;
