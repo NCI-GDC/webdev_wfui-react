@@ -67,10 +67,10 @@ export const renderSingleCheckbox = ({ className, label, option, input, help, re
     </div>
 );
 
-export const renderCheckboxs = ({ className, label, options, input, help, required, disabled, meta: { touched, error } }) => (
+export const renderCheckboxs = ({ className, label, options, input, help, required, disabled, meta: { error } }) => (
     <div className={classNames(className, 'wfui-form-item')}>
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
-        <FormGroup className="wfui-form-checkboxes" validationState={touched && error ? 'error' : null}>
+        <FormGroup className="wfui-form-checkboxes" validationState={error ? 'error' : null}>
             {options.map((option, i) => (
                 <Checkbox
                     key={i}
@@ -92,7 +92,7 @@ export const renderCheckboxs = ({ className, label, options, input, help, requir
                     {option}
                 </Checkbox>
             ))}
-            <HelpBlock> {touched && error && <span>{error}</span>} </HelpBlock>
+            <HelpBlock> {error && <span>{error}</span>} </HelpBlock>
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
     </div>
