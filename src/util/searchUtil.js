@@ -152,13 +152,13 @@ const Search = {
                 const field = item.toString();
                 return field.indexOf(term) >= 0;
             } else if (Array.isArray(item)) {
-                return item.includes(term);
+                return item.join(' ').toLowerCase().indexOf(term) >= 0;
             } else {
                 const keys = Object.keys(item);
                 return keys.some((key) => {
                     if (!item || !item[key]) return false;
                     if (typeof item[key] === 'boolean' && item[key]) {
-                        return key.toLowerCase().indexOf(term);
+                        return key.toLowerCase().indexOf(term) >= 0;
                     }
                     return searchField(item[key], term);
                 });
@@ -173,7 +173,7 @@ const Search = {
                 return keys.some((key) => {
                     if (!item || !item[key]) return false;
                     if (typeof item[key] === 'boolean' && item[key]) {
-                        return key.toLowerCase().indexOf(term);
+                        return key.toLowerCase().indexOf(term) >= 0;
                     }
                     return searchField(item[key], term);
                 });
