@@ -15,7 +15,7 @@ export const renderField = ({ className, input, label, help, placeholder, type, 
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-input" validationState={touched && error ? 'error' : null}>
             <FormControl
-                    {...input} placeholder={placeholder || label} type={type}
+                    {...input} placeholder={placeholder || placeholder === '' ? placeholder : label} type={type}
                     disabled={disabled}
                     onChange={(e) => {
                         input.onChange(e);
@@ -36,7 +36,7 @@ export const renderTextArea = ({ className, input, label, help, placeholder, typ
             <FormControl
                     {...input}
                     type={type}
-                    placeholder={placeholder || label}
+                    placeholder={placeholder || placeholder === '' ? placeholder : label}
                     disabled={disabled}
                     onChange={(e) => {
                         input.onChange(e);
