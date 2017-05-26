@@ -14,7 +14,7 @@ class FilteredTable extends React.Component {
        this.state = {
            currentPage: props.currentPage,
            checkedItems: (new Array(props.data.length)).fill(false),
-           sortedIdx: -1,
+           sortedIdx: props.sortedIdx,
            sortedOrientation: 'desc',
        };
    }
@@ -113,12 +113,10 @@ class FilteredTable extends React.Component {
            if (sortedOrientation === 'desc') {
                this.setState({ sortedOrientation: 'asc' });
            } else {
-               /* Disable sorting if you click twice on the same label */
-               this.setState({ sortedIdx: -1 });
+               this.setState({ sortedOrientation: 'desc' });
            }
        } else {
-           this.setState({ sortedOrientation: 'desc' });
-           this.setState({ sortedIdx: idx });
+           this.setState({ sortedOrientation: 'desc', sortedIdx: idx });
        }
    }
 
@@ -305,6 +303,7 @@ FilteredTable.propTypes = {
     onResultsNumUpdate: React.PropTypes.func,
     simpleSearch: React.PropTypes.bool,
     searchKeys: React.PropTypes.arrayOf(React.PropTypes.string),
+    sortedIdx: React.PropTypes.number,
 };
 
 FilteredTable.defaultProps = {
@@ -314,6 +313,7 @@ FilteredTable.defaultProps = {
     filterList: [],
     searchTerm: '',
     selectable: false,
+    sortedIdx: -1,
 };
 
 export default FilteredTable;
