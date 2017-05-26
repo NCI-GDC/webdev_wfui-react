@@ -108,6 +108,7 @@ export const renderRadios = ({ className, label, options, input, help, required,
                     key={i}
                     name={input.name}
                     value={option}
+                    checked={input.value === option}
                     disabled={disabled}
                     onClick={e => (input.onChange(e.target.value))}
                 >
