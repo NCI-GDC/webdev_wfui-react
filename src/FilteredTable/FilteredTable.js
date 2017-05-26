@@ -152,12 +152,12 @@ class FilteredTable extends React.Component {
                 if (typeof aData === 'string') {
                     return bData.toLowerCase().localeCompare(aData.toLowerCase());
                 }
-                return aData > bData;
+                return bData - aData;
             }
             if (typeof aData === 'string') {
                 return aData.toLowerCase().localeCompare(bData.toLowerCase());
             }
-            return aData < bData;
+            return aData - bData;
         });
       }
 
