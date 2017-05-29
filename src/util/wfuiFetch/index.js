@@ -13,18 +13,6 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
     const appId = (init.headers && init.headers['app-id']) || 0;
 
     dispatch({ type: 'FETCH_REQUEST', requestId: init.requestId, appId });
-    if (!input) {
-        const promise = new Promise((resolve) => {
-            dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId, appId });
-            return resolve();
-        });
-        return {
-            promise,
-            abort() {
-                hasCanceled = true;
-            },
-        };
-    }
     const promise = new Promise((resolve, reject) => {
 
         let fetchTimer;
@@ -42,15 +30,29 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                 clearTimeout(timer5s);
                 clearTimeout(timer8s);
                 clearTimeout(timeout);
+                // Need to have more statement.
                 if (response.ok) {
                     const contentType = response.headers.get('content-type');
                     if (contentType && contentType.indexOf('application/json') !== -1) {
-                        dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId, appId });
+                        return response.json().then((data) => {
+                            dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId, appId });
+                            resolve({ res: response, data });
+                        });
+                    } else if (contentType && contentType.indexOf('text/plain') !== -1) {
+                        return response.text().then((data) => {
+                            dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId, appId });
+                            resolve({ res: response, data });
+                        });
+                    } else {
+                        return response.blob().then((data) => {
+                            dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId, appId });
+                            resolve({ res: response, data });
+                        });
                     }
                 } else {
                     dispatch({ type: 'FETCH_FAILURE', requestId: init.requestId, statusText: response.statusText, appId });
                 }
-                return hasCanceled ? reject({ isCanceled: true }) : resolve(response);
+                return hasCanceled ? reject({ isCanceled: true }) : resolve({ res: response });
             })
             .catch((error) => {
                 if (n > 0) {
