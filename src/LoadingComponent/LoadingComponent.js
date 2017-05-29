@@ -5,23 +5,23 @@ import Spinner from '../Spinner/Spinner';
 
 class LoadingComponent extends React.Component {
     render() {
-        const { isFetching, fetch5s, fetch8s, message5s, message8s, messageFailed, error, retried, timeout, status, spinnerConfig, children, onRetry } = this.props;
+        const { hideMessage, isFetching, fetch5s, fetch8s, message5s, message8s, messageFailed, error, retried, timeout, status, spinnerConfig, children, onRetry } = this.props;
         
         if (isFetching) {
             return (
                 <div className="wfui-loading-component">
                     {<Spinner {...spinnerConfig} />}
-                    {fetch5s && <p className="loading-5s" style={{ textAlign: 'center' }}>{message5s}</p>}
-                    {fetch8s && <p className="loading-8s" style={{ textAlign: 'center' }}>{message8s}</p>}
+                    { !hideMessage && fetch5s && <p className="loading-5s" style={{ textAlign: 'center' }}>{message5s}</p>}
+                    { !hideMessage && fetch8s && <p className="loading-8s" style={{ textAlign: 'center' }}>{message8s}</p>}
                 </div>
             );
         }
         if (status === 'fail') {
             return (
                 <div className="wfui-loading-component">
-                    {error && <p className="error">{ error }</p>}
-                    {(retried || timeout) && <p className="error" style={{ textAlign: 'center' }}>{ messageFailed }</p>}
-                    {(retried || timeout) && typeof onRetry === 'function' && <div className="retry-button" style={{ textAlign: 'center' }}><Button onClick={onRetry}>Retry</Button></div>}
+                    { !hideMessage && error && <p className="error">{ error }</p>}
+                    { !hideMessage && (retried || timeout) && <p className="error" style={{ textAlign: 'center' }}>{ messageFailed }</p>}
+                    { (retried || timeout) && typeof onRetry === 'function' && <div className="retry-button" style={{ textAlign: 'center' }}><Button onClick={onRetry}>Retry</Button></div>}
                 </div>
             );
         }
@@ -44,6 +44,7 @@ LoadingComponent.propTypes = {
     error: PropTypes.string,
     timeout: PropTypes.bool,
     retried: PropTypes.bool,
+    hideMessage: PropTypes.bool,
     children: PropTypes.node,
     spinnerConfig: PropTypes.oneOfType([PropTypes.object]),
     message5s: PropTypes.string,
