@@ -38,7 +38,7 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                             dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId, appId });
                             resolve({ res: response, data });
                         });
-                    } else if (contentType && contentType.indexOf('text/plain') !== -1) {
+                    } else if (contentType && contentType.indexOf('text/') !== -1) {
                         return response.text().then((data) => {
                             dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId, appId });
                             resolve({ res: response, data });
