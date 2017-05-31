@@ -141,7 +141,46 @@ const Search = {
       }
 
       return exec();
-   },
+    },
+    simpleSearch: (data, searchTerm, searchKeys) => {
+        function searchField(item, term) {
+            if (!item) return false;
+            if (typeof item === 'string') {
+                const field = item.toLowerCase();
+                return field.indexOf(term) >= 0;
+            } else if (typeof item === 'number') {
+                const field = item.toString();
+                return field.indexOf(term) >= 0;
+            } else if (Array.isArray(item)) {
+                return item.join(' ').toLowerCase().indexOf(term) >= 0;
+            } else {
+                const keys = Object.keys(item);
+                return keys.some((key) => {
+                    if (!item || !item[key]) return false;
+                    if (typeof item[key] === 'boolean' && item[key]) {
+                        return key.toLowerCase().indexOf(term) >= 0;
+                    }
+                    return searchField(item[key], term);
+                });
+            }
+            return false;
+        }
+
+        const filtered = data.filter(item => {
+            const keys = searchKeys || Object.keys(item);
+            const terms = searchTerm.toLowerCase().split(" ");
+            return terms.every((term) => {
+                return keys.some((key) => {
+                    if (!item || !item[key]) return false;
+                    if (typeof item[key] === 'boolean' && item[key]) {
+                        return key.toLowerCase().indexOf(term) >= 0;
+                    }
+                    return searchField(item[key], term);
+                });
+            });
+        });
+        return filtered;
+    },
 };
 
 export default Search;

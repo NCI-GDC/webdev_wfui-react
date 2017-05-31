@@ -14,11 +14,14 @@ class FilteredTable extends React.Component {
        this.state = {
            currentPage: props.currentPage,
            checkedItems: (new Array(props.data.length)).fill(false),
-           sortedIdx: -1,
+           sortedIdx: props.sortedIdx,
            sortedOrientation: 'desc',
        };
-       this.onFilter(this.generateFilteredArticles(this.applySearch(props.data)));
    }
+
+    componentDidMount() {
+        this.onFilter(this.generateFilteredArticles(this.applySearch(this.props.data)));
+    }
 
    componentWillReceiveProps(nextProps) {
        /* We need to sync the selected items when some are added
@@ -110,12 +113,10 @@ class FilteredTable extends React.Component {
            if (sortedOrientation === 'desc') {
                this.setState({ sortedOrientation: 'asc' });
            } else {
-               /* Disable sorting if you click twice on the same label */
-               this.setState({ sortedIdx: -1 });
+               this.setState({ sortedOrientation: 'desc' });
            }
        } else {
-           this.setState({ sortedOrientation: 'desc' });
-           this.setState({ sortedIdx: idx });
+           this.setState({ sortedOrientation: 'desc', sortedIdx: idx });
        }
    }
 
@@ -145,10 +146,18 @@ class FilteredTable extends React.Component {
       if (sortedIdx !== -1) {
         filteredArticles = filteredArticles.sort((a, b) => {
             const getSortingData = itemFormat[sortedIdx].sortingKey;
+            const aData = getSortingData(a);
+            const bData = getSortingData(b);
             if (sortedOrientation === 'desc') {
-                return getSortingData(a) > getSortingData(b);
+                if (typeof aData === 'string') {
+                    return bData.toLowerCase().localeCompare(aData.toLowerCase());
+                }
+                return bData - aData;
             }
-            return getSortingData(a) < getSortingData(b);
+            if (typeof aData === 'string') {
+                return aData.toLowerCase().localeCompare(bData.toLowerCase());
+            }
+            return aData - bData;
         });
       }
 
@@ -156,9 +165,9 @@ class FilteredTable extends React.Component {
    }
 
    applySearch(articles) {
-      const { searchTerm } = this.props;
+      const { searchTerm, simpleSearch, searchKeys } = this.props;
       if (searchTerm) {
-        const filteredArticles = Search.search(articles, searchTerm);
+        const filteredArticles = simpleSearch ? Search.simpleSearch(articles, searchTerm, searchKeys) : Search.search(articles, searchTerm);
         return filteredArticles;
       }
 
@@ -292,6 +301,9 @@ FilteredTable.propTypes = {
     onSelectionChange: React.PropTypes.func,
     itemFormat: React.PropTypes.arrayOf(React.PropTypes.object),
     onResultsNumUpdate: React.PropTypes.func,
+    simpleSearch: React.PropTypes.bool,
+    searchKeys: React.PropTypes.arrayOf(React.PropTypes.string),
+    sortedIdx: React.PropTypes.number,
 };
 
 FilteredTable.defaultProps = {
@@ -301,6 +313,7 @@ FilteredTable.defaultProps = {
     filterList: [],
     searchTerm: '',
     selectable: false,
+    sortedIdx: -1,
 };
 
 export default FilteredTable;
