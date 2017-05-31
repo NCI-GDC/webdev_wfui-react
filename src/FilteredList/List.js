@@ -15,23 +15,34 @@ const calcActiveData = ({ data, pageSize, currentPage }) => {
 };
 
 class List extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             numOfItems: 0,
             startingArticle: 0,
             lastArticle: 0,
         };
     }
+
     componentDidMount(){
-        const { onListDidMount, data } = this.props;
+        const { onListDidMount, onNumOfListChange, data } = this.props;
         onListDidMount(data);
+        const { activeData, startingArticle, lastArticle } = calcActiveData(this.props);
+
+        this.setState({
+            numOfItems: activeData.length,
+            startingArticle,
+            lastArticle,
+        });
+        onNumOfListChange(activeData.length);
     }
+
     render() {
         const { itemDisplay, data, pageSize, currentPage, container } = this.props;
 
         /* New article object with data injected into it. */
         const { activeData } = calcActiveData(this.props);
+
         const itemDisplays = activeData.map((item, idx) => (
             React.cloneElement(
                 itemDisplay,
@@ -48,6 +59,7 @@ class List extends React.Component {
         );
         return populatedContainer;
     }
+
     componentDidUpdate() {
         const { onDisplay, onNumOfListChange, data } = this.props;
         const { activeData, startingArticle, lastArticle} = calcActiveData(this.props);
@@ -62,7 +74,7 @@ class List extends React.Component {
                 lastArticle,
             });
             /* Return number of articles. */
-            onNumOfListChange(data.length, data);
+            onNumOfListChange(activeData.length);
             /* onDisplay is provided for cases that the client needs to see
             * the range of articles being displayed */
             onDisplay({ starting: startingArticle, last: lastArticle });
