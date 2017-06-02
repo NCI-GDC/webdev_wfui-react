@@ -16,9 +16,9 @@ class UserDrawer extends Component {
 
     renderUserMenu() {
         const { userMenu, listClassName } = this.props;
-        const menuItems = userMenu.map(menu =>
+        const menuItems = userMenu.map((menu, idx) =>
              (
-                <li>
+                <li key={idx}>
                     <a href={menu.link}>
                         { menu.icon ? <Glyphicon glyph={menu.icon} /> : null}
                         { menu.title }
