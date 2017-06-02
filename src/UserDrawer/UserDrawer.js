@@ -15,7 +15,7 @@ class UserDrawer extends Component {
     }
 
     renderUserMenu() {
-        const { userMenu } = this.props;
+        const { userMenu, listClassName } = this.props;
         const menuItems = userMenu.map(menu =>
              (
                 <li>
@@ -30,7 +30,7 @@ class UserDrawer extends Component {
         return (
             <div className="clearfix row">
                 <div className="col-md-12">
-                    <ul className="links-list--no-wrap list-unstyled">
+                    <ul className={`links-list--no-wrap list-unstyled ${listClassName}`}>
                         {menuItems}
                     </ul>
                 </div>
@@ -98,6 +98,7 @@ UserDrawer.propTypes = {
         PropTypes.element,
         PropTypes.arrayOf(PropTypes.element),
         ]),
+    listClassName: PropTypes.string,
 };
 
 UserDrawer.defaultProps = {
@@ -111,6 +112,7 @@ UserDrawer.defaultProps = {
     spinnerFormat: defaultSpinner,
     useCaret: true,
     bsStyle: 'link',
+    listClassName: '',
 };
 
 export default UserDrawer;
