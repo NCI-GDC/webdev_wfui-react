@@ -94,7 +94,8 @@ class FilteredListContainer extends React.Component {
         this.state = { numOfItems : 0, starting: 0, last: 0 }
     }
     render() {
-        const { numOfItems, starting, last } = this.state;
+        const { numOfItems, numTotal, starting, last, rawData } = this.state;
+        console.log(rawData);
         return (
             <div>
                 <FilteredList
@@ -104,9 +105,10 @@ class FilteredListContainer extends React.Component {
                     pageSize={2}
                     filterList={filterList}
                     onNumOfListChange={(n)=>{ this.setState({numOfItems: n}) }}
-                    onDisplay={({starting,last})=>{ this.setState({starting, last}) }}
-                    onListDidMount={(data)=>{ console.log('list did mount', data); }}
+                    onDisplay={({starting,last,numListed,numTotal,rawData})=>{ this.setState({starting, last,numListed,numTotal,rawData}) }}
+                    //onListDidMount={(data)=>{ console.log('list did mount', data); }}
                 />
+                <div>Total: {numTotal}</div>
                 <div>Showing: {numOfItems} ({starting}-{last})</div>
             </div>
         );

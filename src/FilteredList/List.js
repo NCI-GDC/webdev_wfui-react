@@ -26,15 +26,8 @@ class List extends React.Component {
 
     componentDidMount(){
         const { onListDidMount, onNumOfListChange, data } = this.props;
-        onListDidMount(data);
-        const { activeData, startingArticle, lastArticle } = calcActiveData(this.props);
-
-        this.setState({
-            numOfItems: activeData.length,
-            startingArticle,
-            lastArticle,
-        });
-        onNumOfListChange(activeData.length);
+        onListDidMount(data); // deprecate: use onDisplay instead.
+        this.updateStatus();
     }
 
     render() {
@@ -62,24 +55,33 @@ class List extends React.Component {
 
     componentDidUpdate() {
         const { onDisplay, onNumOfListChange, data } = this.props;
-        const { activeData, startingArticle, lastArticle} = calcActiveData(this.props);
+        const { activeData, startingArticle, lastArticle } = calcActiveData(this.props);
 
         /* Only setState and invoke callbacks when the state is changed to avoid infinite loop */
         if ( activeData.length !== this.state.numOfItems ||
             startingArticle !== this.state.startingArticle ||
             lastArticle !== this.state.lastArticle) {
-            this.setState({
-                numOfItems: activeData.length,
-                startingArticle,
-                lastArticle,
-            });
-            /* Return number of articles. */
-            onNumOfListChange(activeData.length);
-            /* onDisplay is provided for cases that the client needs to see
-            * the range of articles being displayed */
-            onDisplay({ starting: startingArticle, last: lastArticle });
+            this.updateStatus();
         }
     }
+    
+    updateStatus() {
+        const { onDisplay, onNumOfListChange, data } = this.props;
+        const { activeData, startingArticle, lastArticle } = calcActiveData(this.props);
+
+        this.setState({
+            numOfItems: activeData.length,
+            startingArticle,
+            lastArticle,
+        });
+        /* Return number of articles. */
+        onNumOfListChange(activeData.length); // deprecated: use onDisplay instead.
+
+        /* onDisplay is provided for cases that the client needs to see
+        * the range of articles being displayed */
+        onDisplay({ starting: startingArticle, last: lastArticle, numListed: activeData.length, numTotal: data.length, rawData: data });
+    }
+
 }
 
 List.propTypes = {
