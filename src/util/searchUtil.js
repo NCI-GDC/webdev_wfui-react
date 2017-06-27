@@ -152,7 +152,7 @@ const Search = {
                 const field = item.toString();
                 return field.indexOf(term) >= 0;
             } else if (Array.isArray(item)) {
-                return item.join(' ').toLowerCase().indexOf(term) >= 0;
+                return item.some((sub) => searchField(sub, term));
             } else {
                 const keys = Object.keys(item);
                 return keys.some((key) => {
