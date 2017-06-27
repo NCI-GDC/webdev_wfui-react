@@ -142,7 +142,7 @@ const Search = {
 
       return exec();
     },
-    simpleSearch: (data, searchTerm, searchKeys) => {
+    simpleSearch: (data, searchTerm, searchKeys, wholeWord = false) => {
         function searchField(item, term) {
             if (!item) return false;
             if (typeof item === 'string') {
@@ -166,9 +166,43 @@ const Search = {
             return false;
         }
 
+        function searchWholeWord(item, term) {
+            if (!item) return false;
+            if (typeof item === 'string') {
+                const field = item.toLowerCase();
+                return RegExp(`\\b${term}\\b`, 'i').test(field);
+            } else if (typeof item === 'number') {
+                const field = item.toString();
+                return field.indexOf(term) >= 0;
+            } else if (Array.isArray(item)) {
+                return item.some((sub) => searchWholeWord(sub, term));
+            } else {
+                const keys = Object.keys(item);
+                return keys.some((key) => {
+                    if (!item || !item[key]) return false;
+                    if (typeof item[key] === 'boolean' && item[key]) {
+                        return key.toLowerCase().indexOf(term) >= 0;
+                    }
+                    return searchWholeWord(item[key], term);
+                });
+            }
+            return false;
+        }
+
         const filtered = data.filter(item => {
             const keys = searchKeys || Object.keys(item);
             const terms = searchTerm.toLowerCase().split(" ");
+            if (wholeWord) {
+                return terms.every((term) => {
+                    return keys.some((key) => {
+                        if (!item || !item[key]) return false;
+                        if (typeof item[key] === 'boolean' && item[key]) {
+                            return key.toLowerCase().indexOf(term) >= 0;
+                        }
+                        return searchWholeWord(item[key], term);
+                    });
+                });
+            }
             return terms.every((term) => {
                 return keys.some((key) => {
                     if (!item || !item[key]) return false;
