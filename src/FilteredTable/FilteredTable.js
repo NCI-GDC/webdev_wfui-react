@@ -165,9 +165,9 @@ class FilteredTable extends React.Component {
    }
 
    applySearch(articles) {
-      const { searchTerm, simpleSearch, searchKeys } = this.props;
+      const { searchTerm, simpleSearch, searchKeys, wholeWord } = this.props;
       if (searchTerm) {
-        const filteredArticles = simpleSearch ? Search.simpleSearch(articles, searchTerm, searchKeys) : Search.search(articles, searchTerm);
+        const filteredArticles = simpleSearch ? Search.simpleSearch(articles, searchTerm, searchKeys, wholeWord) : Search.search(articles, searchTerm);
         return filteredArticles;
       }
 
@@ -304,6 +304,7 @@ FilteredTable.propTypes = {
     simpleSearch: React.PropTypes.bool,
     searchKeys: React.PropTypes.arrayOf(React.PropTypes.string),
     sortedIdx: React.PropTypes.number,
+    wholeWord: React.PropTypes.bool,
 };
 
 FilteredTable.defaultProps = {
@@ -314,6 +315,7 @@ FilteredTable.defaultProps = {
     searchTerm: '',
     selectable: false,
     sortedIdx: -1,
+    wholeWord: false,
 };
 
 export default FilteredTable;
