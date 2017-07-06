@@ -26,7 +26,8 @@ function loadStories() {
   require('../stories/CaGForms');
   require('../stories/FullCalendar');
   require('../stories/DisqusFeed');
-  require('../stories/LoadingComponent')
+  require('../stories/LoadingComponent');
+  require('../stories/Search');
 }
 
 configure(loadStories, module);

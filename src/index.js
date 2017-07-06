@@ -13,6 +13,7 @@ import Drawer from './Drawer/Drawer';
 import GroupsDrawer from './GroupsDrawer/GroupsDrawer';
 import DisqusFeed from './DisqusFeed/index.js';
 import LoadingComponent from './LoadingComponent/LoadingComponent.js';
+import * as Search from './Search';
 import * as FormFields from './FormFields';
 
 require('./i18n/i18n.js');
@@ -37,4 +38,5 @@ export {
     TimezonePicker,
     LoadingComponent,
     FormFields,
+    Search,
 };
