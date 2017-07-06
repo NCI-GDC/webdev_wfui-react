@@ -102,10 +102,10 @@ export const renderCheckboxs = ({ className, label, options, input, help, requir
     </div>
 );
 
-export const renderRadios = ({ className, label, options, input, help, required, disabled, meta: { touched, error } }) => (
+export const renderRadios = ({ className, label, options, input, help, required, disabled, meta: { error } }) => (
     <div className={classNames(className, 'wfui-form-item')}>
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
-        <FormGroup className="wfui-form-radios" validationState={touched && error ? 'error' : null}>
+        <FormGroup className="wfui-form-radios" validationState={error ? 'error' : null}>
             {options.map((option, i) => {
                 const _key = typeof option === 'string' ? option : option.key;
                 const _option = typeof option === 'string' ? option : option.value;
