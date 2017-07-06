@@ -71,27 +71,31 @@ export const renderCheckboxs = ({ className, label, options, input, help, requir
     <div className={classNames(className, 'wfui-form-item')}>
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-checkboxes" validationState={error ? 'error' : null}>
-            {options.map((option, i) => (
-                <Checkbox
-                    key={i}
-                    name={input.name}
-                    value={option}
-                    disabled={disabled}
-                    checked={input.value && input.value.includes(option)}
-                    className={input.value && input.value.includes(option) ? 'active' : ''}
-                    onChange={(e) => {
-                        const newValue = [...input.value];
-                        if (e.target.checked) {
-                            newValue.push(option);
-                        } else {
-                            newValue.splice(newValue.indexOf(option), 1);
-                        }
-                        return input.onChange(newValue);
-                    }}
-                >
-                    {option}
-                </Checkbox>
-            ))}
+            {options.map((option, i) => {
+                const _key = typeof option === 'string' ? option : option.key;
+                const _option = typeof option === 'string' ? option : option.value;
+                return (
+                    <Checkbox
+                        key={i}
+                        name={input.name}
+                        value={_key}
+                        disabled={disabled}
+                        checked={input.value && input.value.includes(_key)}
+                        className={input.value && input.value.includes(_key) ? 'active' : ''}
+                        onChange={(e) => {
+                            const newValue = [...input.value];
+                            if (e.target.checked) {
+                                newValue.push(_key);
+                            } else {
+                                newValue.splice(newValue.indexOf(_key), 1);
+                            }
+                            return input.onChange(newValue);
+                        }}
+                    >
+                        {_option}
+                    </Checkbox>
+                );
+            })}
             <HelpBlock> {error && <span>{error}</span>} </HelpBlock>
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
@@ -102,19 +106,23 @@ export const renderRadios = ({ className, label, options, input, help, required,
     <div className={classNames(className, 'wfui-form-item')}>
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-radios" validationState={touched && error ? 'error' : null}>
-            {options.map((option, i) => (
-                <Radio
-                    className={input.value === option ? 'active' : ''}
-                    key={i}
-                    name={input.name}
-                    value={option}
-                    checked={input.value === option}
-                    disabled={disabled}
-                    onClick={e => (input.onChange(e.target.value))}
-                >
-                    {option}
-                </Radio>
-            ))}
+            {options.map((option, i) => {
+                const _key = typeof option === 'string' ? option : option.key;
+                const _option = typeof option === 'string' ? option : option.value;
+                return (
+                    <Radio
+                        className={input.value === _key ? 'active' : ''}
+                        key={i}
+                        name={input.name}
+                        value={_key}
+                        checked={input.value === _key}
+                        disabled={disabled}
+                        onClick={e => (input.onChange(e.target.value))}
+                    >
+                        {_option}
+                    </Radio>
+                );
+            })}
             <HelpBlock> {touched && error && <span>{error}</span>} </HelpBlock>
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
