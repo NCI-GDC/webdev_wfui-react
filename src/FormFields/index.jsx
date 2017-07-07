@@ -193,6 +193,7 @@ export const renderTimezone = ({ className, label, placeholder, input, help, req
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup validationState={touched && error ? 'error' : null}>
             <TimezonePicker
+                className="wfui-form-timezone"
                 {...input}
                 onChange={timezone => input.onChange(timezone)}
                 inputProps={{
@@ -209,14 +210,14 @@ export const renderPhoto = ({ className, input, label, required, help, meta: { t
         input.value ?
         <div className={classNames(className, 'wfui-form-item')}>
             <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
-            <p>
-                <img
-                    style={{ height: 100 }}
-                    src={input.value}
-                />
-            </p>
-            <div>
-                <Button onClick={() => { input.onChange(''); this.setState({ hasFile: false }); }}>
+            <div className="wfui-form-photo file-chosen">
+                <p className="image-preview">
+                    <img
+                        style={{ height: 100 }}
+                        src={input.value}
+                    />
+                </p>
+                <Button className="btn-remove" onClick={() => { input.onChange(''); this.setState({ hasFile: false }); }}>
                     Remove Image
                 </Button>
             </div>
@@ -226,15 +227,7 @@ export const renderPhoto = ({ className, input, label, required, help, meta: { t
             <Dropzone
                 {...input}
                 name={input.name}
-                style={{
-                    width: '300px',
-                    height: '45px',
-                    padding: '5px',
-                    borderWidth: '1px',
-                    borderColor: '#aaa',
-                    borderStyle: 'dotted',
-                    borderRadius: '1px',
-                }}
+                className="wfui-form-photo choose-file"
                 onDrop={(acceptedFiles) => {
                     const reader = new FileReader();
                     reader.readAsDataURL(acceptedFiles[0]);

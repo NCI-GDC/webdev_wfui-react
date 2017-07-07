@@ -1,4 +1,4 @@
-const { renderField, renderTextArea, renderRadios, renderSingleCheckbox, renderSelect, renderCheckboxs, renderAddAnother } = FormFields;
+const { renderField, renderTextArea, renderRadios, renderSingleCheckbox, renderSelect, renderCheckboxs, renderAddAnother, renderPhoto, renderTimezone } = FormFields;
 
 const validate = (values) => {
     const errors = {};
@@ -13,7 +13,7 @@ const validate = (values) => {
 class Forms extends React.Component{
     render() {
         const { handleSubmit, pristine, submitting, pubTypes, patentsStatus, initialValues, intl, pageAll } = this.props;
-        
+
         return (
             <form
             >
@@ -65,7 +65,17 @@ class Forms extends React.Component{
                         help={'"Read More" after 250 characters'}
                         placeholder="Placeholder"
                     />
-
+                    <Field
+                        name="photo"
+                        label={'Choose Photo Field'}
+                        component={renderPhoto}
+                    />
+                    <Field
+                        name="timezone"
+                        placeholder={'Choose timezone'}
+                        label={'Timezone Field'}
+                        component={renderTimezone}
+                    />
                     <FieldArray
                         name="Contact_list"
                         type="select"
