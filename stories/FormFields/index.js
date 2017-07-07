@@ -7,6 +7,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { storiesOf } from '@kadira/storybook';
 import * as FormFields from '../../src/FormFields';
 import StoryFacit from 'raw!./StoryFacit.src';
+import '../../src/FormFields/index.scss';
 
 const store = createStore(combineReducers(
     {
