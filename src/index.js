@@ -1,3 +1,4 @@
+import ReactMarkdown from 'react-markdown';
 import NotificationSystem from 'react-notification-system';
 import Dropzone from 'react-dropzone';
 import TimezonePicker from 'react-timezone';
@@ -20,7 +21,6 @@ import * as FormFields from './FormFields';
 require('./i18n/i18n.js');
 
 export * from 'react-bootstrap';
-export * from 'react-markdown';
 
 export {
     FilteredList,
@@ -42,4 +42,5 @@ export {
     FormFields,
     Search,
     FilterTool,
+    ReactMarkdown,
 };
