@@ -28,6 +28,7 @@ function loadStories() {
   require('../stories/DisqusFeed');
   require('../stories/LoadingComponent');
   require('../stories/Search');
+  require('../stories/FormFields');
 }
 
 configure(loadStories, module);

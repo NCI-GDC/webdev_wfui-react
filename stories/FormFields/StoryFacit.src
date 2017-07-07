@@ -1,0 +1,131 @@
+const { renderField, renderTextArea, renderRadios, renderSingleCheckbox, renderSelect, renderCheckboxs, renderAddAnother } = FormFields;
+
+const validate = (values) => {
+    const errors = {};
+
+    if (!values.title) {
+        errors.title = 'Required';
+    }
+
+    return errors;
+};
+
+class Forms extends React.Component{
+    render() {
+        const { handleSubmit, pristine, submitting, pubTypes, patentsStatus, initialValues, intl, pageAll } = this.props;
+        
+        return (
+            <form
+            >
+                    <Field
+                        name="IsActive_b"
+                        type="checkbox"
+                        option={'Active Project'}
+                        className="active-checkbox"
+                        component={renderSingleCheckbox}
+                    />
+
+                    <Field
+                        name="FacitProjName_txt"
+                        type="text"
+                        className="title-box"
+                        component={renderField}
+                        label={'Project Title:'}
+                        placeholder=""
+                        required
+                    />
+                    <Field
+                        name="FacitDevelStage_txt"
+                        type="select"
+                        className="dev-stage"
+                        component={renderSelect}
+                        label={'Development Stage:'}
+                        options={['-- Select an Option --', 'A', 'B']}
+                    />
+                    <Field
+                        name="TechProgram_list"
+                        type="checkbox"
+                        component={renderCheckboxs}
+                        options={['OptionA', 'OptionB', 'OptionC']}
+                        label={'Technology Program(s):'}
+                        required
+                    />
+                    <Field
+                        name="StrategicInitiative_list"
+                        type="checkbox"
+                        component={renderRadios}
+                        options={['OptionA', 'OptionB', 'OptionC']}
+                        label={'Strategic Initiative(s):'}
+                    />
+                    <Field
+                        name="ScientificSummary_txt"
+                        type="textarea"
+                        label={'Technology Description:'}
+                        component={renderTextArea}
+                        help={'"Read More" after 250 characters'}
+                        placeholder="Placeholder"
+                    />
+
+                    <FieldArray
+                        name="Contact_list"
+                        type="select"
+                        component={renderAddAnother}
+                        label={'Scientific Leader/Contact(s):'}
+                        childComponent={contact => (
+                            <div>
+                                <Field
+                                    name={`${contact}.FirstName_txt`}
+                                    type="text"
+                                    component={renderField}
+                                    label={'First Name:'}
+                                    placeholder=""
+                                />
+                                <Field
+                                    name={`${contact}.LastName_txt`}
+                                    type="text"
+                                    component={renderField}
+                                    label={'Last Name'}
+                                    placeholder=""
+                                    required
+                                />
+                                <Field
+                                    name={`${contact}.Role_txt`}
+                                    type="text"
+                                    component={renderField}
+                                    label={'Role:'}
+                                    placeholder=""
+                                />
+                                <Field
+                                    name={`${contact}.Institution_txt`}
+                                    type="text"
+                                    component={renderField}
+                                    label={'Lead Research Institute:'}
+                                    placeholder=""
+                                />
+                                <Field
+                                    name={`${contact}.Email_txt`}
+                                    type="email"
+                                    component={renderField}
+                                    label={'Email Address:'}
+                                    placeholder=""
+                                />
+                            </div>
+                        )}
+                        draggable
+                    />
+            </form>
+        )
+    }
+}
+
+const FormsReduxForm = reduxForm({
+    form: 'test',
+    validate,
+})(Forms);
+
+const example = (
+    <Provider store={store}>
+        <FormsReduxForm />
+    </Provider>
+);
+return example;
