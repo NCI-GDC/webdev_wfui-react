@@ -20,6 +20,7 @@ import * as FormFields from './FormFields';
 require('./i18n/i18n.js');
 
 export * from 'react-bootstrap';
+export * from 'react-markdown';
 
 export {
     FilteredList,
