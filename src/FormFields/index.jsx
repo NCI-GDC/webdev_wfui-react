@@ -67,7 +67,7 @@ export const renderSingleCheckbox = ({ className, label, option, input, help, re
     </div>
 );
 
-export const renderCheckboxs = ({ className, label, options, input, help, required, disabled, meta: { error } }) => (
+export const renderCheckboxs = ({ className, label, options, input, help, required, disabled, meta: { touched, error } }) => (
     <div className={classNames(className, 'wfui-form-item')}>
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-checkboxes" validationState={error ? 'error' : null}>
@@ -96,13 +96,13 @@ export const renderCheckboxs = ({ className, label, options, input, help, requir
                     </Checkbox>
                 );
             })}
-            <HelpBlock> {error && <span>{error}</span>} </HelpBlock>
+            <HelpBlock> {touched && error && <span>{error}</span>} </HelpBlock>
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
     </div>
 );
 
-export const renderRadios = ({ className, label, options, input, help, required, disabled, meta: { error } }) => (
+export const renderRadios = ({ className, label, options, input, help, required, disabled, meta: { touched, error } }) => (
     <div className={classNames(className, 'wfui-form-item')}>
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-radios" validationState={error ? 'error' : null}>
