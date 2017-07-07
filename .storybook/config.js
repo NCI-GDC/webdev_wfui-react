@@ -10,6 +10,7 @@ setAddon(InfoAddon);
 function loadStories() {
   require('../stories/Test');
   require('../stories/ReactBootstrap');
+  require('../stories/ReactMarkdown');
   require('../stories/Drawer');
   require('../stories/GroupsDrawer');
   require('../stories/UserDrawer');

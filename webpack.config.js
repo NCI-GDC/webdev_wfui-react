@@ -12,6 +12,10 @@ module.exports = {
                 test: /\.scss$|\.css$/,
                 loader: ExtractTextPlugin.extract('css-loader!sass-loader'),
             },
+            {
+                test: /\.json$/,
+                loader: 'json-loader',
+            },
         ],
     },
     output: {
