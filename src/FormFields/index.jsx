@@ -70,7 +70,7 @@ export const renderSingleCheckbox = ({ className, label, option, input, help, re
 export const renderCheckboxs = ({ className, label, options, input, help, required, disabled, meta: { touched, error } }) => (
     <div className={classNames(className, 'wfui-form-item')}>
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
-        <FormGroup className="wfui-form-checkboxes" validationState={error ? 'error' : null}>
+        <FormGroup className="wfui-form-checkboxes" validationState={touched && error ? 'error' : null}>
             {options.map((option, i) => {
                 const _key = typeof option === 'string' ? option : option.key;
                 const _option = typeof option === 'string' ? option : option.value;
@@ -107,7 +107,7 @@ export const renderCheckboxes = renderCheckboxs;
 export const renderRadios = ({ className, label, options, input, help, required, disabled, meta: { touched, error } }) => (
     <div className={classNames(className, 'wfui-form-item')}>
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
-        <FormGroup className="wfui-form-radios" validationState={error ? 'error' : null}>
+        <FormGroup className="wfui-form-radios" validationState={touched && error ? 'error' : null}>
             {options.map((option, i) => {
                 const _key = typeof option === 'string' ? option : option.key;
                 const _option = typeof option === 'string' ? option : option.value;
@@ -156,11 +156,11 @@ export const renderSelect = ({ className, label, options, input, help, required,
 
 export class renderAddAnother extends React.Component {
     render() {
-        const { className, fields, childComponent, draggable, label, help, required, disabled, meta: { touched, error } } = this.props;
+        const { className, fields, childComponent, draggable, label, help, required, disabled, meta: { error } } = this.props;
         return (
             <div className={classNames(className, 'wfui-form-item')}>
                 <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
-                <FormGroup className="wfui-form-radios" validationState={touched && error ? 'error' : null}>
+                <FormGroup className="wfui-form-addAnother" validationState={error ? 'error' : null}>
                     { draggable && fields.length > 0 &&
                         <Draggable
                             onHandleItemMove={(from, to) => {
@@ -181,7 +181,7 @@ export class renderAddAnother extends React.Component {
                     }
                     { !draggable && fields.map(childComponent) }
                     <Button bsStyle="default" className="add-btn" onClick={() => { fields.push(); }}>Add Another Item</Button>
-                    <HelpBlock> {touched && error && <span>{error}</span>} </HelpBlock>
+                    <HelpBlock> {error && <span>{error}</span>} </HelpBlock>
                     {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
                 </FormGroup>
             </div>

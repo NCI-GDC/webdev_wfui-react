@@ -9,9 +9,13 @@ const switchurl = (state) => {
     if (mode) {
         urlString += `&mode=${mode}`;
     }
+    const tab = getParameterByName('tab');
+    if (tab) {
+        urlString += `&tab=${tab}`;
+    }
     if (category && Object.keys(category).length > 0) {
         Object.keys(category).forEach((key) => {
-            urlString += `&${key}=${encodeURI(category[key].join(','))}`;
+            urlString += `&${key}=${encodeURI(Array.isArray(category[key]) ? category[key].join(',') : category[key])}`;
         });
     }
     if (show && Object.keys(show).length > 0) {
@@ -31,7 +35,7 @@ const switchurl = (state) => {
         if (!window.location.origin) { // IE10
            window.location.origin = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
         }
-        window.location.replace(`${window.location.origin}${window.location.pathname}#/?${urlString}`);
+        window.location.replace(`${window.location.origin}${window.location.pathname}${window.location.hash.split('?')[0] || '#/'}?${urlString}`);
     }
 };
 
