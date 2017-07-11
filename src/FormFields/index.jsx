@@ -62,7 +62,7 @@ export const renderSingleCheckbox = ({ className, label, option, input, help, re
                 {option} {required && <b className="required">*</b>}
             </Checkbox>
             <HelpBlock>{touched && error && <span>{error}</span>}</HelpBlock>
-            {help && <div className="form-description" dangerouslySetInnerHTML={{ __html: help }} />}
+            {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
     </div>
 );
@@ -242,7 +242,7 @@ export const renderPhoto = ({ className, input, label, required, help, meta: { t
                 Choose File
             </Dropzone>
             <HelpBlock>{touched && error && <span>{error}</span>}</HelpBlock>
-            {help && <div className="form-description" dangerouslySetInnerHTML={{ __html: help }} />}
+            {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </div>
     );
 };

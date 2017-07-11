@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import TableBody from './TableBody';
 import Search from '../util/searchUtil';
 
@@ -278,7 +279,7 @@ class FilteredTable extends React.Component {
                 paginatorObject,
             );
             return (
-                <div>
+                <div className={classNames(className, 'wfui-filtered-table')}>
                     {table}
                     {InjectedPaginatorDisplay}
                 </div>

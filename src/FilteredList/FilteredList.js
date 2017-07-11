@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import List from './List';
 import Search from '../util/searchUtil';
 
@@ -59,7 +60,7 @@ class FilteredList extends React.Component {
    }
 
    render() {
-      const { itemDisplay, paginatorDisplay, data, pageSize, sortFunction, container, onDisplay, onNumOfListChange, onListDidMount } = this.props;
+      const { className, itemDisplay, paginatorDisplay, data, pageSize, sortFunction, container, onDisplay, onNumOfListChange, onListDidMount } = this.props;
       const { currentPage } = this.state;
       const filteredData = this.applySearch(this.generateFilteredArticles(data));
       if (sortFunction) {
@@ -69,7 +70,7 @@ class FilteredList extends React.Component {
       const paginatorObject = this.generatePaginatorObject();
       
       return (
-         <div>
+         <div className={classNames(className, 'wfui-filtered-list')}>
             <List
                 data={filteredData}
                 itemDisplay={itemDisplay}
