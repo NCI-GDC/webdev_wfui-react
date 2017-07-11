@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { toggleFilter, changeFilter } from '../util/visibilityFilter/actions';
 import FilterItems from './FilterItems';
 
-class FilterTool extends React.Component {
+class CollapsibleFilter extends React.Component {
 
     constructor() {
         super();
@@ -63,7 +63,7 @@ class FilterTool extends React.Component {
     }
 }
 
-FilterTool.propTypes = {
+CollapsibleFilter.propTypes = {
     label: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     search: PropTypes.object,
@@ -80,7 +80,7 @@ FilterTool.propTypes = {
     textLess: PropTypes.string,
     filter: PropTypes.func,
 };
-FilterTool.defaultProps = {
+CollapsibleFilter.defaultProps = {
     type_opt_not: PropTypes.number,
     changeFilter: f => f,
     onHandleClick: f => f,
@@ -96,4 +96,4 @@ export default connect(
         category: state.visibilityFilter && state.visibilityFilter.category,
     }),
     { toggleFilter, changeFilter },
-)(FilterTool);
+)(CollapsibleFilter);
