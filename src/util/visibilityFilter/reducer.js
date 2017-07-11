@@ -13,7 +13,7 @@ export const visibilityFilterReducer = (state = { category: {}, sort: { order: '
             if (!_state[action.key]) return _state;
             action.filter.forEach((a) => {
                 _state[action.key][a.key] = a.value;
-                if (a.value.length === 0) delete _state[action.key][a.key];
+                if (!a.value || a.value.length === 0) delete _state[action.key][a.key];
             });
             return _state;
         case 'SELECT_PROVINCE':

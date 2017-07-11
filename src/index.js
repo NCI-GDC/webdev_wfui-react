@@ -15,8 +15,11 @@ import GroupsDrawer from './GroupsDrawer/GroupsDrawer';
 import DisqusFeed from './DisqusFeed/index.js';
 import LoadingComponent from './LoadingComponent/LoadingComponent.js';
 import CollapsibleFilter from './CollapsibleFilter/CollapsibleFilter';
+import Filters from './Filters/Filters';
+import FilterItem from './Filters/FilterItem';
 import * as Search from './Search';
 import * as FormFields from './FormFields';
+import * as FilterFields from './Filters/renderFilterItem';
 
 require('./i18n/i18n.js');
 
@@ -43,4 +46,7 @@ export {
     Search,
     CollapsibleFilter,
     ReactMarkdown,
+    Filters,
+    FilterItem,
+    FilterFields,
 };
