@@ -1,9 +1,12 @@
 /**
  * Reducer for Visibility Filter
  */
-export const visibilityFilterReducer = (state = { category: {}, sort: { order: 'desc' }, term: { q: '' } }, action) => {
+const defaultState = { category: {}, sort: { order: 'desc' }, term: { q: '' } };
+export const visibilityFilterReducer = (state = defaultState, action) => {
     const _state = JSON.parse(JSON.stringify(state));
     switch (action.type) {
+        case 'RESET_FILTER':
+            return defaultState;
         case 'REFYDRATE_FILTER':
             return action.visibilityFilter;
         case 'CHANGE_TERM':

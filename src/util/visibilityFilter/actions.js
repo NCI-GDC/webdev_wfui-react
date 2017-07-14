@@ -1,6 +1,11 @@
 /**
  * Change visibilityFilter state
  */
+export const resetFilter = () => (
+    dispatch => (
+        dispatch({ type: 'RESET_FILTER' })
+    )
+);
 export const changeFilter = (filter, key = 'category') => (
     dispatch => (
         dispatch({ type: 'CHANGE_FILTER', key, filter })
