@@ -11,8 +11,8 @@ export const renderSelectFilter = ({ name, category, onHandleChange, items, capi
         id={name}
         componentClass="select"
         onChange={onHandleChange}
-        value={category[name] || ''}
-        selected={category[name] || ''}
+        value={(category && category[name]) || ''}
+        selected={(category && category[name]) || ''}
     >
         {
             items.map((item, idx) => (
@@ -27,7 +27,7 @@ export const renderDateFilter = ({ name, category, onHandleChange }) => (
         type="date"
         name={name}
         id={name}
-        value={category[name] || ''}
+        value={(category && category[name]) || ''}
         onChange={onHandleChange}
     />
 );
@@ -37,7 +37,7 @@ export const renderTextFilter = ({ name, category, onHandleChange }) => (
         type="text"
         name={name}
         id={name}
-        value={category[name] || ''}
+        value={(category && category[name]) || ''}
         onChange={onHandleChange}
     />
 );
