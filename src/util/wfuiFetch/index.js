@@ -35,16 +35,19 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                     const contentType = response.headers.get('content-type');
                     if (contentType && contentType.indexOf('application/json') !== -1) {
                         return response.json().then((data) => {
+                            dispatch({ type: 'RECEIVE_FETCH_DATA', requestId: init.requestId, data });
                             dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId, appId });
                             resolve({ res: response, data });
                         });
                     } else if (contentType && contentType.indexOf('text/') !== -1) {
                         return response.text().then((data) => {
+                            dispatch({ type: 'RECEIVE_FETCH_DATA', requestId: init.requestId, data });
                             dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId, appId });
                             resolve({ res: response, data });
                         });
                     } else {
                         return response.blob().then((data) => {
+                            dispatch({ type: 'RECEIVE_FETCH_DATA', requestId: init.requestId, data });
                             dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId, appId });
                             resolve({ res: response, data });
                         });
