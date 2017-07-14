@@ -1,26 +1,29 @@
 /* eslint react/prop-types : 0 */
 import React from 'react';
+import { FormControl } from '../index';
 
 /**
  * Reusable field component.
  */
 export const renderSelectFilter = ({ name, category, onHandleChange, items, capitalize }) => (
-    <select
+    <FormControl
         name={name}
         id={name}
-        value={category[name] || ''}
+        componentClass="select"
         onChange={onHandleChange}
+        value={category[name] || ''}
+        selected={category[name] || ''}
     >
         {
             items.map((item, idx) => (
-                <option key={idx} value={idx === 0 ? '' : (item.value || item)} className={capitalize ? 'text-capitalize' : ''}>{item.label || item}</option>
+                <option key={idx} value={idx === 0 ? (item.value || '') : (item.value || item)} className={capitalize ? 'text-capitalize' : ''}>{item.label || item}</option>
             ))
         }
-    </select>
+    </FormControl>
 );
 
 export const renderDateFilter = ({ name, category, onHandleChange }) => (
-    <input
+    <FormControl
         type="date"
         name={name}
         id={name}
@@ -30,7 +33,7 @@ export const renderDateFilter = ({ name, category, onHandleChange }) => (
 );
 
 export const renderTextFilter = ({ name, category, onHandleChange }) => (
-    <input
+    <FormControl
         type="text"
         name={name}
         id={name}
