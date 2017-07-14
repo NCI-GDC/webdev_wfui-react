@@ -43,6 +43,7 @@ const switchurl = (state) => {
 export const urlSwithcerMiddleware = store => next => (action) => {
     const result = next(action);
     switch (action.type) {
+        case 'RESET_FILTER':
         case 'REFYDRATE_FILTER':
         case 'CHANGE_FILTER':
         case 'TOGGLE_FILTER':
