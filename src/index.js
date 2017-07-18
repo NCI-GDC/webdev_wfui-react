@@ -17,6 +17,7 @@ import LoadingComponent from './LoadingComponent/LoadingComponent.js';
 import CollapsibleFilter from './CollapsibleFilter/CollapsibleFilter';
 import Filters from './Filters/Filters';
 import FilterItem from './Filters/FilterItem';
+import Card from './Card/Card';
 import * as Search from './Search';
 import * as FormFields from './FormFields';
 import * as FilterFields from './Filters/renderFilterItem';
@@ -49,4 +50,5 @@ export {
     Filters,
     FilterItem,
     FilterFields,
+    Card,
 };

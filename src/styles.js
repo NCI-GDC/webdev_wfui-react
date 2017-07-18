@@ -10,3 +10,4 @@ require('./FullCalendar/fullcalendar.min.css');
 require('./DashboardBox/index.scss');
 require('./UserDrawer/index.scss');
 require('./FormFields/index.scss');
+require('./Card/index.scss');

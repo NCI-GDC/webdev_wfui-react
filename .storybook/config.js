@@ -11,6 +11,7 @@ function loadStories() {
   require('../stories/Test');
   require('../stories/ReactBootstrap');
   require('../stories/ReactMarkdown');
+  require('../stories/Card');
   require('../stories/Drawer');
   require('../stories/GroupsDrawer');
   require('../stories/UserDrawer');

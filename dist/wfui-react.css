@@ -1125,3 +1125,55 @@ html {
     flex-direction: column;
     text-align: center; }
 /* styles for FormFields */
+.wfui-card-container {
+  position: relative; }
+  .wfui-card-container .wfui-card-hover {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%; }
+  .wfui-card-container .card-fade {
+    opacity: 0;
+    transition: .3s ease; }
+  .wfui-card-container:hover .card-fade {
+    opacity: 1; }
+  .wfui-card-container .card-slide-in-top {
+    bottom: 100%;
+    overflow: hidden;
+    height: 0;
+    transition: 0.5s ease; }
+  .wfui-card-container:hover .card-slide-in-top {
+    height: 100%;
+    bottom: 0; }
+  .wfui-card-container .card-slide-in-bottom {
+    top: 100%;
+    overflow: hidden;
+    height: 0;
+    transition: 0.5s ease; }
+  .wfui-card-container:hover .card-slide-in-bottom {
+    height: 100%;
+    top: 0; }
+  .wfui-card-container .card-slide-in-right {
+    left: 100%;
+    overflow: hidden;
+    width: 0;
+    transition: 0.5s ease; }
+  .wfui-card-container:hover .card-slide-in-right {
+    width: 100%;
+    left: 0; }
+  .wfui-card-container .card-slide-in-left {
+    overflow: hidden;
+    width: 0;
+    transition: 0.5s ease; }
+  .wfui-card-container:hover .card-slide-in-left {
+    width: 100%; }
+  .wfui-card-container .middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%); }
