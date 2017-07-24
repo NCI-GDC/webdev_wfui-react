@@ -23,6 +23,6 @@ module.exports = {
         filename: 'bundle.log',
     },
     plugins: [
-        new ExtractTextPlugin('wfui-react.css'),
+        new ExtractTextPlugin('_wfui-react.scss'),
     ],
 };
