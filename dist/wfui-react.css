@@ -1135,7 +1135,12 @@ html {
     left: 0;
     right: 0;
     height: 100%;
-    width: 100%; }
+    width: 100%;
+    background: white; }
+  .wfui-card-container .card-none {
+    display: none; }
+  .wfui-card-container:hover .card-none {
+    display: block; }
   .wfui-card-container .card-fade {
     opacity: 0;
     transition: .3s ease; }
