@@ -6,7 +6,6 @@ var genDefaultConfig = require('@kadira/storybook/dist/server/config/defaults/we
 
 module.exports = function(config, env) {
   var config = genDefaultConfig(config, env);
-  
   config.module.loaders.push(
       {
         test: /\.scss$/,
@@ -14,6 +13,9 @@ module.exports = function(config, env) {
         loader: 'style-loader!css-loader!sass-loader',
       }
   );
+
+  config.resolve.alias.masonry = 'masonry-layout';
+  config.resolve.alias.isotope = 'isotope-layout';
 
   return config;
 };
