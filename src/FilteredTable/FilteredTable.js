@@ -17,7 +17,9 @@ class FilteredTable extends React.Component {
            checkedItems: (new Array(props.data.length)).fill(false),
            sortedIdx: props.sortedIdx,
            sortedOrientation: 'desc',
+           dataWithState: [],
        };
+       this.filteredData = [];
    }
 
     componentDidMount() {
@@ -25,49 +27,20 @@ class FilteredTable extends React.Component {
     }
 
    componentWillReceiveProps(nextProps) {
-       /* We need to sync the selected items when some are added
-        * or deleted from the list.  Note, this runs in worst case
-        * O(A + B + D*max(A,B)) where D is the size of the difference
-        * and A and B are the lengths of each list. */
 
        /* Also note: JSON.stringify is the cheapest arbitrary comparison function
         * since it runs on native code. */
-        const { checkedItems } = this.state;
         const thisData = this.props.data;
         const nextData = nextProps.data;
+
         if (thisData.length !== nextData.length) {
-            let u = 0; /* Pointer to current object on old data */
-            let z = 0; /* ... on the new checklist/new data. */
-            const newCheckedItems = new Array(nextData.length).fill(false);
-            while (u < thisData.length && z < nextData.length) {
-                if (JSON.stringify(thisData[u]) === JSON.stringify(nextData[z])) {
-                    newCheckedItems[z] = checkedItems[u];
-                    u += 1;
-                    z += 1;
-                } else {
-                    /* Check if the item was deleted */
-                    let p = z + 1;
-                    while (p < nextData.length) {
-                        if (JSON.stringify(thisData[u]) === JSON.stringify(nextData[z])) {
-                            /* Item was found later in the list,
-                             * now add it and all elements in between. */
-                            z = p + 1; /* Set all items inbetween as checked */
-                            newCheckedItems[z + 1] = checkedItems[u];
-                            u += 1;
-                            break;
-                        }
-                        p += 1;
-                    }
-                    if (p === nextData.length) {
-                        /* Then item was deleted */
-                        u += 1;
-                    }
-                }
-                /* When we hit the end the rest of the items are unchecked anyways
-                 * so we don't actually need to do anything */
-            }
             this.setState({
-                checkedItems: newCheckedItems,
+                dataWithState: nextData.map((obj, i) => {
+                    const _obj = JSON.parse(JSON.stringify(obj));
+                    _obj.checked = false;
+                    _obj.idx = i;
+                    return _obj;
+                }),
             });
        }
    }
@@ -79,30 +52,29 @@ class FilteredTable extends React.Component {
 
    /* This is called when a individual item's checkbox is clicked */
     onCheck(index) {
-        const { checkedItems } = this.state;
-
-        const newArray = checkedItems.slice(0);
-        newArray[index] = !newArray[index];
+        const { dataWithState } = this.state;
+        const newArray = dataWithState.slice(0);
+        newArray[index].checked = !newArray[index].checked;
 
         /* We do this since setstate does not immediately mutate the state */
-        this.setState({ checkedItems: newArray },
+        this.setState({ dataWithState: newArray },
             () => this.selectionChanged(),
         );
     }
 
     onAllCheck() {
-        const { checkedItems } = this.state;
-        const newArray = this.state.checkedItems.slice(0);
+        const { dataWithState } = this.state;
+        const newArray = dataWithState.slice(0);
 
-        if (checkedItems.every(item => item)) {
+        if (newArray.every(item => item.checked)) {
             /* If all items are checked, then uncheck everything */
-            newArray.fill(false);
+            newArray.forEach((item) => { item.checked = false });
         } else {
             /* Else check everything */
-            newArray.fill(true);
+            newArray.forEach((item) => { item.checked = true });
         }
 
-        this.setState({ checkedItems: newArray },
+        this.setState({ dataWithState: newArray },
             () => this.selectionChanged(),
         );
     }
@@ -178,15 +150,15 @@ class FilteredTable extends React.Component {
    /* Return a list of the indices of all selected items */
    selectionChanged() {
        const { onSelectionChange } = this.props;
-       const { checkedItems } = this.state;
+       const { dataWithState } = this.state;
 
-       const selectedItems = [];
-       checkedItems.forEach((val, idx) => {
-           if (val) {
-                selectedItems.push(idx);
-           }
+       const indexes = [];
+       const checkedItems = dataWithState.filter((item, i) => {
+           if (item.checked) indexes.push(i);
+           return item.checked;
        });
-       onSelectionChange(selectedItems);
+        
+       onSelectionChange(checkedItems);
    }
 
    generatePaginatorObject() {
@@ -220,14 +192,13 @@ class FilteredTable extends React.Component {
       const { itemFormat,
               className,
               paginatorDisplay,
-              data,
               pageSize,
               selectable,
               onSelectionChange,
             } = this.props;
 
-      const { checkedItems, currentPage } = this.state;
-      const filteredData = this.applySearch(this.generateFilteredArticles(data));
+      const { currentPage, dataWithState } = this.state;
+      this.filteredData = this.applySearch(this.generateFilteredArticles(dataWithState));
 
       /* Setup the header row and onClick for sorting if applicable */
       const headerRow = itemFormat.map((cell, idx) =>
@@ -250,7 +221,7 @@ class FilteredTable extends React.Component {
                                 <input
                                     type="Checkbox"
                                     onChange={this.onAllCheck}
-                                    checked={checkedItems.every(item => item)}
+                                    checked={dataWithState.every(item => item.checked)}
                                 />
                             </th>
                             :
@@ -260,7 +231,7 @@ class FilteredTable extends React.Component {
                     </tr>
                 </thead>
                 <TableBody
-                    data={filteredData}
+                    data={this.filteredData}
                     itemFormat={itemFormat}
                     pageSize={pageSize}
                     currentPage={currentPage}
@@ -317,6 +288,7 @@ FilteredTable.defaultProps = {
     selectable: false,
     sortedIdx: -1,
     wholeWord: false,
+    onSelectionChange: f => f,
 };
 
 export default FilteredTable;
