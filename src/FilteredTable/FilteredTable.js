@@ -17,7 +17,7 @@ class FilteredTable extends React.Component {
            checkedItems: (new Array(props.data.length)).fill(false),
            sortedIdx: props.sortedIdx,
            sortedOrientation: 'desc',
-           dataWithState: [],
+           dataWithState: this.transformData(props.data),
        };
        this.filteredData = [];
    }
@@ -26,6 +26,14 @@ class FilteredTable extends React.Component {
         this.onFilter(this.generateFilteredArticles(this.applySearch(this.props.data)));
     }
 
+    transformData(data) {
+        return data.map((obj, i) => {
+            const _obj = JSON.parse(JSON.stringify(obj));
+            _obj.checked = false;
+            _obj.idx = i;
+            return _obj;
+        });
+    }
    componentWillReceiveProps(nextProps) {
 
        /* Also note: JSON.stringify is the cheapest arbitrary comparison function
@@ -35,12 +43,7 @@ class FilteredTable extends React.Component {
 
         if (thisData.length !== nextData.length) {
             this.setState({
-                dataWithState: nextData.map((obj, i) => {
-                    const _obj = JSON.parse(JSON.stringify(obj));
-                    _obj.checked = false;
-                    _obj.idx = i;
-                    return _obj;
-                }),
+                dataWithState: this.transformData(nextData),
             });
        }
    }
