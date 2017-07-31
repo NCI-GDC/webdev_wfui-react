@@ -158,7 +158,7 @@ class FilteredTable extends React.Component {
            return item.checked;
        });
         
-       onSelectionChange(checkedItems);
+       onSelectionChange(indexes, checkedItems);
    }
 
    generatePaginatorObject() {
