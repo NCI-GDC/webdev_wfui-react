@@ -28,8 +28,8 @@ class TableBody extends React.Component {
                 <td key={`td_${idx}`}>
                     <input
                         type="checkbox"
-                        checked={checks[idx]}
-                        onChange={() => onCheck(idx)}
+                        checked={item.checked}
+                        onChange={() => onCheck(item.idx)}
                     />
                 </td>,
             );
