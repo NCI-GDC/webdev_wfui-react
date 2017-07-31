@@ -149,7 +149,7 @@ class FilteredListContainer extends React.Component {
                     searchTerm={this.state.searchTerm}
                     filterList={this.getFilters()}
                     data={this.state.data}
-                    pageSize={100}
+                    pageSize={10}
                     itemFormat={itemFormat}
                     paginatorDisplay={<PaginatorDisplay />}
                     onResultsNumUpdate={count => this.setState({ count })}
