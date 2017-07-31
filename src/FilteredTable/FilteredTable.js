@@ -41,7 +41,7 @@ class FilteredTable extends React.Component {
         const thisData = this.props.data;
         const nextData = nextProps.data;
 
-        if (thisData.length !== nextData.length) {
+        if (JSON.stringify(thisData) !== JSON.stringify(nextData)) {
             this.setState({
                 dataWithState: this.transformData(nextData),
             });
