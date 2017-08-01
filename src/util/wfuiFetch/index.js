@@ -24,8 +24,16 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
             clearTimeout(fetchTimer);
         }, init.timeout || 300000);
 
+        // Add no-cache to header
+        const _init = JSON.parse(JSON.stringify(init));
+        if (!_init.headers) _init.header = {};
+        _init.headers = Object.assign({}, _init.headers, {
+            pragma: 'no-cache',
+            'cache-control': 'no-cache',
+        });
+
         const wrappedFetch = (n) => {
-            global.fetch(input, init)
+            global.fetch(input, _init)
             .then((response) => {
                 clearTimeout(timer5s);
                 clearTimeout(timer8s);
