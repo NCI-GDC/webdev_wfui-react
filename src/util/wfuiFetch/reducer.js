@@ -17,12 +17,14 @@ export const fetchReducer = (state = {}, action) => {
             _state[action.requestId].status = _state[action.requestId].error = '';
             _state[action.requestId].isFetching = _state[action.requestId].fetch5s = _state[action.requestId].fetch8s = _state[action.requestId].timeout = _state[action.requestId].retried = false;
             _state[action.requestId].lastUpdated = lastUpdate;
+            _state[action.requestId].data = undefined;
             return _state;
         case 'FETCH_REQUEST':
             _state[action.requestId].isFetching = true;
             _state[action.requestId].status = _state[action.requestId].error = '';
             _state[action.requestId].fetch5s = _state[action.requestId].fetch8s = _state[action.requestId].timeout = _state[action.requestId].retried = false;
             _state[action.requestId].lastUpdated = lastUpdate;
+            _state[action.requestId].data = undefined;
             return _state;
         case 'FETCH_REQUEST_5S':
             _state[action.requestId].fetch5s = true;
@@ -42,6 +44,7 @@ export const fetchReducer = (state = {}, action) => {
             _state[action.requestId].isFetching = _state[action.requestId].fetch5s = _state[action.requestId].fetch8s = false;
             _state[action.requestId].status = 'success';
             _state[action.requestId].lastUpdated = lastUpdate;
+            _state[action.requestId].data = action.data;
             return _state;
         case 'FETCH_FAILURE':
             _state[action.requestId].isFetching = _state[action.requestId].fetch5s = _state[action.requestId].fetch8s = false;
@@ -52,6 +55,7 @@ export const fetchReducer = (state = {}, action) => {
         case 'FETCH_RETRY_FAILURE':
             _state[action.requestId].isFetching = _state[action.requestId].fetch5s = _state[action.requestId].fetch8s = false;
             _state[action.requestId].status = 'fail';
+            _state[action.requestId].error = action.statusText;
             _state[action.requestId].retried = true;
             _state[action.requestId].lastUpdated = lastUpdate;
             return _state;
