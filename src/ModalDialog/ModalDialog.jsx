@@ -17,9 +17,10 @@ class ModalDialog extends React.Component {
         onSubmit(values);
     }
     onHandleCancel() {
-        const { id, hideModal, onHide } = this.props;
+        const { id, hideModal, onHide, destroy } = this.props;
         hideModal(id);
         onHide();
+        destroy();
     }
     render() {
         const { show, label, id, bodyDisplay, txtSubmit, txtCancel, handleSubmit, invalid, submitting } = this.props;
@@ -58,6 +59,7 @@ ModalDialog.propTypes = {
     onHide: PropTypes.func,
     hideModal: PropTypes.func,
     handleSubmit: PropTypes.func,
+    destroy: PropTypes.func,
     invalid: PropTypes.bool,
     submitting: PropTypes.bool,
 };
