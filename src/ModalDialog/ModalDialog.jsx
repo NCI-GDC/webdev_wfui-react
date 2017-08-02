@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Modal, Button } from 'wfui-react';
+import { Modal, Button } from 'react-bootstrap';
 import { modalsSelector } from './selector';
 import * as actionCreators from './action';
 
