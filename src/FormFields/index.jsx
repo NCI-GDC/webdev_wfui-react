@@ -136,17 +136,21 @@ export const renderSelect = ({ className, label, options, input, help, required,
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-select" validationState={touched && error ? 'error' : null}>
             <FormControl {...input} onChange={input.onChange} componentClass="select">
-            {options.map((option, i) => (
-                <option
-                    key={i}
-                    name={input.name}
-                    value={option}
-                    disabled={disabled}
-                    onChange={e => (input.onChange(e.target.value))}
-                >
-                    {option}
-                </option>
-            ))}
+            {options.map((option, i) => {
+                const _key = typeof option === 'string' ? option : option.key;
+                const _option = typeof option === 'string' ? option : option.value;
+                return (
+                    <option
+                        key={i}
+                        name={input.name}
+                        value={_key}
+                        disabled={disabled}
+                        onChange={e => (input.onChange(e.target.value))}
+                    >
+                        {_option}
+                    </option>
+                );
+            })}
             </FormControl>
             <HelpBlock> {touched && error && <span>{error}</span>} </HelpBlock>
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
