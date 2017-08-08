@@ -56,7 +56,7 @@ export const renderTextArea = ({ className, input, label, help, placeholder, typ
 
 export const renderSingleCheckbox = ({ className, label, option, input, help, required, disabled, meta: { touched, error } }) => (
     <div className={classNames(className, 'wfui-form-item wfui-form-singlecheckbox', { 'wfui-form-item-error': error })}>
-        {label && <ControlLabel>{label}</ControlLabel>}{required && <b className="required"> *</b>}
+        {label && <ControlLabel>{label}</ControlLabel>}
         <FormGroup validationState={touched && error ? 'error' : null}>
             <Checkbox className={input.checked ? 'active' : ''} {...input} disabled={disabled}>
                 {option} {required && <b className="required">*</b>}
