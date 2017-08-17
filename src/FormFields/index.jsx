@@ -215,42 +215,50 @@ export const renderTimezone = ({ className, label, placeholder, input, help, req
     </div>
 );
 
-export const renderPhoto = ({ className, input, label, required, help, meta: { touched, error } }) => {
-    return (
-        input.value ?
-        <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error })}>
-            <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
-            <div className="wfui-form-photo file-chosen">
-                <p className="image-preview">
-                    <img
-                        style={{ height: 100 }}
-                        src={input.value}
-                    />
-                </p>
-                <Button className="btn-remove" onClick={() => { input.onChange(''); this.setState({ hasFile: false }); }}>
-                    Remove Image
-                </Button>
+export class renderPhoto extends React.Component {
+    constructor() {
+        super();
+        this.state = {};
+    }
+
+    render() {
+        const { className, input, label, required, help, meta: { touched, error } } = this.props;
+        return (
+            input.value ?
+            <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error })}>
+                <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
+                <div className="wfui-form-photo file-chosen">
+                    <p className="image-preview">
+                        <img
+                            style={{ height: 100 }}
+                            src={input.value}
+                        />
+                    </p>
+                    <Button className="btn-remove" onClick={() => { input.onChange(''); this.setState({ hasFile: false }); }}>
+                        Remove Image
+                    </Button>
+                </div>
+            </div> :
+            <div className={classNames(className, 'wfui-form-item')}>
+                <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
+                <Dropzone
+                    {...input}
+                    name={input.name}
+                    className="wfui-form-photo choose-file"
+                    onDrop={(acceptedFiles) => {
+                        const reader = new FileReader();
+                        reader.readAsDataURL(acceptedFiles[0]);
+                        reader.onloadend = () => {
+                            return input.onChange(reader.result);
+                        }
+                        this.setState({ hasFile: true });
+                    }}
+                >
+                    Choose File
+                </Dropzone>
+                {touched && error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
+                {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
             </div>
-        </div> :
-        <div className={classNames(className, 'wfui-form-item')}>
-            <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
-            <Dropzone
-                {...input}
-                name={input.name}
-                className="wfui-form-photo choose-file"
-                onDrop={(acceptedFiles) => {
-                    const reader = new FileReader();
-                    reader.readAsDataURL(acceptedFiles[0]);
-                    reader.onloadend = () => {
-                        return input.onChange(reader.result);
-                    }
-                    this.setState({ hasFile: true });
-                }}
-            >
-                Choose File
-            </Dropzone>
-            {touched && error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
-            {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
-        </div>
-    );
-};
+        );
+    }
+}
