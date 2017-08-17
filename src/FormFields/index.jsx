@@ -10,20 +10,26 @@ import Draggable from '../Draggable/Draggable';
 /**
  * Reusable field component.
  */
-export const renderField = ({ className, input, label, help, placeholder, type, onHandleChange, required, disabled, meta: { touched, error } }) => (
-    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error })} >
+export const renderField = ({ className, inline, input, label, postfix, help, placeholder, type, maxlength, max, min, onHandleChange, required, disabled, meta: { touched, error } }) => (
+    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error }, { 'wfui-form-inline': inline })} >
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-input" validationState={touched && error ? 'error' : null}>
             <FormControl
-                    {...input} placeholder={placeholder || placeholder === '' ? placeholder : label} type={type}
+                    {...input}
+                    placeholder={placeholder || placeholder === '' ? placeholder : label}
+                    type={type}
+                    maxlength={maxlength}
+                    min={min}
+                    max={max}
                     disabled={disabled}
                     onChange={(e) => {
                         input.onChange(e);
                         if (onHandleChange) onHandleChange(e);
                     }}
             />
+            {postfix && <div className="wfui-form-postfix">{postfix}</div>}
             <FormControl.Feedback />
-            <HelpBlock> {touched && error && <span>{error}</span>} </HelpBlock>
+            <HelpBlock className="wfui-form-error"> {touched && error && <span>{error}</span>} </HelpBlock>
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
     </div>
@@ -46,9 +52,7 @@ export const renderTextArea = ({ className, input, label, help, placeholder, typ
                     rows={rows || 5}
             />
             <FormControl.Feedback />
-            <HelpBlock>
-                {touched && error && <span>{error}</span>}
-            </HelpBlock>
+            {touched && error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
     </div>
@@ -61,7 +65,7 @@ export const renderSingleCheckbox = ({ className, label, option, input, help, re
             <Checkbox className={input.checked ? 'active' : ''} {...input} disabled={disabled}>
                 {option} {required && <b className="required">*</b>}
             </Checkbox>
-            <HelpBlock>{touched && error && <span>{error}</span>}</HelpBlock>
+            {touched && error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
     </div>
@@ -96,7 +100,7 @@ export const renderCheckboxs = ({ className, label, options, input, help, requir
                     </Checkbox>
                 );
             })}
-            <HelpBlock> {touched && error && <span>{error}</span>} </HelpBlock>
+            {touched && error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
     </div>
@@ -125,7 +129,7 @@ export const renderRadios = ({ className, label, options, input, help, required,
                     </Radio>
                 );
             })}
-            <HelpBlock> {touched && error && <span>{error}</span>} </HelpBlock>
+            {touched && error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
     </div>
@@ -152,7 +156,7 @@ export const renderSelect = ({ className, label, options, input, help, required,
                 );
             })}
             </FormControl>
-            <HelpBlock> {touched && error && <span>{error}</span>} </HelpBlock>
+            {touched && error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
     </div>
@@ -185,7 +189,7 @@ export class renderAddAnother extends React.Component {
                     }
                     { !draggable && fields.map(childComponent) }
                     <Button bsStyle="default" className="add-btn" onClick={() => { fields.push(); }}>Add Another Item</Button>
-                    <HelpBlock> {error && <span>{error}</span>} </HelpBlock>
+                    {error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
                     {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
                 </FormGroup>
             </div>
@@ -206,7 +210,7 @@ export const renderTimezone = ({ className, label, placeholder, input, help, req
                     placeholder,
                 }}
             />
-            <HelpBlock> {touched && error && <span>{error}</span>} </HelpBlock>
+            {touched && error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
         </FormGroup>
     </div>
 );
@@ -252,7 +256,7 @@ export class renderPhoto extends React.Component {
                 >
                     Choose File
                 </Dropzone>
-                <HelpBlock>{touched && error && <span>{error}</span>}</HelpBlock>
+                {touched && error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
                 {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
             </div>
         );
