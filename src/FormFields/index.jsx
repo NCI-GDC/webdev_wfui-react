@@ -18,7 +18,7 @@ export const renderField = ({ className, inline, input, label, postfix, help, pl
                     {...input}
                     placeholder={placeholder || placeholder === '' ? placeholder : label}
                     type={type}
-                    maxlength={maxlength}
+                    maxLength={maxlength}
                     min={min}
                     max={max}
                     disabled={disabled}
