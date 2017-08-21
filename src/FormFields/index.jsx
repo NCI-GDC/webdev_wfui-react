@@ -11,7 +11,7 @@ import Draggable from '../Draggable/Draggable';
  * Reusable field component.
  */
 export const renderField = ({ className, inline, input, label, postfix, help, placeholder, type, maxlength, max, min, onHandleChange, required, disabled, meta: { touched, error } }) => (
-    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error }, { 'wfui-form-inline': inline })} >
+    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error }, { 'wfui-form-inline': inline }, { answered: input.value })} >
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-input" validationState={touched && error ? 'error' : null}>
             <FormControl
@@ -36,7 +36,7 @@ export const renderField = ({ className, inline, input, label, postfix, help, pl
 );
 
 export const renderTextArea = ({ className, input, label, help, placeholder, type, onHandleChange, required, disabled, meta: { touched, error }, rows }) => (
-    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error })}>
+    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error }, { answered: input.value })}>
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-textarea" validationState={touched && error ? 'error' : null}>
             <FormControl
@@ -136,7 +136,7 @@ export const renderRadios = ({ className, label, options, input, help, required,
 );
 
 export const renderSelect = ({ className, label, options, input, help, required, disabled, meta: { touched, error } }) => (
-    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error })}>
+    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error }, { answered: input.value })}>
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
         <FormGroup className="wfui-form-select" validationState={touched && error ? 'error' : null}>
             <FormControl {...input} onChange={input.onChange} componentClass="select">
