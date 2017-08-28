@@ -2,8 +2,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { locationShape } from 'react-router';
-
 
 import LoadingComponent from '../LoadingComponent/LoadingComponent';
 import FilteredTable from '../FilteredTable/FilteredTable';
@@ -201,7 +199,7 @@ CascadingPaneMainView.propTypes = {
     }),
     fetchedNav: PropTypes.bool,
     fetchedMainView: PropTypes.bool,
-    location: locationShape,
+    location: PropTypes.object,
     cascNav: PropTypes.string,
     cascSelect: PropTypes.string,
     reloadNav: PropTypes.func,

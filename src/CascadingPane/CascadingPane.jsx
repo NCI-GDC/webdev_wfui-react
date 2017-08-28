@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { locationShape } from 'react-router';
 import SplitPane from 'react-split-pane';
 
 import CascadingPaneNav from './CascadingPaneNav';
@@ -138,7 +137,7 @@ CascadingPane.propTypes = {
     config: PropTypes.shape({
         APP_ID: PropTypes.string,
     }).isRequired,
-    location: locationShape,
+    location: PropTypes.object,
     className: PropTypes.string,
     viewClassName: PropTypes.string,
     getCascadingNav: PropTypes.func,
