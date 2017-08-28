@@ -98,7 +98,7 @@ class CascadingPaneNav extends React.Component {
             navFormat.push({
                 name: 'Logo',
                 className: 'nav-group-logo',
-                display: item => item[logoField],
+                display: item => <img role="presentation" src={item[logoField]} className="cascadin-nav-logo" />,
             });
         }
         navFormat.push({
