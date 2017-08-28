@@ -19,6 +19,7 @@ import Filters from './Filters/Filters';
 import FilterItem from './Filters/FilterItem';
 import Card from './Card/Card';
 import ModalDialog from './ModalDialog/ModalDialog';
+import * as CascadingPane from './CascadingPane';
 import * as Search from './Search';
 import * as FormFields from './FormFields';
 import * as FilterFields from './Filters/renderFilterItem';
@@ -53,4 +54,5 @@ export {
     FilterFields,
     Card,
     ModalDialog,
+    CascadingPane,
 };
