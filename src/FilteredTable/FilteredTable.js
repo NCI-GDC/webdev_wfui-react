@@ -35,7 +35,6 @@ class FilteredTable extends React.Component {
         });
     }
    componentWillReceiveProps(nextProps) {
-
        /* Also note: JSON.stringify is the cheapest arbitrary comparison function
         * since it runs on native code. */
         const thisData = this.props.data;
@@ -198,6 +197,8 @@ class FilteredTable extends React.Component {
               pageSize,
               selectable,
               onSelectionChange,
+              rowClickable,
+              onRowClick,
             } = this.props;
 
       const { currentPage, dataWithState } = this.state;
@@ -242,6 +243,8 @@ class FilteredTable extends React.Component {
                     onSelectionChange={onSelectionChange}
                     onCheck={this.onCheck}
                     checks={this.state.checkedItems}
+                    rowClickable={rowClickable}
+                    onRowClick={onRowClick}
                 />
             </table>
         );
@@ -280,6 +283,9 @@ FilteredTable.propTypes = {
     searchKeys: React.PropTypes.arrayOf(React.PropTypes.string),
     sortedIdx: React.PropTypes.number,
     wholeWord: React.PropTypes.bool,
+
+    rowClickable: React.PropTypes.bool,
+    onRowClick: React.PropTypes.func,
 };
 
 FilteredTable.defaultProps = {
@@ -292,6 +298,9 @@ FilteredTable.defaultProps = {
     sortedIdx: -1,
     wholeWord: false,
     onSelectionChange: f => f,
+
+    rowClickable: false,
+    onRowClick: f => f,
 };
 
 export default FilteredTable;

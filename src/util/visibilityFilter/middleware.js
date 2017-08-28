@@ -13,6 +13,14 @@ const switchurl = (state) => {
     if (tab) {
         urlString += `&tab=${tab}`;
     }
+    const cascNav = getParameterByName('cascNav');
+    if (cascNav) {
+        urlString += `&cascNav=${cascNav}`;
+    }
+    const cascSelect = getParameterByName('cascSelect');
+    if (cascSelect) {
+        urlString += `&cascSelect=${cascSelect}`;
+    }
     if (category && Object.keys(category).length > 0) {
         Object.keys(category).forEach((key) => {
             urlString += `&${key}=${encodeURI(Array.isArray(category[key]) ? category[key].join(',') : category[key])}`;
