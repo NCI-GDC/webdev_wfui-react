@@ -12,17 +12,7 @@ export const visibilityFilterReducer = (state = defaultState, action) => {
         case 'CHANGE_TERM':
             _state.term.q = action.term;
             return _state;
-        case 'CHANGE_FILTER':
-            if (!_state[action.key]) return _state;
-            action.filter.forEach((a) => {
-                _state[action.key][a.key] = a.value;
-                if (!a.value || a.value.length === 0) delete _state[action.key][a.key];
-            });
-            return _state;
-        case 'SELECT_PROVINCE':
-            _state.category = { province: [action.province] };
-            return _state;
-        case 'TOGGLE_FILTER':
+        case 'TOGGLE_FILTER': {
             if (!_state[action.key]) return _state;
 
             if (!_state[action.key][action.filter.key]) _state[action.key][action.filter.key] = [];
@@ -33,6 +23,17 @@ export const visibilityFilterReducer = (state = defaultState, action) => {
             } else {
                 _state[action.key][action.filter.key].push(action.filter.value);
             }
+            return _state;
+        }
+        case 'CHANGE_FILTER':
+            if (!_state[action.key]) return _state;
+            action.filter.forEach((a) => {
+                _state[action.key][a.key] = a.value;
+                if (!a.value || a.value.length === 0) delete _state[action.key][a.key];
+            });
+            return _state;
+        case 'SELECT_PROVINCE':
+            _state.category = { province: [action.province] };
             return _state;
         default:
             return state;
