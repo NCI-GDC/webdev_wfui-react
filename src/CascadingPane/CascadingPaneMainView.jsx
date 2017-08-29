@@ -120,7 +120,7 @@ class CascadingPaneMainView extends React.Component {
         const {
             key, className, noneSelectedDisplay, navFetch, mainViewFetch,
             groupData, mainData, summaryDisplay, reloadNav, config, itemDisplay,
-            tableClassName, visibilityFilter: { category }, filtersDisplay,
+            tableClassName, visibilityFilter, filtersDisplay,
             getFilters, location,
         } = this.props;
         const { navSelect, fetchedNav, fetchedMainView, showing, dataWithClass } = this.state;
@@ -150,6 +150,7 @@ class CascadingPaneMainView extends React.Component {
                         <div className="cascading-pane-mainview-filters ">
                             {filtersDisplay && React.cloneElement(
                                 filtersDisplay, {
+                                    visibilityFilter,
                                     location,
                                     showing,
                                     data: mainData,
@@ -160,8 +161,8 @@ class CascadingPaneMainView extends React.Component {
                             {fetchedMainView && (
                                 <FilteredTable
                                     className={tableClassName}
-                                    searchTerm={category.searchTerm || ''}
-                                    filterList={getFilters(category)}
+                                    searchTerm={visibilityFilter.category.searchTerm || ''}
+                                    filterList={getFilters(visibilityFilter.category)}
                                     data={dataWithClass}
                                     itemFormat={itemDisplay}
                                     onSelectionChange={this.onSelectionChange}
