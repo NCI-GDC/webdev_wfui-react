@@ -111,6 +111,7 @@ class CascadingPaneNav extends React.Component {
                 name: 'Actions',
                 className: 'nav-group-actions',
                 display: item => React.cloneElement(itemConfigDisplay, Object.assign({}, { item }, { updateNav: () => getCascadingNav(config) })),
+                excludeRowClick: true,
             });
         }
 
