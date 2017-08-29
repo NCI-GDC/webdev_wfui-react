@@ -152,6 +152,7 @@ class CascadingPaneMainView extends React.Component {
                                 filtersDisplay, {
                                     location,
                                     showing,
+                                    data: mainData,
                                 },
                             )}
                         </div>
