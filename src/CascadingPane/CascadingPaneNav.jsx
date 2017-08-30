@@ -71,7 +71,7 @@ class CascadingPaneNav extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         const { updateGroupSelect, data, itemIdField } = this.props;
         const { selected } = this.state;
-        if ((prevProps.data.length === 0 && data.length > 0) || selected !== prevState.selected) {
+        if ((prevProps.data.length === 0 && data.length > 0) || selected !== prevState.selected || JSON.stringify(data) !== JSON.stringify(prevProps.data)) {
             const groupSelected = data.filter(item => item[itemIdField] === selected);
             updateGroupSelect(groupSelected[0]);
         }
