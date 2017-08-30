@@ -90,7 +90,7 @@ class CascadingPaneMainView extends React.Component {
         const { updateMemberSelect, mainData, itemIdField } = this.props;
         const { curSelect } = this.state;
 
-        if ((prevProps.mainData.length === 0 && mainData.length > 0) || curSelect !== prevState.curSelect) {
+        if ((prevProps.mainData.length === 0 && mainData.length > 0) || curSelect !== prevState.curSelect || JSON.stringify(mainData) !== JSON.stringify(prevProps.mainData)) {
             const memberSelected = mainData.filter(item => item[itemIdField] === curSelect);
             updateMemberSelect(memberSelected[0]);
         }
