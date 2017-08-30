@@ -72,8 +72,8 @@ class CascadingPaneSubView extends React.Component {
                                 groupData,
                                 memberData,
                                 data,
-                                reloadMainView: () => reloadMainView(config),
-                                reloadSubView: () => getCascadingSubView(config),
+                                reloadMainView,
+                                reloadSubView: getCascadingSubView,
                                 navSelect,
                                 mainSelect,
                             })
