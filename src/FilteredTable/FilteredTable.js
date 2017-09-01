@@ -140,9 +140,9 @@ class FilteredTable extends React.Component {
    }
 
    applySearch(articles) {
-      const { searchTerm, simpleSearch, searchKeys, wholeWord } = this.props;
+      const { searchTerm, simpleSearch, searchKeys, wholeWord, searchLogic } = this.props;
       if (searchTerm) {
-        const filteredArticles = simpleSearch ? Search.simpleSearch(articles, searchTerm, searchKeys, wholeWord) : Search.search(articles, searchTerm);
+        const filteredArticles = simpleSearch ? Search.simpleSearch(articles, searchTerm, searchKeys, wholeWord, searchLogic) : Search.search(articles, searchTerm);
         return filteredArticles;
       }
 
@@ -283,7 +283,7 @@ FilteredTable.propTypes = {
     searchKeys: React.PropTypes.arrayOf(React.PropTypes.string),
     sortedIdx: React.PropTypes.number,
     wholeWord: React.PropTypes.bool,
-
+    searchLogic: React.PropTypes.oneOf(['and', 'or']),
     rowClickable: React.PropTypes.bool,
     onRowClick: React.PropTypes.func,
 };
@@ -298,9 +298,9 @@ FilteredTable.defaultProps = {
     sortedIdx: -1,
     wholeWord: false,
     onSelectionChange: f => f,
-
     rowClickable: false,
     onRowClick: f => f,
+    searchLogic: 'and',
 };
 
 export default FilteredTable;

@@ -142,7 +142,7 @@ const Search = {
 
       return exec();
     },
-    simpleSearch: (data, searchTerm, searchKeys, wholeWord = false) => {
+    simpleSearch: (data, searchTerm, searchKeys, wholeWord = false, searchLogic = 'and') => {
         function searchField(item, term) {
             if (!item) return false;
             if (typeof item === 'string') {
@@ -192,18 +192,19 @@ const Search = {
         const filtered = data.filter(item => {
             const keys = searchKeys || Object.keys(item);
             const terms = searchTerm.toLowerCase().split(" ");
-            if (wholeWord) {
-                return terms.every((term) => {
-                    return keys.some((key) => {
-                        if (!item || !item[key]) return false;
-                        if (typeof item[key] === 'boolean' && item[key]) {
-                            return key.toLowerCase().indexOf(term) >= 0;
-                        }
-                        return searchWholeWord(item[key], term);
-                    });
+            if (terms.indexOf('') > -1 ) terms.splice(terms.indexOf(''), 1); // Remove extra ''
+            
+            const _searchWholeWord = (term) => {
+                return keys.some((key) => {
+                    if (!item || !item[key]) return false;
+                    if (typeof item[key] === 'boolean' && item[key]) {
+                        return key.toLowerCase().indexOf(term) >= 0;
+                    }
+                    return searchWholeWord(item[key], term);
                 });
             }
-            return terms.every((term) => {
+
+            const _searchField = (term) => {
                 return keys.some((key) => {
                     if (!item || !item[key]) return false;
                     if (typeof item[key] === 'boolean' && item[key]) {
@@ -211,7 +212,19 @@ const Search = {
                     }
                     return searchField(item[key], term);
                 });
-            });
+            }
+
+            if (wholeWord) {
+                if (searchLogic === 'and') {
+                    return terms.every(_searchWholeWord);
+                } else {
+                    return terms.some(_searchWholeWord);
+                }
+            }
+            if (searchLogic === 'and') {
+                return terms.every(_searchField);
+            }
+            return terms.some(_searchField);
         });
         return filtered;
     },
