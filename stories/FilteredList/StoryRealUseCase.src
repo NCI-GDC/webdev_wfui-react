@@ -116,6 +116,7 @@ class FilteredListContainer extends React.Component {
                     data={this.state.data}
                     onListDidMount={(data)=>{ console.log('list did mount', data); }}
                     itemDisplay={<ItemDisplay />}
+                    simpleSearch
                 />
             </span>
         );

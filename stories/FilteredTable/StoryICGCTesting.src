@@ -156,6 +156,7 @@ class FilteredListContainer extends React.Component {
                     selectable
                     simpleSearch
                     searchKeys={["personid", "email", "role", "cgp", "dlp"]}
+                    searchLogic={'or'}
                 />
                 { this.state.count } Maching the Criteria
             </div>
