@@ -33,7 +33,7 @@ class CascadingPaneNav extends React.Component {
         }
         if (cascNav) {
             if (!nextProps.cascNav) {
-                window.location.href = `${window.location.href.split('#/')[0]}#/?cascNav=${nextProps.data[0][nextProps.itemIdField]}`;
+                window.location.href = `${window.location.href.split('?')[0]}?cascNav=${nextProps.data[0][nextProps.itemIdField]}`;
             }
             if (cascNav !== nextProps.cascNav) {
                 this.setState({
@@ -55,7 +55,7 @@ class CascadingPaneNav extends React.Component {
                 }) : [],
             });
         } else if (data.length === 0 && nextProps.data && nextProps.data.length > 0) {
-            window.location.href = `${window.location.href.split('#/')[0]}#/?cascNav=${nextProps.data[0][nextProps.itemIdField]}`;
+            window.location.href = `${window.location.href.split('?')[0]}?cascNav=${nextProps.data[0][nextProps.itemIdField]}`;
         }
         if (JSON.stringify(data) !== JSON.stringify(nextProps.data)) {
             this.setState({
@@ -82,7 +82,7 @@ class CascadingPaneNav extends React.Component {
         const { selected } = this.state;
 
         if (selected !== item[itemIdField]) {
-            window.location.href = `${window.location.href.split('#/')[0]}#/?cascNav=${item[itemIdField]}`;
+            window.location.href = `${window.location.href.split('?')[0]}?cascNav=${item[itemIdField]}`;
         }
     }
 
