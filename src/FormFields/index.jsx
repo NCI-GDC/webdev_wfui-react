@@ -10,10 +10,10 @@ import Draggable from '../Draggable/Draggable';
 /**
  * Reusable field component.
  */
-export const renderField = ({ className, inline, input, label, postfix, help, placeholder, type, maxlength, max, min, onHandleChange, required, disabled, meta: { touched, error } }) => (
-    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error }, { 'wfui-form-inline': inline }, { answered: input.value })} >
+export const renderField = ({ className, inline, input, label, postfix, help, placeholder, type, maxlength, max, min, onHandleChange, required, disabled, globalError, meta: { touched, error } }) => (
+    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': (error || globalError) }, { 'wfui-form-inline': inline }, { answered: input.value })} >
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
-        <FormGroup className="wfui-form-input" validationState={touched && error ? 'error' : null}>
+        <FormGroup className="wfui-form-input" validationState={touched && (error || globalError) ? 'error' : null}>
             <FormControl
                     {...input}
                     placeholder={placeholder || placeholder === '' ? placeholder : label}
@@ -29,16 +29,17 @@ export const renderField = ({ className, inline, input, label, postfix, help, pl
             />
             {postfix && <div className="wfui-form-postfix">{postfix}</div>}
             <FormControl.Feedback />
-            <HelpBlock className="wfui-form-error"> {touched && error && <span>{error}</span>} </HelpBlock>
+            {touched && error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
+            {touched && globalError && <HelpBlock className="wfui-form-error"><span>{globalError}</span></HelpBlock>}
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
     </div>
 );
 
-export const renderTextArea = ({ className, input, label, help, placeholder, type, onHandleChange, required, disabled, meta: { touched, error }, rows }) => (
-    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error }, { answered: input.value })}>
+export const renderTextArea = ({ className, input, label, help, placeholder, type, onHandleChange, required, disabled, globalError, meta: { touched, error }, rows }) => (
+    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': (error || globalError) }, { answered: input.value })}>
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
-        <FormGroup className="wfui-form-textarea" validationState={touched && error ? 'error' : null}>
+        <FormGroup className="wfui-form-textarea" validationState={touched && (error || globalError) ? 'error' : null}>
             <FormControl
                     {...input}
                     type={type}
@@ -53,28 +54,30 @@ export const renderTextArea = ({ className, input, label, help, placeholder, typ
             />
             <FormControl.Feedback />
             {touched && error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
+            {touched && globalError && <HelpBlock className="wfui-form-error"><span>{globalError}</span></HelpBlock>}
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
     </div>
 );
 
-export const renderSingleCheckbox = ({ className, label, option, input, help, required, disabled, meta: { touched, error } }) => (
-    <div className={classNames(className, 'wfui-form-item wfui-form-singlecheckbox', { 'wfui-form-item-error': error })}>
+export const renderSingleCheckbox = ({ className, label, option, input, help, required, disabled, globalError, meta: { touched, error } }) => (
+    <div className={classNames(className, 'wfui-form-item wfui-form-singlecheckbox', { 'wfui-form-item-error': (error || globalError) })}>
         {label && <ControlLabel>{label}</ControlLabel>}
-        <FormGroup validationState={touched && error ? 'error' : null}>
+        <FormGroup validationState={touched && (error || globalError) ? 'error' : null}>
             <Checkbox className={input.checked ? 'active' : ''} {...input} disabled={disabled}>
                 {option} {required && <b className="required">*</b>}
             </Checkbox>
             {touched && error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
+            {touched && globalError && <HelpBlock className="wfui-form-error"><span>{globalError}</span></HelpBlock>}
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
     </div>
 );
 
-export const renderCheckboxs = ({ className, label, options, input, help, required, disabled, meta: { touched, error } }) => (
-    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error })}>
+export const renderCheckboxs = ({ className, label, options, input, help, required, disabled, globalError, meta: { touched, error } }) => (
+    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': (error || globalError) })}>
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
-        <FormGroup className="wfui-form-checkboxes" validationState={touched && error ? 'error' : null}>
+        <FormGroup className="wfui-form-checkboxes" validationState={touched && (error || globalError) ? 'error' : null}>
             {options.map((option, i) => {
                 const _key = typeof option === 'string' ? option : option.key;
                 const _option = typeof option === 'string' ? option : option.value;
@@ -101,6 +104,7 @@ export const renderCheckboxs = ({ className, label, options, input, help, requir
                 );
             })}
             {touched && error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
+            {touched && globalError && <HelpBlock className="wfui-form-error"><span>{globalError}</span></HelpBlock>}
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
     </div>
@@ -108,10 +112,10 @@ export const renderCheckboxs = ({ className, label, options, input, help, requir
 
 export const renderCheckboxes = renderCheckboxs;
 
-export const renderRadios = ({ className, label, options, input, help, required, disabled, meta: { touched, error } }) => (
-    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error })}>
+export const renderRadios = ({ className, label, options, input, help, required, disabled, globalError, meta: { touched, error } }) => (
+    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': (error || globalError) })}>
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
-        <FormGroup className="wfui-form-radios" validationState={touched && error ? 'error' : null}>
+        <FormGroup className="wfui-form-radios" validationState={touched && (error || globalError) ? 'error' : null}>
             {options.map((option, i) => {
                 const _key = typeof option === 'string' ? option : option.key;
                 const _option = typeof option === 'string' ? option : option.value;
@@ -130,15 +134,16 @@ export const renderRadios = ({ className, label, options, input, help, required,
                 );
             })}
             {touched && error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
+            {touched && globalError && <HelpBlock className="wfui-form-error"><span>{globalError}</span></HelpBlock>}
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
     </div>
 );
 
-export const renderSelect = ({ className, label, options, input, help, required, disabled, meta: { touched, error } }) => (
-    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error }, { answered: input.value })}>
+export const renderSelect = ({ className, label, options, input, help, required, disabled, globalError, meta: { touched, error } }) => (
+    <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': (error || globalError) }, { answered: input.value })}>
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
-        <FormGroup className="wfui-form-select" validationState={touched && error ? 'error' : null}>
+        <FormGroup className="wfui-form-select" validationState={touched && (error || globalError) ? 'error' : null}>
             <FormControl {...input} onChange={input.onChange} componentClass="select">
             {options.map((option, i) => {
                 const _key = typeof option === 'string' ? option : option.key;
@@ -157,6 +162,7 @@ export const renderSelect = ({ className, label, options, input, help, required,
             })}
             </FormControl>
             {touched && error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
+            {touched && globalError && <HelpBlock className="wfui-form-error"><span>{globalError}</span></HelpBlock>}
             {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
     </div>
