@@ -188,13 +188,18 @@ export class renderAddAnother extends React.Component {
                                         <Draggable.Handle>
                                             <Glyphicon glyph="fullscreen" style={{ transform: 'rotate(45deg)' }} />
                                         </Draggable.Handle>
-                                        <a className="delete-icon" onClick={() => fields.remove(i)}>Delete</a>
                                         {childComponent(field, i)}
+                                        <a className="delete-icon" onClick={() => fields.remove(i)}>Delete</a>
                                     </Draggable.Item>
                                 ))}
                         </Draggable>
                     }
-                    { !draggable && fields.map(childComponent) }
+                    { !draggable && fields.map((field, i) => (
+                        <div>
+                            {childComponent(field, i)}
+                            <a className="delete-icon" onClick={() => fields.remove(i)}>Delete</a>
+                        </div>
+                    ))}
                     <Button bsStyle="default" className="add-btn" onClick={() => { fields.push(); }}>Add Another Item</Button>
                     {error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
                     {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
