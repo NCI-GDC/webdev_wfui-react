@@ -188,6 +188,7 @@ export class renderAddAnother extends React.Component {
                                         <Draggable.Handle>
                                             <Glyphicon glyph="fullscreen" style={{ transform: 'rotate(45deg)' }} />
                                         </Draggable.Handle>
+                                        <a className="delete-icon" onClick={() => fields.remove(i)}>Delete</a>
                                         {childComponent(field, i)}
                                     </Draggable.Item>
                                 ))}
