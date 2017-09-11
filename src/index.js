@@ -23,6 +23,7 @@ import * as CascadingPane from './CascadingPane';
 import * as Search from './Search';
 import * as FormFields from './FormFields';
 import * as FilterFields from './Filters/renderFilterItem';
+import Description from './FormFields/Description';
 
 require('./i18n/i18n.js');
 
@@ -55,4 +56,5 @@ export {
     Card,
     ModalDialog,
     CascadingPane,
+    Description,
 };
