@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, getFormSyncErrors, reduxForm } from 'redux-form';
-import { FormFields, Description } from 'wfui-react';
-
 import { generateValidatorMap, validator } from '../helpers/validator';
-
-const { renderTextArea } = FormFields;
+import { renderTextArea } from '../../FormFields/';
+import Description from '../../FormFields/Description';
 
 /**
  * Wrapper for Question Type 7 (Listbox)

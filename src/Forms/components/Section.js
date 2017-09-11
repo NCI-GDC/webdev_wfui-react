@@ -3,11 +3,8 @@ import Fields from './Fields'
 import { connect } from 'react-redux';
 import { getSubmissionCount, setInActionState } from '../actions'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {Button} from 'react-bootstrap/lib/index';
-
+import { Button } from 'react-bootstrap/lib/index';
 import { Field } from 'redux-form';
-import { FormFields } from 'wfui-react';
-const { renderField, renderTextArea, renderAddAnother, renderRadios, renderCheckboxs, renderSelect } = FormFields;
 
 /**
  * Section: Render a page. Filter all fields and categolize by parent section ID
