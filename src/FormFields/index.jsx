@@ -110,7 +110,7 @@ export const renderCheckboxs = ({ className, label, options, input, help, requir
     </div>
 );
 
-export const renderCheckboxes = renderCheckboxs;
+// export const renderCheckboxes = renderCheckboxs;
 
 export const renderRadios = ({ className, label, options, input, help, required, disabled, globalError, meta: { touched, error } }) => (
     <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': (error || globalError) })}>
@@ -209,7 +209,6 @@ export class renderAddAnother extends React.Component {
     }
 }
 
-
 export const renderTimezone = ({ className, label, placeholder, input, help, required, meta: { touched, error } }) => (
     <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error })}>
         <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
@@ -274,3 +273,7 @@ export class renderPhoto extends React.Component {
         );
     }
 }
+
+export renderTableFormat from './renderTableFormat';
+export renderSelectionHybridCheckbox from './renderSelectionHybridCheckbox';
+export renderSelectionHybridRadio from './renderSelectionHybridRadio';
