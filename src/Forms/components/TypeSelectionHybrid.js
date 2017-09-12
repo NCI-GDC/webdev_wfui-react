@@ -3,6 +3,7 @@ import { Fields, getFormSyncErrors, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import * as inputHybridUtils from '../helpers/input_hybrid';
 import { parseAgeToken } from '../helpers/input_hybrid.js';
+import { generateValidatorMap, validator } from '../helpers/validator';
 
 import { renderSelectionHybridRadio, renderSelectionHybridCheckbox } from '../../FormFields/';
 import Description from '../../FormFields/Description';
