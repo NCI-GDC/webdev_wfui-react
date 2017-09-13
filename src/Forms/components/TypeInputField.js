@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, getFormSyncErrors, reduxForm } from 'redux-form';
-import { FormFields, Description } from 'wfui-react';
+import { renderField } from '../../FormFields/';
+import Description from '../../FormFields/Description';
 import { parseAgeToken } from '../helpers/input_hybrid.js';
 import { generateValidatorMap, validator } from '../helpers/validator';
-
-const { renderField } = FormFields;
 
 /**
  * Wrapper for Question Type 2 (InputField)

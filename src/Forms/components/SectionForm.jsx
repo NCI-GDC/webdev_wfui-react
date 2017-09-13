@@ -3,12 +3,11 @@ import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import Section from './Section';
 import { generateValidatorMap, validator } from '../helpers/validator';
-import { loggedinSelector } from '../../user/selectors';
 
 /**
  * Fields: Render array of field
  */
-class SectionForm extends React.Component {
+export default class SectionForm extends React.Component {
     constructor(props) {
         super();
         const lang = 'en';
@@ -49,11 +48,4 @@ class SectionForm extends React.Component {
             />
         );
     }
-}   
-
-
-export default connect(
-    (state) => ({
-        loggedin: loggedinSelector(state),
-    }),
-)(SectionForm);
+}

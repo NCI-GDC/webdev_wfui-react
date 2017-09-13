@@ -1,6 +1,6 @@
 import React from 'react';
-import Fields from './Fields'
-import { Description } from 'wfui-react';
+import Fields from './Fields';
+import Description from '../../FormFields/Description';
 
 /**
  * Wrapper for regular Fieldset Group

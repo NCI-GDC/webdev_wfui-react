@@ -1,5 +1,5 @@
 import React from 'react';
-import { Description } from 'wfui-react';
+import Description from '../../FormFields/Description';
 
 /**
  * Wrapper for Question Type 2 (InputField)
