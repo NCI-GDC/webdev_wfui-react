@@ -15,6 +15,7 @@ import GroupsDrawer from './GroupsDrawer/GroupsDrawer';
 import DisqusFeed from './DisqusFeed/index.js';
 import LoadingComponent from './LoadingComponent/LoadingComponent.js';
 import CollapsibleFilter from './CollapsibleFilter/CollapsibleFilter';
+import PanelFilter from './PanelFilter/PanelFilter';
 import Filters from './Filters/Filters';
 import FilterItem from './Filters/FilterItem';
 import Card from './Card/Card';
@@ -55,4 +56,5 @@ export {
     Card,
     ModalDialog,
     CascadingPane,
+    PanelFilter,
 };
