@@ -1,5 +1,5 @@
 import { getFormValues } from 'redux-form';
-import { wfuiFetch } from 'wfui-react/lib/util';
+import { wfuiFetch } from '../../util';
 
 export const getForm = (nid, getConfig) => (
     (dispatch) => {

@@ -1,8 +1,6 @@
 import React from 'react';
 import { FieldArray } from 'redux-form';
-import { FormFields } from 'wfui-react';
-
-const { renderAddAnother } = FormFields;
+import { renderAddAnother } from '../../FormFields/';
 
 // import Fields from './Fields';
 

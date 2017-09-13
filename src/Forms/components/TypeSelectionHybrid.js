@@ -1,13 +1,12 @@
 import React from 'react';
 import { Fields, getFormSyncErrors, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { FormFields, Description } from 'wfui-react';
 import * as inputHybridUtils from '../helpers/input_hybrid';
 import { parseAgeToken } from '../helpers/input_hybrid.js';
-
 import { generateValidatorMap, validator } from '../helpers/validator';
 
-const { renderSelectionHybridRadio, renderSelectionHybridCheckbox } = FormFields;
+import { renderSelectionHybridRadio, renderSelectionHybridCheckbox } from '../../FormFields/';
+import Description from '../../FormFields/Description';
 
 /**
  * Wrapper for Question Type 8 (Input hybrid)

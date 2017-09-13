@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Fields, getFormSyncErrors, reduxForm } from 'redux-form';
-import { FormFields, Description } from 'wfui-react';
 
 import { generateValidatorMap, validator } from '../helpers/validator';
 import { parseAgeToken } from '../helpers/input_hybrid.js';
 
-const { renderTableFormat } = FormFields;
+import { renderTableFormat } from '../../FormFields/';
+import Description from '../../FormFields/Description';
 
 /**
  * Wrapper for Question Type 3 (Input Table Formaat)

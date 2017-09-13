@@ -1,9 +1,9 @@
 import React from 'react';
 // import BaseWebformField from './BaseWebformField'
-import Field from './Field'
 import { connect } from 'react-redux';
-import { setError } from '../actions';
 import { getFormValues } from 'redux-form';
+import Field from './Field';
+import { setError } from '../actions';
 
 /**
  * TypeFollowUp: Wrapper for followup questoin. It has a feature to check condition of following question.

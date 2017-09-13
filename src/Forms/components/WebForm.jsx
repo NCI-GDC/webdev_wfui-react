@@ -191,7 +191,7 @@ class WebForm extends React.Component {
         this.refs['switch_lang_confirm_dialog'].showModal(e);
     }
     render() {
-        const { displaySubmit, survey_data, in_action, submissions, recaptchaSiteKey } = this.props;
+        const { displaySubmit, survey_data, in_action, submissions, recaptchaSiteKey, loggedin } = this.props;
         const { activeId, form_width, translated } = this.state;
 
         console.log(this.props, 'WebForm');
@@ -240,6 +240,7 @@ class WebForm extends React.Component {
                                                 isActive={(activeId == i)}
                                                 submissions={submissions}
                                                 recaptchaSiteKey={recaptchaSiteKey}
+                                                loggedin={loggedin}
                                             />
                                         )
                                     })}
@@ -279,6 +280,7 @@ WebForm.propTypes = {
     recaptchaSiteKey: React.PropTypes.string,
     onComplete: React.PropTypes.func,
     getConfig: React.PropTypes.func,
+    loggedin: React.PropTypes.bool,
 };
 WebForm.defaultProps = {
     activeId: 0,
@@ -287,6 +289,7 @@ WebForm.defaultProps = {
     displaySubmit: true,
     action: '',
     allowPublish: true,
+    loggedin: false,
 };
 WebForm.childContextTypes = {
     nid: React.PropTypes.string,
