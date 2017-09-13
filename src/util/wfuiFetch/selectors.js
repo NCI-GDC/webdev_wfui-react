@@ -5,6 +5,13 @@ const _fetchSelector = state => state.fetch;
 export const fetchSelector = requestId => (
     createSelector(
         _fetchSelector,
-        fetch => (fetch[requestId]),
+        fetch => {
+            if (fetch) {
+                return fetch[requestId];
+            } else {
+                console.error('fetch state doesn\'t exist. Check if you properly set fetchReducer.');
+                return undefined;
+            }
+        },
     )
 );

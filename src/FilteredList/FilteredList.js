@@ -24,9 +24,9 @@ class FilteredList extends React.Component {
    }
 
    applySearch(articles) {
-      const { searchTerm, simpleSearch, searchKeys, wholeWord } = this.props;
+      const { searchTerm, simpleSearch, searchKeys, wholeWord, searchLogic } = this.props;
       if (searchTerm) {
-        const filteredArticles = simpleSearch ? Search.simpleSearch(articles, searchTerm, searchKeys, wholeWord) : Search.search(articles, searchTerm);
+        const filteredArticles = simpleSearch ? Search.simpleSearch(articles, searchTerm, searchKeys, wholeWord, searchLogic) : Search.search(articles, searchTerm);
         return filteredArticles;
       }
       return articles;
@@ -103,6 +103,7 @@ FilteredList.propTypes = {
     simpleSearch: React.PropTypes.bool,
     searchKeys: React.PropTypes.arrayOf(React.PropTypes.string),
     wholeWord: React.PropTypes.bool,
+    searchLogic: React.PropTypes.oneOf(['and', 'or']),
 };
 
 FilteredList.defaultProps = {
@@ -115,6 +116,7 @@ FilteredList.defaultProps = {
     onDisplay: () => undefined,
     onNumOfListChange: () => undefined,
     onListDidMount: () => undefined,
+    searchLogic: 'and',
 };
 
 export default FilteredList;
