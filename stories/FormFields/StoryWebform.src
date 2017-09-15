@@ -1,0 +1,43 @@
+class Example extends React.Component {
+    constructor() {
+        super();
+        this.state = { info: undefined, sections: undefined };
+    }
+    componentDidMount() {
+        fetch('/sections.json')
+            .then(response => response.json())
+            .then((response) => {
+                this.setState({ sections: response });
+            });
+        fetch('/survey.json')
+            .then(response => response.json())
+            .then((response) => {
+                this.setState({ info: response });
+            });
+    }
+    render() {
+        const { info, sections } = this.state;
+        if (info && sections) {
+            console.log(info, sections);
+            return (
+                <Provider store={store}>
+                    <WebForm
+                        nid={"aa"}
+                        displaySubmit={false}
+                        allowPrev={true}
+                        language={"en"}
+                        survey_data={sections}
+                        survey_info={info}
+                        allowPublish={false}
+                        recaptchaSiteKey="6LdU_C8UAAAAAKuomqs1T4_EFWX_iHeblyBB8BYs"
+                        onComplete={() => { console.log('submit') }}
+                        getConfig={() => ({ API_HOST: '' })}
+                        loggedin
+                    />
+                </Provider>
+            )
+        }
+        return <div>Loading...</div>
+    }
+}
+return <Example />;

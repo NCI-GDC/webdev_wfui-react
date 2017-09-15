@@ -46,14 +46,16 @@ class Section extends React.Component{
     render(){
 
         const that = this;
-        const { section, isActive, index, translated, form_width, parent_name} = this.props;
+        const { loggedin, section, isActive, index, translated, form_width, parent_name} = this.props;
         const { language } = this.context;
         const data = section.values[language];
         
-        greptchaToggle = function() {
-            this.setState({ grecaptchaState: true });
+        if (!loggedin) {
+            greptchaToggle = function() {
+                this.setState({ grecaptchaState: true });
+            }
+            greptchaToggle = greptchaToggle.bind(this);
         }
-        greptchaToggle = greptchaToggle.bind(this);
 
         let className = isActive ? "form active": "form";
         if(isActive){

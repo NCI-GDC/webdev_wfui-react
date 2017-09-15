@@ -1,17 +1,20 @@
 import React from 'react';
-import { FieldArray } from 'redux-form';
+import { connect } from 'react-redux';
+import { FieldArray, getFormSyncErrors } from 'redux-form';
 import Description from '../../FormFields/Description';
-import { renderAddAnother } from '../../FormFields/';
+import { renderFilterTable } from '../../FormFields/';
 import Fields from './Fields';
+
 
 /**
  * Wrapper for Question Type 9 (Add Another)
  */
-class TypeAddAnother extends React.Component {
+class TypeFilterTable extends React.Component {
     render() {
-        const { question, lang } = this.props;
+        const { question, lang, globalError, localErrors } = this.props;
         const data = question.values[lang] || {};
-
+        
+        // console.log(question, 'question!!');
         // const that = this;
         // const {field} = this.props;
         // //TODO Lables for field button and table.
@@ -21,16 +24,21 @@ class TypeAddAnother extends React.Component {
         //     tableLabel: field['#table_label'],
         //     buttonLabel: field['#button_label'],
         // }
+
+        console.log(globalError, 'TypeFilterTableContainer');
         
         return (
-            <div className={'wfui-type-add-another'} >
+            <div className={'wfui-type-field-table'} >
                 {data.description && <Description content={data.description} src={data.image && data.image.src} imageTitle={data.image && data.image.title} />}
                 <FieldArray
                     name={question.id}
+                    questions={question.children}
+                    lang={lang}
                     type="select"
                     className="bluetext"
-                    component={renderAddAnother}
+                    component={renderFilterTable}
                     label={data.title}
+                    globalError={globalError}
                     childComponent={(groupId, i) => (
                         <Fields groupId={groupId} groupIndex={i} section={question} />
                     )}
@@ -40,4 +48,17 @@ class TypeAddAnother extends React.Component {
         );
     }
 }
-export default TypeAddAnother;
+
+const TypeFilterTableContainer = connect((state, props) => {
+    const formID = props.preview ? 'form_preview' : `form_${props.question.sectionId}`;
+    const syncErrors = getFormSyncErrors(formID)(state);
+    const qid = typeof props.question.groupIndex !== 'undefined' ? `${props.question.id}[${props.question.groupIndex}]` : props.question.id;
+
+    console.log(syncErrors, 'TypeFilterTableContainer');
+
+    return {
+        globalError: syncErrors && syncErrors.global && syncErrors.global[qid],
+    };
+})(TypeFilterTable);
+
+export default TypeFilterTableContainer;

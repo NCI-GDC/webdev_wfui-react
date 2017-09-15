@@ -8,7 +8,7 @@ export const getForm = (nid, getConfig) => (
         // Reset Quesetions
         dispatch({ type: 'RECEIVE_QUESTIONS', questions: [] });
 
-        const req = wfuiFetch(`//${config.API_HOST}${config.API_FORM}/${nid}`, {
+        const req = wfuiFetch(`//${config.API_HOST}${config.API_USER_FORM}/${nid}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ export const getForm = (nid, getConfig) => (
 export const getSubmission = (nid, lang, getConfig) => (
     (dispatch) => {
         const config = getConfig();
-        const req = wfuiFetch(`//${config.API_HOST}${config.API_FORM_ANSWERS}?survey_nid=${nid}&lang=${lang}`, {
+        const req = wfuiFetch(`//${config.API_HOST}${config.API_USER_FORM_ANSWERS}?survey_nid=${nid}&lang=${lang}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

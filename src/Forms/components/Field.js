@@ -7,6 +7,7 @@ import TypeTableFormat from './TypeTableFormat';
 import TypeFollowUp from './TypeFollowUp';
 import TypeFieldset from './TypeFieldset';
 import TypeAddAnother from './TypeAddAnother';
+import TypeFilterTable from './TypeFilterTable';
 import TypeSelectionHybrid from './TypeSelectionHybrid';
 
 /**
@@ -45,7 +46,11 @@ class Field extends React.Component {
                     case 'question-group':
                         data = field.values[language] || {};
                         if (data.add_multiple) {
-                            return <TypeAddAnother question={field} lang={language} />;
+                            if (data.filter) {
+                                return <TypeFilterTable question={field} lang={language} />;
+                            } else {
+                                return <TypeAddAnother question={field} lang={language} />;
+                            }
                         } else {
                             return <TypeFieldset question={field} lang={language} />;
                         }

@@ -1,0 +1,625 @@
+[
+    {
+        "type": "section",
+        "id": "s-4b007990-9711-11e7-94d7-8db02d9664e6",
+        "values": {
+            "en": {
+                "title": "Sample Request Form"
+            },
+            "fr": {
+                "title": "Sample Request Form"
+            }
+        },
+        "children": [
+            {
+                "id": "q-5011ee00-9711-11e7-94d7-8db02d9664e6",
+                "values": {
+                    "en": {
+                        "children": [
+                            {
+                                "cid": "c_4e12c2a0-9711-11e7-ad11-3d0ad3d03953",
+                                "field_type": "text",
+                                "type": "input"
+                            }
+                        ],
+                        "logic": "AND",
+                        "title": "Name",
+                        "cid": "c-5011ee01-9711-11e7-94d7-8db02d9664e6",
+                        "description": "Please help us identify who you are."
+                    },
+                    "fr": {
+                        "children": [],
+                        "logic": "AND",
+                        "cid": "c-5011ee02-9711-11e7-94d7-8db02d9664e6"
+                    }
+                },
+                "type": "input-text",
+                "children": [],
+                "parent": "s-4b007990-9711-11e7-94d7-8db02d9664e6",
+                "index": 0,
+                "required": true,
+                "column_count": "2"
+            },
+            {
+                "values": {
+                    "en": {
+                        "children": [
+                            {
+                                "cid": "c_56d669a0-9711-11e7-ad11-3d0ad3d03953",
+                                "field_type": "text",
+                                "type": "input"
+                            }
+                        ],
+                        "logic": "AND",
+                        "title": "Institution Name\n",
+                        "cid": "c-578e20e1-9711-11e7-94d7-8db02d9664e6"
+                    },
+                    "fr": {
+                        "children": [],
+                        "logic": "AND",
+                        "cid": "c-578e20e2-9711-11e7-94d7-8db02d9664e6"
+                    }
+                },
+                "type": "input-text",
+                "children": [],
+                "index": 1,
+                "column_count": "2",
+                "id": "q-578e20e0-9711-11e7-94d7-8db02d9664e6"
+            },
+            {
+                "values": {
+                    "en": {
+                        "children": [
+                            {
+                                "cid": "c_61031680-9711-11e7-ad11-3d0ad3d03953",
+                                "field_type": "email",
+                                "type": "input"
+                            }
+                        ],
+                        "logic": "AND",
+                        "title": "Email",
+                        "description": "Please include your email address so we can send you a receipt and a reply.\n",
+                        "cid": "c-665e3e21-9711-11e7-94d7-8db02d9664e6"
+                    },
+                    "fr": {
+                        "children": [],
+                        "logic": "AND",
+                        "cid": "c-665e3e22-9711-11e7-94d7-8db02d9664e6"
+                    }
+                },
+                "type": "input-text",
+                "children": [],
+                "index": 2,
+                "column_count": "2",
+                "required": true,
+                "id": "q-665e3e20-9711-11e7-94d7-8db02d9664e6"
+            },
+            {
+                "values": {
+                    "en": {
+                        "children": [],
+                        "logic": "AND",
+                        "title": "Telephone",
+                        "cid": "c-6c63d690-9711-11e7-94d7-8db02d9664e6"
+                    },
+                    "fr": {
+                        "children": [],
+                        "logic": "AND",
+                        "cid": "c-6c63d691-9711-11e7-94d7-8db02d9664e6"
+                    }
+                },
+                "type": "input-text",
+                "children": [],
+                "index": 3,
+                "column_count": "2",
+                "required": true,
+                "id": "q-6c63af80-9711-11e7-94d7-8db02d9664e6"
+            },
+            {
+                "values": {
+                    "en": {
+                        "title": "Study Description",
+                        "cid": "c-71cc44a1-9711-11e7-94d7-8db02d9664e6"
+                    },
+                    "fr": {
+                        "cid": "c-71cc44a2-9711-11e7-94d7-8db02d9664e6"
+                    }
+                },
+                "type": "textarea",
+                "children": [],
+                "index": 4,
+                "required": true,
+                "id": "q-71cc44a0-9711-11e7-94d7-8db02d9664e6"
+            },
+            {
+                "values": {
+                    "en": {
+                        "select_type": "checkbox",
+                        "children": [
+                            {
+                                "type": "hybrid",
+                                "cid": "c_74804110-9711-11e7-ad11-3d0ad3d03953"
+                            }
+                        ],
+                        "options": [
+                            "1|Fresh Frozen Tumour",
+                            "2|Fresh Frozen Normal Adjacent ",
+                            "3|Paraffin Embedded Tumour (slides or wax sections) ",
+                            "4|Paraffin Embedded Normal Adjacent (slides or wax sections) ",
+                            "5|Fresh Frozen Buffy Coat ",
+                            "6|Fresh Frozen Plasma"
+                        ],
+                        "description": "Indicate which sample types must be available on each case. Note: Each selection narrows the search results.\n",
+                        "title": "Sample Types",
+                        "cid": "c-92e6b1c1-9711-11e7-94d7-8db02d9664e6"
+                    },
+                    "fr": {
+                        "select_type": "radio",
+                        "children": [
+                            {
+                                "type": "hybrid",
+                                "cid": "c_74804111-9711-11e7-ad11-3d0ad3d03953"
+                            }
+                        ],
+                        "cid": "c-92e6b1c2-9711-11e7-94d7-8db02d9664e6"
+                    }
+                },
+                "type": "input-hybrid",
+                "children": [],
+                "index": 5,
+                "column_count": "2",
+                "required": true,
+                "id": "q-92e6b1c0-9711-11e7-94d7-8db02d9664e6"
+            },
+            {
+                "type": "input-text",
+                "values": {
+                    "en": {
+                        "children": [
+                            {
+                                "cid": "c_9ccbce50-9711-11e7-8634-35cfb7b2f766",
+                                "field_type": "text",
+                                "type": "input"
+                            }
+                        ],
+                        "logic": "AND",
+                        "title": "Minimum Cases",
+                        "description": "Please indicate the minimum number of cases you would like to request.",
+                        "cid": "c-a3593461-9711-11e7-94d7-8db02d9664e6"
+                    },
+                    "fr": {
+                        "children": [],
+                        "logic": "AND",
+                        "cid": "c-a3593462-9711-11e7-94d7-8db02d9664e6"
+                    }
+                },
+                "children": [],
+                "index": 6,
+                "column_count": "2",
+                "id": "q-a3593460-9711-11e7-94d7-8db02d9664e6"
+            },
+            {
+                "values": {
+                    "en": {
+                        "children": [
+                            {
+                                "cid": "c_aa0e6dc0-9711-11e7-8634-35cfb7b2f766",
+                                "field_type": "text",
+                                "type": "input"
+                            }
+                        ],
+                        "logic": "AND",
+                        "title": "Optimal Cases",
+                        "description": "Please indicate the optimal number of cases you would like to request.",
+                        "cid": "c-aac53aa1-9711-11e7-94d7-8db02d9664e6"
+                    },
+                    "fr": {
+                        "children": [],
+                        "logic": "AND",
+                        "cid": "c-aac53aa2-9711-11e7-94d7-8db02d9664e6"
+                    }
+                },
+                "type": "input-text",
+                "children": [],
+                "index": 7,
+                "column_count": "2",
+                "id": "q-aac53aa0-9711-11e7-94d7-8db02d9664e6"
+            },
+            {
+                "id": "q-eee7db20-9711-11e7-94d7-8db02d9664e6",
+                "values": {
+                    "en": {
+                        "select_type": "checkbox",
+                        "children": [
+                            {
+                                "type": "hybrid",
+                                "cid": "c_b13f66d0-9711-11e7-8634-35cfb7b2f766"
+                            },
+                            {
+                                "cid": "c_fdd655d0-9711-11e7-8634-35cfb7b2f766",
+                                "field_type": "text",
+                                "type": "input",
+                                "input_id": "33"
+                            }
+                        ],
+                        "options": [
+                            "1|Anal ",
+                            "2|Bladder ",
+                            "3|Breast ",
+                            "4|Central Nervous System ",
+                            "5|Cervical ",
+                            "6|Colonic ",
+                            "7|Endocrine ",
+                            "8|Esophageal",
+                            "9|Gastric ",
+                            "10|Head and Neck - Larynx & Hypophamyx ",
+                            "11|Head and Neck - Nasal Cavity, Sinuses, Nasopharynx, Oral Cavity, Oropharynx ",
+                            "12|Head and Neck - Salivary Glands, Paraglangliomas ",
+                            "13|Hepatic, Biliary Tree ",
+                            "14|Hodgkin's Disease ",
+                            "15|Leukemias ",
+                            "16|Lung ",
+                            "17|Melanoma ",
+                            "18|Mesothelioma ",
+                            "19|Non-Hodgkin's Lymphomas ",
+                            "20|Opthalmic Sites ",
+                            "21|Ovarian, Fallopian or Peritoneal ",
+                            "22|Pancreatic ",
+                            "23|Prostate ",
+                            "24|Rectal ",
+                            "25|Renal and Ureter ",
+                            "26|Sarcomas of Bone ",
+                            "27|Skin Non-Melanomas ",
+                            "28|Small Intestine ",
+                            "29|Soft Tissue Sarcoma ",
+                            "30|Testicular ",
+                            "30|Urethral ",
+                            "31|Uterine ",
+                            "32|Vulva. Vagina ",
+                            "33|Other"
+                        ],
+                        "cid": "c-eee7db21-9711-11e7-94d7-8db02d9664e6",
+                        "title": "Disease Site",
+                        "description": "Indicate the site of primary cancer in which you are interested for this specific search. Only one site is searchable per new search.\n"
+                    },
+                    "fr": {
+                        "select_type": "radio",
+                        "children": [
+                            {
+                                "type": "hybrid",
+                                "cid": "c_b13f66d1-9711-11e7-8634-35cfb7b2f766"
+                            }
+                        ],
+                        "cid": "c-eee7db22-9711-11e7-94d7-8db02d9664e6"
+                    }
+                },
+                "type": "input-hybrid",
+                "children": [],
+                "parent": "s-4b007990-9711-11e7-94d7-8db02d9664e6",
+                "index": 8,
+                "column_count": "4",
+                "required": true
+            },
+            {
+                "values": {
+                    "en": {
+                        "title": "Please indicate required clinical data and additional search criteria",
+                        "description": "(e.g., nature of the study, adjuvant treatments, relapse status, staging, etc...)",
+                        "cid": "c-0b4646d0-9712-11e7-94d7-8db02d9664e6"
+                    },
+                    "fr": {
+                        "cid": "c-0b4646d1-9712-11e7-94d7-8db02d9664e6"
+                    }
+                },
+                "type": "textarea",
+                "children": [],
+                "index": 9,
+                "id": "q-0b461fc0-9712-11e7-94d7-8db02d9664e6"
+            },
+            {
+                "values": {
+                    "en": {
+                        "select_type": "checkbox",
+                        "children": [
+                            {
+                                "type": "hybrid",
+                                "cid": "c_0c5ac410-9712-11e7-8634-35cfb7b2f766"
+                            }
+                        ],
+                        "options": [
+                            "1|Yes, I agree to sign up to receive information and updates from the Ontario Tumour Bank by signing up for the newsletter. I can withdraw my consent at any time by contacting tumourbank@oicr.on.ca (link sends e-mail)."
+                        ],
+                        "cid": "c-14127951-9712-11e7-94d7-8db02d9664e6"
+                    },
+                    "fr": {
+                        "select_type": "radio",
+                        "children": [
+                            {
+                                "type": "hybrid",
+                                "cid": "c_0c5ac411-9712-11e7-8634-35cfb7b2f766"
+                            }
+                        ],
+                        "cid": "c-14127952-9712-11e7-94d7-8db02d9664e6"
+                    }
+                },
+                "type": "input-hybrid",
+                "children": [],
+                "index": 10,
+                "column_count": "2",
+                "id": "q-14127950-9712-11e7-94d7-8db02d9664e6",
+                "parent": "s-4b007990-9711-11e7-94d7-8db02d9664e6",
+                "required": true
+            },
+            {
+                "id": "g_572d4670-89cf-11e7-908e-c9a47c902ec6",
+                "values": {
+                    "en": {
+                        "add_multiple": true,
+                        "title": "Regular Group"
+                    },
+                    "fr": {
+                        "title": "[FR]Question Group"
+                    }
+                },
+                "type": "question-group",
+                "children": [
+                    {
+                        "id": "q_66ae3d20-89cf-11e7-908e-c9a47c902ec6",
+                        "values": {
+                            "en": {
+                                "description": "Looks it's fine."
+                            },
+                            "fr": {}
+                        },
+                        "type": "text",
+                        "children": [],
+                        "parent": "g_572d4670-89cf-11e7-908e-c9a47c902ec6",
+                        "items": [],
+                        "index": 0,
+                        "moved": true,
+                        "groupId": "g_572d4670-89cf-11e7-908e-c9a47c902ec6[0]",
+                        "required": true
+                    },
+                    {
+                        "id": "q_6c1b8d30-89cf-11e7-908e-c9a47c902ec6",
+                        "values": {
+                            "en": {
+                                "title": "Listbox within group.",
+                                "options": [
+                                    "1|Option1",
+                                    "2|Option2",
+                                    "3|Option3"
+                                ]
+                            },
+                            "fr": {}
+                        },
+                        "type": "listbox",
+                        "children": [],
+                        "parent": "g_572d4670-89cf-11e7-908e-c9a47c902ec6",
+                        "items": [],
+                        "index": 1,
+                        "moved": true,
+                        "groupId": "g_572d4670-89cf-11e7-908e-c9a47c902ec6[0]",
+                        "required": true
+                    },
+                    {
+                        "id": "q_5e5d5520-89cf-11e7-908e-c9a47c902ec6",
+                        "values": {
+                            "en": {
+                                "children": [
+                                    {
+                                        "cid": "c_61f15150-89cf-11e7-908e-c9a47c902ec6",
+                                        "field_type": "number",
+                                        "type": "input",
+                                        "range_lower": 5,
+                                        "range_upper": 10
+                                    },
+                                    {
+                                        "cid": "c_99999999-89cf-11e7-908e-c9a47c902ec6",
+                                        "field_type": "number",
+                                        "type": "input",
+                                        "range_lower": 5,
+                                        "range_upper": 10
+                                    }
+                                ],
+                                "logic": "AND",
+                                "title": "Input Field within Group"
+                            },
+                            "fr": {
+                                "children": [],
+                                "logic": "AND"
+                            }
+                        },
+                        "type": "input-text",
+                        "children": [],
+                        "parent": "g_572d4670-89cf-11e7-908e-c9a47c902ec6",
+                        "items": [],
+                        "index": 0,
+                        "moved": true,
+                        "column_count": "2",
+                        "groupId": "g_572d4670-89cf-11e7-908e-c9a47c902ec6[0]",
+                        "required": true
+                    }
+                ],
+                "parent": "q_e0ed5280-89cd-11e7-b40f-694ae92994de",
+                "items": [],
+                "index": 6,
+                "moved": true,
+                "required": true
+            },
+
+            {
+                "id": "g_572d4670-89cf-11e7-908e-c9a47c902ec6-aaaa",
+                "values": {
+                    "en": {
+                        "filter": true,
+                        "add_multiple": true,
+                        "title": "Filter Group"
+                    },
+                    "fr": {
+                        "title": "[FR]Question Group"
+                    }
+                },
+                "type": "question-group",
+                "children": [
+                    {
+                        "id": "q_6c1b8d30-89cf-11e7-908e-c9a47c902ec6-aaaa",
+                        "values": {
+                            "en": {
+                                "title": "Listbox within group.",
+                                "options": [
+                                    "1|Option1",
+                                    "2|Option2",
+                                    "3|Option3"
+                                ]
+                            },
+                            "fr": {}
+                        },
+                        "type": "listbox",
+                        "children": [],
+                        "parent": "g_572d4670-89cf-11e7-908e-c9a47c902ec6-aaaa",
+                        "items": [],
+                        "index": 1,
+                        "moved": true,
+                        "required": true
+                    },
+                    {
+                        "id": "q-5011ee00-9711-11e7-94d7-8db02d9664e6-aaaa",
+                        "values": {
+                            "en": {
+                                "children": [
+                                    {
+                                        "cid": "c_4e12c2a0-9711-11e7-ad11-3d0ad3d03953",
+                                        "field_type": "text",
+                                        "type": "input"
+                                    }
+                                ],
+                                "logic": "AND",
+                                "title": "Name",
+                                "cid": "c-5011ee01-9711-11e7-94d7-8db02d9664e6",
+                                "description": "Please help us identify who you are."
+                            },
+                            "fr": {
+                                "children": [],
+                                "logic": "AND",
+                                "cid": "c-5011ee02-9711-11e7-94d7-8db02d9664e6"
+                            }
+                        },
+                        "type": "input-text",
+                        "children": [],
+                        "parent": "g_572d4670-89cf-11e7-908e-c9a47c902ec6-aaaa",
+                        "index": 0,
+                        "required": true,
+                        "column_count": "2"
+                    },
+                    {
+                        "values": {
+                            "en": {
+                                "children": [
+                                    {
+                                        "cid": "c_56d669a0-9711-11e7-ad11-3d0ad3d03953",
+                                        "field_type": "email",
+                                        "type": "input"
+                                    }
+                                ],
+                                "logic": "AND",
+                                "title": "Institution Name\n",
+                                "cid": "c-578e20e1-9711-11e7-94d7-8db02d9664e6"
+                            },
+                            "fr": {
+                                "children": [],
+                                "logic": "AND",
+                                "cid": "c-578e20e2-9711-11e7-94d7-8db02d9664e6"
+                            }
+                        },
+                        "type": "input-text",
+                        "children": [],
+                        "index": 1,
+                        "column_count": "2",
+                        "parent": "g_572d4670-89cf-11e7-908e-c9a47c902ec6-aaaa",
+                        "id": "q-578e20e0-9711-11e7-94d7-8db02d9664e6-aaaa"
+                    },
+                    {
+                        "id": "q-eee7db20-9711-11e7-94d7-8db02d9664e6-aaaa",
+                        "values": {
+                            "en": {
+                                "select_type": "checkbox",
+                                "children": [
+                                    {
+                                        "type": "hybrid",
+                                        "cid": "c_b13f66d0-9711-11e7-8634-35cfb7b2f766"
+                                    },
+                                    {
+                                        "cid": "c_fdd655d0-9711-11e7-8634-35cfb7b2f766",
+                                        "field_type": "text",
+                                        "type": "input",
+                                        "input_id": "33"
+                                    }
+                                ],
+                                "options": [
+                                    "1|Anal ",
+                                    "2|Bladder ",
+                                    "3|Breast ",
+                                    "4|Central Nervous System ",
+                                    "5|Cervical ",
+                                    "6|Colonic ",
+                                    "7|Endocrine ",
+                                    "8|Esophageal",
+                                    "9|Gastric ",
+                                    "10|Head and Neck - Larynx & Hypophamyx ",
+                                    "11|Head and Neck - Nasal Cavity, Sinuses, Nasopharynx, Oral Cavity, Oropharynx ",
+                                    "12|Head and Neck - Salivary Glands, Paraglangliomas ",
+                                    "13|Hepatic, Biliary Tree ",
+                                    "14|Hodgkin's Disease ",
+                                    "15|Leukemias ",
+                                    "16|Lung ",
+                                    "17|Melanoma ",
+                                    "18|Mesothelioma ",
+                                    "19|Non-Hodgkin's Lymphomas ",
+                                    "20|Opthalmic Sites ",
+                                    "21|Ovarian, Fallopian or Peritoneal ",
+                                    "22|Pancreatic ",
+                                    "23|Prostate ",
+                                    "24|Rectal ",
+                                    "25|Renal and Ureter ",
+                                    "26|Sarcomas of Bone ",
+                                    "27|Skin Non-Melanomas ",
+                                    "28|Small Intestine ",
+                                    "29|Soft Tissue Sarcoma ",
+                                    "30|Testicular ",
+                                    "30|Urethral ",
+                                    "31|Uterine ",
+                                    "32|Vulva. Vagina ",
+                                    "33|Other"
+                                ],
+                                "cid": "c-eee7db21-9711-11e7-94d7-8db02d9664e6",
+                                "title": "Disease Site",
+                                "description": "Indicate the site of primary cancer in which you are interested for this specific search. Only one site is searchable per new search.\n"
+                            },
+                            "fr": {
+                                "select_type": "radio",
+                                "children": [
+                                    {
+                                        "type": "hybrid",
+                                        "cid": "c_b13f66d1-9711-11e7-8634-35cfb7b2f766"
+                                    }
+                                ],
+                                "cid": "c-eee7db22-9711-11e7-94d7-8db02d9664e6"
+                            }
+                        },
+                        "type": "input-hybrid",
+                        "children": [],
+                        "parent": "g_572d4670-89cf-11e7-908e-c9a47c902ec6-aaaa",
+                        "index": 8,
+                        "column_count": "4",
+                        "required": true
+                    }
+                ],
+                "items": [],
+                "index": 6,
+                "moved": true,
+                "required": true
+            }
+        ]
+    }
+]

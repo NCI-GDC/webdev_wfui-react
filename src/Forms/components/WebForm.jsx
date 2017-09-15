@@ -194,8 +194,6 @@ class WebForm extends React.Component {
         const { displaySubmit, survey_data, in_action, submissions, recaptchaSiteKey, loggedin } = this.props;
         const { activeId, form_width, translated } = this.state;
 
-        console.log(this.props, 'WebForm');
-
         // Submit Button
         if (displaySubmit) {
             var submit = <input type="submit" value="submit" />
