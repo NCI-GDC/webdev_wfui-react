@@ -3,34 +3,60 @@ import PropTypes from 'prop-types';
 import { Modal, Button, FormGroup, ControlLabel, HelpBlock, SplitButton, MenuItem } from '../index';
 import FilteredTable from '../FilteredTable/FilteredTable';
 import classNames from 'classnames';
+import _ from 'lodash';
 
 /**
  * Editing form.
  */
-const FilterTableModal = props => (
-    <Modal show={props.show} onHide={props.onHandleCancel} bsSize="large" className={`add-modal`}>
-        <Modal.Header closeButton>
-            <h2 className="modaltitle">{props.label}</h2>
-        </Modal.Header>
-        <Modal.Body>
-            { props.bodyDisplay && React.cloneElement(props.bodyDisplay, {})}
-        </Modal.Body>
-        <Modal.Footer>
-            <Button
-                type="submit"
-                bsStyle="primary"
-                className="text-uppercase"
-                onClick={props.onHandleSave}
-                disabled={props.disabled}
-            >Save</Button>
-            <Button className="text-uppercase" onClick={props.onHandleCancel}>Cancel</Button>
-        </Modal.Footer>
-    </Modal>
-);
+const FilterTableModal = props => {
+
+    let invalid = false;
+    if (props.index >= 0) {
+
+        const localErrors = props.syncErrors[props.name][props.index];
+        const globalErrors = props.syncErrors.global;
+        
+        // Checj if there is an error
+        props.questions.forEach((question) => {
+            // Global errors.
+            if (globalErrors[`${question.id}[${props.index}]`]) invalid = true;
+            // Local Errors
+            if (localErrors) {
+                const localError = localErrors[question.id];
+                if (Object.keys(localError).length) {
+                    Object.keys(localError).map((key) => {
+                        if (localError[key]) invalid = true;
+                    });
+                }
+            }
+        });
+    }
+
+    return (
+        <Modal show={props.show} onHide={props.onHandleCancel} bsSize="large" className={`add-modal`}>
+            <Modal.Header closeButton>
+                <h2 className="modaltitle">{props.label}</h2>
+            </Modal.Header>
+            <Modal.Body>
+                { props.bodyDisplay && React.cloneElement(props.bodyDisplay, {})}
+            </Modal.Body>
+            <Modal.Footer>
+                <Button
+                    type="submit"
+                    bsStyle="primary"
+                    className="text-uppercase"
+                    onClick={props.onHandleSave}
+                    disabled={invalid}
+                >Save</Button>
+                <Button className="text-uppercase" onClick={props.onHandleCancel}>Cancel</Button>
+            </Modal.Footer>
+        </Modal>
+    );
+}
+
 FilterTableModal.propTypes = {
     label: PropTypes.string,
     show: PropTypes.bool,
-    disabled: PropTypes.bool,
     onHandleCancel: PropTypes.func,
     onHandleSave: PropTypes.func,
     bodyDisplay: PropTypes.element,
@@ -217,10 +243,8 @@ class renderFilterTable extends React.Component {
     }
 
     render() {
-        const { className, fields, childComponent, label, help, required, disabled, meta: { error } } = this.props;
+        const { questions, className, fields, childComponent, label, syncErrors, help, required, disabled, meta: { error } } = this.props;
         const { showAddModal, showEditModal, showDeleteModal, addingIndex, edittingIndex, searchTerm } = this.state;
-        
-        console.log(this.props, 'rendefFilterTable props');
 
         return (
             <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error })}>
@@ -242,18 +266,26 @@ class renderFilterTable extends React.Component {
                     }
                     <FilterTableModal
                         id="AddModal"
+                        name={fields.name}
+                        questions={questions}
+                        index={addingIndex}
                         show={showAddModal}
                         onHandleCancel={this.onHandleAddCancel}
                         onHandleSave={this.onHandleAddSave}
+                        syncErrors={syncErrors}
                         bodyDisplay={
                             <div>{childComponent(`${fields.name}[${addingIndex}]`, addingIndex)}</div>
                         }
                     />
                     <FilterTableModal
                         id="EditModal"
+                        name={fields.name}
+                        questions={questions}
+                        index={edittingIndex}
                         show={showEditModal}
                         onHandleCancel={this.onHandleEditCancel}
                         onHandleSave={this.onHandleEditSave}
+                        syncErrors={syncErrors}
                         bodyDisplay={
                             <div>{childComponent(`${fields.name}[${edittingIndex}]`, edittingIndex)}</div>
                         }

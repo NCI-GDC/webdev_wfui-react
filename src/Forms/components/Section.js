@@ -23,15 +23,15 @@ class Section extends React.Component{
         this.onHandleSubmit = this.onHandleSubmit.bind(this);
         this.onClickNext = this.onClickNext.bind(this);
     }
-    onClickNext(){
+    onClickNext() {
         const { dispatch, submission, id, errors } = this.props;
         const { nid, language, activeId, last} = this.context;
         var that = this;
         let fields = [];
         
-        if(activeId == last){
+        if (activeId == last) {
             that.context.confirm();
-        }else{
+        } else {
             that.context.next(that.props.index);
         }
 
@@ -43,7 +43,7 @@ class Section extends React.Component{
     onHandleSubmit(values) {
         this.onClickNext();
     }
-    render(){
+    render() {
 
         const that = this;
         const { loggedin, section, isActive, index, translated, form_width, parent_name} = this.props;

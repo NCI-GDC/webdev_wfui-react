@@ -13,6 +13,7 @@ import stickyMenu from '../helpers/sticky_menu';
 import bodyResizeListener from '../helpers/body_resize_listener';
 
 import * as actionCreators from '../actions';
+import { anonymousFormFields } from '../constants/const';
 
 /**
  * WebForm: Parent App
@@ -20,7 +21,7 @@ import * as actionCreators from '../actions';
 class WebForm extends React.Component {
     constructor(props) {
         super();
-        this.state = { translated: false, activeId: props.activeId};
+        this.state = { surveyDataState: [], translated: false, activeId: props.activeId };
         this.onResize = this.onResize.bind(this);
         this.onClickLanguage = this.onClickLanguage.bind(this);
         this.onHandleLanguageLoaded = this.onHandleLanguageLoaded.bind(this)
@@ -43,7 +44,16 @@ class WebForm extends React.Component {
             autoSave: survey_info.autoSave ? survey_info.autoSave[language] : true,
         };
     }
-    componentDidMount(){
+    componentWillMount() {
+        const { survey_data, loggedin } = this.props;
+        const surveyDataState = JSON.parse(JSON.stringify(survey_data));
+        if (!loggedin) {
+            surveyDataState[survey_data.length - 1].children = anonymousFormFields.concat(surveyDataState[survey_data.length - 1].children);
+        }
+        this.setState({ surveyDataState });
+    }
+
+    componentDidMount() {
         // TODO: Removed
         // $(window).on('resize', this.onResize);
 
@@ -86,7 +96,7 @@ class WebForm extends React.Component {
      ****************************************************************************/
     saveSubmission(callback){
 
-        const { survey_data, language, errors, dispatch, survey_info, saveSubmission, getConfig } = this.props;
+        const { survey_data, language, errors, dispatch, survey_info, saveSubmission, getConfig, loggedin } = this.props;
         const { activeId } = this.state;
         const autoSave = survey_info.autoSave ? survey_info.autoSave[language] : true;
         // const { completed, total } = this.getTotalAnsweredQuestions();
@@ -105,9 +115,9 @@ class WebForm extends React.Component {
         //     });
         //     return 
         // }
-        
+                
         // dispatch(setInActionState(true));
-        saveSubmission(survey_info.nid, sectionId, language, getConfig)
+        saveSubmission(survey_info.nid, sectionId, language, loggedin, getConfig)
         .then(callback);
 
     }
@@ -192,7 +202,7 @@ class WebForm extends React.Component {
     }
     render() {
         const { displaySubmit, survey_data, in_action, submissions, recaptchaSiteKey, loggedin } = this.props;
-        const { activeId, form_width, translated } = this.state;
+        const { activeId, form_width, translated, surveyDataState } = this.state;
 
         // Submit Button
         if (displaySubmit) {
@@ -207,7 +217,7 @@ class WebForm extends React.Component {
         let sliderStyle = {
             'WebkitTransition': 'all .2s linear',
             'transition': 'all .2s linear',
-            'width': survey_data.length * form_width || 'auto',
+            'width': surveyDataState && surveyDataState.length * form_width || 'auto',
             'msTransform': 'translate('+posX+'px, 0)',
             'WebkitTransform': 'translate('+posX+'px, 0)',
             'transform': 'translate('+posX+'px, 0)',
@@ -216,18 +226,18 @@ class WebForm extends React.Component {
         //Coming from top
         let rowClasses = "row row-eq-height"; // "row vertical_align";
         
-        if(survey_data){
+        if(surveyDataState){
             return(
-                <div className={`application-app ${survey_data.length > 1 ? 'multi-section' : 'single-section'}`}>
+                <div className={`application-app ${surveyDataState.length > 1 ? 'multi-section' : 'single-section'}`}>
                     <div className="container">
                         {in_action ? <div><p className="page_loading" style={{opacity: 0.5}}><i className="fa fa-spinner fa-spin"></i></p></div> : ""}
-                        {survey_data.length > 1 && <SideBar {...this.props} activeId={activeId} translated={translated} />}
+                        {surveyDataState.length > 1 && <SideBar {...this.props} activeId={activeId} translated={translated} />}
                         <div className={`application-main section-${activeId}`}>
                             <ReactCSSTransitionGroup transitionAppear={true} transitionName="fade" transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionAppearTimeout={500}>
                             <div className="row">
                                 <div style={formStyle}>
                                     <div className="default_slide" style={sliderStyle}>
-                                    {survey_data.map(function(section, i){
+                                    {surveyDataState.map(function(section, i){
                                         return (
                                             <SectionForm
                                                 key={i}
@@ -257,9 +267,6 @@ class WebForm extends React.Component {
             console.log('Error: The data provided is broken.');
             return <noscript />
         }
-    }
-    componentDidUpdate(){
-        stickyMenu.update();
     }
     componentDidUpdate(){
         stickyMenu.update();

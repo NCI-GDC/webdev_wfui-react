@@ -37,24 +37,59 @@ export const getSubmission = (nid, lang, getConfig) => (
     }
 );
 
-export const saveSubmission = (nid, sectionId, lang, getConfig) => (
+export const saveSubmission = (nid, sectionId, lang, loggedin, getConfig) => (
     (dispatch, getState) => {
         const config = getConfig();
         const answer = getFormValues(`form_${sectionId}`)(getState());
-          
-        const req = wfuiFetch(`//${config.API_HOST}${config.API_FORM_ANSWERS}`, {
+        const userInfo = {};
+
+        // Retrieve firstname, lastname and email for anonymous user.
+        if (!loggedin) {
+            userInfo.firstname = answer.firstname.field;
+            userInfo.lastname = answer.lastname.field;
+            userInfo.email = answer.email.field;
+            userInfo.link = config.API_USER_FORM_VERIFY_LINK;
+            delete answer.firstname;
+            delete answer.lastname;
+            delete answer.email;
+        }
+        
+        const req = wfuiFetch(`//${config.API_HOST}${config.API_USER_FORM_ANSWERS}/1`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'app-id': config.APP_ID,
             },
-            body: JSON.stringify({
-                survey_nid: nid,
-                lang,
-                answer,
-            }),
+            body: JSON.stringify(
+                Object.assign(
+                    {},
+                    {
+                        survey_nid: nid,
+                        lang,
+                        answer,
+                    },
+                    userInfo,
+                ),
+            ),
             credentials: 'include',
             requestId: 'saveSubmission',
+        }, dispatch);
+        return req.promise;
+    }
+);
+
+export const verifyFormRegister = (values, getConfig) => (
+    (dispatch) => {
+        const config = getConfig();
+        const req = wfuiFetch(`//${config.API_HOST}${config.API_USER_FORM_ANSWERS}/2`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'app-id': config.APP_ID,
+            },
+            body: JSON.stringify({ ...values }),
+            requestId: 'verifyFormRegister',
+            credentials: 'include',
         }, dispatch);
         return req.promise;
     }

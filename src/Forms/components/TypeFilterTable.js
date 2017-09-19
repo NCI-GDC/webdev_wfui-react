@@ -11,7 +11,7 @@ import Fields from './Fields';
  */
 class TypeFilterTable extends React.Component {
     render() {
-        const { question, lang, globalError, localErrors } = this.props;
+        const { question, lang, syncErrors } = this.props;
         const data = question.values[lang] || {};
         
         // console.log(question, 'question!!');
@@ -24,8 +24,6 @@ class TypeFilterTable extends React.Component {
         //     tableLabel: field['#table_label'],
         //     buttonLabel: field['#button_label'],
         // }
-
-        console.log(globalError, 'TypeFilterTableContainer');
         
         return (
             <div className={'wfui-type-field-table'} >
@@ -38,7 +36,7 @@ class TypeFilterTable extends React.Component {
                     className="bluetext"
                     component={renderFilterTable}
                     label={data.title}
-                    globalError={globalError}
+                    syncErrors={syncErrors}
                     childComponent={(groupId, i) => (
                         <Fields groupId={groupId} groupIndex={i} section={question} />
                     )}
@@ -54,10 +52,8 @@ const TypeFilterTableContainer = connect((state, props) => {
     const syncErrors = getFormSyncErrors(formID)(state);
     const qid = typeof props.question.groupIndex !== 'undefined' ? `${props.question.id}[${props.question.groupIndex}]` : props.question.id;
 
-    console.log(syncErrors, 'TypeFilterTableContainer');
-
     return {
-        globalError: syncErrors && syncErrors.global && syncErrors.global[qid],
+        syncErrors,
     };
 })(TypeFilterTable);
 
