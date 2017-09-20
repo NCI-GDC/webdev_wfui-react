@@ -5,18 +5,20 @@ import FilteredTable from '../FilteredTable/FilteredTable';
 import classNames from 'classnames';
 import _ from 'lodash';
 
+import { getValByKey, getOptKey, getOptVal } from '../Forms/helpers/input_hybrid';
+
 /**
  * Editing form.
  */
 const FilterTableModal = props => {
 
+    /**
+     * Check if there are errors, if yes, disable save button.
+     */
     let invalid = false;
     if (props.index >= 0) {
-
         const localErrors = props.syncErrors[props.name][props.index];
         const globalErrors = props.syncErrors.global;
-        
-        // Checj if there is an error
         props.questions.forEach((question) => {
             // Global errors.
             if (globalErrors[`${question.id}[${props.index}]`]) invalid = true;
@@ -52,14 +54,17 @@ const FilterTableModal = props => {
             </Modal.Footer>
         </Modal>
     );
-}
-
+};
 FilterTableModal.propTypes = {
     label: PropTypes.string,
+    name: PropTypes.string,
+    index: PropTypes.number,
     show: PropTypes.bool,
     onHandleCancel: PropTypes.func,
     onHandleSave: PropTypes.func,
     bodyDisplay: PropTypes.element,
+    syncErrors: PropTypes.object,
+    questions: PropTypes.arrayOf(PropTypes.object),
 };
 
 /**
@@ -103,6 +108,7 @@ class renderFilterTable extends React.Component {
             edittingIndex: -1,
             currentValue: undefined,
             searchTerm: '',
+            filterBy: {},
         };
         // Add
         this.onHandleAdd = this.onHandleAdd.bind(this);
@@ -116,6 +122,9 @@ class renderFilterTable extends React.Component {
         this.onHandleDelete = this.onHandleDelete.bind(this);
         this.onHandleDeleteSave = this.onHandleDeleteSave.bind(this);
         this.onHandleDeleteCancel = this.onHandleDeleteCancel.bind(this);
+
+        // Filters
+        this.onFilterChange = this.onFilterChange.bind(this);
     }
     // Add Item
     onHandleAdd() {
@@ -175,7 +184,33 @@ class renderFilterTable extends React.Component {
                 name: q.values[lang].title,
                 display: (data) => {
                     const values = data[q.id];
-                    return JSON.stringify(values);
+                    if (values) {
+                        switch (q.type) {
+                            case 'listbox':
+                                return getValByKey(values.listbox, q.values[lang].options);
+                            case 'input-hybrid':
+                                const hybridField = q.values[lang].children.filter(f => (f.type === 'hybrid'))[0];
+                                const displayValues = values[hybridField.cid].map((key) => {
+                                    const assignedField = q.values[lang].children.filter(f => f.input_id === key);
+                                    if (assignedField.length) {
+                                        // Get option value & assigned input field value.
+                                        return `${values[assignedField[0].cid]}(${getValByKey(key, q.values[lang].options)})`;
+                                    }
+                                    // Get option value by key
+                                    return getValByKey(key, q.values[lang].options);
+                                });
+                                return displayValues.sort((a, b) => (a.localeCompare(b))).join(', ');
+                            default:
+                                return Object.keys(values).map(key => (values[key])).join(', ');
+                        }
+                    }
+                    // console.log(q);
+                    
+                    // if (values) {
+                        // console.log(values, 'getItemFormat');
+                        // console.log(Object.keys(values).map((key) => (values[key])).join(', '));
+                    // }
+                    // return JSON.stringify(values);
                 },
             }
         )).concat([
@@ -198,40 +233,70 @@ class renderFilterTable extends React.Component {
         ]);
     }
     getFilters() {
-        const { filteredCGP, filteredDLP } = this.state;
+        const { questions, lang } = this.props;
+        const { filterBy } = this.state;
+        
         return [
-            item => (!filteredCGP ||
-                    (item.cgp === filteredCGP)),
-            item => (!filteredDLP ||
-                    (item.dlp === filteredDLP)),
+            item => {
+                let result = false;
+                if (Object.keys(filterBy).length) {
+                    Object.keys(filterBy).forEach((key) => {
+                        const val = _.get(item, key);
+
+                        console.log(filterBy[key], 'filterBy[key]');
+
+                        if (Array.isArray(val) && val.includes(filterBy[key])) {
+                            result = true;
+                        } else if (val === filterBy[key]) {
+                            result = true;
+                        }
+
+                        if (!filterBy[key]) result = true;
+                    });
+                } else {
+                    result = true;
+                }
+                return result;
+            },
         ];
+    }
+
+    onFilterChange(e) {
+        const { filterBy } = this.state;
+        if (e.target.value) {
+            this.setState({
+                filterBy: Object.assign({}, filterBy, { [e.target.getAttribute('data-name')]: e.target.value }),
+            });
+        }
     }
     
     // Filter UI
     generateFilterUI() {
-        const { filterBy } = this.props;
-        const { searchTerm } = this.state;
-        // const CGPList = [];
-        // const DLPList = [];
-        // for (const item of this.state.data) {
-        //     const CGP = item.cgp;
-        //     const DLP = item.dlp;
-        //     if (CGPList.indexOf(CGP) === -1) {
-        //         CGPList.push(CGP);
-        //     }
-        //     if (DLPList.indexOf(DLP) === -1) {
-        //         DLPList.push(DLP);
-        //     }
-        // }
-        // const contributorOptions = CGPList.map(
-        //     CGP => <option key={CGP} value={CGP}>{CGP}</option>,
-        // );
-        // const topicOptions = DLPList.map(
-        //     DLP => <option key={DLP} value={DLP}>{DLP}</option>,
-        // );
+        const { questions, lang } = this.props;
+        const { searchTerm, filterBy } = this.state;
 
-        return (
-            <div>
+        const filters = [];
+        filters.push(
+            <div className="filters-applied">
+                {questions
+                    .filter(question => (question.type === 'listbox' || question.type === 'input-hybrid'))
+                    .map((question, i) => {
+                        const questionInfo = question.values[lang];
+                        const field = questionInfo.children && questionInfo.children.filter(f => (f.type === 'hybrid'))[0];
+                        const cid = field ? field.cid : 'listbox';
+                        return (
+                            <select key={i} data-name={`${question.id}.${cid}`} onChange={this.onFilterChange}>
+                                <option value="">-- Filter by {questionInfo.title} --</option>
+                                {questionInfo.options.map((option, j) => (
+                                    <option key={j} value={getOptKey(option)}>{getOptVal(option)}</option>
+                                ))}
+                            </select>
+                        );
+                    })}
+            </div>,
+        );
+        filters.push(
+            <div className="filters-search">
                 <input
                     type="text"
                     placeholder="Enter keywords"
@@ -240,30 +305,44 @@ class renderFilterTable extends React.Component {
                 />
             </div>
         );
+        return filters;
     }
 
     render() {
-        const { questions, className, fields, childComponent, label, syncErrors, help, required, disabled, meta: { error } } = this.props;
+        const { questions, className, fields, childComponent, label, syncErrors, labelItem, labelAddAnother, textDeleteConfirm, help, required, disabled, meta: { error } } = this.props;
         const { showAddModal, showEditModal, showDeleteModal, addingIndex, edittingIndex, searchTerm } = this.state;
 
         return (
-            <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error })}>
+            <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error }, { inactive: fields.length >= 0 })}>
                 <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
                 <FormGroup className="wfui-form-addAnother" validationState={error ? 'error' : null}>
-                    { fields.length !== 0 &&
-                        <div>
+                    <div className="col-header">
+                        <h4 className="col-h4">Your { labelItem } <span>({fields.length})</span></h4>
+                        <Button bsStyle="default" className="btn-add-col add-btn" onClick={this.onHandleAdd}>{ labelAddAnother }</Button>
+                    </div>
+                    
+                    <div className="col-table">
+                        { fields.length === 0 &&
+                        <div className="inactive-overlay">
+                            <p>{`You have not added any ${labelItem.toLowerCase()} yet. To get started, click the blue "${labelAddAnother}" button above`}</p>
+                        </div>}
+                        <div className="filters-container">
                             {this.generateFilterUI()}
-                            <FilteredTable
-                                searchTerm={searchTerm}
-                                data={fields.getAll()}
-                                filterList={this.getFilters()}
-                                itemFormat={this.getItemFormat()}
-                                onResultsNumUpdate={count => this.setState({ count })}
-                                simpleSearch
-                                searchLogic={'or'}
-                            />
                         </div>
-                    }
+                        { fields.length !== 0 &&
+                            <div className="table-responsive">    
+                                <FilteredTable
+                                    searchTerm={searchTerm}
+                                    data={fields.getAll()}
+                                    filterList={this.getFilters()}
+                                    itemFormat={this.getItemFormat()}
+                                    onResultsNumUpdate={count => this.setState({ count })}
+                                    simpleSearch
+                                    searchLogic={'or'}
+                                />
+                            </div>
+                        } 
+                    </div>
                     <FilterTableModal
                         id="AddModal"
                         name={fields.name}
@@ -296,11 +375,9 @@ class renderFilterTable extends React.Component {
                         onHandleDeleteSave={this.onHandleDeleteSave}
                         onHandleDeleteCancel={this.onHandleDeleteCancel}
                         bodyDisplay={
-                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed velit arcu, ullamcorper a interdum eget, congue nec nibh.
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed velit arcu, ullamcorper a interdum eget, congue nec nibh.</div>
+                            <div>{ textDeleteConfirm }</div>
                         }
                     />
-                    <Button bsStyle="default" className="add-btn" onClick={this.onHandleAdd}>Add Another Item</Button>
                     {error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
                     {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
                 </FormGroup>
@@ -314,7 +391,17 @@ renderFilterTable.propTypes = {
     className: PropTypes.string,
     fields: PropTypes.object,
     childComponent: PropTypes.func,
+    syncErrors: PropTypes.object,
     questions: PropTypes.arrayOf(PropTypes.object),
+    labelAddAnother: PropTypes.string,
+    labelItem: PropTypes.string,
+    textDeleteConfirm: PropTypes.string,
+};
+
+renderFilterTable.defaultProps = {
+    labelAddAnother: 'Add Another',
+    labelItem: 'Items',
+    textDeleteConfirm: 'Are you sure you want to delete this item?',
 };
 
 export default renderFilterTable;
