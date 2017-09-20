@@ -4,6 +4,6 @@ const _modalsSelector = state => state.modals;
 export const modalsSelector = key => (
     createSelector(
         _modalsSelector,
-        modals => (modals[key]),
+        modals => (modals && modals[key]),
     )
 );

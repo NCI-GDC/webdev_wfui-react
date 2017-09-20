@@ -1,7 +1,16 @@
 /**
  * Utilities for input hybrid
  */
-export const getPosition = (str, m, i) => {
+export const getValByKey = (key, options) => {
+    let result = '';
+    options.forEach((option) => {
+        if (!result && key === getOptKey(option)) {
+            result = getOptVal(option);
+        }
+    });
+    return result;
+}
+ export const getPosition = (str, m, i) => {
     if(str.split(m, i).join(m).length == str.length){
         return -1;
     }

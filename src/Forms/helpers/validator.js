@@ -68,7 +68,7 @@ const requiredSimpleValidator = (values) => {
 const requiredInputHybridValidator = fields => (values) => {
     let valid = false;
 
-    console.log(values, fields, 'requiredInputHybridValidator');
+    // console.log(values, fields, 'requiredInputHybridValidator');
 
     if (values) {
         fields.forEach((field) => {
@@ -198,8 +198,8 @@ const validate = (validatorMap, values, errors, globalErrors, index = -1) => {
 
 export const validator = validatorMap => (values) => {
     const errors = {};
-    console.log(values, 'values===============');
+    // console.log(values, 'values===============');
     validate(validatorMap, values, errors, errors);
-    console.log(errors, 'errors===============');
+    // console.log(errors, 'errors===============');
     return errors;
 };

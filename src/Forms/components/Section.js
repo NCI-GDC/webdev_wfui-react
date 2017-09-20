@@ -23,15 +23,15 @@ class Section extends React.Component{
         this.onHandleSubmit = this.onHandleSubmit.bind(this);
         this.onClickNext = this.onClickNext.bind(this);
     }
-    onClickNext(){
+    onClickNext() {
         const { dispatch, submission, id, errors } = this.props;
         const { nid, language, activeId, last} = this.context;
         var that = this;
         let fields = [];
         
-        if(activeId == last){
+        if (activeId == last) {
             that.context.confirm();
-        }else{
+        } else {
             that.context.next(that.props.index);
         }
 
@@ -43,17 +43,19 @@ class Section extends React.Component{
     onHandleSubmit(values) {
         this.onClickNext();
     }
-    render(){
+    render() {
 
         const that = this;
-        const { section, isActive, index, translated, form_width, parent_name} = this.props;
+        const { loggedin, section, isActive, index, translated, form_width, parent_name} = this.props;
         const { language } = this.context;
         const data = section.values[language];
         
-        greptchaToggle = function() {
-            this.setState({ grecaptchaState: true });
+        if (!loggedin) {
+            greptchaToggle = function() {
+                this.setState({ grecaptchaState: true });
+            }
+            greptchaToggle = greptchaToggle.bind(this);
         }
-        greptchaToggle = greptchaToggle.bind(this);
 
         let className = isActive ? "form active": "form";
         if(isActive){
