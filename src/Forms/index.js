@@ -11,6 +11,7 @@ import TypeMarkup from './components/TypeMarkup';
 import TypeSelectionHybrid, { TypeSelectionHybridPreview } from './components/TypeSelectionHybrid';
 import TypeTableFormat, { TypeTableFormatPreview } from './components/TypeTableFormat';
 import TypeTextarea, { TypeTextareaPreview } from './components/TypeTextarea';
+import FormUserVerify from './components/FormUserVerify';
 import WebForm from './components/WebForm';
 
 const QuestionTypes = {
@@ -37,5 +38,6 @@ export {
     actions,
     reducers,
     WebForm,
+    FormUserVerify,
     QuestionTypes,
 };
