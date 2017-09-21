@@ -121,7 +121,6 @@ class Forms extends React.Component{
                                 />
                             </div>
                         )}
-                        draggable
                     />
             </form>
         )

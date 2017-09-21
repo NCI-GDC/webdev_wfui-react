@@ -8,9 +8,6 @@ import { countSubmissions } from '../helpers/progressCounter';
 class AllProgress extends React.Component {
     render() {
         const { total, completed } = this.props;
-        // const {submission, survey_data} = this.props;
-        // const {language} = this.context;
-        // const { completed, total } = countTotalAnsweredQuestions(survey_data, submission);
 
         return (
             <li className="overall-progress">
@@ -40,7 +37,7 @@ export default connect((state, props) => {
             });
 
             const counts = { completed: 0 };
-            if (values) countSubmissions(questions, values, syncErrors, syncErrors.global, counts);
+            if (values) countSubmissions(questions, values, syncErrors, syncErrors && syncErrors.global, counts);
             total += questions.length;
             completed += counts.completed;
         });

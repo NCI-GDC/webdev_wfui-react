@@ -28,7 +28,7 @@ class FilteredTable extends React.Component {
 
     transformData(data) {
         return data.map((obj, i) => {
-            const _obj = JSON.parse(JSON.stringify(obj));
+            const _obj = JSON.stringify(obj) ? JSON.parse(JSON.stringify(obj)) : {};
             _obj.checked = false;
             _obj.idx = i;
             return _obj;
