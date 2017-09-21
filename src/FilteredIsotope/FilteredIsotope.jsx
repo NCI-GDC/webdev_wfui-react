@@ -136,13 +136,13 @@ class FilteredIsotope extends React.Component {
     }
 
     render() {
-        const { className, data, itemDisplay } = this.props;
+        const { className, data, itemDisplay, itemClassName } = this.props;
 
         return (
             <div className={classNames(className, 'wfui-isotope-grid')}>
                 {
                     data.map((item, idx) => (
-                        <Element item={item} itemDisplay={itemDisplay} key={idx} />
+                        <Element className={itemClassName} item={item} itemDisplay={itemDisplay} key={idx} />
                     ))
                 }
             </div>
@@ -163,6 +163,7 @@ FilteredIsotope.propTypes = {
     searchTerm: PropTypes.string,
     wholeWord: PropTypes.bool,
     filterList: PropTypes.arrayOf(PropTypes.func),
+    itemClassName: PropTypes.string,
 };
 
 FilteredIsotope.defaultProps = {
