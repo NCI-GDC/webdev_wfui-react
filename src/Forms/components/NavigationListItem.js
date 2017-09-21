@@ -49,7 +49,7 @@ export default connect((state, props) => {
         total: questions.length,
     };
 
-    if (values) countSubmissions(questions, values, syncErrors, syncErrors.global, counts);
+    if (values) countSubmissions(questions, values, syncErrors, syncErrors && syncErrors.global, counts);
 
     return counts;
 })(NavigationListItem);
