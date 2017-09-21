@@ -18,10 +18,6 @@ import { modalReducer } from '../../src/ModalDialog/reducer';
 
 import '../../src/Forms/index.scss';
 
-window.isNumeric = function (n) { 
-    return !isNaN(parseFloat(n)) && isFinite(n); 
-}
-
 const store = createStore(combineReducers(
     {
         ...reducers,
