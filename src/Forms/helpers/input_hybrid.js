@@ -1,3 +1,5 @@
+import { isNumeric } from './isNumeric';
+
 /**
  * Utilities for input hybrid
  */
