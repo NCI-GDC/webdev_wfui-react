@@ -10,11 +10,12 @@ export default {
     li: {
         position: 'relative',
         paddingLeft: 20,
+        color: '#a94442',
     },
     li_active: {
         position: 'relative',
         paddingLeft: 20,
-        color: 'green',
+        color: '#3c763d',
     },
     icon: {
         position: 'absolute',
