@@ -23,7 +23,7 @@ class Card extends React.Component {
 
     render() {
         const { className, children, cardStyle } = this.props;
-
+console.log(children);
         return (
             <div
                 className={classNames(className, 'wfui-card wfui-card-container')}
@@ -31,7 +31,7 @@ class Card extends React.Component {
                 onMouseLeave={() => this.setState({ hover: false })}
                 style={cardStyle || {}}
             >
-                { children && (
+                { children && ((Array.isArray(children) && (
                     children.map((child, key) => {
                         switch (child.props.role) {
                             case BODY_ROLE:
@@ -40,8 +40,8 @@ class Card extends React.Component {
                             default:
                                 return child;
                         }
-                    })
-                )}
+                    }))) || this.renderChild(children, 0))
+                }
             </div>
         );
     }
