@@ -37,7 +37,7 @@ export default connect((state, props) => {
             });
 
             const counts = { completed: 0 };
-            if (values) countSubmissions(questions, values, syncErrors, syncErrors.global, counts);
+            if (values) countSubmissions(questions, values, syncErrors, syncErrors && syncErrors.global, counts);
             total += questions.length;
             completed += counts.completed;
         });
