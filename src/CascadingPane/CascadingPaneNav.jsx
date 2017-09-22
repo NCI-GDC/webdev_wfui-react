@@ -54,7 +54,7 @@ class CascadingPaneNav extends React.Component {
                     return newItem;
                 }) : [],
             });
-        } else if (data.length === 0 && nextProps.data && nextProps.data.length > 0) {
+        } else if (nextProps.data && nextProps.data.length > 0) {
             window.location.href = `${window.location.href.split('?')[0]}?cascNav=${nextProps.data[0][nextProps.itemIdField]}`;
         }
         if (JSON.stringify(data) !== JSON.stringify(nextProps.data)) {
