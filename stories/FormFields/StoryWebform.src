@@ -32,7 +32,12 @@ class Example extends React.Component {
                         recaptchaSiteKey="6LdU_C8UAAAAAKuomqs1T4_EFWX_iHeblyBB8BYs"
                         onComplete={() => { console.log('submit') }}
                         getConfig={() => ({ API_HOST: '' })}
-                        loggedin
+                        user={{
+                            email:"11@11.com",
+                            firstname:"Lisa",
+                            lastname:"Milestone"
+                        }}
+                        allowAnonymousSubmission
                     />
                 </Provider>
             )
