@@ -18,7 +18,7 @@ class TypeTableFormat extends React.Component {
     }
     render(){
         const {values, saving} = this.state;
-        const {question, limits, lang, preview, submitted, token, errors, globalError} = this.props;
+        const {question, limits, lang, preview, submitted, token, errors, globalError, review } = this.props;
         const data = question.values[lang] || {}
         const groupId = question.groupId;
         
@@ -57,6 +57,7 @@ class TypeTableFormat extends React.Component {
                     logic={props.fieldType}
                     fieldMap={fieldMap}
                     required={question.required}
+                    disabled={review}
                 />
             </div>
         );

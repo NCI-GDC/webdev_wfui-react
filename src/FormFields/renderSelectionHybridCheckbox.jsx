@@ -117,6 +117,7 @@ class renderSelectionHybridCheckbox extends React.Component {
                                         name={`${name}.${fieldMap[_key].cid}`}
                                         type={fieldMap[_key].field_type || 'text'}
                                         component={renderField}
+                                        disabled={disabled}
                                         onFocus={() => {
                                             const newValue = [...checkboxProps.input.value];
                                             let checked = false;

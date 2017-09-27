@@ -32,7 +32,7 @@ export default class SectionForm extends React.Component {
         }
     }
     render() {
-        const { index, isActive, section, form_width, submissions, loggedin, recaptchaSiteKey } = this.props;
+        const { index, isActive, section, form_width, submissions, loggedin, recaptchaSiteKey, review } = this.props;
         const { initialValues } = this.state;
 
         return (
@@ -45,6 +45,7 @@ export default class SectionForm extends React.Component {
                 initialValues={initialValues}
                 recaptchaSiteKey={recaptchaSiteKey}
                 loggedin={loggedin}
+                review={review}
             />
         );
     }

@@ -16,7 +16,7 @@ class TypeInputField extends React.Component {
     }
     render() {
         const { value, saving } = this.state;
-        const { question, limits, lang, preview, submitted, token, errors, globalError } = this.props;
+        const { question, limits, lang, preview, submitted, token, errors, globalError, review } = this.props;
 
         const data = question.values[lang] || {};
         const groupId = question.groupId;
@@ -39,6 +39,7 @@ class TypeInputField extends React.Component {
                     globalError={globalError}
                     inline
                     required={question.required}
+                    disabled={review}
                 />}
             </div>
         )

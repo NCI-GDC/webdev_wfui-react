@@ -11,7 +11,7 @@ import Description from '../../FormFields/Description';
 
 class TypeListbox extends React.Component {
     render() {
-        const { question, lang, globalError } = this.props;
+        const { question, lang, globalError, review } = this.props;
 
         const data = question.values[lang] || {};
         const groupId = question.groupId;
@@ -31,6 +31,7 @@ class TypeListbox extends React.Component {
                         return { key: res[0], value: res[1] }
                     })}
                     required={question.required}
+                    disabled={review}
                 />
             </div>
         )

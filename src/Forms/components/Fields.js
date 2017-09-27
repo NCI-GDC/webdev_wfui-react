@@ -8,7 +8,7 @@ import Field from './Field'
 export default class Fields extends React.Component {
     render() {
         const that = this;
-        const { section, className, translated, groupId, groupIndex } = this.props;
+        const { section, className, translated, groupId, groupIndex, review } = this.props;
         if (section.children) {
 
             return (
@@ -20,7 +20,7 @@ export default class Fields extends React.Component {
                         _field.groupId = groupId;
                         _field.groupIndex = groupIndex;
                         return (
-                            <div className="fields" key={i}><Field field={_field} translated={translated} /></div>
+                            <div className="fields" key={i}><Field field={_field} translated={translated} review={review} /></div>
                         );
                     })}
                 </div>
