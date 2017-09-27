@@ -24,11 +24,11 @@ class WebForm extends React.Component {
         this.state = { surveyDataState: [], translated: false, activeId: props.activeId };
         this.onResize = this.onResize.bind(this);
         this.onClickLanguage = this.onClickLanguage.bind(this);
-        this.onHandleLanguageLoaded = this.onHandleLanguageLoaded.bind(this)
+        this.onHandleLanguageLoaded = this.onHandleLanguageLoaded.bind(this);
         this.fieldsMap = {};
     }
     getChildContext() {
-        const { language, allowPrev, survey_data, survey_info } = this.props
+        const { language, allowPrev, survey_data, survey_info } = this.props;
         const { activeId } = this.state;
         return {
             nid: survey_info.nid,
@@ -201,7 +201,7 @@ class WebForm extends React.Component {
         this.refs['switch_lang_confirm_dialog'].showModal(e);
     }
     render() {
-        const { displaySubmit, survey_data, in_action, submissions, recaptchaSiteKey, loggedin } = this.props;
+        const { displaySubmit, survey_data, in_action, submissions, recaptchaSiteKey, loggedin, review } = this.props;
         const { activeId, form_width, translated, surveyDataState } = this.state;
 
         // Submit Button
@@ -249,6 +249,7 @@ class WebForm extends React.Component {
                                                 submissions={submissions}
                                                 recaptchaSiteKey={recaptchaSiteKey}
                                                 loggedin={loggedin}
+                                                review={review}
                                             />
                                         )
                                     })}
@@ -286,6 +287,7 @@ WebForm.propTypes = {
     onComplete: React.PropTypes.func,
     getConfig: React.PropTypes.func,
     loggedin: React.PropTypes.bool,
+    review: React.PropTypes.bool,
 };
 WebForm.defaultProps = {
     activeId: 0,
@@ -295,6 +297,7 @@ WebForm.defaultProps = {
     action: '',
     allowPublish: true,
     loggedin: false,
+    review: false,
 };
 WebForm.childContextTypes = {
     nid: React.PropTypes.string,

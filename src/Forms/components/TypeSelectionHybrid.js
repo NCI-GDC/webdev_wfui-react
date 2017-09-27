@@ -18,7 +18,7 @@ class TypeSelectionHybrid extends React.Component {
     }
     render() {
         
-        const { question, question: {limits}, lang, submitted, token, errors, preview, globalError } = this.props;
+        const { question, question: {limits}, lang, submitted, token, errors, preview, globalError, review } = this.props;
 
         const data = question.values[lang] || {}
         const groupId = question.groupId;
@@ -54,6 +54,7 @@ class TypeSelectionHybrid extends React.Component {
                         {...inputHybridUtils}
                         globalError={globalError}
                         required={question.required}
+                        disabled={review}
                     />
                 </div>
             );
@@ -74,6 +75,7 @@ class TypeSelectionHybrid extends React.Component {
                         {...inputHybridUtils}
                         globalError={globalError}
                         required={question.required}
+                        disabled={review}
                     />
                 </div>
             );

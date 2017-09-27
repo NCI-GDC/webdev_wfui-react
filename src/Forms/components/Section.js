@@ -46,7 +46,7 @@ class Section extends React.Component{
     render() {
 
         const that = this;
-        const { loggedin, section, isActive, index, translated, form_width, parent_name} = this.props;
+        const { loggedin, section, isActive, index, translated, form_width, parent_name, review} = this.props;
         const { language } = this.context;
         const data = section.values[language];
         
