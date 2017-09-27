@@ -45,10 +45,10 @@ class WebForm extends React.Component {
         };
     }
     componentWillMount() {
-        const { survey_data, loggedin } = this.props;
+        const { survey_data, user, allowAnonymousSubmission } = this.props;
         const surveyDataState = JSON.parse(JSON.stringify(survey_data));
-        if (!loggedin) {
-            surveyDataState[survey_data.length - 1].children = anonymousFormFields.concat(surveyDataState[survey_data.length - 1].children);
+        if (allowAnonymousSubmission) {
+            surveyDataState[survey_data.length - 1].children = anonymousFormFields.map((field) => (Object.assign({}, field, { disabled: !!user }))).concat(surveyDataState[survey_data.length - 1].children);
         }
         this.setState({ surveyDataState });
     }
@@ -96,7 +96,7 @@ class WebForm extends React.Component {
      ****************************************************************************/
     saveSubmission(callback){
 
-        const { survey_data, language, errors, dispatch, survey_info, saveSubmission, getConfig, loggedin } = this.props;
+        const { survey_data, language, errors, dispatch, survey_info, saveSubmission, getConfig, user } = this.props;
         const { activeId } = this.state;
         const autoSave = survey_info.autoSave ? survey_info.autoSave[language] : true;
         // const { completed, total } = this.getTotalAnsweredQuestions();
@@ -117,7 +117,7 @@ class WebForm extends React.Component {
         // }
                 
         // dispatch(setInActionState(true));
-        saveSubmission(survey_info.nid, sectionId, language, loggedin, getConfig)
+        saveSubmission(survey_info.nid, sectionId, language, user, getConfig)
         .then(callback);
 
     }
@@ -201,7 +201,7 @@ class WebForm extends React.Component {
         this.refs['switch_lang_confirm_dialog'].showModal(e);
     }
     render() {
-        const { displaySubmit, survey_data, in_action, submissions, recaptchaSiteKey, loggedin, review } = this.props;
+        const { displaySubmit, survey_data, in_action, submissions, recaptchaSiteKey, user, review } = this.props;
         const { activeId, form_width, translated, surveyDataState } = this.state;
 
         // Submit Button
@@ -248,7 +248,7 @@ class WebForm extends React.Component {
                                                 isActive={(activeId == i)}
                                                 submissions={submissions}
                                                 recaptchaSiteKey={recaptchaSiteKey}
-                                                loggedin={loggedin}
+                                                user={user}
                                                 review={review}
                                             />
                                         )
@@ -286,8 +286,9 @@ WebForm.propTypes = {
     recaptchaSiteKey: React.PropTypes.string,
     onComplete: React.PropTypes.func,
     getConfig: React.PropTypes.func,
-    loggedin: React.PropTypes.bool,
+    user: React.PropTypes.object,
     review: React.PropTypes.bool,
+    allowAnonymousSubmission: React.PropTypes.bool,
 };
 WebForm.defaultProps = {
     activeId: 0,
@@ -296,8 +297,8 @@ WebForm.defaultProps = {
     displaySubmit: true,
     action: '',
     allowPublish: true,
-    loggedin: false,
     review: false,
+    allowAnonymousSubmission: false,
 };
 WebForm.childContextTypes = {
     nid: React.PropTypes.string,
