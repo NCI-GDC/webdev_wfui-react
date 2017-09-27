@@ -39,7 +39,7 @@ class TypeInputField extends React.Component {
                     globalError={globalError}
                     inline
                     required={question.required}
-                    disabled={review}
+                    disabled={review || question.disabled}
                 />}
             </div>
         )

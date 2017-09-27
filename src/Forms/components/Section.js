@@ -46,11 +46,11 @@ class Section extends React.Component{
     render() {
 
         const that = this;
-        const { loggedin, section, isActive, index, translated, form_width, parent_name, review} = this.props;
+        const { user, section, isActive, index, translated, form_width, parent_name, review} = this.props;
         const { language } = this.context;
         const data = section.values[language];
         
-        if (!loggedin) {
+        if (!user) {
             greptchaToggle = function() {
                 this.setState({ grecaptchaState: true });
             }
@@ -84,7 +84,7 @@ class Section extends React.Component{
         }
     }
     renderNav(){
-        const {isActive, id, index, errors, section, handleSubmit, loggedin} = this.props;
+        const {isActive, id, index, errors, section, handleSubmit, user} = this.props;
         const {saving, grecaptchaState} = this.state;
         const {allowPrev} = this.context;
         let prev, next, recaptcha;
@@ -95,7 +95,7 @@ class Section extends React.Component{
             }
             if (index != this.context.last) {
                 next = <Button disabled={saving} className="btn-survey-submit survey-trigger" id={index} onClick={handleSubmit(this.onHandleSubmit)} >{i18n('Continue')}</Button>
-            } else if (!loggedin) {
+            } else if (!user) {
                 // Display reCaptcha for Annonymous user.
                 next = (
                     <div>
@@ -116,8 +116,8 @@ class Section extends React.Component{
     }
     componentDidUpdate() {
         // Display reCaptcha
-        const { isActive, index, recaptchaSiteKey, loggedin } = this.props;
-        if (isActive && index == this.context.last && !loggedin) {
+        const { isActive, index, recaptchaSiteKey, user } = this.props;
+        if (isActive && index == this.context.last && !user) {
             const target = document.getElementById('greptcha-insert');
             if (target && !target.innerHTML) {
                 this.setState({ grecaptchaState: false });
