@@ -32,7 +32,7 @@ class renderTableFormat extends React.Component {
         
     }
     render() {
-        const { className, limits, name, label, required, help, globalError, logic, fieldMap } = this.props;
+        const { className, limits, name, label, required, help, globalError, logic, fieldMap, disabled } = this.props;
         
         const components = [];
         let allTouched = true;
@@ -62,6 +62,7 @@ class renderTableFormat extends React.Component {
                                     name={`${name}.${key}`}
                                     type={fieldMap[key].field_type || 'text'}
                                     component={renderField}
+                                    disabled={disabled}
                                 />
                             </li>
                         ));

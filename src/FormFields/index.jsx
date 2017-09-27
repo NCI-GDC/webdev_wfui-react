@@ -175,7 +175,7 @@ export class renderAddAnother extends React.Component {
             <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error })}>
                 <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
                 <FormGroup className="wfui-form-addAnother" validationState={error ? 'error' : null}>
-                    { draggable && fields.length > 0 &&
+                    { !disabled && draggable && fields.length > 0 &&
                         <Draggable
                             onHandleItemMove={(from, to) => {
                                 fields.move(from, to);
@@ -189,7 +189,7 @@ export class renderAddAnother extends React.Component {
                                             <Glyphicon glyph="fullscreen" style={{ transform: 'rotate(45deg)' }} />
                                         </Draggable.Handle>
                                         {childComponent(field, i)}
-                                        <a className="delete-icon" onClick={() => fields.remove(i)}>Delete</a>
+                                        {!disabled && <a className="delete-icon" onClick={() => fields.remove(i)}>Delete</a>}
                                     </Draggable.Item>
                                 ))}
                         </Draggable>
@@ -197,10 +197,10 @@ export class renderAddAnother extends React.Component {
                     { !draggable && fields.map((field, i) => (
                         <div>
                             {childComponent(field, i)}
-                            <a className="delete-icon" onClick={() => fields.remove(i)}>Delete</a>
+                            {!disabled && <a className="delete-icon" onClick={() => fields.remove(i)}>Delete</a>}
                         </div>
                     ))}
-                    <Button bsStyle="default" className="add-btn" onClick={() => { fields.push(); }}>Add Another Item</Button>
+                    {!disabled && <Button bsStyle="default" className="add-btn" onClick={() => { fields.push(); }}>Add Another Item</Button>}
                     {error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
                     {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
                 </FormGroup>

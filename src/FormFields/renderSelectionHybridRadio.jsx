@@ -89,6 +89,7 @@ export default class renderSelectionHybridRadio extends React.Component {
                                         name={`${name}.${fieldMap[_key].cid}`}
                                         type={fieldMap[_key].field_type || 'text'}
                                         component={renderField}
+                                        disabled={disabled}
                                         onFocus={() => { this.onHandleChange(_key) }} // Change radio when it's focused.
                                     />
                                 </div>}
