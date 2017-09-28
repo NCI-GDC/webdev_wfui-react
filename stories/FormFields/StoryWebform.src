@@ -34,8 +34,8 @@ class Example extends React.Component {
                         getConfig={() => ({ API_HOST: '' })}
                         user={{
                             email:"11@11.com",
-                            firstname:"Lisa",
-                            lastname:"Milestone"
+                            firstname:"Koji",
+                            lastname:"Miyauchi"
                         }}
                         allowAnonymousSubmission
                     />
