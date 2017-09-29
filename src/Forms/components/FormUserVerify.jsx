@@ -5,12 +5,18 @@ import * as actions from '../actions';
 
 class FormUserVerify extends React.Component {
     componentDidMount() {
-        const { values, verifyFormRegister, onVerified, onUnverified, getConfig } = this.props;
+        const {
+            values,
+            verifyFormRegister,
+            onVerified,
+            onUnverified,
+            getConfig,
+        } = this.props;
         verifyFormRegister(values, getConfig)
-            .then(({ res }) => {
+            .then(({ res, data }) => {
                 if (res.ok) {
-                    onVerified();
-                    return Promise.resolve();
+                    onVerified(data);
+                    return Promise.resolve(data);
                 }
                 return Promise.reject();
             })
@@ -33,7 +39,4 @@ FormUserVerify.defaultProps = {
     onUnverified: f => f,
 };
 
-export default connect(
-    () => ({}),
-    actions,
-)(FormUserVerify);
+export default connect(() => ({}), actions)(FormUserVerify);
