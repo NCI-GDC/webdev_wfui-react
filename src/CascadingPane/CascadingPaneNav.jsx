@@ -155,7 +155,12 @@ class CascadingPaneNav extends React.Component {
             navFormat.push({
                 name: 'Visibility',
                 className: 'nav-group-visibility',
-                display: item => (item[visibilityField] ? '' : <Glyphicon glyph="eye-close" />),
+                display: item =>
+                    item[visibilityField] ? (
+                        ''
+                    ) : (
+                        <Glyphicon glyph="eye-close" title="Only visible to CUD administrators" />
+                    ),
             });
         }
         if (itemConfigDisplay) {
