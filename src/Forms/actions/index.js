@@ -23,10 +23,10 @@ export const getForm = (nid, getConfig) => dispatch => {
     return req.promise;
 };
 
-export const getSubmission = (nid, lang, getConfig) => dispatch => {
+export const getSubmission = (nid, lang, email, token, getConfig) => dispatch => {
     const config = getConfig();
     const req = wfuiFetch(
-        `//${config.API_HOST}${config.API_USER_FORM_ANSWERS}?survey_nid=${nid}&lang=${lang}`,
+        `//${config.API_HOST}${config.API_USER_FORM_ANSWERS}?survey_nid=${nid}&lang=${lang}${email ? `&email=${email}` : ''}${token ? `&token=${token}` : ''}`,
         {
             method: 'GET',
             headers: {
