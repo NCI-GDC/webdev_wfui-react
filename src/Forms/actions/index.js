@@ -63,9 +63,6 @@ export const saveSubmission = (
         userInfo.firstname = answer.firstname.field;
         userInfo.lastname = answer.lastname.field;
         userInfo.email = answer.email.field;
-        delete answer.firstname;
-        delete answer.lastname;
-        delete answer.email;
     }
 
     const req = wfuiFetch(
