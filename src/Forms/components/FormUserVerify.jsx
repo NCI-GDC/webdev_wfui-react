@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 class FormUserVerify extends React.Component {
-    componentDidMount() {
+    componentWillMount() {
         const {
             values,
             verifyFormRegister,
@@ -23,7 +23,7 @@ class FormUserVerify extends React.Component {
             .catch(onUnverified);
     }
     render() {
-        return <div>Verify</div>;
+        return <div></div>;
     }
 }
 
