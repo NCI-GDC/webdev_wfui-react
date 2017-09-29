@@ -78,6 +78,7 @@ ModalDialog.defaultProps = {
     onHide: f => f,
     invalid: false,
     submitting: false,
+    destroy: f => f,
 };
 
 export default connect(
