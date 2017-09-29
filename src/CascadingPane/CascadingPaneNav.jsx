@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Alert } from 'react-bootstrap';
+import { Glyphicon } from 'wfui-react';
 
 import LoadingComponent from '../LoadingComponent/LoadingComponent';
 import FilteredTable from '../FilteredTable/FilteredTable';
@@ -14,11 +15,17 @@ class CascadingPaneNav extends React.Component {
         this.state = {
             selected: props.cascNav || '',
             fetched: props.fetchedNav,
-            dataWithClass: props.data ? props.data.map((item) => {
-                const newItem = JSON.parse(JSON.stringify(item));
-                newItem.className = `nav-item-${item[props.itemIdField]} ${item[props.itemIdField] === props.cascNav ? 'active' : ''}`;
-                return newItem;
-            }) : [],
+            dataWithClass: props.data
+                ? props.data.map((item) => {
+                      const newItem = JSON.parse(JSON.stringify(item));
+                      newItem.className = `nav-item-${item[props.itemIdField]} ${item[
+                          props.itemIdField
+                      ] === props.cascNav
+                          ? 'active'
+                          : ''}`;
+                      return newItem;
+                  })
+                : [],
         };
 
         this.onHandleClick = this.onHandleClick.bind(this);
@@ -27,43 +34,63 @@ class CascadingPaneNav extends React.Component {
     componentWillReceiveProps(nextProps) {
         const { fetchedNav, cascNav, data } = this.props;
         if (fetchedNav !== nextProps.fetchedNav) {
-                this.setState({
-                    fetched: nextProps.fetchedNav,
-                });
+            this.setState({
+                fetched: nextProps.fetchedNav,
+            });
         }
         if (cascNav) {
             if (!nextProps.cascNav) {
-                window.location.href = `${window.location.href.split('?')[0]}?cascNav=${nextProps.data[0][nextProps.itemIdField]}`;
+                window.location.href = `${window.location.href.split('?')[0]}?cascNav=${nextProps
+                    .data[0][nextProps.itemIdField]}`;
             }
             if (cascNav !== nextProps.cascNav) {
                 this.setState({
                     selected: nextProps.cascNav || '',
-                    dataWithClass: nextProps.data ? nextProps.data.map((item) => {
-                        const newItem = JSON.parse(JSON.stringify(item));
-                        newItem.className = `nav-item-${item[nextProps.itemIdField]} ${item[nextProps.itemIdField] === nextProps.cascNav ? 'active' : ''}`;
-                        return newItem;
-                    }) : [],
+                    dataWithClass: nextProps.data
+                        ? nextProps.data.map((item) => {
+                              const newItem = JSON.parse(JSON.stringify(item));
+                              newItem.className = `nav-item-${item[nextProps.itemIdField]} ${item[
+                                  nextProps.itemIdField
+                              ] === nextProps.cascNav
+                                  ? 'active'
+                                  : ''}`;
+                              return newItem;
+                          })
+                        : [],
                 });
             }
         } else if (nextProps.cascNav) {
             this.setState({
                 selected: nextProps.cascNav,
-                dataWithClass: nextProps.data ? nextProps.data.map((item) => {
-                    const newItem = JSON.parse(JSON.stringify(item));
-                    newItem.className = `nav-item-${item[nextProps.itemIdField]} ${item[nextProps.itemIdField] === nextProps.cascNav ? 'active' : ''}`;
-                    return newItem;
-                }) : [],
+                dataWithClass: nextProps.data
+                    ? nextProps.data.map((item) => {
+                          const newItem = JSON.parse(JSON.stringify(item));
+                          newItem.className = `nav-item-${item[nextProps.itemIdField]} ${item[
+                              nextProps.itemIdField
+                          ] === nextProps.cascNav
+                              ? 'active'
+                              : ''}`;
+                          return newItem;
+                      })
+                    : [],
             });
-        } else if (data.length === 0 && nextProps.data && nextProps.data.length > 0) {
-            window.location.href = `${window.location.href.split('?')[0]}?cascNav=${nextProps.data[0][nextProps.itemIdField]}`;
+        } else if (nextProps.data && nextProps.data.length > 0) {
+            window.location.href = `${window.location.href.split('?')[0]}?cascNav=${nextProps
+                .data[0][nextProps.itemIdField]}`;
         }
         if (JSON.stringify(data) !== JSON.stringify(nextProps.data)) {
             this.setState({
-                dataWithClass: nextProps.data ? nextProps.data.map((item) => {
-                    const newItem = JSON.parse(JSON.stringify(item));
-                    newItem.className = `nav-item-${item[nextProps.itemIdField]} ${item[nextProps.itemIdField] === nextProps.cascNav ? 'active' : ''}`;
-                    return newItem;
-                }) : [],
+                dataWithClass: nextProps.data
+                    ? nextProps.data.map((item) => {
+                          const newItem = JSON.parse(JSON.stringify(item));
+                          newItem.className = `nav-item-${item[nextProps.itemIdField]} ${item[
+                              nextProps.itemIdField
+                          ] === nextProps.cascNav
+                              ? 'active'
+                              : ''}`;
+                          return newItem;
+                      })
+                    : [],
             });
         }
     }
@@ -71,7 +98,11 @@ class CascadingPaneNav extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         const { updateGroupSelect, data, itemIdField } = this.props;
         const { selected } = this.state;
-        if ((prevProps.data.length === 0 && data.length > 0) || selected !== prevState.selected || JSON.stringify(data) !== JSON.stringify(prevProps.data)) {
+        if (
+            (prevProps.data.length === 0 && data.length > 0) ||
+            selected !== prevState.selected ||
+            JSON.stringify(data) !== JSON.stringify(prevProps.data)
+        ) {
             const groupSelected = data.filter(item => item[itemIdField] === selected);
             updateGroupSelect(groupSelected[0]);
         }
@@ -82,14 +113,26 @@ class CascadingPaneNav extends React.Component {
         const { selected } = this.state;
 
         if (selected !== item[itemIdField]) {
-            window.location.href = `${window.location.href.split('?')[0]}?cascNav=${item[itemIdField]}`;
+            window.location.href = `${window.location.href.split('?')[0]}?cascNav=${item[
+                itemIdField
+            ]}`;
         }
     }
 
     render() {
         const {
-            key, className, headerDisplay, footerDisplay, navFetch, data,
-            itemConfigDisplay, getCascadingNav, config, logoField, titleField,
+            key,
+            className,
+            headerDisplay,
+            footerDisplay,
+            navFetch,
+            data,
+            itemConfigDisplay,
+            getCascadingNav,
+            config,
+            logoField,
+            titleField,
+            visibilityField,
         } = this.props;
         const { fetched, dataWithClass } = this.state;
 
@@ -98,7 +141,9 @@ class CascadingPaneNav extends React.Component {
             navFormat.push({
                 name: 'Logo',
                 className: 'nav-group-logo',
-                display: item => <img role="presentation" src={item[logoField]} className="cascading-nav-logo" />,
+                display: item => (
+                    <img role="presentation" src={item[logoField]} className="cascading-nav-logo" />
+                ),
             });
         }
         navFormat.push({
@@ -106,11 +151,22 @@ class CascadingPaneNav extends React.Component {
             className: 'nav-group-title',
             display: item => item[titleField],
         });
+        if (visibilityField) {
+            navFormat.push({
+                name: 'Visibility',
+                className: 'nav-group-visibility',
+                display: item => (item[visibilityField] ? '' : <Glyphicon glyph="eye-close" />),
+            });
+        }
         if (itemConfigDisplay) {
             navFormat.push({
                 name: 'Actions',
                 className: 'nav-group-actions',
-                display: item => React.cloneElement(itemConfigDisplay, Object.assign({}, { item }, { updateNav: () => getCascadingNav(config) })),
+                display: item =>
+                    React.cloneElement(
+                        itemConfigDisplay,
+                        Object.assign({}, { item }, { updateNav: () => getCascadingNav(config) }),
+                    ),
                 excludeRowClick: true,
             });
         }
@@ -120,10 +176,9 @@ class CascadingPaneNav extends React.Component {
                 {headerDisplay}
                 <LoadingComponent {...navFetch}>
                     <div className="cascading-pane-nav-list">
-                        {fetched && !data && (
-                            <Alert bsStyle="danger">No data available</Alert>
-                        )}
-                        {fetched && data && (
+                        {fetched && !data && <Alert bsStyle="danger">No data available</Alert>}
+                        {fetched &&
+                        data && (
                             <FilteredTable
                                 className="table table-striped table-bordered table-condensed table-cascading-nav"
                                 data={dataWithClass}
@@ -142,10 +197,7 @@ class CascadingPaneNav extends React.Component {
 
 CascadingPaneNav.propTypes = {
     role: PropTypes.string,
-    key: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-    ]),
+    key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     config: PropTypes.shape({
         APP_ID: PropTypes.string,
     }),
@@ -163,6 +215,7 @@ CascadingPaneNav.propTypes = {
     itemIdField: PropTypes.string,
     logoField: PropTypes.string,
     titleField: PropTypes.string,
+    visibilityField: PropTypes.string,
 
     headerDisplay: PropTypes.element,
     footerDisplay: PropTypes.element,
@@ -186,6 +239,7 @@ CascadingPaneNav.defaultProps = {
     itemIdField: 'id',
     logoField: '',
     titleField: 'name',
+    visibilityField: '',
 };
 
 export default CascadingPaneNav;

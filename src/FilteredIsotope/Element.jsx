@@ -1,8 +1,9 @@
 import React from 'react';
+import classNames from 'classnames';
 import { stringifyValues } from '../util/stringifyValues';
 
 const Element = (props) => (
-    <div className="wfui-isotope-element">
+    <div className={classNames(props.className, 'wfui-isotope-element')}>
         {React.cloneElement(
             props.itemDisplay,
             Object.assign({}, props.item),

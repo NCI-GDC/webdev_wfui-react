@@ -33,10 +33,7 @@ class CascadingPane extends React.Component {
     }
 
     renderNav(child) {
-        const {
-            config, location, getCascadingNav,
-            navData, navFetch, fetchedNav,
-        } = this.props;
+        const { config, location, getCascadingNav, navData, navFetch, fetchedNav } = this.props;
 
         return React.cloneElement(child, {
             key: 0,
@@ -52,13 +49,20 @@ class CascadingPane extends React.Component {
 
     renderMainView(child) {
         const {
-            config, getCascadingNav, getCascadingMainView, location,
-            mainData, navFetch, mainViewFetch, fetchedNav, fetchedMainView,
+            config,
+            getCascadingNav,
+            getCascadingMainView,
+            location,
+            mainData,
+            navFetch,
+            mainViewFetch,
+            fetchedNav,
+            fetchedMainView,
             visibilityFilter,
         } = this.props;
         const { selectedGroup } = this.state;
 
-        return (React.cloneElement(child, {
+        return React.cloneElement(child, {
             key: 1,
             config,
             groupData: selectedGroup,
@@ -74,17 +78,24 @@ class CascadingPane extends React.Component {
             reloadNav: getCascadingNav,
             updateMemberSelect: item => this.setState({ selectedMember: item || {} }),
             visibilityFilter,
-        }));
+        });
     }
 
     renderSubView(child) {
         const {
-            config, getCascadingSubView, getCascadingMainView, location,
-            subData, subViewFetch, mainViewFetch, fetchedSubView, fetchedMainView,
+            config,
+            getCascadingSubView,
+            getCascadingMainView,
+            location,
+            subData,
+            subViewFetch,
+            mainViewFetch,
+            fetchedSubView,
+            fetchedMainView,
         } = this.props;
         const { selectedGroup, selectedMember } = this.state;
 
-        return (React.cloneElement(child, {
+        return React.cloneElement(child, {
             key: 2,
             config,
             groupData: selectedGroup,
@@ -98,23 +109,23 @@ class CascadingPane extends React.Component {
             cascNav: location.query.cascNav,
             cascSelect: location.query.cascSelect,
             reloadMainView: getCascadingMainView,
-        }));
+        });
     }
 
     render() {
-        const { className, viewClassName, defaultSize, children } = this.props;
+        const { className, viewClassName, splitClassName, defaultSize, children } = this.props;
         const { selectedMember } = this.state;
 
         return (
             <div className={classNames(className, 'cascading-pane cascading-pane-container')}>
                 {this.renderNav(children[0])}
                 {Object.keys(selectedMember).length === 0 ? (
-                    <div className="col-sm-10">
+                    <div className={classNames(viewClassName, 'cascading-pane-view')}>
                         {this.renderMainView(children[1])}
                     </div>
                 ) : (
                     <SplitPane
-                        className={classNames(viewClassName, 'cascading-pane-view')}
+                        className={classNames(viewClassName, splitClassName, 'cascading-pane-view')}
                         split="vertical"
                         minSize={50}
                         defaultSize={defaultSize || 150}
@@ -140,6 +151,7 @@ CascadingPane.propTypes = {
     location: PropTypes.object,
     className: PropTypes.string,
     viewClassName: PropTypes.string,
+    splitClassName: PropTypes.string,
     getCascadingNav: PropTypes.func,
     getCascadingMainView: PropTypes.func,
     getCascadingSubView: PropTypes.func,
@@ -176,6 +188,7 @@ CascadingPane.propTypes = {
 CascadingPane.defaultProps = {
     className: '',
     viewClassName: '',
+    splitClassName: '',
     getCascadingNav: f => f,
     getCascadingMainView: f => f,
     getCascadingSubView: f => f,
@@ -191,23 +204,25 @@ CascadingPane.defaultProps = {
     defaultSize: 0,
 };
 
-export default connect(
-    (state, props) => {
-        const casData = state.cascadingPane;
-        const navFetch = fetchSelector('getCascadingNav')(state);
-        const mainViewFetch = fetchSelector('getCascadingMainView')(state);
-        const subViewFetch = fetchSelector('getCascadingSubView')(state);
-        return ({
-            navFetch,
-            mainViewFetch,
-            subViewFetch,
-            navData: props.navDataSelector ? props.navDataSelector(casData)(state) : casData.navData,
-            mainData: props.mainDataSelector ? props.mainDataSelector(casData)(state) : casData.mainData,
-            subData: props.subDataSelector ? props.subDataSelector(casData)(state) : casData.subData,
-            visibilityFilter: state.visibilityFilter,
-            fetchedNav: navFetch && !navFetch.isFetching && navFetch.status === 'success',
-            fetchedMainView: mainViewFetch && !mainViewFetch.isFetching && mainViewFetch.status === 'success',
-            fetchedSubView: subViewFetch && !subViewFetch.isFetching && subViewFetch.status === 'success',
-        });
-    },
-)(CascadingPane);
+export default connect((state, props) => {
+    const casData = state.cascadingPane;
+    const navFetch = fetchSelector('getCascadingNav')(state);
+    const mainViewFetch = fetchSelector('getCascadingMainView')(state);
+    const subViewFetch = fetchSelector('getCascadingSubView')(state);
+    return {
+        navFetch,
+        mainViewFetch,
+        subViewFetch,
+        navData: props.navDataSelector ? props.navDataSelector(casData)(state) : casData.navData,
+        mainData: props.mainDataSelector
+            ? props.mainDataSelector(casData)(state)
+            : casData.mainData,
+        subData: props.subDataSelector ? props.subDataSelector(casData)(state) : casData.subData,
+        visibilityFilter: state.visibilityFilter,
+        fetchedNav: navFetch && !navFetch.isFetching && navFetch.status === 'success',
+        fetchedMainView:
+            mainViewFetch && !mainViewFetch.isFetching && mainViewFetch.status === 'success',
+        fetchedSubView:
+            subViewFetch && !subViewFetch.isFetching && subViewFetch.status === 'success',
+    };
+})(CascadingPane);

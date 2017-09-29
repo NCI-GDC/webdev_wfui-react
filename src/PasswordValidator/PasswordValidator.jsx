@@ -74,7 +74,12 @@ class PasswordValidator extends Component {
                     <ul style={style.ul}>
                         {validations.map((validation, i) => {
                             const validated = validation.validate(password, password_confirm);
-                            return <li key={i} className={`password-validate-${i}`} style={validated ? style.li_active : style.li} >{ validated ? <Glyphicon glyph="ok" style={style.icon} /> : '' }{validation.title}</li>
+                            return (
+                                <li key={i} className={`password-validate-${i}`} style={validated ? style.li_active : style.li} >
+                                    { validated ? <Glyphicon glyph="ok" style={style.icon} /> : <Glyphicon glyph="remove" style={style.icon} />}
+                                    {validation.title}
+                                </li>
+                            );
                         })}
                     </ul>
                 </div>
