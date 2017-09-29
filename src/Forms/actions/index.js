@@ -37,14 +37,14 @@ export const getSubmission = (nid, lang, getConfig) => (
     }
 );
 
-export const saveSubmission = (nid, sectionId, lang, loggedin, getConfig) => (
+export const saveSubmission = (nid, sectionId, lang, user, getConfig) => (
     (dispatch, getState) => {
         const config = getConfig();
         const answer = getFormValues(`form_${sectionId}`)(getState());
         const userInfo = {};
 
         // Retrieve firstname, lastname and email for anonymous user.
-        if (!loggedin) {
+        if (!user) {
             userInfo.firstname = answer.firstname.field;
             userInfo.lastname = answer.lastname.field;
             userInfo.email = answer.email.field;

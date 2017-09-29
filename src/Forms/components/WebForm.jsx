@@ -21,14 +21,18 @@ import { anonymousFormFields } from '../constants/const';
 class WebForm extends React.Component {
     constructor(props) {
         super();
-        this.state = { surveyDataState: [], translated: false, activeId: props.activeId };
+        this.state = {
+            surveyDataState: [],
+            translated: false,
+            activeId: props.activeId,
+        };
         this.onResize = this.onResize.bind(this);
         this.onClickLanguage = this.onClickLanguage.bind(this);
-        this.onHandleLanguageLoaded = this.onHandleLanguageLoaded.bind(this)
+        this.onHandleLanguageLoaded = this.onHandleLanguageLoaded.bind(this);
         this.fieldsMap = {};
     }
     getChildContext() {
-        const { language, allowPrev, survey_data, survey_info } = this.props
+        const { language, allowPrev, survey_data, survey_info } = this.props;
         const { activeId } = this.state;
         return {
             nid: survey_info.nid,
@@ -41,14 +45,20 @@ class WebForm extends React.Component {
             goto: this.goto.bind(this),
             last: survey_data.length - 1,
             activeId,
-            autoSave: survey_info.autoSave ? survey_info.autoSave[language] : true,
+            autoSave: survey_info.autoSave
+                ? survey_info.autoSave[language]
+                : true,
         };
     }
     componentWillMount() {
-        const { survey_data, loggedin } = this.props;
+        const { survey_data, user, allowAnonymousSubmission } = this.props;
         const surveyDataState = JSON.parse(JSON.stringify(survey_data));
-        if (!loggedin) {
-            surveyDataState[survey_data.length - 1].children = anonymousFormFields.concat(surveyDataState[survey_data.length - 1].children);
+        if (allowAnonymousSubmission) {
+            surveyDataState[
+                survey_data.length - 1
+            ].children = anonymousFormFields
+                .map(field => Object.assign({}, field, { disabled: !!user }))
+                .concat(surveyDataState[survey_data.length - 1].children);
         }
         this.setState({ surveyDataState });
     }
@@ -68,11 +78,10 @@ class WebForm extends React.Component {
 
         // Display confirmation before user leave
         window.onbeforeunload = () => {
-            return 'Les changements effectués ne seront pas sauvegardés' // Changes you made may not be saved.
+            return 'Les changements effectués ne seront pas sauvegardés'; // Changes you made may not be saved.
         };
     }
     componentWillUnmount() {
-
         // TODO: Removed
         // $(window).off('resize', this.onResize);
         // $('.language-switcher-locale-url a').off('click', this.onClickLanguage);
@@ -81,12 +90,12 @@ class WebForm extends React.Component {
 
         window.onbeforeunload = undefined;
     }
-    onHandleLanguageLoaded(){
+    onHandleLanguageLoaded() {
         this.forceUpdate();
-        this.setState({translated: true});    
+        this.setState({ translated: true });
     }
     getTotalAnsweredQuestions() {
-        // TODO 
+        // TODO
         // const { survey_data, submission, mapQidsToCids } = this.props;
         // return countTotalAnsweredQuestions(survey_data, submission, mapQidsToCids);
     }
@@ -94,63 +103,77 @@ class WebForm extends React.Component {
     /*****************************************************************************
      * Actions
      ****************************************************************************/
-    saveSubmission(callback){
-
-        const { survey_data, language, errors, dispatch, survey_info, saveSubmission, getConfig, loggedin } = this.props;
+    saveSubmission(callback) {
+        const {
+            survey_data,
+            language,
+            errors,
+            dispatch,
+            survey_info,
+            saveSubmission,
+            getConfig,
+            user,
+        } = this.props;
         const { activeId } = this.state;
-        const autoSave = survey_info.autoSave ? survey_info.autoSave[language] : true;
+        const autoSave = survey_info.autoSave
+            ? survey_info.autoSave[language]
+            : true;
         // const { completed, total } = this.getTotalAnsweredQuestions();
-        
+
         /**
          * Save entire section
          */
         const sectionId = survey_data[activeId].id;
         const that = this;
 
-        // if ( errors[sectionId] && Object.keys(errors[sectionId]).length > 0 ) { 
+        // if ( errors[sectionId] && Object.keys(errors[sectionId]).length > 0 ) {
         //     showMessage({
         //         title: "Question Action",
         //         text: "Il y a des erreurs dans le formulaire. SVP faire la correction avant de procéder.", // There are errors on the form. Please fix them before continuing.
         //         type: "error"
         //     });
-        //     return 
+        //     return
         // }
-                
+
         // dispatch(setInActionState(true));
-        saveSubmission(survey_info.nid, sectionId, language, loggedin, getConfig)
-        .then(callback);
-
+        saveSubmission(
+            survey_info.nid,
+            sectionId,
+            language,
+            user,
+            getConfig,
+        ).then(callback);
     }
-    next(id){
-        const {survey_data} = this.props
-        const {activeId} = this.state
+    next(id) {
+        const { survey_data } = this.props;
+        const { activeId } = this.state;
         const that = this;
 
-        this.saveSubmission(()=>{
-            $(window).trigger('webform_changed', id+1);
-            if(id == activeId && id < survey_data.length-1){
-                setTimeout(function(){
+        this.saveSubmission(() => {
+            $(window).trigger('webform_changed', id + 1);
+            if (id == activeId && id < survey_data.length - 1) {
+                setTimeout(function() {
                     window.scrollTo(0, 0);
-                    that.setState({activeId: parseInt(id) + 1});
-                }, 5)
+                    that.setState({ activeId: parseInt(id) + 1 });
+                }, 5);
             }
         });
     }
-    prev(id){
+    prev(id) {
         const that = this;
 
-        this.saveSubmission(()=>{
-            $(window).trigger('webform_changed', id-1);
-            if(id == this.state.activeId && id >= 0){
-                setTimeout(function(){
+        this.saveSubmission(() => {
+            $(window).trigger('webform_changed', id - 1);
+            if (id == this.state.activeId && id >= 0) {
+                setTimeout(function() {
                     window.scrollTo(0, 0);
-                    that.setState({activeId: parseInt(id) - 1});
-                }, 5)
+                    that.setState({ activeId: parseInt(id) - 1 });
+                }, 5);
             }
         });
     }
-    confirm(){           
-        const {submission, survey_data, onComplete } = this.props;
+    confirm() {
+        const { submission, survey_data, onComplete } = this.props;
         // const { completed, total } = this.getTotalAnsweredQuestions();
 
         this.saveSubmission(() => {
@@ -158,32 +181,30 @@ class WebForm extends React.Component {
             // let all_answered = (total == completed)
             // this.refs['submit_conform_dialog'].showModal();
         });
-
     }
-    _submit(){
-
-        const {nid, allowPublish, dispatch, submitSubmission} = this.props;
+    _submit() {
+        const { nid, allowPublish, dispatch, submitSubmission } = this.props;
         // dispatch(setInActionState(true));
         window.onbeforeunload = undefined;
-        if(allowPublish){
-            submitSubmission(nid, ()=>{
-                window.location.href = "/dashboard";
+        if (allowPublish) {
+            submitSubmission(nid, () => {
+                window.location.href = '/dashboard';
             });
-        }else{
-            window.location.href = "/dashboard";
+        } else {
+            window.location.href = '/dashboard';
         }
     }
-    goto(id){
+    goto(id) {
         const that = this;
 
-        if(id == this.state.activeId) return;
-        this.saveSubmission(()=>{
+        if (id == this.state.activeId) return;
+        this.saveSubmission(() => {
             $(window).trigger('webform_changed', id);
-            if(id != this.state.activeId){
-                setTimeout(function(){
+            if (id != this.state.activeId) {
+                setTimeout(function() {
                     window.scrollTo(0, 0);
-                    that.setState({activeId: parseInt(id)});
-                }, 5)
+                    that.setState({ activeId: parseInt(id) });
+                }, 5);
             }
         });
     }
@@ -192,7 +213,7 @@ class WebForm extends React.Component {
      ****************************************************************************/
     onResize(e) {
         this.setState({
-            form_width: $('form').width()
+            form_width: $('form').width(),
         });
     }
     onClickLanguage(e) {
@@ -201,74 +222,130 @@ class WebForm extends React.Component {
         this.refs['switch_lang_confirm_dialog'].showModal(e);
     }
     render() {
-        const { displaySubmit, survey_data, in_action, submissions, recaptchaSiteKey, loggedin } = this.props;
-        const { activeId, form_width, translated, surveyDataState } = this.state;
+        const {
+            displaySubmit,
+            survey_data,
+            in_action,
+            submissions,
+            recaptchaSiteKey,
+            user,
+            review,
+        } = this.props;
+        const {
+            activeId,
+            form_width,
+            translated,
+            surveyDataState,
+        } = this.state;
 
         // Submit Button
         if (displaySubmit) {
-            var submit = <input type="submit" value="submit" />
+            var submit = <input type="submit" value="submit" />;
         }
         //Settings for Slide Animation
         let formStyle = {
-            'overflow': 'hidden',
-            'width': form_width
-        }
-        let posX = -1*(activeId * form_width) || 0;
+            overflow: 'hidden',
+            width: form_width,
+        };
+        let posX = -1 * (activeId * form_width) || 0;
         let sliderStyle = {
-            'WebkitTransition': 'all .2s linear',
-            'transition': 'all .2s linear',
-            'width': surveyDataState && surveyDataState.length * form_width || 'auto',
-            'msTransform': 'translate('+posX+'px, 0)',
-            'WebkitTransform': 'translate('+posX+'px, 0)',
-            'transform': 'translate('+posX+'px, 0)',
-        }
+            WebkitTransition: 'all .2s linear',
+            transition: 'all .2s linear',
+            width:
+                (surveyDataState && surveyDataState.length * form_width) ||
+                'auto',
+            msTransform: 'translate(' + posX + 'px, 0)',
+            WebkitTransform: 'translate(' + posX + 'px, 0)',
+            transform: 'translate(' + posX + 'px, 0)',
+        };
 
         //Coming from top
-        let rowClasses = "row row-eq-height"; // "row vertical_align";
-        
-        if(surveyDataState){
-            return(
-                <div className={`application-app ${surveyDataState.length > 1 ? 'multi-section' : 'single-section'}`}>
+        let rowClasses = 'row row-eq-height'; // "row vertical_align";
+
+        if (surveyDataState) {
+            return (
+                <div
+                    className={`application-app ${surveyDataState.length > 1
+                        ? 'multi-section'
+                        : 'single-section'}`}
+                >
                     <div className="container">
-                        {in_action ? <div><p className="page_loading" style={{opacity: 0.5}}><i className="fa fa-spinner fa-spin"></i></p></div> : ""}
-                        {surveyDataState.length > 1 && <SideBar {...this.props} activeId={activeId} translated={translated} />}
+                        {in_action ? (
+                            <div>
+                                <p
+                                    className="page_loading"
+                                    style={{ opacity: 0.5 }}
+                                >
+                                    <i className="fa fa-spinner fa-spin" />
+                                </p>
+                            </div>
+                        ) : (
+                            ''
+                        )}
+                        {surveyDataState.length > 1 && (
+                            <SideBar
+                                {...this.props}
+                                activeId={activeId}
+                                translated={translated}
+                            />
+                        )}
                         <div className={`application-main section-${activeId}`}>
-                            <ReactCSSTransitionGroup transitionAppear={true} transitionName="fade" transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionAppearTimeout={500}>
-                            <div className="row">
-                                <div style={formStyle}>
-                                    <div className="default_slide" style={sliderStyle}>
-                                    {surveyDataState.map(function(section, i){
-                                        return (
-                                            <SectionForm
-                                                key={i}
-                                                index={i}
-                                                form_width={form_width}
-                                                translated={translated}
-                                                section={section}
-                                                isActive={(activeId == i)}
-                                                submissions={submissions}
-                                                recaptchaSiteKey={recaptchaSiteKey}
-                                                loggedin={loggedin}
-                                            />
-                                        )
-                                    })}
-                                    {submit}
+                            <ReactCSSTransitionGroup
+                                transitionName="fade"
+                                transitionEnterTimeout={500}
+                                transitionLeaveTimeout={500}
+                                transitionAppearTimeout={500}
+                                transitionAppear
+                            >
+                                <div className="row">
+                                    <div style={formStyle}>
+                                        <div
+                                            className="default_slide"
+                                            style={sliderStyle}
+                                        >
+                                            {surveyDataState.map(function(
+                                                section,
+                                                i,
+                                            ) {
+                                                return (
+                                                    <SectionForm
+                                                        key={i}
+                                                        index={i}
+                                                        form_width={form_width}
+                                                        translated={translated}
+                                                        section={section}
+                                                        isActive={activeId == i}
+                                                        submissions={
+                                                            submissions
+                                                        }
+                                                        recaptchaSiteKey={
+                                                            recaptchaSiteKey
+                                                        }
+                                                        user={user}
+                                                        review={review}
+                                                    />
+                                                );
+                                            })}
+                                            {submit}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             </ReactCSSTransitionGroup>
                         </div>
-                        <SubmitConfirmDialog ref="submit_conform_dialog" onHandleSubmit={this._submit.bind(this)} />
+                        <SubmitConfirmDialog
+                            ref="submit_conform_dialog"
+                            onHandleSubmit={this._submit.bind(this)}
+                        />
                         <SwitchLangConfirmDialog ref="switch_lang_confirm_dialog" />
                     </div>
                 </div>
             );
         } else {
             console.log('Error: The data provided is broken.');
-            return <noscript />
+            return <noscript />;
         }
     }
-    componentDidUpdate(){
+    componentDidUpdate() {
         stickyMenu.update();
     }
 }
@@ -285,7 +362,9 @@ WebForm.propTypes = {
     recaptchaSiteKey: React.PropTypes.string,
     onComplete: React.PropTypes.func,
     getConfig: React.PropTypes.func,
-    loggedin: React.PropTypes.bool,
+    user: React.PropTypes.object,
+    review: React.PropTypes.bool,
+    allowAnonymousSubmission: React.PropTypes.bool,
 };
 WebForm.defaultProps = {
     activeId: 0,
@@ -294,7 +373,8 @@ WebForm.defaultProps = {
     displaySubmit: true,
     action: '',
     allowPublish: true,
-    loggedin: false,
+    review: false,
+    allowAnonymousSubmission: false,
 };
 WebForm.childContextTypes = {
     nid: React.PropTypes.string,
@@ -311,11 +391,8 @@ WebForm.childContextTypes = {
     getConfig: React.PropTypes.func,
 };
 
-export default connect(
-    (state, props) => {
-        return {
-            in_action: state.in_action,
-        };
-    },
-    actionCreators,
-)(WebForm);
+export default connect((state, props) => {
+    return {
+        in_action: state.in_action,
+    };
+}, actionCreators)(WebForm);

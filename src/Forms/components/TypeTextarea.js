@@ -11,7 +11,7 @@ import Description from '../../FormFields/Description';
 
 class TypeTextarea extends React.Component {
     render() {
-        const { question, lang, globalError } = this.props;
+        const { question, lang, globalError, review } = this.props;
 
         const data = question.values[lang] || {};
         const groupId = question.groupId;
@@ -28,6 +28,7 @@ class TypeTextarea extends React.Component {
                     placeholder=""
                     globalError={globalError}
                     required={question.required}
+                    disabled={review}
                 />
             </div>
         );

@@ -9,7 +9,7 @@ import Fields from './Fields';
  */
 class TypeAddAnother extends React.Component {
     render() {
-        const { question, lang } = this.props;
+        const { question, lang, review } = this.props;
         const data = question.values[lang] || {};
 
         // const that = this;
@@ -32,8 +32,9 @@ class TypeAddAnother extends React.Component {
                     component={renderAddAnother}
                     label={data.title}
                     childComponent={(groupId, i) => (
-                        <Fields groupId={groupId} groupIndex={i} section={question} />
+                        <Fields review={review} groupId={groupId} groupIndex={i} section={question} />
                     )}
+                    disabled={review}
                     draggable
                 />
             </div>

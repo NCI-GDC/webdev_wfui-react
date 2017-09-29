@@ -242,9 +242,6 @@ class renderFilterTable extends React.Component {
                 if (Object.keys(filterBy).length) {
                     Object.keys(filterBy).forEach((key) => {
                         const val = _.get(item, key);
-
-                        console.log(filterBy[key], 'filterBy[key]');
-
                         if (Array.isArray(val) && val.includes(filterBy[key])) {
                             result = true;
                         } else if (val === filterBy[key]) {
@@ -277,7 +274,7 @@ class renderFilterTable extends React.Component {
 
         const filters = [];
         filters.push(
-            <div className="filters-applied">
+            <div key='filters-applied' className="filters-applied">
                 {questions
                     .filter(question => (question.type === 'listbox' || question.type === 'input-hybrid'))
                     .map((question, i) => {
@@ -296,7 +293,7 @@ class renderFilterTable extends React.Component {
             </div>,
         );
         filters.push(
-            <div className="filters-search">
+            <div key='filters-search' className="filters-search">
                 <input
                     type="text"
                     placeholder="Enter keywords"

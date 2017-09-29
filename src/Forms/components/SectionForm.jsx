@@ -21,18 +21,26 @@ export default class SectionForm extends React.Component {
             destroyOnUnmount: false,
         })(Section);
 
+        // Populate data.
+        const initialValues = {};
+        if (props.user) {
+            initialValues['firstname'] = { field: props.user.firstname };
+            initialValues['lastname'] = { field: props.user.lastname };
+            initialValues['email'] = { field: props.user.email };
+        }
+        
         if (props.submissions) {
             const questionIDs = props.section.children.map((s) => (s.id));
             const answeredQuestionIDs = Object.keys(props.submissions).filter((key) => (questionIDs.includes(key)));
-            const initialValues = {};
             answeredQuestionIDs.forEach((key) => {
                 initialValues[key] = props.submissions[key];
             });
-            this.state = { initialValues }
         }
+
+        this.state = { initialValues }
     }
     render() {
-        const { index, isActive, section, form_width, submissions, loggedin, recaptchaSiteKey } = this.props;
+        const { index, isActive, section, form_width, submissions, user, recaptchaSiteKey, review } = this.props;
         const { initialValues } = this.state;
 
         return (
@@ -44,7 +52,8 @@ export default class SectionForm extends React.Component {
                 form_width={form_width}
                 initialValues={initialValues}
                 recaptchaSiteKey={recaptchaSiteKey}
-                loggedin={loggedin}
+                user={user}
+                review={review}
             />
         );
     }
