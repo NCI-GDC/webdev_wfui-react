@@ -53,7 +53,7 @@ export const saveSubmission = (
     const answer = getFormValues(`form_${sectionId}`)(getState());
     const userInfo = {};
     const meta = {
-        linkView: config.FORM_REVIEW_LINK,
+        linkView: config.FORM_REVIEW_LINK && config.FORM_REVIEW_LINK.replace(':form_id', nid).replace(':lang', lang),
         linkVerify: config.FORM_VERIFY_LINK,
         linkRedirect: parentURL,
     };
