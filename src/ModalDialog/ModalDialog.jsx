@@ -25,25 +25,50 @@ class ModalDialog extends React.Component {
         initialize(initialValues);
     }
     render() {
-        const { show, label, id, bodyDisplay, txtSubmit, txtCancel, handleSubmit, invalid, submitting } = this.props;
-    
+        const {
+            show,
+            label,
+            id,
+            bodyDisplay,
+            txtSubmit,
+            txtCancel,
+            handleSubmit,
+            invalid,
+            submitting,
+        } = this.props;
+
         return (
-            <Modal show={show} onHide={this.onHandleCancel} bsSize="large" className={`modal-${id}`}>
+            <Modal
+                show={show}
+                onHide={this.onHandleCancel}
+                bsSize="large"
+                className={`modal-${id}`}
+            >
                 <Modal.Header closeButton>
                     <h2 className="modaltitle">{label}</h2>
                 </Modal.Header>
                 <Modal.Body>
-                    { bodyDisplay && React.cloneElement(bodyDisplay, Object.assign({}, this.props, { setValues: this.setValues }))}
+                    {bodyDisplay &&
+                        React.cloneElement(
+                            bodyDisplay,
+                            Object.assign({}, this.props, { setValues: this.setValues }),
+                        )}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button
                         type="submit"
                         bsStyle="primary"
                         className="text-uppercase"
-                        onClick={handleSubmit ? handleSubmit(this.onHandleSubmit) : this.onHandleSubmit}
+                        onClick={
+                            handleSubmit ? handleSubmit(this.onHandleSubmit) : this.onHandleSubmit
+                        }
                         disabled={invalid || submitting}
-                    >{txtSubmit}</Button>
-                    <Button className="text-uppercase" onClick={this.onHandleCancel}>{txtCancel}</Button>
+                    >
+                        {txtSubmit}
+                    </Button>
+                    <Button className="text-uppercase" onClick={this.onHandleCancel}>
+                        {txtCancel}
+                    </Button>
                 </Modal.Footer>
             </Modal>
         );
@@ -79,10 +104,12 @@ ModalDialog.defaultProps = {
     invalid: false,
     submitting: false,
     destroy: f => f,
+    initialize: f => f,
 };
 
 export default connect(
     (state, props) => ({
         ...modalsSelector(props.id)(state),
-    }), actionCreators,
+    }),
+    actionCreators,
 )(ModalDialog);
