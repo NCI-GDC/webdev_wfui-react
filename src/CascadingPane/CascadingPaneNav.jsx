@@ -168,7 +168,7 @@ class CascadingPaneNav extends React.Component {
                     item[visibilityField] ? (
                         ''
                     ) : (
-                        <Glyphicon glyph="eye-close" />
+                        <Glyphicon glyph="eye-close" title="Only visible to CUD administrators" />
                     ),
             });
         }
