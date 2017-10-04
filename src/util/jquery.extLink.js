@@ -191,10 +191,10 @@ export const extLink = ($, _config) => {
             var $link = $($links_to_process[i]);
             if ($link.css('display') === 'inline' || $link.css('display') === 'inline-block' || $link.css('display') === 'block') {
             if (class_name === config.mailtoClass) {
-                $link.append('<span class="' + class_name + '"><span class="element-invisible"> ' + config.mailtoLabel + '</span></span>');
+                $link.append('<span class="' + class_name + '"><span class="element-invisible sr-only"> ' + config.mailtoLabel + '</span></span>');
             }
             else {
-                $link.append('<span class="' + class_name + '"><span class="element-invisible"> ' + config.extLabel + '</span></span>');
+                $link.append('<span class="' + class_name + '"><span class="element-invisible sr-only"> ' + config.extLabel + '</span></span>');
             }
             }
         }
