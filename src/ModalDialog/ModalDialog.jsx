@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
+import deepEqual from 'deep-equal';
 import { modalsSelector } from './selector';
 import * as actionCreators from './action';
 
@@ -11,6 +12,13 @@ class ModalDialog extends React.Component {
         super();
         this.onHandleSubmit = this.onHandleSubmit.bind(this);
         this.onHandleCancel = this.onHandleCancel.bind(this);
+    }
+    componentWillReceiveProps(nextProps) {
+        const { destroy, initialize } = this.props;
+        if (!deepEqual(this.props.initialValues, nextProps.initialValues)) {
+            destroy();
+            initialize(nextProps.initialValues);
+        }
     }
     onHandleSubmit(values) {
         const { id, onSubmit, hideModal } = this.props;
