@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getFormValues } from 'redux-form';
 import Field from './Field';
-import { setError } from '../actions';
 
 /**
  * TypeFollowUp: Wrapper for followup questoin. It has a feature to check condition of following question.
@@ -59,6 +58,8 @@ class TypeFollowUp extends React.Component {
                 case '<=':
                     ex = (val1, val2) => (!isNaN(Number(val1)) && val1 != "" && Number(val1) <= Number(val2));
                     break;
+                case 'default':
+                    ex = (val1, val2) => (true);
             }
             Object.keys(values).forEach((key, i)=>{
                 if(ex(values[key], _value)){
@@ -153,29 +154,11 @@ class TypeFollowUp extends React.Component {
         }
         
     }
-    componentDidUpdate(props, state){
-        const {submission, question, lang, errors, dispatch} = this.props;
-        var data = question.values[lang];
-        if(!this.visible){ //Clear error if it's invisible.
-            if(errors[question.parent]){
-                if(errors[question.parent][data.cid]){
-                    dispatch(setError(question.parent, data.cid, []));
-                }
-                this.getChildrenCIDs(data).forEach((cid, i)=>{
-                    if(errors[question.parent][cid]){
-                        dispatch(setError(question.parent, cid, []));
-                    }
-                })
-            }
-            
-        }
-    }
 }
 
 const mapStateToSectionProps = (state, props) => {
     return {
         submission: getFormValues(`form_${props.question.parent}`)(state) || {},
-        errors: state.submissionReducers.errors,
     };
 };
 export default connect(mapStateToSectionProps)(TypeFollowUp);
