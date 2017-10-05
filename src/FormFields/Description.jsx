@@ -15,6 +15,7 @@ class Description extends Component {
         };
         this._onClickToggleViewImage = this._onClickToggleViewImage.bind(this);
         this._onClickCloseViewImage = this._onClickCloseViewImage.bind(this);
+        this.onESCKeyup = this.onESCKeyup.bind(this);
     }
     _onClickToggleViewImage(e) {
         if (this.state.descriptionImagePopUpIsOpen) {
@@ -29,6 +30,11 @@ class Description extends Component {
         this.setState({ descriptionImagePopUpIsOpen: false });
         var portalNode = document.getElementById('descriptionImagePortalId');
         document.body.removeChild(portalNode);
+    }
+    onESCKeyup(e) {
+        if (e.keyCode == 27 && this.state.descriptionImagePopUpIsOpen) {
+            this._onClickCloseViewImage();
+        }
     }
     componentWillMount() {
         const { src, maxImageWidth, maxImageHeight } = this.props;
@@ -54,6 +60,10 @@ class Description extends Component {
                 }
             };
         }
+        document.addEventListener('keyup', this.onESCKeyup);
+    }
+    componentWillUnmount() {
+        document.removeEventListener('keyup', this.onESCKeyup);
     }
     render() {
         var { src, imageTitle, content, type, classNames, errors } = this.props;
