@@ -70,10 +70,12 @@ class Section extends React.Component {
                 <div>
                     <div className={className} style={{ width: form_width }}>
                         {/* <a className="help-icon" href="#"><img src="/icgc-images/icon-help.svg" /></a> */}
+                        {/*
                         <h2 className="survey-current">
                             {index + 1}.{' '}
                             {parent_name ? parent_name : data.title}
                         </h2>
+                        */}
 
                         <div className="survey-question">
                             <Fields {...this.props} />
@@ -152,7 +154,7 @@ class Section extends React.Component {
                             onClick={handleSubmit(this.onHandleSubmit)}
                         >
                             <span className="button-survey-text">
-                                {i18n('Submit your Survey Answers')}
+                                {i18n('Submit')}
                             </span>
                         </Button>
                     </div>
@@ -166,7 +168,7 @@ class Section extends React.Component {
                         onClick={handleSubmit(this.onHandleSubmit)}
                     >
                         <span className="button-survey-text">
-                            {i18n('Submit your Survey Answers')}
+                            {i18n('Submit')}
                         </span>
                     </Button>
                 );

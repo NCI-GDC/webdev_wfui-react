@@ -111,6 +111,7 @@ class WebForm extends React.Component {
             dispatch,
             survey_info,
             saveSubmission,
+            parentURL,
             getConfig,
             user,
         } = this.props;
@@ -141,6 +142,7 @@ class WebForm extends React.Component {
             sectionId,
             language,
             user,
+            parentURL,
             getConfig,
         ).then(callback);
     }
@@ -357,7 +359,7 @@ WebForm.propTypes = {
     allowPrev: React.PropTypes.bool,
     displaySubmit: React.PropTypes.bool,
     action: React.PropTypes.string,
-    redirect: React.PropTypes.string,
+    parentURL: React.PropTypes.string,
     allowPublish: React.PropTypes.bool,
     recaptchaSiteKey: React.PropTypes.string,
     onComplete: React.PropTypes.func,
