@@ -1,6 +1,4 @@
 import React from 'react';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 import DraggableItem from './DraggableItem';
 import DraggableHandle from './DraggableHandle';
 import update from 'react/lib/update';
@@ -18,11 +16,10 @@ const style = {
     },
 };
 
-@DragDropContext(HTML5Backend)
 class Draggable extends React.Component {
     constructor() {
         super();
-        this.state = { items: [], columnWidth: 300 }
+        this.state = { items: [], columnWidth: 300 };
         this.onHandleMoveItem = this.onHandleMoveItem.bind(this);
         this.onHandleEndDrag = this.onHandleEndDrag.bind(this);
     }
@@ -36,9 +33,11 @@ class Draggable extends React.Component {
         const { children, type } = props;
         if (children) {
             this.setState({
-                items: children.length ? children.map((child, i) => {
-                    return child
-                }) : [children]
+                items: children.length
+                    ? children.map((child, i) => {
+                          return child;
+                      })
+                    : [children],
             });
         }
     }
@@ -51,46 +50,49 @@ class Draggable extends React.Component {
         const { onHandleItemMove } = this.props;
         const { items } = this.state;
         const dragItem = items[dragIndex];
-        if(dragIndex !== hoverIndex){
+        if (dragIndex !== hoverIndex) {
             onHandleItemMove(dragIndex, hoverIndex);
         }
 
-        this.setState(update(this.state, {
-            items: {
-                $splice: [
-                [dragIndex, 1],
-                [hoverIndex, 0, dragItem]
-                ]
-            }
-        }));
-
+        this.setState(
+            update(this.state, {
+                items: {
+                    $splice: [[dragIndex, 1], [hoverIndex, 0, dragItem]],
+                },
+            }),
+        );
     }
     render() {
         const { className, type, columnCount } = this.props;
         const { items } = this.state;
         return (
-            <div className={classNames(className, 'wfui-draggable')} >
+            <div className={classNames(className, 'wfui-draggable')}>
                 <ul
                     style={
-                        type==='grid' ?
-                        {...style.container, columnCount, MozColumnCount:columnCount } : {...style.container}
+                        type === 'grid'
+                            ? {
+                                  ...style.container,
+                                  columnCount,
+                                  MozColumnCount: columnCount,
+                              }
+                            : { ...style.container }
                     }
                 >
                     {items.map((item, i) => {
                         return React.cloneElement(
                             item,
                             Object.assign({}, item.props, {
-                                moveItem : this.onHandleMoveItem,
-                                endDrag : this.onHandleEndDrag,
+                                moveItem: this.onHandleMoveItem,
+                                endDrag: this.onHandleEndDrag,
                                 key: i,
                                 index: i,
                                 type,
                             }),
-                        )
+                        );
                     })}
                 </ul>
             </div>
-        )
+        );
     }
 }
 
@@ -107,7 +109,7 @@ Draggable.defaultProps = {
     onHandleEndDrag: () => undefined,
     onHandleItemMove: () => undefined,
     columnCount: 3,
-}
+};
 
 Draggable.Item = DraggableItem;
 Draggable.Handle = DraggableHandle;
