@@ -674,3 +674,4 @@ export renderTableFormat from './renderTableFormat';
 export renderSelectionHybridCheckbox from './renderSelectionHybridCheckbox';
 export renderSelectionHybridRadio from './renderSelectionHybridRadio';
 export renderFilterTable from './renderFilterTable';
+export renderAutocomplete from './renderAutocomplete';
