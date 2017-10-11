@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import deepEqual from 'deep-equal';
-import { modalsSelector } from './selector';
-import * as actionCreators from './action';
+import { modalsSelector } from 'wfui-react/lib/ModalDialog/selector';
+import * as actionCreators from 'wfui-react/lib/ModalDialog/action';
 
 class ModalDialog extends React.Component {
     constructor() {
@@ -25,9 +25,10 @@ class ModalDialog extends React.Component {
         }
     }
     onHandleSubmit(values) {
-        const { id, onSubmit, hideModal } = this.props;
+        const { id, onSubmit, hideModal, destroy } = this.props;
         onSubmit(values);
         hideModal(id);
+        destroy();
     }
     onHandleCancel() {
         const {
