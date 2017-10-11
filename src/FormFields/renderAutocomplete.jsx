@@ -83,13 +83,11 @@ class renderAutocomplete extends React.Component {
         };
     }
     componentDidMount() {
-        const { autoComplete, queryInterval } = this.props;
-        if (autoComplete)
-            this.interval = setInterval(() => this.tick(), queryInterval);
+        const { queryInterval } = this.props;
+        this.interval = setInterval(() => this.tick(), queryInterval);
     }
     componentWillUnmount() {
-        const { autoComplete } = this.props;
-        if (autoComplete) clearInterval(this.interval);
+        clearInterval(this.interval);
     }
     tick() {
         const { getAutocomplete } = this.props;
