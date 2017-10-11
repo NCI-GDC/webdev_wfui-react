@@ -2,8 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Alert } from 'react-bootstrap';
-import { Glyphicon } from 'wfui-react';
+import { Glyphicon, Alert } from 'react-bootstrap';
 
 import LoadingComponent from '../LoadingComponent/LoadingComponent';
 import FilteredTable from '../FilteredTable/FilteredTable';
