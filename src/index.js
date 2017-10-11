@@ -7,7 +7,8 @@ import Spinner from './Spinner/Spinner';
 import TwitterFeed from './TwitterFeed/TwitterFeed';
 import FilteredTable from './FilteredTable/FilteredTable';
 import PasswordValidator from './PasswordValidator/PasswordValidator';
-import Draggable from './Draggable/Draggable';
+import Draggable from './Draggable/DraggableWithContext';
+import DraggableWithoutContext from './Draggable/Draggable';
 import DashboardBox from './DashboardBox/DashboardBox';
 import UserDrawer from './UserDrawer/UserDrawer';
 import Drawer from './Drawer/Drawer';
@@ -38,6 +39,7 @@ export {
     FilteredTable,
     PasswordValidator,
     Draggable,
+    DraggableWithoutContext,
     DashboardBox,
     UserDrawer,
     Drawer,

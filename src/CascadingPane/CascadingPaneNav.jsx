@@ -15,11 +15,11 @@ class CascadingPaneNav extends React.Component {
             selected: props.cascNav || '',
             fetched: props.fetchedNav,
             dataWithClass: props.data
-                ? props.data.map((item) => {
+                ? props.data.map(item => {
                       const newItem = JSON.parse(JSON.stringify(item));
-                      newItem.className = `nav-item-${item[props.itemIdField]} ${item[
+                      newItem.className = `nav-item-${item[
                           props.itemIdField
-                      ] === props.cascNav
+                      ]} ${item[props.itemIdField] === props.cascNav
                           ? 'active'
                           : ''}`;
                       return newItem;
@@ -39,18 +39,20 @@ class CascadingPaneNav extends React.Component {
         }
         if (cascNav) {
             if (!nextProps.cascNav) {
-                window.location.href = `${window.location.href.split('?')[0]}?cascNav=${nextProps
-                    .data[0][nextProps.itemIdField]}`;
+                window.location.href = `${window.location.href.split(
+                    '?',
+                )[0]}?cascNav=${nextProps.data[0][nextProps.itemIdField]}`;
             }
             if (cascNav !== nextProps.cascNav) {
                 this.setState({
                     selected: nextProps.cascNav || '',
                     dataWithClass: nextProps.data
-                        ? nextProps.data.map((item) => {
+                        ? nextProps.data.map(item => {
                               const newItem = JSON.parse(JSON.stringify(item));
-                              newItem.className = `nav-item-${item[nextProps.itemIdField]} ${item[
+                              newItem.className = `nav-item-${item[
                                   nextProps.itemIdField
-                              ] === nextProps.cascNav
+                              ]} ${item[nextProps.itemIdField] ===
+                              nextProps.cascNav
                                   ? 'active'
                                   : ''}`;
                               return newItem;
@@ -62,11 +64,11 @@ class CascadingPaneNav extends React.Component {
             this.setState({
                 selected: nextProps.cascNav,
                 dataWithClass: nextProps.data
-                    ? nextProps.data.map((item) => {
+                    ? nextProps.data.map(item => {
                           const newItem = JSON.parse(JSON.stringify(item));
-                          newItem.className = `nav-item-${item[nextProps.itemIdField]} ${item[
+                          newItem.className = `nav-item-${item[
                               nextProps.itemIdField
-                          ] === nextProps.cascNav
+                          ]} ${item[nextProps.itemIdField] === nextProps.cascNav
                               ? 'active'
                               : ''}`;
                           return newItem;
@@ -74,17 +76,18 @@ class CascadingPaneNav extends React.Component {
                     : [],
             });
         } else if (nextProps.data && nextProps.data.length > 0) {
-            window.location.href = `${window.location.href.split('?')[0]}?cascNav=${nextProps
-                .data[0][nextProps.itemIdField]}`;
+            window.location.href = `${window.location.href.split(
+                '?',
+            )[0]}?cascNav=${nextProps.data[0][nextProps.itemIdField]}`;
         }
         if (JSON.stringify(data) !== JSON.stringify(nextProps.data)) {
             this.setState({
                 dataWithClass: nextProps.data
-                    ? nextProps.data.map((item) => {
+                    ? nextProps.data.map(item => {
                           const newItem = JSON.parse(JSON.stringify(item));
-                          newItem.className = `nav-item-${item[nextProps.itemIdField]} ${item[
+                          newItem.className = `nav-item-${item[
                               nextProps.itemIdField
-                          ] === nextProps.cascNav
+                          ]} ${item[nextProps.itemIdField] === nextProps.cascNav
                               ? 'active'
                               : ''}`;
                           return newItem;
@@ -102,7 +105,9 @@ class CascadingPaneNav extends React.Component {
             selected !== prevState.selected ||
             JSON.stringify(data) !== JSON.stringify(prevProps.data)
         ) {
-            const groupSelected = data.filter(item => item[itemIdField] === selected);
+            const groupSelected = data.filter(
+                item => item[itemIdField] === selected,
+            );
             updateGroupSelect(groupSelected[0]);
         }
     }
@@ -112,9 +117,9 @@ class CascadingPaneNav extends React.Component {
         const { selected } = this.state;
 
         if (selected !== item[itemIdField]) {
-            window.location.href = `${window.location.href.split('?')[0]}?cascNav=${item[
-                itemIdField
-            ]}`;
+            window.location.href = `${window.location.href.split(
+                '?',
+            )[0]}?cascNav=${item[itemIdField]}`;
         }
     }
 
@@ -141,7 +146,11 @@ class CascadingPaneNav extends React.Component {
                 name: 'Logo',
                 className: 'nav-group-logo',
                 display: item => (
-                    <img role="presentation" src={item[logoField]} className="cascading-nav-logo" />
+                    <img
+                        role="presentation"
+                        src={item[logoField]}
+                        className="cascading-nav-logo"
+                    />
                 ),
             });
         }
@@ -169,18 +178,28 @@ class CascadingPaneNav extends React.Component {
                 display: item =>
                     React.cloneElement(
                         itemConfigDisplay,
-                        Object.assign({}, { item }, { updateNav: () => getCascadingNav(config) }),
+                        Object.assign(
+                            {},
+                            { item },
+                            { updateNav: () => getCascadingNav(config) },
+                        ),
                     ),
                 excludeRowClick: true,
             });
         }
 
         return (
-            <div className={classNames(className, 'cascading-pane-nav')} key={key}>
+            <div
+                className={classNames(className, 'cascading-pane-nav')}
+                key={key}
+            >
                 {headerDisplay}
                 <LoadingComponent {...navFetch}>
                     <div className="cascading-pane-nav-list">
-                        {fetched && !data && <Alert bsStyle="danger">No data available</Alert>}
+                        {fetched &&
+                        !data && (
+                            <Alert bsStyle="danger">No data available</Alert>
+                        )}
                         {fetched &&
                         data && (
                             <FilteredTable

@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
+import deepEqual from 'deep-equal';
 import { modalsSelector } from './selector';
 import * as actionCreators from './action';
 
@@ -12,13 +13,31 @@ class ModalDialog extends React.Component {
         this.onHandleSubmit = this.onHandleSubmit.bind(this);
         this.onHandleCancel = this.onHandleCancel.bind(this);
     }
+    componentWillMount() {
+        const { initialize, initialValues } = this.props;
+        initialize(initialValues);
+    }
+    componentWillReceiveProps(nextProps) {
+        const { destroy, initialize } = this.props;
+        if (!deepEqual(this.props.initialValues, nextProps.initialValues)) {
+            destroy();
+            initialize(nextProps.initialValues);
+        }
+    }
     onHandleSubmit(values) {
         const { id, onSubmit, hideModal } = this.props;
         onSubmit(values);
         hideModal(id);
     }
     onHandleCancel() {
-        const { id, hideModal, onHide, destroy, initialize, initialValues } = this.props;
+        const {
+            id,
+            hideModal,
+            onHide,
+            destroy,
+            initialize,
+            initialValues,
+        } = this.props;
         hideModal(id);
         onHide();
         destroy();
@@ -51,7 +70,9 @@ class ModalDialog extends React.Component {
                     {bodyDisplay &&
                         React.cloneElement(
                             bodyDisplay,
-                            Object.assign({}, this.props, { setValues: this.setValues }),
+                            Object.assign({}, this.props, {
+                                setValues: this.setValues,
+                            }),
                         )}
                 </Modal.Body>
                 <Modal.Footer>
@@ -60,13 +81,18 @@ class ModalDialog extends React.Component {
                         bsStyle="primary"
                         className="text-uppercase"
                         onClick={
-                            handleSubmit ? handleSubmit(this.onHandleSubmit) : this.onHandleSubmit
+                            handleSubmit
+                                ? handleSubmit(this.onHandleSubmit)
+                                : this.onHandleSubmit
                         }
                         disabled={invalid || submitting}
                     >
                         {txtSubmit}
                     </Button>
-                    <Button className="text-uppercase" onClick={this.onHandleCancel}>
+                    <Button
+                        className="text-uppercase"
+                        onClick={this.onHandleCancel}
+                    >
                         {txtCancel}
                     </Button>
                 </Modal.Footer>

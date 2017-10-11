@@ -36,7 +36,7 @@ export default class SubmitConfirmDialog extends React.Component{
                     <div className="question-preview-footer">
                         <div className="footer-action-container">
                             <Button bsStyle="info" onClick={this.hideModal.bind(this)}>{i18n('Cancel and answer more questions')}</Button>
-                            <Button bsStyle="default" onClick={this.save.bind(this)}>{i18n('Submit your survey answers anyway')}</Button>
+                            <Button bsStyle="default" onClick={this.save.bind(this)}>{i18n('Submit anyway')}</Button>
                         </div>
                     </div>
                 </Modal.Footer>
