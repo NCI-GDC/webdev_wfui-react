@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import deepEqual from 'deep-equal';
-import { modalsSelector } from 'wfui-react/lib/ModalDialog/selector';
-import * as actionCreators from 'wfui-react/lib/ModalDialog/action';
+import { modalsSelector } from './selector';
+import * as actionCreators from './action';
 
 class ModalDialog extends React.Component {
     constructor() {
