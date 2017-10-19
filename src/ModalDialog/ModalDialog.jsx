@@ -31,14 +31,7 @@ class ModalDialog extends React.Component {
         destroy();
     }
     onHandleCancel() {
-        const {
-            id,
-            hideModal,
-            onHide,
-            destroy,
-            initialize,
-            initialValues,
-        } = this.props;
+        const { id, hideModal, onHide, destroy, initialize, initialValues } = this.props;
         hideModal(id);
         onHide();
         destroy();
@@ -55,6 +48,7 @@ class ModalDialog extends React.Component {
             handleSubmit,
             invalid,
             submitting,
+            notForm,
         } = this.props;
 
         return (
@@ -77,25 +71,32 @@ class ModalDialog extends React.Component {
                         )}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button
-                        type="submit"
-                        bsStyle="primary"
-                        className="text-uppercase"
-                        onClick={
-                            handleSubmit
-                                ? handleSubmit(this.onHandleSubmit)
-                                : this.onHandleSubmit
-                        }
-                        disabled={invalid || submitting}
-                    >
-                        {txtSubmit}
-                    </Button>
-                    <Button
-                        className="text-uppercase"
-                        onClick={this.onHandleCancel}
-                    >
-                        {txtCancel}
-                    </Button>
+                    {notForm ? (
+                        <div>
+                            <Button className="text-uppercase" onClick={this.onHandleCancel}>
+                                {txtCancel}
+                            </Button>
+                        </div>
+                    ) : (
+                        <div>
+                            <Button
+                                type="submit"
+                                bsStyle="primary"
+                                className="text-uppercase"
+                                onClick={
+                                    handleSubmit
+                                        ? handleSubmit(this.onHandleSubmit)
+                                        : this.onHandleSubmit
+                                }
+                                disabled={invalid || submitting}
+                            >
+                                {txtSubmit}
+                            </Button>
+                            <Button className="text-uppercase" onClick={this.onHandleCancel}>
+                                {txtCancel}
+                            </Button>
+                        </div>
+                    )}
                 </Modal.Footer>
             </Modal>
         );
@@ -118,6 +119,7 @@ ModalDialog.propTypes = {
     invalid: PropTypes.bool,
     submitting: PropTypes.bool,
     initialValues: PropTypes.object,
+    notForm: PropTypes.bool,
 };
 
 ModalDialog.defaultProps = {
