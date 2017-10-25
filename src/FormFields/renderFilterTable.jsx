@@ -187,7 +187,7 @@ class renderFilterTable extends React.Component {
                     if (values) {
                         switch (q.type) {
                             case 'listbox':
-                                return getValByKey(values.listbox, q.values[lang].options);
+                                return getValByKey(values.value, q.values[lang].options);
                             case 'input-hybrid':
                                 const hybridField = q.values[lang].children.filter(f => (f.type === 'hybrid'))[0];
                                 const displayValues = values[hybridField.cid].map((key) => {
@@ -280,7 +280,7 @@ class renderFilterTable extends React.Component {
                     .map((question, i) => {
                         const questionInfo = question.values[lang];
                         const field = questionInfo.children && questionInfo.children.filter(f => (f.type === 'hybrid'))[0];
-                        const cid = field ? field.cid : 'listbox';
+                        const cid = field ? field.cid : 'value';
                         return (
                             <select key={i} data-name={`${question.id}.${cid}`} onChange={this.onFilterChange}>
                                 <option value="">-- Filter by {questionInfo.title} --</option>
