@@ -18,11 +18,11 @@ class TypeTextarea extends React.Component {
         // const options = data.options ? data.options.slice(0) : [];
 
         return (
-            <div className={'wfui-type-listbox'} >
+            <div className={'wfui-type-textarea'} >
                 {data.description && <Description content={data.description} src={data.image && data.image.src} imageTitle={data.image && data.image.title} />}
                 <Field
                     label={data.title}
-                    name={`${groupId ? `${groupId}.` : ''}${question.id}.textarea`}
+                    name={`${groupId ? `${groupId}.` : ''}${question.id}.value`}
                     type="textarea"
                     component={renderTextArea}
                     placeholder=""

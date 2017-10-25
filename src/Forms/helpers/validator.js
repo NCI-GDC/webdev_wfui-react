@@ -60,7 +60,7 @@ const requiredInputValidator = fields => (values) => {
 // For select option | textarea
 const requiredSimpleValidator = (values) => {
     let valid = false;
-    if (values && (values['listbox'] || values['textarea'])) valid = true;
+    if (values && values.value) valid = true;
     return valid ? '' : 'Please answer the question.';
 };
 
