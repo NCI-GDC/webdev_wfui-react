@@ -22,7 +22,7 @@ class TypeListbox extends React.Component {
                 {data.description && <Description content={data.description} src={data.image && data.image.src} imageTitle={data.image && data.image.title} />}
                 <Field
                     label={data.title}
-                    name={`${groupId ? `${groupId}.` : ''}${question.id}.listbox`}
+                    name={`${groupId ? `${groupId}.` : ''}${question.id}.value`}
                     type='select'
                     component={renderSelect}
                     globalError={globalError}
