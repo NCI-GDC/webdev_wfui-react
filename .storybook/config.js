@@ -26,7 +26,7 @@ function loadStories() {
   require('../stories/Draggable');
   require('../stories/DashboardBox');
   require('../stories/TimezonePicker');
-  require('../stories/CaGForms');
+  // require('../stories/CaGForms');
   require('../stories/FullCalendar');
   require('../stories/DisqusFeed');
   require('../stories/LoadingComponent');
