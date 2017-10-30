@@ -28,7 +28,7 @@ class TwitterFeed extends React.Component {
                     lang={language}
                     className="twitter-timeline"
                     data-dnt="true"
-                    data-chrome="noheader nofooter"
+                    data-chrome="noheader nofooter transparent"
                     href={twitterLink}
                 >
                     &nbsp;
