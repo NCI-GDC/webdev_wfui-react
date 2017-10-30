@@ -11,6 +11,7 @@ import TypeMarkup from './components/TypeMarkup';
 import TypeSelectionHybrid, { TypeSelectionHybridPreview } from './components/TypeSelectionHybrid';
 import TypeTableFormat, { TypeTableFormatPreview } from './components/TypeTableFormat';
 import TypeTextarea, { TypeTextareaPreview } from './components/TypeTextarea';
+import TypeHidden from './components/TypeHidden';
 import FormUserVerify from './components/FormUserVerify';
 import WebForm from './components/WebForm';
 
@@ -30,6 +31,7 @@ const QuestionTypes = {
     TypeTableFormatPreview,
     TypeTextarea,
     TypeTextareaPreview,
+    TypeHidden,
 };
 
 export {
