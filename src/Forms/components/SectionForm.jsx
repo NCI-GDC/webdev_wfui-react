@@ -47,6 +47,8 @@ export default class SectionForm extends React.Component {
                 // }
             });
         }
+        
+        initialValues['q-14127950-9712-11e7-94d37-8db02d9664e6'] = { value: ['test'] }
 
         this.state = { initialValues }
     }

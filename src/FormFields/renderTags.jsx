@@ -17,7 +17,7 @@ class renderTags extends React.Component {
         super(props);
 
         this.state = {
-            tags: this.transformSubmissionToForm(props.initialValues || []),
+            tags: this.transformSubmissionToForm(props.input.value || []),
             suggestions: props.suggestions || [],
         };
         this.handleDelete = this.handleDelete.bind(this);
@@ -68,6 +68,7 @@ class renderTags extends React.Component {
         const {
             className,
             label,
+            input,
             placeholder,
             help,
             globalError,
@@ -95,6 +96,7 @@ class renderTags extends React.Component {
                         handleAddition={this.handleAddition}
                         handleDrag={this.handleDrag}
                         placeholder={placeholder}
+                        name={input.name}
                     />
                     {touched &&
                         error && (
