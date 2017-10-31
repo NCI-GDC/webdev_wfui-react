@@ -1,7 +1,5 @@
 export const mergeFetchStatuses = (fetchStatuses) => {
-    
     const margedStatus = {};
-
     fetchStatuses.forEach((fetchStatus) => {
         if (!fetchStatus) return;
         margedStatus.isFetching = margedStatus.isFetching || fetchStatus.isFetching;
