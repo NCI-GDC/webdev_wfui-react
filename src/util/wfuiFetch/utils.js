@@ -1,6 +1,7 @@
 export const mergeFetchStatuses = (fetchStatuses) => {
     const margedStatus = {};
     fetchStatuses.forEach((fetchStatus) => {
+        if (!fetchStatus) return;
         margedStatus.isFetching = margedStatus.isFetching || fetchStatus.isFetching;
         margedStatus.fetch5s = margedStatus.fetch5s || fetchStatus.fetch5s;
         margedStatus.fetch8s = margedStatus.fetch8s || fetchStatus.fetch8s;
