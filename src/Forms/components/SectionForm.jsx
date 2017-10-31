@@ -29,11 +29,22 @@ export default class SectionForm extends React.Component {
             initialValues['email'] = { field: props.user.email };
         }
         
+        // Add Inputs field.
+        // const addInputsFields = props.section.children.filter(q => (q.type === 'add-inputs')).map(q => q.id);
+
         if (props.submissions) {
             const questionIDs = props.section.children.map((s) => (s.id));
             const answeredQuestionIDs = Object.keys(props.submissions).filter((key) => (questionIDs.includes(key)));
             answeredQuestionIDs.forEach((key) => {
-                initialValues[key] = props.submissions[key];
+
+                // Transform Data if it's add-inputs type question.
+                // if (addInputsFields.includes(key) && props.submissions[key]) {
+                //     initialValues[key] = props.submissions[key].value.map(val => ({ value: val }));
+                // } else {
+
+                    initialValues[key] = props.submissions[key];
+
+                // }
             });
         }
 

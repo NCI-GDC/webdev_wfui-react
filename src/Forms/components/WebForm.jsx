@@ -3,6 +3,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 import SideBar from './SideBar';
 import SectionForm from './SectionForm';
 
@@ -116,9 +119,9 @@ class WebForm extends React.Component {
             user,
         } = this.props;
         const { activeId } = this.state;
-        const autoSave = survey_info.autoSave
-            ? survey_info.autoSave[language]
-            : true;
+        // const autoSave = survey_info.autoSave
+        //     ? survey_info.autoSave[language]
+        //     : true;
         // const { completed, total } = this.getTotalAnsweredQuestions();
 
         /**
@@ -393,8 +396,18 @@ WebForm.childContextTypes = {
     getConfig: React.PropTypes.func,
 };
 
+const withContext = connect((state, props) => {
+    return {
+        in_action: state.in_action,
+    };
+}, actionCreators)(DragDropContext(HTML5Backend)(WebForm));
+
 export default connect((state, props) => {
     return {
         in_action: state.in_action,
     };
 }, actionCreators)(WebForm);
+
+export {
+    withContext,
+};

@@ -6,6 +6,7 @@ a.delete-icon {
     height: 24px;
     margin-left: -35px;
     margin-top: 10px;
+    z-index: 1;
     background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9ImFjdGlvbnMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMTA1LjcgMTIyLjQiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDEwNS43IDEyMi40IiB4bWw6c3BhY2U9InByZXNlcnZlIj48ZyBpZD0ibWl1XzFfIj48ZyBpZD0iQXJ0Ym9hcmQtMV8xXyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTg5OS4wMDAwMDAsIC00NzkuMDAwMDAwKSI+PGcgaWQ9InNsaWNlXzFfIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMTUuMDAwMDAwLCAxMTkuMDAwMDAwKSI+PC9nPjxwYXRoIGlkPSJlZGl0b3ItdHJhc2gtZGVsZXRlLXJlY3ljbGUtYmluLWdseXBoIiBmaWxsPSIjOEZBMjREIiBkPSJNOTAxLjgsNDg0LjZjMCwwLTIuOCwwLTIuOCw1LjZjMCw1LjYsMi44LDUuNiwyLjgsNS42aDEwMC4xYzAsMCwyLjgsMCwyLjgtNS42YzAtNS42LTIuOC01LjYtMi44LTUuNkg5MDEuOEw5MDEuOCw0ODQuNnogTTkwNC40LDUwMS4zSDk5OWwtMTEuMSwxMDAuMWgtNzIuM0w5MDQuNCw1MDEuM3ogTTk0My40LDQ3OWMtNS42LDAtNS42LDUuNi01LjYsNS42aDI3LjhjMCwwLDAtNS42LTUuNi01LjZIOTQzLjRMOTQzLjQsNDc5eiBNOTMyLjIsNTkwLjNoNS42bC01LjYtODkuMmgtNS42TDkzMi4yLDU5MC4zeiBNOTcxLjIsNTAxbC01LjYsODkuMmg1LjZsNS42LTg5LjJIOTcxLjJMOTcxLjIsNTAxeiBNOTQ4LjksNTAxdjg5LjJoNS42VjUwMUg5NDguOUw5NDguOSw1MDF6Ii8+PC9nPjwvZz48L3N2Zz4=);
     background-repeat: no-repeat;
 }
@@ -551,7 +552,7 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
     width: 96%;
     background-color: #f5f5f5;
     border: 1px solid #dfdfe0;
-    padding: 20px 20px 20px 20px;
+    padding: 20px 45px 20px 20px;
 }
 
 .wfui-draggable .wfui-draggable-item div.fields {
@@ -1174,4 +1175,79 @@ div.col-table div.dropdown > ul.dropdown-menu {
 
 div.col-table div.dropdown > ul.dropdown-menu a {
     padding: 5px;
+}
+
+
+/* wfui-type-add-inputs
+/-------------------------------------------------------------- */
+.wfui-type-add-inputs div.wfui-form-input{
+    margin-bottom: 0
+}
+.wfui-type-add-inputs .wfui-form-item {
+    margin-bottom: 0
+}
+
+/* React Tags
+/-------------------------------------------------------------- */
+
+/* Example Styles for React Tags*/
+div.ReactTags__tags {
+    position: relative;
+}
+
+/* Styles for the input */
+div.ReactTags__tagInput {
+    width: 200px;
+    border-radius: 2px;
+    display: inline-block;
+}
+div.ReactTags__tagInput input.ReactTags__tagInputField,
+div.ReactTags__tagInput input.ReactTags__tagInputField:focus {
+    height: 31px;
+    margin: 0;
+    font-size: 12px;
+    width: 100%;
+    border: 1px solid #eee;
+}
+
+/* Styles for selected tags */
+div.ReactTags__selected span.ReactTags__tag {
+    border: 1px solid #ddd;
+    background: #eee;
+    font-size: 12px;
+    display: inline-block;
+    padding: 5px;
+    margin: 0 5px;
+    cursor: move;
+    border-radius: 2px;
+}
+div.ReactTags__selected a.ReactTags__remove {
+    color: #aaa;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+/* Styles for suggestions */
+div.ReactTags__suggestions {
+    position: absolute;
+}
+div.ReactTags__suggestions ul {
+    list-style-type: none;
+    box-shadow: .05em .01em .5em rgba(0,0,0,.2);
+    background: white;
+    width: 200px;
+}
+div.ReactTags__suggestions li {
+    border-bottom: 1px solid #ddd;
+    padding: 5px 10px;
+    margin: 0;
+}
+div.ReactTags__suggestions li mark {
+    text-decoration: underline;
+    background: none;
+    font-weight: 600;
+}
+div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
+    background: #b7cfe0;
+    cursor: pointer;
 }

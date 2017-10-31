@@ -12,8 +12,9 @@ import TypeSelectionHybrid, { TypeSelectionHybridPreview } from './components/Ty
 import TypeTableFormat, { TypeTableFormatPreview } from './components/TypeTableFormat';
 import TypeTextarea, { TypeTextareaPreview } from './components/TypeTextarea';
 import TypeHidden from './components/TypeHidden';
+import TypeAddInputs, { TypeAddInputsPreview } from './components/TypeAddInputs';
 import FormUserVerify from './components/FormUserVerify';
-import WebForm from './components/WebForm';
+import WebForm, { withContext as WebFormWithContext } from './components/WebForm';
 
 const QuestionTypes = {
     TypeAddAnother,
@@ -32,6 +33,8 @@ const QuestionTypes = {
     TypeTextarea,
     TypeTextareaPreview,
     TypeHidden,
+    TypeAddInputs,
+    TypeAddInputsPreview,
 };
 
 export {
@@ -40,6 +43,7 @@ export {
     actions,
     reducers,
     WebForm,
+    WebFormWithContext,
     FormUserVerify,
     QuestionTypes,
 };

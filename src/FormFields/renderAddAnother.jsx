@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 import {
     Draggable,
-    DraggableWithoutContext,
+    DraggableWithContext,
     Button,
     FormGroup,
     ControlLabel,
@@ -25,11 +25,11 @@ class renderAddAnother extends React.Component {
             help,
             required,
             disabled,
-            withoutDnDContext,
+            withContext,
             meta: { error },
         } = this.props;
 
-        const Comp = withoutDnDContext ? DraggableWithoutContext : Draggable;
+        const Comp = withContext ? DraggableWithContext : Draggable;
 
         return (
             <div
@@ -129,7 +129,7 @@ renderAddAnother.propTypes = {
     required: PropTypes.bool,
     disabled: PropTypes.bool,
     draggable: PropTypes.bool,
-    withoutDnDContext: PropTypes.bool,
+    withContext: PropTypes.bool,
 };
 renderAddAnother.defaultProps = {
     labelAddAnother: 'Add Another Item',
