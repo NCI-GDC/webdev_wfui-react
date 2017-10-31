@@ -56,7 +56,8 @@ LoadingComponent.propTypes = {
 LoadingComponent.defaultProps = {
     spinnerConfig: {
         type: 1,
-        fontSize: '20',
+        color: '#337ab7',
+        fontSize: '12',
         margin: '100px auto',
     },
     message5s: 'Loading, please wait...',
