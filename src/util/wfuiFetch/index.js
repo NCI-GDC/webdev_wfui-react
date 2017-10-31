@@ -89,3 +89,4 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
 
 export * from './reducer';
 export * from './selectors';
+export * from './utils';
