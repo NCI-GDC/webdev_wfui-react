@@ -7,8 +7,7 @@ import Spinner from './Spinner/Spinner';
 import TwitterFeed from './TwitterFeed/TwitterFeed';
 import FilteredTable from './FilteredTable/FilteredTable';
 import PasswordValidator from './PasswordValidator/PasswordValidator';
-import Draggable from './Draggable/DraggableWithContext';
-import DraggableWithoutContext from './Draggable/Draggable';
+import Draggable, { withContext } from './Draggable/Draggable';
 import DashboardBox from './DashboardBox/DashboardBox';
 import UserDrawer from './UserDrawer/UserDrawer';
 import Drawer from './Drawer/Drawer';
@@ -32,6 +31,8 @@ require('./i18n/i18n.js');
 
 export * from 'react-bootstrap';
 
+const DraggableWithContext = withContext;
+
 export {
     FilteredList,
     Spinner,
@@ -39,7 +40,7 @@ export {
     FilteredTable,
     PasswordValidator,
     Draggable,
-    DraggableWithoutContext,
+    DraggableWithContext,
     DashboardBox,
     UserDrawer,
     Drawer,

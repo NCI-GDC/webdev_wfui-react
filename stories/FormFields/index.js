@@ -11,7 +11,7 @@ import StoryWebform from 'raw!./StoryWebform.src';
 
 import '../../src/FormFields/index.scss';
 import { fetchReducer } from '../../src/util/wfuiFetch/reducer';
-import { WebForm, reducers } from '../../src/Forms/';
+import { WebFormWithContext, reducers } from '../../src/Forms/';
 
 // Modal Dialog
 import { modalReducer } from '../../src/ModalDialog/reducer';
@@ -38,5 +38,5 @@ storiesOf('FormFields', module)
 .addWithInfo(
     'Webform',
     () => StoryWebform,
-    { scope: { React, Provider, store, WebForm } }
+    { scope: { React, Provider, store, WebForm: WebFormWithContext } }
 );

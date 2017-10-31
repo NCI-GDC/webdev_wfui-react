@@ -1,4 +1,6 @@
 import React from 'react';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import DraggableItem from './DraggableItem';
 import DraggableHandle from './DraggableHandle';
 import update from 'react/lib/update';
@@ -115,3 +117,9 @@ Draggable.Item = DraggableItem;
 Draggable.Handle = DraggableHandle;
 
 export default Draggable;
+
+const withContext = DragDropContext(HTML5Backend)(Draggable);
+
+export {
+    withContext,
+};
