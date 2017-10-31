@@ -118,7 +118,7 @@ class DraggableItem extends React.Component {
                         if(child.type == DraggableHandle){
                             return connectDragSource(<div key={i} className="wfui-draggable-handle">{child}</div>);
                         }
-                        return <div key={i}>{child}</div>;
+                        return <div className="wfui-draggable-content" key={i}>{child}</div>;
                     })}
                 </li>
             ));

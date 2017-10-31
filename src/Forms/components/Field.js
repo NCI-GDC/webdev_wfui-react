@@ -9,6 +9,8 @@ import TypeFieldset from './TypeFieldset';
 import TypeAddAnother from './TypeAddAnother';
 import TypeFilterTable from './TypeFilterTable';
 import TypeSelectionHybrid from './TypeSelectionHybrid';
+import TypeAddInputs from './TypeAddInputs';
+import TypeTagInput from './TypeTagInput';
 
 /**
  * Field: Render a field based on webform field type
@@ -34,8 +36,12 @@ class Field extends React.Component {
                         return <TypeTextarea question={field} lang={language} review={review} />;
                     case 'listbox':
                         return <TypeListbox question={field} lang={language} review={review} />;
+                    case 'add-inputs':
+                        return <TypeAddInputs question={field} lang={language} review={review} />;
                     case 'input-hybrid':
                         return <TypeSelectionHybrid question={field} lang={language} review={review} />;
+                    case 'input-tag':
+                        return <TypeTagInput question={field} lang={language} review={review} />;
                     case 'input-text':
                         data = field.values[language] || {};
                         if (data.children && data.children.length > 1) {

@@ -68,8 +68,6 @@ const requiredSimpleValidator = (values) => {
 const requiredInputHybridValidator = fields => (values) => {
     let valid = false;
 
-    // console.log(values, fields, 'requiredInputHybridValidator');
-
     if (values) {
         fields.forEach((field) => {
             if (field.type === 'hybrid') {
@@ -85,6 +83,15 @@ const requiredInputHybridValidator = fields => (values) => {
     return valid ? '' : 'Please answer the question.';
 };
 
+// For add input type validation.
+const addInputsValidator = (child, field) => (values) => {
+    let valid = false;
+    if (child.required) valid = requiredSimpleValidator(values);
+    if (!valid && field && field.field_type === 'number') valid = rangeValidator(field)(values && values.value);
+    if (!valid && field && field.field_type === 'email') valid = emailValidator(values && values.value);
+    return valid;
+};
+
 // Recursively generating map
 const _generateValidatorMap = (children, lang, map) => {
     children.forEach((child) => {
@@ -95,8 +102,11 @@ const _generateValidatorMap = (children, lang, map) => {
             case 'question-group':
                 _generateValidatorMap(child.children, lang, map[child.id]);
                 break;
+            case 'add-inputs':
+                const field = fieldInfo.children[0];
+                map[child.id][field.cid] = addInputsValidator(child, field);
+                break;
             case 'input-text':
-
                 // Required field
                 if (child.required) {
                     map[child.id].global.push(requiredInputValidator(fieldInfo.children));
@@ -178,7 +188,18 @@ const validate = (validatorMap, values, errors, globalErrors, index = -1) => {
 
                 } else {
                     if (typeof validatorMap[key][cid] === 'function') {
-                        errors[key][cid] = validatorMap[key][cid](values[key] && values[key][cid], values[key]);
+                        if (Array.isArray(values[key])) {
+                            // Add Input type questions.
+                            errors[key] = [];
+                            values[key].forEach((val, i) => {
+                                errors[key][i] = {
+                                    value: validatorMap[key][cid](val),
+                                };
+                                // console.log(validatorMap[key][cid](val), 'aaaaa');
+                            });
+                        } else {
+                            errors[key][cid] = validatorMap[key][cid](values[key] && values[key][cid], values[key]);
+                        }
                     } else {
                         if (Array.isArray(values[key])) {
                             errors[key] = [];
@@ -198,6 +219,7 @@ const validate = (validatorMap, values, errors, globalErrors, index = -1) => {
 
 export const validator = validatorMap => (values) => {
     const errors = {};
+
     // console.log(values, 'values===============');
     validate(validatorMap, values, errors, errors);
     // console.log(errors, 'errors===============');

@@ -1,4 +1,4 @@
-const { renderField, renderTextArea, renderRadios, renderSingleCheckbox, renderSelect, renderCheckboxs, renderAddAnother, renderPhoto, renderTimezone } = FormFields;
+const { renderField, renderTextArea, renderRadios, renderSingleCheckbox, renderSelect, renderCheckboxs, renderAddAnother, renderPhoto, renderTimezone, renderTags } = FormFields;
 
 const validate = (values) => {
     const errors = {};
@@ -75,6 +75,13 @@ class Forms extends React.Component{
                         placeholder={'Choose timezone'}
                         label={'Timezone Field'}
                         component={renderTimezone}
+                    />
+                    <Field
+                        name="tags"
+                        label={'Tags'}
+                        component={renderTags}
+                        initialValues={['test', 'test2']}
+                        suggestions={['test', 'Japan']}
                     />
                     <FieldArray
                         name="Contact_list"

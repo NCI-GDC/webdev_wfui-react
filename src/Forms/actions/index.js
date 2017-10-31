@@ -1,5 +1,6 @@
 import { getFormValues } from 'redux-form';
 import { wfuiFetch } from '../../util';
+// import { transformDataFormToSubmission } from '../helpers/transformSubmissionData';
 
 export const getForm = (nid, getConfig) => dispatch => {
     const config = getConfig();
@@ -49,6 +50,7 @@ export const saveSubmission = (
     parentURL,
     getConfig,
 ) => (dispatch, getState) => {
+
     const config = getConfig();
     const answer = getFormValues(`form_${sectionId}`)(getState());
     const userInfo = {};
