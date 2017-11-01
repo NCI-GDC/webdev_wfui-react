@@ -44,6 +44,7 @@ class WebForm extends React.Component {
             allowPrev,
             next: this.next.bind(this),
             prev: this.prev.bind(this),
+            preview: this.preview.bind(this),
             confirm: this.confirm.bind(this),
             goto: this.goto.bind(this),
             last: survey_data.length - 1,
@@ -187,6 +188,9 @@ class WebForm extends React.Component {
             // this.refs['submit_conform_dialog'].showModal();
         });
     }
+    preview() {
+        console.log('Preview');
+    }
     _submit() {
         const { nid, allowPublish, dispatch, submitSubmission } = this.props;
         // dispatch(setInActionState(true));
@@ -235,6 +239,7 @@ class WebForm extends React.Component {
             recaptchaSiteKey,
             user,
             review,
+            reviewSubmission,
         } = this.props;
         const {
             activeId,
@@ -243,10 +248,6 @@ class WebForm extends React.Component {
             surveyDataState,
         } = this.state;
 
-        // Submit Button
-        if (displaySubmit) {
-            var submit = <input type="submit" value="submit" />;
-        }
         //Settings for Slide Animation
         let formStyle = {
             overflow: 'hidden',
@@ -328,10 +329,20 @@ class WebForm extends React.Component {
                                                         }
                                                         user={user}
                                                         review={review}
+                                                        reviewSubmission={
+                                                            reviewSubmission
+                                                        }
                                                     />
                                                 );
                                             })}
-                                            {submit}
+                                            {reviewSubmission && (
+                                                <div>
+                                                    AAAAAAA
+                                                    {console.log(
+                                                        surveyDataState,
+                                                    )}
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -370,6 +381,7 @@ WebForm.propTypes = {
     user: React.PropTypes.object,
     review: React.PropTypes.bool,
     allowAnonymousSubmission: React.PropTypes.bool,
+    reviewSubmission: React.PropTypes.bool,
 };
 WebForm.defaultProps = {
     activeId: 0,
@@ -380,6 +392,7 @@ WebForm.defaultProps = {
     allowPublish: true,
     review: false,
     allowAnonymousSubmission: false,
+    reviewSubmission: false,
 };
 WebForm.childContextTypes = {
     nid: React.PropTypes.string,
@@ -389,6 +402,7 @@ WebForm.childContextTypes = {
     next: React.PropTypes.any,
     prev: React.PropTypes.any,
     confirm: React.PropTypes.any,
+    preview: React.PropTypes.any,
     goto: React.PropTypes.any,
     last: React.PropTypes.number,
     activeId: React.PropTypes.number,
@@ -408,6 +422,4 @@ export default connect((state, props) => {
     };
 }, actionCreators)(WebForm);
 
-export {
-    withContext,
-};
+export { withContext };

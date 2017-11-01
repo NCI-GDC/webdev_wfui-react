@@ -23,16 +23,42 @@ class Section extends React.Component {
         this.onHandleSubmit = this.onHandleSubmit.bind(this);
         this.onClickNext = this.onClickNext.bind(this);
     }
+    onClickReview() {
+        const { dispatch, submission, id, errors, index } = this.props;
+        const { nid, language, activeId, last, confirm, next } = this.context;
+        if (activeId == last) {
+            confirm();
+        } else {
+            next(index);
+        }
+    }
     onClickNext() {
-        const { dispatch, submission, id, errors } = this.props;
-        const { nid, language, activeId, last } = this.context;
-        var that = this;
-        let fields = [];
+        const {
+            dispatch,
+            submission,
+            id,
+            errors,
+            index,
+            reviewSubmission,
+        } = this.props;
+        const {
+            nid,
+            language,
+            activeId,
+            last,
+            confirm,
+            next,
+            preview,
+        } = this.context;
 
         if (activeId == last) {
-            that.context.confirm();
+            if (reviewSubmission) {
+                preview();
+            } else {
+                confirm();
+            }
         } else {
-            that.context.next(that.props.index);
+            next(index);
         }
     }
     onClickPrev(e) {
@@ -208,6 +234,7 @@ Section.contextTypes = {
     next: React.PropTypes.any,
     prev: React.PropTypes.any,
     confirm: React.PropTypes.any,
+    preview: React.PropTypes.any,
     form_width: React.PropTypes.number,
     changeEmitter: React.PropTypes.object,
     last: React.PropTypes.number,

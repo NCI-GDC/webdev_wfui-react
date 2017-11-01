@@ -11,7 +11,7 @@ export default class SectionForm extends React.Component {
     constructor(props) {
         super();
         const lang = 'en';
-        this.state = { initialValues: undefined }
+        this.state = { initialValues: undefined };
 
         // Need to build logic to validate.
         const validatorMap = generateValidatorMap(props.section.children, lang);
@@ -28,32 +28,41 @@ export default class SectionForm extends React.Component {
             initialValues['lastname'] = { field: props.user.lastname };
             initialValues['email'] = { field: props.user.email };
         }
-        
+
         // Add Inputs field.
         // const addInputsFields = props.section.children.filter(q => (q.type === 'add-inputs')).map(q => q.id);
 
         if (props.submissions) {
-            const questionIDs = props.section.children.map((s) => (s.id));
-            const answeredQuestionIDs = Object.keys(props.submissions).filter((key) => (questionIDs.includes(key)));
-            answeredQuestionIDs.forEach((key) => {
-
+            const questionIDs = props.section.children.map(s => s.id);
+            const answeredQuestionIDs = Object.keys(
+                props.submissions,
+            ).filter(key => questionIDs.includes(key));
+            answeredQuestionIDs.forEach(key => {
                 // Transform Data if it's add-inputs type question.
                 // if (addInputsFields.includes(key) && props.submissions[key]) {
                 //     initialValues[key] = props.submissions[key].value.map(val => ({ value: val }));
                 // } else {
 
-                    initialValues[key] = props.submissions[key];
+                initialValues[key] = props.submissions[key];
 
                 // }
             });
         }
-        
-        initialValues['q-14127950-9712-11e7-94d37-8db02d9664e6'] = { value: ['test'] }
 
-        this.state = { initialValues }
+        this.state = { initialValues };
     }
     render() {
-        const { index, isActive, section, form_width, submissions, user, recaptchaSiteKey, review } = this.props;
+        const {
+            index,
+            isActive,
+            section,
+            form_width,
+            submissions,
+            user,
+            recaptchaSiteKey,
+            review,
+            reviewSubmission,
+        } = this.props;
         const { initialValues } = this.state;
 
         return (
@@ -67,6 +76,7 @@ export default class SectionForm extends React.Component {
                 recaptchaSiteKey={recaptchaSiteKey}
                 user={user}
                 review={review}
+                reviewSubmission={reviewSubmission}
             />
         );
     }

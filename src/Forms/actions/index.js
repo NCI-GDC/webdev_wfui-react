@@ -24,10 +24,18 @@ export const getForm = (nid, getConfig) => dispatch => {
     return req.promise;
 };
 
-export const getSubmission = (nid, lang, email, token, getConfig) => dispatch => {
+export const getSubmission = (
+    nid,
+    lang,
+    email,
+    token,
+    getConfig,
+) => dispatch => {
     const config = getConfig();
     const req = wfuiFetch(
-        `//${config.API_HOST}${config.API_USER_FORM_ANSWERS}?survey_nid=${nid}&lang=${lang}${email ? `&email=${email}` : ''}${token ? `&token=${token}` : ''}`,
+        `//${config.API_HOST}${config.API_USER_FORM_ANSWERS}?survey_nid=${nid}&lang=${lang}${email
+            ? `&email=${email}`
+            : ''}${token ? `&token=${token}` : ''}`,
         {
             method: 'GET',
             headers: {
@@ -50,12 +58,15 @@ export const saveSubmission = (
     parentURL,
     getConfig,
 ) => (dispatch, getState) => {
-
     const config = getConfig();
     const answer = getFormValues(`form_${sectionId}`)(getState());
     const userInfo = {};
     const meta = {
-        linkView: config.FORM_REVIEW_LINK && config.FORM_REVIEW_LINK.replace(':form_id', nid).replace(':lang', lang),
+        linkView:
+            config.FORM_REVIEW_LINK &&
+            config.FORM_REVIEW_LINK
+                .replace(':form_id', nid)
+                .replace(':lang', lang),
         linkVerify: config.FORM_VERIFY_LINK,
         linkRedirect: parentURL,
     };
