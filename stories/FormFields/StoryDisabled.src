@@ -23,6 +23,7 @@ class Forms extends React.Component{
                         option={'Active Project'}
                         className="active-checkbox"
                         component={renderSingleCheckbox}
+                        disabled
                     />
 
                     <Field
@@ -33,6 +34,7 @@ class Forms extends React.Component{
                         label={'Project Title:'}
                         placeholder=""
                         required
+                        disabled
                     />
                     <Field
                         name="FacitDevelStage_txt"
@@ -41,6 +43,7 @@ class Forms extends React.Component{
                         component={renderSelect}
                         label={'Development Stage:'}
                         options={['-- Select an Option --', 'A', 'B']}
+                        disabled
                     />
                     <Field
                         name="TechProgram_list"
@@ -49,6 +52,7 @@ class Forms extends React.Component{
                         options={['OptionA', 'OptionB', 'OptionC']}
                         label={'Technology Program(s):'}
                         required
+                        disabled
                     />
                     <Field
                         name="StrategicInitiative_list"
@@ -56,6 +60,7 @@ class Forms extends React.Component{
                         component={renderRadios}
                         options={['OptionA', 'OptionB', 'OptionC']}
                         label={'Strategic Initiative(s):'}
+                        disabled
                     />
                     <Field
                         name="ScientificSummary_txt"
@@ -64,25 +69,27 @@ class Forms extends React.Component{
                         component={renderTextArea}
                         help={'"Read More" after 250 characters'}
                         placeholder="Placeholder"
+                        disabled
                     />
                     <Field
                         name="photo"
                         label={'Choose Photo Field'}
                         component={renderPhoto}
+                        disabled
                     />
                     <Field
                         name="timezone"
                         placeholder={'Choose timezone'}
                         label={'Timezone Field'}
                         component={renderTimezone}
+                        disabled
                     />
                     <Field
                         name="tags"
                         label={'Tags'}
                         component={renderTags}
-                        initialValues={['test', 'test2']}
-                        suggestions={['test', 'Japan']}
                         withContext
+                        disabled
                     />
                     <FieldArray
                         name="Contact_list"
@@ -97,6 +104,7 @@ class Forms extends React.Component{
                                     component={renderField}
                                     label={'First Name:'}
                                     placeholder=""
+                                    disabled
                                 />
                                 <Field
                                     name={`${contact}.LastName_txt`}
@@ -105,6 +113,7 @@ class Forms extends React.Component{
                                     label={'Last Name'}
                                     placeholder=""
                                     required
+                                    disabled
                                 />
                                 <Field
                                     name={`${contact}.Role_txt`}
@@ -112,6 +121,7 @@ class Forms extends React.Component{
                                     component={renderField}
                                     label={'Role:'}
                                     placeholder=""
+                                    disabled
                                 />
                                 <Field
                                     name={`${contact}.Institution_txt`}
@@ -119,6 +129,7 @@ class Forms extends React.Component{
                                     component={renderField}
                                     label={'Lead Research Institute:'}
                                     placeholder=""
+                                    disabled
                                 />
                                 <Field
                                     name={`${contact}.Email_txt`}
@@ -126,9 +137,11 @@ class Forms extends React.Component{
                                     component={renderField}
                                     label={'Email Address:'}
                                     placeholder=""
+                                    disabled
                                 />
                             </div>
                         )}
+                        disabled
                     />
             </form>
         )
@@ -138,6 +151,18 @@ class Forms extends React.Component{
 const FormsReduxForm = reduxForm({
     form: 'test',
     validate,
+    initialValues: {
+        timezone: '(GMT-11:00) Niue',
+        tags: ['test', 'test2'],
+        Contact_list: [
+            {
+                FirstName_txt: 'Test',
+                LastName_txt: 'Test',
+                Role_txt: 'Test',
+                Institution_txt: 'Test'
+            }
+        ]
+    }
 })(Forms);
 
 const example = (

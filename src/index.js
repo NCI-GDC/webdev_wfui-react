@@ -25,7 +25,6 @@ import * as Search from './Search';
 import * as FormFields from './FormFields';
 import * as FilterFields from './Filters/renderFilterItem';
 import Description from './FormFields/Description';
-import * as Forms from './Forms';
 
 require('./i18n/i18n.js');
 
@@ -63,5 +62,4 @@ export {
     CascadingPane,
     PanelFilter,
     Description,
-    Forms,
 };
