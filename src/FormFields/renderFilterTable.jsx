@@ -1,17 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Button, FormGroup, ControlLabel, HelpBlock, SplitButton, MenuItem } from '../index';
+import {
+    Modal,
+    Button,
+    FormGroup,
+    ControlLabel,
+    HelpBlock,
+    SplitButton,
+    MenuItem,
+} from '../index';
 import FilteredTable from '../FilteredTable/FilteredTable';
 import classNames from 'classnames';
 import _ from 'lodash';
 
-import { getValByKey, getOptKey, getOptVal } from '../Forms/helpers/input_hybrid';
+import { getValByKey, getOptKey, getOptVal } from './input_hybrid';
 
 /**
  * Editing form.
  */
 const FilterTableModal = props => {
-
     /**
      * Check if there are errors, if yes, disable save button.
      */
@@ -19,14 +26,14 @@ const FilterTableModal = props => {
     if (props.index >= 0) {
         const localErrors = props.syncErrors[props.name][props.index];
         const globalErrors = props.syncErrors.global;
-        props.questions.forEach((question) => {
+        props.questions.forEach(question => {
             // Global errors.
             if (globalErrors[`${question.id}[${props.index}]`]) invalid = true;
             // Local Errors
             if (localErrors) {
                 const localError = localErrors[question.id];
                 if (Object.keys(localError).length) {
-                    Object.keys(localError).map((key) => {
+                    Object.keys(localError).map(key => {
                         if (localError[key]) invalid = true;
                     });
                 }
@@ -35,12 +42,17 @@ const FilterTableModal = props => {
     }
 
     return (
-        <Modal show={props.show} onHide={props.onHandleCancel} bsSize="large" className={`add-modal`}>
+        <Modal
+            show={props.show}
+            onHide={props.onHandleCancel}
+            bsSize="large"
+            className={`add-modal`}
+        >
             <Modal.Header closeButton>
                 <h2 className="modaltitle">{props.label}</h2>
             </Modal.Header>
             <Modal.Body>
-                { props.bodyDisplay && React.cloneElement(props.bodyDisplay, {})}
+                {props.bodyDisplay && React.cloneElement(props.bodyDisplay, {})}
             </Modal.Body>
             <Modal.Footer>
                 <Button
@@ -49,8 +61,15 @@ const FilterTableModal = props => {
                     className="text-uppercase"
                     onClick={props.onHandleSave}
                     disabled={invalid}
-                >Save</Button>
-                <Button className="text-uppercase" onClick={props.onHandleCancel}>Cancel</Button>
+                >
+                    Save
+                </Button>
+                <Button
+                    className="text-uppercase"
+                    onClick={props.onHandleCancel}
+                >
+                    Cancel
+                </Button>
             </Modal.Footer>
         </Modal>
     );
@@ -71,12 +90,17 @@ FilterTableModal.propTypes = {
  * Deleting Confirmation Modal
  */
 const DeleteConfirmationModal = props => (
-    <Modal show={props.show} onHide={props.onHandleDeleteCancel} bsSize="large" className={`add-modal`}>
+    <Modal
+        show={props.show}
+        onHide={props.onHandleDeleteCancel}
+        bsSize="large"
+        className={`add-modal`}
+    >
         <Modal.Header closeButton>
             <h2 className="modaltitle">{props.label}</h2>
         </Modal.Header>
         <Modal.Body>
-            { props.bodyDisplay && React.cloneElement(props.bodyDisplay, {})}
+            {props.bodyDisplay && React.cloneElement(props.bodyDisplay, {})}
         </Modal.Body>
         <Modal.Footer>
             <Button
@@ -84,8 +108,15 @@ const DeleteConfirmationModal = props => (
                 bsStyle="primary"
                 className="text-uppercase"
                 onClick={props.onHandleDeleteCancel}
-            >No Cancel</Button>
-            <Button className="text-uppercase" onClick={props.onHandleDeleteSave}>Yes, Delete</Button>
+            >
+                No Cancel
+            </Button>
+            <Button
+                className="text-uppercase"
+                onClick={props.onHandleDeleteSave}
+            >
+                Yes, Delete
+            </Button>
         </Modal.Footer>
     </Modal>
 );
@@ -147,7 +178,11 @@ class renderFilterTable extends React.Component {
     onHandleEdit(e) {
         const { fields } = this.props;
         const index = e.target.getAttribute('data-index');
-        this.setState({ showEditModal: true, edittingIndex: index, edittingInitialValue: fields.get(index) });
+        this.setState({
+            showEditModal: true,
+            edittingIndex: index,
+            edittingInitialValue: fields.get(index),
+        });
     }
     onHandleEditSave() {
         this.setState({ showEditModal: false, edittingIndex: -1 });
@@ -158,7 +193,11 @@ class renderFilterTable extends React.Component {
         // Reset value with initialValue
         fields.remove(edittingIndex);
         fields.insert(edittingIndex, edittingInitialValue);
-        this.setState({ showEditModal: false, edittingIndex: -1, edittingInitialValue: undefined });
+        this.setState({
+            showEditModal: false,
+            edittingIndex: -1,
+            edittingInitialValue: undefined,
+        });
     }
 
     // Delete Item
@@ -179,68 +218,99 @@ class renderFilterTable extends React.Component {
     getItemFormat() {
         const { questions, lang } = this.props;
 
-        return questions.map(q => (
-            {
+        return questions
+            .map(q => ({
                 name: q.values[lang].title,
-                display: (data) => {
+                display: data => {
                     const values = data[q.id];
                     if (values) {
                         switch (q.type) {
                             case 'listbox':
-                                return getValByKey(values.value, q.values[lang].options);
+                                return getValByKey(
+                                    values.value,
+                                    q.values[lang].options,
+                                );
                             case 'input-hybrid':
-                                const hybridField = q.values[lang].children.filter(f => (f.type === 'hybrid'))[0];
-                                const displayValues = values[hybridField.cid].map((key) => {
-                                    const assignedField = q.values[lang].children.filter(f => f.input_id === key);
+                                const hybridField = q.values[
+                                    lang
+                                ].children.filter(f => f.type === 'hybrid')[0];
+                                const displayValues = values[
+                                    hybridField.cid
+                                ].map(key => {
+                                    const assignedField = q.values[
+                                        lang
+                                    ].children.filter(f => f.input_id === key);
                                     if (assignedField.length) {
                                         // Get option value & assigned input field value.
-                                        return `${values[assignedField[0].cid]}(${getValByKey(key, q.values[lang].options)})`;
+                                        return `${values[
+                                            assignedField[0].cid
+                                        ]}(${getValByKey(
+                                            key,
+                                            q.values[lang].options,
+                                        )})`;
                                     }
                                     // Get option value by key
-                                    return getValByKey(key, q.values[lang].options);
+                                    return getValByKey(
+                                        key,
+                                        q.values[lang].options,
+                                    );
                                 });
-                                return displayValues.sort((a, b) => (a.localeCompare(b))).join(', ');
+                                return displayValues
+                                    .sort((a, b) => a.localeCompare(b))
+                                    .join(', ');
                             default:
-                                return Object.keys(values).map(key => (values[key])).join(', ');
+                                return Object.keys(values)
+                                    .map(key => values[key])
+                                    .join(', ');
                         }
                     }
                     // console.log(q);
-                    
+
                     // if (values) {
-                        // console.log(values, 'getItemFormat');
-                        // console.log(Object.keys(values).map((key) => (values[key])).join(', '));
+                    // console.log(values, 'getItemFormat');
+                    // console.log(Object.keys(values).map((key) => (values[key])).join(', '));
                     // }
                     // return JSON.stringify(values);
                 },
-            }
-        )).concat([
-            {
-                name: 'Actions',
-                display: (data) => {
-                    return (
-                        <SplitButton
-                            bsStyle="primary"
-                            title="Edit"
-                            data-index={data.idx}
-                            onClick={this.onHandleEdit}
-                        >
-                            <MenuItem data-index={data.idx} onClick={this.onHandleEdit}>Edit</MenuItem>
-                            <MenuItem data-index={data.idx} onClick={this.onHandleDelete}>Delete</MenuItem>
-                        </SplitButton>
-                    );
+            }))
+            .concat([
+                {
+                    name: 'Actions',
+                    display: data => {
+                        return (
+                            <SplitButton
+                                bsStyle="primary"
+                                title="Edit"
+                                data-index={data.idx}
+                                onClick={this.onHandleEdit}
+                            >
+                                <MenuItem
+                                    data-index={data.idx}
+                                    onClick={this.onHandleEdit}
+                                >
+                                    Edit
+                                </MenuItem>
+                                <MenuItem
+                                    data-index={data.idx}
+                                    onClick={this.onHandleDelete}
+                                >
+                                    Delete
+                                </MenuItem>
+                            </SplitButton>
+                        );
+                    },
                 },
-            },
-        ]);
+            ]);
     }
     getFilters() {
         const { questions, lang } = this.props;
         const { filterBy } = this.state;
-        
+
         return [
             item => {
                 let result = false;
                 if (Object.keys(filterBy).length) {
-                    Object.keys(filterBy).forEach((key) => {
+                    Object.keys(filterBy).forEach(key => {
                         const val = _.get(item, key);
                         if (Array.isArray(val) && val.includes(filterBy[key])) {
                             result = true;
@@ -262,11 +332,13 @@ class renderFilterTable extends React.Component {
         const { filterBy } = this.state;
         if (e.target.value) {
             this.setState({
-                filterBy: Object.assign({}, filterBy, { [e.target.getAttribute('data-name')]: e.target.value }),
+                filterBy: Object.assign({}, filterBy, {
+                    [e.target.getAttribute('data-name')]: e.target.value,
+                }),
             });
         }
     }
-    
+
     // Filter UI
     generateFilterUI() {
         const { questions, lang } = this.props;
@@ -274,18 +346,34 @@ class renderFilterTable extends React.Component {
 
         const filters = [];
         filters.push(
-            <div key='filters-applied' className="filters-applied">
+            <div key="filters-applied" className="filters-applied">
                 {questions
-                    .filter(question => (question.type === 'listbox' || question.type === 'input-hybrid'))
+                    .filter(
+                        question =>
+                            question.type === 'listbox' ||
+                            question.type === 'input-hybrid',
+                    )
                     .map((question, i) => {
                         const questionInfo = question.values[lang];
-                        const field = questionInfo.children && questionInfo.children.filter(f => (f.type === 'hybrid'))[0];
+                        const field =
+                            questionInfo.children &&
+                            questionInfo.children.filter(
+                                f => f.type === 'hybrid',
+                            )[0];
                         const cid = field ? field.cid : 'value';
                         return (
-                            <select key={i} data-name={`${question.id}.${cid}`} onChange={this.onFilterChange}>
-                                <option value="">-- Filter by {questionInfo.title} --</option>
+                            <select
+                                key={i}
+                                data-name={`${question.id}.${cid}`}
+                                onChange={this.onFilterChange}
+                            >
+                                <option value="">
+                                    -- Filter by {questionInfo.title} --
+                                </option>
                                 {questionInfo.options.map((option, j) => (
-                                    <option key={j} value={getOptKey(option)}>{getOptVal(option)}</option>
+                                    <option key={j} value={getOptKey(option)}>
+                                        {getOptVal(option)}
+                                    </option>
                                 ))}
                             </select>
                         );
@@ -293,52 +381,96 @@ class renderFilterTable extends React.Component {
             </div>,
         );
         filters.push(
-            <div key='filters-search' className="filters-search">
+            <div key="filters-search" className="filters-search">
                 <input
                     type="text"
                     placeholder="Enter keywords"
                     value={searchTerm}
-                    onChange={e => this.setState({ searchTerm: e.target.value })}
+                    onChange={e =>
+                        this.setState({ searchTerm: e.target.value })}
                 />
-            </div>
+            </div>,
         );
         return filters;
     }
 
     render() {
-        const { questions, className, fields, childComponent, label, syncErrors, labelItem, labelAddAnother, textDeleteConfirm, help, required, disabled, meta: { error } } = this.props;
-        const { showAddModal, showEditModal, showDeleteModal, addingIndex, edittingIndex, searchTerm } = this.state;
+        const {
+            questions,
+            className,
+            fields,
+            childComponent,
+            label,
+            syncErrors,
+            labelItem,
+            labelAddAnother,
+            textDeleteConfirm,
+            help,
+            required,
+            disabled,
+            meta: { error },
+        } = this.props;
+        const {
+            showAddModal,
+            showEditModal,
+            showDeleteModal,
+            addingIndex,
+            edittingIndex,
+            searchTerm,
+        } = this.state;
 
         return (
-            <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': error }, { inactive: fields.length >= 0 })}>
-                <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
-                <FormGroup className="wfui-form-addAnother" validationState={error ? 'error' : null}>
+            <div
+                className={classNames(
+                    className,
+                    'wfui-form-item',
+                    { 'wfui-form-item-error': error },
+                    { inactive: fields.length >= 0 },
+                )}
+            >
+                <ControlLabel>{label}</ControlLabel>
+                {required && <b className="required"> *</b>}
+                <FormGroup
+                    className="wfui-form-addAnother"
+                    validationState={error ? 'error' : null}
+                >
                     <div className="col-header">
-                        <h4 className="col-h4">Your { labelItem } <span>({fields.length})</span></h4>
-                        <Button bsStyle="default" className="btn-add-col add-btn" onClick={this.onHandleAdd}>{ labelAddAnother }</Button>
+                        <h4 className="col-h4">
+                            Your {labelItem} <span>({fields.length})</span>
+                        </h4>
+                        <Button
+                            bsStyle="default"
+                            className="btn-add-col add-btn"
+                            onClick={this.onHandleAdd}
+                        >
+                            {labelAddAnother}
+                        </Button>
                     </div>
-                    
+
                     <div className="col-table">
-                        { fields.length === 0 &&
-                        <div className="inactive-overlay">
-                            <p>{`You have not added any ${labelItem.toLowerCase()} yet. To get started, click the blue "${labelAddAnother}" button above`}</p>
-                        </div>}
+                        {fields.length === 0 && (
+                            <div className="inactive-overlay">
+                                <p
+                                >{`You have not added any ${labelItem.toLowerCase()} yet. To get started, click the blue "${labelAddAnother}" button above`}</p>
+                            </div>
+                        )}
                         <div className="filters-container">
                             {this.generateFilterUI()}
                         </div>
-                        { fields.length !== 0 &&
-                            <div className="table-responsive">    
+                        {fields.length !== 0 && (
+                            <div className="table-responsive">
                                 <FilteredTable
                                     searchTerm={searchTerm}
                                     data={fields.getAll()}
                                     filterList={this.getFilters()}
                                     itemFormat={this.getItemFormat()}
-                                    onResultsNumUpdate={count => this.setState({ count })}
+                                    onResultsNumUpdate={count =>
+                                        this.setState({ count })}
                                     simpleSearch
                                     searchLogic={'or'}
                                 />
                             </div>
-                        } 
+                        )}
                     </div>
                     <FilterTableModal
                         id="AddModal"
@@ -350,7 +482,12 @@ class renderFilterTable extends React.Component {
                         onHandleSave={this.onHandleAddSave}
                         syncErrors={syncErrors}
                         bodyDisplay={
-                            <div>{childComponent(`${fields.name}[${addingIndex}]`, addingIndex)}</div>
+                            <div>
+                                {childComponent(
+                                    `${fields.name}[${addingIndex}]`,
+                                    addingIndex,
+                                )}
+                            </div>
                         }
                     />
                     <FilterTableModal
@@ -363,7 +500,12 @@ class renderFilterTable extends React.Component {
                         onHandleSave={this.onHandleEditSave}
                         syncErrors={syncErrors}
                         bodyDisplay={
-                            <div>{childComponent(`${fields.name}[${edittingIndex}]`, edittingIndex)}</div>
+                            <div>
+                                {childComponent(
+                                    `${fields.name}[${edittingIndex}]`,
+                                    edittingIndex,
+                                )}
+                            </div>
                         }
                     />
                     <DeleteConfirmationModal
@@ -371,12 +513,19 @@ class renderFilterTable extends React.Component {
                         show={showDeleteModal}
                         onHandleDeleteSave={this.onHandleDeleteSave}
                         onHandleDeleteCancel={this.onHandleDeleteCancel}
-                        bodyDisplay={
-                            <div>{ textDeleteConfirm }</div>
-                        }
+                        bodyDisplay={<div>{textDeleteConfirm}</div>}
                     />
-                    {error && <HelpBlock className="wfui-form-error"><span>{error}</span></HelpBlock>}
-                    {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
+                    {error && (
+                        <HelpBlock className="wfui-form-error">
+                            <span>{error}</span>
+                        </HelpBlock>
+                    )}
+                    {help && (
+                        <div
+                            className="wfui-form-description"
+                            dangerouslySetInnerHTML={{ __html: help }}
+                        />
+                    )}
                 </FormGroup>
             </div>
         );

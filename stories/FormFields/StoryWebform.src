@@ -38,6 +38,7 @@ class Example extends React.Component {
                             lastname:"Miyauchi"
                         }}
                         allowAnonymousSubmission
+                        reviewSubmission
                     />
                 </Provider>
             )
