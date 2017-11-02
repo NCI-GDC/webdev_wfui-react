@@ -3,16 +3,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { WithContext as ReactTagsWithContext, WithOutContext as ReactTags } from 'react-tag-input';
-
 import {
-    FormGroup,
-    ControlLabel,
-    HelpBlock,
-} from '../index';
+    WithContext as ReactTagsWithContext,
+    WithOutContext as ReactTags,
+} from 'react-tag-input';
+
+import { FormGroup, ControlLabel, HelpBlock } from '../index';
 
 class renderTags extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -46,7 +44,7 @@ class renderTags extends React.Component {
         let tags = this.state.tags;
         tags.push({
             id: tags.length + 1,
-            text: tag
+            text: tag,
         });
         this.setState({ tags });
         input.onChange(this.transformTagsToSubmission(tags));
@@ -55,7 +53,7 @@ class renderTags extends React.Component {
     handleDrag(tag, currPos, newPos) {
         const { input } = this.props;
         let tags = this.state.tags;
-        
+
         // mutate array
         tags.splice(currPos, 1);
         tags.splice(newPos, 0, tag);
@@ -73,12 +71,13 @@ class renderTags extends React.Component {
             help,
             globalError,
             required,
-            withContent,
+            withContext,
+            disabled,
             meta: { touched, error },
         } = this.props;
         const { suggestions, tags } = this.state;
 
-        const Comp = withContent ? ReactTagsWithContext : ReactTags;
+        const Comp = withContext ? ReactTagsWithContext : ReactTags;
 
         return (
             <div
@@ -89,15 +88,25 @@ class renderTags extends React.Component {
                 <ControlLabel>{label}</ControlLabel>
                 {required && <b className="required"> *</b>}
                 <FormGroup validationState={touched && error ? 'error' : null}>
-                    <Comp
-                        tags={tags}
-                        suggestions={suggestions}
-                        handleDelete={this.handleDelete}
-                        handleAddition={this.handleAddition}
-                        handleDrag={this.handleDrag}
-                        placeholder={placeholder}
-                        name={input.name}
-                    />
+                    {disabled ? (
+                        <div>
+                            {input.value && (
+                                <ul>
+                                    {input.value.map(tag => <li>{tag}</li>)}
+                                </ul>
+                            )}
+                        </div>
+                    ) : (
+                        <Comp
+                            tags={tags}
+                            suggestions={suggestions}
+                            handleDelete={this.handleDelete}
+                            handleAddition={this.handleAddition}
+                            handleDrag={this.handleDrag}
+                            placeholder={placeholder}
+                            name={input.name}
+                        />
+                    )}
                     {touched &&
                         error && (
                             <HelpBlock className="wfui-form-error">
@@ -119,7 +128,7 @@ class renderTags extends React.Component {
                 </FormGroup>
             </div>
         );
-    }    
+    }
 }
 renderTags.propTypes = {
     placeholder: PropTypes.string,

@@ -7,36 +7,35 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { storiesOf } from '@kadira/storybook';
 import * as FormFields from '../../src/FormFields';
 import StoryFacit from 'raw!./StoryFacit.src';
-import StoryWebform from 'raw!./StoryWebform.src';
-
+import StoryDisabled from 'raw!./StoryDisabled.src';
 import '../../src/FormFields/index.scss';
 import { fetchReducer } from '../../src/util/wfuiFetch/reducer';
-import { WebFormWithContext, reducers } from '../../src/Forms/';
+
+// import { WebFormWithContext, reducers } from '../../src/Forms/';
 
 // Modal Dialog
 import { modalReducer } from '../../src/ModalDialog/reducer';
 
-import '../../src/Forms/index.scss';
-
-const store = createStore(combineReducers(
-    {
-        ...reducers,
+const store = createStore(
+    combineReducers({
         form: formReducer,
         fetch: fetchReducer,
         modal: modalReducer,
     }),
     {},
-    compose(applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f => f),
+    compose(
+        applyMiddleware(thunk),
+        window.devToolsExtension ? window.devToolsExtension() : f => f,
+    ),
 );
 
 storiesOf('FormFields', module)
-.addWithInfo(
-    'Type 1',
-    () => StoryFacit,
-    { scope: { Provider, store, FormFields, Field, FieldArray, reduxForm } }
-)
-.addWithInfo(
-    'Webform',
-    () => StoryWebform,
-    { scope: { React, Provider, store, WebForm: WebFormWithContext } }
-);
+    .addWithInfo('Type 1', () => StoryFacit, {
+        scope: { Provider, store, FormFields, Field, FieldArray, reduxForm },
+    })
+    .addWithInfo('Disabled', () => StoryDisabled, {
+        scope: { Provider, store, FormFields, Field, FieldArray, reduxForm },
+    });
+// .addWithInfo('Webform', () => StoryWebform, {
+//     scope: { React, Provider, store, WebForm: WebFormWithContext },
+// });
