@@ -2209,27 +2209,35 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
   .wfui-form-disabled.wfui-form-singlecheckbox .active.checkbox input[type="checkbox"] {
     display: none; }
 
+.wfui-form-disabled .wfui-checkboxes-hybrid .checkbox,
 .wfui-form-disabled .wfui-form-checkboxes .checkbox {
   display: none; }
 
+.wfui-form-disabled .wfui-checkboxes-hybrid .active.checkbox,
 .wfui-form-disabled .wfui-form-checkboxes .active.checkbox {
   display: block; }
+  .wfui-form-disabled .wfui-checkboxes-hybrid .active.checkbox > label,
   .wfui-form-disabled .wfui-form-checkboxes .active.checkbox > label {
     background: none;
     border: none;
     padding: 0; }
+  .wfui-form-disabled .wfui-checkboxes-hybrid .active.checkbox input[type="checkbox"],
   .wfui-form-disabled .wfui-form-checkboxes .active.checkbox input[type="checkbox"] {
     display: none; }
 
+.wfui-form-disabled .wfui-radios-hybrid .radio,
 .wfui-form-disabled .wfui-form-radios .radio {
   display: none; }
 
+.wfui-form-disabled .wfui-radios-hybrid .active.radio,
 .wfui-form-disabled .wfui-form-radios .active.radio {
   display: block; }
+  .wfui-form-disabled .wfui-radios-hybrid .active.radio > label,
   .wfui-form-disabled .wfui-form-radios .active.radio > label {
     background: none;
     border: none;
     padding: 0; }
+  .wfui-form-disabled .wfui-radios-hybrid .active.radio input[type="radio"],
   .wfui-form-disabled .wfui-form-radios .active.radio input[type="radio"] {
     display: none; }
 

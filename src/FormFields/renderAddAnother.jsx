@@ -83,7 +83,7 @@ class renderAddAnother extends React.Component {
                                 ))}
                             </Comp>
                         )}
-                    {!draggable &&
+                    {(!draggable || disabled) &&
                         fields.map((field, i) => (
                             <div key={i}>
                                 {childComponent(field, i)}
