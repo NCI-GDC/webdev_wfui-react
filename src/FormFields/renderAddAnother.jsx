@@ -33,9 +33,14 @@ class renderAddAnother extends React.Component {
 
         return (
             <div
-                className={classNames(className, 'wfui-form-item', {
-                    'wfui-form-item-error': error,
-                })}
+                className={classNames(
+                    className,
+                    'wfui-form-item',
+                    {
+                        'wfui-form-item-error': error,
+                    },
+                    { 'wfui-form-disabled': disabled },
+                )}
             >
                 <ControlLabel>{label}</ControlLabel>
                 {required && <b className="required"> *</b>}

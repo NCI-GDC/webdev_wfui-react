@@ -26,7 +26,6 @@ class Forms extends React.Component{
                         placeholder=""
                         help={'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'}
                         required
-                        disabled
                     />
                     <Field
                         name="renderTextArea"
@@ -35,7 +34,6 @@ class Forms extends React.Component{
                         component={renderTextArea}
                         help={'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'}
                         placeholder="renderTextArea"
-                        disabled
                     />
                     <Field
                         name="renderSingleCheckbox"
@@ -44,7 +42,6 @@ class Forms extends React.Component{
                         className="active-checkbox"
                         help={'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'}
                         component={renderSingleCheckbox}
-                        disabled
                     />
                     <Field
                         name="renderCheckboxes"
@@ -54,7 +51,6 @@ class Forms extends React.Component{
                         label={'renderCheckboxes'}
                         help={'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'}
                         required
-                        disabled
                     />
                     <Field
                         name="renderRadios"
@@ -63,7 +59,6 @@ class Forms extends React.Component{
                         options={['OptionA', 'OptionB', 'OptionC']}
                         help={'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'}
                         label={'renderRadios'}
-                        disabled
                     />
                     <Field
                         name="renderSelect"
@@ -73,14 +68,12 @@ class Forms extends React.Component{
                         label={'renderSelect'}
                         help={'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'}
                         options={['-- Select an Option --', 'A', 'B']}
-                        disabled
                     />
                     <Field
                         name="renderPhoto"
                         label={'renderPhoto'}
                         help={'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'}
                         component={renderPhoto}
-                        disabled
                     />
                     <Field
                         name="renderTimezone"
@@ -88,7 +81,6 @@ class Forms extends React.Component{
                         placeholder={'Choose timezone'}
                         label={'renderTimezone'}
                         component={renderTimezone}
-                        disabled
                     />
                     <Field
                         name="renderTags"
@@ -96,7 +88,6 @@ class Forms extends React.Component{
                         label={'renderTags'}
                         component={renderTags}
                         withContext
-                        disabled
                     />
                     <FieldArray
                         name="renderAddAnother"
@@ -111,7 +102,7 @@ class Forms extends React.Component{
                                     component={renderField}
                                     label={'First Name:'}
                                     placeholder=""
-                                    disabled
+        
                                 />
                                 <Field
                                     name={`${renderAddAnother}.LastName_txt`}
@@ -120,11 +111,10 @@ class Forms extends React.Component{
                                     label={'Last Name'}
                                     placeholder=""
                                     required
-                                    disabled
+        
                                 />
                             </div>
                         )}
-                        disabled
                     />
             </form>
         )

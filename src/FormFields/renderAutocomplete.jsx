@@ -1,5 +1,3 @@
-/* global FileReader */
-/* eslint react/prop-types : 0 */
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -147,6 +145,7 @@ class renderAutocomplete extends React.Component {
                     'wfui-form-item',
                     { 'wfui-form-item-error': error || globalError },
                     { 'wfui-form-inline': inline },
+                    { 'wfui-form-disabled': disabled },
                     { answered: input.value },
                 )}
             >

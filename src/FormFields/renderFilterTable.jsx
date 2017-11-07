@@ -425,6 +425,7 @@ class renderFilterTable extends React.Component {
                     className,
                     'wfui-form-item',
                     { 'wfui-form-item-error': error },
+                    { 'wfui-form-disabled': disabled },
                     { inactive: fields.length >= 0 },
                 )}
             >
