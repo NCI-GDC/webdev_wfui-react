@@ -1145,17 +1145,17 @@ a.delete-icon {
   .wfui-description--theme-blue {
     background-color: none;
     color: blue;
-    border: 1px solid #B1B1B1;
+    border: 1px solid #b1b1b1;
     padding: 10px;
     margin: 10px 0; }
   .wfui-description--theme-red {
-    background-color: #FDDCD9;
+    background-color: #fddcd9;
     color: black;
     border: none;
     padding: 10px;
     margin: 10px 0; }
   .wfui-description--theme-purple {
-    background-color: #F6F1F8;
+    background-color: #f6f1f8;
     color: black;
     border: none;
     padding: 10px;
@@ -1177,7 +1177,8 @@ a.delete-icon {
       float: right;
       background: white;
       position: relative; }
-      .wfui-description__imageContainer__imageGroup:hover, .wfui-description__imageContainer__imageGroup:hover .wfui-description__imageContainer__imageGroup__enlargerIcon {
+      .wfui-description__imageContainer__imageGroup:hover,
+      .wfui-description__imageContainer__imageGroup:hover .wfui-description__imageContainer__imageGroup__enlargerIcon {
         color: black;
         /*color for magnifying glass awesome font icon*/
         cursor: pointer; }
@@ -1186,7 +1187,7 @@ a.delete-icon {
         height: auto;
         float: right;
         padding: 2px;
-        border: 1px solid #AAA5A1; }
+        border: 1px solid #aaa5a1; }
       .wfui-description__imageContainer__imageGroup__enlargerIcon {
         color: #464646;
         text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
@@ -2186,6 +2187,59 @@ div.ReactTags__suggestions li mark {
 div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
   background: #b7cfe0;
   cursor: pointer; }
+
+/* Styles for disabled fields */
+.wfui-form-disabled .wfui-form-description {
+  display: none; }
+
+.wfui-form-disabled .wfui-form-photo input,
+.wfui-form-disabled .wfui-form-input input,
+.wfui-form-disabled .wfui-form-textarea textarea {
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0; }
+
+.wfui-form-disabled.wfui-form-singlecheckbox .active.checkbox {
+  display: block; }
+  .wfui-form-disabled.wfui-form-singlecheckbox .active.checkbox > label {
+    background: none;
+    border: none;
+    padding: 0; }
+  .wfui-form-disabled.wfui-form-singlecheckbox .active.checkbox input[type="checkbox"] {
+    display: none; }
+
+.wfui-form-disabled .wfui-form-checkboxes .checkbox {
+  display: none; }
+
+.wfui-form-disabled .wfui-form-checkboxes .active.checkbox {
+  display: block; }
+  .wfui-form-disabled .wfui-form-checkboxes .active.checkbox > label {
+    background: none;
+    border: none;
+    padding: 0; }
+  .wfui-form-disabled .wfui-form-checkboxes .active.checkbox input[type="checkbox"] {
+    display: none; }
+
+.wfui-form-disabled .wfui-form-radios .radio {
+  display: none; }
+
+.wfui-form-disabled .wfui-form-radios .active.radio {
+  display: block; }
+  .wfui-form-disabled .wfui-form-radios .active.radio > label {
+    background: none;
+    border: none;
+    padding: 0; }
+  .wfui-form-disabled .wfui-form-radios .active.radio input[type="radio"] {
+    display: none; }
+
+.wfui-form-disabled .wfui-form-select select.form-control {
+  padding: 0;
+  border: none;
+  background: none;
+  box-shadow: none;
+  -webkit-appearance: none;
+  appearance: none; }
 .wfui-card-container {
   position: relative; }
   .wfui-card-container .wfui-card-hover {
