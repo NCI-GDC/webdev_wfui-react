@@ -4,13 +4,7 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {
-    Button,
-    FormControl,
-    ControlLabel,
-    HelpBlock,
-} from '../index';
-
+import { Button, FormControl, ControlLabel, HelpBlock } from '../index';
 
 class renderPhoto extends React.Component {
     constructor(props) {
@@ -29,15 +23,21 @@ class renderPhoto extends React.Component {
             type,
             maxlength,
             onStateChange,
+            disabled,
             meta: { touched, error },
         } = this.props;
         const { value } = this.state;
 
         return value ? (
             <div
-                className={classNames(className, 'wfui-form-item', {
-                    'wfui-form-item-error': error,
-                })}
+                className={classNames(
+                    className,
+                    'wfui-form-item',
+                    {
+                        'wfui-form-item-error': error,
+                    },
+                    { 'wfui-form-disabled': disabled },
+                )}
             >
                 <ControlLabel>{label}</ControlLabel>
                 {required && <b className="required"> *</b>}
@@ -63,9 +63,10 @@ class renderPhoto extends React.Component {
                                 onStateChange(newValue);
                                 input.onChange(newValue);
                             }}
+                            disabled={disabled}
                         />
                     </p>
-                    <Button
+                    {!disabled && <Button
                         className="btn-remove"
                         onClick={() => {
                             input.onChange();
@@ -74,7 +75,7 @@ class renderPhoto extends React.Component {
                         }}
                     >
                         Remove Image
-                    </Button>
+                    </Button>}
                 </div>
             </div>
         ) : (

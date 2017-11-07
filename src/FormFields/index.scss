@@ -14,56 +14,56 @@ a.delete-icon {
 /* WFUI Description
 -------------------------------------------------------------- */
 
-.wfui-description{
+.wfui-description {
     display: table;
     width: 100%;
     margin: 5px 0 10px;
-    &--theme-blue{
+    &--theme-blue {
         background-color: none;
         color: blue;
-        border: 1px solid #B1B1B1;
+        border: 1px solid #b1b1b1;
         padding: 10px;
         margin: 10px 0;
-
     }
-    &--theme-red{
-        background-color: #FDDCD9;
+    &--theme-red {
+        background-color: #fddcd9;
         color: black;
         border: none;
         padding: 10px;
         margin: 10px 0;
     }
-    &--theme-purple{
-        background-color: #F6F1F8;
+    &--theme-purple {
+        background-color: #f6f1f8;
         color: black;
         border: none;
         padding: 10px;
         margin: 10px 0;
     }
-    &__textContainer{
+    &__textContainer {
         display: table-cell;
 
         width: 80%;
         text-align: left;
-        float:left;
+        float: left;
     }
     &--theme-error {
         border: 1px solid #c62828;
     }
-    &__imageContainer{
+    &__imageContainer {
         display: table-cell;
 
         width: 20%;
         height: auto;
-        float:left;
-        text-align:right;
+        float: left;
+        text-align: right;
 
         &__imageGroup {
             float: right;
             background: white;
             position: relative;
 
-            &:hover, &:hover &__enlargerIcon {
+            &:hover,
+            &:hover &__enlargerIcon {
                 color: black; /*color for magnifying glass awesome font icon*/
                 cursor: pointer;
             }
@@ -71,32 +71,28 @@ a.delete-icon {
             img {
                 width: 100px;
                 height: auto;
-                float:right;
-                padding:2px;
-                border: 1px solid #AAA5A1;
-
+                float: right;
+                padding: 2px;
+                border: 1px solid #aaa5a1;
             }
 
-            &__enlargerIcon{
+            &__enlargerIcon {
                 color: #464646;
-                text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white; 
+                text-shadow: -1px -1px 0 white, 1px -1px 0 white,
+                    -1px 1px 0 white, 1px 1px 0 white;
                 position: absolute;
                 right: 1px;
                 z-index: 1;
-
             }
         }
-        
-
     }
-    &__imageDialog{
-
+    &__imageDialog {
         position: fixed;
         top: 30%;
-        left:0;
-        right:0;
-        margin-left:auto;
-        margin-right:auto;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
         z-index: 3000;
         height: auto;
         text-align: center;
@@ -107,8 +103,8 @@ a.delete-icon {
             background-color: #ffffff;
             border: 1px solid #ffffff;
             border-radius: 3px;
-            -webkit-box-shadow: 0 0 12px rgba(0,0,0,0.6);
-            box-shadow: 0px 0px 12px rgba(0,0,0,0.6);
+            -webkit-box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+            box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.6);
         }
 
         &__closeButton {
@@ -119,7 +115,8 @@ a.delete-icon {
             font-size: 28px;
             font-weight: bold;
 
-            &:hover, &:focus {
+            &:hover,
+            &:focus {
                 color: #000;
                 text-decoration: none;
                 cursor: pointer;
@@ -133,16 +130,15 @@ a.delete-icon {
             display: inline-block;
             img {
                 height: auto;
-                text-align:center;
+                text-align: center;
                 margin-top: 26px;
             }
         }
         &__footer {
             padding: 10px 25px;
-            height: auto;  
-            text-align: center; 
+            height: auto;
+            text-align: center;
             color: black;
-
         }
     }
 
@@ -152,7 +148,7 @@ a.delete-icon {
         &--theme-visible {
             display: block;
             position: fixed;
-            top:0;
+            top: 0;
             left: 0;
             right: 0;
             z-index: 2999;
@@ -163,7 +159,6 @@ a.delete-icon {
             filter: alpha(opacity=0); /* For IE8 and earlier */
         }
     }
-
 }
 
 .wfui-form-item .wfui-form-description {
@@ -1177,14 +1172,13 @@ div.col-table div.dropdown > ul.dropdown-menu a {
     padding: 5px;
 }
 
-
 /* wfui-type-add-inputs
 /-------------------------------------------------------------- */
-.wfui-type-add-inputs div.wfui-form-input{
-    margin-bottom: 0
+.wfui-type-add-inputs div.wfui-form-input {
+    margin-bottom: 0;
 }
 .wfui-type-add-inputs .wfui-form-item {
-    margin-bottom: 0
+    margin-bottom: 0;
 }
 
 /* React Tags
@@ -1233,7 +1227,7 @@ div.ReactTags__suggestions {
 }
 div.ReactTags__suggestions ul {
     list-style-type: none;
-    box-shadow: .05em .01em .5em rgba(0,0,0,.2);
+    box-shadow: 0.05em 0.01em 0.5em rgba(0, 0, 0, 0.2);
     background: white;
     width: 200px;
 }
@@ -1250,4 +1244,75 @@ div.ReactTags__suggestions li mark {
 div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
     background: #b7cfe0;
     cursor: pointer;
+}
+
+/* Styles for disabled fields */
+
+.wfui-form-disabled {
+    .wfui-form-description {
+        display: none;
+    }
+    .wfui-form-photo input,
+    .wfui-form-input input,
+    .wfui-form-textarea textarea {
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+    }
+    &.wfui-form-singlecheckbox {
+        .active.checkbox {
+            display: block;
+            > label {
+                background: none;
+                border: none;
+                padding: 0;
+            }
+            input[type="checkbox"] {
+                display: none;
+            }
+        }
+    }
+    .wfui-form-checkboxes {
+        .checkbox {
+            display: none;
+        }
+        .active.checkbox {
+            display: block;
+            > label {
+                background: none;
+                border: none;
+                padding: 0;
+            }
+            input[type="checkbox"] {
+                display: none;
+            }
+        }
+    }
+    .wfui-form-radios {
+        .radio {
+            display: none;
+        }
+        .active.radio {
+            display: block;
+            > label {
+                background: none;
+                border: none;
+                padding: 0;
+            }
+            input[type="radio"] {
+                display: none;
+            }
+        }
+    }
+    .wfui-form-select {
+        select.form-control{
+            padding: 0;
+            border: none;
+            background: none;
+            box-shadow: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+    }
 }

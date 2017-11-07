@@ -6,7 +6,7 @@ import { reducer as formReducer } from 'redux-form';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { storiesOf } from '@kadira/storybook';
 import * as FormFields from '../../src/FormFields';
-import StoryFacit from 'raw!./StoryFacit.src';
+import StoryFormField from 'raw!./StoryFormField.src';
 import StoryDisabled from 'raw!./StoryDisabled.src';
 import '../../src/FormFields/index.scss';
 import { fetchReducer } from '../../src/util/wfuiFetch/reducer';
@@ -30,7 +30,7 @@ const store = createStore(
 );
 
 storiesOf('FormFields', module)
-    .addWithInfo('Type 1', () => StoryFacit, {
+    .addWithInfo('Regular', () => StoryFormField, {
         scope: { Provider, store, FormFields, Field, FieldArray, reduxForm },
     })
     .addWithInfo('Disabled', () => StoryDisabled, {

@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { Checkbox, FormFields, FormGroup, ControlLabel, HelpBlock } from '../index';
+import {
+    Checkbox,
+    FormFields,
+    FormGroup,
+    ControlLabel,
+    HelpBlock,
+} from '../index';
 import classNames from 'classnames';
 import _ from 'lodash';
 
@@ -23,7 +29,7 @@ class renderSelectionHybridCheckbox extends React.Component {
     onHandleChange(values, checkedValue) {
         const { name, input, fieldMap } = this.props;
         const { exclusives } = this.state;
-        
+
         const checkboxCid = fieldMap['_checkbox'].cid;
         const childComponents = _.get(this.props, name);
         const checkboxProps = childComponents[checkboxCid];
@@ -33,13 +39,18 @@ class renderSelectionHybridCheckbox extends React.Component {
         if (exclusives.length > 0) {
             if (checkedValue !== false && exclusives.includes(checkedValue)) {
                 nextValues = [checkedValue];
-            } else if (checkedValue !== false && !exclusives.includes(checkedValue)) {
-                nextValues = values.filter((value) => (!exclusives.includes(value)));
+            } else if (
+                checkedValue !== false &&
+                !exclusives.includes(checkedValue)
+            ) {
+                nextValues = values.filter(
+                    value => !exclusives.includes(value),
+                );
             }
-        } 
-        
+        }
+
         // Reset Value if it's not checked.
-        Object.keys(fieldMap).forEach((key) => {
+        Object.keys(fieldMap).forEach(key => {
             if (key !== '_checkbox' && !nextValues.includes(key)) {
                 const fieldProps = childComponents[fieldMap[key].cid];
                 fieldProps.input.onChange('');
@@ -47,12 +58,11 @@ class renderSelectionHybridCheckbox extends React.Component {
         });
 
         checkboxProps.input.onChange(nextValues);
-
     }
     parseOptionsAndSpecials(props) {
         const exclusives = [];
         let options = [];
-        props.options.forEach((option) => {
+        props.options.forEach(option => {
             const key = props.getOptKey(option);
             const special = props.getOptSpecial(option);
             if (special.includes('exclusive')) {
@@ -67,7 +77,17 @@ class renderSelectionHybridCheckbox extends React.Component {
     }
     render() {
         // const { questionId, className, label, input, help, required, disabled, fieldMap, meta: { touched, error } } = this.props;
-        const { className, name, label, required, help, globalError, fieldMap, disabled, columnCount } = this.props;
+        const {
+            className,
+            name,
+            label,
+            required,
+            help,
+            globalError,
+            fieldMap,
+            disabled,
+            columnCount,
+        } = this.props;
 
         const { options } = this.state;
 
@@ -78,7 +98,7 @@ class renderSelectionHybridCheckbox extends React.Component {
         const components = [];
         let allTouched = true;
         let allPristine = true;
-        Object.keys(childComponents).map((key) => {
+        Object.keys(childComponents).map(key => {
             const props = childComponents[key];
             allTouched = allTouched && props.meta.touched;
             allPristine = allPristine && props.meta.pristine;
@@ -86,56 +106,105 @@ class renderSelectionHybridCheckbox extends React.Component {
         });
 
         return (
-            <div className={classNames(className, 'wfui-form-item', { 'wfui-form-item-error': globalError })}>
-                <ControlLabel>{label}</ControlLabel>{required && <b className="required"> *</b>}
-                <FormGroup className={`wfui-checkboxes-hybrid column-count-${columnCount}`} validationState={allTouched && globalError ? 'error' : null}>
+            <div
+                className={classNames(
+                    className,
+                    'wfui-form-item',
+                    { 'wfui-form-item-error': globalError },
+                    { 'wfui-form-disabled': disabled },
+                )}
+            >
+                <ControlLabel>{label}</ControlLabel>
+                {required && <b className="required"> *</b>}
+                <FormGroup
+                    className={`wfui-checkboxes-hybrid column-count-${columnCount}`}
+                    validationState={allTouched && globalError ? 'error' : null}
+                >
                     {options.map((option, i) => {
-                        const _key = typeof option === 'string' ? option : option.key;
-                        const _option = typeof option === 'string' ? option : option.value;
+                        const _key =
+                            typeof option === 'string' ? option : option.key;
+                        const _option =
+                            typeof option === 'string' ? option : option.value;
                         const renderCheckbox = (
                             <Checkbox
                                 key={i}
                                 name={`${name}.${checkboxCid}`}
                                 value={_key}
                                 disabled={disabled}
-                                checked={checkboxProps.input.value && checkboxProps.input.value.includes(_key)}
-                                className={checkboxProps.input.value && checkboxProps.input.value.includes(_key) ? 'active' : ''}
-                                onChange={(e) => {
-                                    const newValue = [...checkboxProps.input.value];
+                                checked={
+                                    checkboxProps.input.value &&
+                                    checkboxProps.input.value.includes(_key)
+                                }
+                                className={
+                                    checkboxProps.input.value &&
+                                    checkboxProps.input.value.includes(_key)
+                                        ? 'active'
+                                        : ''
+                                }
+                                onChange={e => {
+                                    const newValue = [
+                                        ...checkboxProps.input.value,
+                                    ];
                                     if (e.target.checked) {
                                         newValue.push(_key);
                                     } else {
-                                        newValue.splice(newValue.indexOf(_key), 1);
+                                        newValue.splice(
+                                            newValue.indexOf(_key),
+                                            1,
+                                        );
                                     }
-                                    return this.onHandleChange(newValue, e.target.checked && e.target.value);
+                                    return this.onHandleChange(
+                                        newValue,
+                                        e.target.checked && e.target.value,
+                                    );
                                 }}
                             >
                                 {_option}
                                 <div key={i} className="checkboxHybrid">
-                                    { fieldMap[_key] && <Field
-                                        {...fieldMap[_key]}
-                                        name={`${name}.${fieldMap[_key].cid}`}
-                                        type={fieldMap[_key].field_type || 'text'}
-                                        component={renderField}
-                                        disabled={disabled}
-                                        onFocus={() => {
-                                            const newValue = [...checkboxProps.input.value];
-                                            let checked = false;
-                                            if (!newValue.includes(_key)) {
-                                                checked = true;
-                                                newValue.push(_key);
+                                    {fieldMap[_key] && (
+                                        <Field
+                                            {...fieldMap[_key]}
+                                            name={`${name}.${fieldMap[_key]
+                                                .cid}`}
+                                            type={
+                                                fieldMap[_key].field_type ||
+                                                'text'
                                             }
-                                            this.onHandleChange(newValue, checked && _key);
-                                        }}
-                                    />}
+                                            component={renderField}
+                                            disabled={disabled}
+                                            onFocus={() => {
+                                                const newValue = [
+                                                    ...checkboxProps.input
+                                                        .value,
+                                                ];
+                                                let checked = false;
+                                                if (!newValue.includes(_key)) {
+                                                    checked = true;
+                                                    newValue.push(_key);
+                                                }
+                                                this.onHandleChange(
+                                                    newValue,
+                                                    checked && _key,
+                                                );
+                                            }}
+                                        />
+                                    )}
                                 </div>
                             </Checkbox>
                         );
                         return renderCheckbox;
-
                     })}
-                    <HelpBlock> {allTouched && globalError && <span>{globalError}</span>} </HelpBlock>
-                    {help && <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />}
+                    <HelpBlock>
+                        {' '}
+                        {allTouched &&
+                            globalError && <span>{globalError}</span>}{' '}
+                    </HelpBlock>
+                    {help && (
+                        <div
+                            className="wfui-form-description"
+                            dangerouslySetInnerHTML={{ __html: help }}
+                        />
+                    )}
                 </FormGroup>
             </div>
         );
