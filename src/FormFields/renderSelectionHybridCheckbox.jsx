@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
+import classNames from 'classnames';
 import {
     Checkbox,
     FormFields,
@@ -8,7 +9,6 @@ import {
     ControlLabel,
     HelpBlock,
 } from '../index';
-import classNames from 'classnames';
 import _ from 'lodash';
 
 import { renderField } from './index';
