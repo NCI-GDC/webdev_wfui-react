@@ -66,16 +66,18 @@ class renderPhoto extends React.Component {
                             disabled={disabled}
                         />
                     </p>
-                    {!disabled && <Button
-                        className="btn-remove"
-                        onClick={() => {
-                            input.onChange();
-                            onStateChange();
-                            this.setState({ value: undefined });
-                        }}
-                    >
-                        Remove Image
-                    </Button>}
+                    {!disabled && (
+                        <Button
+                            className="btn-remove"
+                            onClick={() => {
+                                input.onChange();
+                                onStateChange();
+                                this.setState({ value: undefined });
+                            }}
+                        >
+                            Remove Image
+                        </Button>
+                    )}
                 </div>
             </div>
         ) : (
@@ -85,6 +87,7 @@ class renderPhoto extends React.Component {
                 <Dropzone
                     {...input}
                     name={input.name}
+                    accept={'image/png,image/jpeg,image/pjpeg,image/gif'}
                     className="wfui-form-photo choose-file"
                     onDrop={acceptedFiles => {
                         const reader = new FileReader();
