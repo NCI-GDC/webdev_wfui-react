@@ -23,33 +23,37 @@ class CascadingPane extends React.Component {
             mainSelectIdx: -1,
 
             selectedGroup: {},
-            selectedMember: {},
+            selectedMember: {}
         };
     }
 
     componentWillMount() {
-        const { config, getCascadingNav } = this.props;
-        getCascadingNav(config);
+        const { getCascadingNav } = this.props;
+        getCascadingNav();
     }
 
     renderNav(child) {
-        const { config, location, getCascadingNav, navData, navFetch, fetchedNav } = this.props;
+        const {
+            location,
+            getCascadingNav,
+            navData,
+            navFetch,
+            fetchedNav
+        } = this.props;
 
         return React.cloneElement(child, {
             key: 0,
-            config,
             data: navData,
             getCascadingNav,
             navFetch,
             fetchedNav,
             cascNav: location.query.cascNav,
-            updateGroupSelect: item => this.setState({ selectedGroup: item }),
+            updateGroupSelect: item => this.setState({ selectedGroup: item })
         });
     }
 
     renderMainView(child) {
         const {
-            config,
             getCascadingNav,
             getCascadingMainView,
             location,
@@ -58,13 +62,12 @@ class CascadingPane extends React.Component {
             mainViewFetch,
             fetchedNav,
             fetchedMainView,
-            visibilityFilter,
+            visibilityFilter
         } = this.props;
         const { selectedGroup } = this.state;
 
         return React.cloneElement(child, {
             key: 1,
-            config,
             groupData: selectedGroup,
             mainData,
             getCascadingMainView,
@@ -76,14 +79,14 @@ class CascadingPane extends React.Component {
             cascNav: location.query.cascNav,
             cascSelect: location.query.cascSelect,
             reloadNav: getCascadingNav,
-            updateMemberSelect: item => this.setState({ selectedMember: item || {} }),
-            visibilityFilter,
+            updateMemberSelect: item =>
+                this.setState({ selectedMember: item || {} }),
+            visibilityFilter
         });
     }
 
     renderSubView(child) {
         const {
-            config,
             getCascadingSubView,
             getCascadingMainView,
             location,
@@ -91,13 +94,12 @@ class CascadingPane extends React.Component {
             subViewFetch,
             mainViewFetch,
             fetchedSubView,
-            fetchedMainView,
+            fetchedMainView
         } = this.props;
         const { selectedGroup, selectedMember } = this.state;
 
         return React.cloneElement(child, {
             key: 2,
-            config,
             groupData: selectedGroup,
             memberData: selectedMember,
             data: subData,
@@ -108,24 +110,44 @@ class CascadingPane extends React.Component {
             fetchedMainView,
             cascNav: location.query.cascNav,
             cascSelect: location.query.cascSelect,
-            reloadMainView: getCascadingMainView,
+            reloadMainView: getCascadingMainView
         });
     }
 
     render() {
-        const { className, viewClassName, splitClassName, defaultSize, children } = this.props;
+        const {
+            className,
+            viewClassName,
+            splitClassName,
+            defaultSize,
+            children
+        } = this.props;
         const { selectedMember } = this.state;
 
         return (
-            <div className={classNames(className, 'cascading-pane cascading-pane-container')}>
+            <div
+                className={classNames(
+                    className,
+                    'cascading-pane cascading-pane-container'
+                )}
+            >
                 {this.renderNav(children[0])}
                 {Object.keys(selectedMember).length === 0 ? (
-                    <div className={classNames(viewClassName, 'cascading-pane-view')}>
+                    <div
+                        className={classNames(
+                            viewClassName,
+                            'cascading-pane-view'
+                        )}
+                    >
                         {this.renderMainView(children[1])}
                     </div>
                 ) : (
                     <SplitPane
-                        className={classNames(viewClassName, splitClassName, 'cascading-pane-view')}
+                        className={classNames(
+                            viewClassName,
+                            splitClassName,
+                            'cascading-pane-view'
+                        )}
                         split="vertical"
                         minSize={50}
                         defaultSize={defaultSize || 150}
@@ -145,9 +167,6 @@ CascadingPane.MainView = CascadingPaneMainView;
 CascadingPane.SubView = CascadingPaneSubView;
 
 CascadingPane.propTypes = {
-    config: PropTypes.shape({
-        APP_ID: PropTypes.string,
-    }).isRequired,
     location: PropTypes.object,
     className: PropTypes.string,
     viewClassName: PropTypes.string,
@@ -168,21 +187,23 @@ CascadingPane.propTypes = {
     navDataSelector: PropTypes.func,
     mainDataSelector: PropTypes.func,
     subDataSelector: PropTypes.func,
-    children: PropTypes.arrayOf((propValue) => {
+    children: PropTypes.arrayOf(propValue => {
         if (propValue.length !== 3) {
             return new Error(
-                'The Cascading Pane requires exactly three children: CascadingPane.Nav, CascadingPane.MainView and CascadingPane.SubView',
+                'The Cascading Pane requires exactly three children: CascadingPane.Nav, CascadingPane.MainView and CascadingPane.SubView'
             );
         }
         const roles = ['nav', 'mainView', 'subView'];
-        const rolesMatch = propValue.every((child, idx) => child.props.role === roles[idx]);
+        const rolesMatch = propValue.every(
+            (child, idx) => child.props.role === roles[idx]
+        );
         if (!rolesMatch) {
             return new Error(
-                'The Cascading Pane requires exactly three children in the following order: CascadingPane.Nav, CascadingPane.MainView and CascadingPane.SubView',
+                'The Cascading Pane requires exactly three children in the following order: CascadingPane.Nav, CascadingPane.MainView and CascadingPane.SubView'
             );
         }
     }).isRequired,
-    visibilityFilter: PropTypes.object,
+    visibilityFilter: PropTypes.object
 };
 
 CascadingPane.defaultProps = {
@@ -198,10 +219,10 @@ CascadingPane.defaultProps = {
     location: {
         query: {
             cascNav: '',
-            cascSelect: '',
-        },
+            cascSelect: ''
+        }
     },
-    defaultSize: 0,
+    defaultSize: 0
 };
 
 export default connect((state, props) => {
@@ -213,16 +234,25 @@ export default connect((state, props) => {
         navFetch,
         mainViewFetch,
         subViewFetch,
-        navData: props.navDataSelector ? props.navDataSelector(casData)(state) : casData.navData,
+        navData: props.navDataSelector
+            ? props.navDataSelector(casData)(state)
+            : casData.navData,
         mainData: props.mainDataSelector
             ? props.mainDataSelector(casData)(state)
             : casData.mainData,
-        subData: props.subDataSelector ? props.subDataSelector(casData)(state) : casData.subData,
+        subData: props.subDataSelector
+            ? props.subDataSelector(casData)(state)
+            : casData.subData,
         visibilityFilter: state.visibilityFilter,
-        fetchedNav: navFetch && !navFetch.isFetching && navFetch.status === 'success',
+        fetchedNav:
+            navFetch && !navFetch.isFetching && navFetch.status === 'success',
         fetchedMainView:
-            mainViewFetch && !mainViewFetch.isFetching && mainViewFetch.status === 'success',
+            mainViewFetch &&
+            !mainViewFetch.isFetching &&
+            mainViewFetch.status === 'success',
         fetchedSubView:
-            subViewFetch && !subViewFetch.isFetching && subViewFetch.status === 'success',
+            subViewFetch &&
+            !subViewFetch.isFetching &&
+            subViewFetch.status === 'success'
     };
 })(CascadingPane);

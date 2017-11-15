@@ -19,16 +19,16 @@ class CascadingPaneMainView extends React.Component {
             filtered: [],
             showing: 0,
             dataWithClass: props.mainData
-                ? props.mainData.map((item) => {
+                ? props.mainData.map(item => {
                       const newItem = JSON.parse(JSON.stringify(item));
-                      newItem.className = `member-item-${item[props.itemIdField]} ${item[
+                      newItem.className = `member-item-${item[
                           props.itemIdField
-                      ] === props.cascSelect
+                      ]} ${item[props.itemIdField] === props.cascSelect
                           ? 'active'
                           : ''}`;
                       return newItem;
                   })
-                : [],
+                : []
         };
 
         this.onHandleClick = this.onHandleClick.bind(this);
@@ -36,8 +36,8 @@ class CascadingPaneMainView extends React.Component {
     }
 
     componentWillMount() {
-        const { config, cascNav, getCascadingMainView } = this.props;
-        if (cascNav) getCascadingMainView(config, cascNav);
+        const { cascNav, getCascadingMainView } = this.props;
+        if (cascNav) getCascadingMainView(cascNav);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -46,9 +46,8 @@ class CascadingPaneMainView extends React.Component {
             cascSelect,
             fetchedNav,
             fetchedMainView,
-            config,
             getCascadingMainView,
-            mainData,
+            mainData
         } = this.props;
         const newState = {};
         if (fetchedNav !== nextProps.fetchedNav) {
@@ -60,22 +59,23 @@ class CascadingPaneMainView extends React.Component {
         if (cascNav) {
             if (!nextProps.cascNav || cascNav !== nextProps.cascNav) {
                 newState.navSelect = nextProps.cascNav || '';
-                if (nextProps.cascNav) getCascadingMainView(config, nextProps.cascNav);
+                if (nextProps.cascNav) getCascadingMainView(nextProps.cascNav);
             }
         } else if (nextProps.cascNav) {
             newState.navSelect = nextProps.cascNav;
-            getCascadingMainView(config, nextProps.cascNav);
+            getCascadingMainView(nextProps.cascNav);
         }
 
         if (cascSelect) {
             if (!nextProps.cascSelect || cascSelect !== nextProps.cascSelect) {
                 newState.curSelect = nextProps.cascSelect || '';
                 newState.dataWithClass = nextProps.mainData
-                    ? nextProps.mainData.map((item) => {
+                    ? nextProps.mainData.map(item => {
                           const newItem = JSON.parse(JSON.stringify(item));
-                          newItem.className = `member-item-${item[nextProps.itemIdField]} ${item[
+                          newItem.className = `member-item-${item[
                               nextProps.itemIdField
-                          ] === nextProps.cascSelect
+                          ]} ${item[nextProps.itemIdField] ===
+                          nextProps.cascSelect
                               ? 'active'
                               : ''}`;
                           return newItem;
@@ -85,11 +85,11 @@ class CascadingPaneMainView extends React.Component {
         } else if (nextProps.cascSelect) {
             newState.curSelect = nextProps.cascSelect;
             newState.dataWithClass = nextProps.mainData
-                ? nextProps.mainData.map((item) => {
+                ? nextProps.mainData.map(item => {
                       const newItem = JSON.parse(JSON.stringify(item));
-                      newItem.className = `member-item-${item[nextProps.itemIdField]} ${item[
+                      newItem.className = `member-item-${item[
                           nextProps.itemIdField
-                      ] === nextProps.cascSelect
+                      ]} ${item[nextProps.itemIdField] === nextProps.cascSelect
                           ? 'active'
                           : ''}`;
                       return newItem;
@@ -98,11 +98,11 @@ class CascadingPaneMainView extends React.Component {
         }
         if (JSON.stringify(mainData) !== nextProps.mainData) {
             newState.dataWithClass = nextProps.mainData
-                ? nextProps.mainData.map((item) => {
+                ? nextProps.mainData.map(item => {
                       const newItem = JSON.parse(JSON.stringify(item));
-                      newItem.className = `member-item-${item[nextProps.itemIdField]} ${item[
+                      newItem.className = `member-item-${item[
                           nextProps.itemIdField
-                      ] === nextProps.cascSelect
+                      ]} ${item[nextProps.itemIdField] === nextProps.cascSelect
                           ? 'active'
                           : ''}`;
                       return newItem;
@@ -124,7 +124,9 @@ class CascadingPaneMainView extends React.Component {
             curSelect !== prevState.curSelect ||
             JSON.stringify(mainData) !== JSON.stringify(prevProps.mainData)
         ) {
-            const memberSelected = mainData.filter(item => item[itemIdField] === curSelect);
+            const memberSelected = mainData.filter(
+                item => item[itemIdField] === curSelect
+            );
             updateMemberSelect(memberSelected[0]);
         }
     }
@@ -133,7 +135,7 @@ class CascadingPaneMainView extends React.Component {
         const { mainData } = this.props;
         const newSelected = selection.map(idx => mainData[idx]);
         this.setState({
-            selected: newSelected,
+            selected: newSelected
         });
     }
 
@@ -144,10 +146,11 @@ class CascadingPaneMainView extends React.Component {
             if (curSelect) {
                 window.location.href = window.location.href.replace(
                     `cascSelect=${curSelect}`,
-                    `cascSelect=${item[itemIdField]}`,
+                    `cascSelect=${item[itemIdField]}`
                 );
             } else {
-                window.location.href = `${window.location.href}&cascSelect=${item[itemIdField]}`;
+                window.location.href = `${window.location
+                    .href}&cascSelect=${item[itemIdField]}`;
             }
         }
     }
@@ -163,26 +166,37 @@ class CascadingPaneMainView extends React.Component {
             mainData,
             summaryDisplay,
             reloadNav,
-            config,
             itemDisplay,
             tableClassName,
             visibilityFilter,
             filtersDisplay,
             getFilters,
-            location,
+            location
         } = this.props;
-        const { navSelect, fetchedNav, fetchedMainView, showing, dataWithClass } = this.state;
+        const {
+            navSelect,
+            fetchedNav,
+            fetchedMainView,
+            showing,
+            dataWithClass
+        } = this.state;
 
         if (!navSelect) {
             return (
-                <div className={classNames(className, 'cascading-pane-mainview')} key={key}>
+                <div
+                    className={classNames(className, 'cascading-pane-mainview')}
+                    key={key}
+                >
                     {noneSelectedDisplay}
                 </div>
             );
         }
 
         return (
-            <div className={classNames(className, 'cascading-pane-mainview')} key={key}>
+            <div
+                className={classNames(className, 'cascading-pane-mainview')}
+                key={key}
+            >
                 <LoadingComponent {...navFetch}>
                     <LoadingComponent {...mainViewFetch}>
                         <div className="cascading-pane-mainview-summary">
@@ -191,7 +205,7 @@ class CascadingPaneMainView extends React.Component {
                                 React.cloneElement(summaryDisplay, {
                                     data: mainData,
                                     groupData,
-                                    updateNav: () => reloadNav(config),
+                                    updateNav: () => reloadNav()
                                 })}
                         </div>
                         <div className="cascading-pane-mainview-filters ">
@@ -200,22 +214,28 @@ class CascadingPaneMainView extends React.Component {
                                     visibilityFilter,
                                     location,
                                     showing,
-                                    data: mainData,
+                                    data: mainData
                                 })}
                         </div>
                         <div className="cascading-pane-mainview-table">
                             {fetchedMainView && (
                                 <FilteredTable
                                     className={tableClassName}
-                                    searchTerm={visibilityFilter.category.searchTerm || ''}
-                                    filterList={getFilters(visibilityFilter.category)}
+                                    searchTerm={
+                                        visibilityFilter.category.searchTerm ||
+                                        ''
+                                    }
+                                    filterList={getFilters(
+                                        visibilityFilter.category
+                                    )}
                                     data={dataWithClass}
                                     itemFormat={itemDisplay}
                                     onSelectionChange={this.onSelectionChange}
                                     onResultsNumUpdate={results =>
                                         this.setState({ showing: results })}
                                     rowClickable
-                                    onRowClick={item => this.onHandleClick(item)}
+                                    onRowClick={item =>
+                                        this.onHandleClick(item)}
                                     selectable
                                     simpleSearch
                                     wholeWord
@@ -232,19 +252,16 @@ class CascadingPaneMainView extends React.Component {
 CascadingPaneMainView.propTypes = {
     role: PropTypes.string,
     key: PropTypes.number,
-    config: PropTypes.shape({
-        APP_ID: PropTypes.string,
-    }),
     groupData: PropTypes.object,
     mainData: PropTypes.array,
     getCascadingMainView: PropTypes.func,
     navFetch: PropTypes.shape({
         status: PropTypes.string,
-        isFetching: PropTypes.bool,
+        isFetching: PropTypes.bool
     }),
     mainViewFetch: PropTypes.shape({
         status: PropTypes.string,
-        isFetching: PropTypes.bool,
+        isFetching: PropTypes.bool
     }),
     fetchedNav: PropTypes.bool,
     fetchedMainView: PropTypes.bool,
@@ -262,7 +279,7 @@ CascadingPaneMainView.propTypes = {
     itemDisplay: PropTypes.array,
     itemIdField: PropTypes.string,
     getFilters: PropTypes.func,
-    filtersDisplay: PropTypes.element,
+    filtersDisplay: PropTypes.element
 };
 
 CascadingPaneMainView.defaultProps = {
@@ -273,11 +290,11 @@ CascadingPaneMainView.defaultProps = {
     getCascadingMainView: f => f,
     navFetch: {
         status: '',
-        isFetching: false,
+        isFetching: false
     },
     mainViewFetch: {
         status: '',
-        isFetching: false,
+        isFetching: false
     },
     fetchedNav: false,
     fetchedMainView: false,
@@ -289,7 +306,7 @@ CascadingPaneMainView.defaultProps = {
     className: '',
     tableClassName: '',
     noneSelectedDisplay: <p>Please select a group</p>,
-    itemIdField: 'id',
+    itemIdField: 'id'
 };
 
 export default CascadingPaneMainView;
