@@ -114,7 +114,7 @@ class renderFileUpload extends React.Component {
                         </div>
                     )}
                     <Dropzone
-                        name={`${name}`}
+                        name={`${input.name}`}
                         multiple={false}
                         maxSize={maxFileSize}
                         style={{
@@ -155,7 +155,7 @@ class renderFileUpload extends React.Component {
                                     this.setState({
                                         fileError: `${errorFileSize.replace(
                                             '{maxFileSize}',
-                                            maxFileSize,
+                                            Math.round(maxFileSize / 1000000),
                                         )}`,
                                     });
                                 } else {
@@ -233,7 +233,7 @@ renderFileUpload.defaultProps = {
     txtUpload: 'Upload',
     errorFileType: 'Only files with the following extensions are allowed:',
     errorFileSize:
-        'The file is exceeding the maximum file size of <i>{maxFileSize}</i>',
+        'The file is exceeding the maximum file size of <i>{maxFileSize} MB</i>',
     errorReject: 'The file is rejected to upload.',
     mimeTypes: {
         pdf: ['application/pdf'],
