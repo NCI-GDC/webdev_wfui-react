@@ -17,11 +17,10 @@ const switchurl = state => {
     const mergedQuery = Object.assign({}, parsedURL.query, flattenedState);
     const urlString = Object.keys(mergedQuery).reduce((s, k) => {
         if (mergedQuery[k]) {
-            return `${s}&${k}=${encodeURI(
-                Array.isArray(mergedQuery[k])
-                    ? mergedQuery[k].join(',')
-                    : mergedQuery[k],
-            )}`;
+            if (Array.isArray(mergedQuery[k])) {
+                return mergedQuery[k].length ? `${s}&${k}=${encodeURI(mergedQuery[k].join(','))}` : s;
+            }
+            return `${s}&${k}=${encodeURI(mergedQuery[k])}`;
         }
         return s;
     }, '');
