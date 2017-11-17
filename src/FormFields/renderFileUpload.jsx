@@ -19,23 +19,22 @@ class renderFileUpload extends React.Component {
         super();
         this.state = {
             file: false,
-            filename: '',
             fileError: '',
             data: '',
             filetype: '',
             accept: generateAcceptText(props),
         };
+        this.getFileKey = this.getFileKey.bind(this);
     }
-    componentWillMount() {
-        const { file, input } = this.props;
-        if (file) {
-            this.setState({
-                filename: file.filename,
-                data: file.data,
-                filetype: file.filetype,
-            });
-        }
-        input.onChange(file ? file.filename : '');
+    getFileKey(mime) {
+        const { mimeTypes } = this.props;
+        let key = '';
+        Object.keys(mimeTypes).forEach((k) => {
+            if (mimeTypes[k].includes(mime)) {
+                key = k;
+            }
+        });
+        return key ? `file-${key}` : '';
     }
     render() {
         const {
@@ -59,8 +58,7 @@ class renderFileUpload extends React.Component {
             errorFileSize,
             errorReject,
         } = this.props;
-        const { accept, fileError, data, filetype, filename } = this.state;
-
+        const { accept, fileError } = this.state;
         return (
             <div
                 className={classNames(
@@ -83,16 +81,12 @@ class renderFileUpload extends React.Component {
                     {input.value && (
                         <div className="btn-group">
                             <a
-                                className={`btn btn-default ${review
-                                    ? 'review-page'
-                                    : ''} ${filetype === 'application/pdf'
-                                    ? 'link-pdf'
-                                    : 'link-doc'}`}
+                                className={`btn btn-default ${review ? 'review-page' : ''} ${this.getFileKey(input.value.filetype)}`}
                                 type="button"
-                                href={data}
+                                href={input.value.path ? input.value.path : ''}
                                 target="_blank"
                             >
-                                <span>{filename}</span>
+                                <span>{input.value.filename}</span>
                             </a>
                             {input.value &&
                                 !review && (
@@ -127,20 +121,13 @@ class renderFileUpload extends React.Component {
                             if (acceptedFiles.length > 0) {
                                 this.setState({ fileError: '' });
                                 const filename = acceptedFiles[0].name;
-                                this.setState({
-                                    filename,
-                                    data: acceptedFiles[0].preview,
-                                    filetype: acceptedFiles[0].type,
-                                });
-                                input.onChange(filename);
-                                onUpload({
-                                    name: input.name,
-                                    file: {
-                                        filename,
-                                        data: acceptedFiles[0].preview,
-                                        filetype: acceptedFiles[0].type,
-                                    },
-                                });
+                                const reader = new FileReader();
+                                reader.readAsDataURL(acceptedFiles[0]);
+                                reader.onloadend = () => {
+                                    const value = { filename, path: acceptedFiles[0].preview, data: reader.result, filetype: acceptedFiles[0].type };
+                                    input.onChange(value);
+                                    onUpload(value);
+                                };
                             } else {
                                 input.onChange('');
                                 if (!accept.includes(rejectedFiles[0].type)) {
