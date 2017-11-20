@@ -129,6 +129,7 @@ class CascadingPaneNav extends React.Component {
             itemConfigDisplay,
             getCascadingNav,
             logoField,
+            logoDefault,
             titleField,
             itemIdField,
             isHiddenField,
@@ -141,7 +142,11 @@ class CascadingPaneNav extends React.Component {
                 name: 'Logo',
                 className: 'nav-group-logo',
                 display: item => (
-                    <img role="presentation" src={item[logoField]} className="cascading-nav-logo" />
+                    <img
+                        role="presentation"
+                        src={item[logoField] || logoDefault}
+                        className="cascading-nav-logo"
+                    />
                 ),
             });
         }
@@ -218,6 +223,7 @@ CascadingPaneNav.propTypes = {
     className: PropTypes.string,
     itemIdField: PropTypes.string,
     logoField: PropTypes.string,
+    logoDefault: PropTypes.string,
     titleField: PropTypes.string,
     isHiddenField: PropTypes.string,
 
@@ -242,6 +248,7 @@ CascadingPaneNav.defaultProps = {
     className: '',
     itemIdField: 'id',
     logoField: '',
+    logoDefault: '',
     titleField: 'title',
     isHiddenField: '',
 };
