@@ -148,7 +148,10 @@ class CascadingPaneNav extends React.Component {
         navFormat.push({
             name: 'Title',
             className: 'nav-group-title',
-            display: item => item[titleField] || item[itemIdField],
+            display: item =>
+                item[titleField] && item[titleField].length > 0
+                    ? item[titleField]
+                    : item[itemIdField],
         });
         if (isHiddenField) {
             navFormat.push({
