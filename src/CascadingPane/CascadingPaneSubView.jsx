@@ -19,7 +19,9 @@ class CascadingPaneSubView extends React.Component {
 
     componentWillMount() {
         const { cascSelect, getCascadingSubView } = this.props;
-        if (cascSelect) getCascadingSubView(cascSelect);
+        if (getCascadingSubView) {
+            if (cascSelect) getCascadingSubView(cascSelect);
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -47,11 +49,15 @@ class CascadingPaneSubView extends React.Component {
         if (cascSelect) {
             if (!nextProps.cascSelect || cascSelect !== nextProps.cascSelect) {
                 newState.navSelect = nextProps.cascSelect || '';
-                if (nextProps.cascSelect) getCascadingSubView(nextProps.cascSelect);
+                if (getCascadingSubView) {
+                    if (nextProps.cascSelect) getCascadingSubView(nextProps.cascSelect);
+                }
             }
         } else if (nextProps.cascSelect) {
             newState.navSelect = nextProps.cascSelect;
-            getCascadingSubView(nextProps.cascSelect);
+            if (getCascadingSubView) {
+                getCascadingSubView(nextProps.cascSelect);
+            }
         }
         if (Object.keys(newState).length > 0) {
             this.setState({ ...newState });
