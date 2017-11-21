@@ -4,7 +4,7 @@
 
 const defaultState = { navData: [], mainData: [], subData: {} };
 export const cascadingPaneReducer = (state = defaultState, action) => {
-    let _state = JSON.parse(JSON.stringify(state));
+    const _state = JSON.parse(JSON.stringify(state));
     switch (action.type) {
         case 'RECEIVE_CASCADING_MENU':
             _state.navData = action.payload;
