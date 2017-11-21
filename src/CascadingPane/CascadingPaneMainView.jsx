@@ -21,7 +21,7 @@ class CascadingPaneMainView extends React.Component {
             dataWithClass: props.mainData
                 ? props.mainData.map((item) => {
                       const newItem = JSON.parse(JSON.stringify(item));
-                      newItem.group = props.groupData;
+                      newItem.navId = props.cascNav;
                       newItem.className = `member-item-${item[props.itemIdField]} ${item[
                           props.itemIdField
                       ] === props.cascSelect
@@ -73,7 +73,7 @@ class CascadingPaneMainView extends React.Component {
                 newState.dataWithClass = nextProps.mainData
                     ? nextProps.mainData.map((item) => {
                           const newItem = JSON.parse(JSON.stringify(item));
-                          newItem.group = nextProps.groupData;
+                          newItem.navId = nextProps.cascNav;
                           newItem.className = `member-item-${item[nextProps.itemIdField]} ${item[
                               nextProps.itemIdField
                           ] === nextProps.cascSelect
@@ -88,7 +88,7 @@ class CascadingPaneMainView extends React.Component {
             newState.dataWithClass = nextProps.mainData
                 ? nextProps.mainData.map((item) => {
                       const newItem = JSON.parse(JSON.stringify(item));
-                      newItem.group = nextProps.groupData;
+                      newItem.navId = nextProps.cascNav;
                       newItem.className = `member-item-${item[nextProps.itemIdField]} ${item[
                           nextProps.itemIdField
                       ] === nextProps.cascSelect
@@ -102,7 +102,7 @@ class CascadingPaneMainView extends React.Component {
             newState.dataWithClass = nextProps.mainData
                 ? nextProps.mainData.map((item) => {
                       const newItem = JSON.parse(JSON.stringify(item));
-                      newItem.group = nextProps.groupData;
+                      newItem.navId = nextProps.cascNav;
                       newItem.className = `member-item-${item[nextProps.itemIdField]} ${item[
                           nextProps.itemIdField
                       ] === nextProps.cascSelect
