@@ -163,7 +163,14 @@ class CascadingPaneMainView extends React.Component {
             location,
             getCascadingMainView,
         } = this.props;
-        const { navSelect, fetchedNav, fetchedMainView, showing, dataWithClass } = this.state;
+        const {
+            navSelect,
+            fetchedNav,
+            fetchedMainView,
+            showing,
+            dataWithClass,
+            selected,
+        } = this.state;
 
         let mainViewItemFormat = [];
 
@@ -216,6 +223,7 @@ class CascadingPaneMainView extends React.Component {
                                     location,
                                     showing,
                                     data: mainData,
+                                    selected,
                                 })}
                         </div>
                         <div className="cascading-pane-mainview-table">
