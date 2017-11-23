@@ -19,7 +19,7 @@ class CascadingPaneSubView extends React.Component {
 
     componentWillMount() {
         const { cascSelect, getCascadingSubView } = this.props;
-        if (cascSelect) getCascadingSubView(cascSelect);
+        if (cascSelect && getCascadingSubView) getCascadingSubView(cascSelect);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -47,11 +47,13 @@ class CascadingPaneSubView extends React.Component {
         if (cascSelect) {
             if (!nextProps.cascSelect || cascSelect !== nextProps.cascSelect) {
                 newState.navSelect = nextProps.cascSelect || '';
-                if (nextProps.cascSelect) getCascadingSubView(nextProps.cascSelect);
+                if (nextProps.cascSelect && getCascadingSubView) {
+                    getCascadingSubView(nextProps.cascSelect);
+                }
             }
         } else if (nextProps.cascSelect) {
             newState.navSelect = nextProps.cascSelect;
-            getCascadingSubView(nextProps.cascSelect);
+            if (getCascadingSubView) getCascadingSubView(nextProps.cascSelect);
         }
         if (Object.keys(newState).length > 0) {
             this.setState({ ...newState });
@@ -73,22 +75,40 @@ class CascadingPaneSubView extends React.Component {
         } = this.props;
         const { navSelect, mainSelect, fetchedSub, fetchedMain } = this.state;
 
+        if (getCascadingSubView) {
+            return (
+                <div className={classNames(className, 'cascading-pane-subview')} key={key}>
+                    <LoadingComponent {...mainViewFetch}>
+                        <LoadingComponent {...subViewFetch}>
+                            {fetchedSub &&
+                                fetchedMain &&
+                                React.cloneElement(contentDisplay, {
+                                    groupData,
+                                    memberData,
+                                    data,
+                                    reloadMainView,
+                                    reloadSubView: getCascadingSubView,
+                                    navSelect,
+                                    mainSelect,
+                                })}
+                        </LoadingComponent>
+                    </LoadingComponent>
+                </div>
+            );
+        }
+
         return (
             <div className={classNames(className, 'cascading-pane-subview')} key={key}>
                 <LoadingComponent {...mainViewFetch}>
-                    <LoadingComponent {...subViewFetch}>
-                        {fetchedSub &&
-                            fetchedMain &&
-                            React.cloneElement(contentDisplay, {
-                                groupData,
-                                memberData,
-                                data,
-                                reloadMainView,
-                                reloadSubView: getCascadingSubView,
-                                navSelect,
-                                mainSelect,
-                            })}
-                    </LoadingComponent>
+                    {fetchedMain &&
+                        React.cloneElement(contentDisplay, {
+                            groupData,
+                            memberData,
+                            data,
+                            reloadMainView,
+                            navSelect,
+                            mainSelect,
+                        })}
                 </LoadingComponent>
             </div>
         );
@@ -127,7 +147,6 @@ CascadingPaneSubView.defaultProps = {
     groupData: {},
     memberData: {},
     data: {},
-    getCascadingSubView: f => f,
     subViewFetch: {
         status: '',
         isFetching: false,
