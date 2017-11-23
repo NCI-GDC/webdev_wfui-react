@@ -24,6 +24,7 @@ class renderPhoto extends React.Component {
             maxlength,
             onStateChange,
             disabled,
+            preview,
             meta: { touched, error },
         } = this.props;
         const { value } = this.state;
@@ -37,6 +38,7 @@ class renderPhoto extends React.Component {
                         'wfui-form-item-error': error,
                     },
                     { 'wfui-form-disabled': disabled },
+                    { 'wfui-form-preview': preview },
                 )}
             >
                 <ControlLabel>{label}</ControlLabel>

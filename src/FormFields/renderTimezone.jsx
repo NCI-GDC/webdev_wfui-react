@@ -13,6 +13,7 @@ const renderTimezone = ({
     help,
     required,
     disabled,
+    preview,
     meta: { touched, error },
 }) => (
     <div
@@ -23,6 +24,7 @@ const renderTimezone = ({
                 'wfui-form-item-error': error,
             },
             { 'wfui-form-disabled': disabled },
+            { 'wfui-form-preview': preview },
         )}
     >
         <ControlLabel>{label}</ControlLabel>
