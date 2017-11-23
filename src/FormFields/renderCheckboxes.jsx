@@ -11,6 +11,7 @@ const renderCheckboxes = ({
     help,
     required,
     disabled,
+    preview,
     globalError,
     meta: { touched, error },
 }) => (
@@ -22,6 +23,7 @@ const renderCheckboxes = ({
                 'wfui-form-item-error': error || globalError,
             },
             { 'wfui-form-disabled': disabled },
+            { 'wfui-form-preview': preview },
         )}
     >
         <ControlLabel>{label}</ControlLabel>

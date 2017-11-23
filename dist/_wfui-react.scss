@@ -2187,59 +2187,59 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
   cursor: pointer; }
 
 /* Styles for disabled fields */
-.wfui-form-disabled .wfui-form-description {
+.wfui-form-preview .wfui-form-description {
   display: none; }
 
-.wfui-form-disabled .wfui-form-photo input,
-.wfui-form-disabled .wfui-form-input input,
-.wfui-form-disabled .wfui-form-textarea textarea {
+.wfui-form-preview .wfui-form-photo input,
+.wfui-form-preview .wfui-form-input input,
+.wfui-form-preview .wfui-form-textarea textarea {
   background: none;
   border: none;
   box-shadow: none;
   padding: 0; }
 
-.wfui-form-disabled.wfui-form-singlecheckbox .active.checkbox {
+.wfui-form-preview.wfui-form-singlecheckbox .active.checkbox {
   display: block; }
-  .wfui-form-disabled.wfui-form-singlecheckbox .active.checkbox > label {
+  .wfui-form-preview.wfui-form-singlecheckbox .active.checkbox > label {
     background: none;
     border: none;
     padding: 0; }
-  .wfui-form-disabled.wfui-form-singlecheckbox .active.checkbox input[type='checkbox'] {
+  .wfui-form-preview.wfui-form-singlecheckbox .active.checkbox input[type='checkbox'] {
     display: none; }
 
-.wfui-form-disabled .wfui-checkboxes-hybrid .checkbox,
-.wfui-form-disabled .wfui-form-checkboxes .checkbox {
+.wfui-form-preview .wfui-checkboxes-hybrid .checkbox,
+.wfui-form-preview .wfui-form-checkboxes .checkbox {
   display: none; }
 
-.wfui-form-disabled .wfui-checkboxes-hybrid .active.checkbox,
-.wfui-form-disabled .wfui-form-checkboxes .active.checkbox {
+.wfui-form-preview .wfui-checkboxes-hybrid .active.checkbox,
+.wfui-form-preview .wfui-form-checkboxes .active.checkbox {
   display: block; }
-  .wfui-form-disabled .wfui-checkboxes-hybrid .active.checkbox > label,
-  .wfui-form-disabled .wfui-form-checkboxes .active.checkbox > label {
+  .wfui-form-preview .wfui-checkboxes-hybrid .active.checkbox > label,
+  .wfui-form-preview .wfui-form-checkboxes .active.checkbox > label {
     background: none;
     border: none;
     padding: 0; }
-  .wfui-form-disabled .wfui-checkboxes-hybrid .active.checkbox input[type='checkbox'],
-  .wfui-form-disabled .wfui-form-checkboxes .active.checkbox input[type='checkbox'] {
+  .wfui-form-preview .wfui-checkboxes-hybrid .active.checkbox input[type='checkbox'],
+  .wfui-form-preview .wfui-form-checkboxes .active.checkbox input[type='checkbox'] {
     display: none; }
 
-.wfui-form-disabled .wfui-radios-hybrid .radio,
-.wfui-form-disabled .wfui-form-radios .radio {
+.wfui-form-preview .wfui-radios-hybrid .radio,
+.wfui-form-preview .wfui-form-radios .radio {
   display: none; }
 
-.wfui-form-disabled .wfui-radios-hybrid .active.radio,
-.wfui-form-disabled .wfui-form-radios .active.radio {
+.wfui-form-preview .wfui-radios-hybrid .active.radio,
+.wfui-form-preview .wfui-form-radios .active.radio {
   display: block; }
-  .wfui-form-disabled .wfui-radios-hybrid .active.radio > label,
-  .wfui-form-disabled .wfui-form-radios .active.radio > label {
+  .wfui-form-preview .wfui-radios-hybrid .active.radio > label,
+  .wfui-form-preview .wfui-form-radios .active.radio > label {
     background: none;
     border: none;
     padding: 0; }
-  .wfui-form-disabled .wfui-radios-hybrid .active.radio input[type='radio'],
-  .wfui-form-disabled .wfui-form-radios .active.radio input[type='radio'] {
+  .wfui-form-preview .wfui-radios-hybrid .active.radio input[type='radio'],
+  .wfui-form-preview .wfui-form-radios .active.radio input[type='radio'] {
     display: none; }
 
-.wfui-form-disabled .wfui-form-select select.form-control {
+.wfui-form-preview .wfui-form-select select.form-control {
   padding: 0;
   border: none;
   background: none;

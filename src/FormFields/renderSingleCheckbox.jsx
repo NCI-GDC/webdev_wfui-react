@@ -11,6 +11,7 @@ const renderSingleCheckbox = ({
     help,
     required,
     disabled,
+    preview,
     globalError,
     meta: { touched, error },
 }) => (
@@ -20,6 +21,7 @@ const renderSingleCheckbox = ({
             'wfui-form-item wfui-form-singlecheckbox',
             { 'wfui-form-item-error': error || globalError },
             { 'wfui-form-disabled': disabled },
+            { 'wfui-form-preview': preview },
         )}
     >
         {label && <ControlLabel>{label}</ControlLabel>}

@@ -408,6 +408,7 @@ class renderFilterTable extends React.Component {
             help,
             required,
             disabled,
+            preview,
             meta: { error },
         } = this.props;
         const {
@@ -426,6 +427,7 @@ class renderFilterTable extends React.Component {
                     'wfui-form-item',
                     { 'wfui-form-item-error': error },
                     { 'wfui-form-disabled': disabled },
+                    { 'wfui-form-preview': preview },
                     { inactive: fields.length >= 0 },
                 )}
             >
