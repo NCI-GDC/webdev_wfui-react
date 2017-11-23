@@ -169,10 +169,14 @@ class CascadingPaneMainView extends React.Component {
         } = this.props;
         const { navSelect, fetchedNav, fetchedMainView, showing, dataWithClass } = this.state;
 
-        const itemDisplayFormat = itemDisplay || [];
+        let mainViewItemFormat = [];
+
+        if (itemDisplay) {
+            mainViewItemFormat = mainViewItemFormat.concat(itemDisplay);
+        }
 
         if (itemConfig) {
-            itemDisplayFormat.push({
+            mainViewItemFormat.push({
                 name: 'actions',
                 className: 'td-actions',
                 display: item =>
@@ -225,7 +229,7 @@ class CascadingPaneMainView extends React.Component {
                                     searchTerm={visibilityFilter.category.searchTerm || ''}
                                     filterList={getFilters(visibilityFilter.category)}
                                     data={dataWithClass}
-                                    itemFormat={itemDisplayFormat}
+                                    itemFormat={mainViewItemFormat}
                                     onSelectionChange={this.onSelectionChange}
                                     onResultsNumUpdate={results =>
                                         this.setState({ showing: results })
