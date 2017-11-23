@@ -224,6 +224,7 @@ class CascadingPaneMainView extends React.Component {
                                     showing,
                                     data: mainData,
                                     selected,
+                                    groupData,
                                 })}
                         </div>
                         <div className="cascading-pane-mainview-table">
