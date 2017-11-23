@@ -63,6 +63,7 @@ export default class renderSelectionHybridRadio extends React.Component {
             fieldMap,
             columnCount,
             disabled,
+            preview,
         } = this.props;
         const { options } = this.state;
 
@@ -87,6 +88,7 @@ export default class renderSelectionHybridRadio extends React.Component {
                     'wfui-form-item',
                     { 'wfui-form-item-error': globalError },
                     { 'wfui-form-disabled': disabled },
+                    { 'wfui-form-preview': preview },
                 )}
             >
                 <ControlLabel>{label}</ControlLabel>

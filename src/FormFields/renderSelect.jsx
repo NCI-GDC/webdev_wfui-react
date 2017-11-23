@@ -13,6 +13,7 @@ const renderSelect = ({
     help,
     required,
     disabled,
+    preview,
     globalError,
     meta: { touched, error },
 }) => (
@@ -22,6 +23,7 @@ const renderSelect = ({
             'wfui-form-item',
             { 'wfui-form-item-error': error || globalError },
             { 'wfui-form-disabled': disabled },
+            { 'wfui-form-preview': preview },
             { answered: input.value },
         )}
     >
