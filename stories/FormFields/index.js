@@ -8,6 +8,7 @@ import { storiesOf } from '@kadira/storybook';
 import * as FormFields from '../../src/FormFields';
 import StoryFormField from 'raw!./StoryFormField.src';
 import StoryDisabled from 'raw!./StoryDisabled.src';
+import StoryPreview from 'raw!./StoryPreview.src';
 import '../../src/FormFields/index.scss';
 import { fetchReducer } from '../../src/util/wfuiFetch/reducer';
 
@@ -34,6 +35,9 @@ storiesOf('FormFields', module)
         scope: { Provider, store, FormFields, Field, FieldArray, reduxForm },
     })
     .addWithInfo('Disabled', () => StoryDisabled, {
+        scope: { Provider, store, FormFields, Field, FieldArray, reduxForm },
+    })
+    .addWithInfo('Preview', () => StoryPreview, {
         scope: { Provider, store, FormFields, Field, FieldArray, reduxForm },
     });
 // .addWithInfo('Webform', () => StoryWebform, {

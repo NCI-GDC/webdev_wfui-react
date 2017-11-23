@@ -25,6 +25,7 @@ class renderAddAnother extends React.Component {
             help,
             required,
             disabled,
+            preview,
             withContext,
             meta: { error },
         } = this.props;
@@ -40,6 +41,7 @@ class renderAddAnother extends React.Component {
                         'wfui-form-item-error': error,
                     },
                     { 'wfui-form-disabled': disabled },
+                    { 'wfui-form-preview': preview },
                 )}
             >
                 <ControlLabel>{label}</ControlLabel>
@@ -133,6 +135,7 @@ renderAddAnother.propTypes = {
     labelAddAnother: PropTypes.string,
     required: PropTypes.bool,
     disabled: PropTypes.bool,
+    preview: PropTypes.bool,
     draggable: PropTypes.bool,
     withContext: PropTypes.bool,
 };

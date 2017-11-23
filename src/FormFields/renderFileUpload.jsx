@@ -51,6 +51,7 @@ class renderFileUpload extends React.Component {
             disabled,
             meta: { touched, error },
             review,
+            preview,
             fileTypes,
             txtRemove,
             txtUpload,
@@ -66,6 +67,7 @@ class renderFileUpload extends React.Component {
                     'wfui-form-item',
                     { 'wfui-form-item-error': globalError },
                     { 'wfui-form-disabled': disabled },
+                    { 'wfui-form-preview': preview },
                 )}
             >
                 <ControlLabel>{label}</ControlLabel>

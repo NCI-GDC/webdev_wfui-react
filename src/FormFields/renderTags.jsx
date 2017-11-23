@@ -73,6 +73,7 @@ class renderTags extends React.Component {
             required,
             withContext,
             disabled,
+            preview,
             meta: { touched, error },
         } = this.props;
         const { suggestions, tags } = this.state;
@@ -86,6 +87,7 @@ class renderTags extends React.Component {
                     'wfui-form-item',
                     { 'wfui-form-item-error': error },
                     { 'wfui-form-disabled': disabled },
+                    { 'wfui-form-preview': preview },
                 )}
             >
                 <ControlLabel>{label}</ControlLabel>

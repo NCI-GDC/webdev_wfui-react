@@ -131,6 +131,7 @@ class renderAutocomplete extends React.Component {
             onHandleChange,
             required,
             disabled,
+            preview,
             globalError,
             itemDisplay,
             textNoResult,
@@ -146,6 +147,7 @@ class renderAutocomplete extends React.Component {
                     { 'wfui-form-item-error': error || globalError },
                     { 'wfui-form-inline': inline },
                     { 'wfui-form-disabled': disabled },
+                    { 'wfui-form-preview': preview },
                     { answered: input.value },
                 )}
             >
