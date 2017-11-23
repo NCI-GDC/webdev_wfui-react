@@ -183,7 +183,6 @@ CascadingPane.defaultProps = {
     splitClassName: '',
     getCascadingNav: f => f,
     getCascadingMainView: f => f,
-    getCascadingSubView: f => f,
     navData: [],
     mainData: [],
     subData: {},
