@@ -219,6 +219,7 @@ class CascadingPaneMainView extends React.Component {
                         <div className="cascading-pane-mainview-filters ">
                             {filtersDisplay &&
                                 React.cloneElement(filtersDisplay, {
+                                    ...this.props,
                                     visibilityFilter,
                                     location,
                                     showing,
