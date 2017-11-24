@@ -9,7 +9,7 @@ import {
     SplitButton,
     MenuItem,
 } from '../index';
-import FilteredTable from '../FilteredTable/FilteredTable';
+import FilteredTable from '../FilteredTable/1/FilteredTable';
 import classNames from 'classnames';
 import _ from 'lodash';
 
@@ -242,9 +242,9 @@ class renderFilterTable extends React.Component {
                                     ].children.filter(f => f.input_id === key);
                                     if (assignedField.length) {
                                         // Get option value & assigned input field value.
-                                        return `${values[
-                                            assignedField[0].cid
-                                        ]}(${getValByKey(
+                                        return `${
+                                            values[assignedField[0].cid]
+                                        }(${getValByKey(
                                             key,
                                             q.values[lang].options,
                                         )})`;
@@ -387,7 +387,8 @@ class renderFilterTable extends React.Component {
                     placeholder="Enter keywords"
                     value={searchTerm}
                     onChange={e =>
-                        this.setState({ searchTerm: e.target.value })}
+                        this.setState({ searchTerm: e.target.value })
+                    }
                 />
             </div>,
         );
@@ -454,7 +455,9 @@ class renderFilterTable extends React.Component {
                         {fields.length === 0 && (
                             <div className="inactive-overlay">
                                 <p
-                                >{`You have not added any ${labelItem.toLowerCase()} yet. To get started, click the blue "${labelAddAnother}" button above`}</p>
+                                >{`You have not added any ${labelItem.toLowerCase()} yet. To get started, click the blue "${
+                                    labelAddAnother
+                                }" button above`}</p>
                             </div>
                         )}
                         <div className="filters-container">
@@ -468,7 +471,8 @@ class renderFilterTable extends React.Component {
                                     filterList={this.getFilters()}
                                     itemFormat={this.getItemFormat()}
                                     onResultsNumUpdate={count =>
-                                        this.setState({ count })}
+                                        this.setState({ count })
+                                    }
                                     simpleSearch
                                     searchLogic={'or'}
                                 />
