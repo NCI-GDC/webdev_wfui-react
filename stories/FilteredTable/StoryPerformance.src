@@ -1,0 +1,221 @@
+const sampleDataAPI = '/sample_dummy.json';
+
+const itemFormat = [
+    {
+        name: 'Person ID',
+        display: data => data.id,
+        width: 100,
+    },
+    {
+        name: 'First Name',
+        display: data => data.first_name,
+        sortingKey: data => data.first_name,
+        width: 20,
+    },
+    {
+        name: 'Last Name',
+        display: data => data.last_name,
+        width: 10,
+    },
+    {
+        name: 'email',
+        display: data => data.email,
+        width: 10,
+    },
+    {
+        name: 'gender',
+        display: data => data.gender,
+        width: 10,
+    },
+    {
+        name: 'IP Address',
+        display: data => data.ip_address,
+        width: 10,
+    },
+    {
+        name: 'Actions',
+        width: 10,
+        display: data => (
+            <div>
+                <Button
+                    onClick={e => {
+                        e.stopPropagation();
+                        console.log(data.first_name);
+                    }}
+                >
+                    FirstName
+                </Button>
+                <Button
+                    onClick={() => {
+                        console.log(data.last_name);
+                    }}
+                >
+                    LastName
+                </Button>
+                <Button
+                    onClick={() => {
+                        console.log(data.email_name);
+                    }}
+                >
+                    email
+                </Button>
+                <Button
+                    onClick={() => {
+                        console.log(data.gender);
+                    }}
+                >
+                    gender
+                </Button>
+                <Button
+                    onClick={() => {
+                        console.log(data.ip_address);
+                    }}
+                >
+                    IP Address
+                </Button>
+            </div>
+        ),
+    },
+];
+
+/* Paginator is injected with an additional prop 
+    * which contains a method getOpenPage for generating
+    * event handlers that change the page. */
+const PaginatorDisplay = ({ currentPage, numPages, getOpenPage }) => {
+    const events = [];
+    const maxShowingPages = 10;
+    const lowerPageLimit = currentPage - maxShowingPages / 2;
+    const upperPageLimit = currentPage + maxShowingPages / 2;
+    for (let i = lowerPageLimit; i < upperPageLimit; i += 1) {
+        const handler = getOpenPage(i);
+        if (i === currentPage) {
+            events.push(<a key={i}> {i} </a>);
+        } else if (currentPage > numPages) {
+            getOpenPage(numPages);
+        } else if (handler) {
+            events.push(
+                <button key={i + 'b'} href="#" onClick={handler}>
+                    {i}
+                </button>,
+            );
+        }
+    }
+    return <div>{events}</div>;
+};
+
+/* A container is needed to fetch from API */
+class FilteredListContainer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+            searchTerm: '',
+            filteredContributor: '',
+            filteredTopic: '',
+            filteredType: '',
+            count: 0,
+        };
+    }
+
+    componentDidMount() {
+        this.mounted = true;
+        fetch(sampleDataAPI)
+            .then(response => response.json())
+            .then(response => {
+                if (this.mounted) {
+                    const data = response;
+                    this.setState({ data });
+                }
+            });
+    }
+
+    componentWillUnmount() {
+        this.mounted = false;
+    }
+
+    getFilters() {
+        const { filteredCGP, filteredDLP } = this.state;
+        return [
+            item => !filteredCGP || item.cgp === filteredCGP,
+            item => !filteredDLP || item.dlp === filteredDLP,
+        ];
+    }
+
+    generateFilterUI() {
+        const { filteredCGP, filteredDLP, searchTerm } = this.state;
+        const CGPList = [];
+        const DLPList = [];
+        for (const item of this.state.data) {
+            const CGP = item.cgp;
+            const DLP = item.dlp;
+            if (CGPList.indexOf(CGP) === -1) {
+                CGPList.push(CGP);
+            }
+            if (DLPList.indexOf(DLP) === -1) {
+                DLPList.push(DLP);
+            }
+        }
+        const contributorOptions = CGPList.map((CGP, key) => (
+            <option key={CGP} value={CGP} key={key}>
+                {CGP}
+            </option>
+        ));
+        const topicOptions = DLPList.map((DLP, key) => (
+            <option key={DLP} value={DLP} key={key}>
+                {DLP}
+            </option>
+        ));
+
+        return (
+            <div>
+                <input
+                    type="text"
+                    placeholder="Enter keywords"
+                    value={searchTerm}
+                    onChange={e =>
+                        this.setState({ searchTerm: e.target.value })
+                    }
+                />
+                <select
+                    selected={filteredCGP}
+                    onChange={e =>
+                        this.setState({ filteredCGP: e.target.value })
+                    }
+                >
+                    <option value="">All Projects</option>
+                    {contributorOptions}
+                </select>
+                <select
+                    selected={filteredDLP}
+                    onChange={e =>
+                        this.setState({ filteredDLP: e.target.value })
+                    }
+                >
+                    <option value="">All Data Level Projects</option>
+                    {topicOptions}
+                </select>
+            </div>
+        );
+    }
+
+    render() {
+        return (
+            <div>
+                {this.generateFilterUI()}
+                <FilteredTable
+                    searchTerm={this.state.searchTerm}
+                    filterList={this.getFilters()}
+                    data={this.state.data}
+                    itemFormat={itemFormat}
+                    onResultsNumUpdate={count => this.setState({ count })}
+                    selectable
+                    simpleSearch
+                    searchKeys={['id']}
+                    searchLogic={'or'}
+                />
+                {this.state.count} Maching the Criteria
+            </div>
+        );
+    }
+}
+return <FilteredListContainer />;
