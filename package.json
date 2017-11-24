@@ -11,7 +11,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "scripts/build.sh",
-    "storybook": "start-storybook -s ./static -p 6006 -h 192.168.56.101",
+    "storybook": "start-storybook -s ./static -p 6006 -h 0.0.0.0",
     "build-storybook": "build-storybook"
   },
   "devDependencies": {
@@ -62,6 +62,7 @@
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.5",
     "deep-equal": "^1.0.1",
+    "fixed-data-table-2": "^0.8.6",
     "fullcalendar": "^3.5.1",
     "isotope-layout": "^3.0.4",
     "jquery": "^3.1.1",
@@ -81,7 +82,8 @@
     "react-timezone": "^0.1.0",
     "redux-form": "^6.8.0",
     "redux-thunk": "^2.2.0",
-    "reselect": "^3.0.0"
+    "reselect": "^3.0.0",
+    "url-parse": "^1.2.0"
   },
   "engines": {
     "npm": "^3.0.0"

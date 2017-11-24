@@ -12,3 +12,5 @@ require('./UserDrawer/index.scss');
 require('./FormFields/index.scss');
 require('./Card/index.scss');
 require('./CascadingPane/index.scss');
+
+require('./FilteredTable/2/fixed-data-table.min.css');

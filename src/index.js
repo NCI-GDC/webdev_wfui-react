@@ -5,15 +5,16 @@ import TimezonePicker from 'react-timezone';
 import FilteredList from './FilteredList/FilteredList';
 import Spinner from './Spinner/Spinner';
 import TwitterFeed from './TwitterFeed/TwitterFeed';
-import FilteredTable from './FilteredTable/FilteredTable';
+import FilteredTable from './FilteredTable/1/FilteredTable';
+import FilteredTableV2 from './FilteredTable/2/FilteredTable';
 import PasswordValidator from './PasswordValidator/PasswordValidator';
 import Draggable, { withContext } from './Draggable/Draggable';
 import DashboardBox from './DashboardBox/DashboardBox';
 import UserDrawer from './UserDrawer/UserDrawer';
 import Drawer from './Drawer/Drawer';
 import GroupsDrawer from './GroupsDrawer/GroupsDrawer';
-import DisqusFeed from './DisqusFeed/index.js';
-import LoadingComponent from './LoadingComponent/LoadingComponent.js';
+import DisqusFeed from './DisqusFeed/index';
+import LoadingComponent from './LoadingComponent/LoadingComponent';
 import CollapsibleFilter from './CollapsibleFilter/CollapsibleFilter';
 import PanelFilter from './PanelFilter/PanelFilter';
 import Filters from './Filters/Filters';
@@ -37,6 +38,7 @@ export {
     Spinner,
     TwitterFeed,
     FilteredTable,
+    FilteredTableV2,
     PasswordValidator,
     Draggable,
     DraggableWithContext,
