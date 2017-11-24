@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import TableBody from './TableBody';
-import Search from '../util/searchUtil';
+import Search from '../../util/searchUtil';
 
 /*
  * Applies the filtering to the articles and then passes its' props to List for display.
