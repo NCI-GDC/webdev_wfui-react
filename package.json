@@ -61,18 +61,21 @@
     "babel-runtime": "^6.26.0",
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.5",
+    "custom-event-polyfill": "^0.3.0",
     "deep-equal": "^1.0.1",
     "fixed-data-table-2": "^0.8.6",
     "fullcalendar": "^3.5.1",
     "isotope-layout": "^3.0.4",
     "jquery": "^3.1.1",
     "prop-types": "^15.5.10",
+    "prop-types-extra": "^1.0.1",
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-shallow-compare": "^15.6.0",
     "react-bootstrap": "^0.30.7",
     "react-dnd": "^2.5.1",
     "react-dnd-html5-backend": "^2.5.1",
     "react-dropzone": "^3.8.0",
+    "react-intl": "^2.4.0",
     "react-markdown": "^2.5.0",
     "react-notification-system": "^0.2.11",
     "react-redux": "^5.0.5",
@@ -83,7 +86,8 @@
     "redux-form": "^6.8.0",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.0",
-    "url-parse": "^1.2.0"
+    "url-parse": "^1.2.0",
+    "uuid": "^3.1.0"
   },
   "engines": {
     "npm": "^3.0.0"
