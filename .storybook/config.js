@@ -32,6 +32,7 @@ function loadStories() {
   require('../stories/LoadingComponent');
   require('../stories/Search');
   require('../stories/FormFields');
+  require('../stories/Dropdown');
 }
 
 configure(loadStories, module);
