@@ -143,11 +143,21 @@ class WFUIDropdown extends React.Component {
         this.onHide = this.onHide.bind(this);
         this.onShowOther = this.onShowOther.bind(this); // When other dropdown menu is activated.
         this.getMenu = this.getMenu.bind(this);
+        this.getMenuContainerElement = this.getMenuContainerElement.bind(this);
     }
-
+    getMenuContainerElement() {
+        // Create container for dropdown menu
+        let el = document.getElementById('wfui-dropdown-menu');
+        if (!el) {
+            el = document.createElement('div');
+            el.setAttribute('id', 'wfui-dropdown-menu');
+            document.body.appendChild(el);
+        }
+        return el;
+    }
     onToggle(e) {
         const { uid } = this.state;
-        const el = document.getElementById('wfui-dropdown-menu');
+        const el = this.getMenuContainerElement();
         e.stopPropagation();
         if (el) {
             if (el.getAttribute('data-uid') !== uid) {
@@ -200,7 +210,7 @@ class WFUIDropdown extends React.Component {
         window.dispatchEvent(event);
 
         // Render Element
-        const el = document.getElementById('wfui-dropdown-menu');
+        const el = this.getMenuContainerElement();
         if (el) {
             const buttonElement =
                 e.target.tagName === 'SPAN' ? e.target.parentElement : e.target;
@@ -240,7 +250,7 @@ class WFUIDropdown extends React.Component {
     }
 
     onHide(e) {
-        const el = document.getElementById('wfui-dropdown-menu');
+        const el = this.getMenuContainerElement();
         if (el.getAttribute('class') === 'menu-opened') {
             el.setAttribute('class', 'menu-closed');
             el.setAttribute('data-uid', '');
@@ -257,24 +267,16 @@ class WFUIDropdown extends React.Component {
     /////////////////////////////////////////////////////////////
 
     componentWillMount() {
-        // Create container for dropdown menu
-        let el = document.getElementById('wfui-dropdown-menu');
-        if (!el) {
-            el = document.createElement('div');
-            el.setAttribute('id', 'wfui-dropdown-menu');
-            document.body.appendChild(el);
-
-            // Outside click
-            window.addEventListener('click', this.onHide);
-        }
-
+        this.getMenuContainerElement();
+        // Outside click
+        window.addEventListener('click', this.onHide);
         // Set event listener
         window.addEventListener('wfui-dropdown-menu-clicked', this.onShowOther);
     }
 
     componentWillUnmount() {
         // Remove
-        let el = document.getElementById('wfui-dropdown-menu');
+        let el = this.getMenuContainerElement();
         if (el) {
             document.body.removeChild(el);
             // Remove event listener
