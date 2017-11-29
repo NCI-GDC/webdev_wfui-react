@@ -205,6 +205,7 @@ class WFUIDropdown extends React.Component {
             const buttonElement =
                 e.target.tagName === 'SPAN' ? e.target.parentElement : e.target;
             const viewportOffset = buttonElement.getBoundingClientRect();
+            const scrollTopOffset = document.documentElement.scrollTop;
             
             // Reset menu.
             if (el.firstChild) el.removeChild(el.firstChild);
@@ -214,7 +215,7 @@ class WFUIDropdown extends React.Component {
             el.setAttribute('data-uid', uid);
             el.setAttribute(
                 'style',
-                `position: absolute; display: block; top: ${viewportOffset.bottom}px; left: ${
+                `position: absolute; display: block; top: ${viewportOffset.bottom + scrollTopOffset}px; left: ${
                     viewportOffset.left
                 }px`,
             );
@@ -226,7 +227,7 @@ class WFUIDropdown extends React.Component {
                     if (window.innerWidth < dropdown.getBoundingClientRect().right) {
                         el.setAttribute(
                             'style',
-                            `display: block; top: ${viewportOffset.bottom}px; left: ${
+                            `position: absolute; display: block; top: ${viewportOffset.bottom + scrollTopOffset}px; left: ${
                                 viewportOffset.right
                             }px`,
                         );

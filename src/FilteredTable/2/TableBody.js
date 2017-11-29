@@ -16,9 +16,11 @@ class TableBody extends React.Component {
             toggleSort,
             sortedOrientation,
             sortedIdx,
-            rowSelect,
             contentWidth,
             contentHeight,
+            noTableHeader,
+            rowHeight,
+            headerHeight
         } = this.props;
 
         const indexOffset = (currentPage - 1) * pageSize;
@@ -38,16 +40,15 @@ class TableBody extends React.Component {
 
         return (
             <Table
-                rowHeight={50}
-                headerHeight={50}
+                rowHeight={rowHeight}
+                headerHeight={noTableHeader ? 0 : headerHeight}
                 rowsCount={activeData.length}
                 width={contentWidth}
                 height={contentHeight}
                 onRowClick={(event, rowIndex) => {
-                    if (selectable && rowSelect) {
-                        onCheck(rowIndex + indexOffset);
-                    }
+                    if (event.target.tagName !== 'INPUT') { // e.stopPropagation on cell doesn't work. This will be invoked first.
                     onRowClick(activeData[rowIndex]);
+                }
                 }}
                 rowClassNameGetter={idx =>
                     classNames({
@@ -61,18 +62,17 @@ class TableBody extends React.Component {
                 {selectable && (
                     <Column
                         columnKey={'select'}
-                        header={<Cell>{allCheckbox}</Cell>}
+                        header={noTableHeader ? undefined : <Cell>{allCheckbox}</Cell>}
                         cell={props => (
                             <Cell {...props}>
                                 <input
                                     type="checkbox"
                                     checked={activeData[props.rowIndex].checked}
                                     onChange={e => {
-                                        if (!rowSelect) {
-                                            onCheck(
-                                                props.rowIndex + indexOffset,
-                                            );
-                                        }
+                                        e.stopPropagation();
+                                        onCheck(
+                                            props.rowIndex + indexOffset,
+                                        );
                                     }}
                                 />
                             </Cell>
@@ -86,7 +86,7 @@ class TableBody extends React.Component {
                         {...item}
                         columnKey={item.columnKey || item.name}
                         header={
-                            <Cell
+                            noTableHeader ? undefined : <Cell
                                 className={classNames({
                                     sortActive: sortedIdx === i,
                                     sortDesc:
@@ -117,7 +117,7 @@ class TableBody extends React.Component {
                                 {item.display(activeData[props.rowIndex])}
                             </Cell>
                         )}
-                        flexGrow={item.flexGrow || 1}
+                        flexGrow={typeof item.flexGrow !== 'undefined' || 1}
                         width={item.width || 20}
                     />
                 ))}
@@ -138,15 +138,15 @@ TableBody.propTypes = {
     toggleSort: React.PropTypes.func,
     sortedOrientation: React.PropTypes.string,
     sortedIdx: React.PropTypes.number,
-    rowSelect: React.PropTypes.bool,
     contentWidth: React.PropTypes.number,
     contentHeight: React.PropTypes.number,
+    rowHeight: React.PropTypes.number,
+    headerHeight: React.PropTypes.number,
 };
 
 TableBody.defaultProps = {
     onRowClick: f => f,
     toggleSort: f => f,
-    rowSelect: false,
     contentWidth: 100,
     contentHeight: 300,
 };
