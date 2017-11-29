@@ -3,6 +3,10 @@ import { Table, Column, Cell } from 'fixed-data-table-2';
 import classNames from 'classnames';
 
 class TableBody extends React.Component {
+    constructor() {
+        super();
+        this.state = { rowSelected: undefined };
+    }
     render() {
         const {
             itemFormat,
@@ -22,6 +26,7 @@ class TableBody extends React.Component {
             rowHeight,
             headerHeight
         } = this.props;
+        const { rowSelected } = this.state;
 
         const indexOffset = (currentPage - 1) * pageSize;
 
@@ -48,13 +53,15 @@ class TableBody extends React.Component {
                 onRowClick={(event, rowIndex) => {
                     if (event.target.tagName !== 'INPUT') { // e.stopPropagation on cell doesn't work. This will be invoked first.
                     onRowClick(activeData[rowIndex]);
+                    this.setState({ rowSelected: rowIndex });
                 }
                 }}
                 rowClassNameGetter={idx =>
                     classNames({
                         even: (idx + 1) % 2 === 0,
                         add: (idx + 1) % 2 !== 0,
-                        selected: activeData[idx].checked,
+                        checked: activeData[idx].checked,
+                        selected: rowSelected === idx,
                     })
                 }
                 data={activeData}
@@ -117,7 +124,7 @@ class TableBody extends React.Component {
                                 {item.display(activeData[props.rowIndex])}
                             </Cell>
                         )}
-                        flexGrow={typeof item.flexGrow !== 'undefined' || 1}
+                        flexGrow={typeof item.flexGrow === 'undefined' ? 1 : item.flexGrow}
                         width={item.width || 20}
                     />
                 ))}

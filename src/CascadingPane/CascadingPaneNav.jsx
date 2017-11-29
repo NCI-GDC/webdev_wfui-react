@@ -1,4 +1,4 @@
-/* global window */
+/* global window, document */
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -27,6 +27,7 @@ class CascadingPaneNav extends React.Component {
                       return newItem;
                   })
                 : [],
+            tableHeight: 0,
         };
 
         this.onHandleClick = this.onHandleClick.bind(this);
@@ -107,7 +108,7 @@ class CascadingPaneNav extends React.Component {
 
     componentDidUpdate(prevProps, prevState) {
         const { updateGroupSelect, data, itemIdField } = this.props;
-        const { selected } = this.state;
+        const { selected, tableHeight } = this.state;
         if (
             (prevProps.data.length === 0 && data.length > 0) ||
             selected !== prevState.selected ||
@@ -117,6 +118,14 @@ class CascadingPaneNav extends React.Component {
                 item => item[itemIdField] === selected,
             );
             updateGroupSelect(groupSelected[0]);
+        }
+
+        // Set table height
+        if (!tableHeight) {
+            const navList = document.getElementsByClassName('cascading-pane-nav-list')[0];
+            if (navList) {
+                this.setState({ tableHeight: navList.offsetHeight });
+            }
         }
     }
 
@@ -147,7 +156,7 @@ class CascadingPaneNav extends React.Component {
             itemIdField,
             isHiddenField,
         } = this.props;
-        const { fetched, dataWithClass } = this.state;
+        const { fetched, dataWithClass, tableHeight } = this.state;
 
         const navFormat = [];
         if (logoField) {
@@ -161,6 +170,8 @@ class CascadingPaneNav extends React.Component {
                         className="cascading-nav-logo"
                     />
                 ),
+                flexGrow: 0,
+                width: 37,
             });
         }
         navFormat.push({
@@ -170,6 +181,7 @@ class CascadingPaneNav extends React.Component {
                 item[titleField] && item[titleField].length > 0
                     ? item[titleField]
                     : item[itemIdField],
+            width: 165,
         });
         if (isHiddenField) {
             navFormat.push({
@@ -184,6 +196,8 @@ class CascadingPaneNav extends React.Component {
                     ) : (
                         ''
                     ),
+                flexGrow: 0,
+                width: 45,
             });
         }
         if (itemConfigDisplay) {
@@ -200,6 +214,8 @@ class CascadingPaneNav extends React.Component {
                         ),
                     ),
                 excludeRowClick: true,
+                flexGrow: 0,
+                width: 72,
             });
         }
 
@@ -227,6 +243,8 @@ class CascadingPaneNav extends React.Component {
                                     onRowClick={item =>
                                         this.onHandleClick(item)
                                     }
+                                    contentHeight={tableHeight}
+                                    noTableHeader
                                 />
                             )}
                     </div>
