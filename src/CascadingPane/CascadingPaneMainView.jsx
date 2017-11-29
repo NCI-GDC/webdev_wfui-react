@@ -213,6 +213,8 @@ class CascadingPaneMainView extends React.Component {
                         ),
                     ),
                 excludeRowClick: true,
+                width: 72,
+                flexGrow: 0,
             });
         }
 
