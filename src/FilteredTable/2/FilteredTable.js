@@ -31,6 +31,7 @@ class FilteredTable extends React.Component {
             this.generateFilteredArticles(this.applySearch(this.props.data)),
         );
         window.addEventListener('resize', this.resizeTable);
+        this.resizeTable();
     }
     componentWillUnmount() {
         window.removeEventListener('resize', this.resizeTable);
@@ -233,6 +234,9 @@ class FilteredTable extends React.Component {
             onRowClick,
             rowSelect,
             contentHeight,
+            noTableHeader,
+            rowHeight,
+            headerHeight,
         } = this.props;
 
         const {
@@ -273,6 +277,9 @@ class FilteredTable extends React.Component {
                 rowSelect={rowSelect}
                 contentWidth={contentWidth}
                 contentHeight={contentHeight}
+                noTableHeader={noTableHeader}
+                rowHeight={rowHeight}
+                headerHeight={headerHeight}
             />
         );
 
@@ -300,9 +307,6 @@ class FilteredTable extends React.Component {
                 {table}
             </div>
         );
-    }
-    componentDidUpdate() {
-        this.resizeTable();
     }
     resizeTable() {
         const { uid, contentWidth } = this.state;
@@ -333,6 +337,9 @@ FilteredTable.propTypes = {
     searchLogic: React.PropTypes.oneOf(['and', 'or']),
     onRowClick: React.PropTypes.func,
     contentHeight: React.PropTypes.number,
+    noTableHeader: React.PropTypes.bool,
+    rowHeight: React.PropTypes.number,
+    headerHeight: React.PropTypes.number,
 };
 
 FilteredTable.defaultProps = {
@@ -347,6 +354,9 @@ FilteredTable.defaultProps = {
     onSelectionChange: f => f,
     onRowClick: f => f,
     searchLogic: 'and',
+    noTableHeader: false,
+    rowHeight: 50,
+    headerHeight: 50,
 };
 
 export default FilteredTable;

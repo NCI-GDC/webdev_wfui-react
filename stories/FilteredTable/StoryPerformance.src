@@ -78,6 +78,19 @@ const itemFormat = [
     },
 ];
 
+const itemFormat2 = [
+    {
+        name: 'Person ID',
+        display: data => data.id,
+        width: 100,
+    },
+    {
+        name: 'First Name',
+        display: data => data.first_name,
+        sortingKey: data => data.first_name,
+        width: 20,
+    },
+];
 /* Paginator is injected with an additional prop 
     * which contains a method getOpenPage for generating
     * event handlers that change the page. */
@@ -212,6 +225,7 @@ class FilteredListContainer extends React.Component {
                     simpleSearch
                     searchKeys={['id']}
                     searchLogic={'or'}
+                    noTableHeader
                 />
                 {this.state.count} Maching the Criteria
             </div>
