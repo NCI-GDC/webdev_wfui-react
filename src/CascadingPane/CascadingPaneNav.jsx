@@ -136,7 +136,7 @@ class CascadingPaneNav extends React.Component {
         if (selected !== item[itemIdField]) {
             window.location.href = `${
                 window.location.href.split('?')[0]
-            }?cascNav=${item[itemIdField]}`;
+            }?cascNav=${encodeURI(item[itemIdField])}`;
         }
     }
 
