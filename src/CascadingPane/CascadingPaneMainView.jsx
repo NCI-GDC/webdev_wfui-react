@@ -153,12 +153,12 @@ class CascadingPaneMainView extends React.Component {
         if (curSelect !== item[itemIdField]) {
             if (curSelect) {
                 window.location.href = window.location.href.replace(
-                    `cascSelect=${curSelect}`,
-                    `cascSelect=${item[itemIdField]}`,
+                    `cascSelect=${encodeURI(curSelect)}`,
+                    `cascSelect=${encodeURI(item[itemIdField])}`,
                 );
             } else {
                 window.location.href = `${window.location.href}&cascSelect=${
-                    item[itemIdField]
+                    encodeURI(item[itemIdField])
                 }`;
             }
         }
