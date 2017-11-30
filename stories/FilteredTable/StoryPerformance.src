@@ -5,32 +5,38 @@ const itemFormat = [
         name: 'Person ID',
         display: data => data.id,
         width: 100,
+        className: "personIdCell",
     },
     {
         name: 'First Name',
         display: data => data.first_name,
         sortingKey: data => data.first_name,
         width: 20,
+        className: "firstNameCell",
     },
     {
         name: 'Last Name',
         display: data => data.last_name,
         width: 10,
+        className: "lastNameCell",
     },
     {
         name: 'email',
         display: data => data.email,
         width: 10,
+        className: "emailCell",
     },
     {
         name: 'gender',
         display: data => data.gender,
         width: 10,
+        className: "genderCell",
     },
     {
         name: 'IP Address',
         display: data => data.ip_address,
         width: 10,
+        className: "ipAddressCell",
     },
     {
         name: 'Actions',
@@ -75,46 +81,9 @@ const itemFormat = [
                 </Button>
             </div>
         ),
+        className: "actionsCell",
     },
 ];
-
-const itemFormat2 = [
-    {
-        name: 'Person ID',
-        display: data => data.id,
-        width: 100,
-    },
-    {
-        name: 'First Name',
-        display: data => data.first_name,
-        sortingKey: data => data.first_name,
-        width: 20,
-    },
-];
-/* Paginator is injected with an additional prop 
-    * which contains a method getOpenPage for generating
-    * event handlers that change the page. */
-const PaginatorDisplay = ({ currentPage, numPages, getOpenPage }) => {
-    const events = [];
-    const maxShowingPages = 10;
-    const lowerPageLimit = currentPage - maxShowingPages / 2;
-    const upperPageLimit = currentPage + maxShowingPages / 2;
-    for (let i = lowerPageLimit; i < upperPageLimit; i += 1) {
-        const handler = getOpenPage(i);
-        if (i === currentPage) {
-            events.push(<a key={i}> {i} </a>);
-        } else if (currentPage > numPages) {
-            getOpenPage(numPages);
-        } else if (handler) {
-            events.push(
-                <button key={i + 'b'} href="#" onClick={handler}>
-                    {i}
-                </button>,
-            );
-        }
-    }
-    return <div>{events}</div>;
-};
 
 /* A container is needed to fetch from API */
 class FilteredListContainer extends React.Component {

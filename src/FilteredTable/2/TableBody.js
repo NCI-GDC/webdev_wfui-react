@@ -120,7 +120,7 @@ class TableBody extends React.Component {
                             </Cell>
                         }
                         cell={props => (
-                            <Cell {...props}>
+                            <Cell {...props} className={item.className}>
                                 {item.display(activeData[props.rowIndex])}
                             </Cell>
                         )}
