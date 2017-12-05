@@ -3,16 +3,18 @@
  */
 const defaultState = { category: {}, sort: { order: 'desc' }, term: { q: '' } };
 export const visibilityFilterReducer = (state = defaultState, action) => {
-    const _state = JSON.parse(JSON.stringify(state));
+    let _state;
     switch (action.type) {
         case 'RESET_FILTER':
             return defaultState;
         case 'REFYDRATE_FILTER':
             return action.visibilityFilter;
         case 'CHANGE_TERM':
+            _state = JSON.parse(JSON.stringify(state));
             _state.term.q = action.term;
             return _state;
         case 'TOGGLE_FILTER': {
+            _state = JSON.parse(JSON.stringify(state));
             if (!_state[action.key]) return _state;
 
             if (!_state[action.key][action.filter.key])
@@ -30,6 +32,7 @@ export const visibilityFilterReducer = (state = defaultState, action) => {
             return _state;
         }
         case 'CHANGE_FILTER':
+            _state = JSON.parse(JSON.stringify(state));
             if (!_state[action.key]) return _state;
             action.filter.forEach(a => {
                 _state[action.key][a.key] = a.value;
@@ -37,6 +40,7 @@ export const visibilityFilterReducer = (state = defaultState, action) => {
             });
             return _state;
         case 'SELECT_PROVINCE':
+            _state = JSON.parse(JSON.stringify(state));
             _state.category = { province: [action.province] };
             return _state;
         default:
