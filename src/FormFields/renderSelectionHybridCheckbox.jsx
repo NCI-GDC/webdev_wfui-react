@@ -62,17 +62,20 @@ class renderSelectionHybridCheckbox extends React.Component {
     parseOptionsAndSpecials(props) {
         const exclusives = [];
         let options = [];
-        props.options.forEach(option => {
-            const key = props.getOptKey(option);
-            const special = props.getOptSpecial(option);
-            if (special.includes('exclusive')) {
-                exclusives.push(key);
-            }
-            options.push({
-                key,
-                value: props.getOptVal(option),
+
+        if (props.options) {
+            props.options.forEach(option => {
+                const key = props.getOptKey(option);
+                const special = props.getOptSpecial(option);
+                if (special.includes('exclusive')) {
+                    exclusives.push(key);
+                }
+                options.push({
+                    key,
+                    value: props.getOptVal(option),
+                });
             });
-        });
+        }
         return { options, exclusives };
     }
     render() {
@@ -87,6 +90,7 @@ class renderSelectionHybridCheckbox extends React.Component {
             fieldMap,
             disabled,
             columnCount,
+            preview,
         } = this.props;
 
         const { options } = this.state;
@@ -112,6 +116,7 @@ class renderSelectionHybridCheckbox extends React.Component {
                     'wfui-form-item',
                     { 'wfui-form-item-error': globalError },
                     { 'wfui-form-disabled': disabled },
+                    { 'wfui-form-preview': preview },
                 )}
             >
                 <ControlLabel>{label}</ControlLabel>
