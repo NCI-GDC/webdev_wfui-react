@@ -47,7 +47,7 @@ class CollapsibleFilter extends React.Component {
             <div className="wfui-filter-group">
                 <FilterItems
                     label={label}
-                    filterItems={filterItems || filters[type].sort((a, b) => (a._id.localeCompare(b._id))).map(item => ({ _id: item._id, key: item._key || item._id, count: item.count }))}
+                    filterItems={filterItems || filters[type].filter((a) => (a._id)).sort((a, b) => (a._id.localeCompare(b._id))).map(item => ({ _id: item._id, key: item._key || item._id, count: item.count }))}
                     type={type}
                     category={category}
                     onHandleClick={this.onHandleClick}
