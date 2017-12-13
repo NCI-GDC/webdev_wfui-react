@@ -1992,6 +1992,14 @@ tr
   text-transform: uppercase;
   margin-left: auto; }
 
+.wfui-type-field-table .btn-add-col:active,
+.wfui-type-field-table .btn-add-col:hover,
+.wfui-type-field-table .btn-add-col:focus,
+.wfui-form-addAnother .add-btn:active,
+.wfui-form-addAnother .add-btn:focus,
+.wfui-form-addAnother .add-btn:hover {
+  background-position: 15px center; }
+
 .wfui-type-field-table .btn-add-col {
   float: right; }
 
