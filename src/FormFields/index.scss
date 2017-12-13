@@ -215,9 +215,9 @@ a.delete-icon {
 
 .wfui-description {
     position: absolute;
-    top: 21px;
+    top: 28px;
     left: calc(100% + 15px);
-    width: calc(66.666% - 15px);
+    width: calc(50% - 15px);
     padding: 10px;
     margin: 0;
     margin-bottom: 20px;
@@ -225,7 +225,11 @@ a.delete-icon {
     border-radius: 3px;
     font-size: 12px;
     font-weight: normal;
-    border-top: 1px solid #fff;
+}
+
+.wfui-type-textarea .wfui-description {
+    left: calc(66.667% + 15px);
+    width: calc(33.333% - 15px);
 }
 
 .wfui-description::after {
@@ -250,7 +254,7 @@ a.delete-icon {
 .wfui-type-listbox,
 .wfui-type-selection-hybrid,
 .wfui-type-table-format {
-    width: 60%;
+    width: 66.667%;
     position: relative;
 }
 
