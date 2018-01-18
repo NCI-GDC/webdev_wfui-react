@@ -53,14 +53,15 @@ class List extends React.Component {
         return populatedContainer;
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
         const { onDisplay, onNumOfListChange, data } = this.props;
         const { activeData, startingArticle, lastArticle } = calcActiveData(this.props);
 
         /* Only setState and invoke callbacks when the state is changed to avoid infinite loop */
         if ( activeData.length !== this.state.numOfItems ||
             startingArticle !== this.state.startingArticle ||
-            lastArticle !== this.state.lastArticle) {
+            lastArticle !== this.state.lastArticle || 
+            prevProps.data.length !== data.length) {
             this.updateStatus();
         }
     }
