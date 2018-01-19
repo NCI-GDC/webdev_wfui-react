@@ -40,6 +40,8 @@ class CollapsibleFilter extends React.Component {
     render() {
         const { label, type, filters, search, filterItems, items, category, filter, defaultExpand, numCollapse, textMore, textLess } = this.props;
 
+        const sortedFilter = filters[type].filter((a) => (a._id)).sort((a, b) => (a._id.localeCompare(b._id)));
+
         // Filter by search
         const filteredItems = search.all ? items : items.filter(job => search.results.includes(job.permalink)) || [];
 
@@ -47,7 +49,7 @@ class CollapsibleFilter extends React.Component {
             <div className="wfui-filter-group">
                 <FilterItems
                     label={label}
-                    filterItems={filterItems || filters[type].filter((a) => (a._id)).sort((a, b) => (a._id.localeCompare(b._id))).map(item => ({ _id: item._id, key: item._key || item._id, count: item.count }))}
+                    filterItems={filterItems || sortedFilter.map(item => ({ _id: item._id, key: item._key || item._id, count: item.count }))}
                     type={type}
                     category={category}
                     onHandleClick={this.onHandleClick}
