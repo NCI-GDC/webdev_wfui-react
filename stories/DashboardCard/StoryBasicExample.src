@@ -1,6 +1,6 @@
 const example = (
     <div>
-        <DashboardCard className="col-xs-4" DashboardCardStyle={{ "border": "1px solid #000" }}>
+        <DashboardCard DashboardCardStyle={{ "border": "1px solid #000" }}>
             <DashboardCard.Body>
                 <div className="form-title-container">
                     <h2 className="form-box-title">Request a Jira Project</h2>

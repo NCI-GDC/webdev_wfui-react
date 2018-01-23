@@ -1,8 +1,12 @@
-.form-box {
+.form-box-container {
     width: 100%;
     margin-bottom: 20px;
-    border: 1px solid #dadada;
     border-top: 5px solid #000;
+
+    .form-box {
+        border: 1px solid #dadada;
+        border-top: none;
+    }
 
     .form-box-body {
         padding: 10px 15px;
@@ -10,7 +14,7 @@
     }
 
     .form-box-footer {
-        border-right: none;
+        border-top: 1px solid #dadada;
 
         ul.form-box-links {
             display: flex;
@@ -20,12 +24,17 @@
             padding: 0;
 
             > li {
+                border-right: 1px solid #dadada;
                 flex: 1;
                 font-size: 16px;
                 font-weight: 600;
                 background-color: #f7f9fa;
                 text-align: center;
                 padding: 5px 0;
+            }
+
+            > li:last-child {
+                border-right: none;
             }
         }
     }
