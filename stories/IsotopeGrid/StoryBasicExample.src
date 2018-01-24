@@ -1,0 +1,65 @@
+class IsotopeGridContainer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state={ data: [], sortBy: '', seconds: 0, searchTerm: '' };
+    }
+
+    componentDidMount() {
+        this.interval = setInterval(() => {this.tick();}, 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    tick() {
+        if (this.state.seconds === 6) {
+            this.setState(prevState => ({
+                seconds: prevState.seconds + 1,
+                searchTerm: 'labs',
+            }));
+        } else if (this.state.seconds === 4) {
+            this.setState(prevState => ({
+                seconds: prevState.seconds + 1,
+                data: ['labs', 'labs-ls', 'labs-pb', 'proj', 'proj-bg', 'jira'],
+            }));
+        } else if (this.state.seconds === 2) {
+            this.setState(prevState => ({
+                seconds: prevState.seconds + 1,
+                data: ['labs', 'labs-ls', 'proj', 'proj-bg', 'jira'],
+            }));
+        }else if (this.state.seconds < 6) {
+            this.setState(prevState => ({
+                seconds: prevState.seconds + 1,
+            }));
+        }
+    }
+
+    render() {
+        const { searchTerm, data } = this.state;
+        return (
+            <div>
+                <IsotopeGrid id="tester" searchTerm={searchTerm}>
+                    {data && data.map(item => <IsotopeGrid.Item><h1 className="isotope-search">{item}</h1></IsotopeGrid.Item>)}
+                    <IsotopeGrid.Item>
+                    <h1>Test 1</h1>
+                    </IsotopeGrid.Item>
+                    <IsotopeGrid.Item>
+                    <h1>Test 2</h1>
+                    </IsotopeGrid.Item>
+                    <IsotopeGrid.Item>
+                    <h1>Test 3</h1>
+                    </IsotopeGrid.Item>
+                    <IsotopeGrid.Item>
+                    <h1>Test 4</h1>
+                    </IsotopeGrid.Item>
+                    <IsotopeGrid.Item>
+                    <h1>Test 5</h1>
+                    </IsotopeGrid.Item>
+                </IsotopeGrid>
+            </div>
+        );
+    }
+}
+
+return <IsotopeGridContainer />;

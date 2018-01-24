@@ -60,11 +60,10 @@ DashboardCardFilterData.defaultProps = {
 
 const BODY_ROLE = DashboardCardBody.defaultProps.role;
 const FOOTER_ROLE = DashboardCardFooter.defaultProps.role;
-const DATA_ROLE = DashboardCardFilterData.defaultProps.role;
 
 class DashboardCard extends React.Component {
     render() {
-        const { className, children, data, cardStyle } = this.props;
+        const { className, children, data } = this.props;
 
         return (
             <Card className={classNames(className, 'form-box-container')}>
