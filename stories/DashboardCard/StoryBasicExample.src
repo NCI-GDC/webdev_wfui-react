@@ -1,0 +1,20 @@
+const example = (
+    <div>
+        <DashboardCard DashboardCardStyle={{ "border": "1px solid #000" }}>
+            <DashboardCard.Body>
+                <div className="form-title-container">
+                    <h2 className="form-box-title">Request a Jira Project</h2>
+                </div>
+                <p>
+                    A JIRA project helps your team track tasks and issues as cases. These cases allow you manage changes and progress with your team.
+                </p>
+            </DashboardCard.Body>
+            <DashboardCard.Footer>
+                <a href="#" class="form-box-link request-form-link" title="Request From">Request Form</a>
+                <a href="#" class="form-box-link app-website-link" title="Visit Jira Website">jira.oicr.on.ca</a>
+            </DashboardCard.Footer>
+        </DashboardCard>
+    </div>
+);
+
+return example;
