@@ -7,9 +7,11 @@ import Spinner from './Spinner/Spinner';
 import TwitterFeed from './TwitterFeed/TwitterFeed';
 import FilteredTable from './FilteredTable/1/FilteredTable';
 import FilteredTableV2 from './FilteredTable/2/FilteredTable';
+import FilteredIsotope from './FilteredIsotope/FilteredIsotope';
 import PasswordValidator from './PasswordValidator/PasswordValidator';
 import Draggable, { withContext } from './Draggable/Draggable';
 import DashboardBox from './DashboardBox/DashboardBox';
+import DashboardCard from './DashboardCard/DashboardCard';
 import UserDrawer from './UserDrawer/UserDrawer';
 import Drawer from './Drawer/Drawer';
 import GroupsDrawer from './GroupsDrawer/GroupsDrawer';
@@ -40,10 +42,12 @@ export {
     TwitterFeed,
     FilteredTable,
     FilteredTableV2,
+    FilteredIsotope,
     PasswordValidator,
     Draggable,
     DraggableWithContext,
     DashboardBox,
+    DashboardCard,
     UserDrawer,
     Drawer,
     GroupsDrawer,

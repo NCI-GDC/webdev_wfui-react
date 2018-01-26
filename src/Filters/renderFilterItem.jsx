@@ -14,11 +14,15 @@ export const renderSelectFilter = ({ name, category, onHandleChange, items, capi
         value={(category && category[name]) || ''}
         selected={(category && category[name]) || ''}
     >
-        {
-            items.map((item, idx) => (
-                <option key={idx} value={idx === 0 ? (item.value || '') : (item.value || item)} className={capitalize ? 'text-capitalize' : ''}>{item.label || item}</option>
-            ))
-        }
+        {items.map((item, idx) => (
+            <option
+                key={idx}
+                value={idx === 0 ? item.value || '' : item.value || item}
+                className={capitalize ? 'text-capitalize' : ''}
+            >
+                {item.label || item}
+            </option>
+        ))}
     </FormControl>
 );
 
@@ -32,12 +36,13 @@ export const renderDateFilter = ({ name, category, onHandleChange }) => (
     />
 );
 
-export const renderTextFilter = ({ name, category, onHandleChange }) => (
+export const renderTextFilter = ({ name, category, onHandleChange, placeholder }) => (
     <FormControl
         type="text"
         name={name}
         id={name}
         value={(category && category[name]) || ''}
         onChange={onHandleChange}
+        placeholder={placeholder || ''}
     />
 );
