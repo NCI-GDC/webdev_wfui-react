@@ -23,16 +23,25 @@ class FilteredIsotope extends React.Component {
         const { getSortData, sortBy, sortOrder, wholeWord, searchTerm, filterList } = this.props;
         const { isotope } = this.state;
 
-        const reg = wholeWord ? RegExp(`\\b${searchTerm.toLowerCase().trim()}\\b`, 'i') : RegExp(`${searchTerm.toLowerCase().trim()}`, 'i');
+        const reg = wholeWord
+            ? RegExp(`\\b${searchTerm.toLowerCase().trim()}\\b`, 'i')
+            : RegExp(`${searchTerm.toLowerCase().trim()}`, 'i');
 
         if (!isotope) {
-            this.setState({ isotope: new Isotope(ReactDOM.findDOMNode(this), {
-                layoutMode: 'fitRows',
-                getSortData,
-                sortBy: sortBy || 'original-order',
-                sortAscending: sortOrder ? sortOrder === 'asc' : true,
-                filter: itemElem => (!filterList || filterList.length === 0 || filterList.every(filter => filter(itemElem))) && reg.test(itemElem.querySelector('.isotope-search').innerText),
-            }) });
+            this.setState({
+                isotope: new Isotope(ReactDOM.findDOMNode(this), {
+                    itemSelector: '.wfui-isotope-element',
+                    layoutMode: 'fitRows',
+                    getSortData,
+                    sortBy: sortBy || 'original-order',
+                    sortAscending: sortOrder ? sortOrder === 'asc' : true,
+                    filter: itemElem =>
+                        (!filterList ||
+                            filterList.length === 0 ||
+                            filterList.every(filter => filter(itemElem))) &&
+                        reg.test(itemElem.querySelector('.isotope-search').innerText),
+                }),
+            });
         } else {
             this.state.isotope.reloadItems();
         }
@@ -50,11 +59,17 @@ class FilteredIsotope extends React.Component {
 
         if (JSON.stringify(this.props.getSortData) !== JSON.stringify(nextProps.getSortData)) {
             this.state.isotope.destroy();
-            const reg = nextProps.wholeWord ? RegExp(`\\b${nextProps.searchTerm.toLowerCase().trim()}\\b`, 'i') : RegExp(`${nextProps.searchTerm.toLowerCase().trim()}`, 'i');
+            const reg = nextProps.wholeWord
+                ? RegExp(`\\b${nextProps.searchTerm.toLowerCase().trim()}\\b`, 'i')
+                : RegExp(`${nextProps.searchTerm.toLowerCase().trim()}`, 'i');
             options.getSortData = nextProps.getSortData;
             options.sortBy = nextProps.sortBy || 'original-order';
             options.sortAscending = nextProps.sortOrder ? nextProps.sortOrder === 'asc' : true;
-            options.filter = itemElem => (!nextProps.filterList || nextProps.filterList.length === 0 || nextProps.filterList.every(filter => filter(itemElem))) && reg.test(itemElem.querySelector('.isotope-search').innerText);
+            options.filter = itemElem =>
+                (!nextProps.filterList ||
+                    nextProps.filterList.length === 0 ||
+                    nextProps.filterList.every(filter => filter(itemElem))) &&
+                reg.test(itemElem.querySelector('.isotope-search').innerText);
             if (reload !== this.state.reload) {
                 this.setState({
                     isotope: new Isotope(ReactDOM.findDOMNode(this), {
@@ -74,18 +89,31 @@ class FilteredIsotope extends React.Component {
                 });
             }
         } else {
-            if (this.props.sortBy !== nextProps.sortBy) options.sortBy = nextProps.sortBy || 'original-order';
-            if (this.props.sortOrder !== nextProps.sortOrder) options.sortAscending = nextProps.sortOrder ? nextProps.sortOrder === 'asc' : true;
-            if (this.props.searchTerm.toLowerCase().trim() !== nextProps.searchTerm.toLowerCase().trim() ||
-                JSON.stringify(this.props.filterList) !== JSON.stringify(nextProps.filterList)) {
-                const reg = nextProps.wholeWord ? RegExp(`\\b${nextProps.searchTerm.toLowerCase().trim()}\\b`, 'i') : RegExp(`${nextProps.searchTerm.toLowerCase().trim()}`, 'i');
-                options.filter = itemElem => (!nextProps.filterList || nextProps.filterList.length === 0 || nextProps.filterList.every(filter => filter(itemElem))) && reg.test(itemElem.querySelector('.isotope-search').innerText);
+            if (this.props.sortBy !== nextProps.sortBy) {
+                options.sortBy = nextProps.sortBy || 'original-order';
+            }
+            if (this.props.sortOrder !== nextProps.sortOrder) {
+                options.sortAscending = nextProps.sortOrder ? nextProps.sortOrder === 'asc' : true;
+            }
+            if (
+                this.props.searchTerm.toLowerCase().trim() !==
+                    nextProps.searchTerm.toLowerCase().trim() ||
+                JSON.stringify(this.props.filterList) !== JSON.stringify(nextProps.filterList)
+            ) {
+                const reg = nextProps.wholeWord
+                    ? RegExp(`\\b${nextProps.searchTerm.toLowerCase().trim()}\\b`, 'i')
+                    : RegExp(`${nextProps.searchTerm.toLowerCase().trim()}`, 'i');
+                options.filter = itemElem =>
+                    (!nextProps.filterList ||
+                        nextProps.filterList.length === 0 ||
+                        nextProps.filterList.every(filter => filter(itemElem))) &&
+                    reg.test(itemElem.querySelector('.isotope-search').innerText);
             }
 
             if (reload !== this.state.reload) this.setState({ reload });
             if (options) this.state.isotope.arrange({ ...options });
         }
-/*
+        /*
         if (JSON.stringify(this.props.data) !== JSON.stringify(nextProps.data)) {
             this.setState({ reload: true });
         } else if (this.state.reload) {
@@ -140,11 +168,14 @@ class FilteredIsotope extends React.Component {
 
         return (
             <div className={classNames(className, 'wfui-isotope-grid')}>
-                {
-                    data.map((item, idx) => (
-                        <Element className={itemClassName} item={item} itemDisplay={itemDisplay} key={idx} />
-                    ))
-                }
+                {data.map((item, idx) => (
+                    <Element
+                        className={itemClassName}
+                        item={item}
+                        itemDisplay={itemDisplay}
+                        key={idx}
+                    />
+                ))}
             </div>
         );
     }
@@ -154,10 +185,7 @@ FilteredIsotope.propTypes = {
     itemDisplay: PropTypes.element.isRequired,
     data: PropTypes.arrayOf(PropTypes.any).isRequired,
     className: PropTypes.string,
-    getSortData: PropTypes.objectOf(PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.func,
-    ])),
+    getSortData: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.func])),
     sortBy: PropTypes.string,
     sortOrder: PropTypes.string,
     searchTerm: PropTypes.string,
