@@ -8,6 +8,7 @@ import TwitterFeed from './TwitterFeed/TwitterFeed';
 import FilteredTable from './FilteredTable/1/FilteredTable';
 import FilteredTableV2 from './FilteredTable/2/FilteredTable';
 import FilteredIsotope from './FilteredIsotope/FilteredIsotope';
+import IsotopeGrid from './IsotopeGrid/IsotopeGrid';
 import PasswordValidator from './PasswordValidator/PasswordValidator';
 import Draggable, { withContext } from './Draggable/Draggable';
 import DashboardBox from './DashboardBox/DashboardBox';
@@ -43,6 +44,7 @@ export {
     FilteredTable,
     FilteredTableV2,
     FilteredIsotope,
+    IsotopeGrid,
     PasswordValidator,
     Draggable,
     DraggableWithContext,
