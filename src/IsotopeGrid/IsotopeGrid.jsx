@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Isotope from 'isotope-layout';
 import { Row, Col } from 'react-bootstrap';
-import $ from 'jquery';
 
 const columnProps = PropTypes.oneOfType([
     PropTypes.string,
@@ -80,14 +79,14 @@ class IsotopeGrid extends React.Component {
                 isotope: new Isotope(ReactDOM.findDOMNode(this), {
                     itemSelector: `.${id}-item`,
                     layoutMode: 'fitRows',
-                    filter: (itemElem) => {
+                    filter(itemElem) {
                         const isoSearch = itemElem
                             ? itemElem.querySelector('.isotope-search')
-                            : $(this).find('.isotope-search');
+                            : this.querySelector('.isotope-search');
                         return (
                             (!filterList ||
                                 filterList.length === 0 ||
-                                filterList.every(filter => filter(itemElem || $(this)))) &&
+                                filterList.every(filter => filter(itemElem || this))) &&
                             reg.test(isoSearch ? isoSearch.innerText : '')
                         );
                     },
@@ -132,14 +131,14 @@ class IsotopeGrid extends React.Component {
             const reg = nextProps.wholeWord
                 ? RegExp(`\\b${nextProps.searchTerm.toLowerCase().trim()}\\b`, 'i')
                 : RegExp(`${nextProps.searchTerm.toLowerCase().trim()}`, 'i');
-            options.filter = (itemElem) => {
+            options.filter = function (itemElem) {
                 const isoSearch = itemElem
                     ? itemElem.querySelector('.isotope-search')
-                    : $(this).find('.isotope-search');
+                    : this.querySelector('.isotope-search');
                 return (
                     (!nextProps.filterList ||
                         nextProps.filterList.length === 0 ||
-                        nextProps.filterList.every(filter => filter(itemElem || $(this)))) &&
+                        nextProps.filterList.every(filter => filter(itemElem || this))) &&
                     reg.test(isoSearch ? isoSearch.innerText : '')
                 );
             };
