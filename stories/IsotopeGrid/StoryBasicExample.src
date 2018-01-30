@@ -62,4 +62,9 @@ class IsotopeGridContainer extends React.Component {
     }
 }
 
-return <IsotopeGridContainer />;
+const example = (
+    <Provider store={store}>
+        <IsotopeGridContainer />
+    </Provider>
+);
+return example;

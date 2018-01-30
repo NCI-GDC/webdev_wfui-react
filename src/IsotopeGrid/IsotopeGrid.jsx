@@ -4,6 +4,7 @@ import shallowCompare from 'react-addons-shallow-compare';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Isotope from 'isotope-layout';
+import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 
 const columnProps = PropTypes.oneOfType([
@@ -126,7 +127,8 @@ class IsotopeGrid extends React.Component {
         if (
             this.props.searchTerm.toLowerCase().trim() !==
                 nextProps.searchTerm.toLowerCase().trim() ||
-            JSON.stringify(this.props.filterList) !== JSON.stringify(nextProps.filterList)
+            JSON.stringify(this.props.filterList) !== JSON.stringify(nextProps.filterList) ||
+            JSON.stringify(this.props.category) !== JSON.stringify(nextProps.category)
         ) {
             const reg = nextProps.wholeWord
                 ? RegExp(`\\b${nextProps.searchTerm.toLowerCase().trim()}\\b`, 'i')
@@ -252,6 +254,7 @@ IsotopeGrid.propTypes = {
     searchTerm: PropTypes.string,
     wholeWord: PropTypes.bool,
     filterList: PropTypes.arrayOf(PropTypes.func),
+    category: PropTypes.object,
 };
 
 IsotopeGrid.defaultProps = {
@@ -263,4 +266,6 @@ IsotopeGrid.defaultProps = {
 
 IsotopeGrid.Item = IsotopeItem;
 
-export default IsotopeGrid;
+export default connect(state => ({
+    category: state.visibilityFilter && state.visibilityFilter.category,
+}))(IsotopeGrid);
