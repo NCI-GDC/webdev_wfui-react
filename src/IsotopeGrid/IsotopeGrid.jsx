@@ -146,7 +146,11 @@ class IsotopeGrid extends React.Component {
         }
 
         if (reload !== this.state.reload) this.setState({ reload });
-        if (options) this.state.isotope.arrange({ ...options });
+        if (options && this.state.isotope) {
+            this.state.isotope.arrange({ ...options });
+        } else if (options) {
+            this.createIsotope();
+        }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
