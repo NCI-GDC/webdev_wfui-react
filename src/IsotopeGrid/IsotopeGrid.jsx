@@ -1,12 +1,28 @@
-import React, { columnProps, cloneElement } from 'react';
+import React, { cloneElement } from 'react';
 import ReactDOM from 'react-dom';
 import shallowCompare from 'react-addons-shallow-compare';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Isotope from 'isotope-layout';
 import { Row, Col } from 'react-bootstrap';
+import $ from 'jquery';
 
-const IsotopeItem = ({ key, id, width, xs, sm, md, lg, xl, children }) =>
+const columnProps = PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.bool,
+    PropTypes.shape({
+        size: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.string]),
+        // example size values:
+        // 12 || "12" => col-12 or col-`width`-12
+        // auto => col-auto or col-`width`-auto
+        // true => col or col-`width`
+        order: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        offset: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    }),
+]);
+
+const IsotopeItem = ({ key, id, width, xs, sm, md, lg, children }) =>
     width ? (
         <div key={key} className={classNames(`${id}-item`, 'wfui-isotope-item')} style={{ width }}>
             {children}
@@ -19,7 +35,6 @@ const IsotopeItem = ({ key, id, width, xs, sm, md, lg, xl, children }) =>
             sm={sm}
             md={md}
             lg={lg}
-            xl={xl}
         >
             {children}
         </Col>
@@ -27,13 +42,12 @@ const IsotopeItem = ({ key, id, width, xs, sm, md, lg, xl, children }) =>
 
 IsotopeItem.propTypes = {
     key: PropTypes.number,
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
     width: PropTypes.number,
     xs: columnProps,
     sm: columnProps,
     md: columnProps,
     lg: columnProps,
-    xl: columnProps,
     children: PropTypes.node,
 };
 
@@ -67,11 +81,13 @@ class IsotopeGrid extends React.Component {
                     itemSelector: `.${id}-item`,
                     layoutMode: 'fitRows',
                     filter: (itemElem) => {
-                        const isoSearch = itemElem.querySelector('.isotope-search');
+                        const isoSearch = itemElem
+                            ? itemElem.querySelector('.isotope-search')
+                            : $(this).find('.isotope-search');
                         return (
                             (!filterList ||
                                 filterList.length === 0 ||
-                                filterList.every(filter => filter(itemElem))) &&
+                                filterList.every(filter => filter(itemElem || $(this)))) &&
                             reg.test(isoSearch ? isoSearch.innerText : '')
                         );
                     },
@@ -117,11 +133,13 @@ class IsotopeGrid extends React.Component {
                 ? RegExp(`\\b${nextProps.searchTerm.toLowerCase().trim()}\\b`, 'i')
                 : RegExp(`${nextProps.searchTerm.toLowerCase().trim()}`, 'i');
             options.filter = (itemElem) => {
-                const isoSearch = itemElem.querySelector('.isotope-search');
+                const isoSearch = itemElem
+                    ? itemElem.querySelector('.isotope-search')
+                    : $(this).find('.isotope-search');
                 return (
                     (!nextProps.filterList ||
                         nextProps.filterList.length === 0 ||
-                        nextProps.filterList.every(filter => filter(itemElem))) &&
+                        nextProps.filterList.every(filter => filter(itemElem || $(this)))) &&
                     reg.test(isoSearch ? isoSearch.innerText : '')
                 );
             };
@@ -151,7 +169,7 @@ class IsotopeGrid extends React.Component {
     }
 
     render() {
-        const { id, width, xs, sm, md, lg, xl, children, className } = this.props;
+        const { id, width, xs, sm, md, lg, children, className } = this.props;
 
         const elems = [];
 
@@ -183,7 +201,6 @@ class IsotopeGrid extends React.Component {
                                         sm,
                                         md,
                                         lg,
-                                        xl,
                                     });
                                 default:
                                     return null;
@@ -208,7 +225,6 @@ class IsotopeGrid extends React.Component {
                                     sm,
                                     md,
                                     lg,
-                                    xl,
                                 });
                             default:
                                 return null;
@@ -227,7 +243,6 @@ IsotopeGrid.propTypes = {
     sm: columnProps,
     md: columnProps,
     lg: columnProps,
-    xl: columnProps,
     children: PropTypes.node,
     sortBy: PropTypes.string,
     sortOrder: PropTypes.string,
