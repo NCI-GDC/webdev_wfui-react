@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import Isotope from 'isotope-layout';
 import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
+import { stringifyValues } from '../util/stringifyValues';
 
 const columnProps = PropTypes.oneOfType([
     PropTypes.string,
@@ -13,18 +14,19 @@ const columnProps = PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.shape({
         size: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.string]),
-        // example size values:
-        // 12 || "12" => col-12 or col-`width`-12
-        // auto => col-auto or col-`width`-auto
-        // true => col or col-`width`
         order: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         offset: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     }),
 ]);
 
-const IsotopeItem = ({ key, id, width, xs, sm, md, lg, children }) =>
+const IsotopeItem = ({ key, id, width, xs, sm, md, lg, children, item }) =>
     width ? (
-        <div key={key} className={classNames(`${id}-item`, 'wfui-isotope-item')} style={{ width }}>
+        <div
+            key={key}
+            className={classNames(`${id}-item`, 'wfui-isotope-item')}
+            style={{ width: `${width}px` }}
+            data-item={stringifyValues(item)}
+        >
             {children}
         </div>
     ) : (
@@ -35,6 +37,7 @@ const IsotopeItem = ({ key, id, width, xs, sm, md, lg, children }) =>
             sm={sm}
             md={md}
             lg={lg}
+            data-item={stringifyValues(item)}
         >
             {children}
         </Col>
@@ -49,6 +52,7 @@ IsotopeItem.propTypes = {
     md: columnProps,
     lg: columnProps,
     children: PropTypes.node,
+    item: PropTypes.any,
 };
 
 IsotopeItem.defaultProps = {
@@ -68,7 +72,15 @@ class IsotopeGrid extends React.Component {
     }
 
     createIsotope() {
-        const { id, wholeWord, searchTerm, filterList } = this.props;
+        const {
+            id,
+            wholeWord,
+            searchTerm,
+            filterList,
+            sortBy,
+            sortAscending,
+            getSortData,
+        } = this.props;
         const { isotope } = this.state;
 
         const reg = wholeWord
@@ -80,15 +92,16 @@ class IsotopeGrid extends React.Component {
                 isotope: new Isotope(ReactDOM.findDOMNode(this), {
                     itemSelector: `.${id}-item`,
                     layoutMode: 'fitRows',
+                    sortBy,
+                    sortAscending,
+                    getSortData,
                     filter(itemElem) {
-                        const isoSearch = itemElem
-                            ? itemElem.querySelector('.isotope-search')
-                            : this.querySelector('.isotope-search');
+                        const isoSearch = itemElem ? itemElem.dataset.item : this.dataset.item;
                         return (
                             (!filterList ||
                                 filterList.length === 0 ||
                                 filterList.every(filter => filter(itemElem || this))) &&
-                            reg.test(isoSearch ? isoSearch.innerText : '')
+                            reg.test(isoSearch || '')
                         );
                     },
                 }),
@@ -134,22 +147,29 @@ class IsotopeGrid extends React.Component {
                 ? RegExp(`\\b${nextProps.searchTerm.toLowerCase().trim()}\\b`, 'i')
                 : RegExp(`${nextProps.searchTerm.toLowerCase().trim()}`, 'i');
             options.filter = function (itemElem) {
-                const isoSearch = itemElem
-                    ? itemElem.querySelector('.isotope-search')
-                    : this.querySelector('.isotope-search');
+                const isoSearch = itemElem ? itemElem.dataset.item : this.dataset.item;
                 return (
                     (!nextProps.filterList ||
                         nextProps.filterList.length === 0 ||
                         nextProps.filterList.every(filter => filter(itemElem || this))) &&
-                    reg.test(isoSearch ? isoSearch.innerText : '')
+                    reg.test(isoSearch || '')
                 );
             };
         }
+        if (this.props.sortBy !== nextProps.sortBy) {
+            options.sortBy = nextProps.sortBy;
+        }
+        if (this.props.sortAscending !== nextProps.sortAscending) {
+            options.sortAscending = nextProps.sortAscending;
+        }
+        if (JSON.stringify(this.props.getSortData) !== JSON.stringify(nextProps.getSortData)) {
+            options.getSortData = nextProps.getSortData;
+        }
 
         if (reload !== this.state.reload) this.setState({ reload });
-        if (options && this.state.isotope) {
+        if (Object.keys(options).length && this.state.isotope) {
             this.state.isotope.arrange({ ...options });
-        } else if (options) {
+        } else if (!Object.keys(options).length) {
             this.createIsotope();
         }
     }
@@ -249,23 +269,24 @@ IsotopeGrid.propTypes = {
     md: columnProps,
     lg: columnProps,
     children: PropTypes.node,
-    sortBy: PropTypes.string,
-    sortOrder: PropTypes.string,
+    sortBy: PropTypes.oneOf(PropTypes.string, PropTypes.arrayOf(PropTypes.string)),
+    sortAscending: PropTypes.bool,
+    getSortData: PropTypes.object,
     searchTerm: PropTypes.string,
     wholeWord: PropTypes.bool,
     filterList: PropTypes.arrayOf(PropTypes.func),
-    category: PropTypes.object,
 };
 
 IsotopeGrid.defaultProps = {
     searchTerm: '',
-    sm: 12,
-    md: 6,
+    xs: 12,
+    sm: 6,
+    md: 4,
     lg: 4,
+    sortBy: 'original-order',
+    sortAscending: true,
 };
 
 IsotopeGrid.Item = IsotopeItem;
 
-export default connect(state => ({
-    category: state.visibilityFilter && state.visibilityFilter.category,
-}))(IsotopeGrid);
+export default IsotopeGrid;

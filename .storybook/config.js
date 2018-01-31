@@ -19,7 +19,6 @@ function loadStories() {
     require('../stories/UserDrawer');
     require('../stories/FilteredList');
     require('../stories/FilteredTable');
-    require('../stories/FilteredIsotope');
     require('../stories/TwitterFeed');
     require('../stories/Spinner');
     require('../stories/PasswordValidator');
