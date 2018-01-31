@@ -289,4 +289,6 @@ IsotopeGrid.defaultProps = {
 
 IsotopeGrid.Item = IsotopeItem;
 
-export default IsotopeGrid;
+export default connect(state => ({
+    category: state.visibilityFilter && state.visibilityFilter.category,
+}))(IsotopeGrid);
