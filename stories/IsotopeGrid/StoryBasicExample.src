@@ -16,12 +16,12 @@ class IsotopeGridContainer extends React.Component {
         if (this.state.seconds === 6) {
             this.setState(prevState => ({
                 seconds: prevState.seconds + 1,
-                searchTerm: 'labs',
+                sortBy: 'title'
             }));
         } else if (this.state.seconds === 4) {
             this.setState(prevState => ({
                 seconds: prevState.seconds + 1,
-                data: ['labs', 'labs-ls', 'labs-pb', 'proj', 'proj-bg', 'jira'],
+                data: ['labs', 'labs-ls', 'labs-pb', 'proj', 'proj-bg', 'jira', '<script>alert("hello");</script>'],
             }));
         } else if (this.state.seconds === 2) {
             this.setState(prevState => ({
@@ -36,25 +36,34 @@ class IsotopeGridContainer extends React.Component {
     }
 
     render() {
-        const { searchTerm, data } = this.state;
+        const { searchTerm, data, sortBy } = this.state;
         return (
             <div>
-                <IsotopeGrid id="tester" searchTerm={searchTerm}>
-                    {data && data.map(item => <IsotopeGrid.Item><h1 className="isotope-search">{item}</h1></IsotopeGrid.Item>)}
+                <IsotopeGrid id="tester" searchTerm={searchTerm} sortBy={sortBy} getSortData={{title: '.title'}}>
+                    {data && data.map(item => (
+                        <IsotopeGrid.Item item={item}>
+                            <DashboardCard>
+                                <DashboardCard.Body>
+                                    <h1 className="title">{item}</h1>
+                                    <p>Testing</p>
+                                </DashboardCard.Body>
+                            </DashboardCard>
+                        </IsotopeGrid.Item>
+                    ))}
                     <IsotopeGrid.Item>
-                    <h1>Test 1</h1>
+                    <h1 className="title">Test 1</h1>
                     </IsotopeGrid.Item>
                     <IsotopeGrid.Item>
-                    <h1>Test 2</h1>
+                    <h1 className="title">Test 2</h1>
                     </IsotopeGrid.Item>
                     <IsotopeGrid.Item>
-                    <h1>Test 3</h1>
+                    <h1 className="title">Test 3</h1>
                     </IsotopeGrid.Item>
                     <IsotopeGrid.Item>
-                    <h1>Test 4</h1>
+                    <h1 className="title">Test 4</h1>
                     </IsotopeGrid.Item>
                     <IsotopeGrid.Item>
-                    <h1>Test 5</h1>
+                    <h1 className="title">Test 5</h1>
                     </IsotopeGrid.Item>
                 </IsotopeGrid>
             </div>

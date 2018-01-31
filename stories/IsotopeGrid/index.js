@@ -7,6 +7,8 @@ import StoryBasicExample from 'raw!./StoryBasicExample.src';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { visibilityFilterReducer } from '../../src/util/visibilityFilter';
+import DashboardCard from '../../src/DashboardCard/DashboardCard';
+import '../../src/DashboardCard/index.scss';
 
 const store = createStore(
     combineReducers({
@@ -16,5 +18,5 @@ const store = createStore(
     compose(applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f => f),
 );
 storiesOf('IsotopeGrid', module).addWithInfo('Basic Example', () => StoryBasicExample, {
-    scope: { Provider, store, IsotopeGrid, Button, ButtonGroup },
+    scope: { Provider, store, IsotopeGrid, DashboardCard, Button, ButtonGroup },
 });

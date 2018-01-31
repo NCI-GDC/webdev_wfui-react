@@ -8,6 +8,7 @@ require('./CaGForms/Selection/selection.scss');
 
 require('./FullCalendar/fullcalendar.min.css');
 require('./DashboardBox/index.scss');
+require('./DashboardCard/index.scss');
 require('./UserDrawer/index.scss');
 require('./FormFields/index.scss');
 require('./Card/index.scss');
