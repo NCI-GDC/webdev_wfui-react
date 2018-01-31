@@ -24,7 +24,11 @@ const columnProps = PropTypes.oneOfType([
 
 const IsotopeItem = ({ key, id, width, xs, sm, md, lg, children }) =>
     width ? (
-        <div key={key} className={classNames(`${id}-item`, 'wfui-isotope-item')} style={{ width }}>
+        <div
+            key={key}
+            className={classNames(`${id}-item`, 'wfui-isotope-item')}
+            style={{ width: `${width}px` }}
+        >
             {children}
         </div>
     ) : (
@@ -259,8 +263,9 @@ IsotopeGrid.propTypes = {
 
 IsotopeGrid.defaultProps = {
     searchTerm: '',
-    sm: 12,
-    md: 6,
+    xs: 12,
+    sm: 6,
+    md: 4,
     lg: 4,
 };
 

@@ -40,7 +40,15 @@ class IsotopeGridContainer extends React.Component {
         return (
             <div>
                 <IsotopeGrid id="tester" searchTerm={searchTerm}>
-                    {data && data.map(item => <IsotopeGrid.Item><h1 className="isotope-search">{item}</h1></IsotopeGrid.Item>)}
+                    {data && data.map(item => (
+                        <IsotopeGrid.Item>
+                            <DashboardCard>
+                                <DashboardCard.Body>
+                                    <h1 className="isotope-search">{item}</h1>
+                                </DashboardCard.Body>
+                            </DashboardCard>
+                        </IsotopeGrid.Item>
+                    ))}
                     <IsotopeGrid.Item>
                     <h1>Test 1</h1>
                     </IsotopeGrid.Item>

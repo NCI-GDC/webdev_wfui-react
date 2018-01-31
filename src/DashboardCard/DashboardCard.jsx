@@ -26,8 +26,9 @@ const DashboardCardFooter = ({ role, className, children }) =>
         <div role={role} className={classNames(className, 'form-box-footer')}>
             <ul className="form-box-links">
                 {(Array.isArray(children) &&
-                    children.map((child, key) => <li key={key}>{cloneElement(child)}</li>)) ||
-                    cloneElement(children, { key: 0 })}
+                    children.map((child, key) => <li key={key}>{cloneElement(child)}</li>)) || (
+                    <li>{cloneElement(children)}</li>
+                )}
             </ul>
         </div>
     ) : null;
@@ -63,10 +64,10 @@ const FOOTER_ROLE = DashboardCardFooter.defaultProps.role;
 
 class DashboardCard extends React.Component {
     render() {
-        const { className, children, data } = this.props;
+        const { className, children, data, style } = this.props;
 
         return (
-            <Card className={classNames(className, 'form-box-container')}>
+            <Card className={classNames(className, 'form-box-container')} cardStyle={style}>
                 <Card.Body className="form-box">
                     {children &&
                         ((Array.isArray(children) &&
@@ -91,6 +92,7 @@ DashboardCard.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     data: PropTypes.object,
+    style: PropTypes.object,
 };
 
 DashboardCard.Body = DashboardCardBody;
