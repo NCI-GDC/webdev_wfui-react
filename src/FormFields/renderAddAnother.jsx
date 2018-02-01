@@ -23,7 +23,7 @@ class renderAddAnother extends React.Component {
         const { fields } = this.props;
         if (!this.init) {
             fields.push();
-            fields.remove(0);
+            fields.remove(fields.length);
             this.init = true;
         }
     }
