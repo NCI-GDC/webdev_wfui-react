@@ -14,6 +14,19 @@ import {
 } from '../index';
 
 class renderAddAnother extends React.Component {
+    constructor(props) {
+        super();
+        this.init = false;
+        this.touched = false;
+    }
+    componentDidUpdate(){
+        const { fields } = this.props;
+        if (!this.init) {
+            fields.push();
+            fields.remove(0);
+            this.init = true;
+        }
+    }
     render() {
         const {
             className,
@@ -27,18 +40,20 @@ class renderAddAnother extends React.Component {
             disabled,
             preview,
             withContext,
-            meta: { error },
+            globalError,
+            name,
+            meta: { error, submitFailed },
         } = this.props;
 
         const Comp = withContext ? DraggableWithContext : Draggable;
-
+        
         return (
             <div
                 className={classNames(
                     className,
                     'wfui-form-item',
                     {
-                        'wfui-form-item-error': error,
+                        'wfui-form-item-error': error || globalError,
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
@@ -48,7 +63,7 @@ class renderAddAnother extends React.Component {
                 {required && <b className="required"> *</b>}
                 <FormGroup
                     className="wfui-form-addAnother"
-                    validationState={error ? 'error' : null}
+                    validationState={(error || globalError) ? 'error' : null}
                 >
                     {!disabled &&
                         draggable &&
@@ -76,7 +91,10 @@ class renderAddAnother extends React.Component {
                                         {!disabled && (
                                             <a
                                                 className="delete-icon"
-                                                onClick={() => fields.remove(i)}
+                                                onClick={() => {
+                                                    fields.remove(i);
+                                                    this.touched = true;
+                                                }}
                                             >
                                                 Delete
                                             </a>
@@ -92,7 +110,10 @@ class renderAddAnother extends React.Component {
                                 {!disabled && (
                                     <a
                                         className="delete-icon"
-                                        onClick={() => fields.remove(i)}
+                                        onClick={() => {
+                                            fields.remove(i);
+                                            this.touched = true;
+                                        }}
                                     >
                                         Delete
                                     </a>
@@ -113,6 +134,11 @@ class renderAddAnother extends React.Component {
                     {error && (
                         <HelpBlock className="wfui-form-error">
                             <span>{error}</span>
+                        </HelpBlock>
+                    )}
+                    {(this.touched || submitFailed) && globalError && (
+                        <HelpBlock className="wfui-form-error">
+                            <span>{globalError}</span>
                         </HelpBlock>
                     )}
                     {help && (
