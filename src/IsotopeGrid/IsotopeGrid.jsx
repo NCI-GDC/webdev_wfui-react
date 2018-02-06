@@ -183,7 +183,6 @@ class IsotopeGrid extends React.Component {
             if (this.state.reload) {
                 this.state.isotope.reloadItems();
             }
-            this.state.isotope.arrange();
         }
     }
 
