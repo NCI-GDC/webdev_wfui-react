@@ -140,6 +140,7 @@ class renderFileUpload extends React.Component {
             errorFileType,
             errorFileSize,
             errorReject,
+            attrs,
         } = this.props;
         const { accept, fileError } = this.state;
 
@@ -174,6 +175,7 @@ class renderFileUpload extends React.Component {
                             borderStyle: 'none',
                             display: input.value || disabled ? 'none' : 'block',
                         }}
+                        {...attrs}
                         accept={accept}
                         onDrop={(acceptedFiles, rejectedFiles) => {
                             if (acceptedFiles.length > 0) {
