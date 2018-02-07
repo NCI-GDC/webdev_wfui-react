@@ -173,7 +173,7 @@ class renderFileUpload extends React.Component {
                         style={{
                             width: '100%',
                             borderStyle: 'none',
-                            display: input.value || disabled ? 'none' : 'block',
+                            display: input.value ? 'none' : 'block',
                         }}
                         {...attrs}
                         accept={accept}
