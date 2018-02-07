@@ -58,6 +58,12 @@ class renderFileUpload extends React.Component {
             </a>
         );
     }
+    componentWillReceiveProps(nextProps) {
+        const { fileTypes } = this.props;
+        if (nextProps.fileTypes !== fileTypes) {
+            this.setState({ accept: generateAcceptText(nextProps) });
+        }
+    }
     renderFile() {
         const {
             input,
@@ -69,7 +75,7 @@ class renderFileUpload extends React.Component {
             appId,
         } = this.props;
 
-        if (input.value) {
+        if (input.value && Object.keys(input.value).length) {
             const filePath = input.value.id
                 ? `//${apiHost}${apiFileDownload}${
                       input.value.id
@@ -173,7 +179,10 @@ class renderFileUpload extends React.Component {
                         style={{
                             width: '100%',
                             borderStyle: 'none',
-                            display: input.value ? 'none' : 'block',
+                            display:
+                                input.value && Object.keys(input.value).length
+                                    ? 'none'
+                                    : 'block',
                         }}
                         {...attrs}
                         accept={accept}
@@ -235,6 +244,7 @@ class renderFileUpload extends React.Component {
                                 type="text"
                                 className="wfui-input-field__input form-control"
                                 {...input}
+                                value=""
                                 placeholder={placeholder}
                             />
                             <span className="input-group-btn">
