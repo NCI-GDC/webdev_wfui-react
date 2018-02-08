@@ -8,9 +8,38 @@
         border-top: none;
     }
 
+    .form-box-title {
+        padding: 10px 15px;
+
+        h2.form-box-title-text {
+            margin: 10px 0;
+        }
+    }
+
+    .form-box-header {
+        padding: 10px 15px;
+        background-color: #fff;
+
+        .form-box-header-box {
+            border: 1px solid #dadada;
+            border-radius: 5px;
+            background-color: #f7f9fa;
+        }
+    }
+
     .form-box-body {
         padding: 10px 15px;
         background-color: #fff;
+
+        ul.form-box-body-list {
+            margin: 0;
+            list-style: none;
+            padding: 0;
+
+            > li {
+                border-bottom: 1px solid #dadada;
+            }
+        }
     }
 
     .form-box-footer {
