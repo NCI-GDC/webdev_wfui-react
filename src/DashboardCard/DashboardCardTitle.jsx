@@ -18,7 +18,7 @@ const DashboardCardTitle = ({ role, className, title, image, imageAlt, left }) =
 );
 
 DashboardCardTitle.propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.node.isRequired,
     image: PropTypes.string,
     imageAlt: PropTypes.string,
     className: PropTypes.string,
