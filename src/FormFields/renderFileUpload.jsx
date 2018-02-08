@@ -21,20 +21,107 @@ class renderFileUpload extends React.Component {
             file: false,
             fileError: '',
             data: '',
-            filetype: '',
+            type: '',
             accept: generateAcceptText(props),
         };
         this.getFileKey = this.getFileKey.bind(this);
+        this.renderFile = this.renderFile.bind(this);
+        this.renderRemoveBtn = this.renderRemoveBtn.bind(this);
     }
     getFileKey(mime) {
         const { mimeTypes } = this.props;
         let key = '';
-        Object.keys(mimeTypes).forEach((k) => {
+        Object.keys(mimeTypes).forEach(k => {
             if (mimeTypes[k].includes(mime)) {
                 key = k;
             }
         });
         return key ? `file-${key}` : '';
+    }
+    renderRemoveBtn() {
+        const { input, onRemove, txtRemove } = this.props;
+        return (
+            <a
+                className="btn btn-danger remove-file"
+                type="button"
+                onClick={() => {
+                    input.onChange('');
+                    onRemove(input);
+                    this.setState({
+                        name: '',
+                        date: '',
+                        type: '',
+                    });
+                }}
+            >
+                {txtRemove}
+            </a>
+        );
+    }
+    componentWillReceiveProps(nextProps) {
+        const { fileTypes } = this.props;
+        if (nextProps.fileTypes !== fileTypes) {
+            this.setState({ accept: generateAcceptText(nextProps) });
+        }
+    }
+    renderFile() {
+        const {
+            input,
+            onRemove,
+            review,
+            txtRemove,
+            apiHost,
+            apiFileDownload,
+            appId,
+        } = this.props;
+
+        if (input.value && Object.keys(input.value).length) {
+            const filePath = input.value.id
+                ? `//${apiHost}${apiFileDownload}${
+                      input.value.id
+                  }?appid=${appId}`
+                : input.value.blobPath;
+
+            // Image File
+            if (input.value.type.indexOf('image') === 0) {
+                return (
+                    <div>
+                        <a
+                            className={`${
+                                review ? 'review-page' : ''
+                            } ${this.getFileKey(input.value.type)}`}
+                            type="button"
+                            href={filePath}
+                            target="_blank"
+                        >
+                            <img
+                                src={filePath}
+                                alt={input.value.name}
+                                width="150"
+                            />
+                        </a>
+                        {!review && this.renderRemoveBtn()}
+                    </div>
+                );
+            }
+
+            // None Image File
+            return (
+                <div className="btn-group">
+                    <a
+                        className={`btn btn-default ${
+                            review ? 'review-page' : ''
+                        } ${this.getFileKey(input.value.type)}`}
+                        type="button"
+                        href={filePath}
+                        target="_blank"
+                    >
+                        {input.value.name}
+                    </a>
+                    {!review && this.renderRemoveBtn()}
+                </div>
+            );
+        }
     }
     render() {
         const {
@@ -47,6 +134,7 @@ class renderFileUpload extends React.Component {
             help,
             input,
             onUpload,
+            onRemove,
             maxFileSize,
             disabled,
             meta: { touched, error },
@@ -58,8 +146,10 @@ class renderFileUpload extends React.Component {
             errorFileType,
             errorFileSize,
             errorReject,
+            attrs,
         } = this.props;
         const { accept, fileError } = this.state;
+
         return (
             <div
                 className={classNames(
@@ -80,55 +170,37 @@ class renderFileUpload extends React.Component {
                             : null
                     }
                 >
-                    {input.value && (
-                        <div className="btn-group">
-                            <a
-                                className={`btn btn-default ${review ? 'review-page' : ''} ${this.getFileKey(input.value.filetype)}`}
-                                type="button"
-                                href={input.value.path ? input.value.path : ''}
-                                target="_blank"
-                            >
-                                <span>{input.value.filename}</span>
-                            </a>
-                            {input.value &&
-                                !review && (
-                                    <a
-                                        className="btn btn-danger remove-file"
-                                        type="button"
-                                        onClick={() => {
-                                            input.onChange('');
-                                            this.setState({
-                                                filename: '',
-                                                date: '',
-                                                filetype: '',
-                                            });
-                                        }}
-                                    >
-                                        {txtRemove}
-                                    </a>
-                                )}
-                        </div>
-                    )}
+                    {this.renderFile()}
                     <Dropzone
+                        className="render-file-upload"
                         name={`${input.name}`}
                         multiple={false}
                         maxSize={maxFileSize}
                         style={{
                             width: '100%',
                             borderStyle: 'none',
-                            display: input.value || disabled ? 'none' : 'block',
+                            display:
+                                input.value && Object.keys(input.value).length
+                                    ? 'none'
+                                    : 'block',
                         }}
+                        {...attrs}
                         accept={accept}
                         onDrop={(acceptedFiles, rejectedFiles) => {
                             if (acceptedFiles.length > 0) {
                                 this.setState({ fileError: '' });
-                                const filename = acceptedFiles[0].name;
+                                const name = acceptedFiles[0].name;
                                 const reader = new FileReader();
                                 reader.readAsDataURL(acceptedFiles[0]);
                                 reader.onloadend = () => {
-                                    const value = { filename, path: acceptedFiles[0].preview, data: reader.result, filetype: acceptedFiles[0].type };
+                                    const value = {
+                                        name,
+                                        blobPath: acceptedFiles[0].preview,
+                                        data: reader.result,
+                                        type: acceptedFiles[0].type,
+                                    };
                                     input.onChange(value);
-                                    onUpload(value);
+                                    onUpload(acceptedFiles[0], input);
                                 };
                             } else {
                                 input.onChange('');
@@ -172,6 +244,7 @@ class renderFileUpload extends React.Component {
                                 type="text"
                                 className="wfui-input-field__input form-control"
                                 {...input}
+                                value=""
                                 placeholder={placeholder}
                             />
                             <span className="input-group-btn">
@@ -208,7 +281,11 @@ class renderFileUpload extends React.Component {
     }
 }
 renderFileUpload.propTypes = {
+    appId: PropTypes.string,
+    apiHost: PropTypes.string,
+    apiFileDownload: PropTypes.string,
     onUpload: PropTypes.func,
+    onRemove: PropTypes.func,
     mimeTypes: PropTypes.object,
     txtRemove: PropTypes.string,
     txtUpload: PropTypes.string,
@@ -217,7 +294,11 @@ renderFileUpload.propTypes = {
     errorReject: PropTypes.string,
 };
 renderFileUpload.defaultProps = {
+    appId: '',
+    apiHost: '',
+    apiFileDownload: '/file/file',
     onUpload: () => {},
+    onRemove: () => {},
     txtRemove: 'Remove',
     txtUpload: 'Upload',
     errorFileType: 'Only files with the following extensions are allowed:',
