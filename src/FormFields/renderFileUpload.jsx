@@ -70,20 +70,16 @@ class renderFileUpload extends React.Component {
             onRemove,
             review,
             txtRemove,
-            apiHost,
-            apiFileDownload,
-            appId,
+            fileDownloadPath,
         } = this.props;
 
         if (input.value && Object.keys(input.value).length) {
             const filePath = input.value.id
-                ? `//${apiHost}${apiFileDownload}${
-                      input.value.id
-                  }?appid=${appId}`
+                ? fileDownloadPath.replace(':id', input.value.id)
                 : input.value.blobPath;
 
             // Image File
-            if (input.value.type.indexOf('image') === 0) {
+            if (input.value.type && input.value.type.indexOf('image') === 0) {
                 return (
                     <div>
                         <a
@@ -200,7 +196,7 @@ class renderFileUpload extends React.Component {
                                         type: acceptedFiles[0].type,
                                     };
                                     input.onChange(value);
-                                    onUpload(acceptedFiles[0], input);
+                                    onUpload(value, input, acceptedFiles[0]);
                                 };
                             } else {
                                 input.onChange('');
@@ -281,9 +277,6 @@ class renderFileUpload extends React.Component {
     }
 }
 renderFileUpload.propTypes = {
-    appId: PropTypes.string,
-    apiHost: PropTypes.string,
-    apiFileDownload: PropTypes.string,
     onUpload: PropTypes.func,
     onRemove: PropTypes.func,
     mimeTypes: PropTypes.object,
@@ -292,11 +285,9 @@ renderFileUpload.propTypes = {
     errorFileType: PropTypes.string,
     errorFileSize: PropTypes.string,
     errorReject: PropTypes.string,
+    fileDownloadPath: PropTypes.string.isRequired,
 };
 renderFileUpload.defaultProps = {
-    appId: '',
-    apiHost: '',
-    apiFileDownload: '/file/file',
     onUpload: () => {},
     onRemove: () => {},
     txtRemove: 'Remove',
@@ -324,6 +315,7 @@ renderFileUpload.defaultProps = {
         jpg: ['image/jpeg', 'image/pjpeg'],
         gif: ['image/gif'],
     },
+    fileDownloadPath: '',
 };
 
 export default renderFileUpload;
