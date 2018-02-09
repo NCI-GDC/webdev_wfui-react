@@ -6,13 +6,17 @@ const DashboardCardFooter = ({ role, className, children }) => {
     if (!children) return null;
 
     const elems = [];
-    children.forEach((item) => {
-        if (Array.isArray(item)) {
-            item.forEach(i => elems.push(i));
-        } else {
-            elems.push(item);
-        }
-    });
+    if (Array.isArray(children)) {
+        children.forEach((item) => {
+            if (Array.isArray(item)) {
+                item.forEach(i => elems.push(i));
+            } else {
+                elems.push(item);
+            }
+        });
+    } else {
+        elems.push(children);
+    }
 
     return (
         <div role={role} className={classNames(className, 'form-box-footer')}>
