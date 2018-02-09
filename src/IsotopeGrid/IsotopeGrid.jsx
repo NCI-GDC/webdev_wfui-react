@@ -197,13 +197,17 @@ class IsotopeGrid extends React.Component {
 
         const elems = [];
 
-        children.forEach((item) => {
-            if (Array.isArray(item)) {
-                item.forEach(i => elems.push(i));
-            } else {
-                elems.push(item);
-            }
-        });
+        if (Array.isArray(children)) {
+            children.forEach((item) => {
+                if (Array.isArray(item)) {
+                    item.forEach(i => elems.push(i));
+                } else {
+                    elems.push(item);
+                }
+            });
+        } else {
+            elems.push(children);
+        }
 
         if (width) {
             return (
