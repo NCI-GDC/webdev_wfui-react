@@ -2,17 +2,26 @@ import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const DashboardCardFooter = ({ role, className, children }) =>
-    children ? (
+const DashboardCardFooter = ({ role, className, children }) => {
+    if (!children) return null;
+
+    const elems = [];
+    children.forEach((item) => {
+        if (Array.isArray(item)) {
+            item.forEach(i => elems.push(i));
+        } else {
+            elems.push(item);
+        }
+    });
+
+    return (
         <div role={role} className={classNames(className, 'form-box-footer')}>
             <ul className="form-box-links">
-                {(Array.isArray(children) &&
-                    children.map((child, key) => <li key={key}>{cloneElement(child)}</li>)) || (
-                    <li>{cloneElement(children)}</li>
-                )}
+                {elems && elems.map((elem, key) => <li key={key}>{cloneElement(elem)}</li>)}
             </ul>
         </div>
-    ) : null;
+    );
+};
 
 DashboardCardFooter.propTypes = {
     children: PropTypes.node,
