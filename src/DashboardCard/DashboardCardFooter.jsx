@@ -10,11 +10,11 @@ const DashboardCardFooter = ({ role, className, children }) => {
         children.forEach((item) => {
             if (Array.isArray(item)) {
                 item.forEach(i => elems.push(i));
-            } else {
+            } else if (item) {
                 elems.push(item);
             }
         });
-    } else {
+    } else if (children) {
         elems.push(children);
     }
 
