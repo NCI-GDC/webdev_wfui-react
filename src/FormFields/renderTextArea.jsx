@@ -19,6 +19,7 @@ const renderTextArea = ({
     globalError,
     meta: { touched, error },
     rows,
+    readOnly,
 }) => (
     <div
         className={classNames(
@@ -41,6 +42,7 @@ const renderTextArea = ({
                 type={type}
                 placeholder={placeholder || placeholder === '' ? placeholder : label}
                 disabled={disabled}
+                readOnly={readOnly}
                 onChange={(e) => {
                     input.onChange(e);
                     if (onHandleChange) onHandleChange(e);
