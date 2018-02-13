@@ -39,16 +39,14 @@ const renderTextArea = ({
             <FormControl
                 {...input}
                 type={type}
-                placeholder={
-                    placeholder || placeholder === '' ? placeholder : label
-                }
+                placeholder={placeholder || placeholder === '' ? placeholder : label}
                 disabled={disabled}
-                onChange={e => {
+                onChange={(e) => {
                     input.onChange(e);
                     if (onHandleChange) onHandleChange(e);
                 }}
                 componentClass="textarea"
-                rows={disabled ? 0 : (rows || 5)}
+                rows={disabled ? 10 : rows || 5}
             />
             <FormControl.Feedback />
             {touched &&
@@ -64,10 +62,7 @@ const renderTextArea = ({
                     </HelpBlock>
                 )}
             {help && (
-                <div
-                    className="wfui-form-description"
-                    dangerouslySetInnerHTML={{ __html: help }}
-                />
+                <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />
             )}
         </FormGroup>
     </div>
