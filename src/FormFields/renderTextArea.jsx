@@ -41,7 +41,7 @@ const renderTextArea = ({
                 {...input}
                 type={type}
                 placeholder={placeholder || placeholder === '' ? placeholder : label}
-                disabled={disabled}
+                disabled={readOnly ? false : disabled}
                 readOnly={readOnly}
                 onChange={(e) => {
                     input.onChange(e);
