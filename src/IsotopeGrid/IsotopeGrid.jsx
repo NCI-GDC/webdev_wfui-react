@@ -118,23 +118,31 @@ class IsotopeGrid extends React.Component {
     componentWillReceiveProps(nextProps) {
         const oldElems = [];
 
-        this.props.children.forEach((item) => {
-            if (Array.isArray(item)) {
-                item.forEach(i => oldElems.push(i));
-            } else {
-                oldElems.push(item);
-            }
-        });
+        if (Array.isArray(this.props.children)) {
+            this.props.children.forEach((item) => {
+                if (Array.isArray(item)) {
+                    item.forEach(i => oldElems.push(i));
+                } else {
+                    oldElems.push(item);
+                }
+            });
+        } else {
+            oldElems.push(this.props.children);
+        }
 
         const newElems = [];
 
-        nextProps.children.forEach((item) => {
-            if (Array.isArray(item)) {
-                item.forEach(i => newElems.push(i));
-            } else {
-                newElems.push(item);
-            }
-        });
+        if (Array.isArray(nextProps.children)) {
+            nextProps.children.forEach((item) => {
+                if (Array.isArray(item)) {
+                    item.forEach(i => newElems.push(i));
+                } else {
+                    newElems.push(item);
+                }
+            });
+        } else {
+            newElems.push(nextProps.children);
+        }
         const reload = oldElems.length !== newElems.length;
         const options = {};
         if (
