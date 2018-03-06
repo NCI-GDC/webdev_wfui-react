@@ -19,32 +19,51 @@ const columnProps = PropTypes.oneOfType([
     }),
 ]);
 
-const IsotopeItem = ({ key, id, width, xs, sm, md, lg, children, item }) =>
-    width ? (
-        <div
-            key={key}
-            className={classNames(`${id}-item`, 'wfui-isotope-item')}
-            style={{ width: `${width}px` }}
-            data-item={stringifyValues(item)}
-        >
-            {children}
-        </div>
-    ) : (
-        <Col
-            key={key}
-            className={classNames(`${id}-item`, 'wfui-isotope-item')}
-            xs={xs}
-            sm={sm}
-            md={md}
-            lg={lg}
-            data-item={stringifyValues(item)}
-        >
-            {children}
-        </Col>
-    );
+class IsotopeItem extends React.Component {
+    render() {
+        const { index, id, width, xs, sm, md, lg, children, item, itemDisplay } = this.props;
+
+        if (width) {
+            return (
+                <div
+                    key={index}
+                    className={classNames(
+                        `${id}-item ${index === 0 ? 'wfui-isotope-grid-sizer' : ''}`,
+                        'wfui-isotope-item',
+                    )}
+                    style={{ width: `${width}px` }}
+                    data-item={stringifyValues(item)}
+                >
+                    {itemDisplay
+                        ? cloneElement(itemDisplay, { ...this.props })
+                        : cloneElement(children, { ...this.props })}
+                </div>
+            );
+        }
+
+        return (
+            <Col
+                key={index}
+                className={classNames(
+                    `${id}-item ${index} ${index === 0 ? 'wfui-isotope-grid-sizer' : ''}`,
+                    'wfui-isotope-item',
+                )}
+                xs={xs}
+                sm={sm}
+                md={md}
+                lg={lg}
+                data-item={stringifyValues(item)}
+            >
+                {itemDisplay
+                    ? cloneElement(itemDisplay, { ...this.props })
+                    : cloneElement(children, { ...this.props })}
+            </Col>
+        );
+    }
+}
 
 IsotopeItem.propTypes = {
-    key: PropTypes.number,
+    index: PropTypes.number,
     id: PropTypes.string,
     width: PropTypes.number,
     xs: columnProps,
@@ -91,7 +110,10 @@ class IsotopeGrid extends React.Component {
             this.setState({
                 isotope: new Isotope(ReactDOM.findDOMNode(this), {
                     itemSelector: `.${id}-item`,
-                    layoutMode: 'fitRows',
+                    masonry: {
+                        columnWidth: '.wfui-isotope-grid-sizer',
+                        horizontalOrder: true,
+                    },
                     sortBy,
                     sortAscending,
                     getSortData,
@@ -202,7 +224,7 @@ class IsotopeGrid extends React.Component {
 
     render() {
         const { id, width, xs, sm, md, lg, children, className } = this.props;
-
+        const { isotope } = this.state;
         const elems = [];
 
         if (Array.isArray(children)) {
@@ -225,18 +247,19 @@ class IsotopeGrid extends React.Component {
                     style={{ width: '100%' }}
                 >
                     {elems &&
-                        elems.map((child, key) => {
+                        elems.map((child, index) => {
                             if (!child) return null;
                             switch (child.props.role) {
                                 case ITEM_ROLE:
                                     return cloneElement(child, {
-                                        key,
+                                        index,
                                         id,
                                         width,
                                         xs,
                                         sm,
                                         md,
                                         lg,
+                                        isotope,
                                     });
                                 default:
                                     return null;
@@ -249,18 +272,19 @@ class IsotopeGrid extends React.Component {
         return (
             <Row id={id} className={classNames(`${id}-grid`, 'wfui-isotope-grid')}>
                 {elems &&
-                    elems.map((child, key) => {
+                    elems.map((child, index) => {
                         if (!child || child.length === 0 || !child.props.role) return null;
                         switch (child.props.role) {
                             case ITEM_ROLE:
                                 return cloneElement(child, {
-                                    key,
+                                    index,
                                     id,
                                     width,
                                     xs,
                                     sm,
                                     md,
                                     lg,
+                                    isotope,
                                 });
                             default:
                                 return null;
