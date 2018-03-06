@@ -1778,6 +1778,22 @@ div.wfui-form-file.choose-file {
 
 /* WFUI Form Item: File
 -------------------------------------------------------------- */
+.wfui-file-upload .wfui-input-field__input[type='text'] {
+  margin-bottom: 0; }
+
+.wfui-file-upload .wfui-form-file-upload-spec {
+  display: block;
+  color: #8e8e8e;
+  font-style: italic;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: auto; }
+
+.wfui-file-upload .wfui-form-file-upload-spec .filesize {
+  margin-right: 15px; }
+
 /* WFUI Form Item: Table
 -------------------------------------------------------------- */
 .wfui-form-item .wfui-input-table__ul {

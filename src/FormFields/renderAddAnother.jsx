@@ -19,11 +19,19 @@ class renderAddAnother extends React.Component {
         this.init = false;
         this.touched = false;
     }
-    componentDidUpdate(){
-        const { fields } = this.props;
+    componentDidUpdate() {
+        const { fields, minimumItem } = this.props;
         if (!this.init) {
+            // Work around for validation.
             fields.push();
             fields.remove(fields.length);
+
+            // Initialize minimum item.
+            if (minimumItem) {
+                for (let i = 0; i < minimumItem - fields.length; i++) {
+                    fields.push();
+                }
+            }
             this.init = true;
         }
     }
@@ -43,10 +51,27 @@ class renderAddAnother extends React.Component {
             globalError,
             name,
             meta: { error, submitFailed },
+            minimumItem,
         } = this.props;
 
         const Comp = withContext ? DraggableWithContext : Draggable;
-        
+        const DeleteButton = ({ index }) => {
+            if (!disabled && fields.length > minimumItem) {
+                return (
+                    <a
+                        className="delete-icon"
+                        onClick={() => {
+                            fields.remove(index);
+                            this.touched = true;
+                        }}
+                    >
+                        Delete
+                    </a>
+                );
+            }
+            return null;
+        };
+
         return (
             <div
                 className={classNames(
@@ -63,7 +88,7 @@ class renderAddAnother extends React.Component {
                 {required && <b className="required"> *</b>}
                 <FormGroup
                     className="wfui-form-addAnother"
-                    validationState={(error || globalError) ? 'error' : null}
+                    validationState={error || globalError ? 'error' : null}
                 >
                     {!disabled &&
                         draggable &&
@@ -88,17 +113,7 @@ class renderAddAnother extends React.Component {
                                             />
                                         </Comp.Handle>
                                         {childComponent(field, i)}
-                                        {!disabled && (
-                                            <a
-                                                className="delete-icon"
-                                                onClick={() => {
-                                                    fields.remove(i);
-                                                    this.touched = true;
-                                                }}
-                                            >
-                                                Delete
-                                            </a>
-                                        )}
+                                        {<DeleteButton index={i} />}
                                     </Comp.Item>
                                 ))}
                             </Comp>
@@ -107,17 +122,7 @@ class renderAddAnother extends React.Component {
                         fields.map((field, i) => (
                             <div key={i}>
                                 {childComponent(field, i)}
-                                {!disabled && (
-                                    <a
-                                        className="delete-icon"
-                                        onClick={() => {
-                                            fields.remove(i);
-                                            this.touched = true;
-                                        }}
-                                    >
-                                        Delete
-                                    </a>
-                                )}
+                                {<DeleteButton index={i} />}
                             </div>
                         ))}
                     {!disabled && (
@@ -136,11 +141,12 @@ class renderAddAnother extends React.Component {
                             <span>{error}</span>
                         </HelpBlock>
                     )}
-                    {(this.touched || submitFailed) && globalError && (
-                        <HelpBlock className="wfui-form-error">
-                            <span>{globalError}</span>
-                        </HelpBlock>
-                    )}
+                    {(this.touched || submitFailed) &&
+                        globalError && (
+                            <HelpBlock className="wfui-form-error">
+                                <span>{globalError}</span>
+                            </HelpBlock>
+                        )}
                     {help && (
                         <div
                             className="wfui-form-description"
@@ -164,9 +170,11 @@ renderAddAnother.propTypes = {
     preview: PropTypes.bool,
     draggable: PropTypes.bool,
     withContext: PropTypes.bool,
+    minimumItem: PropTypes.number,
 };
 renderAddAnother.defaultProps = {
     labelAddAnother: 'Add Another Item',
+    minimumItem: 0,
 };
 
 export default renderAddAnother;

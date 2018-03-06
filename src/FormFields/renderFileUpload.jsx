@@ -139,6 +139,8 @@ class renderFileUpload extends React.Component {
             fileTypes,
             txtRemove,
             txtUpload,
+            maxFileSizeText,
+            allowedExtensionText,
             errorFileType,
             errorFileSize,
             errorReject,
@@ -249,6 +251,20 @@ class renderFileUpload extends React.Component {
                                 </button>
                             </span>
                         </div>
+                        <p className="wfui-form-file-upload-spec">
+                            <span className="filesize">
+                                {maxFileSizeText.replace(
+                                    '{maxFileSize}',
+                                    Math.floor(maxFileSize / 1000000),
+                                )}
+                            </span>
+                            <span className="filetypes">
+                                {allowedExtensionText.replace(
+                                    '{fileTypes}',
+                                    fileTypes.join(', '),
+                                )}
+                            </span>
+                        </p>
                     </Dropzone>
                     {fileError && (
                         <HelpBlock className="wfui-form-error">
@@ -282,6 +298,7 @@ renderFileUpload.propTypes = {
     mimeTypes: PropTypes.object,
     txtRemove: PropTypes.string,
     txtUpload: PropTypes.string,
+    maxFileSizeText: PropTypes.string,
     errorFileType: PropTypes.string,
     errorFileSize: PropTypes.string,
     errorReject: PropTypes.string,
@@ -296,6 +313,8 @@ renderFileUpload.defaultProps = {
     errorFileSize:
         'The file is exceeding the maximum file size of <i>{maxFileSize} MB</i>',
     errorReject: 'The file is rejected to upload.',
+    maxFileSizeText: 'Max file size: {maxFileSize}MB',
+    allowedExtensionText: 'Allowed extensions: {fileTypes}',
     mimeTypes: {
         pdf: ['application/pdf'],
         word: [

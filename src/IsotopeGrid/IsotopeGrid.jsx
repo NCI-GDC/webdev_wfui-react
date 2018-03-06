@@ -99,6 +99,7 @@ class IsotopeGrid extends React.Component {
             sortBy,
             sortAscending,
             getSortData,
+            onArrangeComplete,
         } = this.props;
         const { isotope } = this.state;
 
@@ -107,26 +108,30 @@ class IsotopeGrid extends React.Component {
             : RegExp(`${searchTerm.toLowerCase().trim()}`, 'i');
 
         if (!isotope) {
+            const isotope = new Isotope(ReactDOM.findDOMNode(this), {
+                itemSelector: `.${id}-item`,
+                masonry: {
+                    columnWidth: '.wfui-isotope-grid-sizer',
+                    horizontalOrder: true,
+                },
+                sortBy,
+                sortAscending,
+                getSortData,
+                filter(itemElem) {
+                    const isoSearch = itemElem ? itemElem.dataset.item : this.dataset.item;
+                    return (
+                        (!filterList ||
+                            filterList.length === 0 ||
+                            filterList.every(filter => filter(itemElem || this))) &&
+                        reg.test(isoSearch || '')
+                    );
+                },
+            });
+            // Set event listener
+            isotope.on('arrangeComplete', onArrangeComplete);
+            onArrangeComplete(isotope.getFilteredItemElements());
             this.setState({
-                isotope: new Isotope(ReactDOM.findDOMNode(this), {
-                    itemSelector: `.${id}-item`,
-                    masonry: {
-                        columnWidth: '.wfui-isotope-grid-sizer',
-                        horizontalOrder: true,
-                    },
-                    sortBy,
-                    sortAscending,
-                    getSortData,
-                    filter(itemElem) {
-                        const isoSearch = itemElem ? itemElem.dataset.item : this.dataset.item;
-                        return (
-                            (!filterList ||
-                                filterList.length === 0 ||
-                                filterList.every(filter => filter(itemElem || this))) &&
-                            reg.test(isoSearch || '')
-                        );
-                    },
-                }),
+                isotope,
             });
         } else {
             this.state.isotope.reloadItems();
@@ -310,6 +315,7 @@ IsotopeGrid.propTypes = {
     searchTerm: PropTypes.string,
     wholeWord: PropTypes.bool,
     filterList: PropTypes.arrayOf(PropTypes.func),
+    onArrangeComplete: PropTypes.func,
 };
 
 IsotopeGrid.defaultProps = {
@@ -320,6 +326,7 @@ IsotopeGrid.defaultProps = {
     lg: 4,
     sortBy: 'original-order',
     sortAscending: true,
+    onArrangeComplete: f => f,
 };
 
 IsotopeGrid.Item = IsotopeItem;
