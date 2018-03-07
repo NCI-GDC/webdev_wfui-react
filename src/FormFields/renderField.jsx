@@ -3,12 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {
-    FormGroup,
-    FormControl,
-    ControlLabel,
-    HelpBlock,
-} from '../index';
+import { FormGroup, FormControl, ControlLabel, HelpBlock } from '../index';
 
 /**
  * Reusable field component.
@@ -43,7 +38,7 @@ const renderField = ({
             { answered: input.value },
         )}
     >
-        <ControlLabel>{label}</ControlLabel>
+        {label && <ControlLabel>{label}</ControlLabel>}
         {required && <b className="required"> *</b>}
         <FormGroup
             className="wfui-form-input"
