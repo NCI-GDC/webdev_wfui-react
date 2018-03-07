@@ -2,6 +2,10 @@ import ReactMarkdown from 'react-markdown';
 import NotificationSystem from 'react-notification-system';
 import Dropzone from 'react-dropzone';
 import TimezonePicker from 'react-timezone';
+import { Editor } from 'react-draft-wysiwyg';
+import * as DraftJS from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
 import FilteredList from './FilteredList/FilteredList';
 import Spinner from './Spinner/Spinner';
 import TwitterFeed from './TwitterFeed/TwitterFeed';
@@ -70,4 +74,8 @@ export {
     PanelFilter,
     Description,
     WFUIDropdown,
+    DraftJS,
+    Editor,
+    draftToHtml,
+    htmlToDraft,
 };
