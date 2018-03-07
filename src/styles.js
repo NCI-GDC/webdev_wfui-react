@@ -1,4 +1,5 @@
 // Load Styles for development
+require('react-draft-wysiwyg/dist/react-draft-wysiwyg.css');
 require('./CaGForms/Description/description.scss');
 require('./CaGForms/Grid/grid.scss');
 require('./CaGForms/InputField/input_field.scss');
