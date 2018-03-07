@@ -13,42 +13,57 @@ const columnProps = PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.bool,
     PropTypes.shape({
-        size: PropTypes.oneOfType([
-            PropTypes.bool,
-            PropTypes.number,
-            PropTypes.string,
-        ]),
+        size: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.string]),
         order: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         offset: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     }),
 ]);
 
-const IsotopeItem = ({ key, id, width, xs, sm, md, lg, children, item }) =>
-    width ? (
-        <div
-            key={key}
-            className={classNames(`${id}-item`, 'wfui-isotope-item')}
-            style={{ width: `${width}px` }}
-            data-item={stringifyValues(item)}
-        >
-            {children}
-        </div>
-    ) : (
-        <Col
-            key={key}
-            className={classNames(`${id}-item`, 'wfui-isotope-item')}
-            xs={xs}
-            sm={sm}
-            md={md}
-            lg={lg}
-            data-item={stringifyValues(item)}
-        >
-            {children}
-        </Col>
-    );
+class IsotopeItem extends React.Component {
+    render() {
+        const { index, id, width, xs, sm, md, lg, children, item, itemDisplay } = this.props;
+
+        if (width) {
+            return (
+                <div
+                    key={index}
+                    className={classNames(
+                        `${id}-item ${index === 0 ? 'wfui-isotope-grid-sizer' : ''}`,
+                        'wfui-isotope-item',
+                    )}
+                    style={{ width: `${width}px` }}
+                    data-item={stringifyValues(item)}
+                >
+                    {itemDisplay
+                        ? cloneElement(itemDisplay, { ...this.props })
+                        : cloneElement(children, { ...this.props })}
+                </div>
+            );
+        }
+
+        return (
+            <Col
+                key={index}
+                className={classNames(
+                    `${id}-item ${index} ${index === 0 ? 'wfui-isotope-grid-sizer' : ''}`,
+                    'wfui-isotope-item',
+                )}
+                xs={xs}
+                sm={sm}
+                md={md}
+                lg={lg}
+                data-item={stringifyValues(item)}
+            >
+                {itemDisplay
+                    ? cloneElement(itemDisplay, { ...this.props })
+                    : cloneElement(children, { ...this.props })}
+            </Col>
+        );
+    }
+}
 
 IsotopeItem.propTypes = {
-    key: PropTypes.number,
+    index: PropTypes.number,
     id: PropTypes.string,
     width: PropTypes.number,
     xs: columnProps,
@@ -95,20 +110,19 @@ class IsotopeGrid extends React.Component {
         if (!isotope) {
             const isotope = new Isotope(ReactDOM.findDOMNode(this), {
                 itemSelector: `.${id}-item`,
-                layoutMode: 'fitRows',
+                masonry: {
+                    columnWidth: '.wfui-isotope-grid-sizer',
+                    horizontalOrder: true,
+                },
                 sortBy,
                 sortAscending,
                 getSortData,
                 filter(itemElem) {
-                    const isoSearch = itemElem
-                        ? itemElem.dataset.item
-                        : this.dataset.item;
+                    const isoSearch = itemElem ? itemElem.dataset.item : this.dataset.item;
                     return (
                         (!filterList ||
                             filterList.length === 0 ||
-                            filterList.every(filter =>
-                                filter(itemElem || this),
-                            )) &&
+                            filterList.every(filter => filter(itemElem || this))) &&
                         reg.test(isoSearch || '')
                     );
                 },
@@ -132,7 +146,7 @@ class IsotopeGrid extends React.Component {
         const oldElems = [];
 
         if (Array.isArray(this.props.children)) {
-            this.props.children.forEach(item => {
+            this.props.children.forEach((item) => {
                 if (Array.isArray(item)) {
                     item.forEach(i => oldElems.push(i));
                 } else {
@@ -146,7 +160,7 @@ class IsotopeGrid extends React.Component {
         const newElems = [];
 
         if (Array.isArray(nextProps.children)) {
-            nextProps.children.forEach(item => {
+            nextProps.children.forEach((item) => {
                 if (Array.isArray(item)) {
                     item.forEach(i => newElems.push(i));
                 } else {
@@ -161,27 +175,18 @@ class IsotopeGrid extends React.Component {
         if (
             this.props.searchTerm.toLowerCase().trim() !==
                 nextProps.searchTerm.toLowerCase().trim() ||
-            JSON.stringify(this.props.filterList) !==
-                JSON.stringify(nextProps.filterList) ||
-            JSON.stringify(this.props.category) !==
-                JSON.stringify(nextProps.category)
+            JSON.stringify(this.props.filterList) !== JSON.stringify(nextProps.filterList) ||
+            JSON.stringify(this.props.category) !== JSON.stringify(nextProps.category)
         ) {
             const reg = nextProps.wholeWord
-                ? RegExp(
-                      `\\b${nextProps.searchTerm.toLowerCase().trim()}\\b`,
-                      'i',
-                  )
+                ? RegExp(`\\b${nextProps.searchTerm.toLowerCase().trim()}\\b`, 'i')
                 : RegExp(`${nextProps.searchTerm.toLowerCase().trim()}`, 'i');
-            options.filter = function(itemElem) {
-                const isoSearch = itemElem
-                    ? itemElem.dataset.item
-                    : this.dataset.item;
+            options.filter = function (itemElem) {
+                const isoSearch = itemElem ? itemElem.dataset.item : this.dataset.item;
                 return (
                     (!nextProps.filterList ||
                         nextProps.filterList.length === 0 ||
-                        nextProps.filterList.every(filter =>
-                            filter(itemElem || this),
-                        )) &&
+                        nextProps.filterList.every(filter => filter(itemElem || this))) &&
                     reg.test(isoSearch || '')
                 );
             };
@@ -192,10 +197,7 @@ class IsotopeGrid extends React.Component {
         if (this.props.sortAscending !== nextProps.sortAscending) {
             options.sortAscending = nextProps.sortAscending;
         }
-        if (
-            JSON.stringify(this.props.getSortData) !==
-            JSON.stringify(nextProps.getSortData)
-        ) {
+        if (JSON.stringify(this.props.getSortData) !== JSON.stringify(nextProps.getSortData)) {
             options.getSortData = nextProps.getSortData;
         }
 
@@ -227,11 +229,11 @@ class IsotopeGrid extends React.Component {
 
     render() {
         const { id, width, xs, sm, md, lg, children, className } = this.props;
-
+        const { isotope } = this.state;
         const elems = [];
 
         if (Array.isArray(children)) {
-            children.forEach(item => {
+            children.forEach((item) => {
                 if (Array.isArray(item)) {
                     item.forEach(i => elems.push(i));
                 } else {
@@ -246,26 +248,23 @@ class IsotopeGrid extends React.Component {
             return (
                 <div
                     id={id}
-                    className={classNames(
-                        className,
-                        `${id}-grid`,
-                        'wfui-isotope-grid',
-                    )}
+                    className={classNames(className, `${id}-grid`, 'wfui-isotope-grid')}
                     style={{ width: '100%' }}
                 >
                     {elems &&
-                        elems.map((child, key) => {
+                        elems.map((child, index) => {
                             if (!child) return null;
                             switch (child.props.role) {
                                 case ITEM_ROLE:
                                     return cloneElement(child, {
-                                        key,
+                                        index,
                                         id,
                                         width,
                                         xs,
                                         sm,
                                         md,
                                         lg,
+                                        isotope,
                                     });
                                 default:
                                     return null;
@@ -276,24 +275,21 @@ class IsotopeGrid extends React.Component {
         }
 
         return (
-            <Row
-                id={id}
-                className={classNames(`${id}-grid`, 'wfui-isotope-grid')}
-            >
+            <Row id={id} className={classNames(`${id}-grid`, 'wfui-isotope-grid')}>
                 {elems &&
-                    elems.map((child, key) => {
-                        if (!child || child.length === 0 || !child.props.role)
-                            return null;
+                    elems.map((child, index) => {
+                        if (!child || child.length === 0 || !child.props.role) return null;
                         switch (child.props.role) {
                             case ITEM_ROLE:
                                 return cloneElement(child, {
-                                    key,
+                                    index,
                                     id,
                                     width,
                                     xs,
                                     sm,
                                     md,
                                     lg,
+                                    isotope,
                                 });
                             default:
                                 return null;
@@ -313,10 +309,7 @@ IsotopeGrid.propTypes = {
     md: columnProps,
     lg: columnProps,
     children: PropTypes.node,
-    sortBy: PropTypes.oneOf(
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.string),
-    ),
+    sortBy: PropTypes.oneOf(PropTypes.string, PropTypes.arrayOf(PropTypes.string)),
     sortAscending: PropTypes.bool,
     getSortData: PropTypes.object,
     searchTerm: PropTypes.string,
