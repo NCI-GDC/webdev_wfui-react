@@ -5,6 +5,7 @@ import '../addon/oicr-react-storybook-addon-info/styles/custom.css';
 import '../addon/oicr-react-storybook-addon-info/styles/codemirror.css';
 import '../addon/oicr-react-storybook-addon-info/styles/monokai.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 setAddon(InfoAddon);
 
 function loadStories() {
@@ -13,6 +14,7 @@ function loadStories() {
     require('../stories/ReactMarkdown');
     require('../stories/Card');
     require('../stories/DashboardCard');
+    require('../stories/Editor');
     require('../stories/IsotopeGrid');
     require('../stories/Drawer');
     require('../stories/GroupsDrawer');
