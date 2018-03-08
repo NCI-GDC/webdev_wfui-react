@@ -122,10 +122,7 @@ class renderPhoto extends React.Component {
                         </HelpBlock>
                     )}
                 {help && (
-                    <div
-                        className="wfui-form-description"
-                        dangerouslySetInnerHTML={{ __html: help }}
-                    />
+                    <div className="wfui-form-help" dangerouslySetInnerHTML={{ __html: help }} />
                 )}
                 {descDisplay ? cloneElement(descDisplay) : ''}
             </div>

@@ -129,7 +129,7 @@ class renderTags extends React.Component {
                         )}
                     {help && (
                         <div
-                            className="wfui-form-description"
+                            className="wfui-form-help"
                             dangerouslySetInnerHTML={{ __html: help }}
                         />
                     )}
