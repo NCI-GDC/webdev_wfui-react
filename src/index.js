@@ -33,6 +33,7 @@ import * as FormFields from './FormFields';
 import * as FilterFields from './Filters/renderFilterItem';
 import Description from './FormFields/Description';
 import WFUIDropdown from './WFUIDropdown/WFUIDropdown';
+import Notifications from './Notifications/Notifications';
 
 require('./i18n/i18n.js');
 
@@ -78,4 +79,5 @@ export {
     Editor,
     draftToHtml,
     htmlToDraft,
+    Notifications,
 };
