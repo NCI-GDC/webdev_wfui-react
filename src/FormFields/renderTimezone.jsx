@@ -38,7 +38,7 @@ const renderTimezone = ({
         </div>
         <FormGroup
             className={`wfui-form-field ${
-                descDisplay ? 'wfui-form-field-with-desctipton' : ''
+                descDisplay ? 'wfui-form-field-with-desctipton' : 'wfui-form-field-no-desctipton'
             } wfui-form-time-zone`}
             validationState={touched && error ? 'error' : null}
         >
