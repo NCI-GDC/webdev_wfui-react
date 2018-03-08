@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { FormGroup, ControlLabel, HelpBlock, Checkbox } from '../index';
@@ -14,6 +14,7 @@ const renderCheckboxes = ({
     preview,
     globalError,
     meta: { touched, error },
+    descDisplay,
 }) => (
     <div
         className={classNames(
@@ -26,16 +27,19 @@ const renderCheckboxes = ({
             { 'wfui-form-preview': preview },
         )}
     >
-        <ControlLabel>{label}</ControlLabel>
-        {required && <b className="required"> *</b>}
+        <div className="wfui-form-label">
+            <ControlLabel>{label}</ControlLabel>
+            {required && <b className="required"> *</b>}
+        </div>
         <FormGroup
-            className="wfui-form-checkboxes"
+            className={`wfui-form-field ${
+                descDisplay ? 'wfui-form-field-with-desctipton' : ''
+            } wfui-form-checkboxes`}
             validationState={touched && (error || globalError) ? 'error' : null}
         >
             {options.map((option, i) => {
                 const _key = typeof option === 'string' ? option : option.key;
-                const _option =
-                    typeof option === 'string' ? option : option.value;
+                const _option = typeof option === 'string' ? option : option.value;
                 return (
                     <Checkbox
                         key={i}
@@ -43,12 +47,8 @@ const renderCheckboxes = ({
                         value={_key}
                         disabled={disabled}
                         checked={input.value && input.value.includes(_key)}
-                        className={
-                            input.value && input.value.includes(_key)
-                                ? 'active'
-                                : ''
-                        }
-                        onChange={e => {
+                        className={input.value && input.value.includes(_key) ? 'active' : ''}
+                        onChange={(e) => {
                             const newValue = [...input.value];
                             if (e.target.checked) {
                                 newValue.push(_key);
@@ -75,12 +75,10 @@ const renderCheckboxes = ({
                     </HelpBlock>
                 )}
             {help && (
-                <div
-                    className="wfui-form-description"
-                    dangerouslySetInnerHTML={{ __html: help }}
-                />
+                <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />
             )}
         </FormGroup>
+        {descDisplay ? cloneElement(descDisplay) : ''}
     </div>
 );
 

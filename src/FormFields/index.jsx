@@ -18,6 +18,7 @@ import {
     Glyphicon,
 } from '../index';
 
+export Description from './Description';
 export renderField from './renderField';
 export renderTextArea from './renderTextArea';
 export renderSingleCheckbox from './renderSingleCheckbox';

@@ -1,12 +1,9 @@
 /* global FileReader */
 /* eslint react/prop-types : 0 */
-import React from 'react';
+import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {
-    WithContext as ReactTagsWithContext,
-    WithOutContext as ReactTags,
-} from 'react-tag-input';
+import { WithContext as ReactTagsWithContext, WithOutContext as ReactTags } from 'react-tag-input';
 
 import { FormGroup, ControlLabel, HelpBlock } from '../index';
 
@@ -33,7 +30,7 @@ class renderTags extends React.Component {
 
     handleDelete(i) {
         const { input } = this.props;
-        let tags = this.state.tags;
+        const tags = this.state.tags;
         tags.splice(i, 1);
         this.setState({ tags });
         input.onChange(this.transformTagsToSubmission(tags));
@@ -41,7 +38,7 @@ class renderTags extends React.Component {
 
     handleAddition(tag) {
         const { input } = this.props;
-        let tags = this.state.tags;
+        const tags = this.state.tags;
         tags.push({
             id: tags.length + 1,
             text: tag,
@@ -52,7 +49,7 @@ class renderTags extends React.Component {
 
     handleDrag(tag, currPos, newPos) {
         const { input } = this.props;
-        let tags = this.state.tags;
+        const tags = this.state.tags;
 
         // mutate array
         tags.splice(currPos, 1);
@@ -74,6 +71,7 @@ class renderTags extends React.Component {
             withContext,
             disabled,
             preview,
+            descDisplay,
             meta: { touched, error },
         } = this.props;
         const { suggestions, tags } = this.state;
@@ -90,17 +88,20 @@ class renderTags extends React.Component {
                     { 'wfui-form-preview': preview },
                 )}
             >
-                <ControlLabel>{label}</ControlLabel>
-                {required && <b className="required"> *</b>}
-                <FormGroup validationState={touched && error ? 'error' : null}>
+                <div className="wfui-form-label">
+                    {label && <ControlLabel>{label}</ControlLabel>}
+                    {required && <b className="required"> *</b>}
+                </div>
+                <FormGroup
+                    className={`wfui-form-field ${
+                        descDisplay ? 'wfui-form-field-with-desctipton' : ''
+                    } wfui-form-tags`}
+                    validationState={touched && error ? 'error' : null}
+                >
                     {disabled ? (
                         <div>
                             {input.value && (
-                                <ul>
-                                    {input.value.map((tag, i) => (
-                                        <li key={i}>{tag}</li>
-                                    ))}
-                                </ul>
+                                <ul>{input.value.map((tag, i) => <li key={i}>{tag}</li>)}</ul>
                             )}
                         </div>
                     ) : (
@@ -133,6 +134,7 @@ class renderTags extends React.Component {
                         />
                     )}
                 </FormGroup>
+                {descDisplay ? cloneElement(descDisplay) : ''}
             </div>
         );
     }
@@ -140,6 +142,7 @@ class renderTags extends React.Component {
 renderTags.propTypes = {
     placeholder: PropTypes.string,
     withContext: PropTypes.bool,
+    descDisplay: PropTypes.element,
 };
 renderTags.defaultProps = {
     placeholder: 'Add keyword',

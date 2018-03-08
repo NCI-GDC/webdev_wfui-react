@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import {
     Modal,
@@ -410,6 +410,7 @@ class renderFilterTable extends React.Component {
             required,
             disabled,
             preview,
+            descDisplay,
             meta: { error },
         } = this.props;
         const {
@@ -432,10 +433,14 @@ class renderFilterTable extends React.Component {
                     { inactive: fields.length >= 0 },
                 )}
             >
-                <ControlLabel>{label}</ControlLabel>
-                {required && <b className="required"> *</b>}
+                <div className="wfui-form-label">
+                    {label && <ControlLabel>{label}</ControlLabel>}
+                    {required && <b className="required"> *</b>}
+                </div>
                 <FormGroup
-                    className="wfui-form-addAnother"
+                    className={`wfui-form-field ${
+                        descDisplay ? 'wfui-form-field-with-desctipton' : ''
+                    } wfui-form-addAnother`}
                     validationState={error ? 'error' : null}
                 >
                     <div className="col-header">
@@ -534,6 +539,7 @@ class renderFilterTable extends React.Component {
                         />
                     )}
                 </FormGroup>
+                {descDisplay ? cloneElement(descDisplay) : ''}
             </div>
         );
     }
