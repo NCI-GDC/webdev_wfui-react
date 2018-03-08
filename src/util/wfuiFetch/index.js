@@ -38,6 +38,7 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                 clearTimeout(timer5s);
                 clearTimeout(timer8s);
                 clearTimeout(timeout);
+
                 // Need to have more statement.
                 if (response.ok) {
                     const contentType = response.headers.get('content-type');
@@ -61,7 +62,13 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                         });
                     }
                 } else {
-                    dispatch({ type: 'FETCH_FAILURE', requestId: init.requestId, statusText: response.statusText, appId });
+                    response.text().then(data => {
+                        let statusText = data;
+                        try { 
+                            statusText = JSON.parse(data);
+                        } catch (e) {/**/}
+                        dispatch({ type: 'FETCH_FAILURE', requestId: init.requestId, statusText, appId });
+                    });
                 }
                 return hasCanceled ? reject({ isCanceled: true }) : resolve({ res: response });
             })
