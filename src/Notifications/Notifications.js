@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedHTMLMessage } from 'react-intl';
 import { NotificationSystem } from '../index';
+import { flattenObject } from '../util/flattenObject';
 
 class Notifications extends React.Component {
     componentWillReceiveProps(nextProps) {
@@ -21,7 +22,7 @@ class Notifications extends React.Component {
                                 children: (
                                     <FormattedHTMLMessage
                                         id={`notifications.${key}.success`}
-                                        values={newFetches[key].data}
+                                        values={flattenObject(newFetches[key].data)}
                                     />
                                 ),
                                 level: 'success',
