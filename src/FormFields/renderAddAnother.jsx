@@ -86,8 +86,10 @@ class renderAddAnother extends React.Component {
                 )}
             >
                 <div className="wfui-form-label">
-                    <ControlLabel>{label}</ControlLabel>
-                    {required && <b className="required"> *</b>}
+                    <ControlLabel>
+                        {label}
+                        {required && <b className="required"> *</b>}
+                    </ControlLabel>
                 </div>
                 <FormGroup
                     className={`wfui-form-field ${
