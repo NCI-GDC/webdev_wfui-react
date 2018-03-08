@@ -50,7 +50,7 @@ const renderField = ({
 
         <FormGroup
             className={`wfui-form-field ${
-                descDisplay ? 'wfui-form-field-with-desctipton' : ''
+                descDisplay ? 'wfui-form-field-with-desctipton' : 'wfui-form-field-no-desctipton'
             } wfui-form-input`}
             validationState={touched && (error || globalError) ? 'error' : null}
         >

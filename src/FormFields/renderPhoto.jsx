@@ -52,7 +52,9 @@ class renderPhoto extends React.Component {
                 </div>
                 <div
                     className={`wfui-form-field ${
-                        descDisplay ? 'wfui-form-field-with-desctipton' : ''
+                        descDisplay
+                            ? 'wfui-form-field-with-desctipton'
+                            : 'wfui-form-field-no-desctipton'
                     } wfui-form-photo file-chosen`}
                 >
                     <p className="image-preview">
@@ -105,7 +107,9 @@ class renderPhoto extends React.Component {
                     name={input.name}
                     accept={'image/png,image/jpeg,image/pjpeg,image/gif'}
                     className={`wfui-form-field ${
-                        descDisplay ? 'wfui-form-field-with-desctipton' : ''
+                        descDisplay
+                            ? 'wfui-form-field-with-desctipton'
+                            : 'wfui-form-field-no-desctipton'
                     } wfui-form-photo choose-file`}
                     onDrop={(acceptedFiles) => {
                         const reader = new FileReader();

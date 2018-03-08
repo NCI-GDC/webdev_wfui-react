@@ -93,7 +93,9 @@ class renderAddAnother extends React.Component {
                 </div>
                 <FormGroup
                     className={`wfui-form-field ${
-                        descDisplay ? 'wfui-form-field-with-desctipton' : ''
+                        descDisplay
+                            ? 'wfui-form-field-with-desctipton'
+                            : 'wfui-form-field-no-desctipton'
                     } wfui-form-addAnother`}
                     validationState={error || globalError ? 'error' : null}
                 >
@@ -108,6 +110,7 @@ class renderAddAnother extends React.Component {
                                 onHandleEndDrag={() => {
                                     this.forceUpdate();
                                 }}
+                                className="wfui-form-addAnother-item"
                             >
                                 {fields.map((field, i) => (
                                     <Comp.Item key={i} id={field}>
@@ -127,7 +130,7 @@ class renderAddAnother extends React.Component {
                         )}
                     {(!draggable || disabled) &&
                         fields.map((field, i) => (
-                            <div key={i}>
+                            <div className="wfui-form-addAnother-item" key={i}>
                                 {childComponent(field, i)}
                                 {<DeleteButton index={i} />}
                             </div>
