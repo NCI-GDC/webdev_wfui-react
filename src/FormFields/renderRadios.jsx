@@ -66,9 +66,7 @@ const renderRadios = ({
                         <span>{globalError}</span>
                     </HelpBlock>
                 )}
-            {help && (
-                <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />
-            )}
+            {help && <div className="wfui-form-help" dangerouslySetInnerHTML={{ __html: help }} />}
         </FormGroup>
         {descDisplay ? cloneElement(descDisplay) : ''}
     </div>
