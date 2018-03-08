@@ -33,8 +33,12 @@ const renderTextArea = ({
         )}
     >
         <div className="wfui-form-label">
-            {label && <ControlLabel>{label}</ControlLabel>}
-            {required && <b className="required"> *</b>}
+            {label && (
+                <ControlLabel>
+                    {label}
+                    {required && <b className="required"> *</b>}
+                </ControlLabel>
+            )}
         </div>
         <FormGroup
             className={`wfui-form-field ${
