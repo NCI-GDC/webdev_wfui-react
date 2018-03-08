@@ -1,6 +1,6 @@
 /* global FileReader */
 /* eslint react/prop-types : 0 */
-import React from 'react';
+import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { FormGroup, FormControl, ControlLabel, HelpBlock } from '../index';
@@ -25,6 +25,7 @@ const renderField = ({
     disabled,
     preview,
     globalError,
+    descDisplay,
     meta: { touched, error },
 }) => (
     <div
@@ -38,23 +39,26 @@ const renderField = ({
             { answered: input.value },
         )}
     >
-        {label && <ControlLabel>{label}</ControlLabel>}
-        {required && <b className="required"> *</b>}
+        <div className="wfui-form-label">
+            {label && <ControlLabel>{label}</ControlLabel>}
+            {required && <b className="required"> *</b>}
+        </div>
+
         <FormGroup
-            className="wfui-form-input"
+            className={`wfui-form-field ${
+                descDisplay ? 'wfui-form-field-with-desctipton' : ''
+            } wfui-form-input`}
             validationState={touched && (error || globalError) ? 'error' : null}
         >
             <FormControl
                 {...input}
-                placeholder={
-                    placeholder || placeholder === '' ? placeholder : label
-                }
+                placeholder={placeholder || placeholder === '' ? placeholder : label}
                 type={type}
                 maxLength={maxlength}
                 min={min}
                 max={max}
                 disabled={disabled}
-                onChange={e => {
+                onChange={(e) => {
                     input.onChange(e);
                     if (onHandleChange) onHandleChange(e);
                 }}
@@ -74,12 +78,10 @@ const renderField = ({
                     </HelpBlock>
                 )}
             {help && (
-                <div
-                    className="wfui-form-description"
-                    dangerouslySetInnerHTML={{ __html: help }}
-                />
+                <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />
             )}
         </FormGroup>
+        {descDisplay ? cloneElement(descDisplay) : ''}
     </div>
 );
 

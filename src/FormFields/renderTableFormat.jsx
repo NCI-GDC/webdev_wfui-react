@@ -1,8 +1,8 @@
-import React from 'react';
-import { FormFields, FormGroup, ControlLabel, HelpBlock } from '../index';
+import React, { cloneElement } from 'react';
 import { Field } from 'redux-form';
 import classNames from 'classnames';
 import _ from 'lodash';
+import { FormFields, FormGroup, ControlLabel, HelpBlock } from '../index';
 
 import { renderField } from './index';
 
@@ -16,22 +16,17 @@ class renderTableFormat extends React.Component {
             const nextChildComponents = nextProps[name];
 
             // Modify other fields when user edit one of the fields.
-            Object.keys(childComponents).map(cid => {
-                if (
-                    childComponents[cid].input.value !==
-                    nextChildComponents[cid].input.value
-                ) {
+            Object.keys(childComponents).map((cid) => {
+                if (childComponents[cid].input.value !== nextChildComponents[cid].input.value) {
                     const modifyingCid = cid;
-                    const targetCid = Object.keys(childComponents).filter(
-                        n => n !== cid,
-                    );
+                    const targetCid = Object.keys(childComponents).filter(n => n !== cid);
 
                     if (
                         nextChildComponents[modifyingCid].input.value &&
                         modifyingCid &&
                         targetCid.length > 0
                     ) {
-                        targetCid.map(cid => {
+                        targetCid.map((cid) => {
                             nextChildComponents[cid].input.onChange('');
                         });
                     }
@@ -52,6 +47,7 @@ class renderTableFormat extends React.Component {
             fieldMap,
             disabled,
             preview,
+            descDisplay,
         } = this.props;
 
         const components = [];
@@ -59,7 +55,7 @@ class renderTableFormat extends React.Component {
         let allPristine = true;
         const childComponents = _.get(this.props, name);
 
-        Object.keys(childComponents).map(key => {
+        Object.keys(childComponents).map((key) => {
             const props = childComponents[key];
             allTouched = allTouched && props.meta.touched;
             allPristine = allPristine && props.meta.pristine;
@@ -76,12 +72,14 @@ class renderTableFormat extends React.Component {
                     { 'wfui-form-preview': preview },
                 )}
             >
-                <ControlLabel>{label}</ControlLabel>
-                {required && <b className="required"> *</b>}
+                <div className="wfui-form-label">
+                    {label && <ControlLabel>{label}</ControlLabel>}
+                    {required && <b className="required"> *</b>}
+                </div>
                 <FormGroup
-                    className={`wfui-table-format multiple-inputs-${Object.keys(
-                        fieldMap,
-                    ).length}`}
+                    className={`wfui-form-field ${
+                        descDisplay ? 'wfui-form-field-with-desctipton' : ''
+                    } wfui-table-format multiple-inputs-${Object.keys(fieldMap).length}`}
                     validationState={allTouched && globalError ? 'error' : null}
                 >
                     <ul className="wfui-input-table__ul">
@@ -94,9 +92,7 @@ class renderTableFormat extends React.Component {
                                         key={i}
                                         {...fieldMap[key]}
                                         name={`${name}.${key}`}
-                                        type={
-                                            fieldMap[key].field_type || 'text'
-                                        }
+                                        type={fieldMap[key].field_type || 'text'}
                                         component={renderField}
                                         disabled={disabled}
                                     />
@@ -105,9 +101,7 @@ class renderTableFormat extends React.Component {
                             if (Object.keys(fieldMap).length - 1 > i) {
                                 lists.push(
                                     <li className="wfui-input-table__li">
-                                        <span className="wfui-input-table__condition">
-                                            {logic}
-                                        </span>
+                                        <span className="wfui-input-table__condition">{logic}</span>
                                     </li>,
                                 );
                             }
@@ -116,8 +110,7 @@ class renderTableFormat extends React.Component {
                     </ul>
                     <HelpBlock>
                         {' '}
-                        {allTouched &&
-                            globalError && <span>{globalError}</span>}{' '}
+                        {allTouched && globalError && <span>{globalError}</span>}{' '}
                     </HelpBlock>
                     {help && (
                         <div
@@ -126,6 +119,7 @@ class renderTableFormat extends React.Component {
                         />
                     )}
                 </FormGroup>
+                {descDisplay ? cloneElement(descDisplay) : ''}
             </div>
         );
     }

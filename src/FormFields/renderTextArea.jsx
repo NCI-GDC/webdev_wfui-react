@@ -1,6 +1,6 @@
 /* global FileReader */
 /* eslint react/prop-types : 0 */
-import React from 'react';
+import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { FormGroup, FormControl, ControlLabel, HelpBlock } from '../index';
@@ -20,6 +20,7 @@ const renderTextArea = ({
     meta: { touched, error },
     rows,
     readOnly,
+    descDisplay,
 }) => (
     <div
         className={classNames(
@@ -31,10 +32,14 @@ const renderTextArea = ({
             { answered: input.value },
         )}
     >
-        <ControlLabel>{label}</ControlLabel>
-        {required && <b className="required"> *</b>}
+        <div className="wfui-form-label">
+            {label && <ControlLabel>{label}</ControlLabel>}
+            {required && <b className="required"> *</b>}
+        </div>
         <FormGroup
-            className="wfui-form-textarea"
+            className={`wfui-form-field ${
+                descDisplay ? 'wfui-form-field-with-desctipton' : ''
+            } wfui-form-textarea`}
             validationState={touched && (error || globalError) ? 'error' : null}
         >
             <FormControl
@@ -67,6 +72,7 @@ const renderTextArea = ({
                 <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />
             )}
         </FormGroup>
+        {descDisplay ? cloneElement(descDisplay) : ''}
     </div>
 );
 

@@ -1,12 +1,6 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 import { Field } from 'redux-form';
-import {
-    FormFields,
-    FormGroup,
-    ControlLabel,
-    Radio,
-    HelpBlock,
-} from '../index';
+import { FormFields, FormGroup, ControlLabel, Radio, HelpBlock } from '../index';
 import classNames from 'classnames';
 import _ from 'lodash';
 
@@ -28,13 +22,13 @@ export default class renderSelectionHybridRadio extends React.Component {
     onHandleChange(value) {
         const { name, input, fieldMap } = this.props;
 
-        const radioCid = fieldMap['_radio'].cid;
+        const radioCid = fieldMap._radio.cid;
         const childComponents = _.get(this.props, name);
         const radioProps = childComponents[radioCid];
 
         // Reset input fields logic
         const exceptions = ['_radio', value];
-        Object.keys(fieldMap).map(key => {
+        Object.keys(fieldMap).map((key) => {
             if (!exceptions.includes(key)) {
                 // Reset value
                 const fieldProps = childComponents[fieldMap[key].cid];
@@ -45,12 +39,10 @@ export default class renderSelectionHybridRadio extends React.Component {
         radioProps.input.onChange(value);
     }
     parseOptions(props) {
-        return props.options.map(option => {
-            return {
-                key: props.getOptKey(option),
-                value: props.getOptVal(option),
-            };
-        });
+        return props.options.map(option => ({
+            key: props.getOptKey(option),
+            value: props.getOptVal(option),
+        }));
     }
     render() {
         const {
@@ -64,17 +56,18 @@ export default class renderSelectionHybridRadio extends React.Component {
             columnCount,
             disabled,
             preview,
+            descDisplay,
         } = this.props;
         const { options } = this.state;
 
-        const radioCid = fieldMap['_radio'].cid;
+        const radioCid = fieldMap._radio.cid;
         const childComponents = _.get(this.props, name);
         const radioProps = childComponents[radioCid];
 
         const components = [];
         let allTouched = true;
         let allPristine = true;
-        Object.keys(childComponents).map(key => {
+        Object.keys(childComponents).map((key) => {
             const props = childComponents[key];
             allTouched = allTouched && props.meta.touched;
             allPristine = allPristine && props.meta.pristine;
@@ -91,30 +84,27 @@ export default class renderSelectionHybridRadio extends React.Component {
                     { 'wfui-form-preview': preview },
                 )}
             >
-                <ControlLabel>{label}</ControlLabel>
-                {required && <b className="required"> *</b>}
+                <div className="wfui-form-label">
+                    {label && <ControlLabel>{label}</ControlLabel>}
+                    {required && <b className="required"> *</b>}
+                </div>
                 <FormGroup
-                    className={`wfui-radios-hybrid column-count-${columnCount}`}
+                    className={`wfui-form-field ${
+                        descDisplay ? 'wfui-form-field-with-desctipton' : ''
+                    } wfui-radios-hybrid column-count-${columnCount}`}
                     validationState={allTouched && globalError ? 'error' : null}
                 >
                     {options.map((option, i) => {
-                        const _key =
-                            typeof option === 'string' ? option : option.key;
-                        const _option =
-                            typeof option === 'string' ? option : option.value;
+                        const _key = typeof option === 'string' ? option : option.key;
+                        const _option = typeof option === 'string' ? option : option.value;
                         const renderRadio = (
                             <Radio
                                 key={i}
-                                className={
-                                    radioProps.input.value === _key
-                                        ? 'active'
-                                        : ''
-                                }
+                                className={radioProps.input.value === _key ? 'active' : ''}
                                 name={`${name}.${radioCid}`}
                                 value={_key}
                                 checked={radioProps.input.value === _key}
-                                onClick={e =>
-                                    this.onHandleChange(e.target.value)}
+                                onClick={e => this.onHandleChange(e.target.value)}
                                 disabled={disabled}
                             >
                                 {_option}
@@ -122,12 +112,8 @@ export default class renderSelectionHybridRadio extends React.Component {
                                     <div key={i} className="radioHybrid">
                                         <Field
                                             {...fieldMap[_key]}
-                                            name={`${name}.${fieldMap[_key]
-                                                .cid}`}
-                                            type={
-                                                fieldMap[_key].field_type ||
-                                                'text'
-                                            }
+                                            name={`${name}.${fieldMap[_key].cid}`}
+                                            type={fieldMap[_key].field_type || 'text'}
                                             component={renderField}
                                             disabled={disabled}
                                             onFocus={() => {
@@ -143,8 +129,7 @@ export default class renderSelectionHybridRadio extends React.Component {
                     })}
                     <HelpBlock>
                         {' '}
-                        {allTouched &&
-                            globalError && <span>{globalError}</span>}{' '}
+                        {allTouched && globalError && <span>{globalError}</span>}{' '}
                     </HelpBlock>
                     {help && (
                         <div
@@ -153,6 +138,7 @@ export default class renderSelectionHybridRadio extends React.Component {
                         />
                     )}
                 </FormGroup>
+                {descDisplay ? cloneElement(descDisplay) : ''}
             </div>
         );
     }
