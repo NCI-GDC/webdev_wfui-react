@@ -2191,11 +2191,10 @@ a.delete-icon {
   display: block;
   width: 26px;
   height: 24px;
-  margin-left: -35px;
-  margin-top: 10px;
   z-index: 1;
   background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9ImFjdGlvbnMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMTA1LjcgMTIyLjQiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDEwNS43IDEyMi40IiB4bWw6c3BhY2U9InByZXNlcnZlIj48ZyBpZD0ibWl1XzFfIj48ZyBpZD0iQXJ0Ym9hcmQtMV8xXyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTg5OS4wMDAwMDAsIC00NzkuMDAwMDAwKSI+PGcgaWQ9InNsaWNlXzFfIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMTUuMDAwMDAwLCAxMTkuMDAwMDAwKSI+PC9nPjxwYXRoIGlkPSJlZGl0b3ItdHJhc2gtZGVsZXRlLXJlY3ljbGUtYmluLWdseXBoIiBmaWxsPSIjOEZBMjREIiBkPSJNOTAxLjgsNDg0LjZjMCwwLTIuOCwwLTIuOCw1LjZjMCw1LjYsMi44LDUuNiwyLjgsNS42aDEwMC4xYzAsMCwyLjgsMCwyLjgtNS42YzAtNS42LTIuOC01LjYtMi44LTUuNkg5MDEuOEw5MDEuOCw0ODQuNnogTTkwNC40LDUwMS4zSDk5OWwtMTEuMSwxMDAuMWgtNzIuM0w5MDQuNCw1MDEuM3ogTTk0My40LDQ3OWMtNS42LDAtNS42LDUuNi01LjYsNS42aDI3LjhjMCwwLDAtNS42LTUuNi01LjZIOTQzLjRMOTQzLjQsNDc5eiBNOTMyLjIsNTkwLjNoNS42bC01LjYtODkuMmgtNS42TDkzMi4yLDU5MC4zeiBNOTcxLjIsNTAxbC01LjYsODkuMmg1LjZsNS42LTg5LjJIOTcxLjJMOTcxLjIsNTAxeiBNOTQ4LjksNTAxdjg5LjJoNS42VjUwMUg5NDguOUw5NDguOSw1MDF6Ii8+PC9nPjwvZz48L3N2Zz4=);
-  background-repeat: no-repeat; }
+  background-repeat: no-repeat;
+  cursor: pointer; }
 
 /* WFUI Description
 -------------------------------------------------------------- */
@@ -2205,35 +2204,47 @@ a.delete-icon {
   .wfui-form-item .wfui-form-label {
     width: 100%; }
   .wfui-form-item .wfui-form-field {
+    width: 50%; }
+  .wfui-form-item .wfui-form-textarea.wfui-form-field-no-desctipton {
     width: 100%; }
-  .wfui-form-item .wfui-form-field.wfui-form-field-with-desctipton {
-    width: 66.667%; }
-  .wfui-form-item .wfui-description:before {
-    content: '';
-    position: absolute;
-    left: -14px;
-    width: 14px;
-    height: 8px;
-    margin: 0;
-    border-top: 7px solid transparent;
-    border-right: 8px solid #d9edf7;
-    border-bottom: 7px solid transparent; }
-  .wfui-form-item .wfui-description {
-    position: relative;
-    width: calc(33.333% - 15px);
-    padding: 10px;
-    margin: 0;
-    margin-left: 15px;
-    margin-bottom: 20px;
-    border-radius: 3px;
-    font-size: 12px;
-    background-color: #d9edf7;
-    font-weight: normal; }
+  .wfui-form-item .wfui-form-addAnother.wfui-form-field-no-desctipton {
+    width: 75%; }
+  .wfui-form-item .wfui-form-field.wfui-form-addAnother .wfui-form-addAnother-item {
+    background-color: #eee;
+    padding: 20px 15px 15px;
+    position: relative; }
+    .wfui-form-item .wfui-form-field.wfui-form-addAnother .wfui-form-addAnother-item .wfui-form-field {
+      width: 100%; }
+    .wfui-form-item .wfui-form-field.wfui-form-addAnother .wfui-form-addAnother-item a.delete-icon {
+      position: absolute;
+      top: 10px;
+      right: 15px; }
+
+.wfui-description:before {
+  content: '';
+  position: absolute;
+  left: -14px;
+  width: 14px;
+  height: 8px;
+  margin: 0;
+  border-top: 7px solid transparent;
+  border-right: 8px solid #d9edf7;
+  border-bottom: 7px solid transparent; }
 
 .wfui-description {
-  display: table;
-  width: 100%;
-  margin: 5px 0 10px; }
+  position: relative;
+  width: calc(50% - 15px);
+  padding: 10px;
+  margin: 0;
+  margin-left: 15px;
+  margin-bottom: 20px;
+  border-radius: 3px;
+  font-size: 12px;
+  background-color: #d9edf7;
+  font-weight: normal; }
+
+.wfui-description {
+  display: table; }
   .wfui-description--theme-blue {
     background-color: none;
     color: blue;

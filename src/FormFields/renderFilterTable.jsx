@@ -438,7 +438,7 @@ class renderFilterTable extends React.Component {
                 </div>
                 <FormGroup
                     className={`wfui-form-field ${
-                        descDisplay ? 'wfui-form-field-with-desctipton' : ''
+                        descDisplay ? 'wfui-form-field-with-desctipton' : 'wfui-form-field-no-desctipton'
                     } wfui-form-addAnother`}
                     validationState={error ? 'error' : null}
                 >

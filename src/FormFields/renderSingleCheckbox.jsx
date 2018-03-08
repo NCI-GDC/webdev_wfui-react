@@ -28,7 +28,7 @@ const renderSingleCheckbox = ({
         <div className="wfui-form-label">{label && <ControlLabel>{label}</ControlLabel>}</div>
         <FormGroup
             className={`wfui-form-field ${
-                descDisplay ? 'wfui-form-field-with-desctipton' : ''
+                descDisplay ? 'wfui-form-field-with-desctipton' : 'wfui-form-field-no-desctipton'
             } wfui-form-single-checkbox`}
             validationState={touched && (error || globalError) ? 'error' : null}
         >

@@ -82,7 +82,9 @@ class renderTableFormat extends React.Component {
                 </div>
                 <FormGroup
                     className={`wfui-form-field ${
-                        descDisplay ? 'wfui-form-field-with-desctipton' : ''
+                        descDisplay
+                            ? 'wfui-form-field-with-desctipton'
+                            : 'wfui-form-field-no-desctipton'
                     } wfui-table-format multiple-inputs-${Object.keys(fieldMap).length}`}
                     validationState={allTouched && globalError ? 'error' : null}
                 >
