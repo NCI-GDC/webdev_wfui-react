@@ -10,6 +10,7 @@ const {
     renderTimezone,
     renderTags,
     renderFileUpload,
+    Description,
 } = FormFields;
 
 const validate = values => {
@@ -52,8 +53,18 @@ class Forms extends React.Component {
                     component={renderField}
                     label={'renderField'}
                     placeholder=""
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
+                    required
+                />
+                <Field
+                    name="renderField"
+                    type="text"
+                    className="title-box"
+                    component={renderField}
+                    label={'renderField'}
+                    placeholder=""
+                    descDisplay={
+                        <Description
+                            content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
                     }
                     required
                 />
@@ -68,12 +79,34 @@ class Forms extends React.Component {
                     placeholder="renderTextArea"
                 />
                 <Field
+                    name="renderTextArea"
+                    type="textarea"
+                    label={'renderTextArea'}
+                    component={renderTextArea}
+                    help={
+                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
+                    }
+                    descDisplay={
+                        <Description
+                            content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                    }
+                    placeholder="renderTextArea"
+                />
+                <Field
                     name="renderSingleCheckbox"
                     type="checkbox"
                     option={'renderSingleCheckbox'}
                     className="active-checkbox"
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
+                    component={renderSingleCheckbox}
+                />
+                <Field
+                    name="renderSingleCheckbox"
+                    type="checkbox"
+                    option={'renderSingleCheckbox'}
+                    className="active-checkbox"
+                    descDisplay={
+                        <Description
+                            content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
                     }
                     component={renderSingleCheckbox}
                 />
@@ -83,8 +116,17 @@ class Forms extends React.Component {
                     component={renderCheckboxes}
                     options={['OptionA', 'OptionB', 'OptionC']}
                     label={'renderCheckboxes'}
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
+                    required
+                />
+                <Field
+                    name="renderCheckboxes"
+                    type="checkbox"
+                    component={renderCheckboxes}
+                    options={['OptionA', 'OptionB', 'OptionC']}
+                    label={'renderCheckboxes'}
+                    descDisplay={
+                        <Description
+                            content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
                     }
                     required
                 />
@@ -93,8 +135,16 @@ class Forms extends React.Component {
                     type="checkbox"
                     component={renderRadios}
                     options={['OptionA', 'OptionB', 'OptionC']}
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
+                    label={'renderRadios'}
+                />
+                <Field
+                    name="renderRadios"
+                    type="checkbox"
+                    component={renderRadios}
+                    options={['OptionA', 'OptionB', 'OptionC']}
+                    descDisplay={
+                        <Description
+                            content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
                     }
                     label={'renderRadios'}
                 />
@@ -104,35 +154,64 @@ class Forms extends React.Component {
                     className="dev-stage"
                     component={renderSelect}
                     label={'renderSelect'}
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
+                    options={['-- Select an Option --', 'A', 'B']}
+                />
+                <Field
+                    name="renderSelect"
+                    type="select"
+                    className="dev-stage"
+                    component={renderSelect}
+                    label={'renderSelect'}
+                    descDisplay={
+                        <Description
+                            content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
                     }
                     options={['-- Select an Option --', 'A', 'B']}
                 />
                 <Field
                     name="renderPhoto"
                     label={'renderPhoto'}
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
+                    component={renderPhoto}
+                />
+                <Field
+                    name="renderPhoto"
+                    label={'renderPhoto'}
+                    descDisplay={
+                        <Description
+                            content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
                     }
                     component={renderPhoto}
                 />
                 <Field
                     name="renderTimezone"
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
-                    }
                     placeholder={'Choose timezone'}
                     label={'renderTimezone'}
                     component={renderTimezone}
                 />
                 <Field
-                    name="renderTags"
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
+                    name="renderTimezone"
+                    placeholder={'Choose timezone'}
+                    label={'renderTimezone'}
+                    component={renderTimezone}
+                    descDisplay={
+                        <Description
+                            content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
                     }
+                />
+                <Field
+                    name="renderTags"
                     label={'renderTags'}
                     component={renderTags}
+                    withContext
+                />
+                <Field
+                    name="renderTags"
+                    label={'renderTags'}
+                    component={renderTags}
+                    descDisplay={
+                        <Description
+                            content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                    }
                     withContext
                 />
                 <FieldArray
@@ -140,6 +219,35 @@ class Forms extends React.Component {
                     type="select"
                     component={renderAddAnother}
                     label={'renderAddAnother'}
+                    childComponent={renderAddAnother => (
+                        <div>
+                            <Field
+                                name={`${renderAddAnother}.FirstName_txt`}
+                                type="text"
+                                component={renderField}
+                                label={'First Name:'}
+                                placeholder=""
+                            />
+                            <Field
+                                name={`${renderAddAnother}.LastName_txt`}
+                                type="text"
+                                component={renderField}
+                                label={'Last Name'}
+                                placeholder=""
+                                required
+                            />
+                        </div>
+                    )}
+                />
+                <FieldArray
+                    name="renderAddAnother"
+                    type="select"
+                    component={renderAddAnother}
+                    label={'renderAddAnother'}
+                    descDisplay={
+                        <Description
+                            content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                    }
                     childComponent={renderAddAnother => (
                         <div>
                             <Field
@@ -169,6 +277,21 @@ class Forms extends React.Component {
                     onUpload={() => {
                         console.log('aaaa');
                     }}
+                    required
+                />
+                <Field
+                    name="cv"
+                    type="text"
+                    component={renderFileUpload}
+                    maxFileSize={10000000}
+                    fileTypes={['pdf', 'jpg', 'png']}
+                    onUpload={() => {
+                        console.log('aaaa');
+                    }}
+                    descDisplay={
+                        <Description
+                            content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                    }
                     required
                 />
 

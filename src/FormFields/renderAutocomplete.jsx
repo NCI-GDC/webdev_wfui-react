@@ -6,14 +6,7 @@ import { Spinner, FormGroup, FormControl, ControlLabel, HelpBlock } from '../';
 /**
  * Autocomplete component.
  */
-const Autocomplete = ({
-    fetching,
-    items,
-    onClickItem,
-    itemDisplay,
-    textNoResult,
-    autoFetched,
-}) => (
+const Autocomplete = ({ fetching, items, onClickItem, itemDisplay, textNoResult, autoFetched }) => (
     <div className="navbar-form">
         <div className="form-group">
             <ul
@@ -40,10 +33,7 @@ const Autocomplete = ({
                             ) : (
                                 <li key={idx} className="ui-menu-item">
                                     <div className="ui-menu-item-wrapper">
-                                        <a
-                                            onClick={onClickItem}
-                                            data-key={item}
-                                        >
+                                        <a onClick={onClickItem} data-key={item}>
                                             {`${item}`}
                                         </a>
                                     </div>
@@ -52,12 +42,7 @@ const Autocomplete = ({
                     )}
                 {fetching && (
                     <li className="mp ps">
-                        <Spinner
-                            type={1}
-                            color="#0072c6"
-                            fontSize={`5px`}
-                            margin={`10px auto`}
-                        />
+                        <Spinner type={1} color="#0072c6" fontSize={'5px'} margin={'10px auto'} />
                     </li>
                 )}
             </ul>
@@ -151,27 +136,23 @@ class renderAutocomplete extends React.Component {
                     { answered: input.value },
                 )}
             >
-                <ControlLabel>{label}</ControlLabel>
-                {required && <b className="required"> *</b>}
+                <div className="wfui-form-label">
+                    <ControlLabel>{label}</ControlLabel>
+                    {required && <b className="required"> *</b>}
+                </div>
                 <FormGroup
-                    className="wfui-form-input"
-                    validationState={
-                        touched && (error || globalError) ? 'error' : null
-                    }
+                    className="wfui-form-input wfui-form-autocomplete"
+                    validationState={touched && (error || globalError) ? 'error' : null}
                 >
                     <FormControl
                         {...input}
-                        placeholder={
-                            placeholder || placeholder === ''
-                                ? placeholder
-                                : label
-                        }
+                        placeholder={placeholder || placeholder === '' ? placeholder : label}
                         type={type}
                         maxLength={maxlength}
                         min={min}
                         max={max}
                         disabled={disabled}
-                        onChange={e => {
+                        onChange={(e) => {
                             input.onChange(e);
                             this.setState({
                                 term: e.target.value,
@@ -188,13 +169,11 @@ class renderAutocomplete extends React.Component {
                             if (onHandleChange) onHandleChange(e);
                         }}
                     />
-                    {postfix && (
-                        <div className="wfui-form-postfix">{postfix}</div>
-                    )}
+                    {postfix && <div className="wfui-form-postfix">{postfix}</div>}
                     {(autoCompleteItems.length > 0 || term) && (
                         <Autocomplete
                             items={autoCompleteItems}
-                            onClickItem={e => {
+                            onClickItem={(e) => {
                                 const _term = e.target.getAttribute('data-key');
                                 if (_term) {
                                     input.onChange(_term);

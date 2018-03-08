@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import * as form from 'redux-form';
 import classNames from 'classnames';
@@ -52,6 +52,7 @@ class renderAddAnother extends React.Component {
             name,
             meta: { error, submitFailed },
             minimumItem,
+            descDisplay,
         } = this.props;
 
         const Comp = withContext ? DraggableWithContext : Draggable;
@@ -84,10 +85,14 @@ class renderAddAnother extends React.Component {
                     { 'wfui-form-preview': preview },
                 )}
             >
-                <ControlLabel>{label}</ControlLabel>
-                {required && <b className="required"> *</b>}
+                <div className="wfui-form-label">
+                    <ControlLabel>{label}</ControlLabel>
+                    {required && <b className="required"> *</b>}
+                </div>
                 <FormGroup
-                    className="wfui-form-addAnother"
+                    className={`wfui-form-field ${
+                        descDisplay ? 'wfui-form-field-with-desctipton' : ''
+                    } wfui-form-addAnother`}
                     validationState={error || globalError ? 'error' : null}
                 >
                     {!disabled &&
@@ -154,6 +159,7 @@ class renderAddAnother extends React.Component {
                         />
                     )}
                 </FormGroup>
+                {descDisplay ? cloneElement(descDisplay) : ''}
             </div>
         );
     }
@@ -171,6 +177,7 @@ renderAddAnother.propTypes = {
     draggable: PropTypes.bool,
     withContext: PropTypes.bool,
     minimumItem: PropTypes.number,
+    descDisplay: PropTypes.element,
 };
 renderAddAnother.defaultProps = {
     labelAddAnother: 'Add Another Item',

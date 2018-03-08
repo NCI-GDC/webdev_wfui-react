@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { FormGroup, ControlLabel, HelpBlock, Checkbox } from '../index';
@@ -13,6 +13,7 @@ const renderSingleCheckbox = ({
     disabled,
     preview,
     globalError,
+    descDisplay,
     meta: { touched, error },
 }) => (
     <div
@@ -24,15 +25,14 @@ const renderSingleCheckbox = ({
             { 'wfui-form-preview': preview },
         )}
     >
-        {label && <ControlLabel>{label}</ControlLabel>}
+        <div className="wfui-form-label">{label && <ControlLabel>{label}</ControlLabel>}</div>
         <FormGroup
+            className={`wfui-form-field ${
+                descDisplay ? 'wfui-form-field-with-desctipton' : ''
+            } wfui-form-single-checkbox`}
             validationState={touched && (error || globalError) ? 'error' : null}
         >
-            <Checkbox
-                className={input.checked ? 'active' : ''}
-                {...input}
-                disabled={disabled}
-            >
+            <Checkbox className={input.checked ? 'active' : ''} {...input} disabled={disabled}>
                 {option} {required && <b className="required">*</b>}
             </Checkbox>
             {touched &&
@@ -48,12 +48,10 @@ const renderSingleCheckbox = ({
                     </HelpBlock>
                 )}
             {help && (
-                <div
-                    className="wfui-form-description"
-                    dangerouslySetInnerHTML={{ __html: help }}
-                />
+                <div className="wfui-form-description" dangerouslySetInnerHTML={{ __html: help }} />
             )}
         </FormGroup>
+        {descDisplay ? cloneElement(descDisplay) : ''}
     </div>
 );
 
