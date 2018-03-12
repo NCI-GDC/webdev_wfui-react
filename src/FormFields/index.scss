@@ -22,11 +22,20 @@ a.delete-icon {
     }
 
     .wfui-form-field {
-        width: 50%;
+        width: 100%;
+
+        .wfui-form-field-with-desctipton {
+            width: 50%;
+        }
     }
 
-    .wfui-form-textarea.wfui-form-field-no-desctipton {
-        width: 100%;
+    .wfui-form-textarea {
+        .wfui-form-field-no-desctipton {
+            width: 100%;
+        }
+        .wfui-form-field-with-desctipton {
+            width: 50%;
+        }
     }
 
     .wfui-form-addAnother.wfui-form-field-no-desctipton {
