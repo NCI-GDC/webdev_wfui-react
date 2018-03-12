@@ -7,7 +7,7 @@ import { flattenObject } from '../util/flattenObject';
 
 class Notifications extends React.Component {
     componentWillReceiveProps(nextProps) {
-        const { fetches, requestIds, intl } = this.props;
+        const { fetches, requestIds, intl, lang } = this.props;
         const newFetches = nextProps.fetches;
         Object.keys(fetches)
             .filter(key => requestIds.includes(key))
@@ -22,7 +22,7 @@ class Notifications extends React.Component {
                                 children: (
                                     <FormattedHTMLMessage
                                         id={`notifications.${key}.success`}
-                                        values={flattenObject(newFetches[key].data)}
+                                        values={Object.assign({}, flattenObject(newFetches[key].data), { lang })}
                                     />
                                 ),
                                 level: 'success',
@@ -71,10 +71,12 @@ class Notifications extends React.Component {
 
 Notifications.propTypes = {
     requestIds: PropTypes.arrayOf(PropTypes.string),
+    lang: PropTypes.string,
 };
 
 Notifications.defaultProps = {
     requestIds: [],
+    lang: 'en',
 };
 
 export default injectIntl(
