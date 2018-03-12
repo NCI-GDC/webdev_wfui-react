@@ -2204,9 +2204,13 @@ a.delete-icon {
   .wfui-form-item .wfui-form-label {
     width: 100%; }
   .wfui-form-item .wfui-form-field {
-    width: 50%; }
-  .wfui-form-item .wfui-form-textarea.wfui-form-field-no-desctipton {
     width: 100%; }
+    .wfui-form-item .wfui-form-field .wfui-form-field-with-desctipton {
+      width: 50%; }
+  .wfui-form-item .wfui-form-textarea .wfui-form-field-no-desctipton {
+    width: 100%; }
+  .wfui-form-item .wfui-form-textarea .wfui-form-field-with-desctipton {
+    width: 50%; }
   .wfui-form-item .wfui-form-addAnother.wfui-form-field-no-desctipton {
     width: 75%; }
   .wfui-form-item .wfui-form-field.wfui-form-addAnother .wfui-form-addAnother-item {
