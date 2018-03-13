@@ -22,11 +22,25 @@ const columnProps = PropTypes.oneOfType([
 class IsotopeItem extends React.Component {
     render() {
         const { index, id, width, xs, sm, md, lg, children, item, itemDisplay } = this.props;
+        const elems = [];
+
+        if (Array.isArray(children)) {
+            children.forEach((elem) => {
+                if (Array.isArray(elem)) {
+                    elem.forEach(i => elems.push(i));
+                } else {
+                    elems.push(elem);
+                }
+            });
+        } else {
+            elems.push(children);
+        }
 
         if (width) {
             return (
                 <div
                     key={index}
+                    id={`${id}-item-${index}`}
                     className={classNames(
                         `${id}-item ${index === 0 ? 'wfui-isotope-grid-sizer' : ''}`,
                         'wfui-isotope-item',
@@ -35,8 +49,11 @@ class IsotopeItem extends React.Component {
                     data-item={stringifyValues(item)}
                 >
                     {itemDisplay
-                        ? cloneElement(itemDisplay, { ...this.props })
-                        : cloneElement(children, { ...this.props })}
+                        ? cloneElement(
+                              itemDisplay,
+                              Object.assign({}, this.props, { id: undefined }),
+                          )
+                        : elems.map((child, ind) => cloneElement(child, Object.assign({}, this.props, { id: undefined, key: ind })))}
                 </div>
             );
         }
@@ -44,6 +61,7 @@ class IsotopeItem extends React.Component {
         return (
             <Col
                 key={index}
+                id={`${id}-item-${index}`}
                 className={classNames(
                     `${id}-item ${index} ${index === 0 ? 'wfui-isotope-grid-sizer' : ''}`,
                     'wfui-isotope-item',
@@ -55,8 +73,8 @@ class IsotopeItem extends React.Component {
                 data-item={stringifyValues(item)}
             >
                 {itemDisplay
-                    ? cloneElement(itemDisplay, { ...this.props })
-                    : cloneElement(children, { ...this.props })}
+                    ? cloneElement(itemDisplay, Object.assign({}, this.props, { id: undefined }))
+                    : elems.map((child, ind) => cloneElement(child, Object.assign({}, this.props, { id: undefined, key: ind })) )}
             </Col>
         );
     }
