@@ -21,6 +21,7 @@ const renderTextArea = ({
     rows,
     readOnly,
     descDisplay,
+    fullWidth,
 }) => (
     <div
         className={classNames(
@@ -30,6 +31,7 @@ const renderTextArea = ({
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
             { answered: input.value },
+            { 'wfui-form-item-full-width': fullWidth },
         )}
     >
         <div className="wfui-form-label">

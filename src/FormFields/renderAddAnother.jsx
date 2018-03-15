@@ -53,6 +53,7 @@ class renderAddAnother extends React.Component {
             meta: { error, submitFailed },
             minimumItem,
             descDisplay,
+            fullWidth,
         } = this.props;
 
         const Comp = withContext ? DraggableWithContext : Draggable;
@@ -83,6 +84,7 @@ class renderAddAnother extends React.Component {
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
+                    { 'wfui-form-item-full-width': fullWidth },
                 )}
             >
                 <div className="wfui-form-label">
@@ -183,10 +185,12 @@ renderAddAnother.propTypes = {
     withContext: PropTypes.bool,
     minimumItem: PropTypes.number,
     descDisplay: PropTypes.element,
+    fullWidth: PropTypes.bool,
 };
 renderAddAnother.defaultProps = {
     labelAddAnother: 'Add Another Item',
     minimumItem: 0,
+    fullWidth: false,
 };
 
 export default renderAddAnother;

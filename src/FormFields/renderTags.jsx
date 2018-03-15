@@ -72,6 +72,7 @@ class renderTags extends React.Component {
             disabled,
             preview,
             descDisplay,
+            fullWidth,
             meta: { touched, error },
         } = this.props;
         const { suggestions, tags } = this.state;
@@ -86,6 +87,7 @@ class renderTags extends React.Component {
                     { 'wfui-form-item-error': error },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
+                    { 'wfui-form-item-full-width': fullWidth },
                 )}
             >
                 <div className="wfui-form-label">
@@ -149,9 +151,11 @@ renderTags.propTypes = {
     placeholder: PropTypes.string,
     withContext: PropTypes.bool,
     descDisplay: PropTypes.element,
+    fullWidth: PropTypes.bool,
 };
 renderTags.defaultProps = {
     placeholder: 'Add keyword',
+    fullWidth: false,
 };
 
 export default renderTags;

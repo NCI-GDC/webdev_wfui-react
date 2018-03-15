@@ -14,6 +14,7 @@ const renderRadios = ({
     preview,
     globalError,
     descDisplay,
+    fullWidth,
     meta: { touched, error },
 }) => (
     <div
@@ -25,6 +26,7 @@ const renderRadios = ({
             },
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
+            { 'wfui-form-item-full-width': fullWidth },
         )}
     >
         <div className="wfui-form-label">

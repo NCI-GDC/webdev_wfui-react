@@ -15,6 +15,7 @@ const renderTimezone = ({
     disabled,
     preview,
     descDisplay,
+    fullWidth,
     meta: { touched, error },
 }) => (
     <div
@@ -26,6 +27,7 @@ const renderTimezone = ({
             },
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
+            { 'wfui-form-item-full-width': fullWidth },
         )}
     >
         <div className="wfui-form-label">
