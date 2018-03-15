@@ -57,6 +57,7 @@ export default class renderSelectionHybridRadio extends React.Component {
             disabled,
             preview,
             descDisplay,
+            fullWidth,
         } = this.props;
         const { options } = this.state;
 
@@ -82,6 +83,7 @@ export default class renderSelectionHybridRadio extends React.Component {
                     { 'wfui-form-item-error': globalError },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
+                    { 'wfui-form-item-full-width': fullWidth },
                 )}
             >
                 <div className="wfui-form-label">

@@ -15,6 +15,7 @@ const renderCheckboxes = ({
     globalError,
     meta: { touched, error },
     descDisplay,
+    fullWidth,
 }) => (
     <div
         className={classNames(
@@ -25,6 +26,7 @@ const renderCheckboxes = ({
             },
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
+            { 'wfui-form-item-full-width': fullWidth },
         )}
     >
         <div className="wfui-form-label">

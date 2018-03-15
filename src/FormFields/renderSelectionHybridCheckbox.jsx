@@ -81,6 +81,7 @@ class renderSelectionHybridCheckbox extends React.Component {
             columnCount,
             preview,
             descDisplay,
+            fullWidth,
         } = this.props;
 
         const { options } = this.state;
@@ -107,6 +108,7 @@ class renderSelectionHybridCheckbox extends React.Component {
                     { 'wfui-form-item-error': globalError },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
+                    { 'wfui-form-item-full-width': fullWidth },
                 )}
             >
                 <div className="wfui-form-label">
@@ -207,6 +209,11 @@ renderSelectionHybridCheckbox.propTypes = {
     required: PropTypes.bool,
     disabled: PropTypes.bool,
     descDisplay: PropTypes.element,
+    fullWidth: PropTypes.bool,
+};
+
+renderSelectionHybridCheckbox.defaultProps = {
+    fullWidth: false,
 };
 
 export default renderSelectionHybridCheckbox;

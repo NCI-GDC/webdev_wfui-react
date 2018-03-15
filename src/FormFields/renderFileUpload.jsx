@@ -135,6 +135,7 @@ class renderFileUpload extends React.Component {
             errorReject,
             attrs,
             descDisplay,
+            fullWidth,
         } = this.props;
         const { accept, fileError } = this.state;
 
@@ -146,6 +147,7 @@ class renderFileUpload extends React.Component {
                     { 'wfui-form-item-error': globalError },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
+                    { 'wfui-form-item-full-width': fullWidth },
                 )}
             >
                 <div className="wfui-form-label">
@@ -290,6 +292,7 @@ renderFileUpload.propTypes = {
     errorFileSize: PropTypes.string,
     errorReject: PropTypes.string,
     fileDownloadPath: PropTypes.string.isRequired,
+    fullWidth: PropTypes.bool,
 };
 renderFileUpload.defaultProps = {
     onUpload: () => {},
@@ -321,6 +324,7 @@ renderFileUpload.defaultProps = {
         gif: ['image/gif'],
     },
     fileDownloadPath: '',
+    fullWidth: false,
 };
 
 export default renderFileUpload;

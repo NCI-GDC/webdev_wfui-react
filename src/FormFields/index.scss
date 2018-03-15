@@ -13,9 +13,13 @@ a.delete-icon {
 /* WFUI Description
 -------------------------------------------------------------- */
 
-.wfui-form-item {
+div.wfui-form-item {
     display: flex;
     flex-wrap: wrap;
+
+    &.wfui-form-item-full-width {
+        width: 100%;
+    }
 
     .wfui-form-label {
         width: 100%;

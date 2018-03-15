@@ -16,6 +16,7 @@ const renderSelect = ({
     preview,
     globalError,
     descDisplay,
+    fullWidth,
     meta: { touched, error },
 }) => (
     <div
@@ -26,6 +27,7 @@ const renderSelect = ({
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
             { answered: input.value },
+            { 'wfui-form-item-full-width': fullWidth },
         )}
     >
         <div className="wfui-form-label">

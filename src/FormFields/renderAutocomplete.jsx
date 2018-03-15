@@ -120,6 +120,7 @@ class renderAutocomplete extends React.Component {
             globalError,
             itemDisplay,
             textNoResult,
+            fullWidth,
             meta: { touched, error },
         } = this.props;
         const { fetching, autoFetched, term, autoCompleteItems } = this.state;
@@ -134,6 +135,7 @@ class renderAutocomplete extends React.Component {
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
                     { answered: input.value },
+                    { 'wfui-form-item-full-width': fullWidth },
                 )}
             >
                 <div className="wfui-form-label">
@@ -220,10 +222,12 @@ class renderAutocomplete extends React.Component {
 }
 renderAutocomplete.propTypes = {
     queryInterval: PropTypes.number,
+    fullWidth: PropTypes.bool,
 };
 renderAutocomplete.defaultProps = {
     queryInterval: 100,
     textNoResult: 'No results available',
+    fullWidth: false,
 };
 
 export default renderAutocomplete;

@@ -26,6 +26,7 @@ class renderPhoto extends React.Component {
             disabled,
             preview,
             descDisplay,
+            fullWidth,
             meta: { touched, error },
         } = this.props;
         const { value } = this.state;
@@ -40,6 +41,7 @@ class renderPhoto extends React.Component {
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
+                    { 'wfui-form-item-full-width': fullWidth },
                 )}
             >
                 <div className="wfui-form-label">
@@ -143,9 +145,11 @@ class renderPhoto extends React.Component {
 }
 renderPhoto.propTypes = {
     onStateChange: PropTypes.func,
+    fullWidth: PropTypes.bool,
 };
 renderPhoto.defaultProps = {
     onStateChange: f => f,
+    fullWidth: false,
 };
 
 export default renderPhoto;
