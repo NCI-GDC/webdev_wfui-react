@@ -133,7 +133,7 @@ LoadingComponent.propTypes = {
     fetch5s: PropTypes.bool,
     fetch8s: PropTypes.bool,
     status: PropTypes.string,
-    error: PropTypes.string,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.string]),
     timeout: PropTypes.bool,
     retried: PropTypes.bool,
     hideMessage: PropTypes.bool,
