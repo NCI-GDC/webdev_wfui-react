@@ -27,6 +27,7 @@ const renderField = ({
     globalError,
     descDisplay,
     meta: { touched, error },
+    fullWidth,
 }) => (
     <div
         className={classNames(
@@ -37,6 +38,7 @@ const renderField = ({
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
             { answered: input.value },
+            { 'wfui-form-item-full-width': fullWidth },
         )}
     >
         <div className="wfui-form-label">

@@ -2198,27 +2198,29 @@ a.delete-icon {
 
 /* WFUI Description
 -------------------------------------------------------------- */
-.wfui-form-item {
+div.wfui-form-item {
   display: flex;
   flex-wrap: wrap; }
-  .wfui-form-item .wfui-form-label {
+  div.wfui-form-item.wfui-form-item-full-width {
     width: 100%; }
-  .wfui-form-item .wfui-form-field {
+  div.wfui-form-item .wfui-form-label {
     width: 100%; }
-    .wfui-form-item .wfui-form-field.wfui-form-field-with-desctipton {
+  div.wfui-form-item .wfui-form-field {
+    width: 100%; }
+    div.wfui-form-item .wfui-form-field.wfui-form-field-with-desctipton {
       width: 50%; }
-  .wfui-form-item .wfui-form-textarea.wfui-form-field-no-desctipton {
+  div.wfui-form-item .wfui-form-textarea.wfui-form-field-no-desctipton {
     width: 100%; }
-  .wfui-form-item .wfui-form-textarea.wfui-form-field-with-desctipton {
+  div.wfui-form-item .wfui-form-textarea.wfui-form-field-with-desctipton {
     width: 50%; }
-  .wfui-form-item .wfui-form-addAnother.wfui-form-field-no-desctipton {
+  div.wfui-form-item .wfui-form-addAnother.wfui-form-field-no-desctipton {
     width: 75%; }
-  .wfui-form-item .wfui-form-field.wfui-form-addAnother .wfui-form-addAnother-item {
+  div.wfui-form-item .wfui-form-field.wfui-form-addAnother .wfui-form-addAnother-item {
     padding: 20px 15px 15px;
     position: relative; }
-    .wfui-form-item .wfui-form-field.wfui-form-addAnother .wfui-form-addAnother-item .wfui-form-field {
+    div.wfui-form-item .wfui-form-field.wfui-form-addAnother .wfui-form-addAnother-item .wfui-form-field {
       width: 100%; }
-    .wfui-form-item .wfui-form-field.wfui-form-addAnother .wfui-form-addAnother-item a.delete-icon {
+    div.wfui-form-item .wfui-form-field.wfui-form-addAnother .wfui-form-addAnother-item a.delete-icon {
       position: absolute;
       top: 10px;
       right: 15px; }
