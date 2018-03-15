@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, FormattedHTMLMessage, Spinner } from '../index';
+import { FormattedHTMLMessage } from 'react-intl';
+import { Button, Spinner } from '../index';
 
 class LoadingComponent extends React.Component {
     render() {
