@@ -16,3 +16,4 @@ require('./Card/index.scss');
 require('./CascadingPane/index.scss');
 
 require('./FilteredTable/2/fixed-data-table.min.css');
+require('./Notifications/index.scss');
