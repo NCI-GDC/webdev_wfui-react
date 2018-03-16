@@ -2394,6 +2394,7 @@ div.wfui-form-radios div.radio {
 div.wfui-form-checkboxes div.checkbox label,
 div.wfui-form-radios div.radio label {
   width: 100%;
+  height: 100%;
   padding: 10px 25px 10px 30px;
   background-color: #fff;
   border: 1px solid #c1c1c1;
@@ -2438,7 +2439,7 @@ div.wfui-form-item div.radio label {
   border-radius: 5px;
   vertical-align: middle;
   font-weight: normal;
-  padding: 3px 25px; }
+  padding: 3px 15px 3px 25px; }
 
 .wfui-form-item div.active.checkbox > label,
 .wfui-form-item div.active.radio > label {
@@ -2504,6 +2505,20 @@ div.wfui-form-item div.wfui-form-radios.two-column .radio {
 .wfui-radios-hybrid div.wfui-form-item,
 .wfui-checkboxes-hybrid div.wfui-form-item {
   margin: 0; }
+
+.wfui-checkboxes-hybrid .checkboxHybrid > .wfui-form-item > .wfui-form-field,
+.wfui-radios-hybrid .radioHybrid > .wfui-form-item > .wfui-form-field {
+  width: 100%; }
+  .wfui-checkboxes-hybrid .checkboxHybrid > .wfui-form-item > .wfui-form-field > .form-control-feedback,
+  .wfui-radios-hybrid .radioHybrid > .wfui-form-item > .wfui-form-field > .form-control-feedback {
+    right: 0; }
+
+.wfui-radios-hybrid
+.radioHybrid
+> .wfui-form-item
+> .wfui-form-field
+> .form-control-feedback {
+  right: 0; }
 
 .wfui-radios-hybrid .radioHybrid,
 .wfui-checkboxes-hybrid .checkboxHybrid {
