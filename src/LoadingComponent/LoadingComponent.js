@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, FormattedHTMLMessage, Spinner } from '../index';
+import { FormattedHTMLMessage } from 'react-intl';
+import { Button, Spinner } from '../index';
 
 class LoadingComponent extends React.Component {
     render() {
@@ -132,7 +133,7 @@ LoadingComponent.propTypes = {
     fetch5s: PropTypes.bool,
     fetch8s: PropTypes.bool,
     status: PropTypes.string,
-    error: PropTypes.string,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     timeout: PropTypes.bool,
     retried: PropTypes.bool,
     hideMessage: PropTypes.bool,
