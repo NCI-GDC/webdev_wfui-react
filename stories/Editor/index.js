@@ -3,13 +3,21 @@ import { storiesOf } from '@kadira/storybook';
 import StoryBasicExample from 'raw!./StoryBasicExample.src';
 import { DraftJS, Editor, draftToHtml, htmlToDraft } from '../../src/';
 
-const { EditorState, convertToRaw, ContentState } = DraftJS;
+const { EditorState, convertToRaw, ContentState, convertFromHTML } = DraftJS;
 
 storiesOf('Editor', module).addWithInfo(
     'React DraftJS Editor conversion of content from and to HTML',
     () => StoryBasicExample,
     {
-        scope: { Editor, draftToHtml, htmlToDraft, EditorState, convertToRaw, ContentState },
+        scope: {
+            Editor,
+            draftToHtml,
+            htmlToDraft,
+            EditorState,
+            convertToRaw,
+            ContentState,
+            convertFromHTML,
+        },
         source: true,
         static: true,
     },
