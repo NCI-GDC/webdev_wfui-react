@@ -1,13 +1,50 @@
+class CustomMenu extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            open: false,
+            cursorLine: 0,
+            cursorChar: 0,
+        }
+        this.addToken = this.addToken.bind(this);
+    }
+    addToken(eventKey) {
+        const { editorState, onChange } = this.props;
+        const contentState = Modifier.replaceText(
+            editorState.getCurrentContent(),
+            editorState.getSelection(),
+            eventKey,
+            editorState.getCurrentInlineStyle(),
+        );
+        onChange(EditorState.push(editorState, contentState, 'insert-characters'));
+    }
+    render() {
+        const { open } = this.state;
+        return (
+            <Dropdown id="rdw-token-wrapper" className="rdw-token-wrapper" onSelect={this.addToken}>
+                <Dropdown.Toggle>
+                    <span>Add Variable</span>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    <MenuItem className="rdw-dropdownoption-default" eventKey="[1]">Token 1</MenuItem>
+                    <MenuItem className="rdw-dropdownoption-default" eventKey="[2]">Token 2</MenuItem>
+                    <MenuItem className="rdw-dropdownoption-default" eventKey="[3]">Token 3</MenuItem>
+                </Dropdown.Menu>
+            </Dropdown>
+        );
+    }
+}
+
 class EditorConvertToHTML extends React.Component {
     constructor() {
         super();
-        const html = '<!DOCTYPE html><html> <head> <meta content="text/html; charset=utf-8" http-equiv="Content-Type"> <title>Review New Submission</title> </head> <body style="font-family: Arial, sans-serif; font-size: 14px; line-height: 28px; margin: 0; padding: 0;"> <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td align="center" bgcolor="#F9FAFB"> <table align="center" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 56px;" width="650"> <tr> <td bgcolor="#FFFFFF" width="100%"> <table style="line-height:0" border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td align="center"> <img alt="OICR Genomics and Bioinformatics" height="150" src="https://labs-pa.oicr.on.ca/assets/site/images/labs-pa-email-header.jpg" width="648"> </td></tr></table> <table border="0" cellpadding="0" cellspacing="0" style="border-left: 1px solid #d4dcde; border-right: 1px solid #d4dcde;" width="100%"> <tr> <td> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td align="center" style="background-color: #e6e6e6; padding-bottom: 7px; padding-left: 20px; padding-right: 20px; padding-top: 7px;"> <strong class="message-subject" style="color: #444444; font-size: 17px; line-height: 28px;">New Submission to Review</strong> </td></tr></table> </td></tr><tr> <td height="14"></td></tr><tr> <td> <table border="0" cellpadding="0" cellspacing="0" class="message-body" style="margin-left: 20px; margin-right: 20px;" width="608"> <tr> <td> <h1 style="color: #000000; font-size: 14px; font-weight: normal; line-height: 28px;"> <strong>Hello [name_operators],</strong> </h1> </td></tr><tr> <td> <p style="color: #000000; font-size: 14px; line-height: 28px;">The following form has a new submission: <br/> <strong>Contact Us</strong> </p><table border="0" cellpadding="0" cellspacing="4" class="message-details" style="background-color: #fafafa; border-top: 3px solid #e6e6e6; border-bottom: 3px solid #e6e6e6; font-size: 14px; line-height: 21px; width: 100%; padding: 14px;"> <tbody> <tr> <td valign="top" style="font-size: 14px; line-height: 24px; width: 120px; font-weight: bold;">Full Name:</td><td valign="top" style="font-size: 14px; line-height: 24px; width: calc(100% - 120px);">[name_applicant]</td></tr><tr> <td valign="top" style="font-size: 14px; line-height: 24px; width: 120px; font-weight: bold;">Email Address:</td><td valign="top" style="font-size: 14px; line-height: 24px; width: calc(100% - 120px);">[email_applicant]</td></tr><tr> <td valign="top" style="font-size: 14px; line-height: 24px; width: 120px; font-weight: bold;">Subject:</td><td valign="top" style="font-size: 14px; line-height: 24px; width: calc(100% - 120px);">[title.answer.txt]</td></tr><tr> <td valign="top" style="font-size: 14px; line-height: 24px; width: 120px; font-weight: bold;">Comment/Question:</td><td valign="top" style="font-size: 14px; line-height: 24px; width: calc(100% - 120px);">[questions.answer.txt]</td></tr></tbody> </table> </td></tr></table> </td></tr><tr> <td height="14"></td></tr></table> <table border="0" cellpadding="0" cellspacing="0" style="border-bottom: 1px solid #d4dcde; border-left: 1px solid #d4dcde; border-right: 1px solid #d4dcde;" width="100%"> <tr> <td> <table border="0" cellpadding="0" cellspacing="0" style="border-top: 4px solid #e6e6e6; margin-left: 20px; margin-right: 20px;" width="608"> <tr> <td height="2"></td></tr><tr> <td> <img src="https://oicr.on.ca/wp-content/uploads/2017/01/OICR_Logo.png" style="padding: 20px;padding-right: 0px;" width="90"> </td><td align="left"> <p style="color: #000000; font-size: 10px; line-height: 20px;padding-left: 20px"> This email was sent to <a href="mailto:[email_operators]" style="color: #007bc7;">[email_operators]</a> </p><p style="color: #000000; font-size: 10px; line-height: 12px;padding-left: 20px"> Powered by <a href="https://labs-pa.oicr.on.ca" style="color: #007bc7">OICR Genomics &amp; Bioinformatics</a> <br > MaRS Centre | 661 University Ave, Suite 510 | Toronto, Ontario | Canada M5G 0A3 <br>© Ontario Institute for Cancer Research. All Rights Reserved. </p></td></tr><tr> <td height="1"></td></tr></table> </td></tr></table> </td></tr></table> </td></tr></table> </body></html>';
+        const html = '';
         const contentBlock = convertFromHTML(html);
-        if (contentBlock) {
+        if (contentBlock && contentBlock.contentBlocks) {
+            console.log('here', contentBlock);
             const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks, contentBlock.entityMap);
             const editorState = EditorState.createWithContent(contentState);
-            console.log('contentState', contentState);
-            console.log(ContentState.getEntity);
             if (ContentState.getEnthty) {
                 this.state = {
                     editorState: EditorState.createWithContent(contentState),
@@ -37,6 +74,7 @@ class EditorConvertToHTML extends React.Component {
 
     render() {
         const { editorState, mode, htmlState } = this.state;
+        console.log('htmlState', htmlState);
         return (
             <div>
                 <button
@@ -55,12 +93,15 @@ class EditorConvertToHTML extends React.Component {
                         wrapperClassName="demo-wrapper"
                         editorClassName="demo-editor"
                         onEditorStateChange={this.onEditorStateChange}
+                        toolbarCustomButtons={[<CustomMenu />]}
+                        hashtag={{ separator: ' ', hashCharacter: '[' }}
                     />
                 ) : (
-                    <textarea
-                        
+                    <CodeMirror
                         value={htmlState}
-                        onChange={(e) => this.setState({ htmlState: e.target.value })}
+                        options={{lineWrapping: true, lineNumbers: true}}
+                        onBeforeChange={(editor, data, value) => this.setState({ htmlState: value })}
+                        onCursor={(editor, data) => this.setState({ cursorLine: data.line|| 0, cursorChar: data.ch || 0})}
                     />
                 )}
             </div>
