@@ -3,6 +3,7 @@ import NotificationSystem from 'react-notification-system';
 import Dropzone from 'react-dropzone';
 import TimezonePicker from 'react-timezone';
 import { Editor } from 'react-draft-wysiwyg';
+import * as ReactCodeMirror from 'react-codemirror2';
 import * as DraftJS from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
@@ -39,7 +40,6 @@ import * as Utils from './util';
 require('./i18n/i18n.js');
 
 export * from 'react-bootstrap';
-export * from 'react-codemirror2';
 
 const DraggableWithContext = withContext;
 
@@ -83,4 +83,5 @@ export {
     htmlToDraft,
     Notifications,
     Utils,
+    ReactCodeMirror,
 };
