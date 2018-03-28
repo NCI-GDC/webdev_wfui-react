@@ -39,6 +39,7 @@ import * as Utils from './util';
 require('./i18n/i18n.js');
 
 export * from 'react-bootstrap';
+export * from 'react-codemirror2';
 
 const DraggableWithContext = withContext;
 
