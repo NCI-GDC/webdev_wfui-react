@@ -35,6 +35,7 @@ import * as FilterFields from './Filters/renderFilterItem';
 import Description from './FormFields/Description';
 import WFUIDropdown from './WFUIDropdown/WFUIDropdown';
 import Notifications from './Notifications/Notifications';
+import AnimateHeight from 'react-animate-height';
 import * as Utils from './util';
 
 require('./i18n/i18n.js');
@@ -84,4 +85,5 @@ export {
     Notifications,
     Utils,
     ReactCodeMirror,
+    AnimateHeight,
 };
