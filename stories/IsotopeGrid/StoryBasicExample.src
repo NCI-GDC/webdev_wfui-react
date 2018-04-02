@@ -13,11 +13,16 @@ class Item extends React.Component {
         const { item, isotope } = this.props;
         if (this.state.extend) {
             return (
-                <DashboardCard style={{height: '300px'}}>
+                <DashboardCard>
                     <DashboardCard.Body>
-                        <h1 className="title">{item}</h1>
-                        <p>Testing</p>
-                        <button onClick={() => this.setState({ extend: false })}>click</button>
+                        <div>
+                            <div>
+                                <h1 className="title">{item}</h1>
+                                <p>Testing</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            </div>
+                            <button onClick={() => this.setState({ extend: false })}>click</button>
+                        </div>
                     </DashboardCard.Body>
                 </DashboardCard>
             );
@@ -25,9 +30,13 @@ class Item extends React.Component {
         return (
             <DashboardCard>
                 <DashboardCard.Body>
-                    <h1 className="title">{item}</h1>
-                    <p>Testing</p>
-                    <button onClick={() => this.setState({ extend: true })}>click</button>
+                    <div>
+                        <div>
+                            <h1 className="title">{item}</h1>
+                            <p>Testing</p>
+                        </div>
+                        <button onClick={() => this.setState({ extend: true })}>click</button>
+                    </div>
                 </DashboardCard.Body>
             </DashboardCard>
         );
