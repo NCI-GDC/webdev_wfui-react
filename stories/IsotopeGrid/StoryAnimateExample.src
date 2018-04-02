@@ -1,42 +1,39 @@
 class Item extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { extend: false };
+        this.state = { extend: false, extending: false };
     }
     componentDidUpdate(prevProps, prevState) {
-        const { extend } = this.state;
-        if (extend !== prevState.extend) {
-            this.props.isotope.arrange();
+        const { extending } = this.state;
+        if (!extending && prevState.extending) {
+            console.log('here');
+            this.props.isotope.layout();
         }
     }
     render() {
         const { item, isotope } = this.props;
-        if (this.state.extend) {
-            return (
-                <DashboardCard>
-                    <DashboardCard.Body>
-                        <div>
-                            <div>
-                                <h1 className="title">{item}</h1>
-                                <p>Testing</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                            </div>
-                            <button onClick={() => this.setState({ extend: false })}>click</button>
-                        </div>
-                    </DashboardCard.Body>
-                </DashboardCard>
-            );
-        }
+        const height = this.state.extend ? 'auto' : 0;
         return (
             <DashboardCard>
                 <DashboardCard.Body>
-                    <div>
+                    <h1 className="title">{item}</h1>
                         <div>
-                            <h1 className="title">{item}</h1>
                             <p>Testing</p>
+                            <AnimateHeight
+                                height={height}
+                                easing='ease-in'
+                                onAnimationStart={() => {
+                                    this.setState({ extending: true});
+                                }}
+                                onAnimationEnd={() => {
+                                    this.setState({ extending: false});
+                                }}
+                            >
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            </AnimateHeight>
                         </div>
-                        <button onClick={() => this.setState({ extend: true })}>click</button>
-                    </div>
+                        <button onClick={() => this.setState({ extend: !this.state.extend })}>click</button>
+                    
                 </DashboardCard.Body>
             </DashboardCard>
         );
@@ -81,6 +78,7 @@ class IsotopeGridContainer extends React.Component {
 
     render() {
         const { searchTerm, data, sortBy } = this.state;
+
         return (
             <div>
                 <IsotopeGrid id="tester" searchTerm={searchTerm} sortBy={sortBy} getSortData={{title: '.title'}}>
