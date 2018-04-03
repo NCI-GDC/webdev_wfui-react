@@ -77,6 +77,14 @@ div.wfui-form-item {
                 top: 10px;
                 right: 15px;
             }
+            
+            &.wfui-draggable {
+                a.delete-icon {
+                    position: absolute;
+                    top: 45px;
+                    right: 25px;
+                }
+            }
         }
     }
 }

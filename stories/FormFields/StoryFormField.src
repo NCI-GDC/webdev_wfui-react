@@ -267,6 +267,8 @@ class Forms extends React.Component {
                             />
                         </div>
                     )}
+                    withContext
+                    draggable
                 />
                 <Field
                     name="cv"
