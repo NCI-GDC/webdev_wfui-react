@@ -244,10 +244,10 @@ class renderFilterTable extends React.Component {
                                         // Get option value & assigned input field value.
                                         return `${
                                             values[assignedField[0].cid]
-                                        }(${getValByKey(
-                                            key,
-                                            q.values[lang].options,
-                                        )})`;
+                                            }(${getValByKey(
+                                                key,
+                                                q.values[lang].options,
+                                            )})`;
                                     }
                                     // Get option value by key
                                     return getValByKey(
@@ -352,7 +352,7 @@ class renderFilterTable extends React.Component {
                         question =>
                             question.type === 'listbox' ||
                             question.type === 'input-hybrid',
-                    )
+                )
                     .map((question, i) => {
                         const questionInfo = question.values[lang];
                         const field =
@@ -433,13 +433,15 @@ class renderFilterTable extends React.Component {
                     { inactive: fields.length >= 0 },
                 )}
             >
-                <div className="wfui-form-label">
-                    {label && <ControlLabel>{label}{required && <b className="required"> *</b>}</ControlLabel>}
-                </div>
+                {label && (
+                    <div className="wfui-form-label">
+                        <ControlLabel>{label}{required && <b className="required"> *</b>}</ControlLabel>
+                    </div>
+                )}
                 <FormGroup
                     className={`wfui-form-field ${
                         descDisplay ? 'wfui-form-field-with-desctipton' : 'wfui-form-field-no-desctipton'
-                    } wfui-form-addAnother`}
+                        } wfui-form-addAnother`}
                     validationState={error ? 'error' : null}
                 >
                     <div className="col-header">
@@ -461,7 +463,7 @@ class renderFilterTable extends React.Component {
                                 <p
                                 >{`You have not added any ${labelItem.toLowerCase()} yet. To get started, click the blue "${
                                     labelAddAnother
-                                }" button above`}</p>
+                                    }" button above`}</p>
                             </div>
                         )}
                         <div className="filters-container">
