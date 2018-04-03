@@ -72,20 +72,18 @@ class renderTableFormat extends React.Component {
                     { 'wfui-form-preview': preview },
                 )}
             >
-                <div className="wfui-form-label">
-                    {label && (
-                        <ControlLabel>
-                            {label}
-                            {required && <b className="required"> *</b>}
-                        </ControlLabel>
-                    )}
-                </div>
+                {label && <div className="wfui-form-label">
+                    <ControlLabel>
+                        {label}
+                        {required && <b className="required"> *</b>}
+                    </ControlLabel>
+                </div>}
                 <FormGroup
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-desctipton'
                             : 'wfui-form-field-no-desctipton'
-                    } wfui-table-format multiple-inputs-${Object.keys(fieldMap).length}`}
+                        } wfui-table-format multiple-inputs-${Object.keys(fieldMap).length}`}
                     validationState={allTouched && globalError ? 'error' : null}
                 >
                     <ul className="wfui-input-table__ul">
