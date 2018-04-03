@@ -111,20 +111,20 @@ class renderSelectionHybridCheckbox extends React.Component {
                     { 'wfui-form-item-full-width': fullWidth },
                 )}
             >
-                <div className="wfui-form-label">
-                    {label && (
+                {label && (
+                    <div className="wfui-form-label">
                         <ControlLabel>
                             {label}
                             {required && <b className="required"> *</b>}
                         </ControlLabel>
-                    )}
-                </div>
+                    </div>
+                )}
                 <FormGroup
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-desctipton'
                             : 'wfui-form-field-no-desctipton'
-                    } wfui-checkboxes-hybrid column-count-${columnCount}`}
+                        } wfui-checkboxes-hybrid column-count-${columnCount}`}
                     validationState={allTouched && globalError ? 'error' : null}
                 >
                     {options.map((option, i) => {
@@ -142,7 +142,7 @@ class renderSelectionHybridCheckbox extends React.Component {
                                 }
                                 className={
                                     checkboxProps.input.value &&
-                                    checkboxProps.input.value.includes(_key)
+                                        checkboxProps.input.value.includes(_key)
                                         ? 'active'
                                         : ''
                                 }

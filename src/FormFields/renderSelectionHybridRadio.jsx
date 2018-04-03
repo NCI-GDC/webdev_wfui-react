@@ -86,20 +86,20 @@ export default class renderSelectionHybridRadio extends React.Component {
                     { 'wfui-form-item-full-width': fullWidth },
                 )}
             >
-                <div className="wfui-form-label">
-                    {label && (
+                {label && (
+                    <div className="wfui-form-label">
                         <ControlLabel>
                             {label}
                             {required && <b className="required"> *</b>}
                         </ControlLabel>
-                    )}
-                </div>
+                    </div>
+                )}
                 <FormGroup
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-desctipton'
                             : 'wfui-form-field-no-desctipton'
-                    } wfui-radios-hybrid column-count-${columnCount}`}
+                        } wfui-radios-hybrid column-count-${columnCount}`}
                     validationState={allTouched && globalError ? 'error' : null}
                 >
                     {options.map((option, i) => {

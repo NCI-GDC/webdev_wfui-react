@@ -72,12 +72,14 @@ class renderTableFormat extends React.Component {
                     { 'wfui-form-preview': preview },
                 )}
             >
-                {label && <div className="wfui-form-label">
-                    <ControlLabel>
-                        {label}
-                        {required && <b className="required"> *</b>}
-                    </ControlLabel>
-                </div>}
+                {label && (
+                    <div className="wfui-form-label">
+                        <ControlLabel>
+                            {label}
+                            {required && <b className="required"> *</b>}
+                        </ControlLabel>
+                    </div>
+                )}
                 <FormGroup
                     className={`wfui-form-field ${
                         descDisplay
