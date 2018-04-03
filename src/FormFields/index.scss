@@ -777,14 +777,15 @@ div.wfui-form-file.choose-file {
     list-style-type: none;
     display: inline-block;
     margin-right: 2%;
+    margin-bottom: 7px;
 }
 
 div[class*='multiple-inputs-'] .wfui-input-table__li:nth-child(odd) {
-    width: 40%;
+    width: calc(47% - 25px);
 }
 
 div[class*='multiple-inputs-'] .wfui-input-table__li:nth-child(even) {
-    width: 7%;
+    width: 25px;
     text-align: center;
 }
 
@@ -793,7 +794,7 @@ div[class*='multiple-inputs-'] .wfui-input-table__li:nth-child(4n) {
 }
 
 div.multiple-inputs-2 .wfui-input-table__li:nth-child(odd) {
-    width: 44.5%;
+    width: calc(48% - 12.5px);
 }
 
 div.multiple-inputs-2 .wfui-input-table__li:nth-child(3n) {
@@ -801,7 +802,7 @@ div.multiple-inputs-2 .wfui-input-table__li:nth-child(3n) {
 }
 
 div[class^='multiple-inputs-'] .wfui-input-table__li:nth-child(even) {
-    width: 7%;
+    width: 25px;
     text-align: center;
 }
 
