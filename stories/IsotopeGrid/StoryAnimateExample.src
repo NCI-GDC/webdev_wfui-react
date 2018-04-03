@@ -5,9 +5,9 @@ class Item extends React.Component {
     }
     componentDidUpdate(prevProps, prevState) {
         const { extending } = this.state;
-        if (!extending && prevState.extending) {
+        if (extending !== prevState.extending) {
             console.log('here');
-            this.props.isotope.layout();
+            this.props.isotope.arrange();
         }
     }
     render() {

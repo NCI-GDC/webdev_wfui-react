@@ -2238,6 +2238,10 @@ div.wfui-form-item {
       position: absolute;
       top: 10px;
       right: 15px; }
+    div.wfui-form-item .wfui-form-field.wfui-form-addAnother .wfui-form-addAnother-item.wfui-draggable a.delete-icon {
+      position: absolute;
+      top: 45px;
+      right: 25px; }
 
 .wfui-description:before {
   content: '';
