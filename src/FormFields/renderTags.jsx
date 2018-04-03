@@ -90,20 +90,20 @@ class renderTags extends React.Component {
                     { 'wfui-form-item-full-width': fullWidth },
                 )}
             >
-                <div className="wfui-form-label">
-                    {label && (
+                {label && (
+                    <div className="wfui-form-label">
                         <ControlLabel>
                             {label}
                             {required && <b className="required"> *</b>}
                         </ControlLabel>
-                    )}
-                </div>
+                    </div>
+                )}
                 <FormGroup
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-desctipton'
                             : 'wfui-form-field-no-desctipton'
-                    } wfui-form-tags`}
+                        } wfui-form-tags`}
                     validationState={touched && error ? 'error' : null}
                 >
                     {disabled ? (
@@ -113,16 +113,16 @@ class renderTags extends React.Component {
                             )}
                         </div>
                     ) : (
-                        <Comp
-                            tags={tags}
-                            suggestions={suggestions}
-                            handleDelete={this.handleDelete}
-                            handleAddition={this.handleAddition}
-                            handleDrag={this.handleDrag}
-                            placeholder={placeholder}
-                            name={input.name}
-                        />
-                    )}
+                            <Comp
+                                tags={tags}
+                                suggestions={suggestions}
+                                handleDelete={this.handleDelete}
+                                handleAddition={this.handleAddition}
+                                handleDrag={this.handleDrag}
+                                placeholder={placeholder}
+                                name={input.name}
+                            />
+                        )}
                     {touched &&
                         error && (
                             <HelpBlock className="wfui-form-error">

@@ -96,7 +96,7 @@ class renderFileUpload extends React.Component {
                     <a
                         className={`btn btn-default ${
                             review ? 'review-page' : ''
-                        } ${this.getFileKey(input.value.type)}`}
+                            } ${this.getFileKey(input.value.type)}`}
                         type="button"
                         href={filePath}
                         target="_blank"
@@ -150,20 +150,20 @@ class renderFileUpload extends React.Component {
                     { 'wfui-form-item-full-width': fullWidth },
                 )}
             >
-                <div className="wfui-form-label">
-                    {label && (
+                {label && (
+                    <div className="wfui-form-label">
                         <ControlLabel>
                             {label}
                             {required && <b className="required"> *</b>}
                         </ControlLabel>
-                    )}
-                </div>
+                    </div>
+                )}
                 <FormGroup
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-desctipton'
                             : 'wfui-form-field-no-desctipton'
-                    } wfui-file-upload`}
+                        } wfui-file-upload`}
                     validationState={
                         touched && (error || globalError || fileError) ? 'error' : null
                     }
@@ -295,8 +295,8 @@ renderFileUpload.propTypes = {
     fullWidth: PropTypes.bool,
 };
 renderFileUpload.defaultProps = {
-    onUpload: () => {},
-    onRemove: () => {},
+    onUpload: () => { },
+    onRemove: () => { },
     txtRemove: 'Remove',
     txtUpload: 'Upload',
     errorFileType: 'Only files with the following extensions are allowed:',

@@ -44,20 +44,20 @@ class renderPhoto extends React.Component {
                     { 'wfui-form-item-full-width': fullWidth },
                 )}
             >
-                <div className="wfui-form-label">
-                    {label && (
+                {label && (
+                    <div className="wfui-form-label">
                         <ControlLabel>
                             {label}
                             {required && <b className="required"> *</b>}
                         </ControlLabel>
-                    )}
-                </div>
+                    </div>
+                )}
                 <div
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-desctipton'
                             : 'wfui-form-field-no-desctipton'
-                    } wfui-form-photo file-chosen`}
+                        } wfui-form-photo file-chosen`}
                 >
                     <p className="image-preview">
                         <img style={{ height: 100 }} src={value.src} />
@@ -95,52 +95,52 @@ class renderPhoto extends React.Component {
                 {descDisplay ? cloneElement(descDisplay) : ''}
             </div>
         ) : (
-            <div className={classNames(className, 'wfui-form-item')}>
-                <div className="wfui-form-label">
-                    {label && (
-                        <ControlLabel>
-                            {label}
-                            {required && <b className="required"> *</b>}
-                        </ControlLabel>
-                    )}
-                </div>
-                <Dropzone
-                    {...input}
-                    name={input.name}
-                    accept={'image/png,image/jpeg,image/pjpeg,image/gif'}
-                    className={`wfui-form-field ${
-                        descDisplay
-                            ? 'wfui-form-field-with-desctipton'
-                            : 'wfui-form-field-no-desctipton'
-                    } wfui-form-photo choose-file`}
-                    onDrop={(acceptedFiles) => {
-                        const reader = new FileReader();
-                        reader.readAsDataURL(acceptedFiles[0]);
-                        reader.onloadend = () => {
-                            const newValue = Object.assign({}, value, {
-                                src: reader.result,
-                            });
-                            this.setState({ value: newValue });
-                            onStateChange(newValue);
-                            return input.onChange(newValue);
-                        };
-                        this.setState({ hasFile: true });
-                    }}
-                >
-                    Choose File
+                <div className={classNames(className, 'wfui-form-item')}>
+                    <div className="wfui-form-label">
+                        {label && (
+                            <ControlLabel>
+                                {label}
+                                {required && <b className="required"> *</b>}
+                            </ControlLabel>
+                        )}
+                    </div>
+                    <Dropzone
+                        {...input}
+                        name={input.name}
+                        accept={'image/png,image/jpeg,image/pjpeg,image/gif'}
+                        className={`wfui-form-field ${
+                            descDisplay
+                                ? 'wfui-form-field-with-desctipton'
+                                : 'wfui-form-field-no-desctipton'
+                            } wfui-form-photo choose-file`}
+                        onDrop={(acceptedFiles) => {
+                            const reader = new FileReader();
+                            reader.readAsDataURL(acceptedFiles[0]);
+                            reader.onloadend = () => {
+                                const newValue = Object.assign({}, value, {
+                                    src: reader.result,
+                                });
+                                this.setState({ value: newValue });
+                                onStateChange(newValue);
+                                return input.onChange(newValue);
+                            };
+                            this.setState({ hasFile: true });
+                        }}
+                    >
+                        Choose File
                 </Dropzone>
-                {touched &&
-                    error && (
-                        <HelpBlock className="wfui-form-error">
-                            <span>{error}</span>
-                        </HelpBlock>
+                    {touched &&
+                        error && (
+                            <HelpBlock className="wfui-form-error">
+                                <span>{error}</span>
+                            </HelpBlock>
+                        )}
+                    {help && (
+                        <div className="wfui-form-help" dangerouslySetInnerHTML={{ __html: help }} />
                     )}
-                {help && (
-                    <div className="wfui-form-help" dangerouslySetInnerHTML={{ __html: help }} />
-                )}
-                {descDisplay ? cloneElement(descDisplay) : ''}
-            </div>
-        );
+                    {descDisplay ? cloneElement(descDisplay) : ''}
+                </div>
+            );
     }
 }
 renderPhoto.propTypes = {
