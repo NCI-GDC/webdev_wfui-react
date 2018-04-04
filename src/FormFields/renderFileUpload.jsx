@@ -4,10 +4,11 @@ import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
 import { FormGroup, ControlLabel, HelpBlock } from '../index';
 
-const generateAcceptText = (props) => {
+const generateAcceptText = props => {
     if (!props.fileTypes) return '';
     const list = props.fileTypes.reduce(
-        (types, type) => (props.mimeTypes[type] ? props.mimeTypes[type].concat(types) : types),
+        (types, type) =>
+            props.mimeTypes[type] ? props.mimeTypes[type].concat(types) : types,
         [],
     );
     return list.join(',');
@@ -22,6 +23,7 @@ class renderFileUpload extends React.Component {
             data: '',
             type: '',
             accept: generateAcceptText(props),
+            removing: [],
         };
         this.getFileKey = this.getFileKey.bind(this);
         this.renderFile = this.renderFile.bind(this);
@@ -30,7 +32,7 @@ class renderFileUpload extends React.Component {
     getFileKey(mime) {
         const { mimeTypes } = this.props;
         let key = '';
-        Object.keys(mimeTypes).forEach((k) => {
+        Object.keys(mimeTypes).forEach(k => {
             if (mimeTypes[k].includes(mime)) {
                 key = k;
             }
@@ -39,6 +41,7 @@ class renderFileUpload extends React.Component {
     }
     renderRemoveBtn() {
         const { input, onRemove, txtRemove } = this.props;
+        const { removing } = this.state;
         return (
             <a
                 className="btn btn-danger remove-file"
@@ -46,10 +49,14 @@ class renderFileUpload extends React.Component {
                 onClick={() => {
                     input.onChange('');
                     onRemove(input);
+
                     this.setState({
                         name: '',
                         date: '',
                         type: '',
+                        removing: input.value.id
+                            ? removing.concat(input.value.id)
+                            : removing,
                     });
                 }}
             >
@@ -64,7 +71,13 @@ class renderFileUpload extends React.Component {
         }
     }
     renderFile() {
-        const { input, onRemove, review, txtRemove, fileDownloadPath } = this.props;
+        const {
+            input,
+            onRemove,
+            review,
+            txtRemove,
+            fileDownloadPath,
+        } = this.props;
 
         if (input.value && Object.keys(input.value).length) {
             const filePath = input.value.id
@@ -76,14 +89,18 @@ class renderFileUpload extends React.Component {
                 return (
                     <div>
                         <a
-                            className={`${review ? 'review-page' : ''} ${this.getFileKey(
-                                input.value.type,
-                            )}`}
+                            className={`${
+                                review ? 'review-page' : ''
+                            } ${this.getFileKey(input.value.type)}`}
                             type="button"
                             href={filePath}
                             target="_blank"
                         >
-                            <img src={filePath} alt={input.value.name} width="150" />
+                            <img
+                                src={filePath}
+                                alt={input.value.name}
+                                width="150"
+                            />
                         </a>
                         {!review && this.renderRemoveBtn()}
                     </div>
@@ -110,6 +127,7 @@ class renderFileUpload extends React.Component {
     }
     render() {
         const {
+            componentId,
             className,
             globalError,
             name,
@@ -137,7 +155,7 @@ class renderFileUpload extends React.Component {
             descDisplay,
             fullWidth,
         } = this.props;
-        const { accept, fileError } = this.state;
+        const { accept, fileError, removing } = this.state;
 
         return (
             <div
@@ -165,12 +183,14 @@ class renderFileUpload extends React.Component {
                             : 'wfui-form-field-no-desctipton'
                         } wfui-file-upload`}
                     validationState={
-                        touched && (error || globalError || fileError) ? 'error' : null
+                        touched && (error || globalError || fileError)
+                            ? 'error'
+                            : null
                     }
                 >
                     {this.renderFile()}
                     <Dropzone
-                        className="render-file-upload"
+                        className={`render-file-upload file-upload-componentid-${componentId}`}
                         name={`${input.name}`}
                         multiple={false}
                         maxSize={maxFileSize}
@@ -178,7 +198,9 @@ class renderFileUpload extends React.Component {
                             width: '100%',
                             borderStyle: 'none',
                             display:
-                                input.value && Object.keys(input.value).length ? 'none' : 'block',
+                                input.value && Object.keys(input.value).length
+                                    ? 'none'
+                                    : 'block',
                         }}
                         {...attrs}
                         accept={accept}
@@ -202,9 +224,13 @@ class renderFileUpload extends React.Component {
                                 input.onChange('');
                                 if (!accept.includes(rejectedFiles[0].type)) {
                                     this.setState({
-                                        fileError: `${errorFileType} ${fileTypes.join(', ')}`,
+                                        fileError: `${errorFileType} ${fileTypes.join(
+                                            ', ',
+                                        )}`,
                                     });
-                                } else if (rejectedFiles[0].size > maxFileSize) {
+                                } else if (
+                                    rejectedFiles[0].size > maxFileSize
+                                ) {
                                     this.setState({
                                         fileError: `${errorFileSize.replace(
                                             '{maxFileSize}',
@@ -219,7 +245,10 @@ class renderFileUpload extends React.Component {
                             }
                         }}
                     >
-                        <div className="input-group" style={{ position: 'relative' }}>
+                        <div
+                            className="input-group"
+                            style={{ position: 'relative' }}
+                        >
                             <span
                                 style={{
                                     position: 'absolute',
@@ -250,9 +279,22 @@ class renderFileUpload extends React.Component {
                                 )}
                             </span>
                             <span className="filetypes">
-                                {allowedExtensionText.replace('{fileTypes}', fileTypes.join(', '))}
+                                {allowedExtensionText.replace(
+                                    '{fileTypes}',
+                                    fileTypes.join(', '),
+                                )}
                             </span>
                         </p>
+                        {removing &&
+                            removing.map((fileid, i) => (
+                                <input
+                                    key={i}
+                                    name={input.name}
+                                    className={`render-file-upload-removing-file file-upload-componentid-${componentId}`}
+                                    type="hidden"
+                                    value={fileid}
+                                />
+                            ))}
                     </Dropzone>
                     {fileError && (
                         <HelpBlock className="wfui-form-error">
@@ -300,7 +342,8 @@ renderFileUpload.defaultProps = {
     txtRemove: 'Remove',
     txtUpload: 'Upload',
     errorFileType: 'Only files with the following extensions are allowed:',
-    errorFileSize: 'The file is exceeding the maximum file size of <i>{maxFileSize} MB</i>',
+    errorFileSize:
+        'The file is exceeding the maximum file size of <i>{maxFileSize} MB</i>',
     errorReject: 'The file is rejected to upload.',
     maxFileSizeText: 'Max file size: {maxFileSize}MB',
     allowedExtensionText: 'Allowed extensions: {fileTypes}',
