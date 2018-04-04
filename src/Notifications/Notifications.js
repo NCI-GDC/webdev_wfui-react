@@ -27,13 +27,14 @@ class StaticNotification extends React.Component {
         }
     }
     addNotification(message) {
+        const { duration } = this.props;
         const { notifications } = this.state;
         const _message = Object.assign({}, message, { uid: uuidv1() });
         notifications.push(_message);
         if (!_message.forever) {
             setTimeout(() => {
                 this.removeNotificationQue(_message.uid);
-            }, 5000);
+            }, duration);
         }
         this.setState({ notifications });
     }
@@ -59,6 +60,7 @@ class StaticNotification extends React.Component {
                 >
                     {notifications.map((notification, i) => (
                         <Alert
+                            key={i}
                             bsStyle={this.getStyle(notification.level)}
                             className="message"
                         >
@@ -75,6 +77,12 @@ class StaticNotification extends React.Component {
         );
     }
 }
+StaticNotification.propTypes = {
+    duration: PropTypes.number,
+};
+StaticNotification.defaultProps = {
+    duration: 5000,
+};
 
 class Notifications extends React.Component {
     componentWillReceiveProps(nextProps) {
