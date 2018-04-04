@@ -23,11 +23,16 @@ class LoadingComponent extends React.Component {
             children,
             onRetry,
             textRetry,
+            coverWholePage,
         } = this.props;
 
         if (isFetching) {
             return (
-                <div className="wfui-loading-component">
+                <div
+                    className={`wfui-loading-component ${
+                        coverWholePage ? 'spinner-wrapper-overwrap' : ''
+                    }`}
+                >
                     {<Spinner {...spinnerConfig} />}
                     {!hideMessage &&
                         fetch5s && (

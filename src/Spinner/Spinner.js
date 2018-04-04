@@ -8,19 +8,43 @@ const css = [
 
 class Spinner extends React.Component {
     render() {
-        const { type, color, fontSize, margin} = this.props;
+        const { type, color, fontSize, margin, inline } = this.props;
         const style = {
             color,
-            fontSize: fontSize,
-            margin
+            fontSize,
+            margin,
+        };
+
+        if (!inline) {
+            return (
+                <div>
+                    <style>{css[type - 1]}</style>
+                    <div style={style} className="loader">
+                        {' '}
+                        Loading...{' '}
+                    </div>
+                </div>
+            );
+        }
+
+        // Inline Spinner for buttons
+        const fontSizeNum = Number(fontSize.split('px')[0]);
+        const inlineStyle = {
+            color,
+            fontSize,
+            display: 'inline-block',
+            margin: `${fontSizeNum * 3}px ${fontSizeNum * 2}px ${fontSizeNum *
+                3}px ${fontSizeNum * 5}px`,
+            verticalAlign: 'middle',
         };
 
         return (
-            <div>
-                <style>
-                    { css[type - 1] }
-                </style>
-                <div style={style} className="loader"> Loading... </div>
+            <div style={{ display: 'inline' }}>
+                <style>{css[type - 1]}</style>
+                <div style={inlineStyle} className="loader">
+                    {' '}
+                    Loading...{' '}
+                </div>
             </div>
         );
     }
@@ -31,6 +55,7 @@ Spinner.propTypes = {
     height: React.PropTypes.number,
     type: React.PropTypes.number,
     color: React.PropTypes.string,
+    fontSize: React.PropTypes.string,
 };
 
 Spinner.defaultProps = {
@@ -38,8 +63,7 @@ Spinner.defaultProps = {
     height: 100,
     type: 1,
     color: '#333',
-    size: '25px',
+    fontSize: '25px',
 };
-
 
 export default Spinner;
