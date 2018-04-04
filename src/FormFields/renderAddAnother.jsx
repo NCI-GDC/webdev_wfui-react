@@ -87,18 +87,20 @@ class renderAddAnother extends React.Component {
                     { 'wfui-form-item-full-width': fullWidth },
                 )}
             >
-                <div className="wfui-form-label">
-                    <ControlLabel>
-                        {label}
-                        {required && <b className="required"> *</b>}
-                    </ControlLabel>
-                </div>
+                {label && (
+                    <div className="wfui-form-label">
+                        <ControlLabel>
+                            {label}
+                            {required && <b className="required"> *</b>}
+                        </ControlLabel>
+                    </div>
+                )}
                 <FormGroup
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-desctipton'
                             : 'wfui-form-field-no-desctipton'
-                    } wfui-form-addAnother`}
+                        } wfui-form-addAnother`}
                     validationState={error || globalError ? 'error' : null}
                 >
                     {!disabled &&

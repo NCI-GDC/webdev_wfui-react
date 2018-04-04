@@ -1195,7 +1195,7 @@
 
 .wfui-input-table__condition {
   font-weight: bold;
-  margin: 0 10px; }
+  margin: 0; }
 
 .wfui-input-table__li div {
   display: inline-block; }
@@ -2201,6 +2201,20 @@ a.delete-icon {
 div.wfui-form-item {
   display: flex;
   flex-wrap: wrap; }
+  div.wfui-form-item label {
+    /* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto; }
   div.wfui-form-item.wfui-form-item-full-width {
     width: 100%; }
   div.wfui-form-item .wfui-form-label {
@@ -2224,6 +2238,10 @@ div.wfui-form-item {
       position: absolute;
       top: 10px;
       right: 15px; }
+    div.wfui-form-item .wfui-form-field.wfui-form-addAnother .wfui-form-addAnother-item.wfui-draggable a.delete-icon {
+      position: absolute;
+      top: 45px;
+      right: 25px; }
 
 .wfui-description:before {
   content: '';
@@ -2394,6 +2412,7 @@ div.wfui-form-radios div.radio {
 div.wfui-form-checkboxes div.checkbox label,
 div.wfui-form-radios div.radio label {
   width: 100%;
+  height: 100%;
   padding: 10px 25px 10px 30px;
   background-color: #fff;
   border: 1px solid #c1c1c1;
@@ -2433,26 +2452,17 @@ div.wfui-form-item div.radio {
 div.wfui-form-item div.checkbox label,
 div.wfui-form-item div.radio label {
   width: 100%;
+  height: 100%;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 5px;
   vertical-align: middle;
   font-weight: normal;
-  padding: 3px 25px; }
+  padding: 3px 15px 3px 25px; }
 
 .wfui-form-item div.active.checkbox > label,
 .wfui-form-item div.active.radio > label {
   background-color: #e7f6f1; }
-
-div.wfui-form-item div.checkbox label,
-div.wfui-form-item div.radio label {
-  width: 100%;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  vertical-align: middle;
-  font-weight: normal;
-  padding: 3px 25px; }
 
 .wfui-form-item div.active.checkbox > label,
 .wfui-form-item div.active.radio > label {
@@ -2504,6 +2514,20 @@ div.wfui-form-item div.wfui-form-radios.two-column .radio {
 .wfui-radios-hybrid div.wfui-form-item,
 .wfui-checkboxes-hybrid div.wfui-form-item {
   margin: 0; }
+
+.wfui-checkboxes-hybrid .checkboxHybrid > .wfui-form-item > .wfui-form-field,
+.wfui-radios-hybrid .radioHybrid > .wfui-form-item > .wfui-form-field {
+  width: 100%; }
+  .wfui-checkboxes-hybrid .checkboxHybrid > .wfui-form-item > .wfui-form-field > .form-control-feedback,
+  .wfui-radios-hybrid .radioHybrid > .wfui-form-item > .wfui-form-field > .form-control-feedback {
+    right: 0; }
+
+.wfui-radios-hybrid
+.radioHybrid
+> .wfui-form-item
+> .wfui-form-field
+> .form-control-feedback {
+  right: 0; }
 
 .wfui-radios-hybrid .radioHybrid,
 .wfui-checkboxes-hybrid .checkboxHybrid {
@@ -2564,6 +2588,7 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
   border-radius: 1px; }
 
 .wfui-form-item input[type='text'],
+.wfui-form-item input[type='email'],
 .wfui-form-item input[type='number'],
 .wfui-form-item input[type='file'],
 .wfui-form-item input[type='password'] {
@@ -2795,26 +2820,27 @@ div.wfui-form-file.choose-file {
   list-style: none;
   list-style-type: none;
   display: inline-block;
-  margin-right: 2%; }
+  margin-right: 2%;
+  margin-bottom: 7px; }
 
 div[class*='multiple-inputs-'] .wfui-input-table__li:nth-child(odd) {
-  width: 40%; }
+  width: calc(47% - 25px); }
 
 div[class*='multiple-inputs-'] .wfui-input-table__li:nth-child(even) {
-  width: 7%;
+  width: 25px;
   text-align: center; }
 
 div[class*='multiple-inputs-'] .wfui-input-table__li:nth-child(4n) {
   margin-right: 0; }
 
 div.multiple-inputs-2 .wfui-input-table__li:nth-child(odd) {
-  width: 44.5%; }
+  width: calc(48% - 12.5px); }
 
 div.multiple-inputs-2 .wfui-input-table__li:nth-child(3n) {
   margin-right: 0; }
 
 div[class^='multiple-inputs-'] .wfui-input-table__li:nth-child(even) {
-  width: 7%;
+  width: 25px;
   text-align: center; }
 
 .wfui-form-item .wfui-input-table__ul .wfui-form-item label {

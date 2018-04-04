@@ -3,6 +3,7 @@ import NotificationSystem from 'react-notification-system';
 import Dropzone from 'react-dropzone';
 import TimezonePicker from 'react-timezone';
 import { Editor } from 'react-draft-wysiwyg';
+import * as ReactCodeMirror from 'react-codemirror2';
 import * as DraftJS from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
@@ -34,6 +35,7 @@ import * as FilterFields from './Filters/renderFilterItem';
 import Description from './FormFields/Description';
 import WFUIDropdown from './WFUIDropdown/WFUIDropdown';
 import Notifications from './Notifications/Notifications';
+import AnimateHeight from 'react-animate-height';
 import * as Utils from './util';
 
 require('./i18n/i18n.js');
@@ -82,4 +84,6 @@ export {
     htmlToDraft,
     Notifications,
     Utils,
+    ReactCodeMirror,
+    AnimateHeight,
 };
