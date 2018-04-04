@@ -31,7 +31,14 @@ class ModalDialog extends React.Component {
         destroy();
     }
     onHandleCancel() {
-        const { id, hideModal, onHide, destroy, initialize, initialValues } = this.props;
+        const {
+            id,
+            hideModal,
+            onHide,
+            destroy,
+            initialize,
+            initialValues,
+        } = this.props;
         hideModal(id);
         onHide();
         destroy();
@@ -73,7 +80,10 @@ class ModalDialog extends React.Component {
                 <Modal.Footer>
                     {notForm ? (
                         <div>
-                            <Button className="text-uppercase" onClick={this.onHandleCancel}>
+                            <Button
+                                className="text-uppercase"
+                                onClick={this.onHandleCancel}
+                            >
                                 {txtCancel}
                             </Button>
                         </div>
@@ -82,7 +92,6 @@ class ModalDialog extends React.Component {
                             <Button
                                 type="submit"
                                 bsStyle="primary"
-                                className="text-uppercase"
                                 onClick={
                                     handleSubmit
                                         ? handleSubmit(this.onHandleSubmit)
@@ -92,7 +101,7 @@ class ModalDialog extends React.Component {
                             >
                                 {txtSubmit}
                             </Button>
-                            <Button className="text-uppercase" onClick={this.onHandleCancel}>
+                            <Button onClick={this.onHandleCancel}>
                                 {txtCancel}
                             </Button>
                         </div>
