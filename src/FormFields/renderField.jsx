@@ -29,67 +29,74 @@ const renderField = ({
     meta: { touched, error },
     fullWidth,
 }) => (
-        <div
-            className={classNames(
-                className,
-                'wfui-form-item',
-                { 'wfui-form-item-error': error || globalError },
-                { 'wfui-form-inline': inline },
-                { 'wfui-form-disabled': disabled },
-                { 'wfui-form-preview': preview },
-                { answered: input.value },
-                { 'wfui-form-item-full-width': fullWidth },
-            )}
+    <div
+        className={classNames(
+            className,
+            'wfui-form-item',
+            { 'wfui-form-item-error': error || globalError },
+            { 'wfui-form-inline': inline },
+            { 'wfui-form-disabled': disabled },
+            { 'wfui-form-preview': preview },
+            { answered: input.value },
+            { 'wfui-form-item-full-width': fullWidth },
+        )}
+    >
+        {label && (
+            <div className="wfui-form-label">
+                <ControlLabel>
+                    {label}
+                    {required && <b className="required"> *</b>}
+                </ControlLabel>
+            </div>
+        )}
+
+        <FormGroup
+            className={`wfui-form-field ${
+                descDisplay
+                    ? 'wfui-form-field-with-desctipton'
+                    : 'wfui-form-field-no-desctipton'
+            } wfui-form-input`}
+            validationState={touched && (error || globalError) ? 'error' : null}
         >
-            {label &&
-                (
-                    <div className="wfui-form-label">
-                        <ControlLabel>
-                            {label}
-                            {required && <b className="required"> *</b>}
-                        </ControlLabel>
-
-                    </div>
-                )
-            }
-
-            <FormGroup
-                className={`wfui-form-field ${
-                    descDisplay ? 'wfui-form-field-with-desctipton' : 'wfui-form-field-no-desctipton'
-                    } wfui-form-input`}
-                validationState={touched && (error || globalError) ? 'error' : null}
-            >
-                <FormControl
-                    {...input}
-                    placeholder={placeholder || placeholder === '' ? placeholder : label}
-                    type={type}
-                    maxLength={maxlength}
-                    min={min}
-                    max={max}
-                    disabled={disabled}
-                    onChange={(e) => {
-                        input.onChange(e);
-                        if (onHandleChange) onHandleChange(e);
-                    }}
-                />
-                {postfix && <div className="wfui-form-postfix">{postfix}</div>}
-                <FormControl.Feedback />
-                {touched &&
-                    error && (
-                        <HelpBlock className="wfui-form-error">
-                            <span>{error}</span>
-                        </HelpBlock>
-                    )}
-                {touched &&
-                    globalError && (
-                        <HelpBlock className="wfui-form-error">
-                            <span>{globalError}</span>
-                        </HelpBlock>
-                    )}
-                {help && <div className="wfui-form-help" dangerouslySetInnerHTML={{ __html: help }} />}
-            </FormGroup>
-            {descDisplay ? cloneElement(descDisplay) : ''}
-        </div>
-    );
+            <FormControl
+                {...input}
+                placeholder={
+                    placeholder || placeholder === '' ? placeholder : label
+                }
+                type={type}
+                maxLength={maxlength}
+                min={min}
+                max={max}
+                disabled={disabled}
+                onChange={e => {
+                    input.onChange(e);
+                    if (onHandleChange) onHandleChange(e);
+                }}
+            />
+            {postfix && <div className="wfui-form-postfix">{postfix}</div>}
+            <FormControl.Feedback />
+            {touched &&
+                error && (
+                    <HelpBlock className="wfui-form-error">
+                        <span>{error}</span>
+                    </HelpBlock>
+                )}
+            {touched &&
+                globalError && (
+                    <HelpBlock className="wfui-form-error">
+                        <span>{globalError}</span>
+                    </HelpBlock>
+                )}
+            {help &&
+                !preview && (
+                    <div
+                        className="wfui-form-help"
+                        dangerouslySetInnerHTML={{ __html: help }}
+                    />
+                )}
+        </FormGroup>
+        {descDisplay && !preview ? cloneElement(descDisplay) : ''}
+    </div>
+);
 
 export default renderField;

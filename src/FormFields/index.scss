@@ -77,7 +77,7 @@ div.wfui-form-item {
                 top: 10px;
                 right: 15px;
             }
-            
+
             &.wfui-draggable {
                 a.delete-icon {
                     position: absolute;
@@ -1300,7 +1300,7 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
         display: none;
     }
     .wfui-form-photo input,
-    .wfui-type-input-field & .wfui-form-input input,
+    .wfui-form-input input[type='text'],
     .wfui-form-textarea textarea {
         background: none;
         border: none;
@@ -1363,5 +1363,7 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
             -webkit-appearance: none;
             appearance: none;
         }
+    }
+    .render-file-upload {
     }
 }
