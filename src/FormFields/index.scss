@@ -1301,6 +1301,8 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
     }
     .wfui-form-photo input,
     .wfui-form-input input[type='text'],
+    .wfui-form-input input[type='number'],
+    .wfui-form-input input[type='email'],
     .wfui-form-textarea textarea {
         background: none;
         border: none;
