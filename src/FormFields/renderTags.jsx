@@ -3,7 +3,10 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { WithContext as ReactTagsWithContext, WithOutContext as ReactTags } from 'react-tag-input';
+import {
+    WithContext as ReactTagsWithContext,
+    WithOutContext as ReactTags,
+} from 'react-tag-input';
 
 import { FormGroup, ControlLabel, HelpBlock } from '../index';
 
@@ -103,26 +106,30 @@ class renderTags extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-desctipton'
                             : 'wfui-form-field-no-desctipton'
-                        } wfui-form-tags`}
+                    } wfui-form-tags`}
                     validationState={touched && error ? 'error' : null}
                 >
                     {disabled ? (
                         <div>
                             {input.value && (
-                                <ul>{input.value.map((tag, i) => <li key={i}>{tag}</li>)}</ul>
+                                <ul>
+                                    {input.value.map((tag, i) => (
+                                        <li key={i}>{tag}</li>
+                                    ))}
+                                </ul>
                             )}
                         </div>
                     ) : (
-                            <Comp
-                                tags={tags}
-                                suggestions={suggestions}
-                                handleDelete={this.handleDelete}
-                                handleAddition={this.handleAddition}
-                                handleDrag={this.handleDrag}
-                                placeholder={placeholder}
-                                name={input.name}
-                            />
-                        )}
+                        <Comp
+                            tags={tags}
+                            suggestions={suggestions}
+                            handleDelete={this.handleDelete}
+                            handleAddition={this.handleAddition}
+                            handleDrag={this.handleDrag}
+                            placeholder={placeholder}
+                            name={input.name}
+                        />
+                    )}
                     {touched &&
                         error && (
                             <HelpBlock className="wfui-form-error">
@@ -135,14 +142,15 @@ class renderTags extends React.Component {
                                 <span>{globalError}</span>
                             </HelpBlock>
                         )}
-                    {help && (
-                        <div
-                            className="wfui-form-help"
-                            dangerouslySetInnerHTML={{ __html: help }}
-                        />
-                    )}
+                    {help &&
+                        !preview && (
+                            <div
+                                className="wfui-form-help"
+                                dangerouslySetInnerHTML={{ __html: help }}
+                            />
+                        )}
                 </FormGroup>
-                {descDisplay ? cloneElement(descDisplay) : ''}
+                {descDisplay && !preview ? cloneElement(descDisplay) : ''}
             </div>
         );
     }
