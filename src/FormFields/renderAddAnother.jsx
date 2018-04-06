@@ -100,7 +100,7 @@ class renderAddAnother extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-desctipton'
                             : 'wfui-form-field-no-desctipton'
-                        } wfui-form-addAnother`}
+                    } wfui-form-addAnother`}
                     validationState={error || globalError ? 'error' : null}
                 >
                     {!disabled &&
@@ -161,14 +161,15 @@ class renderAddAnother extends React.Component {
                                 <span>{globalError}</span>
                             </HelpBlock>
                         )}
-                    {help && (
-                        <div
-                            className="wfui-form-help"
-                            dangerouslySetInnerHTML={{ __html: help }}
-                        />
-                    )}
+                    {help &&
+                        !preview && (
+                            <div
+                                className="wfui-form-help"
+                                dangerouslySetInnerHTML={{ __html: help }}
+                            />
+                        )}
                 </FormGroup>
-                {descDisplay ? cloneElement(descDisplay) : ''}
+                {descDisplay && !preview ? cloneElement(descDisplay) : ''}
             </div>
         );
     }

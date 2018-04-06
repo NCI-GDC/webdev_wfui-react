@@ -2,7 +2,13 @@ import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import classNames from 'classnames';
-import { Checkbox, FormFields, FormGroup, ControlLabel, HelpBlock } from '../index';
+import {
+    Checkbox,
+    FormFields,
+    FormGroup,
+    ControlLabel,
+    HelpBlock,
+} from '../index';
 import _ from 'lodash';
 
 import { renderField } from './index';
@@ -33,13 +39,18 @@ class renderSelectionHybridCheckbox extends React.Component {
         if (exclusives.length > 0) {
             if (checkedValue !== false && exclusives.includes(checkedValue)) {
                 nextValues = [checkedValue];
-            } else if (checkedValue !== false && !exclusives.includes(checkedValue)) {
-                nextValues = values.filter(value => !exclusives.includes(value));
+            } else if (
+                checkedValue !== false &&
+                !exclusives.includes(checkedValue)
+            ) {
+                nextValues = values.filter(
+                    value => !exclusives.includes(value),
+                );
             }
         }
 
         // Reset Value if it's not checked.
-        Object.keys(fieldMap).forEach((key) => {
+        Object.keys(fieldMap).forEach(key => {
             if (key !== '_checkbox' && !nextValues.includes(key)) {
                 const fieldProps = childComponents[fieldMap[key].cid];
                 fieldProps.input.onChange('');
@@ -53,7 +64,7 @@ class renderSelectionHybridCheckbox extends React.Component {
         const options = [];
 
         if (props.options) {
-            props.options.forEach((option) => {
+            props.options.forEach(option => {
                 const key = props.getOptKey(option);
                 const special = props.getOptSpecial(option);
                 if (special.includes('exclusive')) {
@@ -93,7 +104,7 @@ class renderSelectionHybridCheckbox extends React.Component {
         const components = [];
         let allTouched = true;
         let allPristine = true;
-        Object.keys(childComponents).map((key) => {
+        Object.keys(childComponents).map(key => {
             const props = childComponents[key];
             allTouched = allTouched && props.meta.touched;
             allPristine = allPristine && props.meta.pristine;
@@ -124,12 +135,14 @@ class renderSelectionHybridCheckbox extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-desctipton'
                             : 'wfui-form-field-no-desctipton'
-                        } wfui-checkboxes-hybrid column-count-${columnCount}`}
+                    } wfui-checkboxes-hybrid column-count-${columnCount}`}
                     validationState={allTouched && globalError ? 'error' : null}
                 >
                     {options.map((option, i) => {
-                        const _key = typeof option === 'string' ? option : option.key;
-                        const _option = typeof option === 'string' ? option : option.value;
+                        const _key =
+                            typeof option === 'string' ? option : option.key;
+                        const _option =
+                            typeof option === 'string' ? option : option.value;
                         const renderCheckbox = (
                             <Checkbox
                                 key={i}
@@ -142,16 +155,21 @@ class renderSelectionHybridCheckbox extends React.Component {
                                 }
                                 className={
                                     checkboxProps.input.value &&
-                                        checkboxProps.input.value.includes(_key)
+                                    checkboxProps.input.value.includes(_key)
                                         ? 'active'
                                         : ''
                                 }
-                                onChange={(e) => {
-                                    const newValue = [...checkboxProps.input.value];
+                                onChange={e => {
+                                    const newValue = [
+                                        ...checkboxProps.input.value,
+                                    ];
                                     if (e.target.checked) {
                                         newValue.push(_key);
                                     } else {
-                                        newValue.splice(newValue.indexOf(_key), 1);
+                                        newValue.splice(
+                                            newValue.indexOf(_key),
+                                            1,
+                                        );
                                     }
                                     return this.onHandleChange(
                                         newValue,
@@ -164,18 +182,29 @@ class renderSelectionHybridCheckbox extends React.Component {
                                     {fieldMap[_key] && (
                                         <Field
                                             {...fieldMap[_key]}
-                                            name={`${name}.${fieldMap[_key].cid}`}
-                                            type={fieldMap[_key].field_type || 'text'}
+                                            name={`${name}.${
+                                                fieldMap[_key].cid
+                                            }`}
+                                            type={
+                                                fieldMap[_key].field_type ||
+                                                'text'
+                                            }
                                             component={renderField}
                                             disabled={disabled}
                                             onFocus={() => {
-                                                const newValue = [...checkboxProps.input.value];
+                                                const newValue = [
+                                                    ...checkboxProps.input
+                                                        .value,
+                                                ];
                                                 let checked = false;
                                                 if (!newValue.includes(_key)) {
                                                     checked = true;
                                                     newValue.push(_key);
                                                 }
-                                                this.onHandleChange(newValue, checked && _key);
+                                                this.onHandleChange(
+                                                    newValue,
+                                                    checked && _key,
+                                                );
                                             }}
                                         />
                                     )}
@@ -186,16 +215,18 @@ class renderSelectionHybridCheckbox extends React.Component {
                     })}
                     <HelpBlock>
                         {' '}
-                        {allTouched && globalError && <span>{globalError}</span>}{' '}
+                        {allTouched &&
+                            globalError && <span>{globalError}</span>}{' '}
                     </HelpBlock>
-                    {help && (
-                        <div
-                            className="wfui-form-help"
-                            dangerouslySetInnerHTML={{ __html: help }}
-                        />
-                    )}
+                    {help &&
+                        !preview && (
+                            <div
+                                className="wfui-form-help"
+                                dangerouslySetInnerHTML={{ __html: help }}
+                            />
+                        )}
                 </FormGroup>
-                {descDisplay ? cloneElement(descDisplay) : ''}
+                {descDisplay && !preview ? cloneElement(descDisplay) : ''}
             </div>
         );
     }

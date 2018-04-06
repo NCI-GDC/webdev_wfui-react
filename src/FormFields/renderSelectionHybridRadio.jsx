@@ -1,6 +1,12 @@
 import React, { cloneElement } from 'react';
 import { Field } from 'redux-form';
-import { FormFields, FormGroup, ControlLabel, Radio, HelpBlock } from '../index';
+import {
+    FormFields,
+    FormGroup,
+    ControlLabel,
+    Radio,
+    HelpBlock,
+} from '../index';
 import classNames from 'classnames';
 import _ from 'lodash';
 
@@ -28,7 +34,7 @@ export default class renderSelectionHybridRadio extends React.Component {
 
         // Reset input fields logic
         const exceptions = ['_radio', value];
-        Object.keys(fieldMap).map((key) => {
+        Object.keys(fieldMap).map(key => {
             if (!exceptions.includes(key)) {
                 // Reset value
                 const fieldProps = childComponents[fieldMap[key].cid];
@@ -68,7 +74,7 @@ export default class renderSelectionHybridRadio extends React.Component {
         const components = [];
         let allTouched = true;
         let allPristine = true;
-        Object.keys(childComponents).map((key) => {
+        Object.keys(childComponents).map(key => {
             const props = childComponents[key];
             allTouched = allTouched && props.meta.touched;
             allPristine = allPristine && props.meta.pristine;
@@ -99,20 +105,28 @@ export default class renderSelectionHybridRadio extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-desctipton'
                             : 'wfui-form-field-no-desctipton'
-                        } wfui-radios-hybrid column-count-${columnCount}`}
+                    } wfui-radios-hybrid column-count-${columnCount}`}
                     validationState={allTouched && globalError ? 'error' : null}
                 >
                     {options.map((option, i) => {
-                        const _key = typeof option === 'string' ? option : option.key;
-                        const _option = typeof option === 'string' ? option : option.value;
+                        const _key =
+                            typeof option === 'string' ? option : option.key;
+                        const _option =
+                            typeof option === 'string' ? option : option.value;
                         const renderRadio = (
                             <Radio
                                 key={i}
-                                className={radioProps.input.value === _key ? 'active' : ''}
+                                className={
+                                    radioProps.input.value === _key
+                                        ? 'active'
+                                        : ''
+                                }
                                 name={`${name}.${radioCid}`}
                                 value={_key}
                                 checked={radioProps.input.value === _key}
-                                onClick={e => this.onHandleChange(e.target.value)}
+                                onClick={e =>
+                                    this.onHandleChange(e.target.value)
+                                }
                                 disabled={disabled}
                             >
                                 {_option}
@@ -120,8 +134,13 @@ export default class renderSelectionHybridRadio extends React.Component {
                                     <div key={i} className="radioHybrid">
                                         <Field
                                             {...fieldMap[_key]}
-                                            name={`${name}.${fieldMap[_key].cid}`}
-                                            type={fieldMap[_key].field_type || 'text'}
+                                            name={`${name}.${
+                                                fieldMap[_key].cid
+                                            }`}
+                                            type={
+                                                fieldMap[_key].field_type ||
+                                                'text'
+                                            }
                                             component={renderField}
                                             disabled={disabled}
                                             onFocus={() => {
@@ -137,16 +156,18 @@ export default class renderSelectionHybridRadio extends React.Component {
                     })}
                     <HelpBlock>
                         {' '}
-                        {allTouched && globalError && <span>{globalError}</span>}{' '}
+                        {allTouched &&
+                            globalError && <span>{globalError}</span>}{' '}
                     </HelpBlock>
-                    {help && (
-                        <div
-                            className="wfui-form-help"
-                            dangerouslySetInnerHTML={{ __html: help }}
-                        />
-                    )}
+                    {help &&
+                        !preview && (
+                            <div
+                                className="wfui-form-help"
+                                dangerouslySetInnerHTML={{ __html: help }}
+                            />
+                        )}
                 </FormGroup>
-                {descDisplay ? cloneElement(descDisplay) : ''}
+                {descDisplay && !preview ? cloneElement(descDisplay) : ''}
             </div>
         );
     }
