@@ -142,12 +142,11 @@ class renderAddAnother extends React.Component {
                     {!disabled && (
                         <Button
                             bsStyle="default"
-                            className="add-btn"
                             onClick={() => {
                                 fields.push();
                             }}
                         >
-                            {labelAddAnother}
+                            <span className="span-plus">{labelAddAnother}</span>
                         </Button>
                     )}
                     {error && (
