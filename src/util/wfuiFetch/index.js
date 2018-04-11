@@ -14,12 +14,27 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
 
     dispatch({ type: 'FETCH_REQUEST', requestId: init.requestId, appId });
     const promise = new Promise((resolve, reject) => {
-
         let fetchTimer;
-        const timer5s = setTimeout(() => { dispatch({ type: 'FETCH_REQUEST_5S', requestId: init.requestId, appId }); }, 5000);
-        const timer8s = setTimeout(() => { dispatch({ type: 'FETCH_REQUEST_8S', requestId: init.requestId, appId }); }, 8000);
+        const timer5s = setTimeout(() => {
+            dispatch({
+                type: 'FETCH_REQUEST_5S',
+                requestId: init.requestId,
+                appId,
+            });
+        }, 5000);
+        const timer8s = setTimeout(() => {
+            dispatch({
+                type: 'FETCH_REQUEST_8S',
+                requestId: init.requestId,
+                appId,
+            });
+        }, 8000);
         const timeout = setTimeout(() => {
-            dispatch({ type: 'FETCH_REQUEST_TIMEOUT', requestId: init.requestId, appId });
+            dispatch({
+                type: 'FETCH_REQUEST_TIMEOUT',
+                requestId: init.requestId,
+                appId,
+            });
             reject('timeout');
             clearTimeout(fetchTimer);
         }, init.timeout || 300000);
@@ -32,57 +47,112 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
             'cache-control': 'no-cache',
         });
 
-        const wrappedFetch = (n) => {
-            global.fetch(input, _init)
-            .then((response) => {
-                clearTimeout(timer5s);
-                clearTimeout(timer8s);
-                clearTimeout(timeout);
+        const wrappedFetch = n => {
+            global
+                .fetch(input, _init)
+                .then(response => {
+                    clearTimeout(timer5s);
+                    clearTimeout(timer8s);
+                    clearTimeout(timeout);
 
-                // Need to have more statement.
-                if (response.ok) {
-                    const contentType = response.headers.get('content-type');
-                    if (contentType && contentType.indexOf('application/json') !== -1) {
-                        return response.json().then((data) => {
-                            dispatch({ type: 'RECEIVE_FETCH_DATA', requestId: init.requestId, appId, data });
-                            dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId, appId, data });
-                            resolve({ res: response, data });
-                        });
-                    } else if (contentType && contentType.indexOf('text/') !== -1) {
-                        return response.text().then((data) => {
-                            dispatch({ type: 'RECEIVE_FETCH_DATA', requestId: init.requestId, appId, data });
-                            dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId, appId, data });
-                            resolve({ res: response, data });
-                        });
+                    if (hasCanceled) return reject({ isCanceled: true });
+
+                    // Need to have more statement.
+                    if (response.ok) {
+                        const contentType = response.headers.get(
+                            'content-type',
+                        );
+                        if (
+                            contentType &&
+                            contentType.indexOf('application/json') !== -1
+                        ) {
+                            return response.json().then(data => {
+                                dispatch({
+                                    type: 'RECEIVE_FETCH_DATA',
+                                    requestId: init.requestId,
+                                    appId,
+                                    data,
+                                });
+                                dispatch({
+                                    type: 'FETCH_SUCCESS',
+                                    requestId: init.requestId,
+                                    appId,
+                                    data,
+                                });
+                                resolve({ res: response, data });
+                            });
+                        } else if (
+                            contentType &&
+                            contentType.indexOf('text/') !== -1
+                        ) {
+                            return response.text().then(data => {
+                                dispatch({
+                                    type: 'RECEIVE_FETCH_DATA',
+                                    requestId: init.requestId,
+                                    appId,
+                                    data,
+                                });
+                                dispatch({
+                                    type: 'FETCH_SUCCESS',
+                                    requestId: init.requestId,
+                                    appId,
+                                    data,
+                                });
+                                resolve({ res: response, data });
+                            });
+                        } else {
+                            return response.blob().then(data => {
+                                dispatch({
+                                    type: 'RECEIVE_FETCH_DATA',
+                                    requestId: init.requestId,
+                                    appId,
+                                    data,
+                                });
+                                dispatch({
+                                    type: 'FETCH_SUCCESS',
+                                    requestId: init.requestId,
+                                    appId,
+                                    data,
+                                });
+                                resolve({ res: response, data });
+                            });
+                        }
                     } else {
-                        return response.blob().then((data) => {
-                            dispatch({ type: 'RECEIVE_FETCH_DATA', requestId: init.requestId, appId, data });
-                            dispatch({ type: 'FETCH_SUCCESS', requestId: init.requestId, appId, data });
-                            resolve({ res: response, data });
+                        return response.text().then(data => {
+                            let statusText = data;
+                            try {
+                                statusText = JSON.parse(data);
+                            } catch (e) {
+                                /**/
+                            }
+                            dispatch({
+                                type: 'FETCH_FAILURE',
+                                requestId: init.requestId,
+                                statusText,
+                                appId,
+                            });
+                            reject(statusText);
                         });
                     }
-                } else {
-                    response.text().then(data => {
-                        let statusText = data;
-                        try { 
-                            statusText = JSON.parse(data);
-                        } catch (e) {/**/}
-                        dispatch({ type: 'FETCH_FAILURE', requestId: init.requestId, statusText, appId });
-                    });
-                }
-                return hasCanceled ? reject({ isCanceled: true }) : resolve({ res: response });
-            })
-            .catch((error) => {
-                if (n > 0) {
-                fetchTimer = setTimeout(() => {
-                    console.log(`Retry connecting to ${input}`);
-                    wrappedFetch(n - 1);
-                }, init.retryDelay || 3000);
-                } else {
-                    dispatch({ type: 'FETCH_RETRY_FAILURE', requestId: init.requestId, statusText: error.message, appId });
-                    return hasCanceled ? reject({ isCanceled: true }) : reject(error);
-                }
-            });
+                })
+                .catch(error => {
+                    if (n > 0) {
+                        fetchTimer = setTimeout(() => {
+                            console.log(`Retry connecting to ${input}`);
+                            wrappedFetch(n - 1);
+                        }, init.retryDelay || 3000);
+                    } else {
+                        dispatch({
+                            type: 'FETCH_RETRY_FAILURE',
+                            requestId: init.requestId,
+                            statusText: error.message,
+                            appId,
+                        });
+                        return hasCanceled
+                            ? reject({ isCanceled: true })
+                            : reject(error);
+                    }
+                });
         };
         wrappedFetch(init.retryCount || 0);
     });
