@@ -27,7 +27,7 @@ class ModalDialog extends React.Component {
     }
     onHandleSubmit(values) {
         const { id, onSubmit, hideModal, destroy } = this.props;
-        onSubmit(values);
+        onSubmit(values, this.props);
         hideModal(id);
         destroy();
     }
