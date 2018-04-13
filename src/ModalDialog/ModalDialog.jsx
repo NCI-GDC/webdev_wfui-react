@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import deepEqual from 'deep-equal';
-import { modalsSelector } from './selector';
-import * as actionCreators from './action';
+import * as modalReducers from './reducer';
+import * as modalSelectors from './selector';
+import * as modalActions from './action';
 
 class ModalDialog extends React.Component {
     constructor() {
@@ -145,9 +146,15 @@ ModalDialog.defaultProps = {
     initialize: f => f,
 };
 
-export default connect(
+const ModalDialogContainer = connect(
     (state, props) => ({
-        ...modalsSelector(props.id)(state),
+        ...modalSelectors.modalsSelector(props.id)(state),
     }),
-    actionCreators,
+    modalActions,
 )(ModalDialog);
+
+ModalDialogContainer.actions = modalActions;
+ModalDialogContainer.selectors = modalSelectors;
+ModalDialogContainer.reducers = modalReducers;
+
+export default ModalDialogContainer;
