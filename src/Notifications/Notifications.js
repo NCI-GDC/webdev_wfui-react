@@ -180,7 +180,7 @@ class Notifications extends React.Component {
 Notifications.propTypes = {
     requestIds: PropTypes.arrayOf(PropTypes.string),
     lang: PropTypes.string,
-    values: PropTypes.object,
+    values: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 Notifications.defaultProps = {
