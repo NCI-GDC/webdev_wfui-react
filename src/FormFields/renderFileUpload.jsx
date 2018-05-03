@@ -288,9 +288,6 @@ class renderFileUpload extends React.Component {
                                 data: reader.result,
                                 type: acceptedFiles[0].type,
                             };
-                            if (input.value.src) {
-                                value.src = input.value.src;
-                            }
                             input.onChange(value);
                             onUpload(value, input, acceptedFiles[0]);
                         };
