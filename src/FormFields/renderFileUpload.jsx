@@ -88,7 +88,7 @@ class renderFileUpload extends React.Component {
         if (input.value && Object.keys(input.value).length) {
             const filePath = input.value.id
                 ? fileDownloadPath.replace(':id', input.value.id)
-                : input.value.blobPath;
+                : input.value.blobPath || input.value.src;
 
             // Image File
             if (input.value.type && input.value.type.indexOf('image') === 0) {
@@ -288,6 +288,9 @@ class renderFileUpload extends React.Component {
                                 data: reader.result,
                                 type: acceptedFiles[0].type,
                             };
+                            if (input.value.src) {
+                                value.src = input.value.src;
+                            }
                             input.onChange(value);
                             onUpload(value, input, acceptedFiles[0]);
                         };
