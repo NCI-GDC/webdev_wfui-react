@@ -326,6 +326,11 @@ const FormsReduxForm = reduxForm({
                 LastName_txt: 'Test',
             },
         ],
+        renderFileUpload2: {
+            type: 'image/png',
+            src:
+                'https://www.google.co.jp/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png',
+        },
         renderDate2: '2018-04-10T14:30:00.000Z',
     },
 })(Forms);

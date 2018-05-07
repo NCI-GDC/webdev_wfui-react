@@ -24,6 +24,7 @@ class renderFileUpload extends React.Component {
             type: '',
             accept: generateAcceptText(props),
             removing: [],
+            initialValue: props.input.value,
         };
         this.getFileKey = this.getFileKey.bind(this);
         this.renderFile = this.renderFile.bind(this);
@@ -86,6 +87,7 @@ class renderFileUpload extends React.Component {
         } = this.props;
 
         if (input.value && Object.keys(input.value).length) {
+            // Priority: File ID, blobPath, src.
             const filePath = input.value.id
                 ? fileDownloadPath.replace(':id', input.value.id)
                 : input.value.blobPath || input.value.src;
@@ -257,7 +259,7 @@ class renderFileUpload extends React.Component {
             errorReject,
             attrs,
         } = this.props;
-        const { accept, removing } = this.state;
+        const { accept, removing, initialValue } = this.state;
 
         return (
             <Dropzone
@@ -288,6 +290,9 @@ class renderFileUpload extends React.Component {
                                 data: reader.result,
                                 type: acceptedFiles[0].type,
                             };
+                            if (initialValue.src) {
+                                value.src = initialValue.src;
+                            }
                             input.onChange(value);
                             onUpload(value, input, acceptedFiles[0]);
                         };
