@@ -86,7 +86,7 @@ StaticNotification.defaultProps = {
 
 class Notifications extends React.Component {
     componentWillReceiveProps(nextProps) {
-        const { fetches, requestIds, intl, lang } = this.props;
+        const { fetches, requestIds, intl, lang, values } = this.props;
         const newFetches = nextProps.fetches;
         Object.keys(fetches)
             .filter(key => requestIds.includes(key))
@@ -103,6 +103,7 @@ class Notifications extends React.Component {
                                         id={`notifications.${key}.success`}
                                         values={Object.assign(
                                             {},
+                                            flattenObject(values),
                                             flattenObject(newFetches[key].data),
                                             { lang },
                                         )}
@@ -118,6 +119,14 @@ class Notifications extends React.Component {
                                             id={`notifications.${key}.error.${
                                                 newFetches[key].error.type
                                             }`}
+                                            values={Object.assign(
+                                                {},
+                                                flattenObject(values),
+                                                flattenObject(
+                                                    newFetches[key].data,
+                                                ),
+                                                { lang },
+                                            )}
                                         />
                                     ),
                                     level: 'error',
@@ -127,9 +136,15 @@ class Notifications extends React.Component {
                                     children: (
                                         <FormattedHTMLMessage
                                             id={`notifications.${key}.error.default`}
-                                            values={{
-                                                message: newFetches[key].error,
-                                            }}
+                                            values={Object.assign(
+                                                {},
+                                                flattenObject(values),
+                                                {
+                                                    message:
+                                                        newFetches[key].error,
+                                                },
+                                                { lang },
+                                            )}
                                         />
                                     ),
                                     level: 'error',
@@ -165,11 +180,13 @@ class Notifications extends React.Component {
 Notifications.propTypes = {
     requestIds: PropTypes.arrayOf(PropTypes.string),
     lang: PropTypes.string,
+    values: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 Notifications.defaultProps = {
     requestIds: [],
     lang: 'en',
+    values: {},
 };
 
 export default injectIntl(

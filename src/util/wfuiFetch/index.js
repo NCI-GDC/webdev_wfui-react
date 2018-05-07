@@ -131,7 +131,7 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                                 statusText,
                                 appId,
                             });
-                            reject(statusText);
+                            resolve({ res: response, data: statusText });
                         });
                     }
                 })

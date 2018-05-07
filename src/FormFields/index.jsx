@@ -36,3 +36,4 @@ export renderSelectionHybridRadio from './renderSelectionHybridRadio';
 export renderFilterTable from './renderFilterTable';
 export renderAutocomplete from './renderAutocomplete';
 export renderFileUpload from './renderFileUpload';
+export renderDate from './renderDate';

@@ -8,6 +8,7 @@ const {
     renderAddAnother,
     renderPhoto,
     renderTimezone,
+    renderDate,
     renderTags,
     renderFileUpload,
     Description,
@@ -136,6 +137,13 @@ class Forms extends React.Component {
                     preview
                 />
                 <Field
+                    name="renderDate2"
+                    label={'renderDate2'}
+                    component={renderDate}
+                    disabled
+                    preview
+                />
+                <Field
                     name="renderTags"
                     help={
                         'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
@@ -242,6 +250,7 @@ const FormsReduxForm = reduxForm({
             name: 'Screen Shot 2018-04-06 at 2.52.02 PM.png',
             type: 'image/png',
         },
+        renderDate2: '2018-04-10T14:30:00.000Z',
     },
 })(Forms);
 

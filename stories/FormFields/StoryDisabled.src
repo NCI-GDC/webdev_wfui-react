@@ -8,6 +8,7 @@ const {
     renderAddAnother,
     renderPhoto,
     renderTimezone,
+    renderDate,
     renderTags,
     renderFileUpload,
     Description,
@@ -128,6 +129,12 @@ class Forms extends React.Component {
                     disabled
                 />
                 <Field
+                    name="renderDate2"
+                    label={'renderDate2'}
+                    component={renderDate}
+                    disabled
+                />
+                <Field
                     name="renderTags"
                     help={
                         'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
@@ -220,6 +227,7 @@ const FormsReduxForm = reduxForm({
                 LastName_txt: 'Test',
             },
         ],
+        renderDate2: '2018-04-10T14:30:00.000Z',
     },
 })(Forms);
 
