@@ -24,7 +24,7 @@ class TableBody extends React.Component {
             contentHeight,
             noTableHeader,
             rowHeight,
-            headerHeight
+            headerHeight,
         } = this.props;
         const { rowSelected } = this.state;
 
@@ -51,10 +51,11 @@ class TableBody extends React.Component {
                 width={contentWidth}
                 height={contentHeight}
                 onRowClick={(event, rowIndex) => {
-                    if (event.target.tagName !== 'INPUT') { // e.stopPropagation on cell doesn't work. This will be invoked first.
-                    onRowClick(activeData[rowIndex]);
-                    this.setState({ rowSelected: rowIndex });
-                }
+                    if (event.target.tagName !== 'INPUT') {
+                        // e.stopPropagation on cell doesn't work. This will be invoked first.
+                        onRowClick(activeData[rowIndex]);
+                        this.setState({ rowSelected: rowIndex });
+                    }
                 }}
                 rowClassNameGetter={idx =>
                     classNames({
@@ -69,7 +70,13 @@ class TableBody extends React.Component {
                 {selectable && (
                     <Column
                         columnKey={'select'}
-                        header={noTableHeader ? undefined : <Cell>{allCheckbox}</Cell>}
+                        header={
+                            noTableHeader ? (
+                                undefined
+                            ) : (
+                                <Cell>{allCheckbox}</Cell>
+                            )
+                        }
                         cell={props => (
                             <Cell {...props}>
                                 <input
@@ -77,9 +84,7 @@ class TableBody extends React.Component {
                                     checked={activeData[props.rowIndex].checked}
                                     onChange={e => {
                                         e.stopPropagation();
-                                        onCheck(
-                                            props.rowIndex + indexOffset,
-                                        );
+                                        onCheck(activeData[props.rowIndex].idx);
                                     }}
                                 />
                             </Cell>
@@ -93,38 +98,46 @@ class TableBody extends React.Component {
                         {...item}
                         columnKey={item.columnKey || item.name}
                         header={
-                            noTableHeader ? undefined : <Cell
-                                className={classNames({
-                                    sortActive: sortedIdx === i,
-                                    sortDesc:
-                                        sortedIdx === i &&
-                                        sortedOrientation === 'desc',
-                                    sortAsc:
-                                        sortedIdx === i &&
-                                        sortedOrientation === 'asc',
-                                })}
-                            >
-                                {/* Setup the header row and onClick for sorting if applicable */}
-                                {item.sortingKey ? (
-                                    <a
-                                        href="#"
-                                        onClick={e => {
-                                            toggleSort(e, i);
-                                        }}
-                                    >
-                                        {item.name}
-                                    </a>
-                                ) : (
-                                    item.name
-                                )}
-                            </Cell>
+                            noTableHeader ? (
+                                undefined
+                            ) : (
+                                <Cell
+                                    className={classNames({
+                                        sortActive: sortedIdx === i,
+                                        sortDesc:
+                                            sortedIdx === i &&
+                                            sortedOrientation === 'desc',
+                                        sortAsc:
+                                            sortedIdx === i &&
+                                            sortedOrientation === 'asc',
+                                    })}
+                                >
+                                    {/* Setup the header row and onClick for sorting if applicable */}
+                                    {item.sortingKey ? (
+                                        <a
+                                            href="#"
+                                            onClick={e => {
+                                                toggleSort(e, i);
+                                            }}
+                                        >
+                                            {item.name}
+                                        </a>
+                                    ) : (
+                                        item.name
+                                    )}
+                                </Cell>
+                            )
                         }
                         cell={props => (
                             <Cell {...props} className={item.className}>
                                 {item.display(activeData[props.rowIndex])}
                             </Cell>
                         )}
-                        flexGrow={typeof item.flexGrow === 'undefined' ? 1 : item.flexGrow}
+                        flexGrow={
+                            typeof item.flexGrow === 'undefined'
+                                ? 1
+                                : item.flexGrow
+                        }
                         width={item.width || 20}
                     />
                 ))}
