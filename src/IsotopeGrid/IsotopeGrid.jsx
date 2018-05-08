@@ -21,7 +21,20 @@ const columnProps = PropTypes.oneOfType([
 
 class IsotopeItem extends React.Component {
     render() {
-        const { index, id, width, xs, sm, md, lg, children, item, itemDisplay } = this.props;
+        const {
+            index,
+            id,
+            width,
+            xs,
+            sm,
+            md,
+            lg,
+            children,
+            item,
+            className,
+            specifySizer,
+            itemDisplay,
+        } = this.props;
         const elems = [];
 
         if (Array.isArray(children)) {
@@ -42,7 +55,10 @@ class IsotopeItem extends React.Component {
                     key={index}
                     id={`${id}-item-${index}`}
                     className={classNames(
-                        `${id}-item ${index === 0 ? 'wfui-isotope-grid-sizer' : ''}`,
+                        className,
+                        `${id}-item ${
+                            index === 0 && !specifySizer ? 'wfui-isotope-grid-sizer' : ''
+                        }`,
                         'wfui-isotope-item',
                     )}
                     style={{ width: `${width}px` }}
@@ -53,7 +69,12 @@ class IsotopeItem extends React.Component {
                               itemDisplay,
                               Object.assign({}, this.props, { id: undefined }),
                           )
-                        : elems.map((child, ind) => cloneElement(child, Object.assign({}, this.props, { id: undefined, key: ind })))}
+                        : elems.map((child, ind) =>
+                              cloneElement(
+                                  child,
+                                  Object.assign({}, this.props, { id: undefined, key: ind }),
+                              ),
+                          )}
                 </div>
             );
         }
@@ -63,7 +84,10 @@ class IsotopeItem extends React.Component {
                 key={index}
                 id={`${id}-item-${index}`}
                 className={classNames(
-                    `${id}-item ${index} ${index === 0 ? 'wfui-isotope-grid-sizer' : ''}`,
+                    className,
+                    `${id}-item ${index} ${
+                        index === 0 && !specifySizer ? 'wfui-isotope-grid-sizer' : ''
+                    }`,
                     'wfui-isotope-item',
                 )}
                 xs={xs}
@@ -73,8 +97,20 @@ class IsotopeItem extends React.Component {
                 data-item={stringifyValues(item)}
             >
                 {itemDisplay
-                    ? cloneElement(itemDisplay, Object.assign({}, this.props, { id: undefined }))
-                    : elems.map((child, ind) => cloneElement(child, Object.assign({}, this.props, { id: undefined, key: ind })) )}
+                    ? cloneElement(
+                          itemDisplay,
+                          Object.assign({}, this.props, { id: undefined, className: undefined }),
+                      )
+                    : elems.map((child, ind) =>
+                          cloneElement(
+                              child,
+                              Object.assign({}, this.props, {
+                                  id: undefined,
+                                  className: undefined,
+                                  key: ind,
+                              }),
+                          ),
+                      )}
             </Col>
         );
     }
@@ -274,16 +310,11 @@ class IsotopeGrid extends React.Component {
                             if (!child) return null;
                             switch (child.props.role) {
                                 case ITEM_ROLE:
-                                    return cloneElement(child, {
-                                        index,
-                                        id,
-                                        width,
-                                        xs,
-                                        sm,
-                                        md,
-                                        lg,
-                                        isotope,
-                                    });
+                                    const newProps = Object.assign(
+                                        { index, id, width, xs, sm, md, lg, isotope },
+                                        child.props,
+                                    );
+                                    return cloneElement(child, { ...newProps });
                                 default:
                                     return null;
                             }
@@ -293,22 +324,17 @@ class IsotopeGrid extends React.Component {
         }
 
         return (
-            <Row id={id} className={classNames(`${id}-grid`, 'wfui-isotope-grid')}>
+            <Row id={id} className={classNames(`${id}-grid`, 'wfui-isotope-grid', className)}>
                 {elems &&
                     elems.map((child, index) => {
                         if (!child || child.length === 0 || !child.props.role) return null;
                         switch (child.props.role) {
                             case ITEM_ROLE:
-                                return cloneElement(child, {
-                                    index,
-                                    id,
-                                    width,
-                                    xs,
-                                    sm,
-                                    md,
-                                    lg,
-                                    isotope,
-                                });
+                                const newProps = Object.assign(
+                                    { index, id, width, xs, sm, md, lg, isotope },
+                                    child.props,
+                                );
+                                return cloneElement(child, { ...newProps });
                             default:
                                 return null;
                         }
