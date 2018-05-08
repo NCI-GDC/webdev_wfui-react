@@ -7,6 +7,7 @@ import Isotope from 'isotope-layout';
 import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import { stringifyValues } from '../util/stringifyValues';
+import { removeHTMLTags } from '../util/removeHTMLTags';
 
 const columnProps = PropTypes.oneOfType([
     PropTypes.string,
@@ -62,7 +63,7 @@ class IsotopeItem extends React.Component {
                         'wfui-isotope-item',
                     )}
                     style={{ width: `${width}px` }}
-                    data-item={stringifyValues(item)}
+                    data-item={removeHTMLTags(stringifyValues(item))}
                 >
                     {itemDisplay
                         ? cloneElement(
@@ -94,7 +95,7 @@ class IsotopeItem extends React.Component {
                 sm={sm}
                 md={md}
                 lg={lg}
-                data-item={stringifyValues(item)}
+                data-item={removeHTMLTags(stringifyValues(item))}
             >
                 {itemDisplay
                     ? cloneElement(
