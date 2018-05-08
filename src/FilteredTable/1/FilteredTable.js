@@ -136,6 +136,8 @@ class FilteredTable extends React.Component {
                         return bData
                             .toLowerCase()
                             .localeCompare(aData.toLowerCase());
+                    } else if (aData instanceof Date) {
+                        bData.getTime() - aData.getTime();
                     }
                     return bData - aData;
                 }
@@ -143,6 +145,8 @@ class FilteredTable extends React.Component {
                     return aData
                         .toLowerCase()
                         .localeCompare(bData.toLowerCase());
+                } else if (aData instanceof Date) {
+                    aData.getTime() - bData.getTime();
                 }
                 return aData - bData;
             });
