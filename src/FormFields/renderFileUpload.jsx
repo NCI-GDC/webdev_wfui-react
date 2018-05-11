@@ -153,7 +153,7 @@ class renderFileUpload extends React.Component {
         const { accept, removing } = this.state;
 
         const child = [
-            <div className="input-group" style={{ position: 'relative' }}>
+            <div className="input-group" style={{ position: 'relative' }} key="input-group">
                 <span
                     style={{
                         position: 'absolute',
@@ -172,12 +172,12 @@ class renderFileUpload extends React.Component {
                     disabled={disabled}
                 />
                 <span className="input-group-btn">
-                    <button className="btn btn-info" type="button">
+                    <button className="btn btn-primary" type="button">
                         {txtUpload}
                     </button>
                 </span>
             </div>,
-            <p className="wfui-form-file-upload-spec">
+            <p className="wfui-form-file-upload-spec" key="wfui-form-file-upload-spec">
                 <span className="filesize">
                     {maxFileSizeText.replace(
                         '{maxFileSize}',
