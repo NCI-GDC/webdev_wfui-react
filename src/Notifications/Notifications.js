@@ -243,12 +243,14 @@ Notifications.propTypes = {
     requestIds: PropTypes.arrayOf(PropTypes.string),
     lang: PropTypes.string,
     values: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    overrides: PropTypes.object,
 };
 
 Notifications.defaultProps = {
     requestIds: [],
     lang: 'en',
     values: {},
+    overrides: {},
 };
 
 export default injectIntl(
