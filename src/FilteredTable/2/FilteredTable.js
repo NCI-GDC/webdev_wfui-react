@@ -88,19 +88,19 @@ class FilteredTable extends React.Component {
         if (filteredData.every(item => item.checked)) {
             /* If all items are checked, then uncheck everything */
             filteredData.forEach(item => {
-                const idx = newArray.findIndex(i => i.id === item.id);
+                const idx = newArray.findIndex(i => i.idx === item.idx);
                 if (idx > -1) newArray[idx].checked = false;
             });
         } else {
             // Reset
             filteredData.forEach(item => {
-                const idx = newArray.findIndex(i => i.id === item.id);
+                const idx = newArray.findIndex(i => i.idx === item.idx);
                 if (idx > -1) newArray[idx].checked = false;
             });
 
             /* Else check everything */
             filteredData.forEach(item => {
-                const idx = newArray.findIndex(i => i.id === item.id);
+                const idx = newArray.findIndex(i => i.idx === item.idx);
                 if (idx > -1) newArray[idx].checked = true;
             });
         }
