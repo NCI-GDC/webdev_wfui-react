@@ -177,9 +177,7 @@ class WFUIDropdown extends React.Component {
         const { id, onSelect, bsClass, rootCloseEvent, children } = this.props;
         const { open } = this.state;
         return (
-            <IntlProvider
-                locale="en"
-            >
+            <IntlProvider locale="en">
                 {/* Added IntlPwork around */}
                 <div className="open">
                     {ValidComponentChildren.map(children, child => {
@@ -216,28 +214,33 @@ class WFUIDropdown extends React.Component {
                 e.target.tagName === 'SPAN' ? e.target.parentElement : e.target;
             const viewportOffset = buttonElement.getBoundingClientRect();
             const scrollTopOffset = document.documentElement.scrollTop;
-            
+
             // Reset menu.
             if (el.firstChild) el.removeChild(el.firstChild);
-            
+
             // Set attributes for popedup menu.
             el.setAttribute('class', 'menu-opened');
             el.setAttribute('data-uid', uid);
             el.setAttribute(
                 'style',
-                `position: absolute; display: block; top: ${viewportOffset.bottom + scrollTopOffset}px; left: ${
-                    viewportOffset.left
-                }px`,
+                `position: absolute; display: block; top: ${viewportOffset.bottom +
+                    scrollTopOffset}px; left: ${viewportOffset.left}px`,
             );
 
             ReactDOM.render(this.getMenu(), el, () => {
                 // Adjust dropdown menu location.
                 if (el && el.getAttribute('class') === 'menu-opened') {
-                    const dropdown = el.getElementsByClassName('dropdown-menu')[0];
-                    if (window.innerWidth < dropdown.getBoundingClientRect().right) {
+                    const dropdown = el.getElementsByClassName(
+                        'dropdown-menu',
+                    )[0];
+                    if (
+                        window.innerWidth <
+                        dropdown.getBoundingClientRect().right
+                    ) {
                         el.setAttribute(
                             'style',
-                            `position: absolute; display: block; top: ${viewportOffset.bottom + scrollTopOffset}px; left: ${
+                            `position: absolute; display: block; top: ${viewportOffset.bottom +
+                                scrollTopOffset}px; left: ${
                                 viewportOffset.right
                             }px`,
                         );
@@ -272,6 +275,14 @@ class WFUIDropdown extends React.Component {
         window.addEventListener('click', this.onHide);
         // Set event listener
         window.addEventListener('wfui-dropdown-menu-clicked', this.onShowOther);
+
+        window.addEventListener('fixedTableScrollStart', e => {
+            this.onHide(e);
+        });
+
+        window.addEventListener('scroll', e => {
+            this.onHide(e);
+        });
     }
 
     componentWillUnmount() {

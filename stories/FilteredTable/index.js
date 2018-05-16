@@ -1,11 +1,12 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, MenuItem } from 'react-bootstrap';
 import { storiesOf } from '@kadira/storybook';
 import StoryICGCTesting from 'raw!./StoryICGCTesting.src';
 import StoryPerformance from 'raw!./StoryPerformance.src';
 import FilteredTable from '../../src/FilteredTable/1/FilteredTable';
 import FilteredTableV2 from '../../src/FilteredTable/2/FilteredTable';
 import '../../src/FilteredTable/2/fixed-data-table.min.css';
+import Dropdown from '../../src/WFUIDropdown/WFUIDropdown';
 
 storiesOf('FilteredTable', module)
     .addWithInfo('ICGC Testing', () => StoryICGCTesting, {
@@ -19,7 +20,7 @@ storiesOf('FilteredTable', module)
         static: true,
     })
     .addWithInfo('Benchmark (v2)', () => StoryPerformance, {
-        scope: { FilteredTable: FilteredTableV2, Button },
+        scope: { FilteredTable: FilteredTableV2, Button, Dropdown, MenuItem },
         source: true,
         static: true,
     });
