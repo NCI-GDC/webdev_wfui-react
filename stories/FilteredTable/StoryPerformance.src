@@ -38,48 +38,62 @@ const itemFormat = [
         width: 10,
         className: 'ipAddressCell',
     },
+    // {
+    //     name: 'Actions',
+    //     width: 10,
+    //     display: data => (
+    //         <div>
+    //             <Button
+    //                 onClick={e => {
+    //                     e.stopPropagation();
+    //                     console.log(data.first_name);
+    //                 }}
+    //             >
+    //                 FirstName
+    //             </Button>
+    //             <Button
+    //                 onClick={() => {
+    //                     console.log(data.last_name);
+    //                 }}
+    //             >
+    //                 LastName
+    //             </Button>
+    //             <Button
+    //                 onClick={() => {
+    //                     console.log(data.email_name);
+    //                 }}
+    //             >
+    //                 email
+    //             </Button>
+    //             <Button
+    //                 onClick={() => {
+    //                     console.log(data.gender);
+    //                 }}
+    //             >
+    //                 gender
+    //             </Button>
+    //             <Button
+    //                 onClick={() => {
+    //                     console.log(data.ip_address);
+    //                 }}
+    //             >
+    //                 IP Address
+    //             </Button>
+    //         </div>
+    //     ),
+    //     className: 'actionsCell',
+    // },
     {
         name: 'Actions',
         width: 10,
         display: data => (
-            <div>
-                <Button
-                    onClick={e => {
-                        e.stopPropagation();
-                        console.log(data.first_name);
-                    }}
-                >
-                    FirstName
-                </Button>
-                <Button
-                    onClick={() => {
-                        console.log(data.last_name);
-                    }}
-                >
-                    LastName
-                </Button>
-                <Button
-                    onClick={() => {
-                        console.log(data.email_name);
-                    }}
-                >
-                    email
-                </Button>
-                <Button
-                    onClick={() => {
-                        console.log(data.gender);
-                    }}
-                >
-                    gender
-                </Button>
-                <Button
-                    onClick={() => {
-                        console.log(data.ip_address);
-                    }}
-                >
-                    IP Address
-                </Button>
-            </div>
+            <Dropdown id="action-dropdown" bsStyle="primary" pullRight>
+                <Button bsStyle="primary">Test</Button>
+                <Dropdown.Toggle bsStyle="default" className="ed-drpdwn inl" />
+                <Dropdown.Menu className="dropdown-menu-right">
+                    <MenuItem>Test</MenuItem>
+                </Dropdown.Menu>
+            </Dropdown>
         ),
         className: 'actionsCell',
     },
