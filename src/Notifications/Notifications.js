@@ -93,6 +93,7 @@ class Notifications extends React.Component {
             lang,
             values,
             overrides,
+            duration,
         } = this.props;
         const newFetches = nextProps.fetches;
         Object.keys(fetches)
@@ -130,6 +131,7 @@ class Notifications extends React.Component {
                                     />
                                 ),
                                 level: 'success',
+                                autoDismiss: Math.floor(duration / 1000),
                             });
                         } else {
                             if (typeof newFetches[key].error === 'object') {
@@ -172,6 +174,7 @@ class Notifications extends React.Component {
                                             />
                                         ),
                                     level: 'error',
+                                    autoDismiss: Math.floor(duration / 1000),
                                 });
                             } else {
                                 this.notificationRef.addNotification({
@@ -210,6 +213,7 @@ class Notifications extends React.Component {
                                             />
                                         ),
                                     level: 'error',
+                                    autoDismiss: Math.floor(duration / 1000),
                                 });
                             }
                         }
@@ -218,11 +222,12 @@ class Notifications extends React.Component {
             });
     }
     render() {
-        const { fetches, fixed } = this.props;
+        const { fetches, fixed, duration } = this.props;
         return (
             <div className="wfui-notification">
                 {fixed ? (
                     <StaticNotification
+                        duration={duration}
                         ref={ref => {
                             this.notificationRef = ref;
                         }}
@@ -244,6 +249,7 @@ Notifications.propTypes = {
     lang: PropTypes.string,
     values: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     overrides: PropTypes.object,
+    duration: PropTypes.number,
 };
 
 Notifications.defaultProps = {
@@ -251,6 +257,7 @@ Notifications.defaultProps = {
     lang: 'en',
     values: {},
     overrides: {},
+    duration: 5000,
 };
 
 export default injectIntl(
