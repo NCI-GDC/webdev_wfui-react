@@ -81,15 +81,25 @@ class FilteredTable extends React.Component {
         const { dataWithState } = this.state;
         const newArray = dataWithState.slice(0);
 
-        if (newArray.every(item => item.checked)) {
+        const filteredData = this.generateFilteredArticles(
+            this.applySearch(dataWithState),
+        );
+
+        if (filteredData.every(item => item.checked)) {
             /* If all items are checked, then uncheck everything */
-            newArray.forEach(item => {
+            filteredData.forEach(item => {
                 item.checked = false;
             });
         } else {
+            // Reset
+            filteredData.forEach(item => {
+                item.checked = false;
+            });
+
             /* Else check everything */
-            newArray.forEach(item => {
-                item.checked = true;
+            filteredData.forEach(item => {
+                const obj = newArray.find(i => i.id === item.id);
+                obj.checked = true;
             });
         }
 
@@ -272,7 +282,7 @@ class FilteredTable extends React.Component {
                     <input
                         type="Checkbox"
                         onChange={this.onAllCheck}
-                        checked={dataWithState.every(item => item.checked)}
+                        checked={this.filteredData.every(item => item.checked)}
                     />
                 }
                 toggleSort={this.toggleSort}
