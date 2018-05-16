@@ -88,12 +88,14 @@ class FilteredTable extends React.Component {
         if (filteredData.every(item => item.checked)) {
             /* If all items are checked, then uncheck everything */
             filteredData.forEach(item => {
-                item.checked = false;
+                const obj = newArray.find(i => i.id === item.id);
+                obj.checked = false;
             });
         } else {
             // Reset
             filteredData.forEach(item => {
-                item.checked = false;
+                const obj = newArray.find(i => i.id === item.id);
+                obj.checked = false;
             });
 
             /* Else check everything */

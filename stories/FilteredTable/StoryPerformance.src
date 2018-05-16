@@ -208,6 +208,9 @@ class FilteredListContainer extends React.Component {
                     simpleSearch
                     searchKeys={['id']}
                     searchLogic={'or'}
+                    onSelectionChange={tes => {
+                        console.log(tes);
+                    }}
                 />
                 {this.state.count} Maching the Criteria
             </div>
