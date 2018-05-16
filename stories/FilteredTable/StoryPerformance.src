@@ -5,38 +5,38 @@ const itemFormat = [
         name: 'Person ID',
         display: data => data.id,
         width: 100,
-        className: "personIdCell",
+        className: 'personIdCell',
     },
     {
         name: 'First Name',
         display: data => data.first_name,
         sortingKey: data => data.first_name,
         width: 20,
-        className: "firstNameCell",
+        className: 'firstNameCell',
     },
     {
         name: 'Last Name',
         display: data => data.last_name,
         width: 10,
-        className: "lastNameCell",
+        className: 'lastNameCell',
     },
     {
         name: 'email',
         display: data => data.email,
         width: 10,
-        className: "emailCell",
+        className: 'emailCell',
     },
     {
         name: 'gender',
         display: data => data.gender,
         width: 10,
-        className: "genderCell",
+        className: 'genderCell',
     },
     {
         name: 'IP Address',
         display: data => data.ip_address,
         width: 10,
-        className: "ipAddressCell",
+        className: 'ipAddressCell',
     },
     {
         name: 'Actions',
@@ -81,7 +81,7 @@ const itemFormat = [
                 </Button>
             </div>
         ),
-        className: "actionsCell",
+        className: 'actionsCell',
     },
 ];
 
@@ -194,7 +194,6 @@ class FilteredListContainer extends React.Component {
                     simpleSearch
                     searchKeys={['id']}
                     searchLogic={'or'}
-                    noTableHeader
                 />
                 {this.state.count} Maching the Criteria
             </div>
