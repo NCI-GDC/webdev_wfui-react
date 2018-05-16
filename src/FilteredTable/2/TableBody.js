@@ -1,3 +1,4 @@
+/* global document, window */
 import React from 'react';
 import { Table, Column, Cell } from 'fixed-data-table-2';
 import classNames from 'classnames';
@@ -6,6 +7,12 @@ class TableBody extends React.Component {
     constructor() {
         super();
         this.state = { rowSelected: undefined };
+        this.onHandleScroll = this.onHandleScroll.bind(this);
+    }
+    onHandleScroll() {
+        const event = document.createEvent('Event');
+        event.initEvent('fixedTableScrollStart', true, true);
+        window.dispatchEvent(event);
     }
     render() {
         const {
@@ -65,6 +72,7 @@ class TableBody extends React.Component {
                         selected: rowSelected === idx,
                     })
                 }
+                onScrollStart={this.onHandleScroll}
                 data={activeData}
             >
                 {selectable && (
