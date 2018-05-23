@@ -57,67 +57,78 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
 
                     if (hasCanceled) return reject({ isCanceled: true });
 
+                    const contentType = response.headers.get('content-type');
+
                     // Need to have more statement.
                     if (response.ok) {
-                        const contentType = response.headers.get(
-                            'content-type',
-                        );
+                        const processData = data => {
+                            dispatch({
+                                type: 'RECEIVE_FETCH_DATA',
+                                requestId: init.requestId,
+                                appId,
+                                data,
+                            });
+                            dispatch({
+                                type: 'FETCH_SUCCESS',
+                                requestId: init.requestId,
+                                appId,
+                                data,
+                            });
+                            resolve({ res: response, data });
+                        };
+
+                        if (
+                            // JSON
+                            contentType &&
+                            contentType.indexOf('application/json') !== -1
+                        ) {
+                            return response.json().then(processData);
+                        } else if (
+                            // Text
+                            contentType &&
+                            contentType.indexOf('text/') !== -1
+                        ) {
+                            return response.text().then(processData);
+                        }
+                        // Blob
+                        response.blob().then(processData);
+                    } else {
+                        // JSON
                         if (
                             contentType &&
                             contentType.indexOf('application/json') !== -1
                         ) {
                             return response.json().then(data => {
+                                const statusText = data;
+                                let parsedData;
+                                if (!statusText.type) {
+                                    parsedData = Object.keys(statusText)
+                                        .filter(key => !statusText[key].ok) // only failed ones.
+                                        .map(key => {
+                                            const obj = statusText[key];
+                                            if (
+                                                !statusText.type &&
+                                                obj.data.type
+                                            ) {
+                                                statusText.type = obj.data.type; // set error type.
+                                            }
+                                            return Object.assign({}, obj, {
+                                                key,
+                                            });
+                                        });
+                                }
                                 dispatch({
-                                    type: 'RECEIVE_FETCH_DATA',
+                                    type: 'FETCH_FAILURE',
                                     requestId: init.requestId,
+                                    statusText,
+                                    data: parsedData,
                                     appId,
-                                    data,
                                 });
-                                dispatch({
-                                    type: 'FETCH_SUCCESS',
-                                    requestId: init.requestId,
-                                    appId,
-                                    data,
-                                });
-                                resolve({ res: response, data });
-                            });
-                        } else if (
-                            contentType &&
-                            contentType.indexOf('text/') !== -1
-                        ) {
-                            return response.text().then(data => {
-                                dispatch({
-                                    type: 'RECEIVE_FETCH_DATA',
-                                    requestId: init.requestId,
-                                    appId,
-                                    data,
-                                });
-                                dispatch({
-                                    type: 'FETCH_SUCCESS',
-                                    requestId: init.requestId,
-                                    appId,
-                                    data,
-                                });
-                                resolve({ res: response, data });
-                            });
-                        } else {
-                            return response.blob().then(data => {
-                                dispatch({
-                                    type: 'RECEIVE_FETCH_DATA',
-                                    requestId: init.requestId,
-                                    appId,
-                                    data,
-                                });
-                                dispatch({
-                                    type: 'FETCH_SUCCESS',
-                                    requestId: init.requestId,
-                                    appId,
-                                    data,
-                                });
-                                resolve({ res: response, data });
+                                resolve({ res: response, data: statusText });
                             });
                         }
-                    } else {
+
+                        // Text
                         return response.text().then(data => {
                             let statusText = data;
                             try {
