@@ -49,12 +49,14 @@ export const fetchReducer = (state = {}, action) => {
         case 'FETCH_FAILURE':
             _state[action.requestId].isFetching = _state[action.requestId].fetch5s = _state[action.requestId].fetch8s = false;
             _state[action.requestId].status = 'fail';
+            _state[action.requestId].data = action.data || {};
             _state[action.requestId].error = action.statusText;
             _state[action.requestId].lastUpdated = lastUpdate;
             return _state;
         case 'FETCH_RETRY_FAILURE':
             _state[action.requestId].isFetching = _state[action.requestId].fetch5s = _state[action.requestId].fetch8s = false;
             _state[action.requestId].status = 'fail';
+            _state[action.requestId].data = action.data || {};
             _state[action.requestId].error = action.statusText;
             _state[action.requestId].retried = true;
             _state[action.requestId].lastUpdated = lastUpdate;
