@@ -100,9 +100,10 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                         ) {
                             return response.json().then(data => {
                                 const statusText = data;
-                                let parsedData;
+                                let parsedData = {};
                                 if (!statusText.type) {
-                                    parsedData = Object.keys(statusText)
+                                    const keys = Object.keys(statusText).filter(key => !statusText[key].ok).join(', ');
+                                    const orig = Object.keys(statusText)
                                         .filter(key => !statusText[key].ok) // only failed ones.
                                         .map(key => {
                                             const obj = statusText[key];
@@ -116,6 +117,11 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                                                 key,
                                             });
                                         });
+                                        
+                                    parsedData = {
+                                        orig,
+                                        keys,
+                                    };
                                 }
                                 dispatch({
                                     type: 'FETCH_FAILURE',
