@@ -18,6 +18,7 @@ class renderFileUpload extends React.Component {
     constructor(props) {
         super();
         this.state = {
+            src: '',
             file: false,
             fileError: '',
             data: '',
@@ -32,6 +33,7 @@ class renderFileUpload extends React.Component {
         this.renderDropzone = this.renderDropzone.bind(this);
         this.renderDisabledDropzone = this.renderDisabledDropzone.bind(this);
         this.renderChildComponets = this.renderChildComponets.bind(this);
+        this.setFile(props);
     }
     getFileKey(mime) {
         const { mimeTypes } = this.props;
@@ -54,7 +56,6 @@ class renderFileUpload extends React.Component {
                     onClick={() => {
                         input.onChange('');
                         onRemove(input);
-
                         this.setState({
                             name: '',
                             date: '',
@@ -72,9 +73,37 @@ class renderFileUpload extends React.Component {
         return null;
     }
     componentWillReceiveProps(nextProps) {
-        const { fileTypes } = this.props;
+        const { fileTypes, input } = this.props;
         if (nextProps.fileTypes !== fileTypes) {
             this.setState({ accept: generateAcceptText(nextProps) });
+        }
+        if (
+            JSON.stringify(input.value) !==
+            JSON.stringify(nextProps.input.value)
+        ) {
+            this.setFile(nextProps);
+        }
+    }
+    setFile(props) {
+        const { input, fileDownloadPath } = props;
+
+        if (input.value.id) {
+            // If images is from image API.
+            this.setState({
+                src: fileDownloadPath.replace(':id', input.value.id),
+            });
+        } else if (input.value.blobPath) {
+            // If images is blob object just uploaded.
+            this.setState({ src: input.value.blobPath });
+        } else if (input.value.src) {
+            // Verify
+            fetch(input.value.src).then(res => {
+                if (res.ok) {
+                    this.setState({ src: input.value.src });
+                } else {
+                    this.setState({ src: input.value.src });
+                }
+            });
         }
     }
     renderFile() {
@@ -85,31 +114,31 @@ class renderFileUpload extends React.Component {
             txtRemove,
             fileDownloadPath,
         } = this.props;
+        const { src } = this.state;
 
         if (input.value && Object.keys(input.value).length) {
-            // Priority: File ID, blobPath, src.
-            const filePath = input.value.id
-                ? fileDownloadPath.replace(':id', input.value.id)
-                : input.value.blobPath || input.value.src;
-
             // Image File
             if (input.value.type && input.value.type.indexOf('image') === 0) {
                 return (
                     <div>
-                        <a
-                            className={`${
-                                review ? 'review-page' : ''
-                            } ${this.getFileKey(input.value.type)}`}
-                            type="button"
-                            href={filePath}
-                            target="_blank"
-                        >
-                            <img
-                                src={filePath}
-                                alt={input.value.name}
-                                width="150"
-                            />
-                        </a>
+                        {src ? (
+                            <a
+                                className={`${
+                                    review ? 'review-page' : ''
+                                } ${this.getFileKey(input.value.type)}`}
+                                type="button"
+                                href={src}
+                                target="_blank"
+                            >
+                                <img
+                                    src={src}
+                                    alt={input.value.name}
+                                    width="150"
+                                />
+                            </a>
+                        ) : (
+                            <span>The image is not available.</span>
+                        )}
                         {!review && this.renderRemoveBtn()}
                     </div>
                 );
@@ -123,7 +152,7 @@ class renderFileUpload extends React.Component {
                             review ? 'review-page' : ''
                         } ${this.getFileKey(input.value.type)}`}
                         type="button"
-                        href={filePath}
+                        href={src}
                         target="_blank"
                     >
                         {input.value.name}
@@ -153,7 +182,11 @@ class renderFileUpload extends React.Component {
         const { accept, removing } = this.state;
 
         const child = [
-            <div className="input-group" style={{ position: 'relative' }} key="input-group">
+            <div
+                className="input-group"
+                style={{ position: 'relative' }}
+                key="input-group"
+            >
                 <span
                     style={{
                         position: 'absolute',
@@ -177,7 +210,10 @@ class renderFileUpload extends React.Component {
                     </button>
                 </span>
             </div>,
-            <p className="wfui-form-file-upload-spec" key="wfui-form-file-upload-spec">
+            <p
+                className="wfui-form-file-upload-spec"
+                key="wfui-form-file-upload-spec"
+            >
                 <span className="filesize">
                     {maxFileSizeText.replace(
                         '{maxFileSize}',
