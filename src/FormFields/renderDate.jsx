@@ -60,7 +60,7 @@ const renderDate = ({
                                 ? datePickerProps.utcOffset
                                 : Number(utcOffsetNumber) / 100
                         }
-                        selected={input.value ? moment(input.value) : {}}
+                        selected={input.value ? moment(input.value) : null}
                         onChange={input.onChange}
                     />
                     <span className="timezone">
