@@ -18,7 +18,7 @@ class renderFileUpload extends React.Component {
     constructor(props) {
         super();
         this.state = {
-            src: '',
+            src: this.setFile(props),
             file: false,
             fileError: '',
             data: '',
@@ -33,7 +33,6 @@ class renderFileUpload extends React.Component {
         this.renderDropzone = this.renderDropzone.bind(this);
         this.renderDisabledDropzone = this.renderDisabledDropzone.bind(this);
         this.renderChildComponets = this.renderChildComponets.bind(this);
-        this.setFile(props);
     }
     getFileKey(mime) {
         const { mimeTypes } = this.props;
@@ -87,14 +86,15 @@ class renderFileUpload extends React.Component {
     setFile(props) {
         const { input, fileDownloadPath } = props;
 
+        let src = '';
         if (input.value.id) {
             // If images is from image API.
-            this.setState({
-                src: fileDownloadPath.replace(':id', input.value.id),
-            });
+            src = fileDownloadPath.replace(':id', input.value.id);
+            this.setState({ src });
         } else if (input.value.blobPath) {
             // If images is blob object just uploaded.
-            this.setState({ src: input.value.blobPath });
+            src = input.value.blobPath;
+            this.setState({ src });
         } else if (input.value.src) {
             // Verify
             fetch(input.value.src).then(res => {
@@ -105,6 +105,7 @@ class renderFileUpload extends React.Component {
                 }
             });
         }
+        return src;
     }
     renderFile() {
         const {
