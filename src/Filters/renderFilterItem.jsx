@@ -61,6 +61,7 @@ export const renderTextFilter = ({
             />
             {value && (
                 <Glyphicon
+                    className="input-clear"
                     glyph="remove-circle"
                     bsSize="xsmall"
                     onClick={onHandleChange}

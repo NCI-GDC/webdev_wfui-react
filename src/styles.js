@@ -12,6 +12,7 @@ require('./DashboardBox/index.scss');
 require('./DashboardCard/index.scss');
 require('./UserDrawer/index.scss');
 require('./FormFields/index.scss');
+require('./Filters/index.scss');
 require('./Card/index.scss');
 require('./CascadingPane/index.scss');
 
