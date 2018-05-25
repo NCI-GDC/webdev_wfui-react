@@ -1,11 +1,17 @@
 /* eslint react/prop-types : 0 */
 import React from 'react';
-import { FormControl } from '../index';
+import { FormControl, Glyphicon } from '../index';
 
 /**
  * Reusable field component.
  */
-export const renderSelectFilter = ({ name, category, onHandleChange, items, capitalize }) => (
+export const renderSelectFilter = ({
+    name,
+    category,
+    onHandleChange,
+    items,
+    capitalize,
+}) => (
     <FormControl
         name={name}
         id={name}
@@ -36,13 +42,30 @@ export const renderDateFilter = ({ name, category, onHandleChange }) => (
     />
 );
 
-export const renderTextFilter = ({ name, category, onHandleChange, placeholder }) => (
-    <FormControl
-        type="text"
-        name={name}
-        id={name}
-        value={(category && category[name]) || ''}
-        onChange={onHandleChange}
-        placeholder={placeholder || ''}
-    />
-);
+export const renderTextFilter = ({
+    name,
+    category,
+    onHandleChange,
+    placeholder,
+}) => {
+    const value = (category && category[name]) || '';
+    return (
+        <div>
+            <FormControl
+                type="text"
+                name={name}
+                id={name}
+                value={value}
+                onChange={onHandleChange}
+                placeholder={placeholder || ''}
+            />
+            {value && (
+                <Glyphicon
+                    glyph="remove-circle"
+                    bsSize="xsmall"
+                    onClick={onHandleChange}
+                />
+            )}
+        </div>
+    );
+};

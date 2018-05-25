@@ -84,7 +84,7 @@ class renderFileUpload extends React.Component {
         }
     }
     setFile(props) {
-        const { input, fileDownloadPath } = props;
+        const { input, fileDownloadPath, fallbackPath } = props;
 
         let src = '';
         if (input.value.id) {
@@ -101,10 +101,13 @@ class renderFileUpload extends React.Component {
                 if (res.ok) {
                     this.setState({ src: input.value.src });
                 } else {
-                    this.setState({ src: input.value.src });
+                    this.setState({
+                        src: `${fallbackPath}${encodeURI(input.value.src)}`,
+                    });
                 }
             });
         }
+
         return src;
     }
     renderFile() {
@@ -486,6 +489,7 @@ renderFileUpload.defaultProps = {
         gif: ['image/gif'],
     },
     fileDownloadPath: '',
+    fallbackPath: '',
     fullWidth: false,
 };
 
