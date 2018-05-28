@@ -277,7 +277,7 @@ class Forms extends React.Component {
                     type="text"
                     component={renderFileUpload}
                     maxFileSize={10000000}
-                    fileTypes={['pdf', 'jpg', 'png']}
+                    fileTypes={['pdf', 'jpg', 'png', 'svg']}
                     onUpload={() => {
                         console.log('aaaa');
                     }}
@@ -288,7 +288,7 @@ class Forms extends React.Component {
                     type="text"
                     component={renderFileUpload}
                     maxFileSize={10000000}
-                    fileTypes={['pdf', 'jpg', 'png']}
+                    fileTypes={['pdf', 'jpg', 'png', 'svg']}
                     onUpload={() => {
                         console.log('aaaa');
                     }}
