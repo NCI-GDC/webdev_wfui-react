@@ -487,6 +487,7 @@ renderFileUpload.defaultProps = {
         png: ['image/png'],
         jpg: ['image/jpeg', 'image/pjpeg'],
         gif: ['image/gif'],
+        svg: ['image/svg+xml'],
     },
     fileDownloadPath: '',
     fallbackPath: '',
