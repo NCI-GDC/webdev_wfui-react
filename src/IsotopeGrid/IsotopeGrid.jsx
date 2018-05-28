@@ -157,6 +157,7 @@ class IsotopeGrid extends React.Component {
             onArrangeComplete,
         } = this.props;
         const { isotope } = this.state;
+        const props = this.props;
 
         const reg = wholeWord
             ? RegExp(`\\b${searchTerm.toLowerCase().trim()}\\b`, 'i')
@@ -177,7 +178,7 @@ class IsotopeGrid extends React.Component {
                     return (
                         (!filterList ||
                             filterList.length === 0 ||
-                            filterList.every(filter => filter(itemElem || this))) &&
+                            filterList.every(filter => filter(itemElem || this, props))) &&
                         reg.test(isoSearch || '')
                     );
                 },
@@ -241,7 +242,7 @@ class IsotopeGrid extends React.Component {
                 return (
                     (!nextProps.filterList ||
                         nextProps.filterList.length === 0 ||
-                        nextProps.filterList.every(filter => filter(itemElem || this))) &&
+                        nextProps.filterList.every(filter => filter(itemElem || this, nextProps))) &&
                     reg.test(isoSearch || '')
                 );
             };
