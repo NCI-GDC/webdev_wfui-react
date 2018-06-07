@@ -20,16 +20,16 @@ class renderAddAnother extends React.Component {
         this.touched = false;
     }
     componentDidUpdate() {
-        const { fields, minimumItem } = this.props;
+        const { fields, minimumItem, defaultValue } = this.props;
         if (!this.init) {
             // Work around for validation.
-            fields.push();
+            fields.push(defaultValue);
             fields.remove(fields.length);
 
             // Initialize minimum item.
             if (minimumItem) {
                 for (let i = 0; i < minimumItem - fields.length; i++) {
-                    fields.push();
+                    fields.push(defaultValue);
                 }
             }
             this.init = true;
@@ -54,6 +54,7 @@ class renderAddAnother extends React.Component {
             minimumItem,
             descDisplay,
             fullWidth,
+            defaultValue,
         } = this.props;
 
         const Comp = withContext ? DraggableWithContext : Draggable;
@@ -143,7 +144,7 @@ class renderAddAnother extends React.Component {
                         <Button
                             bsStyle="default"
                             onClick={() => {
-                                fields.push();
+                                fields.push(defaultValue);
                             }}
                         >
                             <span className="span-plus">{labelAddAnother}</span>
@@ -188,11 +189,13 @@ renderAddAnother.propTypes = {
     minimumItem: PropTypes.number,
     descDisplay: PropTypes.element,
     fullWidth: PropTypes.bool,
+    defaultValue: PropTypes.object,
 };
 renderAddAnother.defaultProps = {
     labelAddAnother: 'Add Another Item',
     minimumItem: 0,
     fullWidth: false,
+    defaultValue: null,
 };
 
 export default renderAddAnother;
