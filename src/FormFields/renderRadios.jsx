@@ -49,13 +49,19 @@ const renderRadios = ({
                 const _key = typeof option === 'string' ? option : option.key;
                 const _option =
                     typeof option === 'string' ? option : option.value;
+
+                let checked = input.value === _key;
+                if (typeof input.value === 'boolean') {
+                    checked = _key === (input.value ? 'true' : 'false');
+                }
+
                 return (
                     <Radio
-                        className={input.value === _key ? 'active' : ''}
+                        className={checked ? 'active' : ''}
                         key={i}
                         name={input.name}
                         value={_key}
-                        checked={input.value === _key}
+                        checked={checked}
                         disabled={disabled}
                         onClick={e => input.onChange(e.target.value)}
                     >
