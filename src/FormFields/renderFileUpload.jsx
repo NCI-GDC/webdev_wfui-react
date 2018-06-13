@@ -151,16 +151,18 @@ class renderFileUpload extends React.Component {
             // None Image File
             return (
                 <div className="btn-group">
-                    <a
-                        className={`btn btn-default ${
-                            review ? 'review-page' : ''
-                        } ${this.getFileKey(input.value.type)}`}
-                        type="button"
-                        href={src}
-                        target="_blank"
-                    >
-                        {input.value.name}
-                    </a>
+                    {input.value.name && (
+                        <a
+                            className={`btn btn-default ${
+                                review ? 'review-page' : ''
+                            } ${this.getFileKey(input.value.type)}`}
+                            type="button"
+                            href={src}
+                            target="_blank"
+                        >
+                            {input.value.name}
+                        </a>
+                    )}
                     {!review && this.renderRemoveBtn()}
                 </div>
             );
