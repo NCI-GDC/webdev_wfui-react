@@ -61,7 +61,11 @@ const Search = {
                 const keys = Object.keys(item);
                 for (const key of keys) {
                     if (typeof item !== 'string') {
-                        ct += getTotalStringMatches(item[key], subStr, depth + 1);
+                        ct += getTotalStringMatches(
+                            item[key],
+                            subStr,
+                            depth + 1,
+                        );
                     }
                 }
             } else {
@@ -84,7 +88,10 @@ const Search = {
                 for (const key of keys) {
                     if (fieldToken.left.toLowerCase() === key.toLowerCase()) {
                         /* Checks how many times the right side of the expression appears as a subsring */
-                        const occurenceCt = occurrences(item[key], fieldToken.right);
+                        const occurenceCt = occurrences(
+                            item[key],
+                            fieldToken.right,
+                        );
                         return occurenceCt > 0 ? 1 : -1000;
                     }
                 }
@@ -93,7 +100,8 @@ const Search = {
             itemScore += getTotalStringMatches(item, tokens.stringToken);
 
             /* Matches in title field are weighted heavier */
-            itemScore += 1000 * getTotalStringMatches(item.title, tokens.stringToken);
+            itemScore +=
+                1000 * getTotalStringMatches(item.title, tokens.stringToken);
 
             return itemScore;
         }
@@ -101,7 +109,9 @@ const Search = {
         function tokenize() {
             /* Finds tokens of form field:"Content" */
             const fieldsRegularExpression = /\b\w*:"[^"]*"/;
-            const fieldsRegularExpressionResults = fieldsRegularExpression.exec(searchTerm);
+            const fieldsRegularExpressionResults = fieldsRegularExpression.exec(
+                searchTerm,
+            );
             const fieldTokens = [];
             if (fieldsRegularExpressionResults) {
                 // Note: regex.exec returns null instead of [""] on failure
@@ -140,7 +150,14 @@ const Search = {
 
         return exec();
     },
-    simpleSearch: (data, searchTerm, searchKeys, wholeWord = false, searchLogic = 'and') => {
+    simpleSearch: (
+        data,
+        searchTerm,
+        searchKeys,
+        wholeWord = false,
+        searchLogic = 'and',
+        wholeWords = true,
+    ) => {
         function searchField(item, term) {
             if (!item) return false;
             if (typeof item === 'string') {
@@ -190,7 +207,9 @@ const Search = {
         const filtered = data.filter(item => {
             if (item.isFront && item.ignoreSearch) return true;
             const keys = searchKeys || Object.keys(item);
-            const terms = searchTerm.toLowerCase().split(' ');
+            const terms = wholeWords
+                ? [searchTerm.toLowerCase()]
+                : searchTerm.toLowerCase().split(' ');
             if (terms.indexOf('') > -1) terms.splice(terms.indexOf(''), 1); // Remove extra ''
 
             const _searchWholeWord = term => {
