@@ -26,6 +26,7 @@ export const fetchReducer = (state = {}, action) => {
             _state[action.requestId].fetch5s = _state[action.requestId].fetch8s = _state[action.requestId].timeout = _state[action.requestId].retried = false;
             _state[action.requestId].lastUpdated = lastUpdate;
             _state[action.requestId].data = undefined;
+            _state[action.requestId].requestId = action.requestId;
             return _state;
         case 'FETCH_REQUEST_5S':
             _state[action.requestId].fetch5s = true;
