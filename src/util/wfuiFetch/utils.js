@@ -16,14 +16,23 @@ export const mergeFetchStatuses = fetchStatuses => {
                 : margedStatus.lastUpdated;
     });
     margedStatus.requestId = fetchStatuses
-        .map(fetchStatus => fetchStatus.requestId)
+        .map(fetchStatus => {
+            if (fetchStatus) {
+                return fetchStatus.requestId;
+            }
+            return null;
+        })
+        .filter(id => id)
         .join('+');
     margedStatus.error = fetchStatuses
         .map(fetchStatus => {
-            if (typeof fetchStatus.error === 'object') {
-                return fetchStatus.error.type;
+            if (fetchStatus) {
+                if (typeof fetchStatus.error === 'object') {
+                    return fetchStatus.error.type;
+                }
+                return fetchStatus.error;
             }
-            return fetchStatus.error;
+            return '';
         })
         .filter(text => !!text)
         .join(',');
