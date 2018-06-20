@@ -19,7 +19,12 @@ export const mergeFetchStatuses = fetchStatuses => {
         .map(fetchStatus => fetchStatus.requestId)
         .join('+');
     margedStatus.error = fetchStatuses
-        .map(fetchStatus => fetchStatus.error)
+        .map(fetchStatus => {
+            if (typeof fetchStatus === 'object') {
+                return fetchStatus.type;
+            }
+            return fetchStatus.error;
+        })
         .join(',');
 
     return margedStatus;
