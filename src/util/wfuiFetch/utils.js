@@ -25,6 +25,7 @@ export const mergeFetchStatuses = fetchStatuses => {
             }
             return fetchStatus.error;
         })
+        .filter(text => !!text)
         .join(',');
 
     return margedStatus;
