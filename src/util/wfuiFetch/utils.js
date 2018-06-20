@@ -20,8 +20,8 @@ export const mergeFetchStatuses = fetchStatuses => {
         .join('+');
     margedStatus.error = fetchStatuses
         .map(fetchStatus => {
-            if (typeof fetchStatus === 'object') {
-                return fetchStatus.type;
+            if (typeof fetchStatus.error === 'object') {
+                return fetchStatus.error.type;
             }
             return fetchStatus.error;
         })
