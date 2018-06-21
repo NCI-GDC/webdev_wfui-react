@@ -15,6 +15,7 @@ const renderRadios = ({
     globalError,
     descDisplay,
     fullWidth,
+    booleanValue,
     meta: { touched, error },
 }) => (
     <div
@@ -63,7 +64,13 @@ const renderRadios = ({
                         value={_key}
                         checked={checked}
                         disabled={disabled}
-                        onClick={e => input.onChange(e.target.value)}
+                        onClick={e => {
+                            if (booleanValue && (e.target.value === 'true' || e.target.value === 'false')) {
+                                input.onChange(e.target.value === 'true');
+                            } else {
+                                input.onChange(e.target.value);
+                            }
+                        }}
                     >
                         {_option}
                     </Radio>
