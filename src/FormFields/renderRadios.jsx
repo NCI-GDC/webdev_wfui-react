@@ -47,11 +47,16 @@ const renderRadios = ({
             validationState={touched && (error || globalError) ? 'error' : null}
         >
             {options.map((option, i) => {
-                const _key = typeof option === 'string' ? option : option.key;
+                const _key =
+                    typeof option === 'string' || typeof option === 'number'
+                        ? option
+                        : option.key;
                 const _option =
-                    typeof option === 'string' ? option : option.value;
+                    typeof option === 'string' || typeof option === 'number'
+                        ? option
+                        : option.value;
 
-                let checked = input.value === _key;
+                let checked = input.value == _key;
                 if (typeof input.value === 'boolean') {
                     checked = _key === (input.value ? 'true' : 'false');
                 }
@@ -65,7 +70,11 @@ const renderRadios = ({
                         checked={checked}
                         disabled={disabled}
                         onClick={e => {
-                            if (booleanValue && (e.target.value === 'true' || e.target.value === 'false')) {
+                            if (
+                                booleanValue &&
+                                (e.target.value === 'true' ||
+                                    e.target.value === 'false')
+                            ) {
                                 input.onChange(e.target.value === 'true');
                             } else {
                                 input.onChange(e.target.value);
