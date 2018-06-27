@@ -62,7 +62,12 @@ export const extLink = ($, _config) => {
         // Extra external link matching.
         var extExclude = false;
         if (config.extExclude) {
-            extExclude = new RegExp(config.extExclude.replace(/\\/, '\\'), 'i');
+            if (typeof config.extExclude === 'string') {
+                extExclude = new RegExp(config.extExclude.replace(/\\/, '\\'), 'i');
+            } else if (Array.isArray(config.extExclude) && config.extExclude.length > 0) {
+                const extExcConcat = `(${config.extExclude.join('|')})`;
+                extExclude = new RegExp(extExcConcat.replace(/\\/, '\\'), 'i');
+            }
         }
 
         // Extra external link CSS selector exclusion.
