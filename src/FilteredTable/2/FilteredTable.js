@@ -128,7 +128,10 @@ class FilteredTable extends React.Component {
             }
         }
         if (onFilteredArticleUpdate) {
-            if (JSON.stringify(this.lastFilteredData) !== JSON.stringify(filteredArticles)) {
+            if (
+                this.lastFilteredData.length !== filteredArticles.length ||
+                JSON.stringify(this.lastFilteredData) !== JSON.stringify(filteredArticles)
+            ) {
                 this.lastFilteredData = filteredArticles;
                 onFilteredArticleUpdate(filteredArticles);
             }
