@@ -16,7 +16,7 @@ class FilteredTable extends React.Component {
             currentPage: props.currentPage,
             checkedItems: new Array(props.data.length).fill(false),
             sortedIdx: props.sortedIdx,
-            sortedOrientation: 'desc',
+            sortedOrientation: props.defaultSortedOrientation || 'desc',
             dataWithState: this.transformData(props.data),
             uid: new Date().getTime(),
             contentWidth: 0,
@@ -50,10 +50,22 @@ class FilteredTable extends React.Component {
         const thisData = this.props.data;
         const nextData = nextProps.data;
 
+        const newState = {};
+
         if (JSON.stringify(thisData) !== JSON.stringify(nextData)) {
-            this.setState({
-                dataWithState: this.transformData(nextData),
-            });
+            newState.dataWithState = this.transformData(nextData);
+        }
+
+        if (this.props.defaultSortedOrientation !== nextProps.defaultSortedOrientation) {
+            newState.sortedOrientation = nextProps.defaultSortedOrientation || 'desc';
+        }
+
+        if (!isNaN(nextProps.sortedIdx) && this.props.sortedIdx !== nextProps.sortedIdx) {
+            newState.sortedIdx = nextProps.sortedIdx;
+        }
+
+        if (Object.keys(newState).length) {
+            this.setState(newState);
         }
     }
 
@@ -325,6 +337,7 @@ FilteredTable.propTypes = {
     simpleSearch: React.PropTypes.bool,
     searchKeys: React.PropTypes.arrayOf(React.PropTypes.string),
     sortedIdx: React.PropTypes.number,
+    defaultSortedOrientation: React.PropTypes.string,
     wholeWord: React.PropTypes.bool,
     searchLogic: React.PropTypes.oneOf(['and', 'or']),
     onRowClick: React.PropTypes.func,
