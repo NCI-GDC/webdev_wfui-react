@@ -2442,7 +2442,7 @@ div.wfui-form-radios div.radio label {
 
 .wfui-form-item .checkbox,
 .wfui-form-item .radio {
-  width: 50%;
+  width: 100%;
   border: 1px solid #ccc;
   margin: 0 1% 1% 0;
   display: inline-block; }
@@ -2726,6 +2726,9 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
   vertical-align: top;
   background-color: #fff;
   color: #3365a0; }
+
+.wfui-form-field-with-desctipton.file-chosen .btn-remove {
+  width: 40%; }
 
 .file-chosen .btn-remove:hover,
 .file-chosen .btn-remove:active {

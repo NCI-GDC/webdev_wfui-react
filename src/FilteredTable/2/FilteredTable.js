@@ -244,6 +244,7 @@ class FilteredTable extends React.Component {
             contentHeight,
             noTableHeader,
             rowHeight,
+            rowHeightGetter,
             headerHeight,
         } = this.props;
 
@@ -285,6 +286,7 @@ class FilteredTable extends React.Component {
                 contentHeight={contentHeight}
                 noTableHeader={noTableHeader}
                 rowHeight={rowHeight}
+                rowHeightGetter={rowHeightGetter}
                 headerHeight={headerHeight}
             />
         );
@@ -344,6 +346,7 @@ FilteredTable.propTypes = {
     contentHeight: React.PropTypes.number,
     noTableHeader: React.PropTypes.bool,
     rowHeight: React.PropTypes.number,
+    rowHeightGetter: React.PropTypes.func,
     headerHeight: React.PropTypes.number,
 };
 
