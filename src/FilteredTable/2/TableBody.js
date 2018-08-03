@@ -31,6 +31,7 @@ class TableBody extends React.Component {
             contentHeight,
             noTableHeader,
             rowHeight,
+            rowHeightGetter,
             headerHeight,
         } = this.props;
         const { rowSelected } = this.state;
@@ -42,17 +43,14 @@ class TableBody extends React.Component {
         const numArticles = data ? data.length : 0;
         const startingArticle = pageSize * (currentPage - 1);
 
-        for (
-            let i = startingArticle;
-            i < startingArticle + pageSize && i < numArticles;
-            i += 1
-        ) {
+        for (let i = startingArticle; i < startingArticle + pageSize && i < numArticles; i += 1) {
             activeData.push(data[i]);
         }
 
         return (
             <Table
                 rowHeight={rowHeight}
+                rowHeightGetter={rowHeightGetter}
                 headerHeight={noTableHeader ? 0 : headerHeight}
                 rowsCount={activeData.length}
                 width={contentWidth}
@@ -78,19 +76,13 @@ class TableBody extends React.Component {
                 {selectable && (
                     <Column
                         columnKey={'select'}
-                        header={
-                            noTableHeader ? (
-                                undefined
-                            ) : (
-                                <Cell>{allCheckbox}</Cell>
-                            )
-                        }
+                        header={noTableHeader ? undefined : <Cell>{allCheckbox}</Cell>}
                         cell={props => (
                             <Cell {...props}>
                                 <input
                                     type="checkbox"
                                     checked={activeData[props.rowIndex].checked}
-                                    onChange={e => {
+                                    onChange={(e) => {
                                         e.stopPropagation();
                                         onCheck(activeData[props.rowIndex].idx);
                                     }}
@@ -112,19 +104,15 @@ class TableBody extends React.Component {
                                 <Cell
                                     className={classNames({
                                         sortActive: sortedIdx === i,
-                                        sortDesc:
-                                            sortedIdx === i &&
-                                            sortedOrientation === 'desc',
-                                        sortAsc:
-                                            sortedIdx === i &&
-                                            sortedOrientation === 'asc',
+                                        sortDesc: sortedIdx === i && sortedOrientation === 'desc',
+                                        sortAsc: sortedIdx === i && sortedOrientation === 'asc',
                                     })}
                                 >
                                     {/* Setup the header row and onClick for sorting if applicable */}
                                     {item.sortingKey ? (
                                         <a
                                             href="#"
-                                            onClick={e => {
+                                            onClick={(e) => {
                                                 toggleSort(e, i);
                                             }}
                                         >
@@ -141,11 +129,7 @@ class TableBody extends React.Component {
                                 {item.display(activeData[props.rowIndex])}
                             </Cell>
                         )}
-                        flexGrow={
-                            typeof item.flexGrow === 'undefined'
-                                ? 1
-                                : item.flexGrow
-                        }
+                        flexGrow={typeof item.flexGrow === 'undefined' ? 1 : item.flexGrow}
                         width={item.width || 20}
                     />
                 ))}
@@ -169,6 +153,7 @@ TableBody.propTypes = {
     contentWidth: React.PropTypes.number,
     contentHeight: React.PropTypes.number,
     rowHeight: React.PropTypes.number,
+    rowHeightGetter: React.PropTypes.func,
     headerHeight: React.PropTypes.number,
 };
 

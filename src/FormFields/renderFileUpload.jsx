@@ -380,9 +380,15 @@ class renderFileUpload extends React.Component {
                                 Math.floor(maxFileSize / 1000000),
                             )}
                         </span>
-                        <span className="filetypes">
-                            {allowedExtensionText.replace('{fileTypes}', fileTypes.join(', '))}
-                        </span>
+                        {fileTypes &&
+                            fileTypes.length > 0 && (
+                                <span className="filetypes">
+                                    {allowedExtensionText.replace(
+                                        '{fileTypes}',
+                                        fileTypes.join(', '),
+                                    )}
+                                </span>
+                            )}
                     </p>
                     {fileError && (
                         <HelpBlock className="wfui-form-error">
