@@ -288,6 +288,7 @@ class renderFileUpload extends React.Component {
                                 blobPath: acceptedFiles[0].preview,
                                 data: reader.result,
                                 type: acceptedFiles[0].type,
+                                size: acceptedFiles[0].size,
                             };
                             if (initialValue.src) {
                                 value.src = initialValue.src;
