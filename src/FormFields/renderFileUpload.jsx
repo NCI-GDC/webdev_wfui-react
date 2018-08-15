@@ -293,6 +293,9 @@ class renderFileUpload extends React.Component {
                             if (initialValue.src) {
                                 value.src = initialValue.src;
                             }
+                            if (initialValue.id) {
+                                value.id = initialValue.id;
+                            }
                             input.onChange(value);
                             onUpload(value, input, acceptedFiles[0]);
                         };
