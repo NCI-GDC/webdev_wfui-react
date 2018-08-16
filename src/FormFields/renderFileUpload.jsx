@@ -81,13 +81,13 @@ class renderFileUpload extends React.Component {
         const { input, fileDownloadPath, fallbackPath } = props;
 
         let src = '';
-        if (input.value.id) {
-            // If images is from image API.
-            src = fileDownloadPath.replace(':id', input.value.id);
-            this.setState({ src });
-        } else if (input.value.blobPath || input.value.data) {
+        if (input.value.blobPath || input.value.data) {
             // If images is blob object just uploaded.
             src = input.value.blobPath || input.value.data;
+            this.setState({ src });
+        } else if (input.value.id) {
+            // If images is from image API.
+            src = fileDownloadPath.replace(':id', input.value.id);
             this.setState({ src });
         } else if (input.value.src) {
             // Verify
