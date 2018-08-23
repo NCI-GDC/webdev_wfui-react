@@ -3,6 +3,7 @@ import NotificationSystem from 'react-notification-system';
 import Dropzone from 'react-dropzone';
 import TimezonePicker from 'react-timezone';
 import { Editor } from 'react-draft-wysiwyg';
+import Recaptcha from 'react-recaptcha';
 import * as ReactCodeMirror from 'react-codemirror2';
 import * as DraftJS from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
@@ -46,6 +47,7 @@ const DraggableWithContext = withContext;
 
 export {
     FilteredList,
+    Recaptcha,
     Spinner,
     TwitterFeed,
     FilteredTable,
