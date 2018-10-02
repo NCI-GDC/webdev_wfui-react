@@ -31,6 +31,7 @@ import FilterItem from './Filters/FilterItem';
 import Card from './Card/Card';
 import ModalDialog from './ModalDialog/ModalDialog';
 import * as CascadingPane from './CascadingPane';
+import ThreeColumnView from './ThreeColumnView/ThreeColumnView';
 import * as Search from './Search';
 import * as FormFields from './FormFields';
 import * as FilterFields from './Filters/renderFilterItem';
@@ -90,4 +91,5 @@ export {
     ReactCodeMirror,
     AnimateHeight,
     SplitPane,
+    ThreeColumnView,
 };
