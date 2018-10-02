@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import SplitPane from 'react-split-pane'; // import SplitPane from 'react-split-pane';
+import SplitPane from 'react-split-pane';
 
 import Column from './Column';
 
