@@ -4090,6 +4090,10 @@ li.react-datepicker__time-list-item--disabled:hover {
 
 .Resizer.disabled:hover {
   border-color: transparent; }
+.three-column-view {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%; }
 /**
  * FixedDataTable v0.8.6 
  *
