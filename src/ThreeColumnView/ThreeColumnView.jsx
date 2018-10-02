@@ -42,13 +42,13 @@ class ThreeColumnView extends React.Component {
                         : null}
                     {colThreeVisible && colTwoVisible ? (
                         <SplitPane
-                            className={className('split-pane', splitClassName)}
+                            className={classNames('split-pane', splitClassName)}
                             split="vertical"
                             minSize={minSize || 50}
                             defaultSize={defaultSize || 150}
                         >
-                            {React.cloneElement(children[1], { key: 2 })}
-                            {React.cloneElement(children[2], { key: 3 })}
+                            <div>{React.cloneElement(children[1], { key: 2 })}</div>
+                            <div>{React.cloneElement(children[2], { key: 3 })}</div>
                         </SplitPane>
                     ) : null}
                 </div>
