@@ -8,6 +8,7 @@ import * as ReactCodeMirror from 'react-codemirror2';
 import * as DraftJS from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
+import SplitPane from 'react-split-pane';
 import FilteredList from './FilteredList/FilteredList';
 import Spinner from './Spinner/Spinner';
 import TwitterFeed from './TwitterFeed/TwitterFeed';
@@ -88,4 +89,5 @@ export {
     Utils,
     ReactCodeMirror,
     AnimateHeight,
+    SplitPane,
 };
