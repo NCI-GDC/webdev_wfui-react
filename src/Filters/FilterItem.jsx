@@ -14,14 +14,20 @@ class FilterItem extends React.Component {
     }
 
     componentWillMount() {
-        const { name, location: { query } } = this.props;
+        const {
+            name,
+            location: { query },
+        } = this.props;
         if (query[name]) {
             this.applyFilters(name, decodeURI(query[name]));
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        const { location: { query }, name } = this.props;
+        const {
+            location: { query },
+            name,
+        } = this.props;
         if (query[name] && !nextProps.location.query[name]) {
             this.applyFilters(name, '');
         } else if (nextProps.location.query[name] !== query[name]) {
@@ -54,8 +60,8 @@ class FilterItem extends React.Component {
         const { label, className, component } = this.props;
 
         return (
-            <FormGroup className={classNames(className, 'wfui-filters-item')} >
-                <ControlLabel>{label}</ControlLabel>
+            <FormGroup className={classNames(className, 'wfui-filters-item')}>
+                {label ? <ControlLabel>{label}</ControlLabel> : null}
                 <FormGroup>
                     {React.createElement(component, {
                         ...this.props,
