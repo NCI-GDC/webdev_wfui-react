@@ -18,6 +18,7 @@ class ThreeColumnView extends React.Component {
             minSize,
             colTwoVisible,
             colThreeVisible,
+            id,
         } = this.props;
         let visibleColCount = 1;
         if (colTwoVisible) {
@@ -30,6 +31,7 @@ class ThreeColumnView extends React.Component {
         if (enableResize) {
             return (
                 <div
+                    id={id}
                     className={classNames(
                         'three-column-view three-column-resize-view',
                         className,
@@ -76,6 +78,7 @@ class ThreeColumnView extends React.Component {
 ThreeColumnView.Col = Column;
 
 ThreeColumnView.propTypes = {
+    id: PropTypes.string,
     className: PropTypes.string,
     splitClassName: PropTypes.string,
     colTwoVisible: PropTypes.bool,
@@ -92,6 +95,7 @@ ThreeColumnView.propTypes = {
 };
 
 ThreeColumnView.defaultProps = {
+    id: '',
     className: '',
     visibleColCount: 1,
     enableResize: false,
