@@ -59,6 +59,7 @@ class ThreeColumnView extends React.Component {
 
         return (
             <div
+                id={id}
                 className={classNames(
                     'three-column-view three-column-noresize-view',
                     className,
