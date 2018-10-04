@@ -56,9 +56,9 @@ class TableBody extends React.Component {
                 width={contentWidth}
                 height={contentHeight}
                 onRowClick={(event, rowIndex) => {
-                    if (event.target.tagName !== 'INPUT') {
+                    if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'BUTTON') {
                         // e.stopPropagation on cell doesn't work. This will be invoked first.
-                        onRowClick(activeData[rowIndex]);
+                        onRowClick(activeData[rowIndex], event);
                         this.setState({ rowSelected: rowIndex });
                     }
                 }}
