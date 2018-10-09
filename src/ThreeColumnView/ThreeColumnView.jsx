@@ -48,6 +48,7 @@ class ThreeColumnView extends React.Component {
                             split="vertical"
                             minSize={minSize || 50}
                             defaultSize={defaultSize || 150}
+                            primary="second"
                         >
                             <div>{React.cloneElement(children[1], { key: 2 })}</div>
                             <div>{React.cloneElement(children[2], { key: 3 })}</div>
