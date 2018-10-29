@@ -92,6 +92,7 @@
     "react-recaptcha": "^2.3.10",
     "react-redux": "^5.0.5",
     "react-router": "^4.2.0",
+    "react-spinners": "^0.4.7",
     "react-split-pane": "^0.1.84",
     "react-tag-input": "^4.7.2",
     "react-timezone": "^0.1.0",

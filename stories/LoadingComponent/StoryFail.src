@@ -9,7 +9,7 @@ class Example extends React.Component {
             error: '',
             timeout: false,
             retried: false,
-        }
+        };
     }
     componentDidMount() {
         this.onRetry();
@@ -24,13 +24,23 @@ class Example extends React.Component {
             timeout: false,
             retried: false,
         });
-        setTimeout(() => {this.setState({ fetch5s: true })}, 5000);
-        setTimeout(() => {this.setState({ fetch8s: true })}, 8000);
-        setTimeout(() => {this.setState({ isFetching: false, status: 'fail', timeout: true })}, 10000);        
+        setTimeout(() => {
+            this.setState({ fetch5s: true });
+        }, 5000);
+        setTimeout(() => {
+            this.setState({ fetch8s: true });
+        }, 8000);
+        setTimeout(() => {
+            this.setState({ isFetching: false, status: 'fail', timeout: true });
+        }, 10000);
     }
     render() {
         return (
-            <LoadingComponent {...this.state} onRetry={this.onRetry.bind(this)}>
+            <LoadingComponent
+                {...this.state}
+                onRetry={this.onRetry.bind(this)}
+                enableIntl={false}
+            >
                 <div>Content is loaded.</div>
             </LoadingComponent>
         );
