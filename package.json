@@ -81,7 +81,7 @@
     "react-animate-height": "^0.10.10",
     "react-bootstrap": "^0.30.7",
     "react-codemirror2": "^4.2.1",
-    "react-datepicker": "^1.4.1",
+    "react-datepicker": "1.4.1",
     "react-dnd": "^2.5.1",
     "react-dnd-html5-backend": "^2.5.1",
     "react-draft-wysiwyg": "^1.12.11",
