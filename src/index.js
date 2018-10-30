@@ -16,7 +16,7 @@ import TwitterFeed from './TwitterFeed/TwitterFeed';
 import FilteredTable from './FilteredTable/1/FilteredTable';
 import FilteredTableV2 from './FilteredTable/2/FilteredTable';
 import IsotopeGrid from './IsotopeGrid/IsotopeGrid';
-import PasswordValidator from './PasswordValidator/PasswordValidator';
+import PasswordValidator, * as PasswordValidatorUtils from './PasswordValidator/PasswordValidator';
 import Draggable, { withContext } from './Draggable/Draggable';
 import DashboardBox from './DashboardBox/DashboardBox';
 import DashboardCard from './DashboardCard/DashboardCard';
@@ -57,6 +57,7 @@ export {
     FilteredTableV2,
     IsotopeGrid,
     PasswordValidator,
+    PasswordValidatorUtils,
     Draggable,
     DraggableWithContext,
     DashboardBox,
