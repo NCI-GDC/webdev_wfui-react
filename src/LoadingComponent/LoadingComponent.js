@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedHTMLMessage } from 'react-intl';
-import { Button, Spinner } from '../index';
+import { ClipLoader } from 'react-spinners';
+import { Button } from '../index';
 
 class LoadingComponent extends React.Component {
     render() {
@@ -24,6 +25,7 @@ class LoadingComponent extends React.Component {
             onRetry,
             textRetry,
             coverWholePage,
+            loaderStyle,
         } = this.props;
 
         if (isFetching) {
@@ -33,7 +35,11 @@ class LoadingComponent extends React.Component {
                         coverWholePage ? 'spinner-wrapper-overwrap' : ''
                     }`}
                 >
-                    {<Spinner {...spinnerConfig} />}
+                    {
+                        <div className="loader" style={loaderStyle}>
+                            <ClipLoader {...spinnerConfig} loading />
+                        </div>
+                    }
                     {!hideMessage &&
                         fetch5s && (
                             <p
@@ -150,14 +156,18 @@ LoadingComponent.propTypes = {
     onRetry: PropTypes.func,
     textRetry: PropTypes.string,
     enableIntl: PropTypes.bool,
+    loaderStyle: PropTypes.oneOfType([PropTypes.object]),
 };
 
 LoadingComponent.defaultProps = {
     spinnerConfig: {
-        type: 1,
-        color: '#337ab7',
-        fontSize: '12',
+        sizeUnit: 'px',
+        size: 60,
+        color: '#9B9B9B',
+    },
+    loaderStyle: {
         margin: '100px auto',
+        textAlign: 'center',
     },
     message5s: 'Loading, please wait...',
     message8s: 'We are experiencing longer than normal load times.',

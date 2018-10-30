@@ -9,17 +9,27 @@ class Example extends React.Component {
             error: '',
             timeout: false,
             retried: false,
-        }
+        };
     }
     componentDidMount() {
         this.setState({ isFetching: true });
-        setTimeout(() => {this.setState({ fetch5s: true })}, 5000);
-        setTimeout(() => {this.setState({ fetch8s: true })}, 8000);
-        setTimeout(() => {this.setState({ isFetching: false, status: 'fail', error: 'Bad Request' })}, 13000);
+        setTimeout(() => {
+            this.setState({ fetch5s: true });
+        }, 5000);
+        setTimeout(() => {
+            this.setState({ fetch8s: true });
+        }, 8000);
+        setTimeout(() => {
+            this.setState({
+                isFetching: false,
+                status: 'fail',
+                error: 'Bad Request',
+            });
+        }, 13000);
     }
     render() {
         return (
-            <LoadingComponent {...this.state} >
+            <LoadingComponent {...this.state} enableIntl={false}>
                 <div>Content is loaded.</div>
             </LoadingComponent>
         );
