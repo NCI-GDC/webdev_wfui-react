@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedHTMLMessage } from 'react-intl';
-import { ClipLoader } from 'react-spinners';
-import { Button } from '../index';
+import { flattenObject } from '../util/flattenObject';
+import { Button, ClipLoader, ClipLoaderWithContext } from '../index';
 
 class LoadingComponent extends React.Component {
     render() {
@@ -26,6 +26,9 @@ class LoadingComponent extends React.Component {
             textRetry,
             coverWholePage,
             loaderStyle,
+            data,
+            values,
+            context,
         } = this.props;
 
         if (isFetching) {
@@ -37,41 +40,57 @@ class LoadingComponent extends React.Component {
                 >
                     {
                         <div className="loader" style={loaderStyle}>
-                            <ClipLoader {...spinnerConfig} loading />
+                            {context ? (
+                                <ClipLoaderWithContext
+                                    context={context}
+                                    {...spinnerConfig}
+                                    loading
+                                />
+                            ) : (
+                                <ClipLoader {...spinnerConfig} loading />
+                            )}
                         </div>
                     }
-                    {!hideMessage &&
-                        fetch5s && (
-                            <p
-                                className="loading-5s"
-                                style={{ textAlign: 'center' }}
-                            >
-                                {enableIntl ? (
-                                    <FormattedHTMLMessage
-                                        id="loadingcomponent.message5s"
-                                        defaultMessage={message5s}
-                                    />
-                                ) : (
-                                    message5s
-                                )}
-                            </p>
-                        )}
-                    {!hideMessage &&
-                        fetch8s && (
-                            <p
-                                className="loading-8s"
-                                style={{ textAlign: 'center' }}
-                            >
-                                {enableIntl ? (
-                                    <FormattedHTMLMessage
-                                        id="loadingcomponent.message8s"
-                                        defaultMessage={message8s}
-                                    />
-                                ) : (
-                                    message8s
-                                )}
-                            </p>
-                        )}
+                    {!hideMessage && fetch5s && (
+                        <p
+                            className="loading-5s"
+                            style={{ textAlign: 'center' }}
+                        >
+                            {enableIntl ? (
+                                <FormattedHTMLMessage
+                                    id="loadingcomponent.message5s"
+                                    defaultMessage={message5s}
+                                    values={Object.assign(
+                                        {},
+                                        flattenObject(values),
+                                        flattenObject(data),
+                                    )}
+                                />
+                            ) : (
+                                message5s
+                            )}
+                        </p>
+                    )}
+                    {!hideMessage && fetch8s && (
+                        <p
+                            className="loading-8s"
+                            style={{ textAlign: 'center' }}
+                        >
+                            {enableIntl ? (
+                                <FormattedHTMLMessage
+                                    id="loadingcomponent.message8s"
+                                    defaultMessage={message8s}
+                                    values={Object.assign(
+                                        {},
+                                        flattenObject(values),
+                                        flattenObject(data),
+                                    )}
+                                />
+                            ) : (
+                                message8s
+                            )}
+                        </p>
+                    )}
                 </div>
             );
         }
@@ -79,54 +98,62 @@ class LoadingComponent extends React.Component {
             const errorType = typeof error === 'object' && error.type;
             return (
                 <div className="wfui-loading-component">
-                    {!hideMessage &&
-                        error && (
-                            <p className="error">
-                                {enableIntl ? (
-                                    <FormattedHTMLMessage
-                                        id={`loadingcomponent.${requestId}.${
-                                            errorType
-                                                ? `${errorType}`
-                                                : 'default'
-                                        }`}
-                                        defaultMessage={
-                                            typeof error === 'object'
-                                                ? error.type
-                                                : error
-                                        }
-                                    />
-                                ) : typeof error === 'object' ? (
-                                    error.type
-                                ) : (
-                                    error
-                                )}
-                            </p>
-                        )}
-                    {!hideMessage &&
-                        (retried || timeout) && (
-                            <p
-                                className="error"
-                                style={{ textAlign: 'center' }}
-                            >
-                                {enableIntl ? (
-                                    <FormattedHTMLMessage
-                                        id="loadingcomponent.messageFailed"
-                                        defaultMessage={messageFailed}
-                                    />
-                                ) : (
-                                    messageFailed
-                                )}
-                            </p>
-                        )}
-                    {(retried || timeout) &&
-                        typeof onRetry === 'function' && (
-                            <div
-                                className="retry-button"
-                                style={{ textAlign: 'center' }}
-                            >
-                                <Button onClick={onRetry}>{textRetry}</Button>
-                            </div>
-                        )}
+                    {!hideMessage && error && (
+                        <p className="error">
+                            {enableIntl ? (
+                                <FormattedHTMLMessage
+                                    id={`loadingcomponent.${requestId}.${
+                                        errorType ? `${errorType}` : 'default'
+                                    }`}
+                                    defaultMessage={
+                                        typeof error === 'object'
+                                            ? error.type
+                                            : error
+                                    }
+                                    values={Object.assign(
+                                        {},
+                                        flattenObject(values),
+                                        flattenObject(data),
+                                        {
+                                            message:
+                                                typeof error === 'object'
+                                                    ? error.type
+                                                    : error,
+                                        },
+                                    )}
+                                />
+                            ) : typeof error === 'object' ? (
+                                error.type
+                            ) : (
+                                error
+                            )}
+                        </p>
+                    )}
+                    {!hideMessage && (retried || timeout) && (
+                        <p className="error" style={{ textAlign: 'center' }}>
+                            {enableIntl ? (
+                                <FormattedHTMLMessage
+                                    id="loadingcomponent.messageFailed"
+                                    defaultMessage={messageFailed}
+                                    values={Object.assign(
+                                        {},
+                                        flattenObject(values),
+                                        flattenObject(data),
+                                    )}
+                                />
+                            ) : (
+                                messageFailed
+                            )}
+                        </p>
+                    )}
+                    {(retried || timeout) && typeof onRetry === 'function' && (
+                        <div
+                            className="retry-button"
+                            style={{ textAlign: 'center' }}
+                        >
+                            <Button onClick={onRetry}>{textRetry}</Button>
+                        </div>
+                    )}
                 </div>
             );
         }
@@ -157,6 +184,8 @@ LoadingComponent.propTypes = {
     textRetry: PropTypes.string,
     enableIntl: PropTypes.bool,
     loaderStyle: PropTypes.oneOfType([PropTypes.object]),
+    values: PropTypes.oneOfType([PropTypes.object]),
+    data: PropTypes.any,
 };
 
 LoadingComponent.defaultProps = {
@@ -176,6 +205,8 @@ LoadingComponent.defaultProps = {
     textRetry: 'Retry',
     enableIntl: true,
     requestId: '[requestId]',
+    values: {},
+    data: {},
 };
 
 export default LoadingComponent;
