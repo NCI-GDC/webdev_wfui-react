@@ -10,6 +10,7 @@ import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import SplitPane from 'react-split-pane';
 import { ClipLoader, SyncLoader, BarLoader, BeatLoader } from 'react-spinners';
+import ClipLoaderWithContext from './ReactSpinners/ClipLoader';
 import FilteredList from './FilteredList/FilteredList';
 import Spinner from './Spinner/Spinner';
 import TwitterFeed from './TwitterFeed/TwitterFeed';
@@ -95,6 +96,7 @@ export {
     SplitPane,
     ThreeColumnView,
     ClipLoader,
+    ClipLoaderWithContext,
     SyncLoader,
     BarLoader,
     BeatLoader,
