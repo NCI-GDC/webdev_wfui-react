@@ -63,7 +63,7 @@ const renderTextArea = ({
                     if (onHandleChange) onHandleChange(e);
                 }}
                 componentClass="textarea"
-                rows={disabled || preview ? 0 : rows || 5}
+                rows={rows || (disabled || preview ? 0 : 5)}
             />
             <FormControl.Feedback />
             {touched &&
