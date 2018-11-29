@@ -60,13 +60,11 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                     const contentType = response.headers.get('content-type');
                     
                     const resetData = (requestId) => {
-                        setTimeout(() => { 
-                            dispatch({
-                                type: 'FETCH_DATA_RESET',
-                                requestId,
-                                appId,
-                            });
-                        }, 3000);
+                        dispatch({
+                            type: 'FETCH_DATA_RESET',
+                            requestId,
+                            appId,
+                        });
                     };
 
                     // Need to have more statement.
