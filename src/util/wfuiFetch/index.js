@@ -58,6 +58,16 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                     if (hasCanceled) return reject({ isCanceled: true });
 
                     const contentType = response.headers.get('content-type');
+                    
+                    const resetData = (requestId) => {
+                        setTimeout(() => { 
+                            dispatch({
+                                type: 'FETCH_DATA_RESET',
+                                requestId,
+                                appId,
+                            });
+                        }, 3000);
+                    };
 
                     // Need to have more statement.
                     if (response.ok) {
@@ -74,6 +84,7 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                                 appId,
                                 data,
                             });
+                            resetData(init.requestId);
                             resolve({ res: response, data });
                         };
 
@@ -130,6 +141,7 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                                     data: parsedData,
                                     appId,
                                 });
+                                resetData(init.requestId);
                                 resolve({ res: response, data: statusText });
                             });
                         }
