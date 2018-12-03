@@ -9,7 +9,7 @@ class CustomQuery extends React.Component {
     render() {
         const { children, query, fetchStatus } = this.props;
         return (
-            <Query query={query}>
+            <Query {...this.props}>
                 {props => {
                     return (
                         <LoadingComponent {...fetchStatus}>
