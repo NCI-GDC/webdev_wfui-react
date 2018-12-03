@@ -3,7 +3,6 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import DraggableItem from './DraggableItem';
 import DraggableHandle from './DraggableHandle';
-import update from 'react/lib/update';
 import classNames from 'classnames';
 
 const style = {
