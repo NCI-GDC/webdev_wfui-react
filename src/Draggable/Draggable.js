@@ -56,13 +56,10 @@ class Draggable extends React.Component {
             onHandleItemMove(dragIndex, hoverIndex);
         }
 
-        this.setState(
-            update(this.state, {
-                items: {
-                    $splice: [[dragIndex, 1], [hoverIndex, 0, dragItem]],
-                },
-            }),
-        );
+        const newItems = this.state.items;
+        newItems.splice(dragIndex, 1);
+        newItems.splice(hoverIndex, 0, dragItem);
+        this.setState({ items: newItems });
     }
     render() {
         const { className, type, columnCount } = this.props;
@@ -120,6 +117,4 @@ export default Draggable;
 
 const withContext = DragDropContext(HTML5Backend)(Draggable);
 
-export {
-    withContext,
-};
+export { withContext };

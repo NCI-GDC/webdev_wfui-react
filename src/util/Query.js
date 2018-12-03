@@ -25,7 +25,6 @@ class CustomQuery extends React.Component {
 CustomQuery.propTypes = {
     query: PropTypes.object,
     fetchStatus: PropTypes.object,
-    children: PropTypes.node,
 };
 
 CustomQuery.defaultProps = {
