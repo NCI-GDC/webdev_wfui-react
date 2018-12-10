@@ -1,0 +1,53 @@
+[
+    {
+        "series": "Series 2018",
+        "workshops": [
+            {
+                "title": "Workshop 1"
+            },
+            {
+                "title": "Workshop 2"
+            },
+            {
+                "title": "Workshop 3"
+            }
+        ],
+        "published": false
+    },
+    {
+        "series": "Series 2017",
+        "workshops": [
+            {
+                "title": "Workshop A1"
+            },
+            {
+                "title": "Workshop A2"
+            },
+            {
+                "title": "Workshop A3"
+            }
+        ],
+        "published": true
+    },
+    {
+        "series": "Series 2016",
+        "workshops": [
+            {
+                "title": "Workshop B1"
+            },
+            {
+                "title": "Workshop 2"
+            },
+            {
+                "title": "Workshop B3"
+            },
+            {
+                "title": "Workshop B4"
+            },
+            {
+                "title": "Workshop B5"
+            }
+        ],
+        "published": true
+    }
+]

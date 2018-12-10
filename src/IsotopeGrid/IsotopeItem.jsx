@@ -36,6 +36,8 @@ class IsotopeItem extends React.Component {
         } = this.props;
         const elems = [];
 
+        if (!itemDisplay) return null;
+
         if (Array.isArray(children)) {
             children.forEach((elem) => {
                 if (Array.isArray(elem)) {

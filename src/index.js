@@ -16,6 +16,7 @@ import Spinner from './Spinner/Spinner';
 import TwitterFeed from './TwitterFeed/TwitterFeed';
 import FilteredTable from './FilteredTable/1/FilteredTable';
 import FilteredTableV2 from './FilteredTable/2/FilteredTable';
+import ResponsiveFilteredTable from './ResponsiveFilteredTable/FilteredTable';
 import IsotopeGrid from './IsotopeGrid/IsotopeGrid';
 import PasswordValidator, * as PasswordValidatorUtils from './PasswordValidator/PasswordValidator';
 import Draggable, { withContext } from './Draggable/Draggable';
@@ -58,6 +59,7 @@ export {
     TwitterFeed,
     FilteredTable,
     FilteredTableV2,
+    ResponsiveFilteredTable,
     IsotopeGrid,
     PasswordValidator,
     PasswordValidatorUtils,
