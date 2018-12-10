@@ -63,6 +63,9 @@ export const fetchReducer = (state = {}, action) => {
             _state[action.requestId].retried = true;
             _state[action.requestId].lastUpdated = lastUpdate;
             return _state;
+        case 'FETCH_DATA_RESET':
+            _state[action.requestId].data = undefined;
+            return _state;
         default :
             return _state;
     }
