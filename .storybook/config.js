@@ -21,6 +21,7 @@ function loadStories() {
     require('../stories/UserDrawer');
     require('../stories/FilteredList');
     require('../stories/FilteredTable');
+    require('../stories/ResponsiveFilteredTable');
     require('../stories/TwitterFeed');
     require('../stories/Spinner');
     require('../stories/PasswordValidator');
