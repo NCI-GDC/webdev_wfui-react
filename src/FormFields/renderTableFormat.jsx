@@ -72,7 +72,7 @@ class renderTableFormat extends React.Component {
                 className={classNames(
                     className,
                     'wfui-form-item',
-                    { 'wfui-form-item-error': globalError },
+                    { 'wfui-form-item-error': allTouched && globalError },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
                 )}
@@ -127,16 +127,16 @@ class renderTableFormat extends React.Component {
                     </ul>
                     <HelpBlock>
                         {' '}
-                        {allTouched &&
-                            globalError && <span>{globalError}</span>}{' '}
+                        {allTouched && globalError && (
+                            <span>{globalError}</span>
+                        )}{' '}
                     </HelpBlock>
-                    {help &&
-                        !preview && (
-                            <div
-                                className="wfui-form-help"
-                                dangerouslySetInnerHTML={{ __html: help }}
-                            />
-                        )}
+                    {help && !preview && (
+                        <div
+                            className="wfui-form-help"
+                            dangerouslySetInnerHTML={{ __html: help }}
+                        />
+                    )}
                 </FormGroup>
                 {descDisplay && !preview ? cloneElement(descDisplay) : ''}
             </div>

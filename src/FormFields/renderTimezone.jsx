@@ -23,7 +23,7 @@ const renderTimezone = ({
             className,
             'wfui-form-item',
             {
-                'wfui-form-item-error': error,
+                'wfui-form-item-error': touched && error,
             },
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
@@ -58,12 +58,11 @@ const renderTimezone = ({
             ) : (
                 <p className="timezone-value">{input.value}</p>
             )}
-            {touched &&
-                error && (
-                    <HelpBlock className="wfui-form-error">
-                        <span>{error}</span>
-                    </HelpBlock>
-                )}
+            {touched && error && (
+                <HelpBlock className="wfui-form-error">
+                    <span>{error}</span>
+                </HelpBlock>
+            )}
         </FormGroup>
         {descDisplay && !preview ? cloneElement(descDisplay) : ''}
     </div>
