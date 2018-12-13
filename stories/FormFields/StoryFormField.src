@@ -272,7 +272,7 @@ class Forms extends React.Component {
                         </div>
                     )}
                 />
-                <Field
+                {/* <Field
                     name="renderFileUpload"
                     type="text"
                     component={renderFileUpload}
@@ -282,7 +282,7 @@ class Forms extends React.Component {
                         console.log('aaaa');
                     }}
                     required
-                />
+                /> */}
                 <Field
                     name="renderFileUpload2"
                     type="text"
@@ -293,9 +293,11 @@ class Forms extends React.Component {
                         console.log('aaaa');
                     }}
                     descDisplay={
-                        <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                        <Description content="2 Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
                     }
                     required
+                    disabled
+                    preview
                 />
                 <input type="submit" />
             </form>

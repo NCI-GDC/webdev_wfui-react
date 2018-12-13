@@ -1,23 +1,3 @@
-/* global FileReader */
-/* eslint react/prop-types : 0 */
-import React from 'react';
-import Dropzone from 'react-dropzone';
-import TimezonePicker from 'react-timezone';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import {
-    Draggable,
-    DraggableWithoutContext,
-    Button,
-    FormGroup,
-    FormControl,
-    ControlLabel,
-    HelpBlock,
-    Checkbox,
-    Radio,
-    Glyphicon,
-} from '../index';
-
 export Description from './Description';
 export renderField from './renderField';
 export renderTextArea from './renderTextArea';
@@ -37,3 +17,4 @@ export renderFilterTable from './renderFilterTable';
 export renderAutocomplete from './renderAutocomplete';
 export renderFileUpload from './renderFileUpload';
 export renderDate from './renderDate';
+export renderEventSelect from './renderEventSelect';

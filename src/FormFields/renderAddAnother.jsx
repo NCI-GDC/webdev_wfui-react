@@ -81,7 +81,8 @@ class renderAddAnother extends React.Component {
                     className,
                     'wfui-form-item',
                     {
-                        'wfui-form-item-error': error || globalError,
+                        'wfui-form-item-error':
+                            this.touched && (error || globalError),
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
@@ -102,37 +103,37 @@ class renderAddAnother extends React.Component {
                             ? 'wfui-form-field-with-desctipton'
                             : 'wfui-form-field-no-desctipton'
                     } wfui-form-addAnother`}
-                    validationState={error || globalError ? 'error' : null}
+                    validationState={
+                        this.touched && (error || globalError) ? 'error' : null
+                    }
                 >
-                    {!disabled &&
-                        draggable &&
-                        fields.length > 0 && (
-                            <Comp
-                                onHandleItemMove={(from, to) => {
-                                    fields.move(from, to);
-                                    setTimeout(() => this.forceUpdate(), 1);
-                                }}
-                                onHandleEndDrag={() => {
-                                    this.forceUpdate();
-                                }}
-                                className="wfui-form-addAnother-item"
-                            >
-                                {fields.map((field, i) => (
-                                    <Comp.Item key={i} id={field}>
-                                        <Comp.Handle>
-                                            <Glyphicon
-                                                glyph="fullscreen"
-                                                style={{
-                                                    transform: 'rotate(45deg)',
-                                                }}
-                                            />
-                                        </Comp.Handle>
-                                        {childComponent(field, i)}
-                                        {<DeleteButton index={i} />}
-                                    </Comp.Item>
-                                ))}
-                            </Comp>
-                        )}
+                    {!disabled && draggable && fields.length > 0 && (
+                        <Comp
+                            onHandleItemMove={(from, to) => {
+                                fields.move(from, to);
+                                setTimeout(() => this.forceUpdate(), 1);
+                            }}
+                            onHandleEndDrag={() => {
+                                this.forceUpdate();
+                            }}
+                            className="wfui-form-addAnother-item"
+                        >
+                            {fields.map((field, i) => (
+                                <Comp.Item key={i} id={field}>
+                                    <Comp.Handle>
+                                        <Glyphicon
+                                            glyph="fullscreen"
+                                            style={{
+                                                transform: 'rotate(45deg)',
+                                            }}
+                                        />
+                                    </Comp.Handle>
+                                    {childComponent(field, i)}
+                                    {<DeleteButton index={i} />}
+                                </Comp.Item>
+                            ))}
+                        </Comp>
+                    )}
                     {(!draggable || disabled) &&
                         fields.map((field, i) => (
                             <div className="wfui-form-addAnother-item" key={i}>
@@ -155,19 +156,17 @@ class renderAddAnother extends React.Component {
                             <span>{error}</span>
                         </HelpBlock>
                     )}
-                    {(this.touched || submitFailed) &&
-                        globalError && (
-                            <HelpBlock className="wfui-form-error">
-                                <span>{globalError}</span>
-                            </HelpBlock>
-                        )}
-                    {help &&
-                        !preview && (
-                            <div
-                                className="wfui-form-help"
-                                dangerouslySetInnerHTML={{ __html: help }}
-                            />
-                        )}
+                    {(this.touched || submitFailed) && globalError && (
+                        <HelpBlock className="wfui-form-error">
+                            <span>{globalError}</span>
+                        </HelpBlock>
+                    )}
+                    {help && !preview && (
+                        <div
+                            className="wfui-form-help"
+                            dangerouslySetInnerHTML={{ __html: help }}
+                        />
+                    )}
                 </FormGroup>
                 {descDisplay && !preview ? cloneElement(descDisplay) : ''}
             </div>
