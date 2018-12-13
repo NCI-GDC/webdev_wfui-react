@@ -87,7 +87,7 @@ class renderTags extends React.Component {
                 className={classNames(
                     className,
                     'wfui-form-item',
-                    { 'wfui-form-item-error': error },
+                    { 'wfui-form-item-error': touched && error },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
                     { 'wfui-form-item-full-width': fullWidth },
@@ -130,25 +130,22 @@ class renderTags extends React.Component {
                             name={input.name}
                         />
                     )}
-                    {touched &&
-                        error && (
-                            <HelpBlock className="wfui-form-error">
-                                <span>{error}</span>
-                            </HelpBlock>
-                        )}
-                    {touched &&
-                        globalError && (
-                            <HelpBlock className="wfui-form-error">
-                                <span>{globalError}</span>
-                            </HelpBlock>
-                        )}
-                    {help &&
-                        !preview && (
-                            <div
-                                className="wfui-form-help"
-                                dangerouslySetInnerHTML={{ __html: help }}
-                            />
-                        )}
+                    {touched && error && (
+                        <HelpBlock className="wfui-form-error">
+                            <span>{error}</span>
+                        </HelpBlock>
+                    )}
+                    {touched && globalError && (
+                        <HelpBlock className="wfui-form-error">
+                            <span>{globalError}</span>
+                        </HelpBlock>
+                    )}
+                    {help && !preview && (
+                        <div
+                            className="wfui-form-help"
+                            dangerouslySetInnerHTML={{ __html: help }}
+                        />
+                    )}
                 </FormGroup>
                 {descDisplay && !preview ? cloneElement(descDisplay) : ''}
             </div>

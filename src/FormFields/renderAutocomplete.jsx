@@ -6,43 +6,52 @@ import { Spinner, FormGroup, FormControl, ControlLabel, HelpBlock } from '../';
 /**
  * Autocomplete component.
  */
-const Autocomplete = ({ fetching, items, onClickItem, itemDisplay, textNoResult, autoFetched }) => (
+const Autocomplete = ({
+    fetching,
+    items,
+    onClickItem,
+    itemDisplay,
+    textNoResult,
+    autoFetched,
+}) => (
     <div className="navbar-form">
         <div className="form-group">
             <ul
                 id="ui-autocomplete"
                 className="autocomplete-ps ui-menu ui-widget ui-widget-content ui-autocomplete ui-front"
             >
-                {!fetching &&
-                    autoFetched &&
-                    (!items || items.length === 0) && (
-                        <li className="ui-menu-item">{textNoResult}</li>
-                    )}
+                {!fetching && autoFetched && (!items || items.length === 0) && (
+                    <li className="ui-menu-item">{textNoResult}</li>
+                )}
                 {!fetching &&
                     autoFetched &&
                     items &&
-                    items.map(
-                        (item, idx) =>
-                            itemDisplay ? (
-                                React.cloneElement(
-                                    <li key={idx} className="ui-menu-item">
-                                        {itemDisplay(item, onClickItem)}
-                                    </li>,
-                                    Object.assign({}, {}, { key: idx }),
-                                )
-                            ) : (
+                    items.map((item, idx) =>
+                        itemDisplay ? (
+                            React.cloneElement(
                                 <li key={idx} className="ui-menu-item">
-                                    <div className="ui-menu-item-wrapper">
-                                        <a onClick={onClickItem} data-key={item}>
-                                            {`${item}`}
-                                        </a>
-                                    </div>
-                                </li>
-                            ),
+                                    {itemDisplay(item, onClickItem)}
+                                </li>,
+                                Object.assign({}, {}, { key: idx }),
+                            )
+                        ) : (
+                            <li key={idx} className="ui-menu-item">
+                                <div className="ui-menu-item-wrapper">
+                                    <a onClick={onClickItem} data-key={item}>
+                                        {`${item}`}
+                                    </a>
+                                </div>
+                            </li>
+                        ),
                     )}
                 {fetching && (
                     <li className="mp ps">
-                        <Spinner type={1} color="#0072c6" fontSize={'5px'} margin={'10px auto'} />
+                        <Spinner
+                            type={1}
+                            color="#0072c6"
+                            fontSize={'5px'}
+                            margin={'10px auto'}
+                        />
                     </li>
                 )}
             </ul>
@@ -130,7 +139,10 @@ class renderAutocomplete extends React.Component {
                 className={classNames(
                     className,
                     'wfui-form-item',
-                    { 'wfui-form-item-error': error || globalError },
+                    {
+                        'wfui-form-item-error':
+                            touched && (error || globalError),
+                    },
                     { 'wfui-form-inline': inline },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
@@ -146,17 +158,23 @@ class renderAutocomplete extends React.Component {
                 </div>
                 <FormGroup
                     className="wfui-form-input wfui-form-autocomplete"
-                    validationState={touched && (error || globalError) ? 'error' : null}
+                    validationState={
+                        touched && (error || globalError) ? 'error' : null
+                    }
                 >
                     <FormControl
                         {...input}
-                        placeholder={placeholder || placeholder === '' ? placeholder : label}
+                        placeholder={
+                            placeholder || placeholder === ''
+                                ? placeholder
+                                : label
+                        }
                         type={type}
                         maxLength={maxlength}
                         min={min}
                         max={max}
                         disabled={disabled}
-                        onChange={(e) => {
+                        onChange={e => {
                             input.onChange(e);
                             this.setState({
                                 term: e.target.value,
@@ -173,11 +191,13 @@ class renderAutocomplete extends React.Component {
                             if (onHandleChange) onHandleChange(e);
                         }}
                     />
-                    {postfix && <div className="wfui-form-postfix">{postfix}</div>}
+                    {postfix && (
+                        <div className="wfui-form-postfix">{postfix}</div>
+                    )}
                     {(autoCompleteItems.length > 0 || term) && (
                         <Autocomplete
                             items={autoCompleteItems}
-                            onClickItem={(e) => {
+                            onClickItem={e => {
                                 const _term = e.target.getAttribute('data-key');
                                 if (_term) {
                                     input.onChange(_term);
@@ -197,18 +217,16 @@ class renderAutocomplete extends React.Component {
                         />
                     )}
                     <FormControl.Feedback />
-                    {touched &&
-                        error && (
-                            <HelpBlock className="wfui-form-error">
-                                <span>{error}</span>
-                            </HelpBlock>
-                        )}
-                    {touched &&
-                        globalError && (
-                            <HelpBlock className="wfui-form-error">
-                                <span>{globalError}</span>
-                            </HelpBlock>
-                        )}
+                    {touched && error && (
+                        <HelpBlock className="wfui-form-error">
+                            <span>{error}</span>
+                        </HelpBlock>
+                    )}
+                    {touched && globalError && (
+                        <HelpBlock className="wfui-form-error">
+                            <span>{globalError}</span>
+                        </HelpBlock>
+                    )}
                     {help && (
                         <div
                             className="wfui-form-help"
