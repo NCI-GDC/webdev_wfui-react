@@ -1,37 +1,10 @@
 /* eslint react/prop-types : 0 */
 /* global document */
-import React from 'react';
+import React, { cloneElement } from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
-import { FormattedHTMLMessage } from 'react-intl';
 import { FormGroup, ControlLabel, HelpBlock } from '../index';
-
-const dateToString = date => {
-    const months = [
-        'Jan.',
-        'Feb.',
-        'Mar.',
-        'Apr.',
-        'May',
-        'June',
-        'July',
-        'Aug.',
-        'Sept.',
-        'Oct.',
-        'Nov.',
-        'Dec.',
-    ];
-
-    return `${months[date.getMonth()]} ${date.getDate()}`;
-};
-
-const isCurrent = (startDate, endDate) => {
-    const date = new Date();
-    return (
-        date.getTime() >= startDate.getTime() &&
-        date.getTime() <= endDate.getTime()
-    );
-};
+import RenderFee from './RenderFee';
 
 class renderEventSelect extends React.Component {
     constructor() {
@@ -97,8 +70,6 @@ class renderEventSelect extends React.Component {
             });
         }
 
-        console.log('renderEventSelect render');
-
         if (!events || events.length === 0) return null;
 
         // const date = new Date();
@@ -109,7 +80,7 @@ class renderEventSelect extends React.Component {
                 className={classNames(
                     className,
                     'wfui-form-item',
-                    { 'wfui-form-item-error': !allPristine && globalError },
+                    { 'wfui-form-item-error': globalError },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
                 )}
@@ -208,37 +179,11 @@ class renderEventSelect extends React.Component {
                                                                 ) === 0,
                                                         );
                                                         return (
-                                                            <td
-                                                                key={i}
-                                                                className={classNames(
-                                                                    'event-price',
-                                                                    {
-                                                                        current:
-                                                                            fee &&
-                                                                            isCurrent(
-                                                                                fee.start_date,
-                                                                                fee.end_date,
-                                                                            ),
-                                                                    },
-                                                                )}
-                                                            >
-                                                                {fee &&
-                                                                    fee.price &&
-                                                                    fee.start_date && (
-                                                                        <FormattedHTMLMessage
-                                                                            id="admin_form_builder.question_type.fee.fee_text"
-                                                                            values={{
-                                                                                price:
-                                                                                    fee.price,
-                                                                                tax:
-                                                                                    fee.taxes,
-                                                                                end_date: `${dateToString(
-                                                                                    fee.end_date,
-                                                                                )}, ${fee.end_date.getFullYear()}`,
-                                                                            }}
-                                                                        />
-                                                                    )}
-                                                            </td>
+                                                            <RenderFee
+                                                                fee={fee}
+                                                                currency={'CAD'}
+                                                                feeIntlId="admin_form_builder.question_type.fee.fee_text"
+                                                            />
                                                         );
                                                     },
                                                 )}

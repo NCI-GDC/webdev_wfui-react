@@ -18,3 +18,4 @@ export renderAutocomplete from './renderAutocomplete';
 export renderFileUpload from './renderFileUpload';
 export renderDate from './renderDate';
 export renderEventSelect from './renderEventSelect';
+export RenderFee from './RenderFee';
