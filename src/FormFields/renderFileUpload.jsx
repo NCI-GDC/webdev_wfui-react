@@ -1,441 +1,265 @@
-import React, { cloneElement } from 'react';
-import PropTypes from 'prop-types';
-import Dropzone from 'react-dropzone';
+/* eslint react/prop-types : 0 */
+/* global document */
+import React from 'react';
+import _ from 'lodash';
 import classNames from 'classnames';
+import { FormattedHTMLMessage, FormattedNumber } from 'react-intl';
 import { FormGroup, ControlLabel, HelpBlock } from '../index';
 
-const generateAcceptText = props => {
-    if (!props.fileTypes) return '';
-    const list = props.fileTypes.reduce(
-        (types, type) =>
-            props.mimeTypes[type] ? props.mimeTypes[type].concat(types) : types,
-        [],
-    );
-    return list.join(',');
+const dateToString = date => {
+    const months = [
+        'Jan.',
+        'Feb.',
+        'Mar.',
+        'Apr.',
+        'May',
+        'June',
+        'July',
+        'Aug.',
+        'Sept.',
+        'Oct.',
+        'Nov.',
+        'Dec.',
+    ];
+
+    return `${months[date.getMonth()]} ${date.getDate()}`;
 };
 
-class renderFileUpload extends React.Component {
-    constructor(props) {
+const isCurrent = (startDate, endDate) => {
+    const date = new Date();
+    return (
+        date.getTime() >= startDate.getTime() &&
+        date.getTime() <= endDate.getTime()
+    );
+};
+
+class renderEventSelect extends React.Component {
+    constructor() {
         super();
-        this.state = {
-            src: this.setFile(props),
-            file: false,
-            fileError: '',
-            data: '',
-            type: '',
-            accept: generateAcceptText(props),
-            removing: [],
-            initialValue: props.input.value,
-        };
-        this.getFileKey = this.getFileKey.bind(this);
-        this.renderFile = this.renderFile.bind(this);
-        this.renderRemoveBtn = this.renderRemoveBtn.bind(this);
-        this.renderDropzone = this.renderDropzone.bind(this);
-        this.renderDisabledDropzone = this.renderDisabledDropzone.bind(this);
-        this.renderChildComponets = this.renderChildComponets.bind(this);
+
+        this.state = { checked: true };
+        this.onHandleClick = this.onHandleClick.bind(this);
+        this.isChecked = this.isChecked.bind(this);
     }
-    getFileKey(mime) {
-        const { mimeTypes } = this.props;
-        let key = '';
-        Object.keys(mimeTypes).forEach(k => {
-            if (mimeTypes[k].includes(mime)) {
-                key = k;
+    isChecked(event) {
+        const checked = event.fees.reduce((result, fee) => {
+            if (result) return result;
+            const feeProps = _.get(this.props, fee.name);
+            if (feeProps.input && feeProps.input.value) {
+                return true;
             }
-        });
-        return key ? `file-${key}` : '';
+            return false;
+        }, false);
+        return checked;
     }
-    renderRemoveBtn() {
-        const { input, onRemove, txtRemove, disabled } = this.props;
-        const { removing } = this.state;
+    onHandleClick(e, event) {
+        const { disabled } = this.props;
+        e.stopPropagation();
         if (!disabled) {
-            return (
-                <a
-                    className="btn btn-danger remove-file"
-                    type="button"
-                    onClick={() => {
-                        input.onChange('');
-                        onRemove(input);
-                        this.setState({
-                            name: '',
-                            date: '',
-                            type: '',
-                            removing: input.value.id
-                                ? removing.concat(input.value.id)
-                                : removing,
-                        });
-                    }}
-                >
-                    {txtRemove}
-                </a>
-            );
-        }
-        return null;
-    }
-    componentWillReceiveProps(nextProps) {
-        const { fileTypes, input } = this.props;
-        if (nextProps.fileTypes !== fileTypes) {
-            this.setState({ accept: generateAcceptText(nextProps) });
-        }
-        if (
-            JSON.stringify(input.value) !==
-            JSON.stringify(nextProps.input.value)
-        ) {
-            this.setFile(nextProps);
-        }
-    }
-    setFile(props) {
-        const { input, fileDownloadPath, fallbackPath } = props;
+            const { name, changeFieldValue } = this.props;
 
-        let src = '';
-        if (input.value.blobPath || input.value.data) {
-            // If images is blob object just uploaded.
-            src = input.value.blobPath || input.value.data;
-            this.setState({ src });
-        } else if (input.value.id) {
-            // If images is from image API.
-            src = fileDownloadPath.replace(':id', input.value.id);
-            this.setState({ src });
-        } else if (input.value.src) {
-            // Verify
-            fetch(input.value.src).then(res => {
-                if (res.ok) {
-                    this.setState({ src: input.value.src });
-                } else {
-                    this.setState({
-                        src: `${fallbackPath}${encodeURI(input.value.src)}`,
-                    });
-                }
-            });
-        }
-
-        return src;
-    }
-    renderFile() {
-        const {
-            input,
-            onRemove,
-            review,
-            txtRemove,
-            fileDownloadPath,
-        } = this.props;
-        const { src } = this.state;
-
-        if (input.value && Object.keys(input.value).length) {
-            // Image File
-            if (input.value.type && input.value.type.indexOf('image') === 0) {
-                return (
-                    <div>
-                        {src ? (
-                            <a
-                                className={`${
-                                    review ? 'review-page' : ''
-                                } ${this.getFileKey(input.value.type)}`}
-                                type="button"
-                                href={src}
-                                target="_blank"
-                            >
-                                <img
-                                    src={src}
-                                    alt={input.value.name}
-                                    width="150"
-                                />
-                            </a>
-                        ) : (
-                            <span>The image is not available.</span>
-                        )}
-                        {!review && this.renderRemoveBtn()}
-                    </div>
-                );
+            this.isChecked(event);
+            if (!this.isChecked(event)) {
+                event.fees.forEach(fee => {
+                    changeFieldValue(`${fee.name}`, true);
+                });
+            } else {
+                event.fees.forEach(fee => {
+                    changeFieldValue(`${fee.name}`, false);
+                });
             }
-
-            // None Image File
-            return (
-                <div className="btn-group">
-                    {input.value.name && (
-                        <a
-                            className={`btn btn-default ${
-                                review ? 'review-page' : ''
-                            } ${this.getFileKey(input.value.type)}`}
-                            type="button"
-                            href={src}
-                            target="_blank"
-                        >
-                            {input.value.name}
-                        </a>
-                    )}
-                    {!review && this.renderRemoveBtn()}
-                </div>
-            );
         }
-    }
-    renderChildComponets() {
-        const {
-            componentId,
-            placeholder,
-            input,
-            onUpload,
-            maxFileSize,
-            fileTypes,
-            txtUpload,
-            maxFileSizeText,
-            allowedExtensionText,
-            errorFileType,
-            errorFileSize,
-            errorReject,
-            attrs,
-            disabled,
-        } = this.props;
-        const { accept, removing } = this.state;
-
-        const child = [
-            <div
-                className="input-group"
-                style={{ position: 'relative' }}
-                key="input-group"
-            >
-                <span
-                    style={{
-                        position: 'absolute',
-                        width: '100%',
-                        height: '100%',
-                        zIndex: 10,
-                        cursor: 'pointer',
-                    }}
-                />
-                <input
-                    type="text"
-                    className="wfui-input-field__input form-control"
-                    {...input}
-                    value=""
-                    placeholder={placeholder}
-                    disabled={disabled}
-                />
-                <span className="input-group-btn">
-                    <button className="btn btn-primary" type="button">
-                        {txtUpload}
-                    </button>
-                </span>
-            </div>,
-        ];
-        if (removing) {
-            child.push(
-                removing.map((fileid, i) => (
-                    <input
-                        key={i}
-                        name={input.name}
-                        className={`render-file-upload-removing-file file-upload-componentid-${componentId}`}
-                        type="hidden"
-                        value={fileid}
-                    />
-                )),
-            );
-        }
-        return child;
-    }
-    renderDisabledDropzone() {
-        const { input, preview } = this.props;
-
-        return (
-            <div
-                className="render-file-upload file-upload-componentid-undefined"
-                style={{
-                    width: '100%',
-                    borderStyle: 'none',
-                    display:
-                        input.value && Object.keys(input.value).length
-                            ? 'none'
-                            : 'block',
-                }}
-            >
-                {!preview && this.renderChildComponets()}
-            </div>
-        );
-    }
-    renderDropzone() {
-        const {
-            componentId,
-            placeholder,
-            input,
-            onUpload,
-            maxFileSize,
-            fileTypes,
-            txtUpload,
-            maxFileSizeText,
-            allowedExtensionText,
-            errorFileType,
-            errorFileSize,
-            errorReject,
-            attrs,
-        } = this.props;
-        const { accept, removing, initialValue } = this.state;
-
-        return (
-            <Dropzone
-                className={`render-file-upload file-upload-componentid-${componentId}`}
-                name={`${input.name}`}
-                multiple={false}
-                maxSize={maxFileSize}
-                style={{
-                    width: '100%',
-                    borderStyle: 'none',
-                    display:
-                        input.value && Object.keys(input.value).length
-                            ? 'none'
-                            : 'block',
-                }}
-                {...attrs}
-                accept={accept}
-                onDrop={(acceptedFiles, rejectedFiles) => {
-                    if (acceptedFiles.length > 0) {
-                        this.setState({ fileError: '' });
-                        const name = acceptedFiles[0].name;
-                        const reader = new FileReader();
-                        reader.readAsDataURL(acceptedFiles[0]);
-                        reader.onloadend = () => {
-                            const value = {
-                                name,
-                                blobPath: acceptedFiles[0].preview,
-                                data: reader.result,
-                                type: acceptedFiles[0].type,
-                                size: acceptedFiles[0].size,
-                            };
-                            if (initialValue.src) {
-                                value.src = initialValue.src;
-                            }
-                            if (initialValue.id) {
-                                value.id = initialValue.id;
-                            }
-                            input.onChange(value);
-                            onUpload(value, input, acceptedFiles[0]);
-                        };
-                    } else {
-                        input.onChange('');
-                        if (!accept.includes(rejectedFiles[0].type)) {
-                            this.setState({
-                                fileError: `${errorFileType} ${fileTypes.join(
-                                    ', ',
-                                )}`,
-                            });
-                        } else if (rejectedFiles[0].size > maxFileSize) {
-                            this.setState({
-                                fileError: `${errorFileSize.replace(
-                                    '{maxFileSize}',
-                                    Math.round(maxFileSize / 1000000),
-                                )}`,
-                            });
-                        } else {
-                            this.setState({
-                                fileError: errorReject,
-                            });
-                        }
-                    }
-                }}
-            >
-                {this.renderChildComponets()}
-            </Dropzone>
-        );
     }
     render() {
         const {
             className,
-            globalError,
+            disabled,
+            preview,
+            events,
             label,
             required,
             help,
+            globalError,
             input,
-            maxFileSize,
-            disabled,
-            meta: { touched, error },
-            preview,
-            descDisplay,
-            maxFileSizeText,
-            allowedExtensionText,
-            fileTypes,
-            fullWidth,
+            name,
+            names,
+            feeCategories,
         } = this.props;
-        const { fileError } = this.state;
 
-        const fileSizeTextConvert = Math.floor(maxFileSize / 1000000);
+        let allTouched = false;
+        let allPristine = true;
 
-        console.log(preview, disabled, 'renderDisabledDropzone');
+        if (names && names.length) {
+            names.forEach(name => {
+                const props = _.get(this.props, name);
+                allTouched = allTouched && props.meta.touched;
+                allPristine = allPristine && props.meta.pristine;
+            });
+        }
+
+        if (!events || events.length === 0) return null;
+
+        // const date = new Date();
+        const event = events[0];
 
         return (
             <div
                 className={classNames(
                     className,
                     'wfui-form-item',
-                    {
-                        'wfui-form-item-error':
-                            touched && (error || globalError),
-                    },
+                    { 'wfui-form-item-error': globalError },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
-                    { answered: input.value },
-                    { 'wfui-form-item-full-width': fullWidth },
                 )}
             >
-                {label && (
-                    <div className="wfui-form-label">
-                        <ControlLabel>
-                            {label}
-                            {required && <b className="required"> *</b>}
-                        </ControlLabel>
-                    </div>
-                )}
                 <FormGroup
-                    className={`wfui-form-field ${
-                        descDisplay
-                            ? 'wfui-form-field-with-desctipton'
-                            : 'wfui-form-field-no-desctipton'
-                    } wfui-file-upload`}
+                    className={`wfui-form-field wfui-table-event`}
                     validationState={
-                        touched && (error || globalError || fileError)
-                            ? 'error'
-                            : null
+                        !allPristine && globalError ? 'error' : null
                     }
                 >
-                    {this.renderFile()}
-                    {!disabled
-                        ? this.renderDropzone()
-                        : this.renderDisabledDropzone()}
-                    <p
-                        className="wfui-form-file-upload-spec"
-                        key="wfui-form-file-upload-spec"
-                    >
-                        <span className="filesize">
-                            {maxFileSizeText
-                                .replace(
-                                    '{maxFileSize}',
-                                    fileSizeTextConvert > 1000
-                                        ? Math.floor(fileSizeTextConvert / 1000)
-                                        : fileSizeTextConvert,
-                                )
-                                .replace(
-                                    '{unit}',
-                                    fileSizeTextConvert > 1000 ? 'GB' : 'MB',
-                                )}
-                        </span>
-                        {fileTypes && fileTypes.length > 0 && (
-                            <span className="filetypes">
-                                {allowedExtensionText.replace(
-                                    '{fileTypes}',
-                                    fileTypes.join(', '),
-                                )}
-                            </span>
-                        )}
-                    </p>
-                    {fileError && (
-                        <HelpBlock className="wfui-form-error">
-                            <span
-                                dangerouslySetInnerHTML={{
-                                    __html: fileError,
-                                }}
-                            />
-                        </HelpBlock>
-                    )}
-                    {touched && globalError && (
-                        <HelpBlock className="wfui-form-error">
-                            <span>{globalError}</span>
+                    <div className="wfui-table">
+                        <div>
+                            <table className="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th colSpan={disabled ? '1' : '2'}>
+                                            <ControlLabel>
+                                                {label}
+                                                {required && (
+                                                    <b className="required">
+                                                        {' '}
+                                                        *
+                                                    </b>
+                                                )}
+                                            </ControlLabel>
+                                        </th>
+                                        {feeCategories.map((feeCat, i) => (
+                                            <th
+                                                key={i}
+                                                className={classNames(
+                                                    'event-price',
+                                                    `category-${
+                                                        feeCat.category
+                                                    }`,
+                                                )}
+                                            >
+                                                {feeCat.title}
+                                            </th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {events.map((event, i) => {
+                                        return (
+                                            <tr
+                                                onClick={e =>
+                                                    this.onHandleClick(e, event)
+                                                }
+                                                key={i}
+                                                className={classNames({
+                                                    acitve: this.isChecked(
+                                                        event,
+                                                    ),
+                                                    disabled,
+                                                    preview,
+                                                })}
+                                            >
+                                                {!disabled && (
+                                                    <td className="event-checkbox">
+                                                        <div className="wfui-selection checkbox">
+                                                            <input
+                                                                type="checkbox"
+                                                                className="wfui-selection__input-checkbox"
+                                                                checked={this.isChecked(
+                                                                    event,
+                                                                )}
+                                                                onChange={e =>
+                                                                    this.onHandleClick(
+                                                                        e,
+                                                                        event,
+                                                                    )
+                                                                }
+                                                            />
+                                                        </div>
+                                                    </td>
+                                                )}
+                                                <td className="event-details">
+                                                    <b className="event-title">
+                                                        {event.title}
+                                                    </b>
+                                                    <div
+                                                        className="event-description"
+                                                        dangerouslySetInnerHTML={{
+                                                            __html:
+                                                                event.description,
+                                                        }}
+                                                    />
+                                                </td>
+                                                {feeCategories.map(
+                                                    (feeCat, i) => {
+                                                        const fee = event.fees.find(
+                                                            fee =>
+                                                                fee.variable.lastIndexOf(
+                                                                    feeCat.category,
+                                                                    0,
+                                                                ) === 0,
+                                                        );
+                                                        return (
+                                                            <td
+                                                                key={i}
+                                                                className={classNames(
+                                                                    'event-price',
+                                                                    {
+                                                                        current:
+                                                                            fee &&
+                                                                            isCurrent(
+                                                                                fee.start_date,
+                                                                                fee.end_date,
+                                                                            ),
+                                                                    },
+                                                                )}
+                                                            >
+                                                                {fee &&
+                                                                    fee.price && (
+                                                                        <b>
+                                                                            <FormattedNumber
+                                                                                style="currency"
+                                                                                currency="CAD"
+                                                                                value={
+                                                                                    fee.price
+                                                                                }
+                                                                            />
+                                                                        </b>
+                                                                    )}
+                                                                {fee &&
+                                                                    fee.start_date && (
+                                                                        <FormattedHTMLMessage
+                                                                            id="admin_form_builder.question_type.fee.fee_text"
+                                                                            values={{
+                                                                                tax:
+                                                                                    fee.taxes,
+                                                                                end_date: `${dateToString(
+                                                                                    fee.end_date,
+                                                                                )}, ${fee.end_date.getFullYear()}`,
+                                                                            }}
+                                                                        />
+                                                                    )}
+                                                            </td>
+                                                        );
+                                                    },
+                                                )}
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {!allPristine && (
+                        <HelpBlock>
+                            {' '}
+                            {globalError && <span>{globalError}</span>}{' '}
                         </HelpBlock>
                     )}
                     {help && !preview && (
@@ -445,59 +269,8 @@ class renderFileUpload extends React.Component {
                         />
                     )}
                 </FormGroup>
-                {descDisplay && !preview ? cloneElement(descDisplay) : ''}
             </div>
         );
     }
 }
-renderFileUpload.propTypes = {
-    onUpload: PropTypes.func,
-    onRemove: PropTypes.func,
-    mimeTypes: PropTypes.object,
-    txtRemove: PropTypes.string,
-    txtUpload: PropTypes.string,
-    maxFileSizeText: PropTypes.string,
-    errorFileType: PropTypes.string,
-    errorFileSize: PropTypes.string,
-    errorReject: PropTypes.string,
-    fileDownloadPath: PropTypes.string.isRequired,
-    fullWidth: PropTypes.bool,
-};
-renderFileUpload.defaultProps = {
-    onUpload: () => {},
-    onRemove: () => {},
-    maxFileSize: 100000000,
-    txtRemove: 'Remove',
-    txtUpload: 'Upload',
-    errorFileType: 'Only files with the following extensions are allowed:',
-    errorFileSize:
-        'The file is exceeding the maximum file size of <i>{maxFileSize} MB</i>',
-    errorReject: 'The file is rejected to upload.',
-    maxFileSizeText: 'Max file size: {maxFileSize}{unit}',
-    allowedExtensionText: 'Allowed extensions: {fileTypes}',
-    mimeTypes: {
-        pdf: ['application/pdf'],
-        word: [
-            'application/msword',
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        ],
-        xls: [
-            'application/vnd.ms-excel',
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        ],
-        ppt: [
-            'application/vnd.ms-powerpoint',
-            'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-        ],
-        txt: ['text/plain'],
-        png: ['image/png'],
-        jpg: ['image/jpeg', 'image/pjpeg'],
-        gif: ['image/gif'],
-        svg: ['image/svg+xml'],
-    },
-    fileDownloadPath: '',
-    fallbackPath: '',
-    fullWidth: false,
-};
-
-export default renderFileUpload;
+export default renderEventSelect;
