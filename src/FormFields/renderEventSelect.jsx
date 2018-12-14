@@ -180,6 +180,7 @@ class renderEventSelect extends React.Component {
                                                         );
                                                         return (
                                                             <RenderFee
+                                                                key={i}
                                                                 fee={fee}
                                                                 currency={'CAD'}
                                                                 feeIntlId="admin_form_builder.question_type.fee.fee_text"
