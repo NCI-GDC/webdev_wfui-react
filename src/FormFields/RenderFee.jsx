@@ -41,7 +41,7 @@ class RenderFee extends React.Component {
                     current: fee && isCurrent(fee.start_date, fee.end_date),
                 })}
             >
-                {fee && fee.price && (
+                {fee && fee.price !== undefined && (
                     <b>
                         <FormattedNumber
                             style="currency"
