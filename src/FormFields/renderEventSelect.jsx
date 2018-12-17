@@ -113,7 +113,7 @@ class renderEventSelect extends React.Component {
                                                 className={classNames(
                                                     'event-price',
                                                     `category-${
-                                                        feeCat.category
+                                                    feeCat.category
                                                     }`,
                                                 )}
                                             >
@@ -124,6 +124,8 @@ class renderEventSelect extends React.Component {
                                 </thead>
                                 <tbody>
                                     {events.map((event, i) => {
+                                        if (preview && !this.isChecked(event)) return null;
+
                                         return (
                                             <tr
                                                 onClick={e =>
