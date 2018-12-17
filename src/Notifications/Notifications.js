@@ -222,7 +222,7 @@ class Notifications extends React.Component {
             });
     }
     render() {
-        const { fetches, fixed, duration } = this.props;
+        const { fetches, fixed, duration, notificationRef } = this.props;
         return (
             <div className="wfui-notification">
                 {fixed ? (
@@ -230,12 +230,14 @@ class Notifications extends React.Component {
                         duration={duration}
                         ref={ref => {
                             this.notificationRef = ref;
+                            notificationRef(ref);
                         }}
                     />
                 ) : (
                     <NotificationSystem
                         ref={ref => {
                             this.notificationRef = ref;
+                            notificationRef(ref);
                         }}
                     />
                 )}
@@ -250,6 +252,7 @@ Notifications.propTypes = {
     values: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     overrides: PropTypes.object,
     duration: PropTypes.number,
+    notificationRef: PropTypes.func,
 };
 
 Notifications.defaultProps = {
@@ -258,6 +261,7 @@ Notifications.defaultProps = {
     values: {},
     overrides: {},
     duration: 5000,
+    notificationRef: f => f,
 };
 
 export default injectIntl(
