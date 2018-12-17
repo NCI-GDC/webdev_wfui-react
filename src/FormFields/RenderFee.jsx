@@ -46,7 +46,7 @@ class RenderFee extends React.Component {
                         <FormattedNumber
                             style="currency"
                             currency={currency}
-                            value={fee.price}
+                            value={fee.price >= 0 ? fee.price : 0}
                         />
                     </b>
                 )}
