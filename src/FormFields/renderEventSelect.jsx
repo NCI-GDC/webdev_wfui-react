@@ -59,21 +59,18 @@ class renderEventSelect extends React.Component {
             feeCategories,
         } = this.props;
 
-        let allTouched = false;
+        let anyTouched = false;
         let allPristine = true;
 
         if (names && names.length) {
             names.forEach(name => {
                 const props = _.get(this.props, name);
-                allTouched = allTouched && props.meta.touched;
+                anyTouched = anyTouched || props.meta.touched;
                 allPristine = allPristine && props.meta.pristine;
             });
         }
 
         if (!events || events.length === 0) return null;
-
-        // const date = new Date();
-        const event = events[0];
 
         return (
             <div
@@ -88,7 +85,7 @@ class renderEventSelect extends React.Component {
                 <FormGroup
                     className={`wfui-form-field wfui-table-event`}
                     validationState={
-                        !allPristine && globalError ? 'error' : null
+                        (!allPristine || anyTouched) && globalError ? 'error' : null
                     }
                 >
                     <div className="wfui-table">
@@ -197,7 +194,7 @@ class renderEventSelect extends React.Component {
                             </table>
                         </div>
                     </div>
-                    {!allPristine && (
+                    {(!allPristine || anyTouched) && (
                         <HelpBlock>
                             {' '}
                             {globalError && <span>{globalError}</span>}{' '}
