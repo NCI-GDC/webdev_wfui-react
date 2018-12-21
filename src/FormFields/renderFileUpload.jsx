@@ -483,6 +483,12 @@ renderFileUpload.defaultProps = {
     allowedExtensionText: 'Allowed extensions: {fileTypes}',
     mimeTypes: {
         pdf: ['application/pdf'],
+        doc: ['application/msword'],
+        dot: ['application/msword'],
+        docx: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+        dotx: ['application/vnd.openxmlformats-officedocument.wordprocessingml.template'],
+        docm: ['application/vnd.ms-word.document.macroEnabled.12'],
+        dotm: ['application/vnd.ms-word.template.macroEnabled.12'],
         word: [
             'application/msword',
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
