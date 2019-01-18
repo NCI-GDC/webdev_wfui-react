@@ -166,4 +166,4 @@ TableBody.defaultProps = {
     toggleSort: f => f,
 };
 
-export default Dimensions()(TableBody);
+export default Dimensions({ elementResize: true })(TableBody);
