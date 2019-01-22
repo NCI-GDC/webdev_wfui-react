@@ -1,9 +1,10 @@
 import React from 'react';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { reduxForm, Field, FieldArray } from 'redux-form';
+import { reduxForm, Field, Fields, FieldArray } from 'redux-form';
 import { reducer as formReducer } from 'redux-form';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { IntlProvider } from 'react-intl';
 import { storiesOf } from '@kadira/storybook';
 import * as FormFields from '../../src/FormFields';
 import StoryFormField from 'raw!./StoryFormField.src';
@@ -32,7 +33,16 @@ const store = createStore(
 
 storiesOf('FormFields', module)
     .addWithInfo('Regular', () => StoryFormField, {
-        scope: { Provider, store, FormFields, Field, FieldArray, reduxForm },
+        scope: {
+            Provider,
+            store,
+            FormFields,
+            Field,
+            Fields,
+            FieldArray,
+            reduxForm,
+            IntlProvider,
+        },
     })
     .addWithInfo('Disabled', () => StoryDisabled, {
         scope: { Provider, store, FormFields, Field, FieldArray, reduxForm },

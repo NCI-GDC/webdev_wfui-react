@@ -1,3 +1,110 @@
+const events = [
+    {
+        qid: 's-39eb33d0-1d9c-11e9-aa2a-d95a697aca71',
+        title: 'Test workshop',
+        description:
+            '<strong>2 days</strong>: February 11 - February 12, 2019 - Location',
+        fees: [
+            {
+                title: 'Early Registration',
+                taxes: 'HST',
+                price: 0,
+                start_date: new Date('2019-01-21T16:47:23.549Z'),
+                end_date: new Date('2019-01-21T16:47:23.549Z'),
+                cid: 'c-39f10031-1d9c-11e9-aa2a-d95a697aca71',
+                name:
+                    's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-39eb33d0-1d9c-11e9-aa2a-d95a697aca71.q-39f10030-1d9c-11e9-aa2a-d95a697aca71.value',
+                variable: 'wsFeeEarly_5c45f79b8ce9c8012a7bec37',
+            },
+            {
+                title: 'Late Registration',
+                taxes: 'HST',
+                price: 0,
+                start_date: new Date('2019-01-21T16:47:23.589Z'),
+                end_date: new Date('2019-01-21T16:47:23.589Z'),
+                cid: 'c-39f5e231-1d9c-11e9-aa2a-d95a697aca71',
+                name:
+                    's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-39eb33d0-1d9c-11e9-aa2a-d95a697aca71.q-39f5e230-1d9c-11e9-aa2a-d95a697aca71.value',
+                variable: 'wsFeeLate_5c45f79b8ce9c8012a7bec37',
+            },
+        ],
+        eventStatus: 'open',
+    },
+    {
+        qid: 's-97fc5690-1e4e-11e9-a51d-1d46c95f2ae9',
+        title: 'Test workshop - Close',
+        description:
+            '<strong>2 days</strong>: February 11 - February 12, 2019 - Location',
+        fees: [
+            {
+                title: 'Early Registration',
+                taxes: 'HST',
+                price: 0,
+                start_date: new Date('2019-01-21T16:47:23.549Z'),
+                end_date: new Date('2019-01-21T16:47:23.549Z'),
+                cid: 'c-97fd8f11-1e4e-11e9-a51d-1d46c95f2ae9',
+                name:
+                    's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-97fc5690-1e4e-11e9-a51d-1d46c95f2ae9.q-97fd8f10-1e4e-11e9-a51d-1d46c95f2ae9.value',
+                variable: 'wsFeeEarly_5c45f79b8ce9c8012a7bec37',
+            },
+            {
+                title: 'Late Registration',
+                taxes: 'HST',
+                price: 0,
+                start_date: new Date('2019-01-21T16:47:23.589Z'),
+                end_date: new Date('2019-01-21T16:47:23.589Z'),
+                cid: 'c-97feeea1-1e4e-11e9-a51d-1d46c95f2ae9',
+                name:
+                    's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-97fc5690-1e4e-11e9-a51d-1d46c95f2ae9.q-97feeea0-1e4e-11e9-a51d-1d46c95f2ae9.value',
+                variable: 'wsFeeLate_5c45f79b8ce9c8012a7bec37',
+            },
+        ],
+        eventStatus: 'close',
+    },
+    {
+        qid: 's-b7832b60-1e4e-11e9-a51d-1d46c95f2ae9',
+        title: 'Test workshop - Full',
+        description:
+            '<strong>2 days</strong>: February 11 - February 12, 2019 - Location',
+        fees: [
+            {
+                title: 'Early Registration',
+                taxes: 'HST',
+                price: 0,
+                start_date: new Date('2019-01-21T16:47:23.549Z'),
+                end_date: new Date('2019-01-21T16:47:23.549Z'),
+                cid: 'c-b7843cd1-1e4e-11e9-a51d-1d46c95f2ae9',
+                name:
+                    's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-b7832b60-1e4e-11e9-a51d-1d46c95f2ae9.q-b7843cd0-1e4e-11e9-a51d-1d46c95f2ae9.value',
+                variable: 'wsFeeEarly_5c45f79b8ce9c8012a7bec37',
+            },
+            {
+                title: 'Late Registration',
+                taxes: 'HST',
+                price: 0,
+                start_date: new Date('2019-01-21T16:47:23.589Z'),
+                end_date: new Date('2019-01-21T16:47:23.589Z'),
+                cid: 'c-b785c371-1e4e-11e9-a51d-1d46c95f2ae9',
+                name:
+                    's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-b7832b60-1e4e-11e9-a51d-1d46c95f2ae9.q-b785c370-1e4e-11e9-a51d-1d46c95f2ae9.value',
+                variable: 'wsFeeLate_5c45f79b8ce9c8012a7bec37',
+            },
+        ],
+        eventStatus: 'full',
+    },
+];
+
+const feeCategories = [
+    {
+        category: 'wsFeeEarly',
+        title: 'Early Registration',
+    },
+    {
+        category: 'wsFeeLate',
+        title: 'Late Registration',
+    },
+];
+
 const {
     renderField,
     renderTextArea,
@@ -12,6 +119,7 @@ const {
     renderTags,
     renderFileUpload,
     Description,
+    renderEventSelect,
 } = FormFields;
 
 const validate = values => {
@@ -299,6 +407,29 @@ class Forms extends React.Component {
                     disabled
                     preview
                 />
+                <IntlProvider locale="en">
+                    <Fields
+                        name={`s-a58460e0-fe38-11e8-9b5d-ed7302dc0e63`}
+                        names={[
+                            's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-39eb33d0-…ca71.q-39f10030-1d9c-11e9-aa2a-d95a697aca71.value',
+                            's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-39eb33d0-…ca71.q-39f5e230-1d9c-11e9-aa2a-d95a697aca71.value',
+                            's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-97fc5690-…2ae9.q-97fd8f10-1e4e-11e9-a51d-1d46c95f2ae9.value',
+                            's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-97fc5690-…2ae9.q-97feeea0-1e4e-11e9-a51d-1d46c95f2ae9.value',
+                            's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-b7832b60-…2ae9.q-b7843cd0-1e4e-11e9-a51d-1d46c95f2ae9.value',
+                            's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-b7832b60-…2ae9.q-b785c370-1e4e-11e9-a51d-1d46c95f2ae9.value',
+                        ]}
+                        type="select"
+                        label={'TEST'}
+                        required={true}
+                        component={renderEventSelect}
+                        changeFieldValue={() => {}}
+                        events={events}
+                        feeCategories={feeCategories}
+                        disabled={false}
+                        preview={false}
+                        placeholder={''}
+                    />
+                </IntlProvider>
                 <input type="submit" />
             </form>
         );
