@@ -18,7 +18,7 @@ class renderEventSelect extends React.Component {
         const checked = event.fees.reduce((result, fee) => {
             if (result) return result;
             const feeProps = _.get(this.props, fee.name);
-            if (feeProps.input && feeProps.input.value) {
+            if (feeProps && feeProps.input && feeProps.input.value) {
                 return true;
             }
             return false;
@@ -28,7 +28,8 @@ class renderEventSelect extends React.Component {
     onHandleClick(e, event) {
         const { disabled } = this.props;
         e.stopPropagation();
-        if (!disabled) {
+
+        if (!disabled && event.eventStatus !== 'close') {
             const { name, changeFieldValue } = this.props;
 
             this.isChecked(event);
@@ -85,7 +86,9 @@ class renderEventSelect extends React.Component {
                 <FormGroup
                     className={`wfui-form-field wfui-table-event`}
                     validationState={
-                        (!allPristine || anyTouched) && globalError ? 'error' : null
+                        (!allPristine || anyTouched) && globalError
+                            ? 'error'
+                            : null
                     }
                 >
                     <div className="wfui-table">
@@ -110,7 +113,7 @@ class renderEventSelect extends React.Component {
                                                 className={classNames(
                                                     'event-price',
                                                     `category-${
-                                                    feeCat.category
+                                                        feeCat.category
                                                     }`,
                                                 )}
                                             >
@@ -121,7 +124,10 @@ class renderEventSelect extends React.Component {
                                 </thead>
                                 <tbody>
                                     {events.map((event, i) => {
-                                        if (preview && !this.isChecked(event)) return null;
+                                        const isClosed =
+                                            event.eventStatus === 'close';
+                                        if (preview && !this.isChecked(event))
+                                            return null;
 
                                         return (
                                             <tr
@@ -129,13 +135,19 @@ class renderEventSelect extends React.Component {
                                                     this.onHandleClick(e, event)
                                                 }
                                                 key={i}
-                                                className={classNames({
+                                                className={`${classNames({
                                                     acitve: this.isChecked(
                                                         event,
                                                     ),
                                                     disabled,
                                                     preview,
-                                                })}
+                                                })}${
+                                                    event.eventStatus
+                                                        ? ` event-${
+                                                              event.eventStatus
+                                                          }`
+                                                        : ''
+                                                }`}
                                             >
                                                 {!disabled && (
                                                     <td className="event-checkbox">
@@ -151,6 +163,9 @@ class renderEventSelect extends React.Component {
                                                                         e,
                                                                         event,
                                                                     )
+                                                                }
+                                                                disabled={
+                                                                    isClosed
                                                                 }
                                                             />
                                                         </div>
