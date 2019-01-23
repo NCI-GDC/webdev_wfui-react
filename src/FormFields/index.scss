@@ -832,6 +832,25 @@ div[class^='multiple-inputs-'] .wfui-input-table__li:nth-child(even) {
     display: none;
 }
 
+/* Event Table
+/-------------------------------------------------------------- */
+div.wfui-form-item {
+    .wfui-table-event {
+        tr.event-close td.event-details,
+        tr.event-close td.event-price {
+            opacity: 0.4;
+        }
+        td.event-checkbox {
+            vertical-align: middle;
+            text-align: center;
+        }
+        .checkbox input,
+        .radio input {
+            margin: 0;
+        }
+    }
+}
+
 /* Tables
 /-------------------------------------------------------------- */
 .inactive-overlay {

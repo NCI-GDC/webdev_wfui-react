@@ -2863,6 +2863,20 @@ div[class^='multiple-inputs-'] .wfui-input-table__li:nth-child(even) {
 .wfui-form-item .wfui-input-table__ul .wfui-form-item label {
   display: none; }
 
+/* Event Table
+/-------------------------------------------------------------- */
+div.wfui-form-item .wfui-table-event tr.event-close td.event-details,
+div.wfui-form-item .wfui-table-event tr.event-close td.event-price {
+  opacity: 0.4; }
+
+div.wfui-form-item .wfui-table-event td.event-checkbox {
+  vertical-align: middle;
+  text-align: center; }
+
+div.wfui-form-item .wfui-table-event .checkbox input,
+div.wfui-form-item .wfui-table-event .radio input {
+  margin: 0; }
+
 /* Tables
 /-------------------------------------------------------------- */
 .inactive-overlay {
