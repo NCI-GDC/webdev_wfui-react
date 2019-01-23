@@ -48,9 +48,9 @@ const renderTextArea = ({
                     descDisplay
                         ? 'wfui-form-field-with-desctipton'
                         : 'wfui-form-field-no-desctipton'
-                } wfui-form-textarea wfui-form-textarea-preview`}
+                } wfui-form-textarea`}
             >
-                {input.value}
+                <div className="wfui-form-textarea-preview-value">{input.value}</div>
             </div>
         </div>
     ) : (
