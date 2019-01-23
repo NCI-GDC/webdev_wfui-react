@@ -224,7 +224,7 @@ const FormsReduxForm = reduxForm({
     validate,
     initialValues: {
         renderField: 'renderField text',
-        renderTextArea: 'renderTextArea text',
+        renderTextArea: 'renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text renderTextArea text',
         renderSingleCheckbox: true,
         renderCheckboxes: ['OptionA'],
         renderRadios: 'OptionB',
