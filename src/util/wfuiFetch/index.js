@@ -58,13 +58,14 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                     if (hasCanceled) return reject({ isCanceled: true });
 
                     const contentType = response.headers.get('content-type');
-                    
+
                     const resetData = (requestId) => {
-                        dispatch({
-                            type: 'FETCH_DATA_RESET',
-                            requestId,
-                            appId,
-                        });
+                        // Need to be tested well
+                        // dispatch({
+                        //     type: 'FETCH_DATA_RESET',
+                        //     requestId,
+                        //     appId,
+                        // });
                     };
 
                     // Need to have more statement.
@@ -126,7 +127,7 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                                                 key,
                                             });
                                         });
-                                        
+
                                     parsedData = {
                                         orig,
                                         keys,
