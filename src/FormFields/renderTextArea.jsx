@@ -22,6 +22,8 @@ const renderTextArea = ({
     readOnly,
     descDisplay,
     fullWidth,
+    textLimit,
+    textLimitLabel,
 }) =>
     preview ? (
         <div
@@ -39,6 +41,9 @@ const renderTextArea = ({
                 <div className="wfui-form-label">
                     <ControlLabel>
                         {label}
+                        {textLimitLabel ? (
+                            <span className="text-muted">{textLimitLabel}</span>
+                        ) : null}
                         {required && <b className="required"> *</b>}
                     </ControlLabel>
                 </div>
@@ -69,6 +74,9 @@ const renderTextArea = ({
                 <div className="wfui-form-label">
                     <ControlLabel>
                         {label}
+                        {textLimitLabel ? (
+                            <span className="text-muted">{textLimitLabel}</span>
+                        ) : null}
                         {required && <b className="required"> *</b>}
                     </ControlLabel>
                 </div>
@@ -98,13 +106,28 @@ const renderTextArea = ({
                 {touched && error && (
                     <HelpBlock className="wfui-form-error">
                         <span>{error}</span>
+                        {textLimit && !preview ? (
+                            <span className="wfui-form-char-count">{`${
+                                input && input.value ? input.value.length : 0
+                            } / ${textLimit} characters`}</span>
+                        ) : null}
                     </HelpBlock>
                 )}
                 {touched && globalError && (
                     <HelpBlock className="wfui-form-error">
                         <span>{globalError}</span>
+                        {textLimit && !preview ? (
+                            <span className="wfui-form-char-count">{`${
+                                input && input.value ? input.value.length : 0
+                            } / ${textLimit} characters`}</span>
+                        ) : null}
                     </HelpBlock>
                 )}
+                {!error && !globalError && textLimit && !preview ? (
+                    <span className="wfui-form-char-count">{`${
+                        input && input.value ? input.value.length : 0
+                    } / ${textLimit} characters`}</span>
+                ) : null}
                 {help && !preview && (
                     <div className="wfui-form-help" dangerouslySetInnerHTML={{ __html: help }} />
                 )}
