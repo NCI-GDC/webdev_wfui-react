@@ -123,7 +123,7 @@ const renderTextArea = ({
                         ) : null}
                     </HelpBlock>
                 )}
-                {!error && !globalError && textLimit && !preview ? (
+                {!(touched && (error || globalError)) && textLimit && !preview ? (
                     <span className="wfui-form-char-count">{`${
                         input && input.value ? input.value.length : 0
                     } / ${textLimit} characters`}</span>
