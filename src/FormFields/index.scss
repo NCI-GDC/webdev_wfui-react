@@ -40,6 +40,10 @@ div.wfui-form-item {
 
     .wfui-form-label {
         width: 100%;
+
+        .text-muted {
+            margin-left: 5px;
+        }
     }
 
     .wfui-form-field {
