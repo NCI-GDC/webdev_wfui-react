@@ -2570,6 +2570,9 @@ div.wfui-form-item div.wfui-form-radios.two-column .radio {
   margin-left: 10px; }
 
 @media (max-width: 767px) {
+  .wfui-radios-hybrid .radio-with-radioHybrid,
+  .wfui-checkboxes-hybrid .checkbox-with-checkboxHybrid {
+    display: flex; }
   .wfui-radios-hybrid .radio-with-radioHybrid .radioHybrid,
   .wfui-checkboxes-hybrid .checkbox-with-checkboxHybrid .checkboxHybrid {
     width: 100%;
