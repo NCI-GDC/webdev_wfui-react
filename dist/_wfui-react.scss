@@ -2204,6 +2204,7 @@ div.wfui-form-item {
   @media (max-width: 767px) {
     div.wfui-form-item .wfui-form-label {
       order: 1; }
+    div.wfui-form-item .wfui-form-field,
     div.wfui-form-item .wfui-form-field.wfui-form-field-with-description {
       order: 3; }
     div.wfui-form-item .wfui-description {
