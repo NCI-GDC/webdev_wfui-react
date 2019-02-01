@@ -100,8 +100,8 @@ class renderAddAnother extends React.Component {
                 <FormGroup
                     className={`wfui-form-field ${
                         descDisplay
-                            ? 'wfui-form-field-with-desctipton'
-                            : 'wfui-form-field-no-desctipton'
+                            ? 'wfui-form-field-with-description'
+                            : 'wfui-form-field-no-description'
                     } wfui-form-addAnother`}
                     validationState={
                         this.touched && (error || globalError) ? 'error' : null
