@@ -507,6 +507,7 @@ div.wfui-form-item div.wfui-form-radios.two-column .radio {
         margin-left: 0;
 
         > label {
+            display: flex;
             flex-wrap: wrap;
         }
     }

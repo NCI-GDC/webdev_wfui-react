@@ -2579,6 +2579,7 @@ div.wfui-form-item div.wfui-form-radios.two-column .radio {
     margin-left: 0; }
     div.wfui-radios-hybrid .radio-with-radioHybrid .radioHybrid > label,
     div.wfui-checkboxes-hybrid .checkbox-with-checkboxHybrid .checkboxHybrid > label {
+      display: flex;
       flex-wrap: wrap; } }
 
 div.wfui-radios-hybrid label div.radioHybrid input,
