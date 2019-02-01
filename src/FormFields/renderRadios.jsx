@@ -41,8 +41,8 @@ const renderRadios = ({
         <FormGroup
             className={`wfui-form-field ${
                 descDisplay
-                    ? 'wfui-form-field-with-desctipton'
-                    : 'wfui-form-field-no-desctipton'
+                    ? 'wfui-form-field-with-description'
+                    : 'wfui-form-field-no-description'
             } wfui-form-radios`}
             validationState={touched && (error || globalError) ? 'error' : null}
         >

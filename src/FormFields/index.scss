@@ -16,6 +16,21 @@ a.delete-icon {
 div.wfui-form-item {
     display: flex;
     flex-wrap: wrap;
+
+    @media (max-width: 767px) {
+        .wfui-form-label {
+            order: 1;
+        }
+
+        .wfui-form-field.wfui-form-field-with-description {
+            order: 3;
+        }
+
+        .wfui-description {
+            order: 2;
+        }
+    }
+
     label {
         /* These are technically the same, but use both */
         overflow-wrap: break-word;
@@ -49,21 +64,29 @@ div.wfui-form-item {
     .wfui-form-field {
         width: 100%;
 
-        &.wfui-form-field-with-desctipton {
+        &.wfui-form-field-with-description {
             width: 50%;
+
+            @media (max-width: 767px) {
+                width: 100%;
+            }
         }
     }
 
     .wfui-form-textarea {
-        &.wfui-form-field-no-desctipton {
+        &.wfui-form-field-no-description {
             width: 100%;
         }
-        &.wfui-form-field-with-desctipton {
+        &.wfui-form-field-with-description {
             width: 50%;
+
+            @media (max-width: 767px) {
+                width: 100%;
+            }
         }
     }
 
-    .wfui-form-addAnother.wfui-form-field-no-desctipton {
+    .wfui-form-addAnother.wfui-form-field-no-description {
         width: 75%;
     }
 
@@ -94,28 +117,38 @@ div.wfui-form-item {
 }
 
 .wfui-description:before {
-    content: '';
-    position: absolute;
-    left: -14px;
-    width: 14px;
-    height: 8px;
-    margin: 0;
-    border-top: 7px solid transparent;
-    border-right: 8px solid #d9edf7;
-    border-bottom: 7px solid transparent;
+    @media (min-width: 768px) {
+        content: '';
+        position: absolute;
+        left: -14px;
+        width: 14px;
+        height: 8px;
+        margin: 0;
+        border-top: 7px solid transparent;
+        border-right: 8px solid #d9edf7;
+        border-bottom: 7px solid transparent;
+    }
 }
 
 .wfui-description {
     position: relative;
-    width: calc(50% - 15px);
     padding: 10px;
     margin: 0;
-    margin-left: 15px;
-    margin-bottom: 20px;
     border-radius: 3px;
     font-size: 12px;
     background-color: #d9edf7;
     font-weight: normal;
+    margin-bottom: 10px;
+
+    @media (min-width: 768px) {
+        width: calc(50% - 15px);
+        margin-left: 15px;
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 767px) {
+        width: 100%;
+    }
 }
 
 .wfui-description {
@@ -463,6 +496,29 @@ div.wfui-form-item div.wfui-form-radios.two-column .radio {
     margin-left: 10px;
 }
 
+@media (max-width: 767px) {
+    div.wfui-radios-hybrid > div.radio-with-radioHybrid,
+    div.wfui-checkboxes-hybrid > div.checkbox-with-checkboxHybrid {
+        display: flex;
+
+        > label {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+
+    div.wfui-radios-hybrid .radio-with-radioHybrid .radioHybrid,
+    div.wfui-checkboxes-hybrid .checkbox-with-checkboxHybrid .checkboxHybrid {
+        width: 100%;
+        margin-left: 0;
+
+        > label {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+}
+
 div.wfui-radios-hybrid label div.radioHybrid input,
 div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
     margin: 0;
@@ -472,6 +528,11 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
 .wfui-form-item div.column-count-0 .checkbox {
     width: initial;
     margin-right: 1%;
+
+    @media (max-width: 767px) {
+        width: 100%;
+        margin-right: 0;
+    }
 }
 
 .wfui-form-item div.column-count-1 .radio,
@@ -483,6 +544,11 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
 .wfui-form-item div.column-count-2 .checkbox {
     width: 49.5%;
     margin-right: 1%;
+
+    @media (max-width: 767px) {
+        width: 100%;
+        margin-right: 0;
+    }
 }
 
 .wfui-form-item div.column-count-2 .radio:nth-child(even),
@@ -494,6 +560,11 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
 .wfui-form-item div.column-count-3 .checkbox {
     width: 32.666%;
     margin-right: 1%;
+
+    @media (max-width: 767px) {
+        width: 100%;
+        margin-right: 0;
+    }
 }
 
 .wfui-form-item div.column-count-3 .radio:nth-child(3n),
@@ -505,6 +576,11 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
 .wfui-form-item div.column-count-4 .checkbox {
     width: 24.25%;
     margin-right: 1%;
+
+    @media (max-width: 767px) {
+        width: 100%;
+        margin-right: 0;
+    }
 }
 
 .wfui-form-item div.column-count-4 .radio:nth-child(4n),
@@ -516,11 +592,23 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
 .wfui-form-item div.column-count-5 .checkbox {
     width: 19.2%;
     margin-right: 1%;
+
+    @media (max-width: 767px) {
+        width: 100%;
+        margin-right: 0;
+    }
 }
 
 .wfui-form-item div.column-count-5 .radio:nth-child(5n),
 .wfui-form-item div.column-count-5 .checkbox:nth-child(5n) {
     margin-right: 0;
+}
+
+.wfui-form-item div.wfui-form-single-checkbox.wfui-form-field {
+    @media (max-width: 767px) {
+        width: 100%;
+        margin-right: 0;
+    }
 }
 
 /* WFUI Form Item: Input
@@ -674,7 +762,7 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
     color: #3365a0;
 }
 
-.wfui-form-field-with-desctipton.file-chosen .btn-remove {
+.wfui-form-field-with-description.file-chosen .btn-remove {
     width: 40%;
 }
 
