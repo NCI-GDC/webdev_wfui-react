@@ -2201,6 +2201,13 @@ a.delete-icon {
 div.wfui-form-item {
   display: flex;
   flex-wrap: wrap; }
+  @media (max-width: 767px) {
+    div.wfui-form-item .wfui-form-label {
+      order: 1; }
+    div.wfui-form-item .wfui-form-field.wfui-form-field-with-description {
+      order: 3; }
+    div.wfui-form-item .wfui-description {
+      order: 2; } }
   div.wfui-form-item label {
     /* These are technically the same, but use both */
     overflow-wrap: break-word;
@@ -2223,13 +2230,19 @@ div.wfui-form-item {
       margin-left: 5px; }
   div.wfui-form-item .wfui-form-field {
     width: 100%; }
-    div.wfui-form-item .wfui-form-field.wfui-form-field-with-desctipton {
+    div.wfui-form-item .wfui-form-field.wfui-form-field-with-description {
       width: 50%; }
-  div.wfui-form-item .wfui-form-textarea.wfui-form-field-no-desctipton {
+      @media (max-width: 767px) {
+        div.wfui-form-item .wfui-form-field.wfui-form-field-with-description {
+          width: 100%; } }
+  div.wfui-form-item .wfui-form-textarea.wfui-form-field-no-description {
     width: 100%; }
-  div.wfui-form-item .wfui-form-textarea.wfui-form-field-with-desctipton {
+  div.wfui-form-item .wfui-form-textarea.wfui-form-field-with-description {
     width: 50%; }
-  div.wfui-form-item .wfui-form-addAnother.wfui-form-field-no-desctipton {
+    @media (max-width: 767px) {
+      div.wfui-form-item .wfui-form-textarea.wfui-form-field-with-description {
+        width: 100%; } }
+  div.wfui-form-item .wfui-form-addAnother.wfui-form-field-no-description {
     width: 75%; }
   div.wfui-form-item .wfui-form-field.wfui-form-addAnother .wfui-form-addAnother-item {
     padding: 20px 15px 15px;
@@ -2245,28 +2258,35 @@ div.wfui-form-item {
       top: 45px;
       right: 25px; }
 
-.wfui-description:before {
-  content: '';
-  position: absolute;
-  left: -14px;
-  width: 14px;
-  height: 8px;
-  margin: 0;
-  border-top: 7px solid transparent;
-  border-right: 8px solid #d9edf7;
-  border-bottom: 7px solid transparent; }
+@media (min-width: 768px) {
+  .wfui-description:before {
+    content: '';
+    position: absolute;
+    left: -14px;
+    width: 14px;
+    height: 8px;
+    margin: 0;
+    border-top: 7px solid transparent;
+    border-right: 8px solid #d9edf7;
+    border-bottom: 7px solid transparent; } }
 
 .wfui-description {
   position: relative;
-  width: calc(50% - 15px);
   padding: 10px;
   margin: 0;
-  margin-left: 15px;
-  margin-bottom: 20px;
   border-radius: 3px;
   font-size: 12px;
   background-color: #d9edf7;
-  font-weight: normal; }
+  font-weight: normal;
+  margin-bottom: 5px; }
+  @media (min-width: 768px) {
+    .wfui-description {
+      width: calc(50% - 15px);
+      margin-left: 15px;
+      margin-bottom: 20px; } }
+  @media (max-width: 767px) {
+    .wfui-description {
+      width: 100%; } }
 
 .wfui-description {
   display: table; }
@@ -2549,6 +2569,15 @@ div.wfui-form-item div.wfui-form-radios.two-column .radio {
 .wfui-checkboxes-hybrid .checkboxHybrid {
   margin-left: 10px; }
 
+@media (max-width: 767px) {
+  .wfui-radios-hybrid .radio-with-radioHybrid .radioHybrid,
+  .wfui-checkboxes-hybrid .checkbox-with-checkboxHybrid .checkboxHybrid {
+    width: 100%;
+    margin-left: 0; }
+    .wfui-radios-hybrid .radio-with-radioHybrid .radioHybrid > label,
+    .wfui-checkboxes-hybrid .checkbox-with-checkboxHybrid .checkboxHybrid > label {
+      flex-wrap: wrap; } }
+
 div.wfui-radios-hybrid label div.radioHybrid input,
 div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
   margin: 0; }
@@ -2566,6 +2595,11 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
 .wfui-form-item div.column-count-2 .checkbox {
   width: 49.5%;
   margin-right: 1%; }
+  @media (max-width: 767px) {
+    .wfui-form-item div.column-count-2 .radio,
+    .wfui-form-item div.column-count-2 .checkbox {
+      width: 100%;
+      margin-right: 0; } }
 
 .wfui-form-item div.column-count-2 .radio:nth-child(even),
 .wfui-form-item div.column-count-2 .checkbox:nth-child(even) {
@@ -2575,6 +2609,11 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
 .wfui-form-item div.column-count-3 .checkbox {
   width: 32.666%;
   margin-right: 1%; }
+  @media (max-width: 767px) {
+    .wfui-form-item div.column-count-3 .radio,
+    .wfui-form-item div.column-count-3 .checkbox {
+      width: 100%;
+      margin-right: 0; } }
 
 .wfui-form-item div.column-count-3 .radio:nth-child(3n),
 .wfui-form-item div.column-count-3 .checkbox:nth-child(3n) {
@@ -2584,6 +2623,11 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
 .wfui-form-item div.column-count-4 .checkbox {
   width: 24.25%;
   margin-right: 1%; }
+  @media (max-width: 767px) {
+    .wfui-form-item div.column-count-4 .radio,
+    .wfui-form-item div.column-count-4 .checkbox {
+      width: 100%;
+      margin-right: 0; } }
 
 .wfui-form-item div.column-count-4 .radio:nth-child(4n),
 .wfui-form-item div.column-count-4 .checkbox:nth-child(4n) {
@@ -2593,10 +2637,20 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
 .wfui-form-item div.column-count-5 .checkbox {
   width: 19.2%;
   margin-right: 1%; }
+  @media (max-width: 767px) {
+    .wfui-form-item div.column-count-5 .radio,
+    .wfui-form-item div.column-count-5 .checkbox {
+      width: 100%;
+      margin-right: 0; } }
 
 .wfui-form-item div.column-count-5 .radio:nth-child(5n),
 .wfui-form-item div.column-count-5 .checkbox:nth-child(5n) {
   margin-right: 0; }
+
+@media (max-width: 767px) {
+  .wfui-form-item div.wfui-form-single-checkbox.wfui-form-field {
+    width: 100%;
+    margin-right: 0; } }
 
 /* WFUI Form Item: Input
 -------------------------------------------------------------- */
@@ -2729,7 +2783,7 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
   background-color: #fff;
   color: #3365a0; }
 
-.wfui-form-field-with-desctipton.file-chosen .btn-remove {
+.wfui-form-field-with-description.file-chosen .btn-remove {
   width: 40%; }
 
 .file-chosen .btn-remove:hover,
