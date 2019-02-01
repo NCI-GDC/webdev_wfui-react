@@ -2570,15 +2570,15 @@ div.wfui-form-item div.wfui-form-radios.two-column .radio {
   margin-left: 10px; }
 
 @media (max-width: 767px) {
-  .wfui-radios-hybrid .radio-with-radioHybrid,
-  .wfui-checkboxes-hybrid .checkbox-with-checkboxHybrid {
+  div.wfui-radios-hybrid > div.radio-with-radioHybrid,
+  div.wfui-checkboxes-hybrid > div.checkbox-with-checkboxHybrid {
     display: flex; }
-  .wfui-radios-hybrid .radio-with-radioHybrid .radioHybrid,
-  .wfui-checkboxes-hybrid .checkbox-with-checkboxHybrid .checkboxHybrid {
+  div.wfui-radios-hybrid .radio-with-radioHybrid .radioHybrid,
+  div.wfui-checkboxes-hybrid .checkbox-with-checkboxHybrid .checkboxHybrid {
     width: 100%;
     margin-left: 0; }
-    .wfui-radios-hybrid .radio-with-radioHybrid .radioHybrid > label,
-    .wfui-checkboxes-hybrid .checkbox-with-checkboxHybrid .checkboxHybrid > label {
+    div.wfui-radios-hybrid .radio-with-radioHybrid .radioHybrid > label,
+    div.wfui-checkboxes-hybrid .checkbox-with-checkboxHybrid .checkboxHybrid > label {
       flex-wrap: wrap; } }
 
 div.wfui-radios-hybrid label div.radioHybrid input,
