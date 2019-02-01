@@ -500,7 +500,13 @@ div.wfui-form-item div.wfui-form-radios.two-column .radio {
     div.wfui-radios-hybrid > div.radio-with-radioHybrid,
     div.wfui-checkboxes-hybrid > div.checkbox-with-checkboxHybrid {
         display: flex;
+
+        > label {
+            display: flex;
+            flex-wrap: wrap;
+        }
     }
+
     div.wfui-radios-hybrid .radio-with-radioHybrid .radioHybrid,
     div.wfui-checkboxes-hybrid .checkbox-with-checkboxHybrid .checkboxHybrid {
         width: 100%;
