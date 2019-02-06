@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import classNames from 'classnames';
+import ReactTooltip from 'react-tooltip';
 import { FormattedHTMLMessage, FormattedNumber } from 'react-intl';
 
 const dateToString = date => {
@@ -35,12 +36,30 @@ const isCurrent = (startDate, endDate) => {
 class RenderFee extends React.Component {
     render() {
         const { fee, currency, feeIntlId } = this.props;
+
         return (
             <td
                 className={classNames('event-price', {
                     current: fee && isCurrent(fee.start_date, fee.end_date),
                 })}
+                data-tip
+                data-for={fee && fee.description ? 'tool-description' : ''}
             >
+                {fee && fee.description && (
+                    <ReactTooltip
+                        id={`tool-description`}
+                        className="event-fee-tooltip"
+                        type="dark"
+                        effect="solid"
+                        delayHide={100}
+                    >
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: fee.description,
+                            }}
+                        />
+                    </ReactTooltip>
+                )}
                 {fee && fee.price !== undefined && (
                     <b>
                         <FormattedNumber

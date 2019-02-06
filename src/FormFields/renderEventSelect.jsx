@@ -1,8 +1,10 @@
 /* eslint react/prop-types : 0 */
 /* global document */
 import React, { cloneElement } from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import classNames from 'classnames';
+import ReactTooltip from 'react-tooltip';
 import { FormGroup, ControlLabel, HelpBlock } from '../index';
 import RenderFee from './RenderFee';
 
@@ -58,6 +60,7 @@ class renderEventSelect extends React.Component {
             name,
             names,
             feeCategories,
+            eventFullLabel,
         } = this.props;
 
         let anyTouched = false;
@@ -93,6 +96,31 @@ class renderEventSelect extends React.Component {
                 >
                     <div className="wfui-table">
                         <div>
+                            {events.map((event, i) => {
+                                const needToolTip =
+                                    event.eventStatusText &&
+                                    event.eventStatusText[event.eventStatus];
+                                if (needToolTip) {
+                                    return (
+                                        <ReactTooltip
+                                            id={`tool-${event.eventStatus}`}
+                                            className="event-group-tooltip"
+                                            type="dark"
+                                            effect="solid"
+                                            delayHide={100}
+                                        >
+                                            <div
+                                                dangerouslySetInnerHTML={{
+                                                    __html:
+                                                        event.eventStatusText[
+                                                            event.eventStatus
+                                                        ],
+                                                }}
+                                            />
+                                        </ReactTooltip>
+                                    );
+                                }
+                            })}
                             <table className="table table-striped">
                                 <thead>
                                     <tr>
@@ -128,6 +156,12 @@ class renderEventSelect extends React.Component {
                                             event.eventStatus === 'close';
                                         if (preview && !this.isChecked(event))
                                             return null;
+
+                                        const needToolTip =
+                                            event.eventStatusText &&
+                                            event.eventStatusText[
+                                                event.eventStatus
+                                            ];
 
                                         return (
                                             <tr
@@ -171,7 +205,17 @@ class renderEventSelect extends React.Component {
                                                         </div>
                                                     </td>
                                                 )}
-                                                <td className="event-details">
+                                                <td
+                                                    className="event-details"
+                                                    data-tip
+                                                    data-for={
+                                                        needToolTip
+                                                            ? `tool-${
+                                                                  event.eventStatus
+                                                              }`
+                                                            : ''
+                                                    }
+                                                >
                                                     <b className="event-title">
                                                         {event.title}
                                                     </b>
@@ -182,6 +226,10 @@ class renderEventSelect extends React.Component {
                                                                 event.description,
                                                         }}
                                                     />
+                                                    {event.eventStatus ===
+                                                        'full' && (
+                                                        <span className="event-full-label">{eventFullLabel}</span>
+                                                    )}
                                                 </td>
                                                 {feeCategories.map(
                                                     (feeCat, i) => {
@@ -226,4 +274,13 @@ class renderEventSelect extends React.Component {
         );
     }
 }
+
+renderEventSelect.propTypes = {
+    eventFullLabel: PropTypes.string,
+}
+
+renderEventSelect.defaultProps = {
+    eventFullLabel: '(Full)',
+}
+
 export default renderEventSelect;
