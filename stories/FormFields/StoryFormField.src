@@ -15,6 +15,7 @@ const events = [
                 name:
                     's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-39eb33d0-1d9c-11e9-aa2a-d95a697aca71.q-39f10030-1d9c-11e9-aa2a-d95a697aca71.value',
                 variable: 'wsFeeEarly_5c45f79b8ce9c8012a7bec37',
+                description: 'Description Description Description ',
             },
             {
                 title: 'Late Registration',
@@ -26,9 +27,13 @@ const events = [
                 name:
                     's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-39eb33d0-1d9c-11e9-aa2a-d95a697aca71.q-39f5e230-1d9c-11e9-aa2a-d95a697aca71.value',
                 variable: 'wsFeeLate_5c45f79b8ce9c8012a7bec37',
+                description: 'Description Description Description ',
             },
         ],
         eventStatus: 'open',
+        eventStatusText: {
+            open: 'This event is open',
+        },
     },
     {
         qid: 's-97fc5690-1e4e-11e9-a51d-1d46c95f2ae9',
@@ -46,6 +51,7 @@ const events = [
                 name:
                     's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-97fc5690-1e4e-11e9-a51d-1d46c95f2ae9.q-97fd8f10-1e4e-11e9-a51d-1d46c95f2ae9.value',
                 variable: 'wsFeeEarly_5c45f79b8ce9c8012a7bec37',
+                description: 'Description Description Description ',
             },
             {
                 title: 'Late Registration',
@@ -57,9 +63,13 @@ const events = [
                 name:
                     's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-97fc5690-1e4e-11e9-a51d-1d46c95f2ae9.q-97feeea0-1e4e-11e9-a51d-1d46c95f2ae9.value',
                 variable: 'wsFeeLate_5c45f79b8ce9c8012a7bec37',
+                description: 'Description Description Description ',
             },
         ],
         eventStatus: 'close',
+        eventStatusText: {
+            close: 'This event is closed',
+        },
     },
     {
         qid: 's-b7832b60-1e4e-11e9-a51d-1d46c95f2ae9',
@@ -77,6 +87,7 @@ const events = [
                 name:
                     's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-b7832b60-1e4e-11e9-a51d-1d46c95f2ae9.q-b7843cd0-1e4e-11e9-a51d-1d46c95f2ae9.value',
                 variable: 'wsFeeEarly_5c45f79b8ce9c8012a7bec37',
+                description: 'Description Description Description ',
             },
             {
                 title: 'Late Registration',
@@ -88,9 +99,14 @@ const events = [
                 name:
                     's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-b7832b60-1e4e-11e9-a51d-1d46c95f2ae9.q-b785c370-1e4e-11e9-a51d-1d46c95f2ae9.value',
                 variable: 'wsFeeLate_5c45f79b8ce9c8012a7bec37',
+                description: 'Description Description Description ',
             },
         ],
         eventStatus: 'full',
+        eventStatusText: {
+            full:
+                'Your submission will be added to the waitlist for the workshop. Alternatively, you may fill out our <a href="#">waitlist form</a>',
+        },
     },
 ];
 
