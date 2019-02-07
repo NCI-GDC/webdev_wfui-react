@@ -3,6 +3,7 @@ const icgcSampleDataAPI = '/sample_icgc.json';
 const itemFormat = [
     {
         name: 'Person ID',
+        sortingKey: data => data.personid,
         display: data => data.personid,
     },
     {
@@ -157,6 +158,8 @@ class FilteredListContainer extends React.Component {
                     simpleSearch
                     searchKeys={["personid", "email", "role", "cgp", "dlp"]}
                     searchLogic={'or'}
+                    sortedIdx={0}
+                    sortedOrientation={'asc'}
                 />
                 { this.state.count } Maching the Criteria
             </div>

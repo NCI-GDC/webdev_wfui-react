@@ -16,7 +16,7 @@ class FilteredTable extends React.Component {
             currentPage: props.currentPage,
             checkedItems: new Array(props.data.length).fill(false),
             sortedIdx: props.sortedIdx,
-            sortedOrientation: 'desc',
+            sortedOrientation: props.sortedOrientation,
             dataWithState: this.transformData(props.data),
         };
         this.filteredData = [];
@@ -311,6 +311,7 @@ FilteredTable.propTypes = {
     simpleSearch: React.PropTypes.bool,
     searchKeys: React.PropTypes.arrayOf(React.PropTypes.string),
     sortedIdx: React.PropTypes.number,
+    sortedOrientation: React.PropTypes.string,
     wholeWord: React.PropTypes.bool,
     searchLogic: React.PropTypes.oneOf(['and', 'or']),
     rowClickable: React.PropTypes.bool,

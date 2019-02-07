@@ -4,6 +4,7 @@ const itemFormat = [
     {
         name: 'Person ID',
         display: data => data.id,
+        sortingKey: data => data.personid,
         width: 100,
         className: "personIdCell",
     },
