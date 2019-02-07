@@ -45,7 +45,8 @@ const renderSingleCheckbox = ({
                 {...input}
                 disabled={disabled}
             >
-                {option} {required && <b className="required">*</b>}
+                <span dangerouslySetInnerHTML={{ __html: option }} />{' '}
+                {required && <b className="required">*</b>}
             </Checkbox>
             {touched && error && (
                 <HelpBlock className="wfui-form-error">
