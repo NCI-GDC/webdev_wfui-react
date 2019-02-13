@@ -1,5 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+
 import TableBody from './TableBody';
 import Search from '../../util/searchUtil';
 
@@ -46,7 +48,7 @@ class FilteredTable extends React.Component {
     }
     componentWillReceiveProps(nextProps) {
         /* Also note: JSON.stringify is the cheapest arbitrary comparison function
-        * since it runs on native code. */
+         * since it runs on native code. */
         const thisData = this.props.data;
         const nextData = nextProps.data;
 
@@ -220,7 +222,7 @@ class FilteredTable extends React.Component {
             currentPage,
             numPages,
             /* Returns a function that will open the page 'page'
-            * or undefined if the page does not exist.  */
+             * or undefined if the page does not exist.  */
             getOpenPage: (page) => {
                 if (page > 0 && page <= numPages) {
                     return () => this.setState({ currentPage: page });
@@ -246,6 +248,7 @@ class FilteredTable extends React.Component {
             rowHeight,
             rowHeightGetter,
             headerHeight,
+            columnResizeDisabled,
         } = this.props;
 
         const {
@@ -288,6 +291,7 @@ class FilteredTable extends React.Component {
                 rowHeight={rowHeight}
                 rowHeightGetter={rowHeightGetter}
                 headerHeight={headerHeight}
+                columnResizeDisabled={columnResizeDisabled}
             />
         );
 
@@ -323,31 +327,32 @@ class FilteredTable extends React.Component {
 }
 
 FilteredTable.propTypes = {
-    className: React.PropTypes.string,
-    paginatorDisplay: React.PropTypes.element,
-    data: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
-    pageSize: React.PropTypes.number,
-    currentPage: React.PropTypes.number,
-    filterList: React.PropTypes.arrayOf(React.PropTypes.func),
-    searchTerm: React.PropTypes.string,
-    selectable: React.PropTypes.bool,
-    rowSelect: React.PropTypes.bool,
-    onSelectionChange: React.PropTypes.func,
-    itemFormat: React.PropTypes.arrayOf(React.PropTypes.object),
-    onResultsNumUpdate: React.PropTypes.func,
-    onFilteredArticleUpdate: React.PropTypes.func,
-    simpleSearch: React.PropTypes.bool,
-    searchKeys: React.PropTypes.arrayOf(React.PropTypes.string),
-    sortedIdx: React.PropTypes.number,
-    defaultSortedOrientation: React.PropTypes.string,
-    wholeWord: React.PropTypes.bool,
-    searchLogic: React.PropTypes.oneOf(['and', 'or']),
-    onRowClick: React.PropTypes.func,
-    contentHeight: React.PropTypes.number,
-    noTableHeader: React.PropTypes.bool,
-    rowHeight: React.PropTypes.number,
-    rowHeightGetter: React.PropTypes.func,
-    headerHeight: React.PropTypes.number,
+    className: PropTypes.string,
+    paginatorDisplay: PropTypes.element,
+    data: PropTypes.arrayOf(PropTypes.any).isRequired,
+    pageSize: PropTypes.number,
+    currentPage: PropTypes.number,
+    filterList: PropTypes.arrayOf(PropTypes.func),
+    searchTerm: PropTypes.string,
+    selectable: PropTypes.bool,
+    rowSelect: PropTypes.bool,
+    onSelectionChange: PropTypes.func,
+    itemFormat: PropTypes.arrayOf(PropTypes.object),
+    onResultsNumUpdate: PropTypes.func,
+    onFilteredArticleUpdate: PropTypes.func,
+    simpleSearch: PropTypes.bool,
+    searchKeys: PropTypes.arrayOf(PropTypes.string),
+    sortedIdx: PropTypes.number,
+    defaultSortedOrientation: PropTypes.string,
+    wholeWord: PropTypes.bool,
+    searchLogic: PropTypes.oneOf(['and', 'or']),
+    onRowClick: PropTypes.func,
+    contentHeight: PropTypes.number,
+    noTableHeader: PropTypes.bool,
+    rowHeight: PropTypes.number,
+    rowHeightGetter: PropTypes.func,
+    headerHeight: PropTypes.number,
+    columnResizeDisabled: PropTypes.bool,
 };
 
 FilteredTable.defaultProps = {

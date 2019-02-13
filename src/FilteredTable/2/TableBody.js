@@ -1,13 +1,27 @@
 /* global document, window */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Table, Column, Cell } from 'fixed-data-table-2';
 import classNames from 'classnames';
 
 class TableBody extends React.Component {
-    constructor() {
-        super();
-        this.state = { rowSelected: undefined };
+    constructor(props) {
+        super(props);
+        this.state = { rowSelected: undefined, columnWidths: {} };
+
         this.onHandleScroll = this.onHandleScroll.bind(this);
+        this._onColumnResizeEndCallback = this._onColumnResizeEndCallback.bind(this);
+    }
+    _onColumnResizeEndCallback(newColumnWidth, columnKey) {
+        const { columnWidths } = this.state;
+        const newColumnWidths = {
+            ...columnWidths,
+            [columnKey]: newColumnWidth,
+        };
+
+        this.setState({
+            columnWidths: newColumnWidths,
+        });
     }
     onHandleScroll() {
         const event = document.createEvent('Event');
@@ -33,8 +47,9 @@ class TableBody extends React.Component {
             rowHeight,
             rowHeightGetter,
             headerHeight,
+            columnResizeDisabled,
         } = this.props;
-        const { rowSelected } = this.state;
+        const { rowSelected, columnWidths } = this.state;
 
         const indexOffset = (currentPage - 1) * pageSize;
 
@@ -50,7 +65,6 @@ class TableBody extends React.Component {
         return (
             <Table
                 rowHeight={rowHeight}
-                rowHeightGetter={rowHeightGetter}
                 headerHeight={noTableHeader ? 0 : headerHeight}
                 rowsCount={activeData.length}
                 width={contentWidth}
@@ -74,6 +88,30 @@ class TableBody extends React.Component {
                     )
                 }
                 onScrollStart={this.onHandleScroll}
+                onColumnResizeEndCallback={this._onColumnResizeEndCallback}
+                isColumnResizing={false}
+                rowHeightGetter={(idx) => {
+                    const rows = document.getElementsByClassName('public_fixedDataTable_bodyRow');
+                    if (rows && rows[idx]) {
+                        const contents = [
+                            ...rows[idx].getElementsByClassName(
+                                'public_fixedDataTableCell_cellContent',
+                            ),
+                        ];
+                        if (contents && contents.length) {
+                            let maxHeight = rowHeight;
+                            contents.forEach((content) => {
+                                if (content.offsetHeight > maxHeight) {
+                                    maxHeight = content.offsetHeight;
+                                }
+                            });
+                            return maxHeight;
+                        }
+                    }
+                    return rowHeight;
+                }}
+                touchScrollEnabled
+                keyboardScrollEnabled
                 data={activeData}
             >
                 {selectable && (
@@ -95,69 +133,82 @@ class TableBody extends React.Component {
                         width={30}
                     />
                 )}
-                {itemFormat.map((item, i) => (
-                    <Column
-                        key={i}
-                        {...item}
-                        columnKey={item.columnKey || item.name}
-                        header={
-                            noTableHeader ? (
-                                undefined
-                            ) : (
-                                <Cell
-                                    className={classNames({
-                                        sortActive: sortedIdx === i,
-                                        sortDesc: sortedIdx === i && sortedOrientation === 'desc',
-                                        sortAsc: sortedIdx === i && sortedOrientation === 'asc',
-                                    })}
-                                >
-                                    {/* Setup the header row and onClick for sorting if applicable */}
-                                    {item.sortingKey ? (
-                                        <a
-                                            href="#"
-                                            onClick={(e) => {
-                                                toggleSort(e, i);
-                                            }}
-                                        >
-                                            {item.name}
-                                        </a>
-                                    ) : (
-                                        item.name
-                                    )}
+                {itemFormat.map((item, i) => {
+                    let flexGrow = null;
+                    if (columnResizeDisabled) {
+                        flexGrow = 1;
+                    } else if (item.flexGrow) {
+                        flexGrow = item.flexGrow;
+                    }
+
+                    return (
+                        <Column
+                            key={i}
+                            {...item}
+                            columnKey={item.columnKey || item.name}
+                            header={
+                                noTableHeader ? (
+                                    undefined
+                                ) : (
+                                    <Cell
+                                        className={classNames({
+                                            sortActive: sortedIdx === i,
+                                            sortDesc:
+                                                sortedIdx === i && sortedOrientation === 'desc',
+                                            sortAsc: sortedIdx === i && sortedOrientation === 'asc',
+                                        })}
+                                    >
+                                        {/* Setup the header row and onClick for sorting if applicable */}
+                                        {item.sortingKey ? (
+                                            <a
+                                                href="#"
+                                                onClick={(e) => {
+                                                    toggleSort(e, i);
+                                                }}
+                                            >
+                                                {item.name}
+                                            </a>
+                                        ) : (
+                                            item.name
+                                        )}
+                                    </Cell>
+                                )
+                            }
+                            cell={props => (
+                                <Cell {...props} className={item.className}>
+                                    {item.display(activeData[props.rowIndex])}
                                 </Cell>
-                            )
-                        }
-                        cell={props => (
-                            <Cell {...props} className={item.className}>
-                                {item.display(activeData[props.rowIndex])}
-                            </Cell>
-                        )}
-                        flexGrow={typeof item.flexGrow === 'undefined' ? 1 : item.flexGrow}
-                        width={item.width || 20}
-                    />
-                ))}
+                            )}
+                            isResizable={!columnResizeDisabled && !flexGrow}
+                            flexGrow={flexGrow}
+                            width={columnWidths[item.columnKey || item.name] || item.width || 20}
+                        />
+                    );
+                })}
             </Table>
         );
     }
 }
 
 TableBody.propTypes = {
-    data: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
-    pageSize: React.PropTypes.number.isRequired,
-    currentPage: React.PropTypes.number.isRequired,
-    selectable: React.PropTypes.bool.isRequired,
-    itemFormat: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    onCheck: React.PropTypes.func.isRequired,
-    onRowClick: React.PropTypes.func,
-    allCheckbox: React.PropTypes.element,
-    toggleSort: React.PropTypes.func,
-    sortedOrientation: React.PropTypes.string,
-    sortedIdx: React.PropTypes.number,
-    contentWidth: React.PropTypes.number,
-    contentHeight: React.PropTypes.number,
-    rowHeight: React.PropTypes.number,
-    rowHeightGetter: React.PropTypes.func,
-    headerHeight: React.PropTypes.number,
+    data: PropTypes.arrayOf(PropTypes.any).isRequired,
+    pageSize: PropTypes.number.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    selectable: PropTypes.bool.isRequired,
+    itemFormat: PropTypes.arrayOf(PropTypes.object).isRequired,
+    onCheck: PropTypes.func.isRequired,
+    onRowClick: PropTypes.func,
+    allCheckbox: PropTypes.element,
+    toggleSort: PropTypes.func,
+    sortedOrientation: PropTypes.string,
+    sortedIdx: PropTypes.number,
+    contentWidth: PropTypes.number,
+    contentHeight: PropTypes.number,
+    rowHeight: PropTypes.number,
+    rowHeightGetter: PropTypes.func,
+    headerHeight: PropTypes.number,
+    columnResizeDisabled: PropTypes.bool,
+    noTableHeader: PropTypes.bool,
 };
 
 TableBody.defaultProps = {
