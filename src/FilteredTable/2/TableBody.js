@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Column, Cell } from 'fixed-data-table-2';
 import classNames from 'classnames';
+import Dimensions from 'react-dimensions';
 
 class TableBody extends React.Component {
     constructor(props) {
@@ -11,7 +12,9 @@ class TableBody extends React.Component {
 
         this.onHandleScroll = this.onHandleScroll.bind(this);
         this._onColumnResizeEndCallback = this._onColumnResizeEndCallback.bind(this);
+        this._rowHeightGetter = this._rowHeightGetter.bind(this);
     }
+
     _onColumnResizeEndCallback(newColumnWidth, columnKey) {
         const { columnWidths } = this.state;
         const newColumnWidths = {
@@ -23,11 +26,58 @@ class TableBody extends React.Component {
             columnWidths: newColumnWidths,
         });
     }
+
+    _rowHeightGetter(idx) {
+        const { rowResizeDisabled, rowHeight, rowHeightGetter, id } = this.props;
+
+        if (rowResizeDisabled) return rowHeight;
+
+        if (rowHeightGetter) return rowHeightGetter(idx, this.props);
+
+        const table = document.getElementById(id);
+        if (table) {
+            const rows = table.getElementsByClassName('public_fixedDataTable_bodyRow');
+            if (rows && rows[idx]) {
+                const contents = [
+                    ...rows[idx].getElementsByClassName('public_fixedDataTableCell_cellContent'),
+                ];
+
+                if (contents && contents.length) {
+                    let maxHeight = rowHeight;
+                    contents.forEach((content, i) => {
+                        if (content.offsetHeight > maxHeight) {
+                            maxHeight = content.offsetHeight;
+                        }
+                    });
+
+                    return maxHeight;
+                }
+            }
+        }
+
+        return rowHeight;
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        const { id } = this.props;
+        const { columnWidths } = this.state;
+        const table = document.getElementById(id);
+        const row = table.querySelector('.public_fixedDataTable_bodyRow:first-child');
+        if (
+            JSON.stringify(columnWidths) !== JSON.stringify(prevState.columnWidths) &&
+            row &&
+            row.click
+        ) {
+            row.click();
+        }
+    }
+
     onHandleScroll() {
         const event = document.createEvent('Event');
         event.initEvent('fixedTableScrollStart', true, true);
         window.dispatchEvent(event);
     }
+
     render() {
         const {
             itemFormat,
@@ -43,11 +93,13 @@ class TableBody extends React.Component {
             sortedIdx,
             contentWidth,
             contentHeight,
+            containerHeight,
+            containerWidth,
             noTableHeader,
             rowHeight,
-            rowHeightGetter,
             headerHeight,
             columnResizeDisabled,
+            isResponsive,
         } = this.props;
         const { rowSelected, columnWidths } = this.state;
 
@@ -59,7 +111,7 @@ class TableBody extends React.Component {
         const startingArticle = pageSize * (currentPage - 1);
 
         for (let i = startingArticle; i < startingArticle + pageSize && i < numArticles; i += 1) {
-            activeData.push(data[i]);
+            activeData.push({ ...data[i], columnWidths });
         }
 
         return (
@@ -67,8 +119,8 @@ class TableBody extends React.Component {
                 rowHeight={rowHeight}
                 headerHeight={noTableHeader ? 0 : headerHeight}
                 rowsCount={activeData.length}
-                width={contentWidth}
-                height={contentHeight}
+                width={isResponsive ? containerWidth : contentWidth}
+                height={isResponsive ? containerHeight : contentHeight}
                 onRowClick={(event, rowIndex) => {
                     if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'BUTTON') {
                         // e.stopPropagation on cell doesn't work. This will be invoked first.
@@ -90,26 +142,7 @@ class TableBody extends React.Component {
                 onScrollStart={this.onHandleScroll}
                 onColumnResizeEndCallback={this._onColumnResizeEndCallback}
                 isColumnResizing={false}
-                rowHeightGetter={(idx) => {
-                    const rows = document.getElementsByClassName('public_fixedDataTable_bodyRow');
-                    if (rows && rows[idx]) {
-                        const contents = [
-                            ...rows[idx].getElementsByClassName(
-                                'public_fixedDataTableCell_cellContent',
-                            ),
-                        ];
-                        if (contents && contents.length) {
-                            let maxHeight = rowHeight;
-                            contents.forEach((content) => {
-                                if (content.offsetHeight > maxHeight) {
-                                    maxHeight = content.offsetHeight;
-                                }
-                            });
-                            return maxHeight;
-                        }
-                    }
-                    return rowHeight;
-                }}
+                rowHeightGetter={this._rowHeightGetter}
                 touchScrollEnabled
                 keyboardScrollEnabled
                 data={activeData}
@@ -191,6 +224,7 @@ class TableBody extends React.Component {
 }
 
 TableBody.propTypes = {
+    id: PropTypes.string.isRequired,
     data: PropTypes.arrayOf(PropTypes.any).isRequired,
     pageSize: PropTypes.number.isRequired,
     currentPage: PropTypes.number.isRequired,
@@ -204,11 +238,17 @@ TableBody.propTypes = {
     sortedIdx: PropTypes.number,
     contentWidth: PropTypes.number,
     contentHeight: PropTypes.number,
+    containerWidth: PropTypes.number,
+    containerHeight: PropTypes.number,
     rowHeight: PropTypes.number,
     rowHeightGetter: PropTypes.func,
     headerHeight: PropTypes.number,
+
+    rowResizeDisabled: PropTypes.bool,
     columnResizeDisabled: PropTypes.bool,
     noTableHeader: PropTypes.bool,
+
+    isResponsive: PropTypes.bool,
 };
 
 TableBody.defaultProps = {
@@ -218,4 +258,12 @@ TableBody.defaultProps = {
     contentHeight: 300,
 };
 
+const ResponsiveTableBody = Dimensions({ elementResize: true })(props => (
+    <TableBody {...props} isResponsive />
+));
+
+const TableBodyWrapper = props => <TableBody {...props} isResponsive={false} />;
+
 export default TableBody;
+
+export { ResponsiveTableBody };

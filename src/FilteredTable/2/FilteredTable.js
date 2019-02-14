@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-import TableBody from './TableBody';
+import TableBody, { ResponsiveTableBody } from './TableBody';
 import Search from '../../util/searchUtil';
 
 /*
@@ -235,6 +235,7 @@ class FilteredTable extends React.Component {
 
     render() {
         const {
+            style,
             itemFormat,
             className,
             paginatorDisplay,
@@ -249,6 +250,7 @@ class FilteredTable extends React.Component {
             rowHeightGetter,
             headerHeight,
             columnResizeDisabled,
+            isResponsive,
         } = this.props;
 
         const {
@@ -262,7 +264,39 @@ class FilteredTable extends React.Component {
         this.filteredData = this.applySearch(this.generateFilteredArticles(dataWithState));
 
         /* We have to do this to avoid breaking backwards compatibility */
-        const table = (
+        const table = isResponsive ? (
+            <ResponsiveTableBody
+                className={className}
+                data={this.filteredData}
+                itemFormat={itemFormat}
+                pageSize={pageSize}
+                currentPage={currentPage}
+                selectable={selectable}
+                onSelectionChange={onSelectionChange}
+                onCheck={this.onCheck}
+                checks={this.state.checkedItems}
+                onRowClick={onRowClick}
+                allCheckbox={
+                    <input
+                        type="Checkbox"
+                        onChange={this.onAllCheck}
+                        checked={this.filteredData.every(item => item.checked)}
+                    />
+                }
+                toggleSort={this.toggleSort}
+                sortedOrientation={sortedOrientation}
+                sortedIdx={sortedIdx}
+                rowSelect={rowSelect}
+                contentWidth={contentWidth}
+                contentHeight={contentHeight}
+                noTableHeader={noTableHeader}
+                rowHeight={rowHeight}
+                rowHeightGetter={rowHeightGetter}
+                headerHeight={headerHeight}
+                columnResizeDisabled={columnResizeDisabled}
+                id={`wfui-filtered-table-${uid}`}
+            />
+        ) : (
             <TableBody
                 className={className}
                 data={this.filteredData}
@@ -292,6 +326,7 @@ class FilteredTable extends React.Component {
                 rowHeightGetter={rowHeightGetter}
                 headerHeight={headerHeight}
                 columnResizeDisabled={columnResizeDisabled}
+                id={`wfui-filtered-table-${uid}`}
             />
         );
 
@@ -302,6 +337,7 @@ class FilteredTable extends React.Component {
                 <div
                     className={classNames(className, 'wfui-filtered-table')}
                     id={`wfui-filtered-table-${uid}`}
+                    style={style}
                 >
                     {table}
                     {InjectedPaginatorDisplay}
@@ -312,6 +348,7 @@ class FilteredTable extends React.Component {
             <div
                 className={classNames(className, 'wfui-filtered-table')}
                 id={`wfui-filtered-table-${uid}`}
+                style={style}
             >
                 {table}
             </div>
@@ -353,6 +390,8 @@ FilteredTable.propTypes = {
     rowHeightGetter: PropTypes.func,
     headerHeight: PropTypes.number,
     columnResizeDisabled: PropTypes.bool,
+    isResponsive: PropTypes.bool,
+    style: PropTypes.string,
 };
 
 FilteredTable.defaultProps = {
@@ -373,4 +412,10 @@ FilteredTable.defaultProps = {
     headerHeight: 50,
 };
 
-export default FilteredTable;
+const ResponsiveFilteredTable = props => <FilteredTable {...props} isResponsive />;
+
+const FilteredTableWrapper = props => <FilteredTable {...props} isResponsive={false} />;
+
+export default FilteredTableWrapper;
+
+export { ResponsiveFilteredTable };

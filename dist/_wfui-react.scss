@@ -4312,7 +4312,8 @@ li.react-datepicker__time-list-item--disabled:hover {
 .fixedDataTableCellLayout_columnResizerContainer:hover {
   cursor: ew-resize; }
 
-.fixedDataTableCellLayout_columnResizerContainer:hover .fixedDataTableCellLayout_columnResizerKnob {
+.fixedDataTableCellLayout_columnResizerContainer:hover
+.fixedDataTableCellLayout_columnResizerKnob {
   visibility: visible; }
 
 .fixedDataTableCellLayout_columnResizerKnob {
@@ -4345,7 +4346,7 @@ li.react-datepicker__time-list-item--disabled:hover {
   position: absolute;
   z-index: 10; }
 
-body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
+body[dir='rtl'] .fixedDataTableColumnResizerLineLayout_main {
   /* the resizer line is in the wrong position in RTL with no easy fix.
    * Disabling is more useful than displaying it.
    * #167 (github) should look into this and come up with a permanent fix.
@@ -4528,7 +4529,7 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
 
 .ScrollbarLayout_faceHorizontal.public_Scrollbar_faceActive:after,
 .ScrollbarLayout_main:hover .ScrollbarLayout_faceHorizontal:after {
-  bottom: calc(4px/2); }
+  bottom: calc(4px / 2); }
 
 .ScrollbarLayout_faceVertical {
   left: 0;
@@ -4543,8 +4544,8 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
 
 .ScrollbarLayout_main:hover .ScrollbarLayout_faceVertical:after,
 .ScrollbarLayout_faceVertical.public_Scrollbar_faceActive:after {
-  left: calc(4px/2);
-  right: calc(4px/2); }
+  left: calc(4px / 2);
+  right: calc(4px / 2); }
 
 /**
  * Copyright Schrodinger, LLC
@@ -4610,12 +4611,14 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
   background-color: #f4f4f4; }
 
 .public_fixedDataTableCell_cellContent {
-  padding: 8px; }
+  padding: 8px;
+  word-break: break-word; }
 
 .public_fixedDataTableCell_columnResizerKnob {
   background-color: #0284ff; }
 
-.public_fixedDataTableCell_hasReorderHandle .public_fixedDataTableCell_cellContent {
+.public_fixedDataTableCell_hasReorderHandle
+.public_fixedDataTableCell_cellContent {
   margin-left: 12px; }
 
 /**
