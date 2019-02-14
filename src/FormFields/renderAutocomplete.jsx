@@ -190,6 +190,7 @@ class renderAutocomplete extends React.Component {
                             }
                             if (onHandleChange) onHandleChange(e);
                         }}
+                        autoComplete="off"
                     />
                     {postfix && (
                         <div className="wfui-form-postfix">{postfix}</div>
