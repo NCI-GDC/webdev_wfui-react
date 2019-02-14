@@ -11,31 +11,31 @@ const itemFormat = [
         name: 'First Name',
         display: data => data.first_name,
         sortingKey: data => data.first_name,
-        width: 20,
+        width: 100,
         className: 'firstNameCell',
     },
     {
         name: 'Last Name',
         display: data => data.last_name,
-        width: 10,
+        width: 100,
         className: 'lastNameCell',
     },
     {
         name: 'email',
         display: data => data.email,
-        width: 10,
+        width: 250,
         className: 'emailCell',
     },
     {
         name: 'gender',
         display: data => data.gender,
-        width: 10,
+        width: 80,
         className: 'genderCell',
     },
     {
         name: 'IP Address',
         display: data => data.ip_address,
-        width: 10,
+        width: 200,
         className: 'ipAddressCell',
     },
     // {
@@ -85,7 +85,8 @@ const itemFormat = [
     // },
     {
         name: 'Actions',
-        width: 10,
+        width: 100,
+        flexGrow: 1,
         display: data => (
             <Dropdown id="action-dropdown" bsStyle="primary" pullRight>
                 <Button bsStyle="primary">Test</Button>
@@ -197,22 +198,45 @@ class FilteredListContainer extends React.Component {
     render() {
         return (
             <div>
-                {this.generateFilterUI()}
-                <FilteredTable
-                    searchTerm={this.state.searchTerm}
-                    filterList={this.getFilters()}
-                    data={this.state.data}
-                    itemFormat={itemFormat}
-                    onResultsNumUpdate={count => this.setState({ count })}
-                    selectable
-                    simpleSearch
-                    searchKeys={['id']}
-                    searchLogic={'or'}
-                    onSelectionChange={tes => {
-                        console.log(tes);
-                    }}
-                />
-                {this.state.count} Maching the Criteria
+              <div>
+                  <h1>Column Resizable</h1>
+                  {this.generateFilterUI()}
+                  <FilteredTable
+                      searchTerm={this.state.searchTerm}
+                      filterList={this.getFilters()}
+                      data={this.state.data}
+                      itemFormat={itemFormat}
+                      onResultsNumUpdate={count => this.setState({ count })}
+                      selectable
+                      simpleSearch
+                      searchKeys={['id']}
+                      searchLogic={'or'}
+                      onSelectionChange={tes => {
+                          console.log(tes);
+                      }}
+                  />
+                  {this.state.count} Maching the Criteria
+              </div>
+              <div>
+                  <h1>Column Resize Disabled</h1>
+                  {this.generateFilterUI()}
+                  <FilteredTable
+                      searchTerm={this.state.searchTerm}
+                      filterList={this.getFilters()}
+                      data={this.state.data}
+                      itemFormat={itemFormat}
+                      onResultsNumUpdate={count => this.setState({ count })}
+                      selectable
+                      simpleSearch
+                      searchKeys={['id']}
+                      searchLogic={'or'}
+                      onSelectionChange={tes => {
+                          console.log(tes);
+                      }}
+                      columnResizeDisabled
+                  />
+                  {this.state.count} Maching the Criteria
+              </div>
             </div>
         );
     }
