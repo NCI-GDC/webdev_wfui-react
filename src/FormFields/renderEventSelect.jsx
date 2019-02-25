@@ -103,6 +103,7 @@ class renderEventSelect extends React.Component {
                                 if (needToolTip) {
                                     return (
                                         <ReactTooltip
+                                            key={i}
                                             id={`tool-${event.eventStatus}`}
                                             className="event-group-tooltip"
                                             type="dark"
