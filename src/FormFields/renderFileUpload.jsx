@@ -274,6 +274,7 @@ class renderFileUpload extends React.Component {
             errorFileSize,
             errorReject,
             attrs,
+            isPublic,
         } = this.props;
         const { accept, removing, initialValue } = this.state;
 
@@ -306,6 +307,7 @@ class renderFileUpload extends React.Component {
                                 data: reader.result,
                                 type: acceptedFiles[0].type,
                                 size: acceptedFiles[0].size,
+                                isPublic,
                             };
                             if (initialValue.src) {
                                 value.src = initialValue.src;
@@ -468,6 +470,7 @@ renderFileUpload.propTypes = {
     errorReject: PropTypes.string,
     fileDownloadPath: PropTypes.string.isRequired,
     fullWidth: PropTypes.bool,
+    isPublic: PropTypes.bool,
 };
 renderFileUpload.defaultProps = {
     onUpload: () => {},
@@ -510,6 +513,7 @@ renderFileUpload.defaultProps = {
     fileDownloadPath: '',
     fallbackPath: '',
     fullWidth: false,
+    isPublic: false,
 };
 
 export default renderFileUpload;
