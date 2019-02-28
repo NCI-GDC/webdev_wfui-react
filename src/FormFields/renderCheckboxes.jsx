@@ -68,10 +68,11 @@ const renderCheckboxes = ({
                             } else {
                                 newValue.splice(newValue.indexOf(_key), 1);
                             }
+                            input.onBlur();
                             return input.onChange(newValue);
                         }}
                     >
-                        {_option}
+                        <span dangerouslySetInnerHTML={{ __html: _option }} />
                     </Checkbox>
                 );
             })}
