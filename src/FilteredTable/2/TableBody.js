@@ -62,7 +62,10 @@ class TableBody extends React.Component {
         const { id } = this.props;
         const { columnWidths } = this.state;
         const table = document.getElementById(id);
-        const row = table.querySelector('.public_fixedDataTable_bodyRow:first-child');
+        const row = table.querySelector(
+            '.public_fixedDataTable_bodyRow:first-child .public_fixedDataTableCell_cellContent:first-child',
+        );
+        console.log('row', row);
         if (
             JSON.stringify(columnWidths) !== JSON.stringify(prevState.columnWidths) &&
             row &&
