@@ -65,7 +65,7 @@ class TableBody extends React.Component {
         const row = table.querySelector(
             '.public_fixedDataTable_bodyRow:first-child .public_fixedDataTableCell_cellContent:first-child',
         );
-        console.log('row', row);
+
         if (
             JSON.stringify(columnWidths) !== JSON.stringify(prevState.columnWidths) &&
             row &&
@@ -125,7 +125,11 @@ class TableBody extends React.Component {
                 width={isResponsive ? containerWidth : contentWidth}
                 height={isResponsive ? containerHeight : contentHeight}
                 onRowClick={(event, rowIndex) => {
-                    if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'BUTTON') {
+                    if (
+                        event.target.tagName !== 'INPUT' &&
+                        event.target.tagName !== 'BUTTON' &&
+                        !event.target.querySelector('.row-selector')
+                    ) {
                         // e.stopPropagation on cell doesn't work. This will be invoked first.
                         onRowClick(activeData[rowIndex], event);
                         this.setState({ rowSelected: rowIndex });
@@ -157,6 +161,7 @@ class TableBody extends React.Component {
                         cell={props => (
                             <Cell {...props}>
                                 <input
+                                    className="row-selector"
                                     type="checkbox"
                                     checked={activeData[props.rowIndex].checked}
                                     onChange={(e) => {
