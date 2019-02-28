@@ -217,26 +217,6 @@ class FilteredListContainer extends React.Component {
                   />
                   {this.state.count} Maching the Criteria
               </div>
-              <div>
-                  <h1>Column Resize Disabled</h1>
-                  {this.generateFilterUI()}
-                  <FilteredTable
-                      searchTerm={this.state.searchTerm}
-                      filterList={this.getFilters()}
-                      data={this.state.data}
-                      itemFormat={itemFormat}
-                      onResultsNumUpdate={count => this.setState({ count })}
-                      selectable
-                      simpleSearch
-                      searchKeys={['id']}
-                      searchLogic={'or'}
-                      onSelectionChange={tes => {
-                          console.log(tes);
-                      }}
-                      columnResizeDisabled
-                  />
-                  {this.state.count} Maching the Criteria
-              </div>
             </div>
         );
     }
