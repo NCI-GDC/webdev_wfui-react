@@ -1,7 +1,7 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { FormGroup, ControlLabel, HelpBlock, Checkbox } from '../index';
+import { FormGroup, ControlLabel, HelpBlock, Checkbox } from 'wfui-react';
 
 const renderCheckboxes = ({
     className,
@@ -73,6 +73,7 @@ const renderCheckboxes = ({
                         }}
                     >
                         <span dangerouslySetInnerHTML={{ __html: _option }} />
+                        {option.required && <b className="required"> *</b>}
                     </Checkbox>
                 );
             })}
