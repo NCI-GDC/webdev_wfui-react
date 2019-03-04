@@ -73,6 +73,7 @@ const renderCheckboxes = ({
                         }}
                     >
                         <span dangerouslySetInnerHTML={{ __html: _option }} />
+                        {option.required && <b className="required"> *</b>}
                     </Checkbox>
                 );
             })}
