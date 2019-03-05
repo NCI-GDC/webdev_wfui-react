@@ -1,6 +1,6 @@
 /* global document, window, CustomEvent */
 import classNames from 'classnames';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider, injectIntl } from 'react-intl';
 import activeElement from 'dom-helpers/activeElement';
 import contains from 'dom-helpers/query/contains';
 import keycode from 'keycode';
@@ -174,13 +174,13 @@ class WFUIDropdown extends React.Component {
         }
     }
     getMenu(pullRight) {
-        const { id, onSelect, bsClass, rootCloseEvent, children } = this.props;
+        const { id, onSelect, bsClass, rootCloseEvent, children, intl } = this.props;
         const { open } = this.state;
         return (
-            <IntlProvider locale="en">
+            <IntlProvider locale="en" messages={intl.messages}>
                 {/* Added IntlPwork around */}
                 <div className="open">
-                    {ValidComponentChildren.map(children, child => {
+                    {ValidComponentChildren.map(children, (child) => {
                         switch (child.props.bsRole) {
                             case MENU_ROLE:
                                 return this.renderMenu(child, {
@@ -224,7 +224,7 @@ class WFUIDropdown extends React.Component {
             el.setAttribute(
                 'style',
                 `position: absolute; display: block; top: ${viewportOffset.bottom +
-                    scrollTopOffset}px; left: ${viewportOffset.left}px`,
+                scrollTopOffset}px; left: ${viewportOffset.left}px`,
             );
 
             ReactDOM.render(this.getMenu(), el, () => {
@@ -240,8 +240,8 @@ class WFUIDropdown extends React.Component {
                         el.setAttribute(
                             'style',
                             `position: absolute; display: block; top: ${viewportOffset.bottom +
-                                scrollTopOffset}px; left: ${
-                                viewportOffset.right
+                            scrollTopOffset}px; left: ${
+                            viewportOffset.right
                             }px`,
                         );
                         ReactDOM.render(this.getMenu(true), el);
@@ -267,7 +267,7 @@ class WFUIDropdown extends React.Component {
         }
     }
 
-    /////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////
 
     componentWillMount() {
         this.getMenuContainerElement();
@@ -276,18 +276,18 @@ class WFUIDropdown extends React.Component {
         // Set event listener
         window.addEventListener('wfui-dropdown-menu-clicked', this.onShowOther);
 
-        window.addEventListener('fixedTableScrollStart', e => {
+        window.addEventListener('fixedTableScrollStart', (e) => {
             this.onHide(e);
         });
 
-        window.addEventListener('scroll', e => {
+        window.addEventListener('scroll', (e) => {
             this.onHide(e);
         });
     }
 
     componentWillUnmount() {
         // Remove
-        let el = this.getMenuContainerElement();
+        const el = this.getMenuContainerElement();
         if (el) {
             document.body.removeChild(el);
             // Remove event listener
@@ -398,7 +398,7 @@ class WFUIDropdown extends React.Component {
 
     toggleOpen(event, eventDetails) {
         // let open = !this.props.open;
-        let open = !this.state.open;
+        const open = !this.state.open;
 
         if (open) {
             this.lastOpenEventType = eventDetails.source;
@@ -412,7 +412,7 @@ class WFUIDropdown extends React.Component {
     }
 
     renderMenu(child, { id, onSelect, rootCloseEvent, ...props }) {
-        let ref = c => {
+        let ref = (c) => {
             this.menu = c;
         };
 
@@ -420,8 +420,8 @@ class WFUIDropdown extends React.Component {
             warning(
                 false,
                 'String refs are not supported on `<Dropdown.Menu>` components. ' +
-                    'To apply a ref to the component use the callback signature:\n\n ' +
-                    'https://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute',
+                'To apply a ref to the component use the callback signature:\n\n ' +
+                'https://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute',
             );
         } else {
             ref = createChainedFunction(child.ref, ref);
@@ -446,7 +446,7 @@ class WFUIDropdown extends React.Component {
     }
 
     renderToggle(child, props) {
-        let ref = c => {
+        let ref = (c) => {
             this.toggle = c;
         };
 
@@ -454,8 +454,8 @@ class WFUIDropdown extends React.Component {
             warning(
                 false,
                 'String refs are not supported on `<Dropdown.Toggle>` components. ' +
-                    'To apply a ref to the component use the callback signature:\n\n ' +
-                    'https://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute',
+                'To apply a ref to the component use the callback signature:\n\n ' +
+                'https://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute',
             );
         } else {
             ref = createChainedFunction(child.ref, ref);
@@ -482,7 +482,7 @@ class WFUIDropdown extends React.Component {
             dropup,
             disabled,
             pullRight,
-            //open,
+            // open,
             onSelect,
             role,
             bsClass,
@@ -512,7 +512,7 @@ class WFUIDropdown extends React.Component {
 
         return (
             <Component {...props} className={classNames(className, classes)}>
-                {ValidComponentChildren.map(children, child => {
+                {ValidComponentChildren.map(children, (child) => {
                     switch (child.props.bsRole) {
                         case TOGGLE_ROLE:
                             return this.renderToggle(child, {
@@ -538,7 +538,7 @@ WFUIDropdown.defaultProps = defaultProps;
 
 setBsClass('dropdown', WFUIDropdown);
 
-const UncontrolledDropdown = uncontrollable(WFUIDropdown, { open: 'onToggle' });
+const UncontrolledDropdown = injectIntl(uncontrollable(WFUIDropdown, { open: 'onToggle' }));
 
 UncontrolledDropdown.Toggle = DropdownToggle;
 UncontrolledDropdown.Menu = DropdownMenu;
