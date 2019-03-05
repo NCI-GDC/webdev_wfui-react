@@ -1,3 +1,5 @@
+import renderCodeMirror from "./renderCodeMirror";
+
 export Description from './Description';
 export renderField from './renderField';
 export renderTextArea from './renderTextArea';
@@ -18,4 +20,5 @@ export renderAutocomplete from './renderAutocomplete';
 export renderFileUpload from './renderFileUpload';
 export renderDate from './renderDate';
 export renderEventSelect from './renderEventSelect';
+export renderCodeMirror from './renderCodeMirror';
 export RenderFee from './RenderFee';
