@@ -2,14 +2,16 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import * as ReactCodeMirror from 'react-codemirror2';
+
 import {
     FormGroup,
     ControlLabel,
     HelpBlock,
-    ReactCodeMirror,
-} from '../';
+} from '../index';
 
 const { Controlled: CodeMirror } = ReactCodeMirror;
+
 
 class renderCodeMirror extends React.Component {
     constructor(props) {

@@ -1,5 +1,3 @@
-import renderCodeMirror from "./renderCodeMirror";
-
 export Description from './Description';
 export renderField from './renderField';
 export renderTextArea from './renderTextArea';
