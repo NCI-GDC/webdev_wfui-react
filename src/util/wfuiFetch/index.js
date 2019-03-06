@@ -47,10 +47,10 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
             'cache-control': 'no-cache',
         });
 
-        const wrappedFetch = n => {
+        const wrappedFetch = (n) => {
             global
                 .fetch(input, _init)
-                .then(response => {
+                .then((response) => {
                     clearTimeout(timer5s);
                     clearTimeout(timer8s);
                     clearTimeout(timeout);
@@ -70,7 +70,7 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
 
                     // Need to have more statement.
                     if (response.ok) {
-                        const processData = data => {
+                        const processData = (data) => {
                             dispatch({
                                 type: 'RECEIVE_FETCH_DATA',
                                 requestId: init.requestId,
@@ -108,14 +108,14 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                             contentType &&
                             contentType.indexOf('application/json') !== -1
                         ) {
-                            return response.json().then(data => {
+                            return response.json().then((data) => {
                                 const statusText = data;
                                 let parsedData = {};
                                 if (!statusText.type) {
                                     const keys = Object.keys(statusText).filter(key => !statusText[key].ok).join(', ');
                                     const orig = Object.keys(statusText)
                                         .filter(key => !statusText[key].ok) // only failed ones.
-                                        .map(key => {
+                                        .map((key) => {
                                             const obj = statusText[key];
                                             if (
                                                 !statusText.type &&
@@ -146,7 +146,7 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                         }
 
                         // Text
-                        return response.text().then(data => {
+                        return response.text().then((data) => {
                             let statusText = data;
                             try {
                                 statusText = JSON.parse(data);
@@ -163,7 +163,8 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                         });
                     }
                 })
-                .catch(error => {
+                .catch((error) => {
+                    console.error(error);
                     if (n > 0) {
                         fetchTimer = setTimeout(() => {
                             console.log(`Retry connecting to ${input}`);
