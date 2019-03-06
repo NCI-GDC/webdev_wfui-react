@@ -17,10 +17,25 @@ class renderCodeMirror extends React.Component {
     constructor(props) {
         super();
         this.onHandleChange = this.onHandleChange.bind(this);
+        const initValue = props.input.value || props.defaultValue;
+        this.state = { bodyText: initValue };
+        props.input.onChange(initValue);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { input } = this.props;
+        const { bodyText } = this.state;
+        if (
+            nextProps.input.value &&
+            !_.isEqual(nextProps.input.value, bodyText)
+        ) {
+            this.setState({ bodyText: nextProps.input.value });
+        }
     }
 
     onHandleChange(editor, data, value) {
         const { input } = this.props;
+        this.setState({ bodyText: value });
         input.onChange(value);
     }
 
@@ -40,6 +55,8 @@ class renderCodeMirror extends React.Component {
             defaultValue,
         } = this.props;
 
+        const { bodyText } = this.state;
+
         return (
             <div
                 className={classNames(
@@ -50,7 +67,7 @@ class renderCodeMirror extends React.Component {
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
-                    { 'wfui-form-item-full-width': fullWidth },
+                    { 'wfui-form-item-full-width': fullWidth }
                 )}
             >
                 {label && (
@@ -66,13 +83,13 @@ class renderCodeMirror extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                        } wfui-form-date`}
+                    } wfui-form-date`}
                     validationState={touched && error ? 'error' : null}
                 >
                     {!disabled ? (
                         <div className="wfui-quill">
                             <CodeMirror
-                                value={input.value || defaultValue}
+                                value={bodyText}
                                 options={{
                                     lineWrapping: true,
                                     lineNumbers: true,
@@ -82,8 +99,8 @@ class renderCodeMirror extends React.Component {
                             />
                         </div>
                     ) : (
-                            <p className="wfui-value">{input.value}</p>
-                        )}
+                        <p className="wfui-value">{bodyText}</p>
+                    )}
                     {touched && error && (
                         <HelpBlock className="wfui-form-error">
                             <span>{error}</span>
