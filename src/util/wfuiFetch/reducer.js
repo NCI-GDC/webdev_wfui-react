@@ -4,7 +4,6 @@
  * @param {Object} action - redux payload
  */
 export const fetchReducer = (state = {}, action) => {
-
     // Return if request Id doesn't exist
     if (!action.requestId) return state;
 
@@ -19,6 +18,8 @@ export const fetchReducer = (state = {}, action) => {
             _state[action.requestId].lastUpdated = lastUpdate;
             _state[action.requestId].data = undefined;
             _state[action.requestId].requestId = action.requestId;
+            _state[action.requestId].queryId = action.queryId;
+            _state[action.requestId].meta = action.meta;
             return _state;
         case 'FETCH_REQUEST':
             _state[action.requestId].isFetching = true;
@@ -27,6 +28,8 @@ export const fetchReducer = (state = {}, action) => {
             _state[action.requestId].lastUpdated = lastUpdate;
             _state[action.requestId].data = undefined;
             _state[action.requestId].requestId = action.requestId;
+            _state[action.requestId].queryId = action.queryId;
+            _state[action.requestId].meta = action.meta;
             return _state;
         case 'FETCH_REQUEST_5S':
             _state[action.requestId].fetch5s = true;

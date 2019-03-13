@@ -89,6 +89,7 @@ class Notifications extends React.Component {
         const {
             fetches,
             requestIds,
+            queryIds,
             intl,
             lang,
             values,
@@ -98,9 +99,10 @@ class Notifications extends React.Component {
         } = this.props;
         const newFetches = nextProps.fetches;
         Object.keys(fetches)
-            .filter(key => requestIds.includes(key))
-            .forEach(key => {
+            .filter(key => requestIds.includes(key) || queryIds.includes(fetches[key].queryId))
+            .forEach((key) => {
                 const overriding = overrides[key] || {};
+                const notificationId = queryIds.includes(fetches[key].queryId) ? fetches[key].queryId : key; // If this fetch object has corresponding queryId, notify against the queryId over the requestId.
 
                 if (fetches[key] && newFetches[key]) {
                     if (
@@ -116,6 +118,7 @@ class Notifications extends React.Component {
                                             defaultMessage={overriding.success}
                                             values={Object.assign(
                                                 {},
+                                                flattenObject(fetches[key].meta),
                                                 flattenObject(values),
                                                 flattenObject(
                                                     newFetches[key].data,
@@ -125,9 +128,10 @@ class Notifications extends React.Component {
                                         />
                                     ) : (
                                         <FormattedHTMLMessage
-                                            id={`notifications.${key}.success`}
+                                            id={`notifications.${notificationId}.success`}
                                             values={Object.assign(
                                                 {},
+                                                flattenObject(fetches[key].meta),
                                                 flattenObject(values),
                                                 flattenObject(
                                                     newFetches[key].data,
@@ -140,8 +144,7 @@ class Notifications extends React.Component {
                                     autoDismiss: Math.floor(duration / 1000),
                                 });
                             }
-                        } else {
-                            if (level.includes('error')) {
+                        } else if (level.includes('error')) {
                                 if (typeof newFetches[key].error === 'object') {
                                     this.notificationRef.addNotification({
                                         children:
@@ -159,6 +162,7 @@ class Notifications extends React.Component {
                                                     }
                                                     values={Object.assign(
                                                         {},
+                                                        flattenObject(fetches[key].meta),
                                                         flattenObject(values),
                                                         flattenObject(
                                                             newFetches[key]
@@ -169,12 +173,13 @@ class Notifications extends React.Component {
                                                 />
                                             ) : (
                                                 <FormattedHTMLMessage
-                                                    id={`notifications.${key}.error.${
+                                                    id={`notifications.${notificationId}.error.${
                                                         newFetches[key].error
                                                             .type
                                                     }`}
                                                     values={Object.assign(
                                                         {},
+                                                        flattenObject(fetches[key].meta),
                                                         flattenObject(values),
                                                         flattenObject(
                                                             newFetches[key]
@@ -201,6 +206,7 @@ class Notifications extends React.Component {
                                                     }
                                                     values={Object.assign(
                                                         {},
+                                                        flattenObject(fetches[key].meta),
                                                         flattenObject(values),
                                                         {
                                                             message:
@@ -212,9 +218,10 @@ class Notifications extends React.Component {
                                                 />
                                             ) : (
                                                 <FormattedHTMLMessage
-                                                    id={`notifications.${key}.error.default`}
+                                                    id={`notifications.${notificationId}.error.default`}
                                                     values={Object.assign(
                                                         {},
+                                                        flattenObject(fetches[key].meta),
                                                         flattenObject(values),
                                                         {
                                                             message:
@@ -232,7 +239,6 @@ class Notifications extends React.Component {
                                     });
                                 }
                             }
-                        }
                     }
                 }
             });
@@ -244,14 +250,14 @@ class Notifications extends React.Component {
                 {fixed ? (
                     <StaticNotification
                         duration={duration}
-                        ref={ref => {
+                        ref={(ref) => {
                             this.notificationRef = ref;
                             notificationRef(ref);
                         }}
                     />
                 ) : (
                     <NotificationSystem
-                        ref={ref => {
+                        ref={(ref) => {
                             this.notificationRef = ref;
                             notificationRef(ref);
                         }}
@@ -264,6 +270,7 @@ class Notifications extends React.Component {
 
 Notifications.propTypes = {
     requestIds: PropTypes.arrayOf(PropTypes.string),
+    queryIds: PropTypes.arrayOf(PropTypes.string),
     level: PropTypes.arrayOf(PropTypes.string),
     lang: PropTypes.string,
     values: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
@@ -274,6 +281,7 @@ Notifications.propTypes = {
 
 Notifications.defaultProps = {
     requestIds: [],
+    queryIds: [],
     level: ['error', 'success'],
     lang: 'en',
     values: {},

@@ -1,3 +1,5 @@
+import uuidv1 from 'uuid/v1';
+
 /**
  * Thsi wfuiFetch adds following features to native fetch function.
  * - Cancellable promise
@@ -11,29 +13,38 @@
 export const wfuiFetch = (input, init, dispatch = f => f) => {
     let hasCanceled = false;
     const appId = (init.headers && init.headers['app-id']) || 0;
+    const requestId = init.requestId; // Request Name
+    const queryId = init.queryId || `${requestId}-${uuidv1()}`; // Unique Query Id
+    const meta = init.meta || {};
 
-    dispatch({ type: 'FETCH_REQUEST', requestId: init.requestId, appId });
+    dispatch({ type: 'FETCH_REQUEST', requestId, queryId, appId, meta });
     const promise = new Promise((resolve, reject) => {
         let fetchTimer;
         const timer5s = setTimeout(() => {
             dispatch({
                 type: 'FETCH_REQUEST_5S',
-                requestId: init.requestId,
+                requestId,
+                queryId,
                 appId,
+                meta,
             });
         }, 5000);
         const timer8s = setTimeout(() => {
             dispatch({
                 type: 'FETCH_REQUEST_8S',
-                requestId: init.requestId,
+                requestId,
+                queryId,
                 appId,
+                meta,
             });
         }, 8000);
         const timeout = setTimeout(() => {
             dispatch({
                 type: 'FETCH_REQUEST_TIMEOUT',
-                requestId: init.requestId,
+                requestId,
+                queryId,
                 appId,
+                meta,
             });
             reject('timeout');
             clearTimeout(fetchTimer);
@@ -73,15 +84,19 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                         const processData = (data) => {
                             dispatch({
                                 type: 'RECEIVE_FETCH_DATA',
-                                requestId: init.requestId,
+                                requestId,
+                                queryId,
                                 appId,
                                 data,
+                                meta,
                             });
                             dispatch({
                                 type: 'FETCH_SUCCESS',
-                                requestId: init.requestId,
+                                requestId,
+                                queryId,
                                 appId,
                                 data,
+                                meta,
                             });
                             resetData(init.requestId);
                             resolve({ res: response, data });
@@ -135,10 +150,12 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                                 }
                                 dispatch({
                                     type: 'FETCH_FAILURE',
-                                    requestId: init.requestId,
+                                    requestId,
+                                    queryId,
                                     statusText,
                                     data: parsedData,
                                     appId,
+                                    meta,
                                 });
                                 resetData(init.requestId);
                                 resolve({ res: response, data: statusText });
@@ -155,9 +172,11 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                             }
                             dispatch({
                                 type: 'FETCH_FAILURE',
-                                requestId: init.requestId,
+                                requestId,
+                                queryId,
                                 statusText,
                                 appId,
+                                meta,
                             });
                             resolve({ res: response, data: statusText });
                         });
@@ -173,9 +192,11 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                     } else {
                         dispatch({
                             type: 'FETCH_RETRY_FAILURE',
-                            requestId: init.requestId,
+                            requestId,
+                            queryId,
                             statusText: error.message,
                             appId,
+                            meta,
                         });
                         return hasCanceled
                             ? reject({ isCanceled: true })
