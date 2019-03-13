@@ -13,7 +13,7 @@ import uuidv1 from 'uuid/v1';
 export const wfuiFetch = (input, init, dispatch = f => f) => {
     let hasCanceled = false;
     const appId = (init.headers && init.headers['app-id']) || 0;
-    const requestId = init.requestId; // Request Name
+    const { requestId } = init; // Request Name
     const queryId = init.queryId || `${requestId}-${uuidv1()}`; // Unique Query Id
     const meta = init.meta || {};
 
@@ -58,10 +58,10 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
             'cache-control': 'no-cache',
         });
 
-        const wrappedFetch = (n) => {
+        const wrappedFetch = n => {
             global
                 .fetch(input, _init)
-                .then((response) => {
+                .then(response => {
                     clearTimeout(timer5s);
                     clearTimeout(timer8s);
                     clearTimeout(timeout);
@@ -70,7 +70,7 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
 
                     const contentType = response.headers.get('content-type');
 
-                    const resetData = (requestId) => {
+                    const resetData = requestId => {
                         // Need to be tested well
                         // dispatch({
                         //     type: 'FETCH_DATA_RESET',
@@ -81,7 +81,7 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
 
                     // Need to have more statement.
                     if (response.ok) {
-                        const processData = (data) => {
+                        const processData = data => {
                             dispatch({
                                 type: 'RECEIVE_FETCH_DATA',
                                 requestId,
@@ -108,7 +108,8 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                             contentType.indexOf('application/json') !== -1
                         ) {
                             return response.json().then(processData);
-                        } else if (
+                        }
+                        if (
                             // Text
                             contentType &&
                             contentType.indexOf('text/') !== -1
@@ -123,14 +124,16 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                             contentType &&
                             contentType.indexOf('application/json') !== -1
                         ) {
-                            return response.json().then((data) => {
+                            return response.json().then(data => {
                                 const statusText = data;
                                 let parsedData = {};
                                 if (!statusText.type) {
-                                    const keys = Object.keys(statusText).filter(key => !statusText[key].ok).join(', ');
+                                    const keys = Object.keys(statusText)
+                                        .filter(key => !statusText[key].ok)
+                                        .join(', ');
                                     const orig = Object.keys(statusText)
                                         .filter(key => !statusText[key].ok) // only failed ones.
-                                        .map((key) => {
+                                        .map(key => {
                                             const obj = statusText[key];
                                             if (
                                                 !statusText.type &&
@@ -163,7 +166,7 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                         }
 
                         // Text
-                        return response.text().then((data) => {
+                        return response.text().then(data => {
                             let statusText = data;
                             try {
                                 statusText = JSON.parse(data);
@@ -182,7 +185,7 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                         });
                     }
                 })
-                .catch((error) => {
+                .catch(error => {
                     console.error(error);
                     if (n > 0) {
                         fetchTimer = setTimeout(() => {
