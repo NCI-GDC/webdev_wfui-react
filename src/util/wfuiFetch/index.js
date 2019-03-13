@@ -1,3 +1,5 @@
+import uuidv1 from 'uuid/v1';
+
 /**
  * Thsi wfuiFetch adds following features to native fetch function.
  * - Cancellable promise
@@ -11,29 +13,38 @@
 export const wfuiFetch = (input, init, dispatch = f => f) => {
     let hasCanceled = false;
     const appId = (init.headers && init.headers['app-id']) || 0;
+    const { requestId } = init; // Request Name
+    const queryId = init.queryId || `${requestId}-${uuidv1()}`; // Unique Query Id
+    const meta = init.meta || {};
 
-    dispatch({ type: 'FETCH_REQUEST', requestId: init.requestId, appId });
+    dispatch({ type: 'FETCH_REQUEST', requestId, queryId, appId, meta });
     const promise = new Promise((resolve, reject) => {
         let fetchTimer;
         const timer5s = setTimeout(() => {
             dispatch({
                 type: 'FETCH_REQUEST_5S',
-                requestId: init.requestId,
+                requestId,
+                queryId,
                 appId,
+                meta,
             });
         }, 5000);
         const timer8s = setTimeout(() => {
             dispatch({
                 type: 'FETCH_REQUEST_8S',
-                requestId: init.requestId,
+                requestId,
+                queryId,
                 appId,
+                meta,
             });
         }, 8000);
         const timeout = setTimeout(() => {
             dispatch({
                 type: 'FETCH_REQUEST_TIMEOUT',
-                requestId: init.requestId,
+                requestId,
+                queryId,
                 appId,
+                meta,
             });
             reject('timeout');
             clearTimeout(fetchTimer);
@@ -47,10 +58,10 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
             'cache-control': 'no-cache',
         });
 
-        const wrappedFetch = (n) => {
+        const wrappedFetch = n => {
             global
                 .fetch(input, _init)
-                .then((response) => {
+                .then(response => {
                     clearTimeout(timer5s);
                     clearTimeout(timer8s);
                     clearTimeout(timeout);
@@ -59,7 +70,7 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
 
                     const contentType = response.headers.get('content-type');
 
-                    const resetData = (requestId) => {
+                    const resetData = requestId => {
                         // Need to be tested well
                         // dispatch({
                         //     type: 'FETCH_DATA_RESET',
@@ -70,18 +81,22 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
 
                     // Need to have more statement.
                     if (response.ok) {
-                        const processData = (data) => {
+                        const processData = data => {
                             dispatch({
                                 type: 'RECEIVE_FETCH_DATA',
-                                requestId: init.requestId,
+                                requestId,
+                                queryId,
                                 appId,
                                 data,
+                                meta,
                             });
                             dispatch({
                                 type: 'FETCH_SUCCESS',
-                                requestId: init.requestId,
+                                requestId,
+                                queryId,
                                 appId,
                                 data,
+                                meta,
                             });
                             resetData(init.requestId);
                             resolve({ res: response, data });
@@ -93,7 +108,8 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                             contentType.indexOf('application/json') !== -1
                         ) {
                             return response.json().then(processData);
-                        } else if (
+                        }
+                        if (
                             // Text
                             contentType &&
                             contentType.indexOf('text/') !== -1
@@ -108,14 +124,16 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                             contentType &&
                             contentType.indexOf('application/json') !== -1
                         ) {
-                            return response.json().then((data) => {
+                            return response.json().then(data => {
                                 const statusText = data;
                                 let parsedData = {};
                                 if (!statusText.type) {
-                                    const keys = Object.keys(statusText).filter(key => !statusText[key].ok).join(', ');
+                                    const keys = Object.keys(statusText)
+                                        .filter(key => !statusText[key].ok)
+                                        .join(', ');
                                     const orig = Object.keys(statusText)
                                         .filter(key => !statusText[key].ok) // only failed ones.
-                                        .map((key) => {
+                                        .map(key => {
                                             const obj = statusText[key];
                                             if (
                                                 !statusText.type &&
@@ -135,10 +153,12 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                                 }
                                 dispatch({
                                     type: 'FETCH_FAILURE',
-                                    requestId: init.requestId,
+                                    requestId,
+                                    queryId,
                                     statusText,
                                     data: parsedData,
                                     appId,
+                                    meta,
                                 });
                                 resetData(init.requestId);
                                 resolve({ res: response, data: statusText });
@@ -146,7 +166,7 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                         }
 
                         // Text
-                        return response.text().then((data) => {
+                        return response.text().then(data => {
                             let statusText = data;
                             try {
                                 statusText = JSON.parse(data);
@@ -155,15 +175,17 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                             }
                             dispatch({
                                 type: 'FETCH_FAILURE',
-                                requestId: init.requestId,
+                                requestId,
+                                queryId,
                                 statusText,
                                 appId,
+                                meta,
                             });
                             resolve({ res: response, data: statusText });
                         });
                     }
                 })
-                .catch((error) => {
+                .catch(error => {
                     console.error(error);
                     if (n > 0) {
                         fetchTimer = setTimeout(() => {
@@ -173,9 +195,11 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                     } else {
                         dispatch({
                             type: 'FETCH_RETRY_FAILURE',
-                            requestId: init.requestId,
+                            requestId,
+                            queryId,
                             statusText: error.message,
                             appId,
+                            meta,
                         });
                         return hasCanceled
                             ? reject({ isCanceled: true })
