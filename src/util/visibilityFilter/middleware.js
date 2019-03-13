@@ -2,7 +2,7 @@
 import urlParse from 'url-parse';
 import merge from 'deepmerge';
 
-const switchurl = state => {
+const switchurl = (state) => {
     const flattenedState = Object.keys(state).reduce(
         (obj, key) =>
             Object.assign(
@@ -32,10 +32,10 @@ const switchurl = state => {
         if (!window.location.origin) {
             // IE10
             window.location.origin =
-                window.location.protocol +
-                '//' +
-                window.location.hostname +
-                (window.location.port ? ':' + window.location.port : '');
+                `${window.location.protocol 
+                }//${ 
+                window.location.hostname 
+                }${window.location.port ? ':' + window.location.port : ''}`;
         }
         window.location.replace(
             `${window.location.origin}${
@@ -45,9 +45,9 @@ const switchurl = state => {
     }
 };
 
-const resetObject = obj => {
-    Object.keys(obj).forEach(key => {
-        if (typeof obj[key] === 'object') {
+const resetObject = (obj) => {
+    Object.keys(obj).forEach((key) => {
+        if (typeof obj[key] === 'object' && obj[key] !== null) {
             obj[key] = resetObject(obj[key]);
         } else {
             obj[key] = '';
@@ -57,7 +57,7 @@ const resetObject = obj => {
 };
 
 // Middle ware
-export const urlSwithcerMiddleware = store => next => action => {
+export const urlSwithcerMiddleware = store => next => (action) => {
     const result = next(action);
     switch (action.type) {
         case 'RESET_FILTER':
