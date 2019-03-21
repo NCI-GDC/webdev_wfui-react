@@ -6,6 +6,16 @@ import { LoadingComponent } from '..';
 import { fetchSelector } from './wfuiFetch/selectors';
 
 class CustomQuery extends React.Component {
+    componentWillReceiveProps(nextProps) {
+        const { fetchStatus, onError } = this.props;
+        if (
+            fetchStatus.status !== nextProps.fetchStatus.status &&
+            nextProps.fetchStatus.status === 'fail'
+        ) {
+            onError(nextProps.fetchStatus);
+        }
+    }
+
     render() {
         const { children, fetchStatus } = this.props;
         return (
@@ -25,13 +35,15 @@ class CustomQuery extends React.Component {
 CustomQuery.propTypes = {
     query: PropTypes.object,
     fetchStatus: PropTypes.object,
-    children: PropTypes.node,
+    children: PropTypes.func,
+    onError: PropTypes.func,
 };
 
 CustomQuery.defaultProps = {
     query: {
         definitions: [],
     },
+    onError: f => f,
 };
 
 export default connect((state, props) => {

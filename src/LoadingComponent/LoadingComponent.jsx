@@ -63,7 +63,7 @@ class LoadingComponent extends React.Component {
                                     values={Object.assign(
                                         {},
                                         flattenObject(values),
-                                        flattenObject(data),
+                                        flattenObject(data)
                                     )}
                                 />
                             ) : (
@@ -83,7 +83,7 @@ class LoadingComponent extends React.Component {
                                     values={Object.assign(
                                         {},
                                         flattenObject(values),
-                                        flattenObject(data),
+                                        flattenObject(data)
                                     )}
                                 />
                             ) : (
@@ -119,7 +119,7 @@ class LoadingComponent extends React.Component {
                                                 typeof error === 'object'
                                                     ? error.type
                                                     : error,
-                                        },
+                                        }
                                     )}
                                 />
                             ) : typeof error === 'object' ? (
@@ -138,7 +138,7 @@ class LoadingComponent extends React.Component {
                                     values={Object.assign(
                                         {},
                                         flattenObject(values),
-                                        flattenObject(data),
+                                        flattenObject(data)
                                     )}
                                 />
                             ) : (
