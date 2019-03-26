@@ -79,7 +79,7 @@ FilterItem.propTypes = {
     component: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
     category: PropTypes.object,
     className: PropTypes.string,
-    items: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object, PropTypes.string])),
+    items: PropTypes.array,
     filterType: PropTypes.string,
     changeFilter: PropTypes.func,
     toggleFilter: PropTypes.func,
