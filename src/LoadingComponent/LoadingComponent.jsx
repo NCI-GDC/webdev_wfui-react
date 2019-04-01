@@ -29,6 +29,7 @@ class LoadingComponent extends React.Component {
             data,
             values,
             context,
+            ignoreErrors
         } = this.props;
 
         if (isFetching) {
@@ -96,6 +97,11 @@ class LoadingComponent extends React.Component {
         }
         if (status === 'fail') {
             const errorType = typeof error === 'object' && error.type;
+
+            if (errorType && ignoreErrors && ignoreErrors.length && ignoreErrors.includes(errorType)) {
+              return <div className="wfui-loading-component">{children}</div>;
+            }
+
             return (
                 <div className="wfui-loading-component">
                     {!hideMessage && error && (
@@ -186,6 +192,7 @@ LoadingComponent.propTypes = {
     loaderStyle: PropTypes.oneOfType([PropTypes.object]),
     values: PropTypes.oneOfType([PropTypes.object]),
     data: PropTypes.any,
+    ignoreErrors: PropTypes.arrayOf(PropTypes.string),
 };
 
 LoadingComponent.defaultProps = {
