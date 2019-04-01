@@ -5,6 +5,7 @@ import Spinner from '../../src/Spinner/Spinner';
 import Story from 'raw!./Story.src';
 import StoryError from 'raw!./StoryError.src';
 import StoryFail from 'raw!./StoryFail.src';
+import StoryIgnoreError from 'raw!./StoryIgnoreError.src';
 
 storiesOf('LoadingComponent', module)
 .addWithInfo(
@@ -21,4 +22,9 @@ storiesOf('LoadingComponent', module)
     'Load Fail (Timeout or failed to fetch)',
     () => StoryFail,
     { scope: { LoadingComponent, Spinner } },
+)
+.addWithInfo(
+  'Load Success with API returns error + Ignore',
+  () => StoryIgnoreError,
+  { scope: { LoadingComponent, Spinner } },
 );
