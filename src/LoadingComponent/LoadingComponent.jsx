@@ -98,7 +98,7 @@ class LoadingComponent extends React.Component {
         if (status === 'fail') {
             const errorType = typeof error === 'object' && error.type;
 
-            if (errorType && ignoreErrors && ignoreErrors.length && ignoreErrors.includes(errorType)) {
+            if (ignoreErrors && ignoreErrors.length && ((errorType && ignoreErrors.includes(errorType)) || (typeof error === 'string' && ignoreErrors.includes(error)))) {
               return <div className="wfui-loading-component">{children}</div>;
             }
 
