@@ -53,6 +53,7 @@ class ModalDialog extends React.Component {
             submitting,
             notForm,
             btnSubmitStyle,
+            className
         } = this.props;
 
         return (
@@ -122,6 +123,7 @@ ModalDialog.propTypes = {
     initialValues: PropTypes.object,
     notForm: PropTypes.bool,
     btnSubmitStyle: PropTypes.string,
+    className: PropTypes.string,
 };
 
 ModalDialog.defaultProps = {
