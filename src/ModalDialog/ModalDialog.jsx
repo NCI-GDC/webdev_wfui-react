@@ -1,6 +1,7 @@
 /* global i18n */
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import deepEqual from 'deep-equal';
@@ -59,7 +60,7 @@ class ModalDialog extends React.Component {
                 show={show}
                 onHide={this.onHandleCancel}
                 bsSize="large"
-                className={`modal-${id}`}
+                className={classNames(`modal-${id}`, className)}
             >
                 <Modal.Header closeButton>
                     <h2 className="modaltitle">{label}</h2>
