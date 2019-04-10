@@ -55,6 +55,7 @@ class StaticNotification extends React.Component {
     }
 
     render() {
+        const { withTitle } = this.props;
         const { notifications } = this.state;
         return (
             <div className="wfui-notification-static">
@@ -69,6 +70,11 @@ class StaticNotification extends React.Component {
                             bsStyle={this.getStyle(notification.level)}
                             className="message"
                         >
+                            {withTitle && notification.title && (
+                                <div className="alert-heading h4">
+                                    {notification.title}
+                                </div>
+                            )}
                             {notification.children}
                             <Glyphicon
                                 className="remove"
@@ -101,6 +107,7 @@ class Notifications extends React.Component {
             overrides,
             duration,
             level,
+            withTitle,
         } = this.props;
         const newFetches = nextProps.fetches;
         Object.keys(fetches)
@@ -120,148 +127,124 @@ class Notifications extends React.Component {
                         fetches[key].isFetching &&
                         !newFetches[key].isFetching
                     ) {
+                        let displayingTitle;
+                        let displayingLevel;
+                        let displayingId;
+                        let displayingDefaultMessage;
+                        let displayingValues;
+
                         if (newFetches[key].status === 'success') {
                             if (level.includes('success')) {
-                                this.notificationRef.addNotification({
-                                    children: overriding.success ? (
-                                        <FormattedHTMLMessage
-                                            id="_overridding_text_"
-                                            defaultMessage={overriding.success}
-                                            values={Object.assign(
-                                                {},
-                                                flattenObject(
-                                                    fetches[key].meta
-                                                ),
-                                                flattenObject(values),
-                                                flattenObject(
-                                                    newFetches[key].data
-                                                ),
-                                                { lang }
-                                            )}
-                                        />
-                                    ) : (
-                                        <FormattedHTMLMessage
-                                            id={`notifications.${notificationId}.success`}
-                                            values={Object.assign(
-                                                {},
-                                                flattenObject(
-                                                    fetches[key].meta
-                                                ),
-                                                flattenObject(values),
-                                                flattenObject(
-                                                    newFetches[key].data
-                                                ),
-                                                { lang }
-                                            )}
-                                        />
-                                    ),
-                                    level: 'success',
-                                    autoDismiss: Math.floor(duration / 1000),
-                                });
+                                displayingLevel = 'success';
+
+                                if (overriding.success) {
+                                    displayingId = '_overridding_text_';
+                                } else if (withTitle) {
+                                    displayingId = `notifications.${notificationId}.success.default`;
+                                    displayingTitle = intl.formatMessage({
+                                        id: `notifications.${notificationId}.success.title`,
+                                    });
+                                } else {
+                                    displayingId = `notifications.${notificationId}.success`;
+                                }
+
+                                displayingDefaultMessage =
+                                    overriding.success || undefined;
+
+                                displayingValues = flattenObject(
+                                    newFetches[key].data
+                                );
                             }
                         } else if (level.includes('error')) {
                             if (typeof newFetches[key].error === 'object') {
-                                this.notificationRef.addNotification({
-                                    children:
-                                        overriding.error &&
+                                displayingLevel = 'error';
+
+                                if (
+                                    overriding.error &&
+                                    overriding.error[newFetches[key].error.type]
+                                ) {
+                                    displayingId = '_overridding_text_';
+                                } else {
+                                    displayingId = `notifications.${notificationId}.error.${
+                                        newFetches[key].error.type
+                                    }`;
+                                }
+
+                                if (withTitle) {
+                                    displayingTitle = intl.formatMessage({
+                                        id: `notifications.${notificationId}.error.title`,
+                                    });
+                                }
+
+                                displayingDefaultMessage =
+                                    (overriding.error &&
                                         overriding.error[
                                             newFetches[key].error.type
-                                        ] ? (
-                                            <FormattedHTMLMessage
-                                                id="_overridding_text_"
-                                                defaultMessage={
-                                                    overriding.error[
-                                                        newFetches[key].error
-                                                            .type
-                                                    ]
-                                                }
-                                                values={Object.assign(
-                                                    {},
-                                                    flattenObject(
-                                                        fetches[key].meta
-                                                    ),
-                                                    flattenObject(values),
-                                                    flattenObject(
-                                                        newFetches[key].data
-                                                    ),
-                                                    { lang }
-                                                )}
-                                            />
-                                        ) : (
-                                            <FormattedHTMLMessage
-                                                id={`notifications.${notificationId}.error.${
-                                                    newFetches[key].error.type
-                                                }`}
-                                                values={Object.assign(
-                                                    {},
-                                                    flattenObject(
-                                                        fetches[key].meta
-                                                    ),
-                                                    flattenObject(values),
-                                                    flattenObject(
-                                                        newFetches[key].data
-                                                    ),
-                                                    { lang }
-                                                )}
-                                            />
-                                        ),
-                                    level: 'error',
-                                    autoDismiss: Math.floor(duration / 1000),
-                                });
+                                        ]) ||
+                                    undefined;
+
+                                displayingValues = flattenObject(
+                                    newFetches[key].data
+                                );
                             } else {
-                                this.notificationRef.addNotification({
-                                    children:
-                                        overriding.error &&
-                                        overriding.error.default ? (
-                                            <FormattedHTMLMessage
-                                                id="_overridding_text_"
-                                                defaultMessage={
-                                                    overriding.error.default
-                                                }
-                                                values={Object.assign(
-                                                    {},
-                                                    flattenObject(
-                                                        fetches[key].meta
-                                                    ),
-                                                    flattenObject(values),
-                                                    {
-                                                        message:
-                                                            newFetches[key]
-                                                                .error,
-                                                    },
-                                                    { lang }
-                                                )}
-                                            />
-                                        ) : (
-                                            <FormattedHTMLMessage
-                                                id={`notifications.${notificationId}.error.default`}
-                                                values={Object.assign(
-                                                    {},
-                                                    flattenObject(
-                                                        fetches[key].meta
-                                                    ),
-                                                    flattenObject(values),
-                                                    {
-                                                        message:
-                                                            newFetches[key]
-                                                                .error,
-                                                    },
-                                                    { lang }
-                                                )}
-                                            />
-                                        ),
-                                    level: 'error',
-                                    autoDismiss: Math.floor(duration / 1000),
-                                });
+                                displayingLevel = 'error';
+                                if (
+                                    overriding.error &&
+                                    overriding.error.default
+                                ) {
+                                    displayingId = '_overridding_text_';
+                                } else {
+                                    displayingId = `notifications.${notificationId}.error.default`;
+                                }
+
+                                if (withTitle) {
+                                    displayingTitle = intl.formatMessage({
+                                        id: `notifications.${notificationId}.error.title`,
+                                    });
+                                }
+
+                                displayingDefaultMessage =
+                                    (overriding.error &&
+                                        overriding.error.default) ||
+                                    'An upexpected error has occurred.';
+
+                                displayingValues = {
+                                    message: newFetches[key].error,
+                                };
                             }
                         }
+
+                        this.notificationRef.addNotification({
+                            title: withTitle && displayingTitle,
+                            children: (
+                                <FormattedHTMLMessage
+                                    id={displayingId}
+                                    defaultMessage={displayingDefaultMessage}
+                                    values={Object.assign(
+                                        {},
+                                        flattenObject(fetches[key].meta),
+                                        flattenObject(values),
+                                        { lang },
+                                        displayingValues
+                                    )}
+                                />
+                            ),
+                            level: displayingLevel,
+                            autoDismiss: Math.floor(duration / 1000),
+                        });
                     }
                 }
             });
     }
 
     render() {
-        const { fetches, fixed, duration, notificationRef } = this.props;
+        const {
+            fetches,
+            fixed,
+            duration,
+            notificationRef,
+            withTitle,
+        } = this.props;
         return (
             <div className="wfui-notification">
                 {fixed ? (
@@ -271,6 +254,7 @@ class Notifications extends React.Component {
                             this.notificationRef = ref;
                             notificationRef(ref);
                         }}
+                        withTitle
                     />
                 ) : (
                     <NotificationSystem
@@ -278,6 +262,7 @@ class Notifications extends React.Component {
                             this.notificationRef = ref;
                             notificationRef(ref);
                         }}
+                        withTitle
                     />
                 )}
             </div>
@@ -294,6 +279,7 @@ Notifications.propTypes = {
     overrides: PropTypes.object,
     duration: PropTypes.number,
     notificationRef: PropTypes.func,
+    withTitle: PropTypes.bool,
 };
 
 Notifications.defaultProps = {
