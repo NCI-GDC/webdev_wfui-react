@@ -131,7 +131,9 @@ class TableBody extends React.Component {
                         !event.target.querySelector('.row-selector')
                     ) {
                         // e.stopPropagation on cell doesn't work. This will be invoked first.
-                        onRowClick(activeData[rowIndex], event);
+                        if (onRowClick) {
+                            onRowClick(activeData[rowIndex], event);
+                        }
                         this.setState({ rowSelected: rowIndex });
                     }
                 }}
@@ -144,6 +146,7 @@ class TableBody extends React.Component {
                             selected: rowSelected === idx,
                         },
                         activeData[idx].className || '',
+                        `${onRowClick ? 'row-clickable' : ''}`
                     )
                 }
                 onScrollStart={this.onHandleScroll}
@@ -260,7 +263,6 @@ TableBody.propTypes = {
 };
 
 TableBody.defaultProps = {
-    onRowClick: f => f,
     toggleSort: f => f,
     contentWidth: 100,
     contentHeight: 300,

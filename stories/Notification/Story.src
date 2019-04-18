@@ -6,8 +6,10 @@ class Example extends React.Component {
     _addNotification(event) {
         event.preventDefault();
         this._notificationSystem.addNotification({
-        message: 'Notification message',
-            level: 'success'
+            title: 'Test',
+            message: 'Notification message',
+            level: 'success',
+            autoDismiss: 100
         });
     }
     componentDidMount() {
@@ -17,7 +19,7 @@ class Example extends React.Component {
         return (
             <div>
                 <button onClick={this._addNotification}>Add notification</button>
-                <NotificationSystem ref="notificationSystem" />
+                <NotificationSystem ref="notificationSystem" withTitle autoDismiss={100} duration={100000} />
             </div>
         )
     }
