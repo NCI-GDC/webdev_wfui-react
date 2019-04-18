@@ -103,6 +103,7 @@ class TableBody extends React.Component {
             headerHeight,
             columnResizeDisabled,
             isResponsive,
+            rowClassNameGetter
         } = this.props;
         const { rowSelected, columnWidths } = this.state;
 
@@ -139,12 +140,20 @@ class TableBody extends React.Component {
                 }}
                 rowClassNameGetter={idx =>
                     classNames(
-                        {
-                            even: (idx + 1) % 2 === 0,
-                            add: (idx + 1) % 2 !== 0,
-                            checked: activeData[idx].checked,
-                            selected: rowSelected === idx,
-                        },
+                        Object.assign(
+                            {
+                                even: (idx + 1) % 2 === 0,
+                                add: (idx + 1) % 2 !== 0,
+                                checked: activeData[idx].checked,
+                                selected: rowSelected === idx,
+                            },
+                            rowClassNameGetter
+                                ? rowClassNameGetter(
+                                      activeData[idx],
+                                      idx
+                                  )
+                                : {}
+                        ),
                         activeData[idx].className || '',
                         `${onRowClick ? 'row-clickable' : ''}`
                     )
@@ -254,6 +263,7 @@ TableBody.propTypes = {
     rowHeight: PropTypes.number,
     rowHeightGetter: PropTypes.func,
     headerHeight: PropTypes.number,
+    rowClassNameGetter: PropTypes.func,
 
     rowResizeDisabled: PropTypes.bool,
     columnResizeDisabled: PropTypes.bool,
