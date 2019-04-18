@@ -38,22 +38,7 @@ const itemFormat = [
         display: data => data.ip_address,
         width: 130,
         className: 'ipAddressCell',
-    },
-    {
-        name: 'Actions',
-        width: 100,
-        display: data => (
-            <Dropdown id="action-dropdown" bsStyle="primary" pullRight>
-                <Button bsStyle="primary">Test</Button>
-                <Dropdown.Toggle bsStyle="default" className="ed-drpdwn inl" />
-                <Dropdown.Menu className="dropdown-menu-right">
-                    <MenuItem>Test</MenuItem>
-                </Dropdown.Menu>
-            </Dropdown>
-        ),
-        className: 'actionsCell',
-        fixedRight: true,
-    },
+    }
 ];
 
 /* A container is needed to fetch from API */

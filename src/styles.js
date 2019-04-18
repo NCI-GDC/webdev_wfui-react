@@ -18,4 +18,5 @@ require('./CascadingPane/index.scss');
 require('./ThreeColumnView/index.scss');
 
 require('./FilteredTable/2/fixed-data-table.min.css');
+require('./FilteredTable/2/custom-data-table.css');
 require('./Notifications/index.scss');
