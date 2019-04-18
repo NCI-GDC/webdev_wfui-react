@@ -251,6 +251,7 @@ class FilteredTable extends React.Component {
             headerHeight,
             columnResizeDisabled,
             isResponsive,
+            rowClassNameGetter
         } = this.props;
 
         const {
@@ -294,6 +295,7 @@ class FilteredTable extends React.Component {
                 rowHeightGetter={rowHeightGetter}
                 headerHeight={headerHeight}
                 columnResizeDisabled={columnResizeDisabled}
+                rowClassNameGetter={rowClassNameGetter}
                 id={`wfui-filtered-table-${uid}`}
             />
         ) : (
@@ -326,6 +328,7 @@ class FilteredTable extends React.Component {
                 rowHeightGetter={rowHeightGetter}
                 headerHeight={headerHeight}
                 columnResizeDisabled={columnResizeDisabled}
+                rowClassNameGetter={rowClassNameGetter}
                 id={`wfui-filtered-table-${uid}`}
             />
         );
@@ -391,6 +394,7 @@ FilteredTable.propTypes = {
     headerHeight: PropTypes.number,
     columnResizeDisabled: PropTypes.bool,
     isResponsive: PropTypes.bool,
+    rowClassNameGetter: PropTypes.func,
     style: PropTypes.string,
 };
 

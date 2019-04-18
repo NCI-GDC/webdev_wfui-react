@@ -103,6 +103,7 @@ class TableBody extends React.Component {
             headerHeight,
             columnResizeDisabled,
             isResponsive,
+            rowClassNameGetter
         } = this.props;
         const { rowSelected, columnWidths } = this.state;
 
@@ -146,7 +147,8 @@ class TableBody extends React.Component {
                             selected: rowSelected === idx,
                         },
                         activeData[idx].className || '',
-                        `${onRowClick ? 'row-clickable' : ''}`
+                        `${onRowClick ? 'row-clickable' : ''}`,
+                        rowClassNameGetter ? rowClassNameGetter(activeData[idx], idx) : '',
                     )
                 }
                 onScrollStart={this.onHandleScroll}
@@ -254,6 +256,7 @@ TableBody.propTypes = {
     rowHeight: PropTypes.number,
     rowHeightGetter: PropTypes.func,
     headerHeight: PropTypes.number,
+    rowClassNameGetter: PropTypes.func,
 
     rowResizeDisabled: PropTypes.bool,
     columnResizeDisabled: PropTypes.bool,
