@@ -6,6 +6,7 @@ import StoryPerformance from 'raw!./StoryPerformance.src';
 import FilteredTable from '../../src/FilteredTable/1/FilteredTable';
 import FilteredTableV2 from '../../src/FilteredTable/2/FilteredTable';
 import '../../src/FilteredTable/2/fixed-data-table.min.css';
+import '../../src/FilteredTable/2/custom-data-table.css';
 import Dropdown from '../../src/WFUIDropdown/WFUIDropdown';
 
 storiesOf('FilteredTable', module)

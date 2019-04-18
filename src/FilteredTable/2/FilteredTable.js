@@ -405,7 +405,6 @@ FilteredTable.defaultProps = {
     wholeWord: false,
     onSelectionChange: f => f,
     onFilteredArticleUpdate: f => f,
-    onRowClick: f => f,
     searchLogic: 'and',
     noTableHeader: false,
     rowHeight: 50,
