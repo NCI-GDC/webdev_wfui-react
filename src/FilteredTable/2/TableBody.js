@@ -140,15 +140,22 @@ class TableBody extends React.Component {
                 }}
                 rowClassNameGetter={idx =>
                     classNames(
-                        {
-                            even: (idx + 1) % 2 === 0,
-                            add: (idx + 1) % 2 !== 0,
-                            checked: activeData[idx].checked,
-                            selected: rowSelected === idx,
-                        },
+                        Object.assign(
+                            {
+                                even: (idx + 1) % 2 === 0,
+                                add: (idx + 1) % 2 !== 0,
+                                checked: activeData[idx].checked,
+                                selected: rowSelected === idx,
+                            },
+                            rowClassNameGetter
+                                ? rowClassNameGetter(
+                                      activeData[idx],
+                                      idx
+                                  )
+                                : {}
+                        ),
                         activeData[idx].className || '',
-                        `${onRowClick ? 'row-clickable' : ''}`,
-                        rowClassNameGetter ? rowClassNameGetter(activeData[idx], idx) : '',
+                        `${onRowClick ? 'row-clickable' : ''}`
                     )
                 }
                 onScrollStart={this.onHandleScroll}
