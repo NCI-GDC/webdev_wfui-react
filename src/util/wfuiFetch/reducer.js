@@ -97,6 +97,9 @@ export const fetchReducer = (state = {}, action) => {
         case 'FETCH_DATA_RESET':
             _state[action.requestId].data = undefined;
             return _state;
+        case 'USER_LOGOUT':
+        case 'AUTO_LOGOUT':
+            return {};
         default:
             return _state;
     }
