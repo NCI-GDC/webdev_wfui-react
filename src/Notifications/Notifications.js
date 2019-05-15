@@ -214,24 +214,28 @@ class Notifications extends React.Component {
                             }
                         }
 
-                        this.notificationRef.addNotification({
-                            title: withTitle && displayingTitle,
-                            children: (
-                                <FormattedHTMLMessage
-                                    id={displayingId}
-                                    defaultMessage={displayingDefaultMessage}
-                                    values={Object.assign(
-                                        {},
-                                        flattenObject(fetches[key].meta),
-                                        flattenObject(values),
-                                        { lang },
-                                        displayingValues
-                                    )}
-                                />
-                            ),
-                            level: displayingLevel,
-                            autoDismiss: Math.floor(duration / 1000),
-                        });
+                        if (displayingValues) {
+                            this.notificationRef.addNotification({
+                                title: withTitle && displayingTitle,
+                                children: (
+                                    <FormattedHTMLMessage
+                                        id={displayingId}
+                                        defaultMessage={
+                                            displayingDefaultMessage
+                                        }
+                                        values={Object.assign(
+                                            {},
+                                            flattenObject(fetches[key].meta),
+                                            flattenObject(values),
+                                            { lang },
+                                            displayingValues
+                                        )}
+                                    />
+                                ),
+                                level: displayingLevel,
+                                autoDismiss: Math.floor(duration / 1000),
+                            });
+                        }
                     }
                 }
             });
