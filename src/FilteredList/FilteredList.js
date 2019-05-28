@@ -60,7 +60,7 @@ class FilteredList extends React.Component {
    }
 
    render() {
-      const { className, itemDisplay, paginatorDisplay, data, pageSize, sortFunction, container, onDisplay, onNumOfListChange, onListDidMount } = this.props;
+      const { className, itemDisplay, paginatorDisplay, data, pageSize, sortFunction, container, onDisplay, onNumOfListChange, onListDidMount, noWrapper } = this.props;
       const { currentPage } = this.state;
       const filteredData = this.applySearch(this.generateFilteredArticles(data));
       if (sortFunction) {
@@ -68,6 +68,21 @@ class FilteredList extends React.Component {
       }
 
       const paginatorObject = this.generatePaginatorObject();
+
+      if (noWrapper && !paginatorDisplay) {
+        return (
+            <List
+                data={filteredData}
+                itemDisplay={itemDisplay}
+                pageSize={pageSize}
+                container={container}
+                currentPage={currentPage}
+                onDisplay={onDisplay}
+                onNumOfListChange={onNumOfListChange}
+                onListDidMount={onListDidMount}
+            />
+        );
+      }
       
       return (
          <div className={classNames(className, 'wfui-filtered-list')}>
@@ -104,6 +119,7 @@ FilteredList.propTypes = {
     searchKeys: React.PropTypes.arrayOf(React.PropTypes.string),
     wholeWord: React.PropTypes.bool,
     searchLogic: React.PropTypes.oneOf(['and', 'or']),
+    noWrapper: React.PropTypes.bool,
 };
 
 FilteredList.defaultProps = {
