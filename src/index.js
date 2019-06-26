@@ -16,7 +16,9 @@ import FilteredList from './FilteredList/FilteredList';
 import Spinner from './Spinner/Spinner';
 import TwitterFeed from './TwitterFeed/TwitterFeed';
 import FilteredTable from './FilteredTable/1/FilteredTable';
-import FilteredTableV2, { ResponsiveFilteredTable } from './FilteredTable/2/FilteredTable';
+import FilteredTableV2, {
+    ResponsiveFilteredTable,
+} from './FilteredTable/2/FilteredTable';
 // import FilteredTableV2 from './FilteredTable/2/FilteredTable';
 // import ResponsiveFilteredTable from './ResponsiveFilteredTable/FilteredTable';
 import IsotopeGrid from './IsotopeGrid/IsotopeGrid';
@@ -44,7 +46,7 @@ import Description from './FormFields/Description';
 import WFUIDropdown from './WFUIDropdown/WFUIDropdown';
 import Notifications from './Notifications/Notifications';
 import Query from './util/Query';
-import AdvanceModeButton from './AdvanceModeButton';
+import AdvanceModeButton from './AdvanceModeButton/AdvanceModeButton';
 
 import * as Utils from './util';
 
