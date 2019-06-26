@@ -20,3 +20,4 @@ export renderDate from './renderDate';
 export renderEventSelect from './renderEventSelect';
 export renderCodeMirror from './renderCodeMirror';
 export RenderFee from './RenderFee';
+export renderFieldWithAutoAlias from "./renderFieldWithAutoAlias";

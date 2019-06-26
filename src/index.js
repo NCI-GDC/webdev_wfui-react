@@ -10,6 +10,7 @@ import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import SplitPane from 'react-split-pane';
 import { ClipLoader, SyncLoader, BarLoader, BeatLoader } from 'react-spinners';
+import AnimateHeight from 'react-animate-height';
 import ClipLoaderWithContext from './ReactSpinners/ClipLoader';
 import FilteredList from './FilteredList/FilteredList';
 import Spinner from './Spinner/Spinner';
@@ -42,8 +43,8 @@ import * as FilterFields from './Filters/renderFilterItem';
 import Description from './FormFields/Description';
 import WFUIDropdown from './WFUIDropdown/WFUIDropdown';
 import Notifications from './Notifications/Notifications';
-import AnimateHeight from 'react-animate-height';
 import Query from './util/Query';
+import AdvanceModeButton from './AdvanceModeButton';
 
 import * as Utils from './util';
 
@@ -106,4 +107,5 @@ export {
     BarLoader,
     BeatLoader,
     Query,
+    AdvanceModeButton,
 };
