@@ -5,6 +5,34 @@ import { flattenObject } from '../util/flattenObject';
 import { Button, ClipLoader, ClipLoaderWithContext } from '../index';
 
 class LoadingComponent extends React.Component {
+    renderRegularLoader() {
+        const { context, spinnerConfig } = this.props;
+        if (context) {
+            return (
+                <ClipLoaderWithContext
+                    context={context}
+                    {...spinnerConfig}
+                    loading
+                />
+            );
+        }
+        return <ClipLoader {...spinnerConfig} loading />;
+    }
+
+    renderWholeLoader() {
+        const { context, coverSpinnerConfig } = this.props;
+        if (context) {
+            return (
+                <ClipLoaderWithContext
+                    context={context}
+                    {...coverSpinnerConfig}
+                    loading
+                />
+            );
+        }
+        return <ClipLoader {...coverSpinnerConfig} loading />;
+    }
+
     render() {
         const {
             requestId,
@@ -26,10 +54,11 @@ class LoadingComponent extends React.Component {
             textRetry,
             coverWholePage,
             loaderStyle,
+            coverLoaderStyle,
             data,
             values,
             context,
-            ignoreErrors
+            ignoreErrors,
         } = this.props;
 
         if (isFetching) {
@@ -37,19 +66,18 @@ class LoadingComponent extends React.Component {
                 <div
                     className={`wfui-loading-component ${
                         coverWholePage ? 'spinner-wrapper-overwrap' : ''
-                    }`}
+                        }`}
                 >
                     {
-                        <div className="loader" style={loaderStyle}>
-                            {context ? (
-                                <ClipLoaderWithContext
-                                    context={context}
-                                    {...spinnerConfig}
-                                    loading
-                                />
-                            ) : (
-                                <ClipLoader {...spinnerConfig} loading />
-                            )}
+                        <div
+                            className="loader"
+                            style={
+                                coverWholePage ? coverLoaderStyle : loaderStyle
+                            }
+                        >
+                            {coverWholePage
+                                ? this.renderWholeLoader()
+                                : this.renderRegularLoader()}
                         </div>
                     }
                     {!hideMessage && fetch5s && (
@@ -68,8 +96,8 @@ class LoadingComponent extends React.Component {
                                     )}
                                 />
                             ) : (
-                                message5s
-                            )}
+                                    message5s
+                                )}
                         </p>
                     )}
                     {!hideMessage && fetch8s && (
@@ -88,8 +116,8 @@ class LoadingComponent extends React.Component {
                                     )}
                                 />
                             ) : (
-                                message8s
-                            )}
+                                    message8s
+                                )}
                         </p>
                     )}
                 </div>
@@ -98,8 +126,13 @@ class LoadingComponent extends React.Component {
         if (status === 'fail') {
             const errorType = typeof error === 'object' && error.type;
 
-            if (ignoreErrors && ignoreErrors.length && ((errorType && ignoreErrors.includes(errorType)) || (typeof error === 'string' && ignoreErrors.includes(error)))) {
-              return <div className="wfui-loading-component">{children}</div>;
+            if (
+                ignoreErrors &&
+                ignoreErrors.length &&
+                ((errorType && ignoreErrors.includes(errorType)) ||
+                    (typeof error === 'string' && ignoreErrors.includes(error)))
+            ) {
+                return <div className="wfui-loading-component">{children}</div>;
             }
 
             return (
@@ -110,7 +143,7 @@ class LoadingComponent extends React.Component {
                                 <FormattedHTMLMessage
                                     id={`loadingcomponent.${requestId}.${
                                         errorType ? `${errorType}` : 'default'
-                                    }`}
+                                        }`}
                                     defaultMessage={
                                         typeof error === 'object'
                                             ? error.type
@@ -131,8 +164,8 @@ class LoadingComponent extends React.Component {
                             ) : typeof error === 'object' ? (
                                 error.type
                             ) : (
-                                error
-                            )}
+                                        error
+                                    )}
                         </p>
                     )}
                     {!hideMessage && (retried || timeout) && (
@@ -148,8 +181,8 @@ class LoadingComponent extends React.Component {
                                     )}
                                 />
                             ) : (
-                                messageFailed
-                            )}
+                                    messageFailed
+                                )}
                         </p>
                     )}
                     {(retried || timeout) && typeof onRetry === 'function' && (
@@ -183,6 +216,7 @@ LoadingComponent.propTypes = {
     hideMessage: PropTypes.bool,
     children: PropTypes.node,
     spinnerConfig: PropTypes.oneOfType([PropTypes.object]),
+    coverSpinnerConfig: PropTypes.oneOfType([PropTypes.object]),
     message5s: PropTypes.string,
     message8s: PropTypes.string,
     messageFailed: PropTypes.string,
@@ -190,6 +224,7 @@ LoadingComponent.propTypes = {
     textRetry: PropTypes.string,
     enableIntl: PropTypes.bool,
     loaderStyle: PropTypes.oneOfType([PropTypes.object]),
+    coverLoaderStyle: PropTypes.oneOfType([PropTypes.object]),
     values: PropTypes.oneOfType([PropTypes.object]),
     data: PropTypes.any,
     ignoreErrors: PropTypes.arrayOf(PropTypes.string),
@@ -203,6 +238,15 @@ LoadingComponent.defaultProps = {
     },
     loaderStyle: {
         margin: '100px auto',
+        textAlign: 'center',
+    },
+    coverSpinnerConfig: {
+        sizeUnit: 'px',
+        size: 60,
+        color: '#ffffff',
+    },
+    coverLoaderStyle: {
+        margin: '-40px 0 0 -30px',
         textAlign: 'center',
     },
     message5s: 'Loading, please wait...',
