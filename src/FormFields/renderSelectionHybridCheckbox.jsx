@@ -102,7 +102,8 @@ class renderSelectionHybridCheckbox extends React.Component {
 
         const { options } = this.state;
 
-        const checkboxCid = fieldMap._checkbox.cid;
+        const checkboxCid =
+            fieldMap && fieldMap._checkbox && fieldMap._checkbox.cid;
         const childComponents = _.get(this.props, name);
         const checkboxProps = childComponents[checkboxCid];
 
@@ -230,7 +231,8 @@ class renderSelectionHybridCheckbox extends React.Component {
                         {' '}
                         {allTouched && globalError && (
                             <span>{globalError}</span>
-                        )}{' '}
+                        )}
+{' '}
                     </HelpBlock>
                     {help && !preview && (
                         <div
