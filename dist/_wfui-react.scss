@@ -2198,6 +2198,7 @@ html {
     display: flex;
     flex-direction: column;
     text-align: center; }
+@charset "UTF-8";
 /* styles for FormFields */
 a.delete-icon {
   text-indent: -9999px;
@@ -4112,6 +4113,44 @@ li.react-datepicker__time-list-item--disabled:hover {
 .react-datepicker__navigation--next--disabled:hover {
   border-left-color: #e6e6e6;
   cursor: default; }
+
+.wfui-form-tags .react-tagsinput {
+  background-color: #fff;
+  overflow: hidden; }
+
+.wfui-form-tags .react-tagsinput--focused {
+  border-color: #a5d24a; }
+
+.wfui-form-tags .react-tagsinput-tag {
+  background-color: #cde69c;
+  border-radius: 2px;
+  color: #638421;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  padding: 5px; }
+
+.wfui-form-tags .react-tagsinput-remove {
+  cursor: pointer;
+  font-weight: bold; }
+
+.wfui-form-tags .react-tagsinput-tag a::before {
+  content: " \D7"; }
+
+.wfui-form-tags .react-tagsinput-input {
+  background: transparent;
+  border: 0;
+  color: #777;
+  font-size: 13px;
+  font-weight: 400;
+  margin-bottom: 6px;
+  margin-top: 1px;
+  outline: none;
+  padding: 5px;
+  width: 220px; }
 .wfui-filters-item .input-clear {
   position: absolute;
   top: 50%;

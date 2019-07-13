@@ -3,10 +3,7 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {
-    WithContext as ReactTagsWithContext,
-    WithOutContext as ReactTags,
-} from 'react-tag-input';
+import TagsInput from 'react-tagsinput';
 
 import { FormGroup, ControlLabel, HelpBlock } from '../index';
 
@@ -15,53 +12,18 @@ class renderTags extends React.Component {
         super(props);
 
         this.state = {
-            tags: this.transformSubmissionToForm(props.input.value || []),
+            tags: props.input.value || [],
             suggestions: props.suggestions || [],
         };
-        this.handleDelete = this.handleDelete.bind(this);
-        this.handleAddition = this.handleAddition.bind(this);
-        this.handleDrag = this.handleDrag.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
-    transformTagsToSubmission(tags) {
-        return tags.map(tag => tag.text);
-    }
-
-    transformSubmissionToForm(values) {
-        return values.map((value, i) => ({ id: i, text: value }));
-    }
-
-    handleDelete(i) {
+    handleChange(tags) {
         const { input } = this.props;
-        const tags = this.state.tags;
-        tags.splice(i, 1);
         this.setState({ tags });
-        input.onChange(this.transformTagsToSubmission(tags));
+        input.onChange(tags);
     }
 
-    handleAddition(tag) {
-        const { input } = this.props;
-        const tags = this.state.tags;
-        tags.push({
-            id: tags.length + 1,
-            text: tag,
-        });
-        this.setState({ tags });
-        input.onChange(this.transformTagsToSubmission(tags));
-    }
-
-    handleDrag(tag, currPos, newPos) {
-        const { input } = this.props;
-        const tags = this.state.tags;
-
-        // mutate array
-        tags.splice(currPos, 1);
-        tags.splice(newPos, 0, tag);
-
-        // re-render
-        this.setState({ tags });
-        input.onChange(this.transformTagsToSubmission(tags));
-    }
     render() {
         const {
             className,
@@ -80,8 +42,6 @@ class renderTags extends React.Component {
         } = this.props;
         const { suggestions, tags } = this.state;
 
-        const Comp = withContext ? ReactTagsWithContext : ReactTags;
-
         return (
             <div
                 className={classNames(
@@ -90,7 +50,7 @@ class renderTags extends React.Component {
                     { 'wfui-form-item-error': touched && error },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
-                    { 'wfui-form-item-full-width': fullWidth },
+                    { 'wfui-form-item-full-width': fullWidth }
                 )}
             >
                 {label && (
@@ -120,16 +80,9 @@ class renderTags extends React.Component {
                             )}
                         </div>
                     ) : (
-                        <Comp
-                            tags={tags}
-                            suggestions={suggestions}
-                            handleDelete={this.handleDelete}
-                            handleAddition={this.handleAddition}
-                            handleDrag={this.handleDrag}
-                            placeholder={placeholder}
-                            name={input.name}
-                        />
+                        <TagsInput value={tags} onChange={this.handleChange} />
                     )}
+
                     {touched && error && (
                         <HelpBlock className="wfui-form-error">
                             <span>{error}</span>

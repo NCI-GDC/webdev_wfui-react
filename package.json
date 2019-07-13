@@ -105,6 +105,7 @@
     "react-spinners": "^0.4.7",
     "react-split-pane": "^0.1.84",
     "react-tag-input": "^4.7.2",
+    "react-tagsinput": "^3.19.0",
     "react-timezone": "^0.1.0",
     "react-tooltip": "^3.9.2",
     "redux-form": "^6.8.0",
