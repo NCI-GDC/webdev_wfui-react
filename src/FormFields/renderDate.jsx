@@ -17,6 +17,7 @@ const renderDate = ({
     disabled,
     preview,
     descDisplay,
+    globalError,
     fullWidth,
     timeZone,
     meta: { touched, error },
@@ -28,7 +29,7 @@ const renderDate = ({
             className,
             'wfui-form-item',
             {
-                'wfui-form-item-error': touched && error,
+                'wfui-form-item-error': touched && (error || globalError),
             },
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
@@ -49,7 +50,7 @@ const renderDate = ({
                     ? 'wfui-form-field-with-description'
                     : 'wfui-form-field-no-description'
             } wfui-form-date`}
-            validationState={touched && error ? 'error' : null}
+            validationState={touched && (error || globalError) ? 'error' : null}
         >
             {!disabled ? (
                 <div className="wfui-form-datepicker">
@@ -77,6 +78,17 @@ const renderDate = ({
                 <HelpBlock className="wfui-form-error">
                     <span>{error}</span>
                 </HelpBlock>
+            )}
+            {touched && globalError && (
+                <HelpBlock className="wfui-form-error">
+                    <span>{globalError}</span>
+                </HelpBlock>
+            )}
+            {help && !preview && (
+                <div
+                    className="wfui-form-help"
+                    dangerouslySetInnerHTML={{ __html: help }}
+                />
             )}
         </FormGroup>
         {descDisplay && !preview ? cloneElement(descDisplay) : ''}
