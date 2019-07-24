@@ -32,7 +32,7 @@ const renderDate = ({
             },
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
-            { 'wfui-form-item-full-width': fullWidth },
+            { 'wfui-form-item-full-width': fullWidth }
         )}
     >
         {label && (
@@ -62,10 +62,11 @@ const renderDate = ({
                         }
                         selected={input.value ? moment(input.value) : null}
                         onChange={input.onChange}
+                        placeholderText={placeholder}
                     />
                     <span className="timezone">
                         {timeZone} ({utcOffsetNumber})
-                    </span>
+                                            </span>
                 </div>
             ) : (
                 <p className="date-value">
