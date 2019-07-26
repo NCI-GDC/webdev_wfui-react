@@ -1479,27 +1479,27 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
     .wfui-form-description {
         display: none;
     }
-    .wfui-form-photo input,
-    .wfui-form-input input[type='text'],
-    .wfui-form-input input[type='number'],
-    .wfui-form-input input[type='email'],
-    .wfui-form-input input[type='googleurl'],
-    .wfui-form-textarea textarea {
-        background: none;
-        border: none;
-        box-shadow: none;
-        padding: 0;
-    }
-    &.wfui-form-singlecheckbox {
-        .active.checkbox {
-            display: block;
-            > label {
-                background: none;
-                border: none;
-                padding: 0;
-            }
-        }
-    }
+    // .wfui-form-photo input,
+    // .wfui-form-input input[type='text'],
+    // .wfui-form-input input[type='number'],
+    // .wfui-form-input input[type='email'],
+    // .wfui-form-input input[type='googleurl'],
+    // .wfui-form-textarea textarea {
+    //     background: none;
+    //     border: none;
+    //     box-shadow: none;
+    //     padding: 0;
+    // }
+    // &.wfui-form-singlecheckbox {
+    //     .active.checkbox {
+    //         display: block;
+    //         > label {
+    //             background: none;
+    //             border: none;
+    //             padding: 0;
+    //         }
+    //     }
+    // }
     .wfui-checkboxes-hybrid,
     .wfui-form-checkboxes {
         .checkbox {
@@ -1507,11 +1507,11 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
         }
         .active.checkbox {
             display: block;
-            > label {
-                background: none;
-                border: none;
-                padding: 0;
-            }
+            // > label {
+            //     background: none;
+            //     border: none;
+            //     padding: 0;
+            // }
         }
     }
     .wfui-radios-hybrid,
@@ -1521,24 +1521,28 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
         }
         .active.radio {
             display: block;
-            > label {
-                background: none;
-                border: none;
-                padding: 0;
-            }
-            input[type='radio'] {
+            // > label {
+            //     background: none;
+            //     border: none;
+            //     padding: 0;
+            // }
+            // input[type='radio'] {
                 // display: none;
-            }
+            // }
         }
     }
     .wfui-form-select {
         select.form-control {
-            padding: 0;
-            border: none;
-            background: none;
-            box-shadow: none;
-            -webkit-appearance: none;
-            appearance: none;
+            // padding: 0;
+            // border: none;
+            // background: none;
+            // box-shadow: none;
+            // -webkit-appearance: none;
+            // appearance: none;
+            background-color: #edf0f2;
+            // border: 1px solid #e0e0e0;
+            // padding: 10px;
+            // min-height: 80px;
         }
     }
     .render-file-upload {
@@ -2332,4 +2336,46 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
         padding: 5px;
         width: 220px;
     }
+}
+
+// Disabled input fields
+.wfui-form-item.wfui-form-disabled {
+    .no-item {
+        color: #bbb;
+    }
+    
+    .wfui-form-input input {
+        background-color: #edf0f2;
+        border: 1px solid #e0e0e0;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .wfui-form-textarea .wfui-form-textarea-preview-value {
+      background-color: #edf0f2;
+      border: 1px solid #e0e0e0;
+      padding: 10px;
+      min-height: 80px;
+  }
+
+    .wfui-form-addAnother.no-item {
+        width: auto !important;
+    }
+
+  .wfui-form-addAnother-item {
+    .list-group-item{
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .list-title {
+        padding-top: 15px;
+    }
+    .list-title.open {
+        div.wfui-form-item{
+            margin-bottom: 0;
+        }
+    }
+  }
 }

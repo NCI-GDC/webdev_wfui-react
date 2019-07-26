@@ -252,6 +252,12 @@ class renderFileUpload extends React.Component {
     renderDisabledDropzone() {
         const { input, preview } = this.props;
 
+        if (
+            preview &&
+            (!input.value || Object.keys(input.value).length === 0)
+        ) {
+            return <span className="no-item">( No File )</span>;
+        }
         return (
             <div
                 className="render-file-upload file-upload-componentid-undefined"
@@ -264,7 +270,7 @@ class renderFileUpload extends React.Component {
                             : 'block',
                 }}
             >
-                {!preview && this.renderChildComponets()}
+                {this.renderChildComponets()}
             </div>
         );
     }

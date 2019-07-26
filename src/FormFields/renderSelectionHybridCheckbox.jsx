@@ -227,12 +227,14 @@ class renderSelectionHybridCheckbox extends React.Component {
                         );
                         return renderCheckbox;
                     })}
+                    {preview && !checkboxProps.input.value && (
+                        <span className="no-item">( No Item Selected )</span>
+                    )}
                     <HelpBlock>
                         {' '}
                         {allTouched && globalError && (
                             <span>{globalError}</span>
-                        )}
-{' '}
+                        )}{' '}
                     </HelpBlock>
                     {help && !preview && (
                         <div

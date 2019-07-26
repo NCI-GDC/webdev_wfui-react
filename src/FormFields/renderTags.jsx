@@ -71,12 +71,14 @@ class renderTags extends React.Component {
                 >
                     {disabled ? (
                         <div>
-                            {input.value && (
+                            {input.value ? (
                                 <ul>
                                     {input.value.map((tag, i) => (
                                         <li key={i}>{tag}</li>
                                     ))}
                                 </ul>
+                            ) : (
+                                <span className="no-item">( No Items )</span>
                             )}
                         </div>
                     ) : (
