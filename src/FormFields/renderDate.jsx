@@ -63,6 +63,7 @@ const renderDate = ({
                         }
                         selected={input.value ? moment(input.value) : null}
                         onChange={input.onChange}
+                        onBlur={input.onBlur}
                         placeholderText={placeholder}
                     />
                     <span className="timezone">
