@@ -3457,9 +3457,6 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
   color: #aaa;
   font-style: italic; }
 
-.wfui-form-date .react-datepicker-popper {
-  z-index: 5; }
-
 .wfui-form-date .react-datepicker-popper[data-placement^='bottom']
 .react-datepicker__triangle,
 .wfui-form-date .react-datepicker-popper[data-placement^='top'] .react-datepicker__triangle,
@@ -3575,7 +3572,7 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
   left: 50px; }
 
 .wfui-form-date .react-datepicker-popper {
-  z-index: 1; }
+  z-index: 5; }
 
 .wfui-form-date .react-datepicker-popper[data-placement^='bottom'] {
   margin-top: 10px; }
