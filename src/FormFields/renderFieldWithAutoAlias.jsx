@@ -13,7 +13,7 @@ import {
     HelpBlock,
 } from '../index';
 
-const { renderSingleCheckbox } = FormFields;
+import renderSingleCheckbox from './renderSingleCheckbox';
 
 /**
  * Reusable field component.
