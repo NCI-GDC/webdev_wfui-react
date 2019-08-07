@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import classNames from 'classnames';
 import { Field } from 'redux-form';
-import { connect } from 'react-redux';
 import {
     FormFields,
     FormGroup,
@@ -14,31 +13,21 @@ import {
     HelpBlock,
 } from '../index';
 
-import renderSingleCheckbox from './renderSingleCheckbox';
+const { renderSingleCheckbox } = FormFields;
 
 /**
  * Reusable field component.
  */
 class renderFieldWithAutoAlias extends React.Component {
-    constructor() {
-        super();
-    }
-
-    componentWillMount() {
-        const { input } = this.props;
-    }
-
     renderAutoAlias() {
-        const { input, intl, onHandleAliasChecked } = this.props;
+        const { input, onHandleAliasChecked, autoAliasText } = this.props;
 
         return (
             <Field
                 name={`${input.name}.alias`}
                 type="checkbox"
                 component={renderSingleCheckbox}
-                option={intl.formatMessage({
-                    id: 'content_manager.columnLabels.published_autoalias',
-                })}
+                option={autoAliasText}
                 onChange={onHandleAliasChecked}
                 placeholder=""
             />
@@ -90,7 +79,6 @@ class renderFieldWithAutoAlias extends React.Component {
                             {label}
                             {required && <b className="required"> *</b>}
                         </ControlLabel>
-                        {this.renderAutoAlias()}
                     </div>
                 )}
 
@@ -120,17 +108,40 @@ class renderFieldWithAutoAlias extends React.Component {
                         disabled={
                             disabled || (input.value && input.value.alias)
                         }
+                        onBlur={e => {
+                            input.onBlur(
+                                Object.assign(
+                                    {},
+                                    {
+                                        alias: input.value.alias,
+                                        value: input.value.value,
+                                    },
+                                    {
+                                        value: e.target.value,
+                                    }
+                                )
+                            );
+                        }}
                         onChange={e => {
-                            input.onChange({
-                                ...input.value,
-                                value: e.target.value,
-                            });
+                            input.onChange(
+                                Object.assign(
+                                    {},
+                                    {
+                                        alias: input.value.alias,
+                                        value: input.value.value,
+                                    },
+                                    {
+                                        value: e.target.value,
+                                    }
+                                )
+                            );
                             if (onHandleChange) onHandleChange(e);
                         }}
                     />
                     {postfix && (
                         <div className="wfui-form-postfix">{postfix}</div>
                     )}
+                    {!disabled && this.renderAutoAlias()}
                     <FormControl.Feedback />
                     {touched && error && (
                         <HelpBlock className="wfui-form-error">
@@ -154,5 +165,13 @@ class renderFieldWithAutoAlias extends React.Component {
         );
     }
 }
+
+renderFieldWithAutoAlias.propTypes = {
+    autoAliasText: PropTypes.string,
+};
+
+renderFieldWithAutoAlias.defaultProps = {
+    autoAliasText: 'Automatic alias',
+};
 
 export default injectIntl(renderFieldWithAutoAlias);
