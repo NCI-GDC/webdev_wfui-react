@@ -9,7 +9,7 @@ const generateAcceptText = props => {
     const list = props.fileTypes.reduce(
         (types, type) =>
             props.mimeTypes[type] ? props.mimeTypes[type].concat(types) : types,
-        [],
+        []
     );
     return list.join(',');
 };
@@ -34,6 +34,7 @@ class renderFileUpload extends React.Component {
         this.renderDisabledDropzone = this.renderDisabledDropzone.bind(this);
         this.renderChildComponets = this.renderChildComponets.bind(this);
     }
+
     getFileKey(mime) {
         const { mimeTypes } = this.props;
         let key = '';
@@ -44,6 +45,7 @@ class renderFileUpload extends React.Component {
         });
         return key ? `file-${key}` : '';
     }
+
     renderRemoveBtn() {
         const { input, onRemove, txtRemove, disabled } = this.props;
         const { removing } = this.state;
@@ -71,6 +73,7 @@ class renderFileUpload extends React.Component {
         }
         return null;
     }
+
     componentWillReceiveProps(nextProps) {
         const { fileTypes, input } = this.props;
         if (nextProps.fileTypes !== fileTypes) {
@@ -83,19 +86,22 @@ class renderFileUpload extends React.Component {
             this.setFile(nextProps);
         }
     }
+
     setFile(props) {
         const { input, fileDownloadPath, fallbackPath } = props;
 
         let src = '';
         if (input.value.blobPath) {
             // Check if blob is available at the moment.
-            fetch(input.value.blobPath).then(res => {
-                // If images is blob object just uploaded.
-                src = input.value.blobPath;
-                this.setState({ src });
-            }).catch((err) => {
-                input.onChange('');
-            });
+            fetch(input.value.blobPath)
+                .then(res => {
+                    // If images is blob object just uploaded.
+                    src = input.value.blobPath;
+                    this.setState({ src });
+                })
+                .catch(err => {
+                    input.onChange('');
+                });
         } else if (input.value.data) {
             src = input.value.data;
             this.setState({ src });
@@ -118,6 +124,7 @@ class renderFileUpload extends React.Component {
 
         return src;
     }
+
     renderFile() {
         const {
             input,
@@ -176,6 +183,7 @@ class renderFileUpload extends React.Component {
             );
         }
     }
+
     renderChildComponets() {
         const {
             componentId,
@@ -235,14 +243,21 @@ class renderFileUpload extends React.Component {
                         type="hidden"
                         value={fileid}
                     />
-                )),
+                ))
             );
         }
         return child;
     }
+
     renderDisabledDropzone() {
         const { input, preview } = this.props;
 
+        if (
+            preview &&
+            (!input.value || Object.keys(input.value).length === 0)
+        ) {
+            return <span className="no-item">( No File )</span>;
+        }
         return (
             <div
                 className="render-file-upload file-upload-componentid-undefined"
@@ -255,10 +270,11 @@ class renderFileUpload extends React.Component {
                             : 'block',
                 }}
             >
-                {!preview && this.renderChildComponets()}
+                {this.renderChildComponets()}
             </div>
         );
     }
+
     renderDropzone() {
         const {
             componentId,
@@ -297,7 +313,7 @@ class renderFileUpload extends React.Component {
                 onDrop={(acceptedFiles, rejectedFiles) => {
                     if (acceptedFiles.length > 0) {
                         this.setState({ fileError: '' });
-                        const name = acceptedFiles[0].name;
+                        const { name } = acceptedFiles[0];
                         const reader = new FileReader();
                         reader.readAsDataURL(acceptedFiles[0]);
                         reader.onloadend = () => {
@@ -323,14 +339,14 @@ class renderFileUpload extends React.Component {
                         if (!accept.includes(rejectedFiles[0].type)) {
                             this.setState({
                                 fileError: `${errorFileType} ${fileTypes.join(
-                                    ', ',
+                                    ', '
                                 )}`,
                             });
                         } else if (rejectedFiles[0].size > maxFileSize) {
                             this.setState({
                                 fileError: `${errorFileSize.replace(
                                     '{maxFileSize}',
-                                    Math.round(maxFileSize / 1000000),
+                                    Math.round(maxFileSize / 1000000)
                                 )}`,
                             });
                         } else {
@@ -345,6 +361,7 @@ class renderFileUpload extends React.Component {
             </Dropzone>
         );
     }
+
     render() {
         const {
             className,
@@ -379,7 +396,7 @@ class renderFileUpload extends React.Component {
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
                     { answered: input.value },
-                    { 'wfui-form-item-full-width': fullWidth },
+                    { 'wfui-form-item-full-width': fullWidth }
                 )}
             >
                 {label && (
@@ -406,32 +423,36 @@ class renderFileUpload extends React.Component {
                     {!disabled
                         ? this.renderDropzone()
                         : this.renderDisabledDropzone()}
-                    <p
-                        className="wfui-form-file-upload-spec"
-                        key="wfui-form-file-upload-spec"
-                    >
-                        <span className="filesize">
-                            {maxFileSizeText
-                                .replace(
-                                    '{maxFileSize}',
-                                    fileSizeTextConvert > 1000
-                                        ? Math.floor(fileSizeTextConvert / 1000)
-                                        : fileSizeTextConvert,
-                                )
-                                .replace(
-                                    '{unit}',
-                                    fileSizeTextConvert > 1000 ? 'GB' : 'MB',
-                                )}
-                        </span>
-                        {fileTypes && fileTypes.length > 0 && (
-                            <span className="filetypes">
-                                {allowedExtensionText.replace(
-                                    '{fileTypes}',
-                                    fileTypes.join(', '),
-                                )}
+                    {!preview && (
+                        <p
+                            className="wfui-form-file-upload-spec"
+                            key="wfui-form-file-upload-spec"
+                        >
+                            <span className="filesize">
+                                {maxFileSizeText
+                                    .replace(
+                                        '{maxFileSize}',
+                                        fileSizeTextConvert > 1000
+                                            ? Math.floor(
+                                                  fileSizeTextConvert / 1000
+                                              )
+                                            : fileSizeTextConvert
+                                    )
+                                    .replace(
+                                        '{unit}',
+                                        fileSizeTextConvert > 1000 ? 'GB' : 'MB'
+                                    )}
                             </span>
-                        )}
-                    </p>
+                            {fileTypes && fileTypes.length > 0 && (
+                                <span className="filetypes">
+                                    {allowedExtensionText.replace(
+                                        '{fileTypes}',
+                                        fileTypes.join(', ')
+                                    )}
+                                </span>
+                            )}
+                        </p>
+                    )}
                     {fileError && (
                         <HelpBlock className="wfui-form-error">
                             <span
@@ -488,8 +509,12 @@ renderFileUpload.defaultProps = {
         pdf: ['application/pdf'],
         doc: ['application/msword'],
         dot: ['application/msword'],
-        docx: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
-        dotx: ['application/vnd.openxmlformats-officedocument.wordprocessingml.template'],
+        docx: [
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        ],
+        dotx: [
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.template',
+        ],
         docm: ['application/vnd.ms-word.document.macroEnabled.12'],
         dotm: ['application/vnd.ms-word.template.macroEnabled.12'],
         word: [

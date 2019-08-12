@@ -2198,6 +2198,7 @@ html {
     display: flex;
     flex-direction: column;
     text-align: center; }
+@charset "UTF-8";
 /* styles for FormFields */
 a.delete-icon {
   text-indent: -9999px;
@@ -3427,24 +3428,6 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
 .wfui-form-preview .wfui-form-description {
   display: none; }
 
-.wfui-form-preview .wfui-form-photo input,
-.wfui-form-preview .wfui-form-input input[type='text'],
-.wfui-form-preview .wfui-form-input input[type='number'],
-.wfui-form-preview .wfui-form-input input[type='email'],
-.wfui-form-preview .wfui-form-input input[type='googleurl'],
-.wfui-form-preview .wfui-form-textarea textarea {
-  background: none;
-  border: none;
-  box-shadow: none;
-  padding: 0; }
-
-.wfui-form-preview.wfui-form-singlecheckbox .active.checkbox {
-  display: block; }
-  .wfui-form-preview.wfui-form-singlecheckbox .active.checkbox > label {
-    background: none;
-    border: none;
-    padding: 0; }
-
 .wfui-form-preview .wfui-checkboxes-hybrid .checkbox,
 .wfui-form-preview .wfui-form-checkboxes .checkbox {
   display: none; }
@@ -3452,11 +3435,6 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
 .wfui-form-preview .wfui-checkboxes-hybrid .active.checkbox,
 .wfui-form-preview .wfui-form-checkboxes .active.checkbox {
   display: block; }
-  .wfui-form-preview .wfui-checkboxes-hybrid .active.checkbox > label,
-  .wfui-form-preview .wfui-form-checkboxes .active.checkbox > label {
-    background: none;
-    border: none;
-    padding: 0; }
 
 .wfui-form-preview .wfui-radios-hybrid .radio,
 .wfui-form-preview .wfui-form-radios .radio {
@@ -3465,19 +3443,9 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
 .wfui-form-preview .wfui-radios-hybrid .active.radio,
 .wfui-form-preview .wfui-form-radios .active.radio {
   display: block; }
-  .wfui-form-preview .wfui-radios-hybrid .active.radio > label,
-  .wfui-form-preview .wfui-form-radios .active.radio > label {
-    background: none;
-    border: none;
-    padding: 0; }
 
 .wfui-form-preview .wfui-form-select select.form-control {
-  padding: 0;
-  border: none;
-  background: none;
-  box-shadow: none;
-  -webkit-appearance: none;
-  appearance: none; }
+  background-color: #edf0f2; }
 
 /* Date Picker
 /-------------------------------------------------------------- */
@@ -3604,7 +3572,7 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
   left: 50px; }
 
 .wfui-form-date .react-datepicker-popper {
-  z-index: 1; }
+  z-index: 5; }
 
 .wfui-form-date .react-datepicker-popper[data-placement^='bottom'] {
   margin-top: 10px; }
@@ -4112,6 +4080,74 @@ li.react-datepicker__time-list-item--disabled:hover {
 .react-datepicker__navigation--next--disabled:hover {
   border-left-color: #e6e6e6;
   cursor: default; }
+
+.wfui-form-tags .react-tagsinput {
+  background-color: #fff;
+  overflow: hidden; }
+
+.wfui-form-tags .react-tagsinput--focused {
+  border-color: #a5d24a; }
+
+.wfui-form-tags .react-tagsinput-tag {
+  background-color: #cde69c;
+  border-radius: 2px;
+  color: #638421;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  padding: 5px; }
+
+.wfui-form-tags .react-tagsinput-remove {
+  cursor: pointer;
+  font-weight: bold; }
+
+.wfui-form-tags .react-tagsinput-tag a::before {
+  content: " \D7"; }
+
+.wfui-form-tags .react-tagsinput-input {
+  background: transparent;
+  border: 0;
+  color: #777;
+  font-size: 13px;
+  font-weight: 400;
+  margin-bottom: 6px;
+  margin-top: 1px;
+  outline: none;
+  padding: 5px;
+  width: 220px; }
+
+.wfui-form-item.wfui-form-disabled .no-item {
+  color: #bbb; }
+
+.wfui-form-item.wfui-form-disabled .wfui-form-input input {
+  background-color: #edf0f2;
+  border: 1px solid #e0e0e0;
+  padding-left: 10px;
+  padding-right: 10px; }
+
+.wfui-form-item.wfui-form-disabled .wfui-form-textarea .wfui-form-textarea-preview-value {
+  background-color: #edf0f2;
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+  min-height: 80px; }
+
+.wfui-form-item.wfui-form-disabled .wfui-form-addAnother.no-item {
+  width: auto !important; }
+
+.wfui-form-item.wfui-form-disabled .wfui-form-addAnother-item .list-group-item {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0; }
+
+.wfui-form-item.wfui-form-disabled .wfui-form-addAnother-item .list-title {
+  padding-top: 15px; }
+
+.wfui-form-item.wfui-form-disabled .wfui-form-addAnother-item .list-title.open div.wfui-form-item {
+  margin-bottom: 0; }
 .wfui-filters-item .input-clear {
   position: absolute;
   top: 50%;
