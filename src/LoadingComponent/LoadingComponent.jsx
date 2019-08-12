@@ -130,7 +130,8 @@ class LoadingComponent extends React.Component {
                 ignoreErrors &&
                 ignoreErrors.length &&
                 ((errorType && ignoreErrors.includes(errorType)) ||
-                    (typeof error === 'string' && ignoreErrors.includes(error)))
+                    (typeof error === 'string' && ignoreErrors.includes(error))) ||
+                coverWholePage
             ) {
                 return <div className="wfui-loading-component">{children}</div>;
             }
