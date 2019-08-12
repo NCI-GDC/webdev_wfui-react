@@ -17,6 +17,7 @@ const renderDate = ({
     disabled,
     preview,
     descDisplay,
+    globalError,
     fullWidth,
     timeZone,
     meta: { touched, error },
@@ -28,11 +29,11 @@ const renderDate = ({
             className,
             'wfui-form-item',
             {
-                'wfui-form-item-error': touched && error,
+                'wfui-form-item-error': touched && (error || globalError),
             },
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
-            { 'wfui-form-item-full-width': fullWidth },
+            { 'wfui-form-item-full-width': fullWidth }
         )}
     >
         {label && (
@@ -49,7 +50,7 @@ const renderDate = ({
                     ? 'wfui-form-field-with-description'
                     : 'wfui-form-field-no-description'
             } wfui-form-date`}
-            validationState={touched && error ? 'error' : null}
+            validationState={touched && (error || globalError) ? 'error' : null}
         >
             {!disabled ? (
                 <div className="wfui-form-datepicker">
@@ -62,10 +63,12 @@ const renderDate = ({
                         }
                         selected={input.value ? moment(input.value) : null}
                         onChange={input.onChange}
+                        onBlur={input.onBlur}
+                        placeholderText={placeholder}
                     />
                     <span className="timezone">
                         {timeZone} ({utcOffsetNumber})
-                    </span>
+                                            </span>
                 </div>
             ) : (
                 <p className="date-value">
@@ -76,6 +79,17 @@ const renderDate = ({
                 <HelpBlock className="wfui-form-error">
                     <span>{error}</span>
                 </HelpBlock>
+            )}
+            {touched && globalError && (
+                <HelpBlock className="wfui-form-error">
+                    <span>{globalError}</span>
+                </HelpBlock>
+            )}
+            {help && !preview && (
+                <div
+                    className="wfui-form-help"
+                    dangerouslySetInnerHTML={{ __html: help }}
+                />
             )}
         </FormGroup>
         {descDisplay && !preview ? cloneElement(descDisplay) : ''}

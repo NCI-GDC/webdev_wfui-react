@@ -44,11 +44,9 @@ class Forms extends React.Component {
                     type="text"
                     className="title-box"
                     component={renderField}
-                    label={'renderField'}
+                    label="renderField"
                     placeholder=""
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
-                    }
+                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
                     required
                     disabled
                     preview
@@ -56,11 +54,9 @@ class Forms extends React.Component {
                 <Field
                     name="renderTextArea"
                     type="textarea"
-                    label={'renderTextArea'}
+                    label="renderTextArea"
                     component={renderTextArea}
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
-                    }
+                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
                     placeholder="renderTextArea"
                     disabled
                     preview
@@ -68,11 +64,9 @@ class Forms extends React.Component {
                 <Field
                     name="renderSingleCheckbox"
                     type="checkbox"
-                    option={'renderSingleCheckbox'}
+                    option="renderSingleCheckbox"
                     className="active-checkbox"
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
-                    }
+                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
                     component={renderSingleCheckbox}
                     disabled
                     preview
@@ -82,10 +76,19 @@ class Forms extends React.Component {
                     type="checkbox"
                     component={renderCheckboxes}
                     options={['OptionA', 'OptionB', 'OptionC']}
-                    label={'renderCheckboxes'}
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
-                    }
+                    label="renderCheckboxes"
+                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
+                    required
+                    disabled
+                    preview
+                />
+                <Field
+                    name="renderCheckboxes2"
+                    type="checkbox"
+                    component={renderCheckboxes}
+                    options={['OptionA', 'OptionB', 'OptionC']}
+                    label="renderCheckboxes2"
+                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
                     required
                     disabled
                     preview
@@ -95,10 +98,18 @@ class Forms extends React.Component {
                     type="checkbox"
                     component={renderRadios}
                     options={['OptionA', 'OptionB', 'OptionC']}
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
-                    }
-                    label={'renderRadios'}
+                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
+                    label="renderRadios"
+                    disabled
+                    preview
+                />
+                <Field
+                    name="renderRadios2"
+                    type="checkbox"
+                    component={renderRadios}
+                    options={['OptionA', 'OptionB', 'OptionC']}
+                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
+                    label="renderRadios2"
                     disabled
                     preview
                 />
@@ -107,48 +118,40 @@ class Forms extends React.Component {
                     type="select"
                     className="dev-stage"
                     component={renderSelect}
-                    label={'renderSelect'}
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
-                    }
+                    label="renderSelect"
+                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
                     options={['-- Select an Option --', 'A', 'B']}
                     disabled
                     preview
                 />
                 <Field
                     name="renderPhoto"
-                    label={'renderPhoto'}
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
-                    }
+                    label="renderPhoto"
+                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
                     component={renderPhoto}
                     disabled
                     preview
                 />
                 <Field
                     name="renderTimezone"
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
-                    }
-                    placeholder={'Choose timezone'}
-                    label={'renderTimezone'}
+                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
+                    placeholder="Choose timezone"
+                    label="renderTimezone"
                     component={renderTimezone}
                     disabled
                     preview
                 />
                 <Field
                     name="renderDate2"
-                    label={'renderDate2'}
+                    label="renderDate2"
                     component={renderDate}
                     disabled
                     preview
                 />
                 <Field
                     name="renderTags"
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
-                    }
-                    label={'renderTags'}
+                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
+                    label="renderTags"
                     component={renderTags}
                     withContext
                     disabled
@@ -158,14 +161,14 @@ class Forms extends React.Component {
                     name="renderAddAnother"
                     type="select"
                     component={renderAddAnother}
-                    label={'renderAddAnother'}
+                    label="renderAddAnother"
                     childComponent={renderAddAnother => (
                         <div>
                             <Field
                                 name={`${renderAddAnother}.FirstName_txt`}
                                 type="text"
                                 component={renderField}
-                                label={'First Name:'}
+                                label="First Name:"
                                 placeholder=""
                                 disabled
                                 preview
@@ -174,7 +177,7 @@ class Forms extends React.Component {
                                 name={`${renderAddAnother}.LastName_txt`}
                                 type="text"
                                 component={renderField}
-                                label={'Last Name'}
+                                label="Last Name"
                                 placeholder=""
                                 required
                                 disabled

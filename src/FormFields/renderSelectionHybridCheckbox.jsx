@@ -32,7 +32,8 @@ class renderSelectionHybridCheckbox extends React.Component {
         const { name, input, fieldMap } = this.props;
         const { exclusives } = this.state;
 
-        const checkboxCid = fieldMap._checkbox.cid;
+        const checkboxCid =
+            fieldMap && fieldMap._checkbox && fieldMap._checkbox.cid;
         const childComponents = _.get(this.props, name);
         const checkboxProps = childComponents[checkboxCid];
 
@@ -101,7 +102,8 @@ class renderSelectionHybridCheckbox extends React.Component {
 
         const { options } = this.state;
 
-        const checkboxCid = fieldMap._checkbox.cid;
+        const checkboxCid =
+            fieldMap && fieldMap._checkbox && fieldMap._checkbox.cid;
         const childComponents = _.get(this.props, name);
         const checkboxProps = childComponents[checkboxCid];
 
@@ -221,10 +223,16 @@ class renderSelectionHybridCheckbox extends React.Component {
                                         />
                                     )}
                                 </div>
+                                {!label && required ? (
+                                    <b className="required">*</b>
+                                ) : null}
                             </Checkbox>
                         );
                         return renderCheckbox;
                     })}
+                    {preview && !checkboxProps.input.value && (
+                        <span className="no-item">( No Item Selected )</span>
+                    )}
                     <HelpBlock>
                         {' '}
                         {allTouched && globalError && (
