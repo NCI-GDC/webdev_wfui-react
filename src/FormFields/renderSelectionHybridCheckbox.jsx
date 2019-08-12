@@ -223,6 +223,9 @@ class renderSelectionHybridCheckbox extends React.Component {
                                         />
                                     )}
                                 </div>
+                                {!label && required ? (
+                                    <b className="required">*</b>
+                                ) : null}
                             </Checkbox>
                         );
                         return renderCheckbox;
