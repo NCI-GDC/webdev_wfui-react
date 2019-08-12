@@ -192,6 +192,9 @@ class renderSelectionHybridCheckbox extends React.Component {
                                         __html: _option,
                                     }}
                                 />
+                                {!label && required ? (
+                                    <b className="required"> *</b>
+                                ) : null}
                                 <div key={i} className="checkboxHybrid">
                                     {fieldMap[_key] && (
                                         <Field
@@ -223,9 +226,6 @@ class renderSelectionHybridCheckbox extends React.Component {
                                         />
                                     )}
                                 </div>
-                                {!label && required ? (
-                                    <b className="required">*</b>
-                                ) : null}
                             </Checkbox>
                         );
                         return renderCheckbox;
