@@ -61,7 +61,8 @@ class List extends React.Component {
         if ( activeData.length !== this.state.numOfItems ||
             startingArticle !== this.state.startingArticle ||
             lastArticle !== this.state.lastArticle || 
-            prevProps.data.length !== data.length) {
+            prevProps.data.length !== data.length ||
+            JSON.stringify(prevProps.data) !== JSON.stringify(data)) {
             this.updateStatus();
         }
     }
