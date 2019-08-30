@@ -1,5 +1,7 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import _ from 'lodash';
 import {
     Modal,
     Button,
@@ -10,8 +12,6 @@ import {
     MenuItem,
 } from '../index';
 import FilteredTable from '../FilteredTable/1/FilteredTable';
-import classNames from 'classnames';
-import _ from 'lodash';
 
 import { getValByKey, getOptKey, getOptVal } from './input_hybrid';
 
@@ -46,7 +46,7 @@ const FilterTableModal = props => {
             show={props.show}
             onHide={props.onHandleCancel}
             bsSize="large"
-            className={`add-modal`}
+            className="add-modal"
         >
             <Modal.Header closeButton>
                 <h2 className="modaltitle">{props.label}</h2>
@@ -94,7 +94,7 @@ const DeleteConfirmationModal = props => (
         show={props.show}
         onHide={props.onHandleDeleteCancel}
         bsSize="large"
-        className={`add-modal`}
+        className="add-modal"
     >
         <Modal.Header closeButton>
             <h2 className="modaltitle">{props.label}</h2>
@@ -157,15 +157,18 @@ class renderFilterTable extends React.Component {
         // Filters
         this.onFilterChange = this.onFilterChange.bind(this);
     }
+
     // Add Item
     onHandleAdd() {
         const { fields } = this.props;
         this.setState({ showAddModal: true, addingIndex: fields.length });
         fields.push();
     }
+
     onHandleAddSave() {
         this.setState({ showAddModal: false, addingIndex: -1 });
     }
+
     onHandleAddCancel() {
         const { fields } = this.props;
         const { addingIndex } = this.state;
@@ -184,9 +187,11 @@ class renderFilterTable extends React.Component {
             edittingInitialValue: fields.get(index),
         });
     }
+
     onHandleEditSave() {
         this.setState({ showEditModal: false, edittingIndex: -1 });
     }
+
     onHandleEditCancel() {
         const { fields } = this.props;
         const { edittingIndex, edittingInitialValue } = this.state;
@@ -205,12 +210,14 @@ class renderFilterTable extends React.Component {
         const index = e.target.getAttribute('data-index');
         this.setState({ showDeleteModal: true, deletingIndex: index });
     }
+
     onHandleDeleteSave() {
         const { fields } = this.props;
         const { deletingIndex } = this.state;
         fields.remove(deletingIndex);
         this.setState({ showDeleteModal: false, deletingIndex: -1 });
     }
+
     onHandleDeleteCancel() {
         this.setState({ showDeleteModal: false, deletingIndex: -1 });
     }
@@ -228,7 +235,7 @@ class renderFilterTable extends React.Component {
                             case 'listbox':
                                 return getValByKey(
                                     values.value,
-                                    q.values[lang].options,
+                                    q.values[lang].options
                                 );
                             case 'input-hybrid':
                                 const hybridField = q.values[
@@ -244,15 +251,15 @@ class renderFilterTable extends React.Component {
                                         // Get option value & assigned input field value.
                                         return `${
                                             values[assignedField[0].cid]
-                                            }(${getValByKey(
-                                                key,
-                                                q.values[lang].options,
-                                            )})`;
+                                        }(${getValByKey(
+                                            key,
+                                            q.values[lang].options
+                                        )})`;
                                     }
                                     // Get option value by key
                                     return getValByKey(
                                         key,
-                                        q.values[lang].options,
+                                        q.values[lang].options
                                     );
                                 });
                                 return displayValues
@@ -302,6 +309,7 @@ class renderFilterTable extends React.Component {
                 },
             ]);
     }
+
     getFilters() {
         const { questions, lang } = this.props;
         const { filterBy } = this.state;
@@ -351,14 +359,14 @@ class renderFilterTable extends React.Component {
                     .filter(
                         question =>
                             question.type === 'listbox' ||
-                            question.type === 'input-hybrid',
-                )
+                            question.type === 'input-hybrid'
+                    )
                     .map((question, i) => {
                         const questionInfo = question.values[lang];
                         const field =
                             questionInfo.children &&
                             questionInfo.children.filter(
-                                f => f.type === 'hybrid',
+                                f => f.type === 'hybrid'
                             )[0];
                         const cid = field ? field.cid : 'value';
                         return (
@@ -378,7 +386,7 @@ class renderFilterTable extends React.Component {
                             </select>
                         );
                     })}
-            </div>,
+            </div>
         );
         filters.push(
             <div key="filters-search" className="filters-search">
@@ -390,7 +398,7 @@ class renderFilterTable extends React.Component {
                         this.setState({ searchTerm: e.target.value })
                     }
                 />
-            </div>,
+            </div>
         );
         return filters;
     }
@@ -430,23 +438,28 @@ class renderFilterTable extends React.Component {
                     { 'wfui-form-item-error': error },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
-                    { inactive: fields.length >= 0 },
+                    { inactive: fields.length >= 0 }
                 )}
             >
                 {label && (
                     <div className="wfui-form-label">
-                        <ControlLabel>{label}{required && <b className="required"> *</b>}</ControlLabel>
+                        <ControlLabel>
+                            {label}
+                            {required && <b className="required"> *</b>}
+                        </ControlLabel>
                     </div>
                 )}
                 <FormGroup
                     className={`wfui-form-field ${
-                        descDisplay ? 'wfui-form-field-with-description' : 'wfui-form-field-no-description'
-                        } wfui-form-addAnother`}
+                        descDisplay
+                            ? 'wfui-form-field-with-description'
+                            : 'wfui-form-field-no-description'
+                    } wfui-form-addAnother`}
                     validationState={error ? 'error' : null}
                 >
                     <div className="col-header">
                         <h4 className="col-h4">
-                            Your {labelItem} <span>({fields.length})</span>
+                            {`Your ${labelItem} (${fields.length})`}
                         </h4>
                         <Button
                             bsStyle="default"
@@ -459,11 +472,10 @@ class renderFilterTable extends React.Component {
 
                     <div className="col-table">
                         {fields.length === 0 && (
-                            <div className="inactive-overlay">
-                                <p
-                                >{`You have not added any ${labelItem.toLowerCase()} yet. To get started, click the blue "${
-                                    labelAddAnother
-                                    }" button above`}</p>
+                            <div className="inactive-overlay-wrapper">
+                                <div className="inactive-overlay">
+                                    <p>{`You have not added any ${labelItem.toLowerCase()} yet. To get started, click the blue "${labelAddAnother}" button above`}</p>
+                                </div>
                             </div>
                         )}
                         <div className="filters-container">
@@ -480,7 +492,7 @@ class renderFilterTable extends React.Component {
                                         this.setState({ count })
                                     }
                                     simpleSearch
-                                    searchLogic={'or'}
+                                    searchLogic="or"
                                 />
                             </div>
                         )}
@@ -498,7 +510,7 @@ class renderFilterTable extends React.Component {
                             <div>
                                 {childComponent(
                                     `${fields.name}[${addingIndex}]`,
-                                    addingIndex,
+                                    addingIndex
                                 )}
                             </div>
                         }
@@ -516,7 +528,7 @@ class renderFilterTable extends React.Component {
                             <div>
                                 {childComponent(
                                     `${fields.name}[${edittingIndex}]`,
-                                    edittingIndex,
+                                    edittingIndex
                                 )}
                             </div>
                         }
