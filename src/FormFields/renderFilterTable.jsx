@@ -474,7 +474,7 @@ class renderFilterTable extends React.Component {
                         {fields.length === 0 && (
                             <div className="inactive-overlay-wrapper">
                                 <div className="inactive-overlay">
-                                    <p>{`You have not added any ${labelItem.toLowerCase()} yet. To get started, click the blue "${labelAddAnother}" button above`}</p>
+                                    <p>{`You have not added any ${labelItem.toLowerCase()} yet. To get started, click the blue "${labelAddAnother}" button above.`}</p>
                                 </div>
                             </div>
                         )}

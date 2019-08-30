@@ -3025,10 +3025,14 @@ div.wfui-form-item .wfui-table-event tr.active > td {
   font-style: italic;
   font-weight: 600;
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: center; }
   .inactive-overlay p {
-    text-align: center; }
+    text-align: center;
+    margin: 0; }
+
+.inactive div.inactive-overlay-wrapper {
+  display: block; }
 
 .wfui-type-field-table div.col-header {
   display: flex;
@@ -3212,9 +3216,6 @@ tr
 
 div.col-table {
   position: relative; }
-
-.inactive div.inactive-overlay-wrapper {
-  display: block; }
 
 div.col-table .filters-container {
   width: 100%;
