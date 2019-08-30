@@ -2689,7 +2689,8 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
 .wfui-form-item input[type='email'],
 .wfui-form-item input[type='number'],
 .wfui-form-item input[type='file'],
-.wfui-form-item input[type='password'] {
+.wfui-form-item input[type='password'],
+.wfui-form-item input[type='url'] {
   padding: 5px;
   margin-bottom: 15px;
   border-radius: 5px !important;
