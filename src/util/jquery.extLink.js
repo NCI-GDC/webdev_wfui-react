@@ -19,13 +19,15 @@ export const extLink = ($, _config) => {
         extTarget: '_blank',
         mailtoClass: 0,
         mailtoLabel: '(link sends e-mail)',
-        promptExclude: '',
+        promptExclude: false,
     };
     const config = Object.assign({}, defaultConfig, _config);
 
     function attach(context) {
         if (!$) {
-            console.error('jQuery is not found: extlink is dependent on jQuery.');
+            console.error(
+                'jQuery is not found: extlink is dependent on jQuery.'
+            );
             return false;
         }
 
@@ -56,12 +58,26 @@ export const extLink = ($, _config) => {
             extInclude = new RegExp(config.extInclude.replace(/\\/, '\\'), 'i');
         }
 
+        let promptExclude = false;
+        if (config.promptExclude) {
+            promptExclude = new RegExp(
+                config.promptExclude.replace(/\\/, '\\'),
+                'i'
+            );
+        }
+
         // Extra external link matching.
         let extExclude = false;
         if (config.extExclude) {
             if (typeof config.extExclude === 'string') {
-                extExclude = new RegExp(config.extExclude.replace(/\\/, '\\'), 'i');
-            } else if (Array.isArray(config.extExclude) && config.extExclude.length > 0) {
+                extExclude = new RegExp(
+                    config.extExclude.replace(/\\/, '\\'),
+                    'i'
+                );
+            } else if (
+                Array.isArray(config.extExclude) &&
+                config.extExclude.length > 0
+            ) {
                 const extExcConcat = `(${config.extExclude.join('|')})`;
                 extExclude = new RegExp(extExcConcat.replace(/\\/, '\\'), 'i');
             }
@@ -89,17 +105,11 @@ export const extLink = ($, _config) => {
         const mailto_links = [];
 
         $(
-            `a:not(.${
+            `a:not(.${config.extClass}, .${config.mailtoClass}), area:not(.${
                 config.extClass
-                }, .${
-                config.mailtoClass
-                }), area:not(.${
-                config.extClass
-                }, .${
-                config.mailtoClass
-                })`,
-            context,
-        ).each(function (el) {
+            }, .${config.mailtoClass})`,
+            context
+        ).each(function(el) {
             try {
                 let url = '';
                 if (typeof this.href === 'string') {
@@ -111,10 +121,17 @@ export const extLink = ($, _config) => {
                 }
                 if (
                     url.indexOf('http') === 0 &&
-                    ((!url.match(internal_link) && !(extExclude && url.match(extExclude))) ||
+                    ((!url.match(internal_link) &&
+                        !(extExclude && url.match(extExclude))) ||
                         (extInclude && url.match(extInclude))) &&
-                    !(extCssExclude && $(this).parents(extCssExclude).length > 0) &&
-                    !(extCssExplicit && $(this).parents(extCssExplicit).length < 1)
+                    !(
+                        extCssExclude &&
+                        $(this).parents(extCssExclude).length > 0
+                    ) &&
+                    !(
+                        extCssExplicit &&
+                        $(this).parents(extCssExplicit).length < 1
+                    )
                 ) {
                     external_links.push(this);
                 }
@@ -123,8 +140,14 @@ export const extLink = ($, _config) => {
                 else if (
                     this.tagName !== 'AREA' &&
                     url.indexOf('mailto:') === 0 &&
-                    !(extCssExclude && $(this).parents(extCssExclude).length > 0) &&
-                    !(extCssExplicit && $(this).parents(extCssExplicit).length < 1)
+                    !(
+                        extCssExclude &&
+                        $(this).parents(extCssExclude).length > 0
+                    ) &&
+                    !(
+                        extCssExplicit &&
+                        $(this).parents(extCssExplicit).length < 1
+                    )
                 ) {
                     mailto_links.push(this);
                 }
@@ -154,7 +177,10 @@ export const extLink = ($, _config) => {
                         return 'noopener nofererer';
                     }
                     // Check to see if rel contains noopener or noreferrer. Add what doesn't exist.
-                    if (val.indexOf('noopener') > -1 || val.indexOf('noreferrer') > -1) {
+                    if (
+                        val.indexOf('noopener') > -1 ||
+                        val.indexOf('noreferrer') > -1
+                    ) {
                         if (val.indexOf('noopener') === -1) {
                             return `${val} noopener`;
                         }
@@ -163,11 +189,11 @@ export const extLink = ($, _config) => {
                         }
                         // Both noopener and noreferrer exist. Nothing needs to be added.
 
-                            return val;
+                        return val;
                     }
                     // Else, append noopener and noreferrer to val.
 
-                        return `${val} noopener nofererer`;
+                    return `${val} noopener nofererer`;
                 });
             }
         }
@@ -180,8 +206,10 @@ export const extLink = ($, _config) => {
             }
         }
 
-        $(external_links).click(function (e) {
-            return popupClickHandler(e, this);
+        $(external_links).click(function(e) {
+            if (!promptExclude || !this.href.match(promptExclude)) {
+                return popupClickHandler(e, this);
+            }
         });
     }
 
@@ -205,7 +233,7 @@ export const extLink = ($, _config) => {
         }
         $links_to_process.addClass(class_name);
         let i;
-        const length = $links_to_process.length;
+        const { length } = $links_to_process;
         for (i = 0; i < length; i++) {
             const $link = $($links_to_process[i]);
             if (
@@ -218,17 +246,17 @@ export const extLink = ($, _config) => {
                         $link.append(
                             `<span class="${
                                 config.extSpanClass
-                                }"><span class="element-invisible sr-only"> ${
+                            }"><span class="element-invisible sr-only"> ${
                                 config.mailtoLabel
-                                }</span></span>`,
+                            }</span></span>`
                         );
                     } else {
                         $link.append(
                             `<span class="${
                                 config.extSpanClass
-                                }"><span class="element-invisible sr-only"> ${
+                            }"><span class="element-invisible sr-only"> ${
                                 config.extLabel
-                                }</span></span>`,
+                            }</span></span>`
                         );
                     }
                 }
