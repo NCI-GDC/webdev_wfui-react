@@ -264,5 +264,89 @@ export const extLink = ($, _config) => {
         }
     }
 
-    return { attach };
+    // Duplicate same logic for
+    function manualConfirm(url) {
+        // Strip the host name down, removing ports, subdomains, or www.
+        const pattern = /^(([^\/:]+?\.)*)([^\.:]{4,})((\.[a-z]{1,4})*)(:[0-9]{1,5})?$/;
+        const host = window.location.host.replace(pattern, '$3$4');
+        let subdomain = window.location.host.replace(pattern, '$1');
+        if (subdomain == host) {
+            subdomain = '';
+        }
+
+        // Determine what subdomains are considered internal.
+        let subdomains;
+        if (config.extSubdomains) {
+            subdomains = '([^/]*\\.)?';
+        } else if (subdomain === 'www.' || subdomain === '') {
+            subdomains = '(www\\.)?';
+        } else {
+            subdomains = subdomain.replace('.', '\\.');
+        }
+
+        // Build regular expressions that define an internal link.
+        const internal_link = new RegExp(`^https?://${subdomains}${host}`, 'i');
+
+        // Extra internal link matching.
+        let extInclude = false;
+        if (config.extInclude) {
+            extInclude = new RegExp(config.extInclude.replace(/\\/, '\\'), 'i');
+        }
+
+        let promptExclude = false;
+        if (config.promptExclude) {
+            promptExclude = new RegExp(
+                config.promptExclude.replace(/\\/, '\\'),
+                'i'
+            );
+        }
+
+        // Extra external link matching.
+        let extExclude = false;
+        if (config.extExclude) {
+            if (typeof config.extExclude === 'string') {
+                extExclude = new RegExp(
+                    config.extExclude.replace(/\\/, '\\'),
+                    'i'
+                );
+            } else if (
+                Array.isArray(config.extExclude) &&
+                config.extExclude.length > 0
+            ) {
+                const extExcConcat = `(${config.extExclude.join('|')})`;
+                extExclude = new RegExp(extExcConcat.replace(/\\/, '\\'), 'i');
+            }
+        }
+
+        // Extra external link CSS selector exclusion.
+        let extCssExclude = false;
+        if (config.extCssExclude) {
+            extCssExclude = config.extCssExclude;
+        }
+
+        // Extra external link CSS selector explicit.
+        let extCssExplicit = false;
+        if (config.extCssExplicit) {
+            extCssExplicit = config.extCssExplicit;
+        }
+
+        // Manually check the individual URL
+        if (
+            (url.indexOf('http') === 0 &&
+                ((!url.match(internal_link) &&
+                    !(extExclude && url.match(extExclude))) ||
+                    (extInclude && url.match(extInclude))) &&
+                !(extCssExclude && $(this).parents(extCssExclude).length > 0) &&
+                !(
+                    extCssExplicit && $(this).parents(extCssExplicit).length < 1
+                ) &&
+                !promptExclude) ||
+            !url.match(promptExclude)
+        ) {
+            return confirm(config.extAlertText);
+        }
+        return true;
+    }
+
+    return { attach, manualConfirm };
 };
