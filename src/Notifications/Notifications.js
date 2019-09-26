@@ -181,9 +181,9 @@ class Notifications extends React.Component {
                                         overriding.error[
                                             newFetches[key].error.type
                                         ]) ||
-                                    `An upexpected error has occurred. Error: ${
+                                    `An upexpected error has occurred.<br/> Error: "${
                                         newFetches[key].error.type
-                                    }`;
+                                    }"`;
 
                                 displayingValues = flattenObject(
                                     newFetches[key].data
