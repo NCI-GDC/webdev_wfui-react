@@ -39,6 +39,7 @@ export const renderDateFilter = ({ name, category, onHandleChange }) => (
         id={name}
         value={(category && category[name]) || ''}
         onChange={onHandleChange}
+        placeholder="yyyy-mm-dd"
     />
 );
 
