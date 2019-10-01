@@ -225,7 +225,13 @@ class WFUIDropdown extends React.Component {
             const buttonElement =
                 e.target.tagName === 'SPAN' ? e.target.parentElement : e.target;
             const viewportOffset = buttonElement.getBoundingClientRect();
-            const scrollTopOffset = document.documentElement.scrollTop;
+            const scrollTopOffset =
+                window.scrollY ||
+                window.pageYOffset ||
+                document.body.scrollTop +
+                    ((document.documentElement &&
+                        document.documentElement.scrollTop) ||
+                        0);
 
             // Reset menu.
             if (el.firstChild) el.removeChild(el.firstChild);
