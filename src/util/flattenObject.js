@@ -11,7 +11,7 @@ export const flattenObject = (nestedMessages, prefix = '', devider = '_') => {
         if (typeof value !== 'object') {
             messages[prefixedKey] = value;
         } else {
-            Object.assign(messages, flattenObject(value, prefixedKey));
+            Object.assign(messages, flattenObject(value, prefixedKey, devider));
         }
 
         return messages;
