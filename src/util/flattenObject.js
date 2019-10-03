@@ -1,12 +1,12 @@
-export const flattenObject = (nestedMessages, prefix = '') => {
+export const flattenObject = (nestedMessages, prefix = '', devider = '_') => {
     if (!nestedMessages) return {};
     return Object.keys(nestedMessages).reduce((messages, key) => {
-        let value = nestedMessages[key];
-        let prefixedKey = prefix
-            ? `${prefix}_${key}`
+        const value = nestedMessages[key];
+        const prefixedKey = prefix
+            ? `${prefix}${devider}${key}`
             : isNaN(Number(key))
-                ? key
-                : `_${key}`;
+            ? key
+            : `${devider}${key}`;
 
         if (typeof value !== 'object') {
             messages[prefixedKey] = value;
