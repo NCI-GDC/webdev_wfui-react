@@ -1,5 +1,0 @@
-const example = (
-    <TwitterFeed twitterAccount="GA4GH" />
-);
-
-return example;

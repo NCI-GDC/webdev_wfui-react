@@ -1,0 +1,18 @@
+const example = (
+    <div>
+		<DrawerButton title="Type1" popoverTitle="PopOver" />
+		<DrawerButton title="Type2" placement="top" popoverTitle="Pop Pop">
+			<p>Hello Bye Hello Bye Hello Bye Hello Bye Hello Bye </p>
+		</DrawerButton>
+		<DrawerButton title="Type3" placement="right">
+			<h3 className="text-center">Title</h3>
+			<p>Hello Bye Hello Bye Hello Bye Hello Bye Hello Bye </p>
+		</DrawerButton>
+		<DrawerButton isIcon icon="star" placement="bottom">
+			<a href="#">Link</a>
+			<button>Button</button>
+		</DrawerButton>
+	</div>
+);
+
+export default example;

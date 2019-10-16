@@ -1,0 +1,41 @@
+const { renderField } = FormFields;
+
+const validate = (values) => {
+    const errors = {};
+
+    if (!values.title) {
+        errors.title = 'Required';
+    }
+
+    return errors;
+};
+
+class Forms extends React.Component{
+    render() {
+        return (
+            <form>
+                <Field
+                    name="title"
+                    type="text"
+                    component={renderField}
+                    label={'Text Field'}
+                    help={'Provide a brief but descriptive job title. E.g. Senior Bioinformatics / Ontology Application Developer'}
+                    placeholder={''}
+                    required
+                />
+            </form>
+        )
+    }
+}
+
+const FormsReduxForm = reduxForm({
+    form: 'test',
+    validate,
+})(Forms);
+
+const example = (
+    <Provider store={store}>
+        <FormsReduxForm />
+    </Provider>
+);
+export default example;
