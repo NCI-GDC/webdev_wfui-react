@@ -216,6 +216,7 @@ class renderFileUpload extends React.Component {
                         height: '100%',
                         zIndex: 10,
                         cursor: 'pointer',
+                        left: 0,
                     }}
                 />
                 <input
