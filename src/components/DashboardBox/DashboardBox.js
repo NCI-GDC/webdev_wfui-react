@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ButtonToolbar, Button, DropdownButton, Glyphicon, MenuItem, Panel } from 'react-bootstrap';
+import { ButtonToolbar, Button, DropdownButton, Panel } from 'react-bootstrap';
+import { MenuItem, Glyphicon } from '../../components/'; 
 import classNames from 'classnames';
 
 class DashboardBox extends React.Component {
@@ -9,7 +10,7 @@ class DashboardBox extends React.Component {
 
         return (
             <DropdownButton
-                bsStyle="link"
+                variant="link"
                 title={<Glyphicon glyph="cog" />}
                 id="wfui-dashboardBox-config"
                 noCaret
@@ -39,7 +40,7 @@ class DashboardBox extends React.Component {
                     buttons.map((item, idx) =>
                         <Button
                             key={idx}
-                            bsStyle={item.bsStyle || 'primary'}
+                            variant={item.variant || 'primary'}
                             href={item.href}
                             onClick={item.onClick}
                         >{item.name}</Button>)
@@ -69,7 +70,7 @@ DashboardBox.propTypes = {
         href: PropTypes.string,
         name: PropTypes.string,
         onClick: PropTypes.func,
-        bsStyle: PropTypes.string,
+        variant: PropTypes.string,
     })),
     configs: PropTypes.arrayOf(PropTypes.shape({
         href: PropTypes.string,

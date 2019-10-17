@@ -113,7 +113,7 @@ UserDrawer.defaultProps = {
     },
     spinnerFormat: defaultSpinner,
     useCaret: true,
-    bsStyle: 'link',
+    variant: 'link',
     listClassName: '',
 };
 

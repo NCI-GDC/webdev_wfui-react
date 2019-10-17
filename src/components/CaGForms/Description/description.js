@@ -18,7 +18,7 @@ class Description extends Component {
   }
   _onClickToggleViewImage(e) {
     if(this.state.descriptionImagePopUpIsOpen) {
-      this._onClickCloseViewImage;
+      this._onClickCloseViewImage();
     }
     else {
       this.setState({ descriptionImagePopUpIsOpen: true });

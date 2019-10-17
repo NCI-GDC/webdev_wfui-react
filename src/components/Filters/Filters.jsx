@@ -7,7 +7,7 @@ class Filters extends React.Component {
     render() {
         const { className, label, onClickReset, textReset, children } = this.props;
         return (
-            <Form className={classNames(className, 'wfui-filters')} componentClass="fieldset" inline>
+            <Form className={classNames(className, 'wfui-filters')} as="fieldset" inline>
                 <FormGroup>
                     <ControlLabel>{label}</ControlLabel>
                     {children}

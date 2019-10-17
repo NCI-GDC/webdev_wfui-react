@@ -11,13 +11,13 @@ class DrawerToggle extends Component {
             image,
             title,
             useCaret,
-            bsStyle,
+            variant,
             bsRole,
             handleClick,
         } = this.props;
 
         return (
-            <Button bsStyle={bsStyle} bsRole={bsRole} onClick={handleClick}>
+            <Button variant={variant} bsRole={bsRole} onClick={handleClick}>
                 { isIcon && <Icon name={icon} /> }
                 { image && <Image src={image} /> }
                 { title }
@@ -29,7 +29,7 @@ class DrawerToggle extends Component {
 
 DrawerToggle.propTypes = {
     handleClick: PropTypes.func,
-    bsStyle: PropTypes.string,
+    variant: PropTypes.string,
     title: PropTypes.string,
     isIcon: PropTypes.bool,
     icon: PropTypes.string,
@@ -39,7 +39,7 @@ DrawerToggle.propTypes = {
 };
 
 DrawerToggle.defaultProps = {
-    bsStyle: '',
+    variant: '',
     title: '',
     isIcon: false,
     icon: null,

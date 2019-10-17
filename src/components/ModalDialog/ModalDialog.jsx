@@ -86,7 +86,7 @@ class ModalDialog extends React.Component {
                         <div>
                             <Button
                                 type="submit"
-                                bsStyle={btnSubmitStyle || 'primary'}
+                                variant={btnSubmitStyle || 'primary'}
                                 onClick={
                                     handleSubmit
                                         ? handleSubmit(this.onHandleSubmit)

@@ -143,7 +143,7 @@ class renderAddAnother extends React.Component {
                         ))}
                     {!disabled && (
                         <Button
-                            bsStyle="default"
+                            variant="default"
                             onClick={() => {
                                 fields.push(defaultValue);
                             }}

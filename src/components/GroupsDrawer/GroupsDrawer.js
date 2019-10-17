@@ -90,7 +90,7 @@ GroupsDrawer.propTypes = {
 };
 
 GroupsDrawer.defaultProps = {
-    bsStyle: 'link',
+    variant: 'link',
     title: '',
     isIcon: true,
     icon: 'th',

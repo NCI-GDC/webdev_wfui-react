@@ -99,7 +99,7 @@ const renderTextArea = ({
                             input.onChange(e);
                             if (onHandleChange) onHandleChange(e);
                         }}
-                        componentClass="textarea"
+                        as="textarea"
                         rows={rows || (disabled || preview ? 0 : 5)}
                     />
                     <FormControl.Feedback />

@@ -9,16 +9,16 @@ import {
 
 const example = (
     <div>
-        <Alert bsStyle="warning">
+        <Alert variant="warning">
             <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
         </Alert>
-        <Alert bsStyle="success">
+        <Alert variant="success">
             <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
         </Alert>
-        <Alert bsStyle="danger">
+        <Alert variant="danger">
             <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
         </Alert>
-        <Alert bsStyle="info">
+        <Alert variant="info">
             <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
         </Alert>
     </div>

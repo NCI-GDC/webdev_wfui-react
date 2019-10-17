@@ -57,7 +57,7 @@ const FilterTableModal = props => {
             <Modal.Footer>
                 <Button
                     type="submit"
-                    bsStyle="primary"
+                    variant="primary"
                     className="text-uppercase"
                     onClick={props.onHandleSave}
                     disabled={invalid}
@@ -105,7 +105,7 @@ const DeleteConfirmationModal = props => (
         <Modal.Footer>
             <Button
                 type="submit"
-                bsStyle="primary"
+                variant="primary"
                 className="text-uppercase"
                 onClick={props.onHandleDeleteCancel}
             >
@@ -286,7 +286,7 @@ class renderFilterTable extends React.Component {
                     display: data => {
                         return (
                             <SplitButton
-                                bsStyle="primary"
+                                variant="primary"
                                 title="Edit"
                                 data-index={data.idx}
                                 onClick={this.onHandleEdit}
@@ -462,7 +462,7 @@ class renderFilterTable extends React.Component {
                             {`Your ${labelItem} (${fields.length})`}
                         </h4>
                         <Button
-                            bsStyle="default"
+                            variant="default"
                             className="btn-add-col add-btn"
                             onClick={this.onHandleAdd}
                         >

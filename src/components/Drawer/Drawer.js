@@ -43,7 +43,7 @@ class Drawer extends React.Component {
 
     render() {
         const {
-            componentClass: Component,
+            as: Component,
             children,
         } = this.props;
 
@@ -70,7 +70,7 @@ Drawer.Button = DrawerToggle;
 Drawer.Popover = DrawerPopover;
 
 Drawer.propTypes = {
-    componentClass: PropTypes.func,
+    as: PropTypes.func,
     children: PropTypes.arrayOf((propValue) => {
         if (propValue.length !== 2) {
             return new Error(
@@ -90,7 +90,7 @@ Drawer.propTypes = {
 };
 
 Drawer.defaultProps = {
-    componentClass: ButtonToolbar,
+    as: ButtonToolbar,
 };
 
 export default Drawer;

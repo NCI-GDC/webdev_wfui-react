@@ -10,7 +10,7 @@ class DrawerPopover extends Component {
             target,
             placement,
             handleClose,
-            bsStyle,
+            variant,
             bsRole,
             children,
         } = this.props;
@@ -23,7 +23,7 @@ class DrawerPopover extends Component {
             >
                 <Popover
                     bsRole={bsRole}
-                    bsStyle={bsStyle}
+                    variant={variant}
                     id="popover"
                     onClick={handleClose}
                     title={title}
@@ -45,7 +45,7 @@ DrawerPopover.propTypes = {
     target: PropTypes.shape({}),
     handleClose: PropTypes.func,
     placement: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
-    bsStyle: PropTypes.string,
+    variant: PropTypes.string,
     bsRole: PropTypes.string,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.element),
@@ -56,7 +56,7 @@ DrawerPopover.propTypes = {
 DrawerPopover.defaultProps = {
     title: null,
     show: false,
-    bsStyle: '',
+    variant: '',
     bsRole: 'popover',
     placement: 'bottom',
 };

@@ -67,7 +67,7 @@ class StaticNotification extends React.Component {
                     {notifications.map((notification, i) => (
                         <Alert
                             key={i}
-                            bsStyle={this.getStyle(notification.level)}
+                            variant={this.getStyle(notification.level)}
                             className="message"
                         >
                             {withTitle && notification.title && (

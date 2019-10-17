@@ -1,5 +1,0 @@
-const example = (
-    <DisqusFeed siteName="cbwtest" pageUrl="http://localhost:6006/" pageId="storybook_disqus" />
-);
-
-export default example;

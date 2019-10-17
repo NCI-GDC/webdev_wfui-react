@@ -1,21 +1,18 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-// load the default config generator.
-var genDefaultConfig = require('@kadira/storybook/dist/server/config/defaults/webpack.config.js');
+// Export a function. Accept the base config as the only param.
+module.exports = async ({ config, mode }) => {
+  // `mode` has a value of 'DEVELOPMENT' or 'PRODUCTION'
+  // You can change the configuration based on that.
+  // 'PRODUCTION' is used when building the static version of storybook.
 
-module.exports = function(config, env) {
-  var config = genDefaultConfig(config, env);
-  config.module.loaders.push(
-      {
-        test: /\.scss$/,
-        include: path.resolve(__dirname, '../'),
-        loader: 'style-loader!css-loader!sass-loader',
-      }
-  );
+  // Make whatever fine-grained changes you need
+  config.module.rules.push({
+    test: /\.scss$/,
+    use: ['style-loader', 'css-loader', 'sass-loader'],
+    include: path.resolve(__dirname, '../'),
+  });
 
-  config.resolve.alias.masonry = 'masonry-layout';
-  config.resolve.alias.isotope = 'isotope-layout';
-
+  // Return the altered config
   return config;
 };

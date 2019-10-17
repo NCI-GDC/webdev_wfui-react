@@ -23,7 +23,7 @@ class DrawerButton extends Component {
 }
 
 DrawerButton.propTypes = {
-    bsStyle: PropTypes.string,
+    variant: PropTypes.string,
     title: PropTypes.string,
     isIcon: PropTypes.bool,
     icon: PropTypes.string,
@@ -42,7 +42,7 @@ DrawerButton.propTypes = {
 };
 
 DrawerButton.defaultProps = {
-    bsStyle: 'default',
+    variant: 'default',
     title: '',
     isIcon: false,
     icon: '',

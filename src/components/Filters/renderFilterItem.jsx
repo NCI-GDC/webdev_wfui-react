@@ -12,25 +12,25 @@ export const renderSelectFilter = ({
     items,
     capitalize,
 }) => (
-    <FormControl
-        name={name}
-        id={name}
-        componentClass="select"
-        onChange={onHandleChange}
-        value={(category && category[name]) || ''}
-        selected={(category && category[name]) || ''}
-    >
-        {items.map((item, idx) => (
-            <option
-                key={idx}
-                value={idx === 0 ? item.value || '' : item.value || item}
-                className={capitalize ? 'text-capitalize' : ''}
-            >
-                {item.label || item}
-            </option>
-        ))}
-    </FormControl>
-);
+        <FormControl
+            name={name}
+            id={name}
+            as="select"
+            onChange={onHandleChange}
+            value={(category && category[name]) || ''}
+            selected={(category && category[name]) || ''}
+        >
+            {items.map((item, idx) => (
+                <option
+                    key={idx}
+                    value={idx === 0 ? item.value || '' : item.value || item}
+                    className={capitalize ? 'text-capitalize' : ''}
+                >
+                    {item.label || item}
+                </option>
+            ))}
+        </FormControl>
+    );
 
 export const renderDateFilter = ({ name, category, onHandleChange }) => (
     <FormControl

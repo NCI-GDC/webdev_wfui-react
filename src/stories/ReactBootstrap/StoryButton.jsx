@@ -11,12 +11,12 @@ const example = (
     <div>
         <ButtonToolbar>
             <Button>Default</Button>
-            <Button bsStyle="primary">Primary</Button>
-            <Button bsStyle="success">Success</Button>
-            <Button bsStyle="info">Info</Button>
-            <Button bsStyle="warning">Warning</Button>
-            <Button bsStyle="danger">Danger</Button>
-            <Button bsStyle="link">Link</Button>
+            <Button variant="primary">Primary</Button>
+            <Button variant="success">Success</Button>
+            <Button variant="info">Info</Button>
+            <Button variant="warning">Warning</Button>
+            <Button variant="danger">Danger</Button>
+            <Button variant="link">Link</Button>
         </ButtonToolbar>
         <ButtonToolbar>
             <Button bsSize="large">Large button</Button>
