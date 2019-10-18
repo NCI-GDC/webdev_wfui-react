@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { Spinner, FormGroup, FormControl, ControlLabel, HelpBlock } from '../';
+import { Spinner, FormGroup, FormControl, ControlLabel, HelpBlock } from '../index';
 
 /**
  * Autocomplete component.
@@ -14,50 +14,50 @@ const Autocomplete = ({
     textNoResult,
     autoFetched,
 }) => (
-    <div className="navbar-form">
-        <div className="form-group">
-            <ul
-                id="ui-autocomplete"
-                className="autocomplete-ps ui-menu ui-widget ui-widget-content ui-autocomplete ui-front"
-            >
-                {!fetching && autoFetched && (!items || items.length === 0) && (
-                    <li className="ui-menu-item">{textNoResult}</li>
-                )}
-                {!fetching &&
-                    autoFetched &&
-                    items &&
-                    items.map((item, idx) =>
-                        itemDisplay ? (
-                            React.cloneElement(
-                                <li key={idx} className="ui-menu-item">
-                                    {itemDisplay(item, onClickItem)}
-                                </li>,
-                                Object.assign({}, {}, { key: idx }),
-                            )
-                        ) : (
-                            <li key={idx} className="ui-menu-item">
-                                <div className="ui-menu-item-wrapper">
-                                    <a onClick={onClickItem} data-key={item}>
-                                        {`${item}`}
-                                    </a>
-                                </div>
-                            </li>
-                        ),
+        <div className="navbar-form">
+            <div className="form-group">
+                <ul
+                    id="ui-autocomplete"
+                    className="autocomplete-ps ui-menu ui-widget ui-widget-content ui-autocomplete ui-front"
+                >
+                    {!fetching && autoFetched && (!items || items.length === 0) && (
+                        <li className="ui-menu-item">{textNoResult}</li>
                     )}
-                {fetching && (
-                    <li className="mp ps">
-                        <Spinner
-                            type={1}
-                            color="#0072c6"
-                            fontSize={'5px'}
-                            margin={'10px auto'}
-                        />
-                    </li>
-                )}
-            </ul>
+                    {!fetching &&
+                        autoFetched &&
+                        items &&
+                        items.map((item, idx) =>
+                            itemDisplay ? (
+                                React.cloneElement(
+                                    <li key={idx} className="ui-menu-item">
+                                        {itemDisplay(item, onClickItem)}
+                                    </li>,
+                                    Object.assign({}, {}, { key: idx }),
+                                )
+                            ) : (
+                                    <li key={idx} className="ui-menu-item">
+                                        <div className="ui-menu-item-wrapper">
+                                            <a onClick={onClickItem} data-key={item}>
+                                                {`${item}`}
+                                            </a>
+                                        </div>
+                                    </li>
+                                ),
+                        )}
+                    {fetching && (
+                        <li className="mp ps">
+                            <Spinner
+                                type={1}
+                                color="#0072c6"
+                                fontSize={'5px'}
+                                margin={'10px auto'}
+                            />
+                        </li>
+                    )}
+                </ul>
+            </div>
         </div>
-    </div>
-);
+    );
 
 /**
  * Reusable field component.

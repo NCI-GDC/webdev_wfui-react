@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { FormGroup, ControlLabel } from 'react-bootstrap';
+import { FormGroup, ControlLabel } from '../index';
 import * as Actions from '../util/visibilityFilter/actions';
 
 class FilterItem extends React.Component {
@@ -76,7 +76,8 @@ class FilterItem extends React.Component {
 FilterItem.propTypes = {
     label: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    component: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
+    component: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
+        .isRequired,
     category: PropTypes.object,
     className: PropTypes.string,
     items: PropTypes.array,
@@ -103,5 +104,5 @@ export default connect(
     state => ({
         category: state.visibilityFilter && state.visibilityFilter.category,
     }),
-    Actions,
+    Actions
 )(FilterItem);

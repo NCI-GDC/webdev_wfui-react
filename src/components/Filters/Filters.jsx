@@ -1,22 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Form, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { Form, FormGroup, ControlLabel, Button } from '../index';
 
 class Filters extends React.Component {
     render() {
-        const { className, label, onClickReset, textReset, children } = this.props;
+        const {
+            className,
+            label,
+            onClickReset,
+            textReset,
+            children,
+        } = this.props;
         return (
-            <Form className={classNames(className, 'wfui-filters')} as="fieldset" inline>
+            <Form
+                className={classNames(className, 'wfui-filters')}
+                as="fieldset"
+                inline
+            >
                 <FormGroup>
                     <ControlLabel>{label}</ControlLabel>
                     {children}
                     <FormGroup className="wfui-filters-btn-reset">
-                        <Button
-                            onClick={onClickReset}
-                        >
-                            {textReset}
-                        </Button>
+                        <Button onClick={onClickReset}>{textReset}</Button>
                     </FormGroup>
                 </FormGroup>
             </Form>
