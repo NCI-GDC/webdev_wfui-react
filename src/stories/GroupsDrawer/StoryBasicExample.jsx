@@ -43,7 +43,7 @@ const data = {
             icon: imageFile,
             title: 'ICGC',
             link: '#',
-        }
+        },
     ],
     footer: [
         {
@@ -53,11 +53,9 @@ const data = {
         {
             title: 'Customize Dashboard',
             link: '#',
-        }
+        },
     ],
 };
 
-const example = (
-    <GroupsDrawer data={data} />
-);
+const example = <GroupsDrawer data={data} />;
 export default example;

@@ -1,0 +1,197 @@
+[
+    {
+        "type": "section",
+        "id": "s-4b007990-9711-11e7-94d7-8db02d9664e6",
+        "values": {
+            "en": {
+                "title": "Sample Request Form"
+            },
+            "fr": {
+                "title": "Sample Request Form"
+            }
+        },
+        "children": [
+            {
+                "values": {
+                    "en": {
+                        "children": [],
+                        "cid": "c-14127951-9712-11e7-94d37-8db02d9664e6"
+                    },
+                    "fr": {}
+                },
+                "type": "input-tag",
+                "children": [],
+                "index": 10,
+                "column_count": "2",
+                "id": "q-14127950-9712-11e7-94d37-8db02d9664e6",
+                "parent": "s-4b007990-9711-11e7-94d7-8db02d9664e6",
+                "required": true
+            },
+            {
+                "values": {
+                    "en": {
+                        "select_type": "checkbox",
+                        "children": [
+                            {
+                                "type": "hybrid",
+                                "cid": "c_0c5ac410-9712-11e7-8634-35cfb7b2f766"
+                            }
+                        ],
+                        "options": [
+                            "1|Yes, I agree to sign up to receive information and updates from the Ontario Tumour Bank by signing up for the newsletter. I can withdraw my consent at any time by contacting tumourbank@oicr.on.ca (link sends e-mail)."
+                        ],
+                        "cid": "c-14127951-9712-11e7-94d7-8db02d9664e6"
+                    },
+                    "fr": {
+                        "select_type": "radio",
+                        "children": [
+                            {
+                                "type": "hybrid",
+                                "cid": "c_0c5ac411-9712-11e7-8634-35cfb7b2f766"
+                            }
+                        ],
+                        "cid": "c-14127952-9712-11e7-94d7-8db02d9664e6"
+                    }
+                },
+                "type": "input-hybrid",
+                "children": [],
+                "index": 10,
+                "column_count": "2",
+                "id": "q-14127950-9712-11e7-94d7-8db02d9664e6",
+                "parent": "s-4b007990-9711-11e7-94d7-8db02d9664e6",
+                "required": true
+            },
+            {
+                "values" : {
+                    "en" : {
+                        "children" : [ 
+                            {
+                                "field_type" : "number",
+                                "type" : "input",
+                                "cid" : "value",
+                                "range_lower" : "0",
+                                "range_upper" : 10
+                            }
+                        ],
+                        "title" : "Simple Add Question",
+                        "cid" : "c-c937cca1-bd9a-11e7-b01f-334a28c3839c"
+                    },
+                    "fr" : {
+                        "children" : [ 
+                            {
+                                "field_type" : "text",
+                                "type" : "input",
+                                "cid" : "value"
+                            }
+                        ],
+                        "cid" : "c-c937cca3-bd9a-11e7-b01f-334a28c3839c"
+                    }
+                },
+                "type" : "add-inputs",
+                "children" : [],
+                "index" : 4,
+                "id" : "q-c937cca0-bd9a-11e7-b01f-334a28c3839c",
+                "parent" : "s-90712e80-b358-11e7-9b9e-e53c43784145",
+                "required" : true
+            },
+
+            {
+                "id": "g_572d4670-89cf-11e7-908e-c9a47c9202ec6",
+                "values": {
+                    "en": {
+                        "add_multiple": true,
+                        "title": "Regular Group"
+                    },
+                    "fr": {
+                        "title": "[FR]Question Group"
+                    }
+                },
+                "type": "question-group",
+                "children": [
+                    {
+                        "id": "q_66ae3d20-89cf-11e27-908e-c9a47c902ec6",
+                        "values": {
+                            "en": {
+                                "description": "Looks it's fine."
+                            },
+                            "fr": {}
+                        },
+                        "type": "text",
+                        "children": [],
+                        "parent": "g_572d4670-89cf-11e7-908e-c9a47c902ec6",
+                        "items": [],
+                        "index": 0,
+                        "moved": true,
+                        "groupId": "g_572d4670-89cf-11e7-908e-c9a47c902ec6[0]",
+                        "required": true
+                    },
+                    {
+                        "id": "q_6c1b8d30-89cf-11e73-908e-c9a47c902ec6",
+                        "values": {
+                            "en": {
+                                "title": "Listbox within group.",
+                                "options": [
+                                    "1|Option1",
+                                    "2|Option2",
+                                    "3|Option3"
+                                ]
+                            },
+                            "fr": {}
+                        },
+                        "type": "listbox",
+                        "children": [],
+                        "parent": "g_572d4670-89cf-11e7-908e-c9a47c902ec6",
+                        "items": [],
+                        "index": 1,
+                        "moved": true,
+                        "groupId": "g_572d4670-89cf-11e7-908e-c9a47c902ec6[0]",
+                        "required": true
+                    },
+                    {
+                        "id": "q_5e5d5520-89cf-114e7-908e-c9a47c902ec6",
+                        "values": {
+                            "en": {
+                                "children": [
+                                    {
+                                        "cid": "c_61f15150-89cf-11e7-908e-c9a47c902ec6",
+                                        "field_type": "number",
+                                        "type": "input",
+                                        "range_lower": 5,
+                                        "range_upper": 10
+                                    },
+                                    {
+                                        "cid": "c_99999999-89cf-11e7-908e-c9a47c902ec6",
+                                        "field_type": "number",
+                                        "type": "input",
+                                        "range_lower": 5,
+                                        "range_upper": 10
+                                    }
+                                ],
+                                "logic": "AND",
+                                "title": "Input Field within Group"
+                            },
+                            "fr": {
+                                "children": [],
+                                "logic": "AND"
+                            }
+                        },
+                        "type": "input-text",
+                        "children": [],
+                        "parent": "g_572d4670-89cf-11e7-908e-c9a47c902ec6",
+                        "items": [],
+                        "index": 0,
+                        "moved": true,
+                        "column_count": "2",
+                        "groupId": "g_572d4670-89cf-11e7-908e-c9a47c902ec6[0]",
+                        "required": true
+                    }
+                ],
+                "parent": "q_e0ed5280-89cd-11e7-b40f-694ae92994de",
+                "items": [],
+                "index": 6,
+                "moved": true,
+                "required": true
+            }
+        ]
+    }
+]

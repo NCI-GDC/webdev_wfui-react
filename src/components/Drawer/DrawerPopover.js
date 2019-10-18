@@ -24,7 +24,7 @@ class DrawerPopover extends Component {
                     onClick={handleClose}
                     title={title}
                 >
-                    {children}
+                    <Popover.Content>{children}</Popover.Content>
                 </Popover>
             </Overlay>
         );

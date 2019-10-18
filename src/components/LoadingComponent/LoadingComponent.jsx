@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedHTMLMessage } from 'react-intl';
 import { flattenObject } from '../util/flattenObject';
-import { Button, ClipLoader, ClipLoaderWithContext } from '../../index';
+import { Button, ClipLoader, ClipLoaderWithContext } from '../index';
 
 class LoadingComponent extends React.Component {
     renderRegularLoader() {

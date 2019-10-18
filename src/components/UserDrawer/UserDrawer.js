@@ -70,7 +70,7 @@ class UserDrawer extends Component {
         return (
             <DrawerButton {...props} title={userInfo.email}>
                 <div className="users-drawer">{this.renderUserInfo()}</div>
-                <div className="popover-content">
+                <div className="popover-body">
                     {userMenu.length > 0
                         ? this.renderUserMenu()
                         : this.renderSpinner()}

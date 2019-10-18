@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../../components/Icon/Icon'
 import classNames from 'classnames';
+import Icon from '../../components/Icon/Icon'
 import style from './style';
+
 const { Component } = React;
 
 /**
@@ -47,9 +48,11 @@ class PasswordValidator extends Component {
             validated: false,
         };
     }
+
     componentDidMount() {
         this.props.onValidateStatusChange({ validated: false });
     }
+
     componentDidUpdate() {
         const {
             validations,
@@ -70,10 +73,11 @@ class PasswordValidator extends Component {
         if (validated !== allValidated) {
             /*eslint-disable */ // Only setState when state is different.
             this.setState({ validated: allValidated });
-            /*eslint-enable */
+            /* eslint-enable */
             onValidateStatusChange({ validated: allValidated });
         }
     }
+
     render() {
         const {
             className,
@@ -91,12 +95,12 @@ class PasswordValidator extends Component {
                 <ul style={style.ul}>
                     {validations
                         .filter(validation =>
-                            validateWith.includes(validation.type),
+                            validateWith.includes(validation.type)
                         )
                         .map((validation, i) => {
                             const validated = validation.validate(
                                 password,
-                                password_confirm,
+                                password_confirm
                             );
                             return (
                                 <li
@@ -107,15 +111,9 @@ class PasswordValidator extends Component {
                                     }
                                 >
                                     {validated ? (
-                                        <Icon
-                                            name="ok"
-                                            style={style.icon}
-                                        />
+                                        <Icon name="check" style={style.icon} />
                                     ) : (
-                                        <Icon
-                                            name="remove"
-                                            style={style.icon}
-                                        />
+                                        <Icon name="times" style={style.icon} />
                                     )}
                                     {validation.title}
                                 </li>

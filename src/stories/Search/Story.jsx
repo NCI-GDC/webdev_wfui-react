@@ -22,8 +22,8 @@ const example = (
     <Provider store={store}>
         <SearchContainer
             config={{
-                API_HOST: '192.168.56.103:3000',
-                APP_ID: '58becec11c79582d0462184c',
+                API_HOST: 'api.nextlabs.oicr.on.ca',
+                APP_ID: '59f9de915e76e3c7c896e45b',
             }}
             typeInclude={['jobs']}
         />
