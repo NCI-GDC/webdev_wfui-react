@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Icon from '../../components/Icon/Icon'
+import { Icon } from '../index';
 import style from './style';
 
 const { Component } = React;
