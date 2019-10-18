@@ -60,7 +60,7 @@ export * from 'react-bootstrap';
 require('./i18n/i18n.js');
 
 const DraggableWithContext = withContext;
-
+const Icon = Glyphicon;
 /**
  * Hubs between React Bootstrap 0.34 and 1.0.0
  */
@@ -131,6 +131,7 @@ export {
     AdvanceModeButton,
     // React Bootstrap Hubs
     Glyphicon,
+    Icon,
     ControlLabel,
     FormControl,
     HelpBlock,
