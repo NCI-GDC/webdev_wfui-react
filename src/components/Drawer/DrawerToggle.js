@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Glyphicon, Image } from 'react-bootstrap';
+import { Button, Glyphicon, Image } from '../index';
 import Icon from '../Icon/Icon';
 
 class DrawerToggle extends Component {

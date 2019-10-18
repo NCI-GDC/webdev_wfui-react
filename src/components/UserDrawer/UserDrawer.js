@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Glyphicon } from 'react-bootstrap';
+import { Button, Glyphicon } from '../index';
 import DrawerButton from '../Drawer/DrawerButton';
 import Spinner from '../Spinner/Spinner';
 import Icon from '../Icon/Icon';

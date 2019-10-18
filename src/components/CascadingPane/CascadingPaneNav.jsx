@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Glyphicon, Alert } from 'react-bootstrap';
+import { Glyphicon, Alert } from '../index';
 
 import LoadingComponent from '../LoadingComponent/LoadingComponent';
 import FilteredTable from '../FilteredTable/2/FilteredTable';
@@ -16,16 +16,16 @@ class CascadingPaneNav extends React.Component {
             fetched: props.fetchedNav,
             dataWithClass: props.data
                 ? props.data.map(item => {
-                    const newItem = JSON.parse(JSON.stringify(item));
-                    newItem.className = `nav-item-${
-                        item[props.itemIdField]
-                        } ${
-                        item[props.itemIdField] === props.cascNav
-                            ? 'active'
-                            : ''
-                        }`;
-                    return newItem;
-                })
+                      const newItem = JSON.parse(JSON.stringify(item));
+                      newItem.className = `nav-item-${
+                          item[props.itemIdField]
+                      } ${
+                          item[props.itemIdField] === props.cascNav
+                              ? 'active'
+                              : ''
+                      }`;
+                      return newItem;
+                  })
                 : [],
             tableHeight: 0,
         };
@@ -44,24 +44,24 @@ class CascadingPaneNav extends React.Component {
             if (!nextProps.cascNav) {
                 window.location.href = `${
                     window.location.href.split('?')[0]
-                    }?cascNav=${nextProps.data[0][nextProps.itemIdField]}`;
+                }?cascNav=${nextProps.data[0][nextProps.itemIdField]}`;
             }
             if (cascNav !== nextProps.cascNav) {
                 this.setState({
                     selected: nextProps.cascNav || '',
                     dataWithClass: nextProps.data
                         ? nextProps.data.map(item => {
-                            const newItem = JSON.parse(JSON.stringify(item));
-                            newItem.className = `nav-item-${
-                                item[nextProps.itemIdField]
-                                } ${
-                                item[nextProps.itemIdField] ===
-                                    nextProps.cascNav
-                                    ? 'active'
-                                    : ''
-                                }`;
-                            return newItem;
-                        })
+                              const newItem = JSON.parse(JSON.stringify(item));
+                              newItem.className = `nav-item-${
+                                  item[nextProps.itemIdField]
+                              } ${
+                                  item[nextProps.itemIdField] ===
+                                  nextProps.cascNav
+                                      ? 'active'
+                                      : ''
+                              }`;
+                              return newItem;
+                          })
                         : [],
                 });
             }
@@ -70,37 +70,37 @@ class CascadingPaneNav extends React.Component {
                 selected: nextProps.cascNav,
                 dataWithClass: nextProps.data
                     ? nextProps.data.map(item => {
-                        const newItem = JSON.parse(JSON.stringify(item));
-                        newItem.className = `nav-item-${
-                            item[nextProps.itemIdField]
-                            } ${
-                            item[nextProps.itemIdField] === nextProps.cascNav
-                                ? 'active'
-                                : ''
-                            }`;
-                        return newItem;
-                    })
+                          const newItem = JSON.parse(JSON.stringify(item));
+                          newItem.className = `nav-item-${
+                              item[nextProps.itemIdField]
+                          } ${
+                              item[nextProps.itemIdField] === nextProps.cascNav
+                                  ? 'active'
+                                  : ''
+                          }`;
+                          return newItem;
+                      })
                     : [],
             });
         } else if (nextProps.data && nextProps.data.length > 0) {
             window.location.href = `${
                 window.location.href.split('?')[0]
-                }?cascNav=${nextProps.data[0][nextProps.itemIdField]}`;
+            }?cascNav=${nextProps.data[0][nextProps.itemIdField]}`;
         }
         if (JSON.stringify(data) !== JSON.stringify(nextProps.data)) {
             this.setState({
                 dataWithClass: nextProps.data
                     ? nextProps.data.map(item => {
-                        const newItem = JSON.parse(JSON.stringify(item));
-                        newItem.className = `nav-item-${
-                            item[nextProps.itemIdField]
-                            } ${
-                            item[nextProps.itemIdField] === nextProps.cascNav
-                                ? 'active'
-                                : ''
-                            }`;
-                        return newItem;
-                    })
+                          const newItem = JSON.parse(JSON.stringify(item));
+                          newItem.className = `nav-item-${
+                              item[nextProps.itemIdField]
+                          } ${
+                              item[nextProps.itemIdField] === nextProps.cascNav
+                                  ? 'active'
+                                  : ''
+                          }`;
+                          return newItem;
+                      })
                     : [],
             });
         }
@@ -115,14 +115,16 @@ class CascadingPaneNav extends React.Component {
             JSON.stringify(data) !== JSON.stringify(prevProps.data)
         ) {
             const groupSelected = data.filter(
-                item => item[itemIdField] === selected,
+                item => item[itemIdField] === selected
             );
             updateGroupSelect(groupSelected[0]);
         }
 
         // Set table height
         if (!tableHeight) {
-            const navList = document.getElementsByClassName('cascading-pane-nav-list')[0];
+            const navList = document.getElementsByClassName(
+                'cascading-pane-nav-list'
+            )[0];
             if (navList) {
                 this.setState({ tableHeight: navList.offsetHeight });
             }
@@ -136,7 +138,7 @@ class CascadingPaneNav extends React.Component {
         if (selected !== item[itemIdField]) {
             window.location.href = `${
                 window.location.href.split('?')[0]
-                }?cascNav=${encodeURI(item[itemIdField])}`;
+            }?cascNav=${encodeURI(item[itemIdField])}`;
         }
     }
 
@@ -194,8 +196,8 @@ class CascadingPaneNav extends React.Component {
                             title="Only visible to CUD administrators"
                         />
                     ) : (
-                            ''
-                        ),
+                        ''
+                    ),
                 flexGrow: 0,
                 width: 45,
             });
@@ -207,11 +209,11 @@ class CascadingPaneNav extends React.Component {
                 display: item =>
                     React.cloneElement(
                         itemConfigDisplay,
-                        Object.assign(
-                            {},
-                            { item },
-                            { updateNav: () => getCascadingNav() },
-                        ),
+                        {
+                            
+                            item,
+                            updateNav: () => getCascadingNav(),
+                        }
                     ),
                 excludeRowClick: true,
                 flexGrow: 0,
@@ -227,26 +229,20 @@ class CascadingPaneNav extends React.Component {
                 {headerDisplay}
                 <LoadingComponent {...navFetch}>
                     <div className="cascading-pane-nav-list">
-                        {fetched &&
-                            !data && (
-                                <Alert variant="danger">
-                                    No data available
-                                </Alert>
-                            )}
-                        {fetched &&
-                            data && (
-                                <FilteredTable
-                                    className="table table-striped table-bordered table-condensed table-cascading-nav"
-                                    data={dataWithClass}
-                                    itemFormat={navFormat}
-                                    rowClickable
-                                    onRowClick={item =>
-                                        this.onHandleClick(item)
-                                    }
-                                    contentHeight={tableHeight}
-                                    noTableHeader
-                                />
-                            )}
+                        {fetched && !data && (
+                            <Alert variant="danger">No data available</Alert>
+                        )}
+                        {fetched && data && (
+                            <FilteredTable
+                                className="table table-striped table-bordered table-condensed table-cascading-nav"
+                                data={dataWithClass}
+                                itemFormat={navFormat}
+                                rowClickable
+                                onRowClick={item => this.onHandleClick(item)}
+                                contentHeight={tableHeight}
+                                noTableHeader
+                            />
+                        )}
                     </div>
                 </LoadingComponent>
                 {footerDisplay}
