@@ -1,7 +1,7 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { FormGroup, ControlLabel, HelpBlock, Checkbox } from '../index';
+import { Form, FormGroup, ControlLabel, HelpBlock, Checkbox } from '../index';
 
 const renderSingleCheckbox = ({
     className,
@@ -24,7 +24,7 @@ const renderSingleCheckbox = ({
             { 'wfui-form-item-error': touched && (error || globalError) },
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
-            { 'wfui-form-item-full-width': fullWidth },
+            { 'wfui-form-item-full-width': fullWidth }
         )}
     >
         {label && (
@@ -40,14 +40,18 @@ const renderSingleCheckbox = ({
             } wfui-form-single-checkbox`}
             validationState={touched && (error || globalError) ? 'error' : null}
         >
-            <Checkbox
+            <Form.Check
+                type="checkbox"
                 className={input.checked ? 'active' : ''}
                 {...input}
                 disabled={disabled}
             >
-                <span dangerouslySetInnerHTML={{ __html: option }} />{' '}
-                {required && <b className="required">*</b>}
-            </Checkbox>
+                <Form.Check.Label>
+                    <Form.Check.Input type="checkbox" />
+                    <span dangerouslySetInnerHTML={{ __html: option }} />{' '}
+                    {required && <b className="required">*</b>}
+                </Form.Check.Label>
+            </Form.Check>
             {touched && error && (
                 <HelpBlock className="wfui-form-error">
                     <span>{error}</span>

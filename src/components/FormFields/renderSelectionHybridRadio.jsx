@@ -9,6 +9,7 @@ import {
     ControlLabel,
     Radio,
     HelpBlock,
+    Form,
 } from '../../index';
 
 import { renderField } from './index';
@@ -119,7 +120,8 @@ export default class renderSelectionHybridRadio extends React.Component {
                         const _option =
                             typeof option === 'string' ? option : option.value;
                         const renderRadio = (
-                            <Radio
+                            <Form.Check
+                                type="radio"
                                 key={i}
                                 className={`${
                                     radioProps.input.value === _key
@@ -134,35 +136,35 @@ export default class renderSelectionHybridRadio extends React.Component {
                                 value={_key}
                                 checked={radioProps.input.value === _key}
                                 onClick={e =>
-                                    this.onHandleChange(e.target.value)
-                                }
+                                    this.onHandleChange(e.target.value)}
                                 disabled={disabled}
                             >
-                                <span
-                                    dangerouslySetInnerHTML={{
-                                        __html: _option,
-                                    }}
-                                />
-                                {fieldMap[_key] && (
-                                    <div key={i} className="radioHybrid">
-                                        <Field
-                                            {...fieldMap[_key]}
-                                            name={`${name}.${
-                                                fieldMap[_key].cid
-                                            }`}
-                                            type={
-                                                fieldMap[_key].field_type ||
-                                                'text'
-                                            }
-                                            component={renderField}
-                                            disabled={disabled}
-                                            onFocus={() => {
-                                                this.onHandleChange(_key);
-                                            }} // Change radio when it's focused.
-                                        />
-                                    </div>
-                                )}
-                            </Radio>
+                                <Form.Check.Label>
+                                    <Form.Check.Input type="checkbox" />
+                                    <span
+                                        dangerouslySetInnerHTML={{
+                                            __html: _option,
+                                        }}
+                                    />
+                                    {fieldMap[_key] && (
+                                        <div key={i} className="radioHybrid">
+                                            <Field
+                                                {...fieldMap[_key]}
+                                                name={`${name}.${fieldMap[_key].cid}`}
+                                                type={
+                                                    fieldMap[_key].field_type ||
+                                                    'text'
+                                                }
+                                                component={renderField}
+                                                disabled={disabled}
+                                                onFocus={() => {
+                                                    this.onHandleChange(_key);
+                                                }} // Change radio when it's focused.
+                                            />
+                                        </div>
+                                    )}
+                                </Form.Check.Label>
+                            </Form.Check>
                         );
 
                         return renderRadio;
@@ -171,7 +173,8 @@ export default class renderSelectionHybridRadio extends React.Component {
                         {' '}
                         {allTouched && globalError && (
                             <span>{globalError}</span>
-                        )}{' '}
+                        )}
+{' '}
                     </HelpBlock>
                     {help && !preview && (
                         <div

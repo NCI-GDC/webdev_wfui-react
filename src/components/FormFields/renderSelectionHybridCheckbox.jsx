@@ -4,6 +4,7 @@ import { Field } from 'redux-form';
 import classNames from 'classnames';
 import _ from 'lodash';
 import {
+    Form,
     Checkbox,
     FormFields,
     FormGroup,
@@ -150,7 +151,8 @@ class renderSelectionHybridCheckbox extends React.Component {
                         const _option =
                             typeof option === 'string' ? option : option.value;
                         const renderCheckbox = (
-                            <Checkbox
+                            <Form.Check
+                                type="checkbox"
                                 key={i}
                                 name={`${name}.${checkboxCid}`}
                                 value={_key}
@@ -187,46 +189,49 @@ class renderSelectionHybridCheckbox extends React.Component {
                                     );
                                 }}
                             >
-                                <span
-                                    dangerouslySetInnerHTML={{
-                                        __html: _option,
-                                    }}
-                                />
-                                {!label && required ? (
-                                    <b className="required"> *</b>
-                                ) : null}
-                                <div key={i} className="checkboxHybrid">
-                                    {fieldMap[_key] && (
-                                        <Field
-                                            {...fieldMap[_key]}
-                                            name={`${name}.${
-                                                fieldMap[_key].cid
-                                            }`}
-                                            type={
-                                                fieldMap[_key].field_type ||
-                                                'text'
-                                            }
-                                            component={renderField}
-                                            disabled={disabled}
-                                            onFocus={() => {
-                                                const newValue = [
-                                                    ...checkboxProps.input
-                                                        .value,
-                                                ];
-                                                let checked = false;
-                                                if (!newValue.includes(_key)) {
-                                                    checked = true;
-                                                    newValue.push(_key);
+                                <Form.Check.Label>
+                                    <Form.Check.Input type="checkbox" />
+                                    <span
+                                        dangerouslySetInnerHTML={{
+                                            __html: _option,
+                                        }}
+                                    />
+                                    {!label && required ? (
+                                        <b className="required"> *</b>
+                                    ) : null}
+                                    <div key={i} className="checkboxHybrid">
+                                        {fieldMap[_key] && (
+                                            <Field
+                                                {...fieldMap[_key]}
+                                                name={`${name}.${fieldMap[_key].cid}`}
+                                                type={
+                                                    fieldMap[_key].field_type ||
+                                                    'text'
                                                 }
-                                                this.onHandleChange(
-                                                    newValue,
-                                                    checked && _key
-                                                );
-                                            }}
-                                        />
-                                    )}
-                                </div>
-                            </Checkbox>
+                                                component={renderField}
+                                                disabled={disabled}
+                                                onFocus={() => {
+                                                    const newValue = [
+                                                        ...checkboxProps.input
+                                                            .value,
+                                                    ];
+                                                    let checked = false;
+                                                    if (
+                                                        !newValue.includes(_key)
+                                                    ) {
+                                                        checked = true;
+                                                        newValue.push(_key);
+                                                    }
+                                                    this.onHandleChange(
+                                                        newValue,
+                                                        checked && _key
+                                                    );
+                                                }}
+                                            />
+                                        )}
+                                    </div>
+                                </Form.Check.Label>
+                            </Form.Check>
                         );
                         return renderCheckbox;
                     })}

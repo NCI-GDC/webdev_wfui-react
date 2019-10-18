@@ -25,51 +25,61 @@ class List extends React.Component {
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const { onListDidMount, onNumOfListChange, data } = this.props;
         onListDidMount(data); // deprecate: use onDisplay instead.
         this.updateStatus();
     }
 
     render() {
-        const { itemDisplay, data, pageSize, currentPage, container } = this.props;
+        const {
+            itemDisplay,
+            data,
+            pageSize,
+            currentPage,
+            container,
+        } = this.props;
 
         /* New article object with data injected into it. */
         const { activeData } = calcActiveData(this.props);
 
-        const itemDisplays = activeData.map((item, idx) => (
-            React.cloneElement(
-                itemDisplay,
-                Object.assign({},
-                item,
-                { key: idx, idx }),
-            )
-        ));
+        const itemDisplays = activeData.map((item, idx) =>
+            React.cloneElement(itemDisplay, {
+                ...item,
+                key: idx,
+                idx,
+            })
+        );
 
         /* Populates the container element passed to this with the items */
-        const populatedContainer = React.cloneElement(
-            container,
-            { children: itemDisplays },
-        );
+        const populatedContainer = React.cloneElement(container, {
+            children: itemDisplays,
+        });
         return populatedContainer;
     }
 
     componentDidUpdate(prevProps) {
         const { onDisplay, onNumOfListChange, data } = this.props;
-        const { activeData, startingArticle, lastArticle } = calcActiveData(this.props);
+        const { activeData, startingArticle, lastArticle } = calcActiveData(
+            this.props
+        );
 
         /* Only setState and invoke callbacks when the state is changed to avoid infinite loop */
-        if ( activeData.length !== this.state.numOfItems ||
+        if (
+            activeData.length !== this.state.numOfItems ||
             startingArticle !== this.state.startingArticle ||
-            lastArticle !== this.state.lastArticle || 
-            prevProps.data.length !== data.length) {
+            lastArticle !== this.state.lastArticle ||
+            prevProps.data.length !== data.length
+        ) {
             this.updateStatus();
         }
     }
-    
+
     updateStatus() {
         const { onDisplay, onNumOfListChange, data } = this.props;
-        const { activeData, startingArticle, lastArticle } = calcActiveData(this.props);
+        const { activeData, startingArticle, lastArticle } = calcActiveData(
+            this.props
+        );
 
         this.setState({
             numOfItems: activeData.length,
@@ -80,10 +90,15 @@ class List extends React.Component {
         onNumOfListChange(activeData.length); // deprecated: use onDisplay instead.
 
         /* onDisplay is provided for cases that the client needs to see
-        * the range of articles being displayed */
-        onDisplay({ starting: startingArticle, last: lastArticle, numListed: activeData.length, numTotal: data.length, rawData: data });
+         * the range of articles being displayed */
+        onDisplay({
+            starting: startingArticle,
+            last: lastArticle,
+            numListed: activeData.length,
+            numTotal: data.length,
+            rawData: data,
+        });
     }
-
 }
 
 List.propTypes = {

@@ -31,7 +31,7 @@ class StaticNotification extends React.Component {
     addNotification(message) {
         const { duration } = this.props;
         const { notifications } = this.state;
-        const _message = Object.assign({}, message, { uid: uuidv1() });
+        const _message = { ...message, uid: uuidv1() };
         notifications.push(_message);
         if (!_message.forever) {
             setTimeout(() => {
@@ -165,9 +165,7 @@ class Notifications extends React.Component {
                                 ) {
                                     displayingId = '_overridding_text_';
                                 } else {
-                                    displayingId = `notifications.${notificationId}.error.${
-                                        newFetches[key].error.type
-                                    }`;
+                                    displayingId = `notifications.${notificationId}.error.${newFetches[key].error.type}`;
                                 }
 
                                 if (withTitle) {
@@ -181,9 +179,7 @@ class Notifications extends React.Component {
                                         overriding.error[
                                             newFetches[key].error.type
                                         ]) ||
-                                    `An upexpected error has occurred.<br/> Error: "${
-                                        newFetches[key].error.type
-                                    }"`;
+                                    `An upexpected error has occurred.<br/> Error: "${newFetches[key].error.type}"`;
 
                                 displayingValues = flattenObject(
                                     newFetches[key].data
@@ -225,13 +221,12 @@ class Notifications extends React.Component {
                                         defaultMessage={
                                             displayingDefaultMessage
                                         }
-                                        values={Object.assign(
-                                            {},
-                                            flattenObject(fetches[key].meta),
-                                            flattenObject(values),
-                                            { lang },
-                                            displayingValues
-                                        )}
+                                        values={{
+                                            ...flattenObject(fetches[key].meta),
+                                            ...flattenObject(values),
+                                            lang,
+                                            ...displayingValues,
+                                        }}
                                     />
                                 ),
                                 level: displayingLevel,

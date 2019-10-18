@@ -9,9 +9,34 @@ module.exports = async ({ config, mode }) => {
   // Make whatever fine-grained changes you need
   config.module.rules.push({
     test: /\.scss$/,
-    use: ['style-loader', 'css-loader', 'sass-loader'],
+    use: [{
+      loader: "style-loader"
+    },
+    {
+      loader: "css-loader"
+    },
+    {
+      loader: "sass-loader",
+      options: {
+        javascriptEnabled: true
+      }
+    }],
     include: path.resolve(__dirname, '../'),
   });
+
+  // config.module.rules.push({
+  //   test: /\.js$/,
+  //   exclude: /node_modules/,
+  //   loader: 'eslint-loader',
+  //   options: {
+  //     quiet: true,
+  //     failOnError: false,
+  //     failOnWarning: false,
+  //     emitWarning: false,
+  //     emitError: false,
+  //   },
+  //   // include: path.resolve(__dirname, '../src')
+  // })
 
   // Return the altered config
   return config;

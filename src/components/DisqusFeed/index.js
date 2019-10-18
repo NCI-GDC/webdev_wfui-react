@@ -6,20 +6,19 @@ class DisqusFeed extends React.Component {
         /* inserts disqus code into head or body of page */
 
         const disqusConfig = document.createElement('script');
-        disqusConfig.innerText = 'var disqus_config = function () { this.page.url = \'' + props.pageUrl + '\'; this.page.identifier = \'' + props.pageId + '\'; };';
+        disqusConfig.innerText = `var disqus_config = function () { this.page.url = '${props.pageUrl}'; this.page.identifier = '${props.pageId}'; };`;
         (document.body || document.head).appendChild(disqusConfig);
 
         const disqusScript = document.createElement('script');
-        disqusScript.src = 'https://' + props.siteName + '.disqus.com/embed.js';
-        disqusScript.setAttribute('data-timestamp',+new Date());
+        disqusScript.src = `https://${props.siteName}.disqus.com/embed.js`;
+        disqusScript.setAttribute('data-timestamp', +new Date());
         document.body.appendChild(disqusScript);
 
         super(props);
     }
+
     render() {
-        return (
-            <div id="disqus_thread"></div>
-        )
+        return <div id="disqus_thread" />;
     }
 }
 

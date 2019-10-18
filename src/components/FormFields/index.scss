@@ -352,7 +352,8 @@ div.wfui-form-radios div.radio {
 }
 
 div.wfui-form-checkboxes div.checkbox label,
-div.wfui-form-radios div.radio label {
+div.wfui-form-radios div.radio label,
+div.wfui-form-radios div.form-check label{
     width: 100%;
     height: 100%;
     padding: 10px 25px 10px 30px;
@@ -371,7 +372,8 @@ div.wfui-form-radios div.radio label {
 }
 
 .wfui-form-item .checkbox,
-.wfui-form-item .radio {
+.wfui-form-item .radio,
+.wfui-form-item .form-check {
     width: 100%;
     border: 1px solid #ccc;
     margin: 0 1% 1% 0;
@@ -379,12 +381,14 @@ div.wfui-form-radios div.radio label {
 }
 
 div.wfui-form-item div.checkbox,
-div.wfui-form-item div.radio {
+div.wfui-form-item div.radio,
+div.wfui-form-item div.form-check {
     border: none;
 }
 
 .checkbox > label,
-.radio > label {
+.radio > label,
+.form-check > label {
     width: 100%;
     background-color: rgb(255, 255, 255);
     vertical-align: middle;
@@ -393,12 +397,14 @@ div.wfui-form-item div.radio {
 }
 
 .wfui-form-item .checkbox input,
-.wfui-form-item .radio input {
+.wfui-form-item .radio input,
+.wfui-form-item .form-check input {
     margin-left: -17.5px;
 }
 
 div.wfui-form-item div.checkbox label,
-div.wfui-form-item div.radio label {
+div.wfui-form-item div.radio label,
+div.wfui-form-item div.form-check label {
     width: 100%;
     height: 100%;
     background-color: rgb(255, 255, 255);
@@ -410,12 +416,14 @@ div.wfui-form-item div.radio label {
 }
 
 .wfui-form-item div.active.checkbox > label,
-.wfui-form-item div.active.radio > label {
+.wfui-form-item div.active.radio > label,
+.wfui-form-item div.active.form-check > label {
     background-color: #e7f6f1;
 }
 
 .wfui-form-item div.active.checkbox > label,
-.wfui-form-item div.active.radio > label {
+.wfui-form-item div.active.radio > label,
+.wfui-form-item div.active.form-check > label {
     background-color: #e7f6f1;
 }
 
@@ -434,12 +442,14 @@ div.wfui-form-item.inline-radios {
 }
 
 div.wfui-form-item.inline-checkboxes .checkbox,
-div.wfui-form-item.inline-radios .radio {
+div.wfui-form-item.inline-radios .radio,
+div.wfui-form-item.inline-radios .form-check {
     display: inline-block;
 }
 
 div.wfui-form-item .checkbox input,
-div.wfui-form-item .radio input {
+div.wfui-form-item .radio input,
+div.wfui-form-item .form-check input {
     margin-left: -17.5px;
 }
 
@@ -1747,7 +1757,7 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
 
     .react-datepicker__navigation {
         background: none;
-        line-height: 1.7rem;
+        line-height: 0;
         text-align: center;
         cursor: pointer;
         position: absolute;
@@ -1756,6 +1766,7 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
         padding: 0;
         border: 0.45rem solid transparent;
         z-index: 1;
+        text-indent: -9999px;
     }
 
     .react-datepicker__navigation--previous {

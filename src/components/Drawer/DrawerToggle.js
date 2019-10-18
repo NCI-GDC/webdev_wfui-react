@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../Icon/Icon';
 import { Button, Glyphicon, Image } from 'react-bootstrap';
+import Icon from '../Icon/Icon';
 
 class DrawerToggle extends Component {
     render() {
@@ -18,10 +18,10 @@ class DrawerToggle extends Component {
 
         return (
             <Button variant={variant} bsRole={bsRole} onClick={handleClick}>
-                { isIcon && <Icon name={icon} /> }
-                { image && <Image src={image} /> }
-                { title }
-                { useCaret ? <span className="caret" /> : null }
+                {isIcon && <Icon name={icon} />}
+                {image && <Image src={image} />}
+                {title}
+                {useCaret ? <span className="caret" /> : null}
             </Button>
         );
     }

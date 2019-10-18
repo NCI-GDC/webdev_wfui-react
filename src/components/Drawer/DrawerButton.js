@@ -4,12 +4,7 @@ import Drawer from './Drawer';
 
 class DrawerButton extends Component {
     render() {
-        const {
-            placement,
-            children,
-            popoverTitle,
-            ...props
-        } = this.props;
+        const { placement, children, popoverTitle, ...props } = this.props;
 
         return (
             <Drawer>
@@ -34,11 +29,11 @@ DrawerButton.propTypes = {
         PropTypes.string,
         PropTypes.element,
         PropTypes.arrayOf(PropTypes.element),
-        ]),
+    ]),
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.element),
         PropTypes.element,
-        ]),
+    ]),
 };
 
 DrawerButton.defaultProps = {

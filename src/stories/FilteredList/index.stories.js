@@ -4,15 +4,6 @@ import StoryRealUseCase from './StoryRealUseCase';
 import StoryCustomContainer from './StoryCustomContainer';
 
 storiesOf('FilteredList', module)
-  .add(
-    'Basic Example',
-    () => StoryBasicExample
-)
-.add(
-    'Real Use Case',
-    () => StoryRealUseCase
-)
-.add(
-    'Custom Container',
-    () => StoryCustomContainer
-);
+    .add('Basic Example', () => StoryBasicExample)
+    .add('Real Use Case', () => StoryRealUseCase)
+    .add('Custom Container', () => StoryCustomContainer);

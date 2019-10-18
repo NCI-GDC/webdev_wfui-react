@@ -15,6 +15,7 @@ class TwitterFeed extends React.Component {
 
         super(props);
     }
+
     render() {
         const { twitterAccount, limit, width, height, language } = this.props;
         const urlSafeTwitter = encodeURIComponent(twitterAccount);
@@ -52,6 +53,5 @@ TwitterFeed.defaultProps = {
     language: 'en',
     width: '300',
 };
-
 
 export default TwitterFeed;

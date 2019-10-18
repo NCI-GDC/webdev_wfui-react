@@ -13,6 +13,7 @@ import SplitPane from 'react-split-pane';
 import { ClipLoader, SyncLoader, BarLoader, BeatLoader } from 'react-spinners';
 
 import AnimateHeight from 'react-animate-height';
+import * as RB from 'react-bootstrap';
 import ClipLoaderWithContext from './ReactSpinners/ClipLoader';
 import FilteredList from './FilteredList/FilteredList';
 import Spinner from './Spinner/Spinner';
@@ -52,7 +53,6 @@ import AdvanceModeButton from './AdvanceModeButton/AdvanceModeButton';
 
 import * as Utils from './util';
 
-import * as RB from 'react-bootstrap';
 import Glyphicon from './Icon/Icon';
 
 export * from 'react-bootstrap';
@@ -67,15 +67,12 @@ const DraggableWithContext = withContext;
 const ControlLabel = RB.Form.Label;
 const FormControl = RB.Form.Control;
 const HelpBlock = RB.Form.Text;
+const FormGroup = RB.Form.Group;
 const MenuItem = RB.DropdownItem;
 const Label = RB.Badge;
 const Grid = RB.Container;
-const Radio = (props) => (
-    <RB.Form.Check {...props} type="radio" />
-)
-const Checkbox = (props) => (
-    <RB.Form.Check {...props} type="checkbox" />
-)
+const Radio = props => <RB.Form.Check {...props} type="radio" />;
+const Checkbox = props => <RB.Form.Check {...props} type="checkbox" />;
 
 export {
     FilteredList,
@@ -141,4 +138,5 @@ export {
     Grid,
     Label,
     MenuItem,
+    FormGroup,
 };

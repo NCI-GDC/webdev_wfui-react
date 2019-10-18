@@ -1,11 +1,8 @@
+/* eslint import/no-webpack-loader-syntax: off */
 /* eslint import/no-unresolved: 0 */
-/* eslint import/no-webpack-loader-syntax: 0 */
+
 import { storiesOf } from '@storybook/react';
 import StoryBasicExample from './StoryBasicExample';
-// import '../../components/Card/index.scss';
+import '!style-loader!css-loader!sass-loader!../../components/Card/index.scss';
 
-storiesOf('Card', module)
-    .add(
-        'Basic Example',
-        () => StoryBasicExample
-    );
+storiesOf('Card', module).add('Basic Example', () => StoryBasicExample);

@@ -1,5 +1,3 @@
-import React from 'react';
-import { Button, MenuItem } from 'react-bootstrap';
 import { storiesOf } from '@storybook/react';
 import StoryICGCTesting from './StoryICGCTesting';
 import StoryPerformance from './StoryPerformance';

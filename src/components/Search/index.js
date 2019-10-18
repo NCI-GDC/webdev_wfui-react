@@ -5,8 +5,4 @@ import SearchContainer from './SearchContainer';
 export * from './reducers';
 export * from './actions';
 
-export {
-    SearchAutocomplete,
-    SearchBox,
-    SearchContainer,
-};
+export { SearchAutocomplete, SearchBox, SearchContainer };

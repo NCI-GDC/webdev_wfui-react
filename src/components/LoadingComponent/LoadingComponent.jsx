@@ -66,7 +66,7 @@ class LoadingComponent extends React.Component {
                 <div
                     className={`wfui-loading-component ${
                         coverWholePage ? 'spinner-wrapper-overwrap' : ''
-                        }`}
+                    }`}
                 >
                     {
                         <div
@@ -89,15 +89,14 @@ class LoadingComponent extends React.Component {
                                 <FormattedHTMLMessage
                                     id="loadingcomponent.message5s"
                                     defaultMessage={message5s}
-                                    values={Object.assign(
-                                        {},
-                                        flattenObject(values),
-                                        flattenObject(data)
-                                    )}
+                                    values={{
+                                        ...flattenObject(values),
+                                        ...flattenObject(data),
+                                    }}
                                 />
                             ) : (
-                                    message5s
-                                )}
+                                message5s
+                            )}
                         </p>
                     )}
                     {!hideMessage && fetch8s && (
@@ -109,15 +108,14 @@ class LoadingComponent extends React.Component {
                                 <FormattedHTMLMessage
                                     id="loadingcomponent.message8s"
                                     defaultMessage={message8s}
-                                    values={Object.assign(
-                                        {},
-                                        flattenObject(values),
-                                        flattenObject(data)
-                                    )}
+                                    values={{
+                                        ...flattenObject(values),
+                                        ...flattenObject(data),
+                                    }}
                                 />
                             ) : (
-                                    message8s
-                                )}
+                                message8s
+                            )}
                         </p>
                     )}
                 </div>
@@ -127,10 +125,11 @@ class LoadingComponent extends React.Component {
             const errorType = typeof error === 'object' && error.type;
 
             if (
-                ignoreErrors &&
-                ignoreErrors.length &&
-                ((errorType && ignoreErrors.includes(errorType)) ||
-                    (typeof error === 'string' && ignoreErrors.includes(error))) ||
+                (ignoreErrors &&
+                    ignoreErrors.length &&
+                    ((errorType && ignoreErrors.includes(errorType)) ||
+                        (typeof error === 'string' &&
+                            ignoreErrors.includes(error)))) ||
                 coverWholePage
             ) {
                 return <div className="wfui-loading-component">{children}</div>;
@@ -144,29 +143,26 @@ class LoadingComponent extends React.Component {
                                 <FormattedHTMLMessage
                                     id={`loadingcomponent.${requestId}.${
                                         errorType ? `${errorType}` : 'default'
-                                        }`}
+                                    }`}
                                     defaultMessage={
                                         typeof error === 'object'
                                             ? error.type
                                             : error
                                     }
-                                    values={Object.assign(
-                                        {},
-                                        flattenObject(values),
-                                        flattenObject(data),
-                                        {
-                                            message:
-                                                typeof error === 'object'
-                                                    ? error.type
-                                                    : error,
-                                        }
-                                    )}
+                                    values={{
+                                        ...flattenObject(values),
+                                        ...flattenObject(data),
+                                        message:
+                                            typeof error === 'object'
+                                                ? error.type
+                                                : error,
+                                    }}
                                 />
                             ) : typeof error === 'object' ? (
                                 error.type
                             ) : (
-                                        error
-                                    )}
+                                error
+                            )}
                         </p>
                     )}
                     {!hideMessage && (retried || timeout) && (
@@ -175,15 +171,14 @@ class LoadingComponent extends React.Component {
                                 <FormattedHTMLMessage
                                     id="loadingcomponent.messageFailed"
                                     defaultMessage={messageFailed}
-                                    values={Object.assign(
-                                        {},
-                                        flattenObject(values),
-                                        flattenObject(data)
-                                    )}
+                                    values={{
+                                        ...flattenObject(values),
+                                        ...flattenObject(data),
+                                    }}
                                 />
                             ) : (
-                                    messageFailed
-                                )}
+                                messageFailed
+                            )}
                         </p>
                     )}
                     {(retried || timeout) && typeof onRetry === 'function' && (

@@ -13,23 +13,34 @@ const defaultSpinner = (
 
 class GroupsDrawer extends Component {
     renderGroups() {
-        const { data: { groups }, groupsItemFormat, groupsContainer } = this.props;
+        const {
+            data: { groups },
+            groupsItemFormat,
+            groupsContainer,
+        } = this.props;
         const groupsComponent = groups.map((group, idx) =>
             cloneElement(groupsItemFormat, {
                 key: idx,
                 ...group,
-            }),
+            })
         );
-        return cloneElement(groupsContainer, { className: 'groups-drawer-body row', children: groupsComponent });
+        return cloneElement(groupsContainer, {
+            className: 'groups-drawer-body row',
+            children: groupsComponent,
+        });
     }
 
     renderFooter() {
-        const { data: { footer }, footerItemFormat, footerContainer } = this.props;
+        const {
+            data: { footer },
+            footerItemFormat,
+            footerContainer,
+        } = this.props;
         const footerComponent = footer.map((item, idx) =>
             cloneElement(footerItemFormat, {
                 key: idx,
                 ...item,
-            }),
+            })
         );
 
         return (
@@ -40,13 +51,14 @@ class GroupsDrawer extends Component {
     }
 
     renderPopover() {
-        const { data: { groups, footer } } = this.props;
+        const {
+            data: { groups, footer },
+        } = this.props;
         return (
             <div className="groups-drawer">
-                {(groups && groups.length > 0) ? this.renderGroups() : null}
-                {(footer && footer.length > 0) ? this.renderFooter() : null}
+                {groups && groups.length > 0 ? this.renderGroups() : null}
+                {footer && footer.length > 0 ? this.renderFooter() : null}
             </div>
-
         );
     }
 
@@ -55,14 +67,12 @@ class GroupsDrawer extends Component {
     }
 
     render() {
-        const {
-            data,
-            ...props
-        } = this.props;
+        const { data, ...props } = this.props;
         return (
             <DrawerButton {...props}>
-                {(data && Object.keys(data).length > 0) ?
-                    this.renderPopover() : this.renderSpinner()}
+                {data && Object.keys(data).length > 0
+                    ? this.renderPopover()
+                    : this.renderSpinner()}
             </DrawerButton>
         );
     }
@@ -71,15 +81,19 @@ class GroupsDrawer extends Component {
 GroupsDrawer.propTypes = {
     popoverTitle: PropTypes.string,
     data: PropTypes.shape({
-        groups: PropTypes.arrayOf(PropTypes.shape({
-            icon: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired,
-            link: PropTypes.string.isRequired,
-        })),
-        footer: PropTypes.arrayOf(PropTypes.shape({
-            title: PropTypes.string.isRequired,
-            link: PropTypes.string.isRequired,
-        })),
+        groups: PropTypes.arrayOf(
+            PropTypes.shape({
+                icon: PropTypes.string.isRequired,
+                title: PropTypes.string.isRequired,
+                link: PropTypes.string.isRequired,
+            })
+        ),
+        footer: PropTypes.arrayOf(
+            PropTypes.shape({
+                title: PropTypes.string.isRequired,
+                link: PropTypes.string.isRequired,
+            })
+        ),
     }),
     spinnerFormat: PropTypes.element,
     groupsItemFormat: PropTypes.element,

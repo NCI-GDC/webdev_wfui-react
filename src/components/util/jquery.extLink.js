@@ -1,5 +1,5 @@
-/*global confirm*/
-/*eslint no-restricted-globals: ["error", "event"]*/
+/* global confirm */
+/* eslint no-restricted-globals: ["error", "event"] */
 
 /**
  * Folked from External Links from WFUI
@@ -24,7 +24,7 @@ export const extLink = ($, _config) => {
         mailtoLabel: '(link sends e-mail)',
         promptExclude: false,
     };
-    const config = Object.assign({}, defaultConfig, _config);
+    const config = { ...defaultConfig, ..._config };
 
     function attach(context) {
         if (!$) {
@@ -108,9 +108,7 @@ export const extLink = ($, _config) => {
         const mailto_links = [];
 
         $(
-            `a:not(.${config.extClass}, .${config.mailtoClass}), area:not(.${
-                config.extClass
-            }, .${config.mailtoClass})`,
+            `a:not(.${config.extClass}, .${config.mailtoClass}), area:not(.${config.extClass}, .${config.mailtoClass})`,
             context
         ).each(function(el) {
             try {
@@ -247,19 +245,11 @@ export const extLink = ($, _config) => {
                 if (config.extSpanClass && config.extSpanClass.length > 0) {
                     if (config.extSpanClass === config.mailtoClass) {
                         $link.append(
-                            `<span class="${
-                                config.extSpanClass
-                            }"><span class="element-invisible sr-only"> ${
-                                config.mailtoLabel
-                            }</span></span>`
+                            `<span class="${config.extSpanClass}"><span class="element-invisible sr-only"> ${config.mailtoLabel}</span></span>`
                         );
                     } else {
                         $link.append(
-                            `<span class="${
-                                config.extSpanClass
-                            }"><span class="element-invisible sr-only"> ${
-                                config.extLabel
-                            }</span></span>`
+                            `<span class="${config.extSpanClass}"><span class="element-invisible sr-only"> ${config.extLabel}</span></span>`
                         );
                     }
                 }

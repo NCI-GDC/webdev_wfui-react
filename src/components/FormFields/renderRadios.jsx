@@ -1,7 +1,7 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { FormGroup, ControlLabel, HelpBlock, Radio } from '../index';
+import { Form, FormGroup, ControlLabel, HelpBlock, Radio } from '../index';
 
 const renderRadios = ({
     className,
@@ -27,7 +27,7 @@ const renderRadios = ({
             },
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
-            { 'wfui-form-item-full-width': fullWidth },
+            { 'wfui-form-item-full-width': fullWidth }
         )}
     >
         {label && (
@@ -62,7 +62,8 @@ const renderRadios = ({
                 }
 
                 return (
-                    <Radio
+                    <Form.Check
+                        type="radio"
                         className={checked ? 'active' : ''}
                         key={i}
                         name={input.name}
@@ -81,8 +82,11 @@ const renderRadios = ({
                             }
                         }}
                     >
-                        {_option}
-                    </Radio>
+                        <Form.Check.Label>
+                            <Form.Check.Input type="radio" />
+                            {_option}
+                        </Form.Check.Label>
+                    </Form.Check>
                 );
             })}
             {touched && error && (

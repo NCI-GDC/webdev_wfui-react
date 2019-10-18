@@ -5,35 +5,29 @@ import PropTypes from 'prop-types';
  * ListboxOption
  */
 class ListboxOption extends Component {
-  render() {
-    var {value, label, className} = this.props;
+    render() {
+        const { value, label, className } = this.props;
 
-    return (
-      <option value={value} className={className}>
-        {label}
-      </option>
-    );
-  }
+        return (
+            <option value={value} className={className}>
+                {label}
+            </option>
+        );
+    }
 }
 
 /**
  * Property types
  */
 ListboxOption.propTypes = {
-  value: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
-  label: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
-  className: PropTypes.string
-}
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    className: PropTypes.string,
+};
 ListboxOption.defaultProps = {
-  value: '',
-  label: '',
-  className: ''
-}
+    value: '',
+    label: '',
+    className: '',
+};
 
-export default ListboxOption
+export default ListboxOption;

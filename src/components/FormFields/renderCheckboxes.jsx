@@ -1,7 +1,7 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { FormGroup, ControlLabel, HelpBlock, Checkbox } from '../index';
+import { Form, FormGroup, ControlLabel, HelpBlock, Checkbox } from '../index';
 
 const renderCheckboxes = ({
     className,
@@ -26,7 +26,7 @@ const renderCheckboxes = ({
             },
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
-            { 'wfui-form-item-full-width': fullWidth },
+            { 'wfui-form-item-full-width': fullWidth }
         )}
     >
         {label && (
@@ -50,7 +50,8 @@ const renderCheckboxes = ({
                 const _option =
                     typeof option === 'string' ? option : option.value;
                 return (
-                    <Checkbox
+                    <Form.Check
+                        type="checkbox"
                         key={i}
                         name={input.name}
                         value={_key}
@@ -72,9 +73,14 @@ const renderCheckboxes = ({
                             return input.onChange(newValue);
                         }}
                     >
-                        <span dangerouslySetInnerHTML={{ __html: _option }} />
-                        {option.required && <b className="required"> *</b>}
-                    </Checkbox>
+                        <Form.Check.Label>
+                            <Form.Check.Input type="checkbox" />
+                            <span
+                                dangerouslySetInnerHTML={{ __html: _option }}
+                            />
+                            {option.required && <b className="required"> *</b>}
+                        </Form.Check.Label>
+                    </Form.Check>
                 );
             })}
             {touched && error && (

@@ -25,7 +25,7 @@ class FilteredTable extends React.Component {
 
     componentDidMount() {
         this.onFilter(
-            this.generateFilteredArticles(this.applySearch(this.props.data)),
+            this.generateFilteredArticles(this.applySearch(this.props.data))
         );
     }
 
@@ -39,9 +39,10 @@ class FilteredTable extends React.Component {
             return _obj;
         });
     }
+
     componentWillReceiveProps(nextProps) {
         /* Also note: JSON.stringify is the cheapest arbitrary comparison function
-        * since it runs on native code. */
+         * since it runs on native code. */
         const thisData = this.props.data;
         const nextData = nextProps.data;
 
@@ -65,7 +66,7 @@ class FilteredTable extends React.Component {
 
         /* We do this since setstate does not immediately mutate the state */
         this.setState({ dataWithState: newArray }, () =>
-            this.selectionChanged(),
+            this.selectionChanged()
         );
     }
 
@@ -74,7 +75,7 @@ class FilteredTable extends React.Component {
         const newArray = dataWithState.slice(0);
 
         const filteredData = this.generateFilteredArticles(
-            this.applySearch(dataWithState),
+            this.applySearch(dataWithState)
         );
 
         if (filteredData.every(item => item.checked)) {
@@ -98,7 +99,7 @@ class FilteredTable extends React.Component {
         }
 
         this.setState({ dataWithState: newArray }, () =>
-            this.selectionChanged(),
+            this.selectionChanged()
         );
     }
 
@@ -120,7 +121,7 @@ class FilteredTable extends React.Component {
     onFilter(filteredArticles) {
         const { onResultsNumUpdate } = this.props;
 
-        /* Now sort the articles*/
+        /* Now sort the articles */
         const resultsCount = filteredArticles.length;
         if (this.lastResultsCount !== resultsCount) {
             this.lastResultsCount = resultsCount;
@@ -136,7 +137,7 @@ class FilteredTable extends React.Component {
 
         let filteredArticles = articles;
         filterList.forEach(
-            filter => (filteredArticles = filteredArticles.filter(filter)),
+            filter => (filteredArticles = filteredArticles.filter(filter))
         );
 
         if (sortedIdx !== -1) {
@@ -149,7 +150,8 @@ class FilteredTable extends React.Component {
                         return bData
                             .toLowerCase()
                             .localeCompare(aData.toLowerCase());
-                    } else if (aData instanceof Date) {
+                    }
+                    if (aData instanceof Date) {
                         return bData.getTime() - aData.getTime();
                     }
                     return bData - aData;
@@ -158,7 +160,8 @@ class FilteredTable extends React.Component {
                     return aData
                         .toLowerCase()
                         .localeCompare(bData.toLowerCase());
-                } else if (aData instanceof Date) {
+                }
+                if (aData instanceof Date) {
                     return aData.getTime() - bData.getTime();
                 }
                 return aData - bData;
@@ -183,7 +186,7 @@ class FilteredTable extends React.Component {
                       searchTerm,
                       searchKeys,
                       wholeWord,
-                      searchLogic,
+                      searchLogic
                   )
                 : Search.search(articles, searchTerm);
             return filteredArticles;
@@ -211,7 +214,7 @@ class FilteredTable extends React.Component {
         const { pageSize, data } = this.props;
 
         const filteredData = this.applySearch(
-            this.generateFilteredArticles(data),
+            this.generateFilteredArticles(data)
         );
         const dataLength = filteredData ? filteredData.length : 0;
         const numPages = Math.ceil(dataLength / pageSize);
@@ -220,7 +223,7 @@ class FilteredTable extends React.Component {
             currentPage,
             numPages,
             /* Returns a function that will open the page 'page'
-            * or undefined if the page does not exist.  */
+             * or undefined if the page does not exist.  */
             getOpenPage: page => {
                 if (page > 0 && page <= numPages) {
                     return () => this.setState({ currentPage: page });
@@ -245,7 +248,7 @@ class FilteredTable extends React.Component {
 
         const { currentPage, dataWithState } = this.state;
         this.filteredData = this.applySearch(
-            this.generateFilteredArticles(dataWithState),
+            this.generateFilteredArticles(dataWithState)
         );
 
         /* Setup the header row and onClick for sorting if applicable */
@@ -272,7 +275,7 @@ class FilteredTable extends React.Component {
                                     type="Checkbox"
                                     onChange={this.onAllCheck}
                                     checked={this.filteredData.every(
-                                        item => item.checked,
+                                        item => item.checked
                                     )}
                                 />
                             </th>
@@ -299,7 +302,7 @@ class FilteredTable extends React.Component {
             const paginatorObject = this.generatePaginatorObject();
             const InjectedPaginatorDisplay = React.cloneElement(
                 paginatorDisplay,
-                paginatorObject,
+                paginatorObject
             );
             return (
                 <div className={classNames(className, 'wfui-filtered-table')}>

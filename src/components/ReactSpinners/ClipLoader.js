@@ -15,6 +15,7 @@ class Loader extends React.Component {
             100% {transform: rotate(360deg) scale(1)}
         `;
     }
+
     style() {
         const { size, sizeUnit, color, className } = this.props;
         const { css } = this.emotion;

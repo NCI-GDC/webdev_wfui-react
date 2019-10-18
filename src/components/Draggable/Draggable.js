@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import classNames from 'classnames';
 import DraggableItem from './DraggableItem';
 import DraggableHandle from './DraggableHandle';
-import classNames from 'classnames';
 
 const style = {
     list: {
@@ -25,12 +25,15 @@ class Draggable extends React.Component {
         this.onHandleMoveItem = this.onHandleMoveItem.bind(this);
         this.onHandleEndDrag = this.onHandleEndDrag.bind(this);
     }
+
     componentWillMount() {
         this.setItems(this.props);
     }
+
     componentWillReceiveProps(props) {
         this.setItems(props);
     }
+
     setItems(props) {
         const { children, type } = props;
         if (children) {
@@ -43,11 +46,13 @@ class Draggable extends React.Component {
             });
         }
     }
+
     onHandleEndDrag() {
         const { onHandleEndDrag } = this.props;
         const { items } = this.state;
         this.props.onHandleEndDrag({ items });
     }
+
     onHandleMoveItem(dragIndex, hoverIndex) {
         const { onHandleItemMove } = this.props;
         const { items } = this.state;
@@ -61,6 +66,7 @@ class Draggable extends React.Component {
         newItems.splice(hoverIndex, 0, dragItem);
         this.setState({ items: newItems });
     }
+
     render() {
         const { className, type, columnCount } = this.props;
         const { items } = this.state;
@@ -78,16 +84,14 @@ class Draggable extends React.Component {
                     }
                 >
                     {items.map((item, i) => {
-                        return React.cloneElement(
-                            item,
-                            Object.assign({}, item.props, {
-                                moveItem: this.onHandleMoveItem,
-                                endDrag: this.onHandleEndDrag,
-                                key: i,
-                                index: i,
-                                type,
-                            }),
-                        );
+                        return React.cloneElement(item, {
+                            ...item.props,
+                            moveItem: this.onHandleMoveItem,
+                            endDrag: this.onHandleEndDrag,
+                            key: i,
+                            index: i,
+                            type,
+                        });
                     })}
                 </ul>
             </div>

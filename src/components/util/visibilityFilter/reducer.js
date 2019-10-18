@@ -20,12 +20,12 @@ export const visibilityFilterReducer = (state = defaultState, action) => {
             if (!_state[action.key][action.filter.key])
                 _state[action.key][action.filter.key] = [];
             const idx = _state[action.key][action.filter.key].indexOf(
-                action.filter.value,
+                action.filter.value
             );
             if (idx !== -1) {
                 _state[action.key][action.filter.key].splice(idx, 1);
                 // if (_state[action.key][action.filter.key].length === 0)
-                    // delete _state[action.key][action.filter.key];
+                // delete _state[action.key][action.filter.key];
             } else {
                 _state[action.key][action.filter.key].push(action.filter.value);
             }

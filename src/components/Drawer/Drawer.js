@@ -1,8 +1,6 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import {
-    ButtonToolbar,
-} from 'react-bootstrap';
+import { ButtonToolbar } from 'react-bootstrap';
 import DrawerToggle from './DrawerToggle';
 import DrawerPopover from './DrawerPopover';
 
@@ -42,25 +40,20 @@ class Drawer extends React.Component {
     }
 
     render() {
-        const {
-            as: Component,
-            children,
-        } = this.props;
+        const { as: Component, children } = this.props;
 
         return (
             <Component>
-                {
-                    children.map((child, key) => {
-                        switch (child.props.bsRole) {
-                            case TOGGLE_ROLE:
-                                return this.renderToggle(child, key);
-                            case POPOVER_ROLE:
-                                return this.renderPopover(child, key);
-                            default:
-                                return child;
-                        }
-                    })
-                }
+                {children.map((child, key) => {
+                    switch (child.props.bsRole) {
+                        case TOGGLE_ROLE:
+                            return this.renderToggle(child, key);
+                        case POPOVER_ROLE:
+                            return this.renderPopover(child, key);
+                        default:
+                            return child;
+                    }
+                })}
             </Component>
         );
     }
@@ -71,18 +64,20 @@ Drawer.Popover = DrawerPopover;
 
 Drawer.propTypes = {
     as: PropTypes.func,
-    children: PropTypes.arrayOf((propValue) => {
+    children: PropTypes.arrayOf(propValue => {
         if (propValue.length !== 2) {
             return new Error(
-                'The Drawer Component requires exactly two children Drawer.Button and Drawer.Popover',
+                'The Drawer Component requires exactly two children Drawer.Button and Drawer.Popover'
             );
-        } else if (!propValue[0].props.bsRole === TOGGLE_ROLE) {
+        }
+        if (!propValue[0].props.bsRole === TOGGLE_ROLE) {
             return new Error(
-                'The first child of Drawer Component should be Drawer.Button',
+                'The first child of Drawer Component should be Drawer.Button'
             );
-        } else if (!propValue[1].props.bsRole === POPOVER_ROLE) {
+        }
+        if (!propValue[1].props.bsRole === POPOVER_ROLE) {
             return new Error(
-                'The second child of Drawer Component should be Drawer.Popover',
+                'The second child of Drawer Component should be Drawer.Popover'
             );
         }
         return null;

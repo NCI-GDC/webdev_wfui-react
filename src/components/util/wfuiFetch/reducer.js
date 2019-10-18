@@ -1,3 +1,4 @@
+/* eslint no-multi-assign: "off" */
 /**
  * This reducer will add fetching state of specific API calles.
  * @param {Object} state - redux state.

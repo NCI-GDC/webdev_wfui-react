@@ -1,4 +1,3 @@
-import React from 'react';
 import { storiesOf } from '@storybook/react';
 import StoryDefaultView from './StoryDefaultView';
 import StoryValidateWithView from './StoryValidateWithView';

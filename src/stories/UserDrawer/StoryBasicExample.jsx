@@ -1,6 +1,6 @@
 import React from 'react';
 import UserDrawer from '../../components/UserDrawer/UserDrawer';
-// import '../../components/UserDrawer/index.scss';
+// import '!style-loader!css-loader!sass-loader!../../components/UserDrawer/index.scss';
 
 const userInfo = {
     uid: 1,

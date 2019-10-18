@@ -30,22 +30,28 @@ class FilteredTable extends React.Component {
     }
 
     componentDidMount() {
-        this.onFilter(this.generateFilteredArticles(this.applySearch(this.props.data)));
+        this.onFilter(
+            this.generateFilteredArticles(this.applySearch(this.props.data))
+        );
         window.addEventListener('resize', this.resizeTable);
         this.resizeTable();
     }
+
     componentWillUnmount() {
         window.removeEventListener('resize', this.resizeTable);
     }
 
     transformData(data) {
         return data.map((obj, i) => {
-            const _obj = JSON.stringify(obj) ? JSON.parse(JSON.stringify(obj)) : {};
+            const _obj = JSON.stringify(obj)
+                ? JSON.parse(JSON.stringify(obj))
+                : {};
             _obj.checked = false;
             _obj.idx = i;
             return _obj;
         });
     }
+
     componentWillReceiveProps(nextProps) {
         /* Also note: JSON.stringify is the cheapest arbitrary comparison function
          * since it runs on native code. */
@@ -58,11 +64,18 @@ class FilteredTable extends React.Component {
             newState.dataWithState = this.transformData(nextData);
         }
 
-        if (this.props.defaultSortedOrientation !== nextProps.defaultSortedOrientation) {
-            newState.sortedOrientation = nextProps.defaultSortedOrientation || 'desc';
+        if (
+            this.props.defaultSortedOrientation !==
+            nextProps.defaultSortedOrientation
+        ) {
+            newState.sortedOrientation =
+                nextProps.defaultSortedOrientation || 'desc';
         }
 
-        if (!isNaN(nextProps.sortedIdx) && this.props.sortedIdx !== nextProps.sortedIdx) {
+        if (
+            !isNaN(nextProps.sortedIdx) &&
+            this.props.sortedIdx !== nextProps.sortedIdx
+        ) {
             newState.sortedIdx = nextProps.sortedIdx;
         }
 
@@ -83,36 +96,42 @@ class FilteredTable extends React.Component {
         newArray[index].checked = !newArray[index].checked;
 
         /* We do this since setstate does not immediately mutate the state */
-        this.setState({ dataWithState: newArray }, () => this.selectionChanged());
+        this.setState({ dataWithState: newArray }, () =>
+            this.selectionChanged()
+        );
     }
 
     onAllCheck() {
         const { dataWithState } = this.state;
         const newArray = dataWithState.slice(0);
 
-        const filteredData = this.generateFilteredArticles(this.applySearch(dataWithState));
+        const filteredData = this.generateFilteredArticles(
+            this.applySearch(dataWithState)
+        );
 
         if (filteredData.every(item => item.checked)) {
             /* If all items are checked, then uncheck everything */
-            filteredData.forEach((item) => {
+            filteredData.forEach(item => {
                 const idx = newArray.findIndex(i => i.idx === item.idx);
                 if (idx > -1) newArray[idx].checked = false;
             });
         } else {
             // Reset
-            filteredData.forEach((item) => {
+            filteredData.forEach(item => {
                 const idx = newArray.findIndex(i => i.idx === item.idx);
                 if (idx > -1) newArray[idx].checked = false;
             });
 
             /* Else check everything */
-            filteredData.forEach((item) => {
+            filteredData.forEach(item => {
                 const idx = newArray.findIndex(i => i.idx === item.idx);
                 if (idx > -1) newArray[idx].checked = true;
             });
         }
 
-        this.setState({ dataWithState: newArray }, () => this.selectionChanged());
+        this.setState({ dataWithState: newArray }, () =>
+            this.selectionChanged()
+        );
     }
 
     toggleSort(event, idx) {
@@ -133,7 +152,7 @@ class FilteredTable extends React.Component {
     onFilter(filteredArticles) {
         const { onResultsNumUpdate, onFilteredArticleUpdate } = this.props;
 
-        /* Now sort the articles*/
+        /* Now sort the articles */
         const resultsCount = filteredArticles.length;
         if (this.lastResultsCount !== resultsCount) {
             this.lastResultsCount = resultsCount;
@@ -144,7 +163,8 @@ class FilteredTable extends React.Component {
         if (onFilteredArticleUpdate) {
             if (
                 this.lastFilteredData.length !== filteredArticles.length ||
-                JSON.stringify(this.lastFilteredData) !== JSON.stringify(filteredArticles)
+                JSON.stringify(this.lastFilteredData) !==
+                    JSON.stringify(filteredArticles)
             ) {
                 this.lastFilteredData = filteredArticles;
                 onFilteredArticleUpdate(filteredArticles);
@@ -157,7 +177,9 @@ class FilteredTable extends React.Component {
         const { sortedIdx, sortedOrientation } = this.state;
 
         let filteredArticles = articles;
-        filterList.forEach(filter => (filteredArticles = filteredArticles.filter(filter)));
+        filterList.forEach(
+            filter => (filteredArticles = filteredArticles.filter(filter))
+        );
 
         if (sortedIdx !== -1) {
             filteredArticles = filteredArticles.sort((a, b) => {
@@ -166,15 +188,21 @@ class FilteredTable extends React.Component {
                 const bData = getSortingData(b);
                 if (sortedOrientation === 'desc') {
                     if (typeof aData === 'string') {
-                        return bData.toLowerCase().localeCompare(aData.toLowerCase());
-                    } else if (aData instanceof Date) {
+                        return bData
+                            .toLowerCase()
+                            .localeCompare(aData.toLowerCase());
+                    }
+                    if (aData instanceof Date) {
                         return bData.getTime() - aData.getTime();
                     }
                     return bData - aData;
                 }
                 if (typeof aData === 'string') {
-                    return aData.toLowerCase().localeCompare(bData.toLowerCase());
-                } else if (aData instanceof Date) {
+                    return aData
+                        .toLowerCase()
+                        .localeCompare(bData.toLowerCase());
+                }
+                if (aData instanceof Date) {
                     return aData.getTime() - bData.getTime();
                 }
                 return aData - bData;
@@ -185,10 +213,22 @@ class FilteredTable extends React.Component {
     }
 
     applySearch(articles) {
-        const { searchTerm, simpleSearch, searchKeys, wholeWord, searchLogic } = this.props;
+        const {
+            searchTerm,
+            simpleSearch,
+            searchKeys,
+            wholeWord,
+            searchLogic,
+        } = this.props;
         if (searchTerm) {
             const filteredArticles = simpleSearch
-                ? Search.simpleSearch(articles, searchTerm, searchKeys, wholeWord, searchLogic)
+                ? Search.simpleSearch(
+                      articles,
+                      searchTerm,
+                      searchKeys,
+                      wholeWord,
+                      searchLogic
+                  )
                 : Search.search(articles, searchTerm);
             return filteredArticles;
         }
@@ -214,7 +254,9 @@ class FilteredTable extends React.Component {
         const { currentPage } = this.state;
         const { pageSize, data } = this.props;
 
-        const filteredData = this.applySearch(this.generateFilteredArticles(data));
+        const filteredData = this.applySearch(
+            this.generateFilteredArticles(data)
+        );
         const dataLength = filteredData ? filteredData.length : 0;
         const numPages = Math.ceil(dataLength / pageSize);
 
@@ -223,7 +265,7 @@ class FilteredTable extends React.Component {
             numPages,
             /* Returns a function that will open the page 'page'
              * or undefined if the page does not exist.  */
-            getOpenPage: (page) => {
+            getOpenPage: page => {
                 if (page > 0 && page <= numPages) {
                     return () => this.setState({ currentPage: page });
                 }
@@ -251,7 +293,7 @@ class FilteredTable extends React.Component {
             headerHeight,
             columnResizeDisabled,
             isResponsive,
-            rowClassNameGetter
+            rowClassNameGetter,
         } = this.props;
 
         const {
@@ -262,7 +304,9 @@ class FilteredTable extends React.Component {
             uid,
             contentWidth,
         } = this.state;
-        this.filteredData = this.applySearch(this.generateFilteredArticles(dataWithState));
+        this.filteredData = this.applySearch(
+            this.generateFilteredArticles(dataWithState)
+        );
 
         /* We have to do this to avoid breaking backwards compatibility */
         const table = isResponsive ? (
@@ -335,7 +379,10 @@ class FilteredTable extends React.Component {
 
         if (paginatorDisplay) {
             const paginatorObject = this.generatePaginatorObject();
-            const InjectedPaginatorDisplay = React.cloneElement(paginatorDisplay, paginatorObject);
+            const InjectedPaginatorDisplay = React.cloneElement(
+                paginatorDisplay,
+                paginatorObject
+            );
             return (
                 <div
                     className={classNames(className, 'wfui-filtered-table')}
@@ -357,6 +404,7 @@ class FilteredTable extends React.Component {
             </div>
         );
     }
+
     resizeTable() {
         const { uid, contentWidth } = this.state;
         const element = document.getElementById(`wfui-filtered-table-${uid}`);
@@ -415,9 +463,13 @@ FilteredTable.defaultProps = {
     headerHeight: 50,
 };
 
-const ResponsiveFilteredTable = props => <FilteredTable {...props} isResponsive />;
+const ResponsiveFilteredTable = props => (
+    <FilteredTable {...props} isResponsive />
+);
 
-const FilteredTableWrapper = props => <FilteredTable {...props} isResponsive={false} />;
+const FilteredTableWrapper = props => (
+    <FilteredTable {...props} isResponsive={false} />
+);
 
 export default FilteredTableWrapper;
 

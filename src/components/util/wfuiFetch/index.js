@@ -46,17 +46,18 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                 appId,
                 meta,
             });
-            reject('timeout');
+            reject(new Error('timeout'));
             clearTimeout(fetchTimer);
         }, init.timeout || 300000);
 
         // Add no-cache to header
         const _init = JSON.parse(JSON.stringify(init));
         if (!_init.headers) _init.header = {};
-        _init.headers = Object.assign({}, _init.headers, {
+        _init.headers = {
+            ..._init.headers,
             pragma: 'no-cache',
             'cache-control': 'no-cache',
-        });
+        };
 
         const wrappedFetch = n => {
             global
@@ -141,9 +142,7 @@ export const wfuiFetch = (input, init, dispatch = f => f) => {
                                             ) {
                                                 statusText.type = obj.data.type; // set error type.
                                             }
-                                            return Object.assign({}, obj, {
-                                                key,
-                                            });
+                                            return { ...obj, key };
                                         });
 
                                     parsedData = {

@@ -2,20 +2,18 @@
 import urlParse from 'url-parse';
 import merge from 'deepmerge';
 
-const switchurl = (state) => {
+const switchurl = state => {
     const flattenedState = Object.keys(state).reduce(
-        (obj, key) =>
-            Object.assign(
-                {},
-                obj,
-                typeof state[key] === 'string'
-                    ? { [key]: state[key] }
-                    : state[key],
-            ),
-        {},
+        (obj, key) => ({
+            ...obj,
+            ...(typeof state[key] === 'string'
+                ? { [key]: state[key] }
+                : state[key]),
+        }),
+        {}
     );
     const parsedURL = urlParse(window.location.href.split('#/').pop(), true);
-    const mergedQuery = Object.assign({}, parsedURL.query, flattenedState);
+    const mergedQuery = { ...parsedURL.query, ...flattenedState };
     const urlString = Object.keys(mergedQuery).reduce((s, k) => {
         if (mergedQuery[k]) {
             if (Array.isArray(mergedQuery[k])) {
@@ -31,22 +29,20 @@ const switchurl = (state) => {
     if (window) {
         if (!window.location.origin) {
             // IE10
-            window.location.origin =
-                `${window.location.protocol 
-                }//${ 
-                window.location.hostname 
-                }${window.location.port ? ':' + window.location.port : ''}`;
+            window.location.origin = `${window.location.protocol}//${
+                window.location.hostname
+            }${window.location.port ? `:${window.location.port}` : ''}`;
         }
         window.location.replace(
             `${window.location.origin}${
                 window.location.pathname
-            }${window.location.hash.split('?')[0] || '#/'}?${urlString}`,
+            }${window.location.hash.split('?')[0] || '#/'}?${urlString}`
         );
     }
 };
 
-const resetObject = (obj) => {
-    Object.keys(obj).forEach((key) => {
+const resetObject = obj => {
+    Object.keys(obj).forEach(key => {
         if (typeof obj[key] === 'object' && obj[key] !== null) {
             obj[key] = resetObject(obj[key]);
         } else {
@@ -57,7 +53,7 @@ const resetObject = (obj) => {
 };
 
 // Middle ware
-export const urlSwithcerMiddleware = store => next => (action) => {
+export const urlSwithcerMiddleware = store => next => action => {
     const result = next(action);
     switch (action.type) {
         case 'RESET_FILTER':

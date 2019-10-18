@@ -16,11 +16,7 @@ class DrawerPopover extends Component {
         } = this.props;
 
         return (
-            <Overlay
-                show={show}
-                target={target}
-                placement={placement}
-            >
+            <Overlay show={show} target={target} placement={placement}>
                 <Popover
                     bsRole={bsRole}
                     variant={variant}
@@ -50,7 +46,7 @@ DrawerPopover.propTypes = {
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.element),
         PropTypes.element,
-        ]),
+    ]),
 };
 
 DrawerPopover.defaultProps = {
