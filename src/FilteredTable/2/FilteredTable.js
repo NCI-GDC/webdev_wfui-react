@@ -251,7 +251,8 @@ class FilteredTable extends React.Component {
             headerHeight,
             columnResizeDisabled,
             isResponsive,
-            rowClassNameGetter
+            rowClassNameGetter,
+            onColumnResizeEndCallback
         } = this.props;
 
         const {
@@ -293,6 +294,7 @@ class FilteredTable extends React.Component {
                 noTableHeader={noTableHeader}
                 rowHeight={rowHeight}
                 rowHeightGetter={rowHeightGetter}
+                onColumnResizeEndCallback={onColumnResizeEndCallback}
                 headerHeight={headerHeight}
                 columnResizeDisabled={columnResizeDisabled}
                 rowClassNameGetter={rowClassNameGetter}
@@ -396,6 +398,7 @@ FilteredTable.propTypes = {
     isResponsive: PropTypes.bool,
     rowClassNameGetter: PropTypes.func,
     style: PropTypes.string,
+    onColumnResizeEndCallback: PropTypes.func,
 };
 
 FilteredTable.defaultProps = {

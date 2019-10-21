@@ -11,12 +11,22 @@ class TableBody extends React.Component {
         this.state = { rowSelected: undefined, columnWidths: {} };
 
         this.onHandleScroll = this.onHandleScroll.bind(this);
-        this._onColumnResizeEndCallback = this._onColumnResizeEndCallback.bind(this);
+        this._onColumnResizeEndCallback = this._onColumnResizeEndCallback.bind(
+            this
+        );
         this._rowHeightGetter = this._rowHeightGetter.bind(this);
+    }
+
+    onHandleScroll() {
+        const event = document.createEvent('Event');
+        event.initEvent('fixedTableScrollStart', true, true);
+        window.dispatchEvent(event);
     }
 
     _onColumnResizeEndCallback(newColumnWidth, columnKey) {
         const { columnWidths } = this.state;
+        const { onColumnResizeEndCallback } = this.props;
+
         const newColumnWidths = {
             ...columnWidths,
             [columnKey]: newColumnWidth,
@@ -25,10 +35,18 @@ class TableBody extends React.Component {
         this.setState({
             columnWidths: newColumnWidths,
         });
+
+        if (onColumnResizeEndCallback)
+            onColumnResizeEndCallback(newColumnWidth, columnKey);
     }
 
     _rowHeightGetter(idx) {
-        const { rowResizeDisabled, rowHeight, rowHeightGetter, id } = this.props;
+        const {
+            rowResizeDisabled,
+            rowHeight,
+            rowHeightGetter,
+            id,
+        } = this.props;
 
         if (rowResizeDisabled) return rowHeight;
 
@@ -36,10 +54,14 @@ class TableBody extends React.Component {
 
         const table = document.getElementById(id);
         if (table) {
-            const rows = table.getElementsByClassName('public_fixedDataTable_bodyRow');
+            const rows = table.getElementsByClassName(
+                'public_fixedDataTable_bodyRow'
+            );
             if (rows && rows[idx]) {
                 const contents = [
-                    ...rows[idx].getElementsByClassName('public_fixedDataTableCell_cellContent'),
+                    ...rows[idx].getElementsByClassName(
+                        'public_fixedDataTableCell_cellContent'
+                    ),
                 ];
 
                 if (contents && contents.length) {
@@ -63,22 +85,17 @@ class TableBody extends React.Component {
         const { columnWidths } = this.state;
         const table = document.getElementById(id);
         const row = table.querySelector(
-            '.public_fixedDataTable_bodyRow:first-child .public_fixedDataTableCell_cellContent:first-child',
+            '.public_fixedDataTable_bodyRow:first-child .public_fixedDataTableCell_cellContent:first-child'
         );
 
         if (
-            JSON.stringify(columnWidths) !== JSON.stringify(prevState.columnWidths) &&
+            JSON.stringify(columnWidths) !==
+                JSON.stringify(prevState.columnWidths) &&
             row &&
             row.click
         ) {
             row.click();
         }
-    }
-
-    onHandleScroll() {
-        const event = document.createEvent('Event');
-        event.initEvent('fixedTableScrollStart', true, true);
-        window.dispatchEvent(event);
     }
 
     render() {
@@ -103,7 +120,7 @@ class TableBody extends React.Component {
             headerHeight,
             columnResizeDisabled,
             isResponsive,
-            rowClassNameGetter
+            rowClassNameGetter,
         } = this.props;
         const { rowSelected, columnWidths } = this.state;
 
@@ -114,7 +131,11 @@ class TableBody extends React.Component {
         const numArticles = data ? data.length : 0;
         const startingArticle = pageSize * (currentPage - 1);
 
-        for (let i = startingArticle; i < startingArticle + pageSize && i < numArticles; i += 1) {
+        for (
+            let i = startingArticle;
+            i < startingArticle + pageSize && i < numArticles;
+            i += 1
+        ) {
             activeData.push({ ...data[i], columnWidths });
         }
 
@@ -148,10 +169,7 @@ class TableBody extends React.Component {
                                 selected: rowSelected === idx,
                             },
                             rowClassNameGetter
-                                ? rowClassNameGetter(
-                                      activeData[idx],
-                                      idx
-                                  )
+                                ? rowClassNameGetter(activeData[idx], idx)
                                 : {}
                         ),
                         activeData[idx].className || '',
@@ -168,15 +186,21 @@ class TableBody extends React.Component {
             >
                 {selectable && (
                     <Column
-                        columnKey={'select'}
-                        header={noTableHeader ? undefined : <Cell>{allCheckbox}</Cell>}
+                        columnKey="select"
+                        header={
+                            noTableHeader ? (
+                                undefined
+                            ) : (
+                                <Cell>{allCheckbox}</Cell>
+                            )
+                        }
                         cell={props => (
                             <Cell {...props}>
                                 <input
                                     className="row-selector"
                                     type="checkbox"
                                     checked={activeData[props.rowIndex].checked}
-                                    onChange={(e) => {
+                                    onChange={e => {
                                         e.stopPropagation();
                                         onCheck(activeData[props.rowIndex].idx);
                                     }}
@@ -207,15 +231,18 @@ class TableBody extends React.Component {
                                         className={classNames({
                                             sortActive: sortedIdx === i,
                                             sortDesc:
-                                                sortedIdx === i && sortedOrientation === 'desc',
-                                            sortAsc: sortedIdx === i && sortedOrientation === 'asc',
+                                                sortedIdx === i &&
+                                                sortedOrientation === 'desc',
+                                            sortAsc:
+                                                sortedIdx === i &&
+                                                sortedOrientation === 'asc',
                                         })}
                                     >
                                         {/* Setup the header row and onClick for sorting if applicable */}
                                         {item.sortingKey ? (
                                             <a
                                                 href="#"
-                                                onClick={(e) => {
+                                                onClick={e => {
                                                     toggleSort(e, i);
                                                 }}
                                             >
@@ -234,7 +261,11 @@ class TableBody extends React.Component {
                             )}
                             isResizable={!columnResizeDisabled && !flexGrow}
                             flexGrow={flexGrow}
-                            width={columnWidths[item.columnKey || item.name] || item.width || 20}
+                            width={
+                                columnWidths[item.columnKey || item.name] ||
+                                item.width ||
+                                20
+                            }
                         />
                     );
                 })}
@@ -264,6 +295,7 @@ TableBody.propTypes = {
     rowHeightGetter: PropTypes.func,
     headerHeight: PropTypes.number,
     rowClassNameGetter: PropTypes.func,
+    onColumnResizeEndCallback: PropTypes.func,
 
     rowResizeDisabled: PropTypes.bool,
     columnResizeDisabled: PropTypes.bool,
