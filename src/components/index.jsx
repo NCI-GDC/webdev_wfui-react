@@ -74,6 +74,9 @@ const Grid = RB.Container;
 const Radio = props => <RB.Form.Check {...props} type="radio" />;
 const Checkbox = props => <RB.Form.Check {...props} type="checkbox" />;
 
+// Temporary
+const WFUIDropdown = RB.Dropdown;
+
 export {
     FilteredList,
     Recaptcha,
@@ -110,7 +113,7 @@ export {
     CascadingPane,
     PanelFilter,
     Description,
-    // WFUIDropdown,
+    WFUIDropdown,
     DraftJS,
     Editor,
     draftToHtml,
