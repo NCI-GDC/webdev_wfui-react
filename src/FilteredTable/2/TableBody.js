@@ -55,7 +55,8 @@ class TableBody extends React.Component {
 
         const table = document.getElementById(id);
         if (table) {
-            const indexOffset = noTableHeader ? 1 : 2; // aria-rowindex starts from 1 (not 0), so add 1. If there is a header, add one more since it takes aria-rowindex=1.
+            // const indexOffset = noTableHeader ? 1 : 2; // aria-rowindex starts from 1 (not 0), so add 1. If there is a header, add one more since it takes aria-rowindex=1.
+            const indexOffset = 2;
             const row = table.querySelector(
                 `.public_fixedDataTable_bodyRow[aria-rowindex="${idx +
                     indexOffset}"]`
