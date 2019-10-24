@@ -17,6 +17,7 @@
     "create-emotion": "^10.0.14",
     "custom-event-polyfill": "^1.0.7",
     "deepmerge": "^4.1.1",
+    "dom-helpers": "^3.4.0",
     "draft-js": "^0.10.5",
     "draftjs-to-html": "^0.8.3",
     "eslint-loader": "^2.2.1",
@@ -39,7 +40,7 @@
     "react-dom": "^16.10.2",
     "react-draft-wysiwyg": "^1.13.2",
     "react-dropzone": "^3.8.0",
-    "react-intl": "^2.7.2",
+    "react-intl": "2.7.2",
     "react-markdown": "^4.2.2",
     "react-notification-system": "^0.2.17",
     "react-recaptcha": "^2.3.10",
@@ -55,7 +56,8 @@
     "redux-form": "^8.2.6",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
-    "uuid": "^3.3.3"
+    "uuid": "^3.3.3",
+    "uncontrollable": "^6.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -83,6 +85,7 @@
   "devDependencies": {
     "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
     "@babel/plugin-transform-react-jsx": "^7.3.0",
     "@babel/preset-env": "^7.6.3",

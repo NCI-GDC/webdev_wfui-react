@@ -46,7 +46,7 @@ import * as Search from './Search';
 import * as FormFields from './FormFields';
 import * as FilterFields from './Filters/renderFilterItem';
 import Description from './FormFields/Description';
-// import WFUIDropdown from './WFUIDropdown/WFUIDropdown';
+import WFUIDropdown from './WFUIDropdown/WFUIDropdown';
 import Notifications from './Notifications/Notifications';
 import Query from './util/Query';
 import AdvanceModeButton from './AdvanceModeButton/AdvanceModeButton';
@@ -75,7 +75,7 @@ const Radio = props => <RB.Form.Check {...props} type="radio" />;
 const Checkbox = props => <RB.Form.Check {...props} type="checkbox" />;
 
 // Temporary
-const WFUIDropdown = RB.Dropdown;
+// const WFUIDropdown = RB.Dropdown;
 
 export {
     FilteredList,

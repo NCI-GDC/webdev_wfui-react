@@ -14,5 +14,6 @@ module.exports = {
         ['@babel/proposal-object-rest-spread', { loose: true }],
         ['@babel/plugin-proposal-decorators', { legacy: true }],
         '@babel/plugin-transform-react-jsx',
+        "@babel/plugin-proposal-class-properties"
     ],
 };
