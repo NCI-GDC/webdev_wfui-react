@@ -1,8 +1,14 @@
 import React from 'react';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { reduxForm, Field, Fields, FieldArray } from 'redux-form';
-import { reducer as formReducer } from 'redux-form';
+import {
+    reduxForm,
+    Field,
+    Fields,
+    FieldArray,
+    reducer as formReducer,
+} from 'redux-form';
+
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { IntlProvider } from 'react-intl';
 import * as FormFields from '../../components/FormFields';
@@ -11,6 +17,7 @@ import { fetchReducer } from '../../components/util/wfuiFetch/reducer';
 
 // Modal Dialog
 import { modalReducer } from '../../components/ModalDialog/reducer';
+
 const store = createStore(
     combineReducers({
         form: formReducer,
@@ -20,8 +27,8 @@ const store = createStore(
     {},
     compose(
         applyMiddleware(thunk),
-        window.devToolsExtension ? window.devToolsExtension() : f => f,
-    ),
+        window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
 );
 
 const events = [
@@ -179,10 +186,12 @@ class Forms extends React.Component {
         super();
         this.onSubmit = this.onSubmit.bind(this);
     }
+
     onSubmit(value, e) {
         debugger;
         console.log(value, e);
     }
+
     render() {
         const {
             handleSubmit,
@@ -202,7 +211,7 @@ class Forms extends React.Component {
                     type="text"
                     className="title-box"
                     component={renderField}
-                    label={'renderField'}
+                    label="renderField"
                     placeholder=""
                     required
                 />
@@ -211,7 +220,7 @@ class Forms extends React.Component {
                     type="text"
                     className="title-box"
                     component={renderField}
-                    label={'renderField'}
+                    label="renderField"
                     placeholder=""
                     descDisplay={
                         <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
@@ -221,21 +230,17 @@ class Forms extends React.Component {
                 <Field
                     name="renderTextArea"
                     type="textarea"
-                    label={'renderTextArea'}
+                    label="renderTextArea"
                     component={renderTextArea}
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
-                    }
+                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
                     placeholder="renderTextArea"
                 />
                 <Field
                     name="renderTextArea"
                     type="textarea"
-                    label={'renderTextArea'}
+                    label="renderTextArea"
                     component={renderTextArea}
-                    help={
-                        'Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts'
-                    }
+                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
                     descDisplay={
                         <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
                     }
@@ -244,14 +249,14 @@ class Forms extends React.Component {
                 <Field
                     name="renderSingleCheckbox"
                     type="checkbox"
-                    option={'renderSingleCheckbox'}
+                    option="renderSingleCheckbox"
                     className="active-checkbox"
                     component={renderSingleCheckbox}
                 />
                 <Field
-                    name="renderSingleCheckbox"
+                    name="renderSingleCheckbox2"
                     type="checkbox"
-                    option={'renderSingleCheckbox'}
+                    option="renderSingleCheckbox"
                     className="active-checkbox"
                     descDisplay={
                         <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
@@ -259,19 +264,19 @@ class Forms extends React.Component {
                     component={renderSingleCheckbox}
                 />
                 <Field
-                    name="renderCheckboxes"
+                    name="renderCheckboxes3"
                     type="checkbox"
                     component={renderCheckboxes}
                     options={['OptionA', 'OptionB', 'OptionC']}
-                    label={'renderCheckboxes'}
+                    label="renderCheckboxes"
                     required
                 />
                 <Field
-                    name="renderCheckboxes"
+                    name="renderCheckboxes4"
                     type="checkbox"
                     component={renderCheckboxes}
                     options={['OptionA', 'OptionB', 'OptionC']}
-                    label={'renderCheckboxes'}
+                    label="renderCheckboxes"
                     descDisplay={
                         <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
                     }
@@ -282,24 +287,24 @@ class Forms extends React.Component {
                     type="checkbox"
                     component={renderRadios}
                     options={['OptionA', 'OptionB', 'OptionC']}
-                    label={'renderRadios'}
+                    label="renderRadios"
                 />
                 <Field
-                    name="renderRadios"
+                    name="renderRadios2"
                     type="checkbox"
                     component={renderRadios}
                     options={['OptionA', 'OptionB', 'OptionC']}
                     descDisplay={
                         <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
                     }
-                    label={'renderRadios'}
+                    label="renderRadios2"
                 />
                 <Field
                     name="renderSelect"
                     type="select"
                     className="dev-stage"
                     component={renderSelect}
-                    label={'renderSelect'}
+                    label="renderSelect"
                     options={['-- Select an Option --', 'A', 'B']}
                 />
                 <Field
@@ -307,7 +312,7 @@ class Forms extends React.Component {
                     type="select"
                     className="dev-stage"
                     component={renderSelect}
-                    label={'renderSelect'}
+                    label="renderSelect"
                     descDisplay={
                         <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
                     }
@@ -315,12 +320,12 @@ class Forms extends React.Component {
                 />
                 <Field
                     name="renderPhoto"
-                    label={'renderPhoto'}
+                    label="renderPhoto"
                     component={renderPhoto}
                 />
                 <Field
                     name="renderPhoto"
-                    label={'renderPhoto'}
+                    label="renderPhoto"
                     descDisplay={
                         <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
                     }
@@ -328,14 +333,14 @@ class Forms extends React.Component {
                 />
                 <Field
                     name="renderTimezone"
-                    placeholder={'Choose timezone'}
-                    label={'renderTimezone'}
+                    placeholder="Choose timezone"
+                    label="renderTimezone"
                     component={renderTimezone}
                 />
                 <Field
                     name="renderTimezone"
-                    placeholder={'Choose timezone'}
-                    label={'renderTimezone'}
+                    placeholder="Choose timezone"
+                    label="renderTimezone"
                     component={renderTimezone}
                     descDisplay={
                         <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
@@ -344,25 +349,25 @@ class Forms extends React.Component {
 
                 <Field
                     name="renderDate"
-                    label={'renderDate'}
+                    label="renderDate"
                     component={renderDate}
                 />
 
                 <Field
                     name="renderDate2"
-                    label={'renderDate2'}
+                    label="renderDate2"
                     component={renderDate}
                 />
 
                 <Field
                     name="renderTags"
-                    label={'renderTags'}
+                    label="renderTags"
                     component={renderTags}
                     withContext
                 />
                 <Field
                     name="renderTags"
-                    label={'renderTags'}
+                    label="renderTags"
                     component={renderTags}
                     descDisplay={
                         <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
@@ -373,21 +378,21 @@ class Forms extends React.Component {
                     name="renderAddAnother"
                     type="select"
                     component={renderAddAnother}
-                    label={'renderAddAnother'}
+                    label="renderAddAnother"
                     childComponent={renderAddAnother => (
                         <div>
                             <Field
                                 name={`${renderAddAnother}.FirstName_txt`}
                                 type="text"
                                 component={renderField}
-                                label={'First Name:'}
+                                label="First Name:"
                                 placeholder=""
                             />
                             <Field
                                 name={`${renderAddAnother}.LastName_txt`}
                                 type="text"
                                 component={renderField}
-                                label={'Last Name'}
+                                label="Last Name"
                                 placeholder=""
                                 required
                             />
@@ -398,7 +403,7 @@ class Forms extends React.Component {
                     name="renderAddAnother"
                     type="select"
                     component={renderAddAnother}
-                    label={'renderAddAnother'}
+                    label="renderAddAnother"
                     descDisplay={
                         <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
                     }
@@ -408,14 +413,14 @@ class Forms extends React.Component {
                                 name={`${renderAddAnother}.FirstName_txt`}
                                 type="text"
                                 component={renderField}
-                                label={'First Name:'}
+                                label="First Name:"
                                 placeholder=""
                             />
                             <Field
                                 name={`${renderAddAnother}.LastName_txt`}
                                 type="text"
                                 component={renderField}
-                                label={'Last Name'}
+                                label="Last Name"
                                 placeholder=""
                                 required
                             />
@@ -451,7 +456,7 @@ class Forms extends React.Component {
                 />
                 <IntlProvider locale="en">
                     <Fields
-                        name={`s-a58460e0-fe38-11e8-9b5d-ed7302dc0e63`}
+                        name="s-a58460e0-fe38-11e8-9b5d-ed7302dc0e63"
                         names={[
                             's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-39eb33d0-…ca71.q-39f10030-1d9c-11e9-aa2a-d95a697aca71.value',
                             's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-39eb33d0-…ca71.q-39f5e230-1d9c-11e9-aa2a-d95a697aca71.value',
@@ -461,15 +466,15 @@ class Forms extends React.Component {
                             's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-b7832b60-…2ae9.q-b785c370-1e4e-11e9-a51d-1d46c95f2ae9.value',
                         ]}
                         type="select"
-                        label={'TEST'}
-                        required={true}
+                        label="TEST"
+                        required
                         component={renderEventSelect}
-                        changeFieldValue={() => { }}
+                        changeFieldValue={() => {}}
                         events={events}
                         feeCategories={feeCategories}
                         disabled={false}
                         preview={false}
-                        placeholder={''}
+                        placeholder=""
                     />
                 </IntlProvider>
                 <input type="submit" />

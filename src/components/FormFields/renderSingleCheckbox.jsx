@@ -43,11 +43,13 @@ const renderSingleCheckbox = ({
             <Form.Check
                 type="checkbox"
                 className={input.checked ? 'active' : ''}
-                {...input}
-                disabled={disabled}
             >
                 <Form.Check.Label>
-                    <Form.Check.Input type="checkbox" />
+                    <Form.Check.Input
+                        type="checkbox"
+                        {...input}
+                        disabled={disabled}
+                    />
                     <span dangerouslySetInnerHTML={{ __html: option }} />{' '}
                     {required && <b className="required">*</b>}
                 </Form.Check.Label>

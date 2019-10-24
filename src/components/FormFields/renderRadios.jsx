@@ -66,24 +66,28 @@ const renderRadios = ({
                         type="radio"
                         className={checked ? 'active' : ''}
                         key={i}
-                        name={input.name}
-                        value={_key}
-                        checked={checked}
-                        disabled={disabled}
-                        onClick={e => {
-                            if (
-                                booleanValue &&
-                                (e.target.value === 'true' ||
-                                    e.target.value === 'false')
-                            ) {
-                                input.onChange(e.target.value === 'true');
-                            } else {
-                                input.onChange(e.target.value);
-                            }
-                        }}
                     >
                         <Form.Check.Label>
-                            <Form.Check.Input type="radio" />
+                            <Form.Check.Input
+                                type="radio"
+                                name={input.name}
+                                value={_key}
+                                checked={checked}
+                                disabled={disabled}
+                                onChange={e => {
+                                    if (
+                                        booleanValue &&
+                                        (e.target.value === 'true' ||
+                                            e.target.value === 'false')
+                                    ) {
+                                        input.onChange(
+                                            e.target.value === 'true'
+                                        );
+                                    } else {
+                                        input.onChange(e.target.value);
+                                    }
+                                }}
+                            />
                             {_option}
                         </Form.Check.Label>
                     </Form.Check>

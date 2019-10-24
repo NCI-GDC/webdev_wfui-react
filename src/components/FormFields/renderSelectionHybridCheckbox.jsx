@@ -154,13 +154,6 @@ class renderSelectionHybridCheckbox extends React.Component {
                             <Form.Check
                                 type="checkbox"
                                 key={i}
-                                name={`${name}.${checkboxCid}`}
-                                value={_key}
-                                disabled={disabled}
-                                checked={
-                                    checkboxProps.input.value &&
-                                    checkboxProps.input.value.includes(_key)
-                                }
                                 className={`${
                                     checkboxProps.input.value &&
                                     checkboxProps.input.value.includes(_key)
@@ -171,26 +164,38 @@ class renderSelectionHybridCheckbox extends React.Component {
                                         ? 'checkbox-with-checkboxHybrid'
                                         : ''
                                 }`}
-                                onChange={e => {
-                                    const newValue = [
-                                        ...checkboxProps.input.value,
-                                    ];
-                                    if (e.target.checked) {
-                                        newValue.push(_key);
-                                    } else {
-                                        newValue.splice(
-                                            newValue.indexOf(_key),
-                                            1
-                                        );
-                                    }
-                                    return this.onHandleChange(
-                                        newValue,
-                                        e.target.checked && e.target.value
-                                    );
-                                }}
                             >
                                 <Form.Check.Label>
-                                    <Form.Check.Input type="checkbox" />
+                                    <Form.Check.Input
+                                        type="checkbox"
+                                        name={`${name}.${checkboxCid}`}
+                                        value={_key}
+                                        disabled={disabled}
+                                        checked={
+                                            checkboxProps.input.value &&
+                                            checkboxProps.input.value.includes(
+                                                _key
+                                            )
+                                        }
+                                        onChange={e => {
+                                            const newValue = [
+                                                ...checkboxProps.input.value,
+                                            ];
+                                            if (e.target.checked) {
+                                                newValue.push(_key);
+                                            } else {
+                                                newValue.splice(
+                                                    newValue.indexOf(_key),
+                                                    1
+                                                );
+                                            }
+                                            return this.onHandleChange(
+                                                newValue,
+                                                e.target.checked &&
+                                                    e.target.value
+                                            );
+                                        }}
+                                    />
                                     <span
                                         dangerouslySetInnerHTML={{
                                             __html: _option,
@@ -242,7 +247,8 @@ class renderSelectionHybridCheckbox extends React.Component {
                         {' '}
                         {allTouched && globalError && (
                             <span>{globalError}</span>
-                        )}{' '}
+                        )}
+{' '}
                     </HelpBlock>
                     {help && !preview && (
                         <div

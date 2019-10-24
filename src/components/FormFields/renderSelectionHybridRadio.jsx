@@ -132,15 +132,19 @@ export default class renderSelectionHybridRadio extends React.Component {
                                         ? 'radio-with-radioHybrid'
                                         : ''
                                     }`}
-                                name={`${name}.${radioCid}`}
-                                value={_key}
-                                checked={radioProps.input.value === _key}
-                                onClick={e =>
-                                    this.onHandleChange(e.target.value)}
-                                disabled={disabled}
                             >
                                 <Form.Check.Label>
-                                    <Form.Check.Input type="checkbox" />
+                                    <Form.Check.Input
+                                        type="checkbox"
+                                        name={`${name}.${radioCid}`}
+                                        value={_key}
+                                        checked={
+                                            radioProps.input.value === _key
+                                        }
+                                        onChange={e =>
+                                            this.onHandleChange(e.target.value)}
+                                        disabled={disabled}
+                                    />
                                     <span
                                         dangerouslySetInnerHTML={{
                                             __html: _option,

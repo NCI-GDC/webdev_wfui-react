@@ -53,28 +53,35 @@ const renderCheckboxes = ({
                     <Form.Check
                         type="checkbox"
                         key={i}
-                        name={input.name}
-                        value={_key}
-                        disabled={disabled}
-                        checked={input.value && input.value.includes(_key)}
                         className={
                             input.value && input.value.includes(_key)
                                 ? 'active'
                                 : ''
                         }
-                        onChange={e => {
-                            const newValue = [...input.value];
-                            if (e.target.checked) {
-                                newValue.push(_key);
-                            } else {
-                                newValue.splice(newValue.indexOf(_key), 1);
-                            }
-                            input.onBlur();
-                            return input.onChange(newValue);
-                        }}
                     >
                         <Form.Check.Label>
-                            <Form.Check.Input type="checkbox" />
+                            <Form.Check.Input
+                                type="checkbox"
+                                name={input.name}
+                                value={_key}
+                                checked={
+                                    input.value && input.value.includes(_key)
+                                }
+                                disabled={disabled}
+                                onChange={e => {
+                                    const newValue = [...input.value];
+                                    if (e.target.checked) {
+                                        newValue.push(_key);
+                                    } else {
+                                        newValue.splice(
+                                            newValue.indexOf(_key),
+                                            1
+                                        );
+                                    }
+                                    input.onBlur();
+                                    return input.onChange(newValue);
+                                }}
+                            />
                             <span
                                 dangerouslySetInnerHTML={{ __html: _option }}
                             />
