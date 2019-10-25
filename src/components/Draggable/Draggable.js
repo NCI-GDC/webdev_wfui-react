@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import classNames from 'classnames';
+import withDragDropContext from './WithDndContext';
 import DraggableItem from './DraggableItem';
 import DraggableHandle from './DraggableHandle';
 
@@ -119,6 +120,6 @@ Draggable.Handle = DraggableHandle;
 
 export default Draggable;
 
-const withContext = DragDropContext(HTML5Backend)(Draggable);
+const withContext = withDragDropContext(Draggable);
 
 export { withContext };
