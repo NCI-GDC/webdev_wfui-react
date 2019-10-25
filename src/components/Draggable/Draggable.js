@@ -121,7 +121,7 @@ export default Draggable;
 
 const withContext = props => (
     <DndProvider backend={HTML5Backend}>
-        <Draggable props={props}>{props.children}</Draggable>
+        <Draggable {...props}>{props.children}</Draggable>
     </DndProvider>
 );
 withContext.Item = DraggableItem;
