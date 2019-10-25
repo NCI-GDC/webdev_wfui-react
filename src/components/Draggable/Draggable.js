@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DragDropContext } from 'react-dnd';
+import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import classNames from 'classnames';
 import withDragDropContext from './WithDndContext';
@@ -120,6 +120,12 @@ Draggable.Handle = DraggableHandle;
 
 export default Draggable;
 
-const withContext = withDragDropContext(Draggable);
+const withContext = props => (
+    <DndProvider backend={HTML5Backend}>
+        <Draggable props={props}>{props.children}</Draggable>
+    </DndProvider>
+);
+withContext.Item = DraggableItem;
+withContext.Handle = DraggableHandle;
 
 export { withContext };
