@@ -111,7 +111,7 @@ export default class renderSelectionHybridRadio extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                        } wfui-radios-hybrid column-count-${columnCount}`}
+                    } wfui-radios-hybrid column-count-${columnCount}`}
                     validationState={allTouched && globalError ? 'error' : null}
                 >
                     {options.map((option, i) => {
@@ -127,22 +127,23 @@ export default class renderSelectionHybridRadio extends React.Component {
                                     radioProps.input.value === _key
                                         ? 'active'
                                         : ''
-                                    } ${
+                                } ${
                                     fieldMap[_key]
                                         ? 'radio-with-radioHybrid'
                                         : ''
-                                    }`}
+                                }`}
                             >
                                 <Form.Check.Label>
                                     <Form.Check.Input
-                                        type="checkbox"
+                                        type="radio"
                                         name={`${name}.${radioCid}`}
                                         value={_key}
                                         checked={
                                             radioProps.input.value === _key
                                         }
                                         onChange={e =>
-                                            this.onHandleChange(e.target.value)}
+                                            this.onHandleChange(e.target.value)
+                                        }
                                         disabled={disabled}
                                     />
                                     <span
@@ -177,8 +178,7 @@ export default class renderSelectionHybridRadio extends React.Component {
                         {' '}
                         {allTouched && globalError && (
                             <span>{globalError}</span>
-                        )}
-                        {' '}
+                        )}{' '}
                     </HelpBlock>
                     {help && !preview && (
                         <div
