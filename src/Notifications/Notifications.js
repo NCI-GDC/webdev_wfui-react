@@ -185,6 +185,13 @@ class Notifications extends React.Component {
                                         newFetches[key].error.type
                                     }"`;
 
+                                if (
+                                    newFetches[key].error.type === 'NO_AUTH' ||
+                                    newFetches[key].error.type === 'NO_PERM'
+                                ) {
+                                    displayingDefaultMessage = `You don't have permission to perform this action.`;
+                                }
+
                                 displayingValues = flattenObject(
                                     newFetches[key].data
                                 );
