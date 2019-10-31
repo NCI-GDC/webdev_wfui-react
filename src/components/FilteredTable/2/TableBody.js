@@ -17,8 +17,16 @@ class TableBody extends React.Component {
         this._rowHeightGetter = this._rowHeightGetter.bind(this);
     }
 
+    onHandleScroll() {
+        const event = document.createEvent('Event');
+        event.initEvent('fixedTableScrollStart', true, true);
+        window.dispatchEvent(event);
+    }
+
     _onColumnResizeEndCallback(newColumnWidth, columnKey) {
         const { columnWidths } = this.state;
+        const { onColumnResizeEndCallback } = this.props;
+
         const newColumnWidths = {
             ...columnWidths,
             [columnKey]: newColumnWidth,
@@ -27,6 +35,9 @@ class TableBody extends React.Component {
         this.setState({
             columnWidths: newColumnWidths,
         });
+
+        if (onColumnResizeEndCallback)
+            onColumnResizeEndCallback(newColumnWidth, columnKey);
     }
 
     _rowHeightGetter(idx) {
@@ -35,6 +46,7 @@ class TableBody extends React.Component {
             rowHeight,
             rowHeightGetter,
             id,
+            noTableHeader,
         } = this.props;
 
         if (rowResizeDisabled) return rowHeight;
@@ -43,12 +55,16 @@ class TableBody extends React.Component {
 
         const table = document.getElementById(id);
         if (table) {
-            const rows = table.getElementsByClassName(
-                'public_fixedDataTable_bodyRow'
+            // const indexOffset = noTableHeader ? 1 : 2; // aria-rowindex starts from 1 (not 0), so add 1. If there is a header, add one more since it takes aria-rowindex=1.
+            const indexOffset = 2;
+            const row = table.querySelector(
+                `.public_fixedDataTable_bodyRow[aria-rowindex="${idx +
+                    indexOffset}"]`
             );
-            if (rows && rows[idx]) {
+
+            if (row) {
                 const contents = [
-                    ...rows[idx].getElementsByClassName(
+                    ...row.getElementsByClassName(
                         'public_fixedDataTableCell_cellContent'
                     ),
                 ];
@@ -85,12 +101,6 @@ class TableBody extends React.Component {
         ) {
             row.click();
         }
-    }
-
-    onHandleScroll() {
-        const event = document.createEvent('Event');
-        event.initEvent('fixedTableScrollStart', true, true);
-        window.dispatchEvent(event);
     }
 
     render() {
@@ -167,8 +177,7 @@ class TableBody extends React.Component {
                         },
                         activeData[idx].className || '',
                         `${onRowClick ? 'row-clickable' : ''}`
-                    )
-                }
+                    )}
                 onScrollStart={this.onHandleScroll}
                 onColumnResizeEndCallback={this._onColumnResizeEndCallback}
                 isColumnResizing={false}
@@ -288,6 +297,7 @@ TableBody.propTypes = {
     rowHeightGetter: PropTypes.func,
     headerHeight: PropTypes.number,
     rowClassNameGetter: PropTypes.func,
+    onColumnResizeEndCallback: PropTypes.func,
 
     rowResizeDisabled: PropTypes.bool,
     columnResizeDisabled: PropTypes.bool,
