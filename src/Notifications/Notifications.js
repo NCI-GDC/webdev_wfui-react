@@ -181,7 +181,7 @@ class Notifications extends React.Component {
                                         overriding.error[
                                             newFetches[key].error.type
                                         ]) ||
-                                    `An upexpected error has occurred.<br/> Error: "${
+                                    `An unexpected error has occurred.<br/> Error: "${
                                         newFetches[key].error.type
                                     }"`;
 
@@ -215,7 +215,7 @@ class Notifications extends React.Component {
                                 displayingDefaultMessage =
                                     (overriding.error &&
                                         overriding.error.default) ||
-                                    'An upexpected error has occurred.';
+                                    'An unexpected error has occurred.';
 
                                 displayingValues = {
                                     message: newFetches[key].error,
