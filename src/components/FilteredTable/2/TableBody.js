@@ -169,15 +169,16 @@ class TableBody extends React.Component {
                         {
                             even: (idx + 1) % 2 === 0,
                             add: (idx + 1) % 2 !== 0,
-                            checked: activeData[idx].checked,
+                            checked: activeData[idx] && activeData[idx].checked,
                             selected: rowSelected === idx,
                             ...(rowClassNameGetter
                                 ? rowClassNameGetter(activeData[idx], idx)
                                 : {}),
                         },
-                        activeData[idx].className || '',
+                        (activeData[idx] && activeData[idx].className) || '',
                         `${onRowClick ? 'row-clickable' : ''}`
-                    )}
+                    )
+                }
                 onScrollStart={this.onHandleScroll}
                 onColumnResizeEndCallback={this._onColumnResizeEndCallback}
                 isColumnResizing={false}
