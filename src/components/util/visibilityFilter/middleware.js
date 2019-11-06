@@ -4,12 +4,14 @@ import merge from 'deepmerge';
 
 const switchurl = state => {
     const flattenedState = Object.keys(state).reduce(
-        (obj, key) => ({
-            ...obj,
-            ...(typeof state[key] === 'string'
-                ? { [key]: state[key] }
-                : state[key]),
-        }),
+        (obj, key) =>
+            ({
+                
+                ...obj,
+                ...(typeof state[key] === 'string'
+                    ? { [key]: state[key] }
+                    : state[key])
+            }),
         {}
     );
     const parsedURL = urlParse(window.location.href.split('#/').pop(), true);
@@ -18,10 +20,12 @@ const switchurl = state => {
         if (mergedQuery[k]) {
             if (Array.isArray(mergedQuery[k])) {
                 return mergedQuery[k].length
-                    ? `${s}&${k}=${encodeURI(mergedQuery[k].join(','))}`
+                    ? `${s}&${k}=${encodeURIComponent(
+                          mergedQuery[k].join(',')
+                      )}`
                     : s;
             }
-            return `${s}&${k}=${encodeURI(mergedQuery[k])}`;
+            return `${s}&${k}=${encodeURIComponent(mergedQuery[k])}`;
         }
         return s;
     }, '');
