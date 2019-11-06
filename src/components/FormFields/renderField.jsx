@@ -3,7 +3,14 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { FormGroup, FormControl, ControlLabel, HelpBlock } from '../index';
+import {
+    FormGroup,
+    FormControl,
+    ControlLabel,
+    HelpBlock,
+    Form,
+    Col,
+} from '../index';
 
 /**
  * Reusable field component.
@@ -29,7 +36,7 @@ const renderField = ({
     meta: { touched, error },
     fullWidth,
 }) => (
-    <div
+    <Form.Row
         className={classNames(
             className,
             'wfui-form-item',
@@ -38,19 +45,30 @@ const renderField = ({
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
             { answered: input.value },
-            { 'wfui-form-item-full-width': fullWidth },
+            { 'wfui-form-item-full-width': fullWidth }
         )}
     >
         {label && (
-            <div className="wfui-form-label">
+            <Col xs={12} md={inline ? 2 : 12} className="wfui-form-label">
                 <ControlLabel>
                     {label}
                     {required && <b className="required"> *</b>}
                 </ControlLabel>
-            </div>
+            </Col>
         )}
 
         <FormGroup
+            as={Col}
+            xs={12}
+            md={
+                inline
+                    ? descDisplay && !preview
+                        ? 4
+                        : 10
+                    : descDisplay && !preview
+                    ? 6
+                    : 12
+            }
             className={`wfui-form-field ${
                 descDisplay
                     ? 'wfui-form-field-with-description'
@@ -92,8 +110,18 @@ const renderField = ({
                 />
             )}
         </FormGroup>
-        {descDisplay && !preview ? cloneElement(descDisplay) : ''}
-    </div>
+        {descDisplay && !preview ? (
+            <Col
+                className="wfui-form-description"
+                xs={12}
+                md={{ span: 6, offset: 0 }}
+            >
+                {cloneElement(descDisplay)}
+            </Col>
+        ) : (
+            ''
+        )}
+    </Form.Row>
 );
 
 export default renderField;
