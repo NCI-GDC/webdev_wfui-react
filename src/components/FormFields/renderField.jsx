@@ -104,10 +104,9 @@ const renderField = ({
                 </HelpBlock>
             )}
             {help && !preview && (
-                <div
-                    className="wfui-form-help"
-                    dangerouslySetInnerHTML={{ __html: help }}
-                />
+                <HelpBlock className="wfui-form-help text-muted">
+                    <div dangerouslySetInnerHTML={{ __html: help }} />
+                </HelpBlock>
             )}
         </FormGroup>
         {descDisplay && !preview ? (
@@ -118,9 +117,7 @@ const renderField = ({
             >
                 {cloneElement(descDisplay)}
             </Col>
-        ) : (
-            ''
-        )}
+        ) : null}
     </Form.Row>
 );
 

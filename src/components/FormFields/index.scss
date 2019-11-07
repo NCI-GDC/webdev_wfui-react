@@ -1,12 +1,15 @@
-@import 'bootstrap/scss/_functions.scss';
-@import 'bootstrap/scss/_variables.scss';
-@import 'bootstrap/scss/mixins/_breakpoints.scss';
+@import 'bootstrap/scss/bootstrap.scss';
 
 $form-desc-padding-y: .75rem;
 $form-desc-border-radius: .25rem;
 $form-desc-padding-x: 1.25rem;
 $form-desc-margin-left: $form-desc-padding-y;
 $form-desc-margin-bottom: 1rem;
+$form-desc-margin-top: 1rem;
+
+$form-active-border-color: theme-color("primary");
+$form-active-color: $form-active-border-color;
+$form-active-bg-color: theme-color-level("primary", -10);
 
 /* Wfui Form Field General Layout
 -------------------------------------------------------------- */
@@ -40,31 +43,96 @@ $form-desc-margin-bottom: 1rem;
     }
 }
 
+/* Form Label
+-------------------------------------------------------------- */
+.wfui-form-label {
+    .required {
+        color: $danger;
+    }
+}
+
 /* Wfui Description
 -------------------------------------------------------------- */
-.wfui-description {
-    position: relative;
-    padding: $form-desc-padding-y $form-desc-padding-x;
-    background-color: theme-color-level("primary", -10);
-    border: 1px solid theme-color-level("primary", -9);
-    border-radius: $form-desc-border-radius;
-    margin-bottom: ($form-desc-margin-bottom / 2);
+.wfui-form-item{
+    .wfui-description {
+        position: relative;
+        padding: $form-desc-padding-y $form-desc-padding-x;
+        background-color: theme-color-level("primary", -10);
+        border: 1px solid theme-color-level("primary", -9);
+        border-radius: $form-desc-border-radius;
+        margin-bottom: ($form-desc-margin-bottom / 2);
 
-    @include media-breakpoint-up(md) {
-        margin-left: $form-desc-margin-left;
-        margin-bottom: $form-desc-margin-bottom;
+        @include media-breakpoint-up(md) {
+            margin-left: $form-desc-margin-left;
+            margin-bottom: $form-desc-margin-bottom;
 
-        &:before {
-            content: '';
-            position: absolute;
-            left: -$form-desc-margin-left;
-            width: $form-desc-margin-left;
-            height: $form-desc-margin-left;
-            margin: 0;
-            border-top: ($form-desc-margin-left / 2) solid transparent;
-            border-right: $form-desc-margin-left solid theme-color-level("primary", -10);
-            border-bottom: ($form-desc-margin-left / 2) solid transparent;
+            &:before,
+            &:after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-style: solid;
+            }
+            &:after {
+                left: -18px;
+                top: 8px;
+                border-color: transparent theme-color-level("primary", -10) transparent transparent ;
+                border-width: 9px;
+            }
+            
+            &:before {
+                left: -20px;
+                border-color: transparent theme-color-level("primary", -9) transparent transparent;
+                border-width: 10px;
+                top: 7px;
+            }
         }
+    }
+}
+
+/* Textarea Preview
+-------------------------------------------------------------- */
+.wfui-form-textarea-preview-value {
+    @extend .form-control;
+    height: unset;
+    background-color: $input-disabled-bg;
+}
+
+/* Checkbox, Radio
+-------------------------------------------------------------- */
+.wfui-form-checkbox-container,
+.wfui-form-radio-container {
+    @extend .form-control;
+    padding: $input-padding-y $input-padding-x $input-padding-y calc(#{$input-padding-x} + #{$form-check-input-gutter});
+    height: unset;
+
+    > span, > label {
+        width: 100%;
+    }
+
+    &.active {
+        background-color: $form-active-bg-color;
+        border-color: $form-active-border-color;
+        color: $form-active-color;
+    }
+
+    &, * {
+        cursor: pointer;
+
+        &.disabled, &.preview {
+            cursor: not-allowed;
+            background-color: $input-disabled-bg;
+        }
+    }
+}
+
+.wfui-form-checkbox-group-container,
+.wfui-form-radio-group-container {
+    .wfui-form-checkbox-container,
+    .wfui-form-radio-container {
+        &:not(:first-child){
+        margin-top: ($form-desc-margin-top / 2);}
     }
 }
 

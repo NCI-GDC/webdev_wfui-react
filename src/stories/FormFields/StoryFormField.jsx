@@ -218,7 +218,7 @@ class Forms extends React.Component {
                         required
                     />
                     <Field
-                        name="renderField"
+                        name="renderField-inline"
                         type="text"
                         className="title-box"
                         component={renderField}
@@ -228,7 +228,7 @@ class Forms extends React.Component {
                         inline
                     />
                     <Field
-                        name="renderField"
+                        name="renderField-full"
                         type="text"
                         className="title-box"
                         component={renderField}
@@ -240,12 +240,13 @@ class Forms extends React.Component {
                         required
                     />
                     <Field
-                        name="renderField"
+                        name="renderField-full-inline"
                         type="text"
                         className="title-box"
                         component={renderField}
                         label="renderField inline"
                         placeholder=""
+                        help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
                         descDisplay={
                             <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
                         }
@@ -259,6 +260,7 @@ class Forms extends React.Component {
                         component={renderTextArea}
                         help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
                         placeholder="renderTextArea"
+                        required
                     />
                     <Field
                         name="renderTextArea"
@@ -277,6 +279,7 @@ class Forms extends React.Component {
                         option="renderSingleCheckbox"
                         className="active-checkbox"
                         component={renderSingleCheckbox}
+                        help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
                     />
                     <Field
                         name="renderSingleCheckbox2"
@@ -333,7 +336,7 @@ class Forms extends React.Component {
                         options={['-- Select an Option --', 'A', 'B']}
                     />
                     <Field
-                        name="renderSelect"
+                        name="renderSelect1"
                         type="select"
                         className="dev-stage"
                         component={renderSelect}
