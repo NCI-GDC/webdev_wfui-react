@@ -366,9 +366,9 @@ class Forms extends React.Component {
                         component={renderTimezone}
                     />
                     <Field
-                        name="renderTimezone"
+                        name="renderTimezone2"
                         placeholder="Choose timezone"
-                        label="renderTimezone"
+                        label="renderTimezone2"
                         component={renderTimezone}
                         descDisplay={
                             <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
@@ -379,12 +379,16 @@ class Forms extends React.Component {
                         name="renderDate"
                         label="renderDate"
                         component={renderDate}
+                        descDisplay={
+                            <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                        }
                     />
 
                     <Field
                         name="renderDate2"
                         label="renderDate2"
                         component={renderDate}
+                        help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
                     />
 
                     <Field

@@ -11,6 +11,7 @@ import {
     ControlLabel,
     HelpBlock,
     Glyphicon,
+    Icon,
 } from '../index';
 
 class renderAddAnother extends React.Component {
@@ -19,6 +20,7 @@ class renderAddAnother extends React.Component {
         this.init = false;
         this.touched = false;
     }
+
     componentDidUpdate() {
         const { fields, minimumItem, defaultValue } = this.props;
         if (!this.init) {
@@ -35,6 +37,7 @@ class renderAddAnother extends React.Component {
             this.init = true;
         }
     }
+
     render() {
         const {
             className,
@@ -86,7 +89,7 @@ class renderAddAnother extends React.Component {
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
-                    { 'wfui-form-item-full-width': fullWidth },
+                    { 'wfui-form-item-full-width': fullWidth }
                 )}
             >
                 {label && (
@@ -143,10 +146,11 @@ class renderAddAnother extends React.Component {
                         ))}
                     {!disabled && (
                         <Button
-                            variant="default"
+                            variant="outline-dark"
                             onClick={() => {
                                 fields.push(defaultValue);
                             }}
+                            plus
                         >
                             <span className="span-plus">{labelAddAnother}</span>
                         </Button>
