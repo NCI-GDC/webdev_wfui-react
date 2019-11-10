@@ -90,16 +90,17 @@ const renderField = ({
                     input.onChange(e);
                     if (onHandleChange) onHandleChange(e);
                 }}
+                isInvalid={touched && (error || globalError)}
             />
             {postfix && <div className="wfui-form-postfix">{postfix}</div>}
             <FormControl.Feedback />
             {touched && error && (
-                <HelpBlock className="wfui-form-error">
+                <HelpBlock className="wfui-form-error" type="invalid">
                     <span>{error}</span>
                 </HelpBlock>
             )}
             {touched && globalError && (
-                <HelpBlock className="wfui-form-error">
+                <HelpBlock className="wfui-form-error" type="invalid">
                     <span>{globalError}</span>
                 </HelpBlock>
             )}
