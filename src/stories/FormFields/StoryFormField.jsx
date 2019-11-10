@@ -226,6 +226,7 @@ class Forms extends React.Component {
                         placeholder=""
                         required
                         inline
+                        meta={{ touched: true, error: 'erk' }}
                     />
                     <Field
                         name="renderField-full"

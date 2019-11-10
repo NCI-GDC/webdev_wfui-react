@@ -95,14 +95,20 @@ const renderField = ({
             {postfix && <div className="wfui-form-postfix">{postfix}</div>}
             <FormControl.Feedback />
             {touched && error && (
-                <HelpBlock className="wfui-form-error" type="invalid">
+                <Form.Control.Feedback
+                    className="wfui-form-error"
+                    type="invalid"
+                >
                     <span>{error}</span>
-                </HelpBlock>
+                </Form.Control.Feedback>
             )}
             {touched && globalError && (
-                <HelpBlock className="wfui-form-error" type="invalid">
+                <Form.Control.Feedback
+                    className="wfui-form-error"
+                    type="invalid"
+                >
                     <span>{globalError}</span>
-                </HelpBlock>
+                </Form.Control.Feedback>
             )}
             {help && !preview && (
                 <HelpBlock className="wfui-form-help text-muted">
