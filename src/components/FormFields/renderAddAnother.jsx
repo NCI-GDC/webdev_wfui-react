@@ -147,7 +147,7 @@ class renderAddAnother extends React.Component {
                         ))}
                     {!disabled && (
                         <Button
-                            variant="outline-dark"
+                            variant="outline-primary"
                             onClick={() => {
                                 fields.push(defaultValue);
                             }}
