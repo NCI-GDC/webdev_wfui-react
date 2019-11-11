@@ -7,6 +7,7 @@ import {
     Draggable,
     DraggableWithContext,
     Button,
+    Form,
     FormGroup,
     ControlLabel,
     HelpBlock,
@@ -156,14 +157,14 @@ class renderAddAnother extends React.Component {
                         </Button>
                     )}
                     {error && (
-                        <HelpBlock className="wfui-form-error">
+                        <Form.Control.Feedback className="wfui-form-error">
                             <span>{error}</span>
-                        </HelpBlock>
+                        </Form.Control.Feedback>
                     )}
                     {(this.touched || submitFailed) && globalError && (
-                        <HelpBlock className="wfui-form-error">
+                        <Form.Control.Feedback className="wfui-form-error">
                             <span>{globalError}</span>
-                        </HelpBlock>
+                        </Form.Control.Feedback>
                     )}
                     {help && !preview && (
                         <div

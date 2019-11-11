@@ -2,7 +2,7 @@ import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
-import { FormGroup, ControlLabel, HelpBlock } from '../index';
+import { FormGroup, ControlLabel, HelpBlock, Form, Col } from '../index';
 
 const generateAcceptText = props => {
     if (!props.fileTypes) return '';
@@ -380,13 +380,14 @@ class renderFileUpload extends React.Component {
             allowedExtensionText,
             fileTypes,
             fullWidth,
+            inline,
         } = this.props;
         const { fileError } = this.state;
 
         const fileSizeTextConvert = Math.floor(maxFileSize / 1000000);
 
         return (
-            <div
+            <Form.Row
                 className={classNames(
                     className,
                     'wfui-form-item',
@@ -401,14 +402,29 @@ class renderFileUpload extends React.Component {
                 )}
             >
                 {label && (
-                    <div className="wfui-form-label">
+                    <Col
+                        xs={12}
+                        md={inline ? 2 : 12}
+                        className="wfui-form-label"
+                    >
                         <ControlLabel>
                             {label}
                             {required && <b className="required"> *</b>}
                         </ControlLabel>
-                    </div>
+                    </Col>
                 )}
                 <FormGroup
+                    as={Col}
+                    xs={12}
+                    md={
+                        inline
+                            ? descDisplay && !preview
+                                ? 4
+                                : 10
+                            : descDisplay && !preview
+                            ? 6
+                            : 12
+                    }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
@@ -455,28 +471,41 @@ class renderFileUpload extends React.Component {
                         </p>
                     )}
                     {fileError && (
-                        <HelpBlock className="wfui-form-error">
+                        <Form.Control.Feedback
+                            className="wfui-form-error"
+                            type="invalid"
+                        >
                             <span
                                 dangerouslySetInnerHTML={{
                                     __html: fileError,
                                 }}
                             />
-                        </HelpBlock>
+                        </Form.Control.Feedback>
                     )}
                     {touched && globalError && (
-                        <HelpBlock className="wfui-form-error">
+                        <Form.Control.Feedback
+                            className="wfui-form-error"
+                            type="invalid"
+                        >
                             <span>{globalError}</span>
-                        </HelpBlock>
+                        </Form.Control.Feedback>
                     )}
                     {help && !preview && (
-                        <div
-                            className="wfui-form-help"
-                            dangerouslySetInnerHTML={{ __html: help }}
-                        />
+                        <HelpBlock className="wfui-form-help text-muted">
+                            <div dangerouslySetInnerHTML={{ __html: help }} />
+                        </HelpBlock>
                     )}
                 </FormGroup>
-                {descDisplay && !preview ? cloneElement(descDisplay) : ''}
-            </div>
+                {descDisplay && !preview ? (
+                    <Col
+                        className="wfui-form-description"
+                        xs={12}
+                        md={{ span: 6, offset: 0 }}
+                    >
+                        {cloneElement(descDisplay)}
+                    </Col>
+                ) : null}
+            </Form.Row>
         );
     }
 }
