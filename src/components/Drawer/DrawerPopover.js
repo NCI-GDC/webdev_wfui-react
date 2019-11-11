@@ -14,7 +14,7 @@ class DrawerPopover extends Component {
             bsRole,
             children,
         } = this.props;
-
+        console.log('title', title);
         return (
             <Overlay show={show} target={target} placement={placement}>
                 <Popover
@@ -22,8 +22,10 @@ class DrawerPopover extends Component {
                     variant={variant}
                     id="popover"
                     onClick={handleClose}
-                    title={title}
                 >
+                    {title && title.length ? (
+                        <Popover.Title>{title}</Popover.Title>
+                    ) : null}
                     <Popover.Content>{children}</Popover.Content>
                 </Popover>
             </Overlay>

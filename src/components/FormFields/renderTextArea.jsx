@@ -124,7 +124,10 @@ const renderTextArea = ({
                 />
                 <FormControl.Feedback />
                 {touched && error && (
-                    <HelpBlock className="wfui-form-error">
+                    <Form.Control.Feedback
+                        className="wfui-form-error"
+                        type="invalid"
+                    >
                         <span>{error}</span>
                         {textLimit && !preview ? (
                             <span className="wfui-form-char-count">
@@ -135,10 +138,13 @@ const renderTextArea = ({
                                 } / ${textLimit} characters`}
                             </span>
                         ) : null}
-                    </HelpBlock>
+                    </Form.Control.Feedback>
                 )}
                 {touched && globalError && (
-                    <HelpBlock className="wfui-form-error">
+                    <Form.Control.Feedback
+                        className="wfui-form-error"
+                        type="invalid"
+                    >
                         <span>{globalError}</span>
                         {textLimit && !preview ? (
                             <span className="wfui-form-char-count">
@@ -149,7 +155,7 @@ const renderTextArea = ({
                                 } / ${textLimit} characters`}
                             </span>
                         ) : null}
-                    </HelpBlock>
+                    </Form.Control.Feedback>
                 )}
                 {!(touched && (error || globalError)) &&
                 textLimit &&
