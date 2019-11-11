@@ -8,6 +8,8 @@ import {
     DraggableWithContext,
     Button,
     Form,
+    Col,
+    Row,
     FormGroup,
     ControlLabel,
     HelpBlock,
@@ -59,6 +61,7 @@ class renderAddAnother extends React.Component {
             descDisplay,
             fullWidth,
             defaultValue,
+            inline,
         } = this.props;
 
         const Comp = withContext ? DraggableWithContext : Draggable;
@@ -80,7 +83,7 @@ class renderAddAnother extends React.Component {
         };
 
         return (
-            <div
+            <Form.Row
                 className={classNames(
                     className,
                     'wfui-form-item',
@@ -94,14 +97,29 @@ class renderAddAnother extends React.Component {
                 )}
             >
                 {label && (
-                    <div className="wfui-form-label">
+                    <Col
+                        xs={12}
+                        md={inline ? 2 : 12}
+                        className="wfui-form-label"
+                    >
                         <ControlLabel>
                             {label}
                             {required && <b className="required"> *</b>}
                         </ControlLabel>
-                    </div>
+                    </Col>
                 )}
                 <FormGroup
+                    as={Col}
+                    xs={12}
+                    md={
+                        inline && label
+                            ? descDisplay && !preview
+                                ? 4
+                                : 10
+                            : descDisplay && !preview
+                            ? 6
+                            : 9
+                    }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
@@ -173,8 +191,16 @@ class renderAddAnother extends React.Component {
                         />
                     )}
                 </FormGroup>
-                {descDisplay && !preview ? cloneElement(descDisplay) : ''}
-            </div>
+                {descDisplay && !preview ? (
+                    <Col
+                        className="wfui-form-description"
+                        xs={12}
+                        md={{ span: 6, offset: 0 }}
+                    >
+                        {cloneElement(descDisplay)}
+                    </Col>
+                ) : null}
+            </Form.Row>
         );
     }
 }
