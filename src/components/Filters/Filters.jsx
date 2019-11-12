@@ -11,6 +11,7 @@ class Filters extends React.Component {
             onClickReset,
             textReset,
             children,
+            resetVariant,
         } = this.props;
         return (
             <Form
@@ -22,7 +23,9 @@ class Filters extends React.Component {
                     <ControlLabel>{label}</ControlLabel>
                     {children}
                     <FormGroup className="wfui-filters-btn-reset">
-                        <Button onClick={onClickReset}>{textReset}</Button>
+                        <Button variant={resetVariant} onClick={onClickReset}>
+                            {textReset}
+                        </Button>
                     </FormGroup>
                 </FormGroup>
             </Form>
@@ -36,6 +39,7 @@ Filters.propTypes = {
     textReset: PropTypes.string,
     onClickReset: PropTypes.func,
     children: PropTypes.node,
+    resetVariant: PropTypes.string,
 };
 
 Filters.defaultProps = {
@@ -43,6 +47,7 @@ Filters.defaultProps = {
     textReset: 'Reset',
     onClickReset: f => f,
     disableReset: false,
+    resetVariant: 'invariant-primary',
 };
 
 export default Filters;
