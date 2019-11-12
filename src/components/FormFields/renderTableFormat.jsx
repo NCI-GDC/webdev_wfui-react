@@ -1,5 +1,5 @@
 import React, { cloneElement } from 'react';
-import { Field } from 'redux-form';
+import { Field } from 'react-final-form';
 import classNames from 'classnames';
 import _ from 'lodash';
 import { FormFields, FormGroup, ControlLabel, HelpBlock } from '../index';
@@ -23,7 +23,7 @@ class renderTableFormat extends React.Component {
                 ) {
                     const modifyingCid = cid;
                     const targetCid = Object.keys(childComponents).filter(
-                        n => n !== cid,
+                        n => n !== cid
                     );
 
                     if (
@@ -39,6 +39,7 @@ class renderTableFormat extends React.Component {
             });
         }
     }
+
     render() {
         const {
             className,
@@ -74,7 +75,7 @@ class renderTableFormat extends React.Component {
                     'wfui-form-item',
                     { 'wfui-form-item-error': allTouched && globalError },
                     { 'wfui-form-disabled': disabled },
-                    { 'wfui-form-preview': preview },
+                    { 'wfui-form-preview': preview }
                 )}
             >
                 {label && (
@@ -111,7 +112,7 @@ class renderTableFormat extends React.Component {
                                         component={renderField}
                                         disabled={disabled}
                                     />
-                                </li>,
+                                </li>
                             );
                             if (Object.keys(fieldMap).length - 1 > i) {
                                 lists.push(
@@ -119,7 +120,7 @@ class renderTableFormat extends React.Component {
                                         <span className="wfui-input-table__condition">
                                             {logic}
                                         </span>
-                                    </li>,
+                                    </li>
                                 );
                             }
                             return lists;
