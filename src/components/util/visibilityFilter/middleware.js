@@ -18,10 +18,12 @@ const switchurl = state => {
         if (mergedQuery[k]) {
             if (Array.isArray(mergedQuery[k])) {
                 return mergedQuery[k].length
-                    ? `${s}&${k}=${encodeURI(mergedQuery[k].join(','))}`
+                    ? `${s}&${k}=${encodeURIComponent(
+                          mergedQuery[k].join(',')
+                      )}`
                     : s;
             }
-            return `${s}&${k}=${encodeURI(mergedQuery[k])}`;
+            return `${s}&${k}=${encodeURIComponent(mergedQuery[k])}`;
         }
         return s;
     }, '');
