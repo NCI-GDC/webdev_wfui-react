@@ -47,7 +47,7 @@ Filters.defaultProps = {
     textReset: 'Reset',
     onClickReset: f => f,
     disableReset: false,
-    resetVariant: 'invariant-primary',
+    resetVariant: 'outline-primary',
 };
 
 export default Filters;
