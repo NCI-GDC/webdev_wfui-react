@@ -2,7 +2,14 @@ import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
-import { FormGroup, ControlLabel, HelpBlock, Form, Col } from '../index';
+import {
+    FormGroup,
+    ControlLabel,
+    HelpBlock,
+    Form,
+    Col,
+    Button,
+} from '../index';
 
 const generateAcceptText = props => {
     if (!props.fileTypes) return '';
@@ -51,8 +58,9 @@ class renderFileUpload extends React.Component {
         const { removing } = this.state;
         if (!disabled) {
             return (
-                <a
-                    className="btn btn-danger remove-file"
+                <Button
+                    variant="danger"
+                    className="remove-file"
                     type="button"
                     onClick={() => {
                         input.onChange('');
@@ -68,7 +76,7 @@ class renderFileUpload extends React.Component {
                     }}
                 >
                     {txtRemove}
-                </a>
+                </Button>
             );
         }
         return null;
