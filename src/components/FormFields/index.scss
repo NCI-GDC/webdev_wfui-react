@@ -28,7 +28,7 @@ $form-tag-color-hover: $form-active-color;
     .wfui-form-field {
         order: 2;
 
-        @include media-breakpoint-down(sm) {
+        @include media-breakpoint-down(md) {
             &.wfui-form-field-with-description {
                 order: 4;
             }
@@ -68,7 +68,7 @@ $form-tag-color-hover: $form-active-color;
 -------------------------------------------------------------- */
 .wfui-form-inline {
     .form-label {
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
             line-height: $input-height;
         }
     }
@@ -93,7 +93,7 @@ $form-tag-color-hover: $form-active-color;
         border-radius: $form-desc-border-radius;
         margin-bottom: ($form-desc-margin-bottom / 2);
 
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
             margin-left: $form-desc-margin-left;
             margin-bottom: $form-desc-margin-bottom;
 

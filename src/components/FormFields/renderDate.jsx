@@ -38,7 +38,7 @@ const renderDate = ({
         )}
     >
         {label && (
-            <Col xs={12} md={inline ? 2 : 12} className="wfui-form-label">
+            <Col xs={12} lg={inline ? 2 : 12} className="wfui-form-label">
                 <ControlLabel>
                     {label}
                     {required && <b className="required"> *</b>}
@@ -48,7 +48,7 @@ const renderDate = ({
         <FormGroup
             as={Col}
             xs={12}
-            md={
+            lg={
                 inline && label
                     ? descDisplay && !preview
                         ? 4
@@ -116,7 +116,7 @@ const renderDate = ({
             <Col
                 className="wfui-form-description"
                 xs={12}
-                md={{ span: 6, offset: 0 }}
+                lg={{ span: 6, offset: 0 }}
             >
                 {cloneElement(descDisplay)}
             </Col>

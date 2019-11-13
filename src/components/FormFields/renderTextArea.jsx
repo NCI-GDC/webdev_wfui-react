@@ -46,7 +46,7 @@ const renderTextArea = ({
             )}
         >
             {label && (
-                <Col xs={12} md={inline ? 2 : 12} className="wfui-form-label">
+                <Col xs={12} lg={inline ? 2 : 12} className="wfui-form-label">
                     <ControlLabel>
                         {label}
                         {textLimitLabel ? (
@@ -59,7 +59,7 @@ const renderTextArea = ({
             <FormGroup
                 as={Col}
                 xs={12}
-                md={inline ? 10 : 12}
+                lg={inline ? 10 : 12}
                 className={`wfui-form-field ${
                     descDisplay
                         ? 'wfui-form-field-with-description'
@@ -84,7 +84,7 @@ const renderTextArea = ({
             )}
         >
             {label && (
-                <Col xs={12} md={inline ? 2 : 12} className="wfui-form-label">
+                <Col xs={12} lg={inline ? 2 : 12} className="wfui-form-label">
                     <ControlLabel>
                         {label}
                         {textLimitLabel ? (
@@ -97,7 +97,7 @@ const renderTextArea = ({
             <FormGroup
                 as={Col}
                 xs={12}
-                md={inline ? (descDisplay ? 4 : 10) : descDisplay ? 6 : 12}
+                lg={inline ? (descDisplay ? 4 : 10) : descDisplay ? 6 : 12}
                 className={`wfui-form-field ${
                     descDisplay
                         ? 'wfui-form-field-with-description'
@@ -176,7 +176,7 @@ const renderTextArea = ({
                 <Col
                     className="wfui-form-description"
                     xs={12}
-                    md={{ span: 6, offset: 0 }}
+                    lg={{ span: 6, offset: 0 }}
                 >
                     {cloneElement(descDisplay)}
                 </Col>
