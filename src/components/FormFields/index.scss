@@ -1071,14 +1071,14 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
             width: 100%;
         }
 
-        a.delete-icon {
+        button.delete-icon {
             position: absolute;
             top: 10px;
             right: 15px;
         }
 
         &.wfui-draggable {
-            a.delete-icon {
+            button.delete-icon {
                 position: absolute;
                 top: 45px;
                 right: 25px;
@@ -1087,7 +1087,7 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
     }
 }
 
-a.delete-icon {
+button.delete-icon {
     text-indent: -9999px;
     display: block;
     height: 15px;
@@ -1099,7 +1099,7 @@ a.delete-icon {
     cursor: pointer;
 }
 // /* styles for FormFields */
-// a.delete-icon {
+// button.delete-icon {
 //     text-indent: -9999px;
 //     display: block;
 //     width: 26px;
@@ -1200,14 +1200,14 @@ a.delete-icon {
 //                 width: 100%;
 //             }
 
-//             a.delete-icon {
+//             button.delete-icon {
 //                 position: absolute;
 //                 top: 10px;
 //                 right: 15px;
 //             }
 
 //             &.wfui-draggable {
-//                 a.delete-icon {
+//                 button.delete-icon {
 //                     position: absolute;
 //                     top: 45px;
 //                     right: 25px;

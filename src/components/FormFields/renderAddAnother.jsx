@@ -68,15 +68,17 @@ class renderAddAnother extends React.Component {
         const DeleteButton = ({ index }) => {
             if (!disabled && fields.length > minimumItem) {
                 return (
-                    <a
+                    <Button
+                        variant="link"
                         className="delete-icon"
                         onClick={() => {
                             fields.remove(index);
                             this.touched = true;
                         }}
+                        type="DeleteButton"
                     >
                         Delete
-                    </a>
+                    </Button>
                 );
             }
             return null;
@@ -154,20 +156,28 @@ class renderAddAnother extends React.Component {
                     {(!draggable || disabled) &&
                         fields.map((field, i) => (
                             <div className="wfui-form-addAnother-item" key={i}>
-                                {childComponent(field, i)}
-                                {<DeleteButton index={i} />}
+                                <div className="wfui-form-addAnother-content">
+                                    {childComponent(field, i)}
+                                </div>
+                                <div className="wfui-form-addAnother-delete">
+                                    <DeleteButton index={i} />
+                                </div>
                             </div>
                         ))}
                     {!disabled && (
-                        <Button
-                            variant="outline-primary"
-                            onClick={() => {
-                                fields.push(defaultValue);
-                            }}
-                            plus
-                        >
-                            <span className="span-plus">{labelAddAnother}</span>
-                        </Button>
+                        <div className="wfui-form-addAnother-btn-container">
+                            <Button
+                                variant="outline-primary"
+                                onClick={() => {
+                                    fields.push(defaultValue);
+                                }}
+                                plus
+                            >
+                                <span className="span-plus">
+                                    {labelAddAnother}
+                                </span>
+                            </Button>
+                        </div>
                     )}
                     {error && (
                         <Form.Control.Feedback className="wfui-form-error">
