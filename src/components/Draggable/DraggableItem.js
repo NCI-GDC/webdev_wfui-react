@@ -137,7 +137,7 @@ class DraggableItem extends React.Component {
                                     </div>
                                 );
                             }
-                            if (child.type === 'DeleteButton') {
+                            if (child.props.type === 'DeleteButton') {
                                 return (
                                     <div
                                         className="wfui-form-addAnother-delete wfui-draggable-delete"
