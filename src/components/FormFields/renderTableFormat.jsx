@@ -12,27 +12,25 @@ class renderTableFormat extends React.Component {
 
         // If logic is "or"
         if (logic === 'or') {
-            const childComponents = _.get(this.props, name);
-            const nextChildComponents = nextProps[name];
+            const childComponentKeys = Object.keys(this.props).filter(key =>
+                key.includes(name)
+            );
 
             // Modify other fields when user edit one of the fields.
-            Object.keys(childComponents).map(cid => {
+            childComponentKeys.map(cid => {
                 if (
-                    childComponents[cid].input.value !==
-                    nextChildComponents[cid].input.value
+                    this.props[cid].input.value !== nextProps[cid].input.value
                 ) {
                     const modifyingCid = cid;
-                    const targetCid = Object.keys(childComponents).filter(
-                        n => n !== cid
-                    );
+                    const targetCid = childComponentKeys.filter(n => n !== cid);
 
                     if (
-                        nextChildComponents[modifyingCid].input.value &&
+                        nextProps[modifyingCid].input.value &&
                         modifyingCid &&
                         targetCid.length > 0
                     ) {
                         targetCid.map(cid => {
-                            nextChildComponents[cid].input.onChange('');
+                            nextProps[cid].input.onChange('');
                         });
                     }
                 }
@@ -59,10 +57,12 @@ class renderTableFormat extends React.Component {
         const components = [];
         let allTouched = true;
         let allPristine = true;
-        const childComponents = _.get(this.props, name);
+        const childComponentKeys = Object.keys(this.props).filter(key =>
+            key.includes(name)
+        );
 
-        Object.keys(childComponents).map(key => {
-            const props = childComponents[key];
+        childComponentKeys.map(key => {
+            const props = this.props[key];
             allTouched = allTouched && props.meta.touched;
             allPristine = allPristine && props.meta.pristine;
             components.push(props);
@@ -130,7 +130,8 @@ class renderTableFormat extends React.Component {
                         {' '}
                         {allTouched && globalError && (
                             <span>{globalError}</span>
-                        )}{' '}
+                        )}
+{' '}
                     </HelpBlock>
                     {help && !preview && (
                         <div
