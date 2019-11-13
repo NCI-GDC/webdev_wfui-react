@@ -1072,6 +1072,10 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
         padding: 20px;
         position: relative;
 
+        .wfui-draggable-item {
+            position: relative;
+        }
+
         .wfui-form-field {
             width: 100%;
         }
