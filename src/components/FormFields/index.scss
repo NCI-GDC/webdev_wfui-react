@@ -1099,6 +1099,24 @@ button.delete-icon {
     background-repeat: no-repeat;
     cursor: pointer;
 }
+
+/* WFUI Form Item: Table
+-------------------------------------------------------------- */
+.wfui-input-table__ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    .wfui-form-field {
+        margin-bottom: 0;
+    }
+
+    .wfui-input-table__li {
+        .wfui-input-table__condition {
+            margin: 0 5px;
+        }
+    }
+}
 // /* styles for FormFields */
 // button.delete-icon {
 //     text-indent: -9999px;
