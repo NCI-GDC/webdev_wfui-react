@@ -75,7 +75,6 @@ class renderAddAnother extends React.Component {
                             fields.remove(index);
                             this.touched = true;
                         }}
-                        type="DeleteButton"
                     >
                         Delete
                     </Button>
@@ -148,7 +147,12 @@ class renderAddAnother extends React.Component {
                                         <Icon icon="arrows-alt" />
                                     </Comp.Handle>
                                     {childComponent(field, i)}
-                                    {<DeleteButton index={i} />}
+                                    {
+                                        <DeleteButton
+                                            type="DeleteButton"
+                                            index={i}
+                                        />
+                                    }
                                 </Comp.Item>
                             ))}
                         </Comp>
@@ -160,7 +164,10 @@ class renderAddAnother extends React.Component {
                                     {childComponent(field, i)}
                                 </div>
                                 <div className="wfui-form-addAnother-delete">
-                                    <DeleteButton index={i} />
+                                    <DeleteButton
+                                        type="DeleteButton"
+                                        index={i}
+                                    />
                                 </div>
                             </div>
                         ))}
