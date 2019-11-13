@@ -37,6 +37,11 @@ $form-tag-color-hover: $form-active-color;
 
     .wfui-form-description {
         order: 3;
+        display: flex;
+
+        .wfui-description {
+            flex-grow: 1;
+        }
     }
 
     label {
