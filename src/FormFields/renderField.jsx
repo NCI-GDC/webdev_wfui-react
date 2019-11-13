@@ -28,6 +28,7 @@ const renderField = ({
     descDisplay,
     meta: { touched, error },
     fullWidth,
+    autoComplete,
 }) => (
     <div
         className={classNames(
@@ -38,7 +39,7 @@ const renderField = ({
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
             { answered: input.value },
-            { 'wfui-form-item-full-width': fullWidth },
+            { 'wfui-form-item-full-width': fullWidth }
         )}
     >
         {label && (
@@ -72,6 +73,7 @@ const renderField = ({
                     input.onChange(e);
                     if (onHandleChange) onHandleChange(e);
                 }}
+                autoComplete={autoComplete}
             />
             {postfix && <div className="wfui-form-postfix">{postfix}</div>}
             <FormControl.Feedback />
