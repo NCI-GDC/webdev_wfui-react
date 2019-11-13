@@ -28,7 +28,7 @@ $form-tag-color-hover: $form-active-color;
     .wfui-form-field {
         order: 2;
 
-        @include media-breakpoint-down(md) {
+        @include media-breakpoint-down(sm) {
             &.wfui-form-field-with-description {
                 order: 4;
             }
