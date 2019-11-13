@@ -143,12 +143,7 @@ class renderAddAnother extends React.Component {
                             {fields.map((field, i) => (
                                 <Comp.Item key={i} id={field}>
                                     <Comp.Handle>
-                                        <Glyphicon
-                                            glyph="fullscreen"
-                                            style={{
-                                                transform: 'rotate(45deg)',
-                                            }}
-                                        />
+                                        <Icon icon="arrows-alt" />
                                     </Comp.Handle>
                                     {childComponent(field, i)}
                                     {<DeleteButton index={i} />}
