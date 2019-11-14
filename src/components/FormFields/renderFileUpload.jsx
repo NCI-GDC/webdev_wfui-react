@@ -176,7 +176,7 @@ class renderFileUpload extends React.Component {
                 <div className="btn-group">
                     {input.value.name && (
                         <a
-                            className={`btn btn-default ${
+                            className={`btn btn-outline-primary ${
                                 review ? 'review-page' : ''
                             } ${this.getFileKey(input.value.type)}`}
                             type="button"

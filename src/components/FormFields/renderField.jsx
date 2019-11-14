@@ -45,7 +45,8 @@ const renderField = ({
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
             { answered: input.value },
-            { 'wfui-form-item-full-width': fullWidth }
+            { 'wfui-form-item-full-width': fullWidth },
+            { 'wfui-form-with-description': descDisplay }
         )}
     >
         {label && (
