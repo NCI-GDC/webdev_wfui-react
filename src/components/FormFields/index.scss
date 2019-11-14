@@ -1177,6 +1177,10 @@ div.multiple-inputs-2 .wfui-input-table__li:nth-child(3n) {
             display: flex;
             align-items: center;
         }
+
+        .form-check-input {
+            margin-top: 0;
+        }
     }
 }
 
@@ -1195,10 +1199,91 @@ div.multiple-inputs-2 .wfui-input-table__li:nth-child(3n) {
     }
 }
 
-.wfui-form-item div.column-count-0 .form-check {
-    width: initial;
-    margin-right: 1%;
+.wfui-form-item {
+    div.column-count-0 {
+        .form-check {
+            width: initial;
+            margin-right: 1%;
 
+            @media (max-width: 767px) {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+    }
+
+    div.column-count-1 {
+        .form-check {
+            width: 100%;
+        }
+    }
+
+    div.column-count-2 {
+        .form-check {
+            width: 49.5%;
+            margin-right: 1%;
+
+            @media (max-width: 767px) {
+                width: 100%;
+                margin-right: 0;
+            }
+
+            *:nth-child(even) {
+                margin-right: 0;
+            }
+        }
+    }
+
+    div.column-count-3 {
+        .form-check {
+            width: 32.666%;
+            margin-right: 1%;
+
+            @media (max-width: 767px) {
+                width: 100%;
+                margin-right: 0;
+            }
+
+            *:nth-child(3n) {
+                margin-right: 0;
+            }
+        }
+    }
+
+    div.column-count-4 {
+        .form-check {
+            width: 24.25%;
+            margin-right: 1%;
+
+            @media (max-width: 767px) {
+                width: 100%;
+                margin-right: 0;
+            }
+
+            *:nth-child(4n) {
+                margin-right: 0;
+            }
+        }
+    }
+
+    div.column-count-5 {
+        .form-check {
+            width: 19.2%;
+            margin-right: 1%;
+
+            @media (max-width: 767px) {
+                width: 100%;
+                margin-right: 0;
+            }
+
+            *:nth-child(5n) {
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+.wfui-form-item div.wfui-form-single-checkbox.wfui-form-field {
     @media (max-width: 767px) {
         width: 100%;
         margin-right: 0;
@@ -1266,81 +1351,7 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
     }
 }
 
-.wfui-form-item div.column-count-1 .radio,
-.wfui-form-item div.column-count-1 .checkbox {
-    width: 100%;
-}
 
-.wfui-form-item div.column-count-2 .radio,
-.wfui-form-item div.column-count-2 .checkbox {
-    width: 49.5%;
-    margin-right: 1%;
-
-    @media (max-width: 767px) {
-        width: 100%;
-        margin-right: 0;
-    }
-}
-
-.wfui-form-item div.column-count-2 .radio:nth-child(even),
-.wfui-form-item div.column-count-2 .checkbox:nth-child(even) {
-    margin-right: 0;
-}
-
-.wfui-form-item div.column-count-3 .radio,
-.wfui-form-item div.column-count-3 .checkbox {
-    width: 32.666%;
-    margin-right: 1%;
-
-    @media (max-width: 767px) {
-        width: 100%;
-        margin-right: 0;
-    }
-}
-
-.wfui-form-item div.column-count-3 .radio:nth-child(3n),
-.wfui-form-item div.column-count-3 .checkbox:nth-child(3n) {
-    margin-right: 0;
-}
-
-.wfui-form-item div.column-count-4 .radio,
-.wfui-form-item div.column-count-4 .checkbox {
-    width: 24.25%;
-    margin-right: 1%;
-
-    @media (max-width: 767px) {
-        width: 100%;
-        margin-right: 0;
-    }
-}
-
-.wfui-form-item div.column-count-4 .radio:nth-child(4n),
-.wfui-form-item div.column-count-4 .checkbox:nth-child(4n) {
-    margin-right: 0;
-}
-
-.wfui-form-item div.column-count-5 .radio,
-.wfui-form-item div.column-count-5 .checkbox {
-    width: 19.2%;
-    margin-right: 1%;
-
-    @media (max-width: 767px) {
-        width: 100%;
-        margin-right: 0;
-    }
-}
-
-.wfui-form-item div.column-count-5 .radio:nth-child(5n),
-.wfui-form-item div.column-count-5 .checkbox:nth-child(5n) {
-    margin-right: 0;
-}
-
-.wfui-form-item div.wfui-form-single-checkbox.wfui-form-field {
-    @media (max-width: 767px) {
-        width: 100%;
-        margin-right: 0;
-    }
-}
 
 // /* styles for FormFields */
 // button.delete-icon {
