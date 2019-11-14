@@ -1116,6 +1116,24 @@ button.delete-icon {
     margin-right: 15px;
 }
 
+/* WFUI Form Item: Table
+-------------------------------------------------------------- */
+div[class*='multiple-inputs-'] .wfui-input-table__li:nth-child(odd) {
+    width: calc(50% - 40px);
+}
+
+div[class*='multiple-inputs-'] .wfui-input-table__li:nth-child(4n) {
+    margin-right: 0;
+}
+
+div.multiple-inputs-2 .wfui-input-table__li:nth-child(odd) {
+    width: calc(50% - 20px);
+}
+
+div.multiple-inputs-2 .wfui-input-table__li:nth-child(3n) {
+    margin-right: 0;
+}
+
 // /* styles for FormFields */
 // button.delete-icon {
 //     text-indent: -9999px;

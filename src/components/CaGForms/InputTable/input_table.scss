@@ -32,7 +32,6 @@
 .wfui-input-table__ul {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     list-style-type: none;
     padding-left: 0;
 
@@ -40,6 +39,7 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
+        margin-bottom: .375rem;
     }
 
     .wfui-form-field, .wfui-form-item {
