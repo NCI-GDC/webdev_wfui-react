@@ -118,11 +118,7 @@ const renderField = ({
             )}
         </FormGroup>
         {descDisplay && !preview ? (
-            <Col
-                className="wfui-form-description"
-                xs={12}
-                lg={{ span: 6, offset: 0 }}
-            >
+            <Col className="wfui-form-description" xs={12} lg={6}>
                 {cloneElement(descDisplay)}
             </Col>
         ) : null}

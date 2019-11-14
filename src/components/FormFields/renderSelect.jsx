@@ -35,7 +35,8 @@ const renderSelect = ({
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
             { answered: input.value },
-            { 'wfui-form-item-full-width': fullWidth }
+            { 'wfui-form-item-full-width': fullWidth },
+            { 'wfui-form-with-description': descDisplay }
         )}
     >
         {label && (
@@ -65,7 +66,12 @@ const renderSelect = ({
             } wfui-form-select`}
             validationState={touched && (error || globalError) ? 'error' : null}
         >
-            <FormControl {...input} onChange={input.onChange} as="select">
+            <FormControl
+                {...input}
+                onChange={input.onChange}
+                as="select"
+                isInvalid={touched && (error || globalError)}
+            >
                 {options.map((option, i) => {
                     const _key =
                         typeof option === 'string' ? option : option.key;
@@ -85,14 +91,20 @@ const renderSelect = ({
                 })}
             </FormControl>
             {touched && error && (
-                <HelpBlock className="wfui-form-error">
+                <Form.Control.Feedback
+                    className="wfui-form-error"
+                    type="invalid"
+                >
                     <span>{error}</span>
-                </HelpBlock>
+                </Form.Control.Feedback>
             )}
             {touched && globalError && (
-                <HelpBlock className="wfui-form-error">
+                <Form.Control.Feedback
+                    className="wfui-form-error"
+                    type="invalid"
+                >
                     <span>{globalError}</span>
-                </HelpBlock>
+                </Form.Control.Feedback>
             )}
             {help && !preview && (
                 <HelpBlock className="wfui-form-help text-muted">
@@ -101,11 +113,7 @@ const renderSelect = ({
             )}
         </FormGroup>
         {descDisplay && !preview ? (
-            <Col
-                className="wfui-form-description"
-                xs={12}
-                lg={{ span: 6, offset: 0 }}
-            >
+            <Col className="wfui-form-description" xs={12} lg={6}>
                 {cloneElement(descDisplay)}
             </Col>
         ) : null}
