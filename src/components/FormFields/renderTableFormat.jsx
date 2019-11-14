@@ -2,7 +2,7 @@ import React, { cloneElement } from 'react';
 import { Field } from 'redux-form';
 import classNames from 'classnames';
 import _ from 'lodash';
-import { FormFields, FormGroup, ControlLabel, HelpBlock } from '../index';
+import { Form, FormGroup, ControlLabel, HelpBlock, Col } from '../index';
 
 import { renderField } from './index';
 
@@ -23,7 +23,7 @@ class renderTableFormat extends React.Component {
                 ) {
                     const modifyingCid = cid;
                     const targetCid = Object.keys(childComponents).filter(
-                        n => n !== cid,
+                        n => n !== cid
                     );
 
                     if (
@@ -39,6 +39,7 @@ class renderTableFormat extends React.Component {
             });
         }
     }
+
     render() {
         const {
             className,
@@ -53,6 +54,7 @@ class renderTableFormat extends React.Component {
             disabled,
             preview,
             descDisplay,
+            inline,
         } = this.props;
 
         const components = [];
@@ -68,24 +70,40 @@ class renderTableFormat extends React.Component {
         });
 
         return (
-            <div
+            <Form.Row
                 className={classNames(
                     className,
                     'wfui-form-item',
                     { 'wfui-form-item-error': allTouched && globalError },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
+                    { 'wfui-form-with-description': descDisplay }
                 )}
             >
                 {label && (
-                    <div className="wfui-form-label">
+                    <Col
+                        xs={12}
+                        lg={inline ? 2 : 12}
+                        className="wfui-form-label"
+                    >
                         <ControlLabel>
                             {label}
                             {required && <b className="required"> *</b>}
                         </ControlLabel>
-                    </div>
+                    </Col>
                 )}
                 <FormGroup
+                    as={Col}
+                    xs={12}
+                    lg={
+                        inline
+                            ? descDisplay && !preview
+                                ? 4
+                                : 10
+                            : descDisplay && !preview
+                            ? 6
+                            : 12
+                    }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
@@ -111,7 +129,7 @@ class renderTableFormat extends React.Component {
                                         component={renderField}
                                         disabled={disabled}
                                     />
-                                </li>,
+                                </li>
                             );
                             if (Object.keys(fieldMap).length - 1 > i) {
                                 lists.push(
@@ -119,27 +137,36 @@ class renderTableFormat extends React.Component {
                                         <span className="wfui-input-table__condition">
                                             {logic}
                                         </span>
-                                    </li>,
+                                    </li>
                                 );
                             }
                             return lists;
                         })}
                     </ul>
-                    <HelpBlock>
-                        {' '}
-                        {allTouched && globalError && (
+                    {allTouched && globalError && (
+                        <Form.Control.Feedback
+                            className="wfui-form-error"
+                            type="invalid"
+                        >
                             <span>{globalError}</span>
-                        )}{' '}
-                    </HelpBlock>
+                        </Form.Control.Feedback>
+                    )}
                     {help && !preview && (
-                        <div
-                            className="wfui-form-help"
-                            dangerouslySetInnerHTML={{ __html: help }}
-                        />
+                        <HelpBlock className="wfui-form-help text-muted">
+                            <div dangerouslySetInnerHTML={{ __html: help }} />
+                        </HelpBlock>
                     )}
                 </FormGroup>
-                {descDisplay && !preview ? cloneElement(descDisplay) : ''}
-            </div>
+                {descDisplay && !preview ? (
+                    <Col
+                        className="wfui-form-description"
+                        xs={12}
+                        lg={{ span: 6, offset: 0 }}
+                    >
+                        {cloneElement(descDisplay)}
+                    </Col>
+                ) : null}
+            </Form.Row>
         );
     }
 }
