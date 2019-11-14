@@ -1172,6 +1172,7 @@ div.multiple-inputs-2 .wfui-input-table__li:nth-child(3n) {
     > .form-check {
         display: flex;
         flex-flow: row wrap;
+        margin-bottom: 7px;
 
         > label {
             display: flex;
@@ -1228,7 +1229,7 @@ div.multiple-inputs-2 .wfui-input-table__li:nth-child(3n) {
                 margin-right: 0;
             }
 
-            *:nth-child(even) {
+            &:nth-child(even) {
                 margin-right: 0;
             }
         }
@@ -1244,7 +1245,7 @@ div.multiple-inputs-2 .wfui-input-table__li:nth-child(3n) {
                 margin-right: 0;
             }
 
-            *:nth-child(3n) {
+            &:nth-child(3n) {
                 margin-right: 0;
             }
         }
@@ -1260,7 +1261,7 @@ div.multiple-inputs-2 .wfui-input-table__li:nth-child(3n) {
                 margin-right: 0;
             }
 
-            *:nth-child(4n) {
+            &:nth-child(4n) {
                 margin-right: 0;
             }
         }
@@ -1276,7 +1277,7 @@ div.multiple-inputs-2 .wfui-input-table__li:nth-child(3n) {
                 margin-right: 0;
             }
 
-            *:nth-child(5n) {
+            &:nth-child(5n) {
                 margin-right: 0;
             }
         }
