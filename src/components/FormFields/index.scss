@@ -1162,6 +1162,186 @@ div.multiple-inputs-2 .wfui-input-table__li:nth-child(3n) {
     margin-right: 0;
 }
 
+/* WFUI Form Item: Hybrid - Radio & Checkbox
+-------------------------------------------------------------- */
+.wfui-radios-hybrid,
+.wfui-checkboxes-hybrid {
+    display: flex;
+    flex-flow: row wrap;
+
+    > .form-check {
+        display: flex;
+        flex-flow: row wrap;
+
+        > label {
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.radioHybrid,
+.checkboxHybrid {
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-left: 10px;
+
+    .wfui-form-field {
+        margin-bottom: 0;
+
+        .valid-feedback {
+            margin-top: 0;
+        }
+    }
+}
+
+.wfui-form-item div.column-count-0 .form-check {
+    width: initial;
+    margin-right: 1%;
+
+    @media (max-width: 767px) {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+// .wfui-checkboxes-hybrid .checkboxHybrid > .wfui-form-item > .wfui-form-field,
+// .wfui-radios-hybrid .radioHybrid > .wfui-form-item > .wfui-form-field {
+//     width: 100%;
+
+//     > .form-control-feedback {
+//         right: 0;
+//     }
+// }
+
+.wfui-radios-hybrid
+    .radioHybrid
+    > .wfui-form-item
+    > .wfui-form-field
+    > .form-control-feedback {
+    right: 0;
+}
+
+.wfui-radios-hybrid .radioHybrid,
+.wfui-checkboxes-hybrid .checkboxHybrid {
+    margin-left: 10px;
+}
+
+@media (max-width: 767px) {
+    div.wfui-radios-hybrid > div.radio-with-radioHybrid,
+    div.wfui-checkboxes-hybrid > div.checkbox-with-checkboxHybrid {
+        display: flex;
+
+        > label {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+
+    div.wfui-radios-hybrid .radio-with-radioHybrid .radioHybrid,
+    div.wfui-checkboxes-hybrid .checkbox-with-checkboxHybrid .checkboxHybrid {
+        width: 100%;
+        margin-left: 0;
+
+        > label {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+}
+
+div.wfui-radios-hybrid label div.radioHybrid input,
+div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
+    margin: 0;
+}
+
+.wfui-form-item div.column-count-0 .radio,
+.wfui-form-item div.column-count-0 .checkbox {
+    width: initial;
+    margin-right: 1%;
+
+    @media (max-width: 767px) {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+.wfui-form-item div.column-count-1 .radio,
+.wfui-form-item div.column-count-1 .checkbox {
+    width: 100%;
+}
+
+.wfui-form-item div.column-count-2 .radio,
+.wfui-form-item div.column-count-2 .checkbox {
+    width: 49.5%;
+    margin-right: 1%;
+
+    @media (max-width: 767px) {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+.wfui-form-item div.column-count-2 .radio:nth-child(even),
+.wfui-form-item div.column-count-2 .checkbox:nth-child(even) {
+    margin-right: 0;
+}
+
+.wfui-form-item div.column-count-3 .radio,
+.wfui-form-item div.column-count-3 .checkbox {
+    width: 32.666%;
+    margin-right: 1%;
+
+    @media (max-width: 767px) {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+.wfui-form-item div.column-count-3 .radio:nth-child(3n),
+.wfui-form-item div.column-count-3 .checkbox:nth-child(3n) {
+    margin-right: 0;
+}
+
+.wfui-form-item div.column-count-4 .radio,
+.wfui-form-item div.column-count-4 .checkbox {
+    width: 24.25%;
+    margin-right: 1%;
+
+    @media (max-width: 767px) {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+.wfui-form-item div.column-count-4 .radio:nth-child(4n),
+.wfui-form-item div.column-count-4 .checkbox:nth-child(4n) {
+    margin-right: 0;
+}
+
+.wfui-form-item div.column-count-5 .radio,
+.wfui-form-item div.column-count-5 .checkbox {
+    width: 19.2%;
+    margin-right: 1%;
+
+    @media (max-width: 767px) {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+.wfui-form-item div.column-count-5 .radio:nth-child(5n),
+.wfui-form-item div.column-count-5 .checkbox:nth-child(5n) {
+    margin-right: 0;
+}
+
+.wfui-form-item div.wfui-form-single-checkbox.wfui-form-field {
+    @media (max-width: 767px) {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
 // /* styles for FormFields */
 // button.delete-icon {
 //     text-indent: -9999px;
@@ -1628,163 +1808,7 @@ div.multiple-inputs-2 .wfui-input-table__li:nth-child(3n) {
 //     margin-right: 1%;
 // }
 
-// /* WFUI Form Item: Hybrid - Radio & Checkbox
-// -------------------------------------------------------------- */
-// .wfui-radios-hybrid,
-// .wfui-checkboxes-hybrid,
-// .wfui-radios-hybrid > div.radio,
-// .wfui-checkboxes-hybrid > div.checkbox {
-//     display: flex;
-//     flex-flow: row wrap;
-// }
 
-// .wfui-radios-hybrid > div.radio > label,
-// .wfui-checkboxes-hybrid > div.checkbox > label {
-//     display: flex;
-//     align-items: center;
-// }
-
-// .wfui-radios-hybrid div.wfui-form-item,
-// .wfui-checkboxes-hybrid div.wfui-form-item {
-//     margin: 0;
-// }
-
-// .wfui-checkboxes-hybrid .checkboxHybrid > .wfui-form-item > .wfui-form-field,
-// .wfui-radios-hybrid .radioHybrid > .wfui-form-item > .wfui-form-field {
-//     width: 100%;
-
-//     > .form-control-feedback {
-//         right: 0;
-//     }
-// }
-
-// .wfui-radios-hybrid
-//     .radioHybrid
-//     > .wfui-form-item
-//     > .wfui-form-field
-//     > .form-control-feedback {
-//     right: 0;
-// }
-
-// .wfui-radios-hybrid .radioHybrid,
-// .wfui-checkboxes-hybrid .checkboxHybrid {
-//     margin-left: 10px;
-// }
-
-// @media (max-width: 767px) {
-//     div.wfui-radios-hybrid > div.radio-with-radioHybrid,
-//     div.wfui-checkboxes-hybrid > div.checkbox-with-checkboxHybrid {
-//         display: flex;
-
-//         > label {
-//             display: flex;
-//             flex-wrap: wrap;
-//         }
-//     }
-
-//     div.wfui-radios-hybrid .radio-with-radioHybrid .radioHybrid,
-//     div.wfui-checkboxes-hybrid .checkbox-with-checkboxHybrid .checkboxHybrid {
-//         width: 100%;
-//         margin-left: 0;
-
-//         > label {
-//             display: flex;
-//             flex-wrap: wrap;
-//         }
-//     }
-// }
-
-// div.wfui-radios-hybrid label div.radioHybrid input,
-// div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
-//     margin: 0;
-// }
-
-// .wfui-form-item div.column-count-0 .radio,
-// .wfui-form-item div.column-count-0 .checkbox {
-//     width: initial;
-//     margin-right: 1%;
-
-//     @media (max-width: 767px) {
-//         width: 100%;
-//         margin-right: 0;
-//     }
-// }
-
-// .wfui-form-item div.column-count-1 .radio,
-// .wfui-form-item div.column-count-1 .checkbox {
-//     width: 100%;
-// }
-
-// .wfui-form-item div.column-count-2 .radio,
-// .wfui-form-item div.column-count-2 .checkbox {
-//     width: 49.5%;
-//     margin-right: 1%;
-
-//     @media (max-width: 767px) {
-//         width: 100%;
-//         margin-right: 0;
-//     }
-// }
-
-// .wfui-form-item div.column-count-2 .radio:nth-child(even),
-// .wfui-form-item div.column-count-2 .checkbox:nth-child(even) {
-//     margin-right: 0;
-// }
-
-// .wfui-form-item div.column-count-3 .radio,
-// .wfui-form-item div.column-count-3 .checkbox {
-//     width: 32.666%;
-//     margin-right: 1%;
-
-//     @media (max-width: 767px) {
-//         width: 100%;
-//         margin-right: 0;
-//     }
-// }
-
-// .wfui-form-item div.column-count-3 .radio:nth-child(3n),
-// .wfui-form-item div.column-count-3 .checkbox:nth-child(3n) {
-//     margin-right: 0;
-// }
-
-// .wfui-form-item div.column-count-4 .radio,
-// .wfui-form-item div.column-count-4 .checkbox {
-//     width: 24.25%;
-//     margin-right: 1%;
-
-//     @media (max-width: 767px) {
-//         width: 100%;
-//         margin-right: 0;
-//     }
-// }
-
-// .wfui-form-item div.column-count-4 .radio:nth-child(4n),
-// .wfui-form-item div.column-count-4 .checkbox:nth-child(4n) {
-//     margin-right: 0;
-// }
-
-// .wfui-form-item div.column-count-5 .radio,
-// .wfui-form-item div.column-count-5 .checkbox {
-//     width: 19.2%;
-//     margin-right: 1%;
-
-//     @media (max-width: 767px) {
-//         width: 100%;
-//         margin-right: 0;
-//     }
-// }
-
-// .wfui-form-item div.column-count-5 .radio:nth-child(5n),
-// .wfui-form-item div.column-count-5 .checkbox:nth-child(5n) {
-//     margin-right: 0;
-// }
-
-// .wfui-form-item div.wfui-form-single-checkbox.wfui-form-field {
-//     @media (max-width: 767px) {
-//         width: 100%;
-//         margin-right: 0;
-//     }
-// }
 
 // /* WFUI Form Item: Input
 // -------------------------------------------------------------- */
