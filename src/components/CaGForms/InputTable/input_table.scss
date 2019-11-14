@@ -38,7 +38,6 @@
     .wfui-input-table__li {
         display: flex;
         flex-wrap: wrap;
-        align-items: center;
         margin-bottom: .375rem;
     }
 
@@ -49,6 +48,7 @@
     .wfui-input-table__li {
         .wfui-input-table__condition {
             margin: 0 5px;
+            line-height: calc(1.5em + .75rem + 2px);
         }
     }
 }
