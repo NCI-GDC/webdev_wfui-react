@@ -27,14 +27,28 @@ class ModalDialog extends React.Component {
         }
     }
     onHandleSubmit(values) {
-        const { id, onSubmit, hideModal, destroy, initialize, initialValues } = this.props;
+        const {
+            id,
+            onSubmit,
+            hideModal,
+            destroy,
+            initialize,
+            initialValues,
+        } = this.props;
         onSubmit(values, this.props);
         hideModal(id);
         destroy();
         initialize(initialValues);
     }
     onHandleCancel() {
-        const { id, hideModal, onHide, destroy, initialize, initialValues } = this.props;
+        const {
+            id,
+            hideModal,
+            onHide,
+            destroy,
+            initialize,
+            initialValues,
+        } = this.props;
         hideModal(id);
         onHide();
         destroy();
@@ -53,14 +67,14 @@ class ModalDialog extends React.Component {
             submitting,
             notForm,
             btnSubmitStyle,
-            className
+            className,
         } = this.props;
 
         return (
             <Modal
                 show={show}
                 onHide={this.onHandleCancel}
-                bsSize="large"
+                size="lg"
                 className={classNames(`modal-${id}`, className)}
             >
                 <Modal.Header closeButton>
@@ -72,13 +86,16 @@ class ModalDialog extends React.Component {
                             bodyDisplay,
                             Object.assign({}, this.props, {
                                 setValues: this.setValues,
-                            }),
+                            })
                         )}
                 </Modal.Body>
                 <Modal.Footer>
                     {notForm ? (
                         <div>
-                            <Button className="text-uppercase" onClick={this.onHandleCancel}>
+                            <Button
+                                className="text-uppercase"
+                                onClick={this.onHandleCancel}
+                            >
                                 {txtCancel}
                             </Button>
                         </div>
@@ -96,7 +113,9 @@ class ModalDialog extends React.Component {
                             >
                                 {txtSubmit}
                             </Button>
-                            <Button onClick={this.onHandleCancel}>{txtCancel}</Button>
+                            <Button onClick={this.onHandleCancel}>
+                                {txtCancel}
+                            </Button>
                         </div>
                     )}
                 </Modal.Footer>
@@ -144,7 +163,7 @@ const ModalDialogContainer = connect(
     (state, props) => ({
         ...modalSelectors.modalsSelector(props.id)(state),
     }),
-    modalActions,
+    modalActions
 )(ModalDialog);
 
 ModalDialogContainer.actions = modalActions;
