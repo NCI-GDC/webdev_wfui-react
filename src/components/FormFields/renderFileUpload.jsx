@@ -179,7 +179,6 @@ class renderFileUpload extends React.Component {
                             className={`btn btn-outline-primary ${
                                 review ? 'review-page' : ''
                             } ${this.getFileKey(input.value.type)}`}
-                            type="button"
                             href={src}
                             target="_blank"
                         >
