@@ -167,6 +167,34 @@ $form-tag-color-hover: $form-active-color;
     }
 }
 
+.wfui-radios-hybrid,
+.wfui-checkboxes-hybrid {
+    .form-check {
+        @extend .form-control;
+        padding: $input-padding-y $input-padding-x $input-padding-y calc(#{$input-padding-x} + #{$form-check-input-gutter});
+        height: unset;
+
+        > span, > label {
+            width: 100%;
+        }
+
+        &.active {
+            background-color: $form-active-bg-color;
+            border-color: $form-active-border-color;
+            color: $form-active-color;
+        }
+
+        &, * {
+            cursor: pointer;
+
+            &.disabled, &.preview {
+                cursor: not-allowed;
+                background-color: $input-disabled-bg;
+            }
+        }
+    }
+}
+
 /* Photo
 -------------------------------------------------------------- */
 .wfui-form-photo {
