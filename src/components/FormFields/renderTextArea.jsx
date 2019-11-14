@@ -121,6 +121,7 @@ const renderTextArea = ({
                     }}
                     as="textarea"
                     rows={rows || (disabled || preview ? 0 : 5)}
+                    isInvalid={touched && (error || globalError)}
                 />
                 <FormControl.Feedback />
                 {touched && error && (
@@ -160,7 +161,7 @@ const renderTextArea = ({
                 {!(touched && (error || globalError)) &&
                 textLimit &&
                 !preview ? (
-                    <span className="wfui-form-char-count">
+                    <span className="wfui-form-char-count text-muted">
                         {`${
                             input && input.value ? input.value.length : 0
                         } / ${textLimit} characters`}
