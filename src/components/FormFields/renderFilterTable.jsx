@@ -340,9 +340,7 @@ class renderFilterTable extends React.Component {
         const { filterBy } = this.state;
         if (e.target.value) {
             this.setState({
-                filterBy: Object.assign({}, filterBy, {
-                    [e.target.getAttribute('data-name')]: e.target.value,
-                }),
+                filterBy: { ...filterBy, [e.target.getAttribute('data-name')]: e.target.value,},
             });
         }
     }
@@ -376,8 +374,12 @@ class renderFilterTable extends React.Component {
                                 onChange={this.onFilterChange}
                             >
                                 <option value="">
-                                    -- Filter by {questionInfo.title} --
-                                </option>
+                                    -- Filter by 
+{' '}
+{questionInfo.title}
+{' '}
+--
+</option>
                                 {questionInfo.options.map((option, j) => (
                                     <option key={j} value={getOptKey(option)}>
                                         {getOptVal(option)}
@@ -395,8 +397,7 @@ class renderFilterTable extends React.Component {
                     placeholder="Enter keywords"
                     value={searchTerm}
                     onChange={e =>
-                        this.setState({ searchTerm: e.target.value })
-                    }
+                        this.setState({ searchTerm: e.target.value })}
                 />
             </div>
         );
@@ -462,9 +463,10 @@ class renderFilterTable extends React.Component {
                             {`Your ${labelItem} (${fields.length})`}
                         </h4>
                         <Button
-                            variant="default"
+                            variant="primary"
                             className="btn-add-col add-btn"
                             onClick={this.onHandleAdd}
+                            plus
                         >
                             {labelAddAnother}
                         </Button>
@@ -489,8 +491,7 @@ class renderFilterTable extends React.Component {
                                     filterList={this.getFilters()}
                                     itemFormat={this.getItemFormat()}
                                     onResultsNumUpdate={count =>
-                                        this.setState({ count })
-                                    }
+                                        this.setState({ count })}
                                     simpleSearch
                                     searchLogic="or"
                                 />
