@@ -234,7 +234,7 @@ class renderFileUpload extends React.Component {
                     placeholder={placeholder}
                     disabled={disabled}
                 />
-                <div className="input-group-btn">
+                <div className="input-group-append">
                     <Button variant="primary">{txtUpload}</Button>
                 </div>
             </div>,

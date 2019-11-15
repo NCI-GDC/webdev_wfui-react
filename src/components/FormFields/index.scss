@@ -1130,18 +1130,29 @@ button.delete-icon {
 
 /* WFUI Form Item: File
 -------------------------------------------------------------- */
-.wfui-file-upload .wfui-form-file-upload-spec {
-    display: block;
-    color: #8e8e8e;
-    font-style: italic;
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    width: auto;
+.wfui-file-upload {
+    .wfui-form-file-upload-spec {
+        display: block;
+        color: #8e8e8e;
+        font-style: italic;
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        width: auto;
+
+        .filesize {
+            margin-right: 15px;
+        }
+    }
 }
-.wfui-file-upload .wfui-form-file-upload-spec .filesize {
-    margin-right: 15px;
+
+.render-file-upload {
+    .input-group-append {
+        .input-group-btn {
+            z-index: 11;
+        }
+    }
 }
 
 /* WFUI Form Item: Table
