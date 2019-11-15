@@ -234,11 +234,9 @@ class renderFileUpload extends React.Component {
                     placeholder={placeholder}
                     disabled={disabled}
                 />
-                <span className="input-group-btn">
-                    <button className="btn btn-primary" type="button">
-                        {txtUpload}
-                    </button>
-                </span>
+                <div className="input-group-btn">
+                    <Button variant="primary">{txtUpload}</Button>
+                </div>
             </div>,
         ];
         if (removing) {
