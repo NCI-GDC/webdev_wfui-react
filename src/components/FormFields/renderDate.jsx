@@ -61,7 +61,9 @@ const renderDate = ({
                 descDisplay
                     ? 'wfui-form-field-with-description'
                     : 'wfui-form-field-no-description'
-            } wfui-form-date`}
+            } wfui-form-date ${
+                touched && (error || globalError) ? 'wfui-form-with-error' : ''
+            }`}
             validationState={touched && (error || globalError) ? 'error' : null}
         >
             {!disabled ? (
