@@ -1458,6 +1458,16 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
 .wfui-type-field-table div.col-table .filters-container .filters-search {
     width: 25%;
     display: inline-block;
+
+    input {
+        padding: 5px 10px;
+        margin-bottom: 0;
+        border-radius: 5px !important;
+        border: 1px solid #c1c4c7;
+        outline: none;
+        font-size: 14px;
+        resize: none;
+    }
 }
 
 .wfui-type-field-table div.col-table .filters-container .filters-labels > * {
