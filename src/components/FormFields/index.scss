@@ -209,10 +209,16 @@ $form-tag-color-hover: $form-active-color;
     .wfui-form-datepicker > div {
         display: inline-block;
     }
-    .wfui-form-datepicker span.timezone {
-        padding-left: 5px;
-        color: #aaa;
-        font-style: italic;
+    .wfui-form-datepicker {
+        display: flex;
+        flex-wrap: wrap;
+
+        span.timezone {
+            width: 100%;
+            margin-top: 5px;
+            color: #aaa;
+            font-style: italic;
+        }
     }
 
     .react-datepicker-popper[data-placement^='bottom']
