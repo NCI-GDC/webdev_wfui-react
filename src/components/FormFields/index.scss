@@ -1110,8 +1110,16 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
 
         button.delete-icon {
             position: absolute;
-            top: 15px;
+            top: 30px;
             right: 15px;
+        }
+    }
+}
+
+.wfui-form-addAnother-conten {
+    .wfui-form-item {
+        &:last-child {
+            margin-bottom: 0;
         }
     }
 }
