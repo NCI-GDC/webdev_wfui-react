@@ -15,10 +15,12 @@ class ModalDialog extends React.Component {
         this.onHandleSubmit = this.onHandleSubmit.bind(this);
         this.onHandleCancel = this.onHandleCancel.bind(this);
     }
+
     componentWillMount() {
         const { initialize, initialValues } = this.props;
         initialize(initialValues);
     }
+
     componentWillReceiveProps(nextProps) {
         const { destroy, initialize } = this.props;
         if (!deepEqual(this.props.initialValues, nextProps.initialValues)) {
@@ -26,6 +28,7 @@ class ModalDialog extends React.Component {
             initialize(nextProps.initialValues);
         }
     }
+
     onHandleSubmit(values) {
         const {
             id,
@@ -40,6 +43,7 @@ class ModalDialog extends React.Component {
         destroy();
         initialize(initialValues);
     }
+
     onHandleCancel() {
         const {
             id,
@@ -54,6 +58,7 @@ class ModalDialog extends React.Component {
         destroy();
         initialize(initialValues);
     }
+
     render() {
         const {
             show,
@@ -68,6 +73,7 @@ class ModalDialog extends React.Component {
             notForm,
             btnSubmitStyle,
             className,
+            centered,
         } = this.props;
 
         return (
@@ -76,6 +82,7 @@ class ModalDialog extends React.Component {
                 onHide={this.onHandleCancel}
                 size="lg"
                 className={classNames(`modal-${id}`, className)}
+                centered={centered}
             >
                 <Modal.Header closeButton>
                     <h2 className="modaltitle">{label}</h2>
@@ -84,9 +91,7 @@ class ModalDialog extends React.Component {
                     {bodyDisplay &&
                         React.cloneElement(
                             bodyDisplay,
-                            Object.assign({}, this.props, {
-                                setValues: this.setValues,
-                            })
+                            { ...this.props, setValues: this.setValues,}
                         )}
                 </Modal.Body>
                 <Modal.Footer>
@@ -143,6 +148,7 @@ ModalDialog.propTypes = {
     notForm: PropTypes.bool,
     btnSubmitStyle: PropTypes.string,
     className: PropTypes.string,
+    centered: PropTypes.bool,
 };
 
 ModalDialog.defaultProps = {
