@@ -72,6 +72,7 @@ class ModalDialog extends React.Component {
             submitting,
             notForm,
             btnSubmitStyle,
+            btnCancelStyle,
             className,
             centered,
         } = this.props;
@@ -89,15 +90,16 @@ class ModalDialog extends React.Component {
                 </Modal.Header>
                 <Modal.Body>
                     {bodyDisplay &&
-                        React.cloneElement(
-                            bodyDisplay,
-                            { ...this.props, setValues: this.setValues,}
-                        )}
+                        React.cloneElement(bodyDisplay, {
+                            ...this.props,
+                            setValues: this.setValues,
+                        })}
                 </Modal.Body>
                 <Modal.Footer>
                     {notForm ? (
                         <div>
                             <Button
+                                variant={btnCancelStyle || 'outline-primary'}
                                 className="text-uppercase"
                                 onClick={this.onHandleCancel}
                             >
@@ -147,6 +149,7 @@ ModalDialog.propTypes = {
     initialValues: PropTypes.object,
     notForm: PropTypes.bool,
     btnSubmitStyle: PropTypes.string,
+    btnCancelStyle: PropTypes.string,
     className: PropTypes.string,
     centered: PropTypes.bool,
 };
