@@ -10,7 +10,7 @@ import {
     FormGroup,
     ControlLabel,
     HelpBlock,
-    Glyphicon,
+    Icon,
 } from '../index';
 
 class renderAddAnother extends React.Component {
@@ -102,7 +102,7 @@ class renderAddAnother extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-form-addAnother`}
+                        } wfui-form-addAnother`}
                     validationState={
                         this.touched && (error || globalError) ? 'error' : null
                     }
@@ -121,8 +121,8 @@ class renderAddAnother extends React.Component {
                             {fields.map((field, i) => (
                                 <Comp.Item key={i} id={field}>
                                     <Comp.Handle>
-                                        <Glyphicon
-                                            glyph="fullscreen"
+                                        <Icon
+                                            glyph="expand-arrows-alt"
                                             style={{
                                                 transform: 'rotate(45deg)',
                                             }}
@@ -151,11 +151,12 @@ class renderAddAnother extends React.Component {
                             <span className="span-plus">{labelAddAnother}</span>
                         </Button>
                     )}
-                    {error && (
+                    {/* MUSTDO: Check if this error is needed */}
+                    {/* {error && (
                         <HelpBlock className="wfui-form-error">
                             <span>{error}</span>
                         </HelpBlock>
-                    )}
+                    )} */}
                     {(this.touched || submitFailed) && globalError && (
                         <HelpBlock className="wfui-form-error">
                             <span>{globalError}</span>
