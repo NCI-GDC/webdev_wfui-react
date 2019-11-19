@@ -17,6 +17,7 @@ const renderRadios = ({
     fullWidth,
     booleanValue,
     meta: { touched, error },
+    onChange,
 }) => (
     <div
         className={classNames(
@@ -83,8 +84,12 @@ const renderRadios = ({
                                         input.onChange(
                                             e.target.value === 'true'
                                         );
+                                        if (typeof onChange === 'function')
+                                            onChange(e.target.value === 'true');
                                     } else {
                                         input.onChange(e.target.value);
+                                        if (typeof onChange === 'function')
+                                            onChange(e.target.value);
                                     }
                                 }}
                             />

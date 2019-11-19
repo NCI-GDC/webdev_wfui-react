@@ -16,6 +16,7 @@ const renderTimezone = ({
     preview,
     descDisplay,
     fullWidth,
+    onChange,
     meta: { touched, error },
 }) => (
     <div
@@ -27,7 +28,7 @@ const renderTimezone = ({
             },
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
-            { 'wfui-form-item-full-width': fullWidth },
+            { 'wfui-form-item-full-width': fullWidth }
         )}
     >
         {label && (
@@ -50,7 +51,10 @@ const renderTimezone = ({
                 <TimezonePicker
                     className="wfui-form-timezone"
                     {...input}
-                    onChange={timezone => input.onChange(timezone)}
+                    onChange={timezone => {
+                        input.onChange(timezone);
+                        if (typeof onChange === 'function') onChange(timezone);
+                    }}
                     inputProps={{
                         placeholder,
                     }}

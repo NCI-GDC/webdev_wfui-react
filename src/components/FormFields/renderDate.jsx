@@ -23,6 +23,7 @@ const renderDate = ({
     meta: { touched, error },
     utcOffsetNumber,
     datePickerProps,
+    onChange
 }) => (
         <div
             className={classNames(
@@ -61,14 +62,23 @@ const renderDate = ({
                                     ? datePickerProps.utcOffset
                                     : Number(utcOffsetNumber) / 100
                             }
-                            selected={input.value ? moment(input.value).toDate() : ''}
-                            onChange={input.onChange}
+                            selected={
+                                input.value ? moment(input.value).toDate() : ''
+                            }
+                            onChange={e => {
+                                input.onChange(e);
+                                if (typeof onChange === 'function') onChange(e);
+                            }}
                             onBlur={input.onBlur}
                             placeholderText={placeholder}
                         />
                         <span className="timezone">
-                            {timeZone} ({utcOffsetNumber})
-                                            </span>
+                            {timeZone}
+                            {' '}
+                            (
+{utcOffsetNumber}
+                            )
+</span>
                     </div>
                 ) : (
                         <p className="date-value">

@@ -16,6 +16,7 @@ const renderCheckboxes = ({
     meta: { touched, error },
     descDisplay,
     fullWidth,
+    onChange,
 }) => (
     <div
         className={classNames(
@@ -79,6 +80,8 @@ const renderCheckboxes = ({
                                         );
                                     }
                                     input.onBlur();
+                                    if (typeof onChange === 'function')
+                                        onChange(newValue);
                                     return input.onChange(newValue);
                                 }}
                             />

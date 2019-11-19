@@ -21,6 +21,7 @@ const renderField = ({
     max,
     min,
     onHandleChange,
+    onChange,
     required,
     disabled,
     preview,
@@ -38,7 +39,7 @@ const renderField = ({
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
             { answered: input.value },
-            { 'wfui-form-item-full-width': fullWidth },
+            { 'wfui-form-item-full-width': fullWidth }
         )}
     >
         {label && (
@@ -70,6 +71,7 @@ const renderField = ({
                 disabled={disabled}
                 onChange={e => {
                     input.onChange(e);
+                    if (onChange) onChange(e);
                     if (onHandleChange) onHandleChange(e);
                 }}
             />
