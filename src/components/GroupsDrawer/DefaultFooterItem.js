@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Col } from 'react-bootstrap';
 
 class DefaultFooterItem extends Component {
     render() {
         const { title, link } = this.props;
         return (
-            <li className="col-xs-6">
+            <Col xs="6" className="text-center">
                 <a href={link}>{title}</a>
-            </li>
+            </Col>
         );
     }
 }

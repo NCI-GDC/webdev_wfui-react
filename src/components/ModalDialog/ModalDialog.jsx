@@ -15,10 +15,12 @@ class ModalDialog extends React.Component {
         this.onHandleSubmit = this.onHandleSubmit.bind(this);
         this.onHandleCancel = this.onHandleCancel.bind(this);
     }
+
     componentWillMount() {
         const { initialize, initialValues } = this.props;
         initialize(initialValues);
     }
+
     componentWillReceiveProps(nextProps) {
         const { destroy, initialize } = this.props;
         if (!deepEqual(this.props.initialValues, nextProps.initialValues)) {
@@ -26,20 +28,37 @@ class ModalDialog extends React.Component {
             initialize(nextProps.initialValues);
         }
     }
+
     onHandleSubmit(values) {
-        const { id, onSubmit, hideModal, destroy, initialize, initialValues } = this.props;
+        const {
+            id,
+            onSubmit,
+            hideModal,
+            destroy,
+            initialize,
+            initialValues,
+        } = this.props;
         onSubmit(values, this.props);
         hideModal(id);
         destroy();
         initialize(initialValues);
     }
+
     onHandleCancel() {
-        const { id, hideModal, onHide, destroy, initialize, initialValues } = this.props;
+        const {
+            id,
+            hideModal,
+            onHide,
+            destroy,
+            initialize,
+            initialValues,
+        } = this.props;
         hideModal(id);
         onHide();
         destroy();
         initialize(initialValues);
     }
+
     render() {
         const {
             show,
@@ -53,32 +72,37 @@ class ModalDialog extends React.Component {
             submitting,
             notForm,
             btnSubmitStyle,
-            className
+            btnCancelStyle,
+            className,
+            centered,
         } = this.props;
 
         return (
             <Modal
                 show={show}
                 onHide={this.onHandleCancel}
-                bsSize="large"
+                size="lg"
                 className={classNames(`modal-${id}`, className)}
+                centered={centered}
             >
                 <Modal.Header closeButton>
                     <h2 className="modaltitle">{label}</h2>
                 </Modal.Header>
                 <Modal.Body>
                     {bodyDisplay &&
-                        React.cloneElement(
-                            bodyDisplay,
-                            Object.assign({}, this.props, {
-                                setValues: this.setValues,
-                            }),
-                        )}
+                        React.cloneElement(bodyDisplay, {
+                            ...this.props,
+                            setValues: this.setValues,
+                        })}
                 </Modal.Body>
                 <Modal.Footer>
                     {notForm ? (
                         <div>
-                            <Button className="text-uppercase" onClick={this.onHandleCancel}>
+                            <Button
+                                variant={btnCancelStyle || 'outline-primary'}
+                                className="text-uppercase"
+                                onClick={this.onHandleCancel}
+                            >
                                 {txtCancel}
                             </Button>
                         </div>
@@ -96,7 +120,9 @@ class ModalDialog extends React.Component {
                             >
                                 {txtSubmit}
                             </Button>
-                            <Button onClick={this.onHandleCancel}>{txtCancel}</Button>
+                            <Button onClick={this.onHandleCancel}>
+                                {txtCancel}
+                            </Button>
                         </div>
                     )}
                 </Modal.Footer>
@@ -123,7 +149,9 @@ ModalDialog.propTypes = {
     initialValues: PropTypes.object,
     notForm: PropTypes.bool,
     btnSubmitStyle: PropTypes.string,
+    btnCancelStyle: PropTypes.string,
     className: PropTypes.string,
+    centered: PropTypes.bool,
 };
 
 ModalDialog.defaultProps = {
@@ -144,7 +172,7 @@ const ModalDialogContainer = connect(
     (state, props) => ({
         ...modalSelectors.modalsSelector(props.id)(state),
     }),
-    modalActions,
+    modalActions
 )(ModalDialog);
 
 ModalDialogContainer.actions = modalActions;

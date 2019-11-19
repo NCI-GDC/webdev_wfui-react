@@ -11,6 +11,7 @@ import {
 
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { IntlProvider } from 'react-intl';
+import { Container } from '../../components';
 import * as FormFields from '../../components/FormFields';
 // import '../../components/FormFields/index.scss';
 import { fetchReducer } from '../../components/util/wfuiFetch/reducer';
@@ -205,229 +206,261 @@ class Forms extends React.Component {
         } = this.props;
 
         return (
-            <form onSubmit={handleSubmit(this.onSubmit)}>
-                <Field
-                    name="renderField"
-                    type="text"
-                    className="title-box"
-                    component={renderField}
-                    label="renderField"
-                    placeholder=""
-                    required
-                />
-                <Field
-                    name="renderField"
-                    type="text"
-                    className="title-box"
-                    component={renderField}
-                    label="renderField"
-                    placeholder=""
-                    descDisplay={
-                        <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
-                    }
-                    required
-                />
-                <Field
-                    name="renderTextArea"
-                    type="textarea"
-                    label="renderTextArea"
-                    component={renderTextArea}
-                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
-                    placeholder="renderTextArea"
-                />
-                <Field
-                    name="renderTextArea"
-                    type="textarea"
-                    label="renderTextArea"
-                    component={renderTextArea}
-                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
-                    descDisplay={
-                        <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
-                    }
-                    placeholder="renderTextArea"
-                />
-                <Field
-                    name="renderSingleCheckbox"
-                    type="checkbox"
-                    option="renderSingleCheckbox"
-                    className="active-checkbox"
-                    component={renderSingleCheckbox}
-                />
-                <Field
-                    name="renderSingleCheckbox2"
-                    type="checkbox"
-                    option="renderSingleCheckbox"
-                    className="active-checkbox"
-                    descDisplay={
-                        <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
-                    }
-                    component={renderSingleCheckbox}
-                />
-                <Field
-                    name="renderCheckboxes3"
-                    type="checkbox"
-                    component={renderCheckboxes}
-                    options={['OptionA', 'OptionB', 'OptionC']}
-                    label="renderCheckboxes"
-                    required
-                />
-                <Field
-                    name="renderCheckboxes4"
-                    type="checkbox"
-                    component={renderCheckboxes}
-                    options={['OptionA', 'OptionB', 'OptionC']}
-                    label="renderCheckboxes"
-                    descDisplay={
-                        <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
-                    }
-                    required
-                />
-                <Field
-                    name="renderRadios"
-                    type="checkbox"
-                    component={renderRadios}
-                    options={['OptionA', 'OptionB', 'OptionC']}
-                    label="renderRadios"
-                />
-                <Field
-                    name="renderRadios2"
-                    type="checkbox"
-                    component={renderRadios}
-                    options={['OptionA', 'OptionB', 'OptionC']}
-                    descDisplay={
-                        <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
-                    }
-                    label="renderRadios2"
-                />
-                <Field
-                    name="renderSelect"
-                    type="select"
-                    className="dev-stage"
-                    component={renderSelect}
-                    label="renderSelect"
-                    options={['-- Select an Option --', 'A', 'B']}
-                />
-                <Field
-                    name="renderSelect"
-                    type="select"
-                    className="dev-stage"
-                    component={renderSelect}
-                    label="renderSelect"
-                    descDisplay={
-                        <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
-                    }
-                    options={['-- Select an Option --', 'A', 'B']}
-                />
-                <Field
-                    name="renderPhoto"
-                    label="renderPhoto"
-                    component={renderPhoto}
-                />
-                <Field
-                    name="renderPhoto"
-                    label="renderPhoto"
-                    descDisplay={
-                        <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
-                    }
-                    component={renderPhoto}
-                />
-                <Field
-                    name="renderTimezone"
-                    placeholder="Choose timezone"
-                    label="renderTimezone"
-                    component={renderTimezone}
-                />
-                <Field
-                    name="renderTimezone"
-                    placeholder="Choose timezone"
-                    label="renderTimezone"
-                    component={renderTimezone}
-                    descDisplay={
-                        <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
-                    }
-                />
+            <Container>
+                <form onSubmit={handleSubmit(this.onSubmit)}>
+                    <Field
+                        name="renderField"
+                        type="text"
+                        className="title-box"
+                        component={renderField}
+                        label="renderField"
+                        placeholder=""
+                        required
+                    />
+                    <Field
+                        name="renderField-inline"
+                        type="text"
+                        className="title-box"
+                        component={renderField}
+                        label="renderField-inline"
+                        placeholder=""
+                        required
+                        inline
+                        meta={{ touched: true, error: 'erk' }}
+                    />
+                    <Field
+                        name="renderField-full"
+                        type="text"
+                        className="title-box"
+                        component={renderField}
+                        label="renderField"
+                        placeholder=""
+                        descDisplay={
+                            <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                        }
+                        required
+                    />
+                    <Field
+                        name="renderField-full-inline"
+                        type="text"
+                        className="title-box"
+                        component={renderField}
+                        label="renderField inline"
+                        placeholder=""
+                        help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
+                        descDisplay={
+                            <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                        }
+                        required
+                        inline
+                    />
+                    <Field
+                        name="renderTextArea"
+                        type="textarea"
+                        label="renderTextArea"
+                        component={renderTextArea}
+                        help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
+                        placeholder="renderTextArea"
+                        required
+                    />
+                    <Field
+                        name="renderTextArea"
+                        type="textarea"
+                        label="renderTextArea"
+                        component={renderTextArea}
+                        help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
+                        descDisplay={
+                            <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                        }
+                        placeholder="renderTextArea"
+                    />
+                    <Field
+                        name="renderSingleCheckbox"
+                        type="checkbox"
+                        option="renderSingleCheckbox"
+                        className="active-checkbox"
+                        component={renderSingleCheckbox}
+                        help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
+                    />
+                    <Field
+                        name="renderSingleCheckbox2"
+                        type="checkbox"
+                        option="renderSingleCheckbox"
+                        className="active-checkbox"
+                        descDisplay={
+                            <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                        }
+                        component={renderSingleCheckbox}
+                    />
+                    <Field
+                        name="renderCheckboxes3"
+                        type="checkbox"
+                        component={renderCheckboxes}
+                        options={['OptionA', 'OptionB', 'OptionC']}
+                        label="renderCheckboxes"
+                        required
+                    />
+                    <Field
+                        name="renderCheckboxes4"
+                        type="checkbox"
+                        component={renderCheckboxes}
+                        options={['OptionA', 'OptionB', 'OptionC']}
+                        label="renderCheckboxes"
+                        descDisplay={
+                            <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                        }
+                        required
+                    />
+                    <Field
+                        name="renderRadios"
+                        type="checkbox"
+                        component={renderRadios}
+                        options={['OptionA', 'OptionB', 'OptionC']}
+                        label="renderRadios"
+                    />
+                    <Field
+                        name="renderRadios2"
+                        type="checkbox"
+                        component={renderRadios}
+                        options={['OptionA', 'OptionB', 'OptionC']}
+                        descDisplay={
+                            <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                        }
+                        label="renderRadios2"
+                    />
+                    <Field
+                        name="renderSelect"
+                        type="select"
+                        className="dev-stage"
+                        component={renderSelect}
+                        label="renderSelect"
+                        options={['-- Select an Option --', 'A', 'B']}
+                    />
+                    <Field
+                        name="renderSelect1"
+                        type="select"
+                        className="dev-stage"
+                        component={renderSelect}
+                        label="renderSelect"
+                        descDisplay={
+                            <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                        }
+                        options={['-- Select an Option --', 'A', 'B']}
+                    />
+                    <Field
+                        name="renderPhoto"
+                        label="renderPhoto"
+                        component={renderPhoto}
+                    />
+                    <Field
+                        name="renderPhoto"
+                        label="renderPhoto"
+                        descDisplay={
+                            <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                        }
+                        component={renderPhoto}
+                    />
+                    <Field
+                        name="renderTimezone"
+                        placeholder="Choose timezone"
+                        label="renderTimezone"
+                        component={renderTimezone}
+                    />
+                    <Field
+                        name="renderTimezone2"
+                        placeholder="Choose timezone"
+                        label="renderTimezone2"
+                        component={renderTimezone}
+                        descDisplay={
+                            <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                        }
+                    />
 
-                <Field
-                    name="renderDate"
-                    label="renderDate"
-                    component={renderDate}
-                />
+                    <Field
+                        name="renderDate"
+                        label="renderDate"
+                        component={renderDate}
+                        descDisplay={
+                            <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                        }
+                    />
 
-                <Field
-                    name="renderDate2"
-                    label="renderDate2"
-                    component={renderDate}
-                />
+                    <Field
+                        name="renderDate2"
+                        label="renderDate2"
+                        component={renderDate}
+                        help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
+                    />
 
-                <Field
-                    name="renderTags"
-                    label="renderTags"
-                    component={renderTags}
-                    withContext
-                />
-                <Field
-                    name="renderTags"
-                    label="renderTags"
-                    component={renderTags}
-                    descDisplay={
-                        <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
-                    }
-                    withContext
-                />
-                <FieldArray
-                    name="renderAddAnother"
-                    type="select"
-                    component={renderAddAnother}
-                    label="renderAddAnother"
-                    childComponent={renderAddAnother => (
-                        <div>
-                            <Field
-                                name={`${renderAddAnother}.FirstName_txt`}
-                                type="text"
-                                component={renderField}
-                                label="First Name:"
-                                placeholder=""
-                            />
-                            <Field
-                                name={`${renderAddAnother}.LastName_txt`}
-                                type="text"
-                                component={renderField}
-                                label="Last Name"
-                                placeholder=""
-                                required
-                            />
-                        </div>
-                    )}
-                />
-                <FieldArray
-                    name="renderAddAnother"
-                    type="select"
-                    component={renderAddAnother}
-                    label="renderAddAnother"
-                    descDisplay={
-                        <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
-                    }
-                    childComponent={renderAddAnother => (
-                        <div>
-                            <Field
-                                name={`${renderAddAnother}.FirstName_txt`}
-                                type="text"
-                                component={renderField}
-                                label="First Name:"
-                                placeholder=""
-                            />
-                            <Field
-                                name={`${renderAddAnother}.LastName_txt`}
-                                type="text"
-                                component={renderField}
-                                label="Last Name"
-                                placeholder=""
-                                required
-                            />
-                        </div>
-                    )}
-                />
-                {/* <Field
+                    <Field
+                        name="renderTags"
+                        label="renderTags"
+                        component={renderTags}
+                        withContext
+                    />
+                    <Field
+                        name="renderTags"
+                        label="renderTags"
+                        component={renderTags}
+                        descDisplay={
+                            <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                        }
+                        withContext
+                    />
+                    <FieldArray
+                        name="renderAddAnother"
+                        type="select"
+                        component={renderAddAnother}
+                        label="renderAddAnother"
+                        childComponent={renderAddAnother => (
+                            <div>
+                                <Field
+                                    name={`${renderAddAnother}.FirstName_txt`}
+                                    type="text"
+                                    component={renderField}
+                                    label="First Name:"
+                                    placeholder=""
+                                />
+                                <Field
+                                    name={`${renderAddAnother}.LastName_txt`}
+                                    type="text"
+                                    component={renderField}
+                                    label="Last Name"
+                                    placeholder=""
+                                    required
+                                />
+                            </div>
+                        )}
+                    />
+                    <FieldArray
+                        name="renderAddAnother"
+                        type="select"
+                        component={renderAddAnother}
+                        label="renderAddAnother"
+                        descDisplay={
+                            <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                        }
+                        childComponent={renderAddAnother => (
+                            <div>
+                                <Field
+                                    name={`${renderAddAnother}.FirstName_txt`}
+                                    type="text"
+                                    component={renderField}
+                                    label="First Name:"
+                                    placeholder=""
+                                />
+                                <Field
+                                    name={`${renderAddAnother}.LastName_txt`}
+                                    type="text"
+                                    component={renderField}
+                                    label="Last Name"
+                                    placeholder=""
+                                    required
+                                />
+                            </div>
+                        )}
+                    />
+                    {/* <Field
                     name="renderFileUpload"
                     type="text"
                     component={renderFileUpload}
@@ -438,47 +471,48 @@ class Forms extends React.Component {
                     }}
                     required
                 /> */}
-                <Field
-                    name="renderFileUpload2"
-                    type="text"
-                    component={renderFileUpload}
-                    maxFileSize={10000000}
-                    fileTypes={['pdf', 'jpg', 'png', 'svg']}
-                    onUpload={() => {
-                        console.log('aaaa');
-                    }}
-                    descDisplay={
-                        <Description content="2 Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
-                    }
-                    required
-                    disabled
-                    preview
-                />
-                <IntlProvider locale="en">
-                    <Fields
-                        name="s-a58460e0-fe38-11e8-9b5d-ed7302dc0e63"
-                        names={[
-                            's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-39eb33d0-…ca71.q-39f10030-1d9c-11e9-aa2a-d95a697aca71.value',
-                            's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-39eb33d0-…ca71.q-39f5e230-1d9c-11e9-aa2a-d95a697aca71.value',
-                            's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-97fc5690-…2ae9.q-97fd8f10-1e4e-11e9-a51d-1d46c95f2ae9.value',
-                            's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-97fc5690-…2ae9.q-97feeea0-1e4e-11e9-a51d-1d46c95f2ae9.value',
-                            's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-b7832b60-…2ae9.q-b7843cd0-1e4e-11e9-a51d-1d46c95f2ae9.value',
-                            's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-b7832b60-…2ae9.q-b785c370-1e4e-11e9-a51d-1d46c95f2ae9.value',
-                        ]}
-                        type="select"
-                        label="TEST"
+                    <Field
+                        name="renderFileUpload2"
+                        type="text"
+                        component={renderFileUpload}
+                        maxFileSize={10000000}
+                        fileTypes={['pdf', 'jpg', 'png', 'svg']}
+                        onUpload={() => {
+                            console.log('aaaa');
+                        }}
+                        descDisplay={
+                            <Description content="2 Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                        }
                         required
-                        component={renderEventSelect}
-                        changeFieldValue={() => {}}
-                        events={events}
-                        feeCategories={feeCategories}
-                        disabled={false}
-                        preview={false}
-                        placeholder=""
+                        disabled
+                        preview
                     />
-                </IntlProvider>
-                <input type="submit" />
-            </form>
+                    <IntlProvider locale="en">
+                        <Fields
+                            name="s-a58460e0-fe38-11e8-9b5d-ed7302dc0e63"
+                            names={[
+                                's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-39eb33d0-…ca71.q-39f10030-1d9c-11e9-aa2a-d95a697aca71.value',
+                                's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-39eb33d0-…ca71.q-39f5e230-1d9c-11e9-aa2a-d95a697aca71.value',
+                                's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-97fc5690-…2ae9.q-97fd8f10-1e4e-11e9-a51d-1d46c95f2ae9.value',
+                                's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-97fc5690-…2ae9.q-97feeea0-1e4e-11e9-a51d-1d46c95f2ae9.value',
+                                's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-b7832b60-…2ae9.q-b7843cd0-1e4e-11e9-a51d-1d46c95f2ae9.value',
+                                's-a58460e0-fe38-11e8-9b5d-ed7302dc0e63.s-b7832b60-…2ae9.q-b785c370-1e4e-11e9-a51d-1d46c95f2ae9.value',
+                            ]}
+                            type="select"
+                            label="TEST"
+                            required
+                            component={renderEventSelect}
+                            changeFieldValue={() => {}}
+                            events={events}
+                            feeCategories={feeCategories}
+                            disabled={false}
+                            preview={false}
+                            placeholder=""
+                        />
+                    </IntlProvider>
+                    <input type="submit" />
+                </form>
+            </Container>
         );
     }
 }

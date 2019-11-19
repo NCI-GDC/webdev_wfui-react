@@ -7,18 +7,18 @@ class DefaultGroupsItem extends Component {
         const { icon, link, title, size } = this.props;
 
         return (
-            <div className="col-xs-3">
+            <Col xs="4">
                 <div className="popover-content__card">
                     <a href={link}>
-                        <Row>
-                            <Col xs={12}>
+                        <Row className="justify-content-md-center">
+                            <Col className="text-center">
                                 <Image src={icon} width={size} height={size} />
                             </Col>
                         </Row>
-                        <h4>{title}</h4>
+                        <h4 className="text-center">{title}</h4>
                     </a>
                 </div>
-            </div>
+            </Col>
         );
     }
 }

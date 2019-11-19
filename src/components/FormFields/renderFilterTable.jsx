@@ -340,9 +340,10 @@ class renderFilterTable extends React.Component {
         const { filterBy } = this.state;
         if (e.target.value) {
             this.setState({
-                filterBy: Object.assign({}, filterBy, {
+                filterBy: {
+                    ...filterBy,
                     [e.target.getAttribute('data-name')]: e.target.value,
-                }),
+                },
             });
         }
     }
@@ -461,13 +462,16 @@ class renderFilterTable extends React.Component {
                         <h4 className="col-h4">
                             {`Your ${labelItem} (${fields.length})`}
                         </h4>
-                        <Button
-                            variant="default"
-                            className="btn-add-col add-btn"
-                            onClick={this.onHandleAdd}
-                        >
-                            {labelAddAnother}
-                        </Button>
+                        <div className="col-header-btn-container">
+                            <Button
+                                variant="primary"
+                                className="btn-add-col add-btn"
+                                onClick={this.onHandleAdd}
+                                plus
+                            >
+                                {labelAddAnother}
+                            </Button>
+                        </div>
                     </div>
 
                     <div className="col-table">

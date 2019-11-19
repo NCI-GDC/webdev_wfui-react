@@ -1,8 +1,14 @@
 import React from 'react';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { reduxForm, Field, Fields, FieldArray } from 'redux-form';
-import { reducer as formReducer } from 'redux-form';
+import {
+    reduxForm,
+    Field,
+    Fields,
+    FieldArray,
+    reducer as formReducer,
+} from 'redux-form';
+
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { IntlProvider } from 'react-intl';
 import * as FormFields from '../../components/FormFields';
@@ -21,8 +27,8 @@ const store = createStore(
     {},
     compose(
         applyMiddleware(thunk),
-        window.devToolsExtension ? window.devToolsExtension() : f => f,
-    ),
+        window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
 );
 
 const {
@@ -73,8 +79,46 @@ class Forms extends React.Component {
                     component={renderField}
                     label="renderField"
                     placeholder=""
-                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
                     required
+                    disabled
+                />
+                <Field
+                    name="renderField-inline"
+                    type="text"
+                    className="title-box"
+                    component={renderField}
+                    label="renderField-inline"
+                    placeholder=""
+                    required
+                    inline
+                    disabled
+                />
+                <Field
+                    name="renderField-full"
+                    type="text"
+                    className="title-box"
+                    component={renderField}
+                    label="renderField"
+                    placeholder=""
+                    descDisplay={
+                        <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                    }
+                    required
+                    disabled
+                />
+                <Field
+                    name="renderField-full-inline"
+                    type="text"
+                    className="title-box"
+                    component={renderField}
+                    label="renderField inline"
+                    placeholder=""
+                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
+                    descDisplay={
+                        <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                    }
+                    required
+                    inline
                     disabled
                 />
                 <Field
@@ -85,6 +129,19 @@ class Forms extends React.Component {
                     help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
                     placeholder="renderTextArea"
                     disabled
+                    required
+                />
+                <Field
+                    name="renderTextArea"
+                    type="textarea"
+                    label="renderTextArea"
+                    component={renderTextArea}
+                    help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
+                    descDisplay={
+                        <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                    }
+                    placeholder="renderTextArea"
+                    disabled
                 />
                 <Field
                     name="renderSingleCheckbox"
@@ -92,6 +149,17 @@ class Forms extends React.Component {
                     option="renderSingleCheckbox"
                     className="active-checkbox"
                     help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
+                    component={renderSingleCheckbox}
+                    disabled
+                />
+                <Field
+                    name="renderSingleCheckbox2"
+                    type="checkbox"
+                    option="renderSingleCheckbox"
+                    className="active-checkbox"
+                    descDisplay={
+                        <Description content="Text Text Text Text Text TextText Text TextText Text TextText Text TextText Text Text" />
+                    }
                     component={renderSingleCheckbox}
                     disabled
                 />

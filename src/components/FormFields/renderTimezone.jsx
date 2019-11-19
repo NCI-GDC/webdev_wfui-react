@@ -3,7 +3,7 @@
 import React, { cloneElement } from 'react';
 import TimezonePicker from 'react-timezone';
 import classNames from 'classnames';
-import { FormGroup, ControlLabel, HelpBlock } from '../index';
+import { FormGroup, ControlLabel, HelpBlock, Form, Col } from '../index';
 
 const renderTimezone = ({
     className,
@@ -17,8 +17,9 @@ const renderTimezone = ({
     descDisplay,
     fullWidth,
     meta: { touched, error },
+    inline,
 }) => (
-    <div
+    <Form.Row
         className={classNames(
             className,
             'wfui-form-item',
@@ -27,18 +28,29 @@ const renderTimezone = ({
             },
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
-            { 'wfui-form-item-full-width': fullWidth },
+            { 'wfui-form-item-full-width': fullWidth }
         )}
     >
         {label && (
-            <div className="wfui-form-label">
+            <Col xs={12} lg={inline ? 2 : 12} className="wfui-form-label">
                 <ControlLabel>
                     {label}
                     {required && <b className="required"> *</b>}
                 </ControlLabel>
-            </div>
+            </Col>
         )}
         <FormGroup
+            as={Col}
+            xs={12}
+            lg={
+                inline && label
+                    ? descDisplay && !preview
+                        ? 4
+                        : 10
+                    : descDisplay && !preview
+                    ? 6
+                    : 12
+            }
             className={`wfui-form-field ${
                 descDisplay
                     ? 'wfui-form-field-with-description'
@@ -63,9 +75,22 @@ const renderTimezone = ({
                     <span>{error}</span>
                 </HelpBlock>
             )}
+            {help && !preview && (
+                <HelpBlock className="wfui-form-help text-muted">
+                    <div dangerouslySetInnerHTML={{ __html: help }} />
+                </HelpBlock>
+            )}
         </FormGroup>
-        {descDisplay && !preview ? cloneElement(descDisplay) : ''}
-    </div>
+        {descDisplay && !preview ? (
+            <Col
+                className="wfui-form-description"
+                xs={12}
+                lg={{ span: 6, offset: 0 }}
+            >
+                {cloneElement(descDisplay)}
+            </Col>
+        ) : null}
+    </Form.Row>
 );
 
 export default renderTimezone;

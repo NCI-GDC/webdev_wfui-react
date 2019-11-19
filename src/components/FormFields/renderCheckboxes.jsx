@@ -1,7 +1,7 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Form, FormGroup, ControlLabel, HelpBlock, Checkbox } from '../index';
+import { Form, FormGroup, ControlLabel, HelpBlock, Col } from '../index';
 
 const renderCheckboxes = ({
     className,
@@ -16,8 +16,9 @@ const renderCheckboxes = ({
     meta: { touched, error },
     descDisplay,
     fullWidth,
+    inline,
 }) => (
-    <div
+    <Form.Row
         className={classNames(
             className,
             'wfui-form-item',
@@ -30,14 +31,25 @@ const renderCheckboxes = ({
         )}
     >
         {label && (
-            <div className="wfui-form-label">
+            <Col xs={12} lg={inline ? 2 : 12} className="wfui-form-label">
                 <ControlLabel>
                     {label}
                     {required && <b className="required"> *</b>}
                 </ControlLabel>
-            </div>
+            </Col>
         )}
         <FormGroup
+            as={Col}
+            xs={12}
+            lg={
+                inline && label
+                    ? descDisplay && !preview
+                        ? 4
+                        : 10
+                    : descDisplay && !preview
+                    ? 6
+                    : 12
+            }
             className={`wfui-form-field ${
                 descDisplay
                     ? 'wfui-form-field-with-description'
@@ -45,70 +57,96 @@ const renderCheckboxes = ({
             } wfui-form-checkboxes`}
             validationState={touched && (error || globalError) ? 'error' : null}
         >
-            {options.map((option, i) => {
-                const _key = typeof option === 'string' ? option : option.key;
-                const _option =
-                    typeof option === 'string' ? option : option.value;
-                return (
-                    <Form.Check
-                        type="checkbox"
-                        key={i}
-                        className={
-                            input.value && input.value.includes(_key)
-                                ? 'active'
-                                : ''
-                        }
-                    >
-                        <Form.Check.Label>
-                            <Form.Check.Input
-                                type="checkbox"
-                                name={input.name}
-                                value={_key}
-                                checked={
-                                    input.value && input.value.includes(_key)
-                                }
-                                disabled={disabled}
-                                onChange={e => {
-                                    const newValue = [...input.value];
-                                    if (e.target.checked) {
-                                        newValue.push(_key);
-                                    } else {
-                                        newValue.splice(
-                                            newValue.indexOf(_key),
-                                            1
-                                        );
+            <div className="wfui-form-checkbox-group-container">
+                {options.map((option, i) => {
+                    const _key =
+                        typeof option === 'string' ? option : option.key;
+                    const _option =
+                        typeof option === 'string' ? option : option.value;
+                    return (
+                        <Form.Check
+                            type="checkbox"
+                            key={i}
+                            className={`wfui-form-checkbox-container${
+                                input.value && input.value.includes(_key)
+                                    ? ' active'
+                                    : ''
+                            }${disabled ? ' disabled' : ''}${
+                                preview ? ' preview' : ''
+                            }`}
+                        >
+                            <Form.Check.Label>
+                                <Form.Check.Input
+                                    type="checkbox"
+                                    name={input.name}
+                                    value={_key}
+                                    checked={
+                                        input.value &&
+                                        input.value.includes(_key)
                                     }
-                                    input.onBlur();
-                                    return input.onChange(newValue);
-                                }}
-                            />
-                            <span
-                                dangerouslySetInnerHTML={{ __html: _option }}
-                            />
-                            {option.required && <b className="required"> *</b>}
-                        </Form.Check.Label>
-                    </Form.Check>
-                );
-            })}
+                                    disabled={disabled}
+                                    onChange={e => {
+                                        const newValue = [...input.value];
+                                        if (e.target.checked) {
+                                            newValue.push(_key);
+                                        } else {
+                                            newValue.splice(
+                                                newValue.indexOf(_key),
+                                                1
+                                            );
+                                        }
+                                        input.onBlur();
+                                        return input.onChange(newValue);
+                                    }}
+                                    isInvalid={
+                                        touched && (error || globalError)
+                                    }
+                                />
+                                <span
+                                    dangerouslySetInnerHTML={{
+                                        __html: _option,
+                                    }}
+                                />
+                                {option.required && (
+                                    <b className="required"> *</b>
+                                )}
+                            </Form.Check.Label>
+                        </Form.Check>
+                    );
+                })}
+            </div>
             {touched && error && (
-                <HelpBlock className="wfui-form-error">
+                <Form.Control.Feedback
+                    className="wfui-form-error"
+                    type="invalid"
+                >
                     <span>{error}</span>
-                </HelpBlock>
+                </Form.Control.Feedback>
             )}
             {touched && globalError && (
-                <HelpBlock className="wfui-form-error">
+                <Form.Control.Feedback
+                    className="wfui-form-error"
+                    type="invalid"
+                >
                     <span>{globalError}</span>
-                </HelpBlock>
+                </Form.Control.Feedback>
             )}
             {help && !preview && (
-                <div
-                    className="wfui-form-help"
-                    dangerouslySetInnerHTML={{ __html: help }}
-                />
+                <HelpBlock className="wfui-form-help text-muted">
+                    <div dangerouslySetInnerHTML={{ __html: help }} />
+                </HelpBlock>
             )}
         </FormGroup>
-        {descDisplay && !preview ? cloneElement(descDisplay) : ''}
-    </div>
+        {descDisplay && !preview ? (
+            <Col
+                className="wfui-form-description"
+                xs={12}
+                lg={{ span: 6, offset: 0 }}
+            >
+                {cloneElement(descDisplay)}
+            </Col>
+        ) : null}
+    </Form.Row>
 );
 
 export default renderCheckboxes;

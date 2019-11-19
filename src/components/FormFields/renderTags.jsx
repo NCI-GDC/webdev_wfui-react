@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TagsInput from 'react-tagsinput';
 
-import { FormGroup, ControlLabel, HelpBlock } from '../index';
+import { FormGroup, ControlLabel, HelpBlock, Form, Col } from '../index';
 
 class renderTags extends React.Component {
     constructor(props) {
@@ -38,12 +38,13 @@ class renderTags extends React.Component {
             preview,
             descDisplay,
             fullWidth,
+            inline,
             meta: { touched, error },
         } = this.props;
         const { suggestions, tags } = this.state;
 
         return (
-            <div
+            <Form.Row
                 className={classNames(
                     className,
                     'wfui-form-item',
@@ -54,14 +55,29 @@ class renderTags extends React.Component {
                 )}
             >
                 {label && (
-                    <div className="wfui-form-label">
+                    <Col
+                        xs={12}
+                        lg={inline ? 2 : 12}
+                        className="wfui-form-label"
+                    >
                         <ControlLabel>
                             {label}
                             {required && <b className="required"> *</b>}
                         </ControlLabel>
-                    </div>
+                    </Col>
                 )}
                 <FormGroup
+                    as={Col}
+                    xs={12}
+                    lg={
+                        inline && label
+                            ? descDisplay && !preview
+                                ? 4
+                                : 10
+                            : descDisplay && !preview
+                            ? 6
+                            : 12
+                    }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
@@ -96,14 +112,21 @@ class renderTags extends React.Component {
                         </HelpBlock>
                     )}
                     {help && !preview && (
-                        <div
-                            className="wfui-form-help"
-                            dangerouslySetInnerHTML={{ __html: help }}
-                        />
+                        <HelpBlock className="wfui-form-help text-muted">
+                            <div dangerouslySetInnerHTML={{ __html: help }} />
+                        </HelpBlock>
                     )}
                 </FormGroup>
-                {descDisplay && !preview ? cloneElement(descDisplay) : ''}
-            </div>
+                {descDisplay && !preview ? (
+                    <Col
+                        className="wfui-form-description"
+                        xs={12}
+                        lg={{ span: 6, offset: 0 }}
+                    >
+                        {cloneElement(descDisplay)}
+                    </Col>
+                ) : null}
+            </Form.Row>
         );
     }
 }
