@@ -16,6 +16,7 @@ const renderSingleCheckbox = ({
     descDisplay,
     fullWidth,
     meta: { touched, error },
+    onChange,
 }) => (
     <div
         className={classNames(
@@ -50,11 +51,12 @@ const renderSingleCheckbox = ({
                         {...input}
                         onChange={e => {
                             input.onChange(e);
-                            this.props.onChange(e);
+                            if (typeof onChange === 'function') onChange(e);
                         }}
                         disabled={disabled}
                     />
-                    <span dangerouslySetInnerHTML={{ __html: option }} />{' '}
+                    <span dangerouslySetInnerHTML={{ __html: option }} />
+{' '}
                     {required && <b className="required">*</b>}
                 </Form.Check.Label>
             </Form.Check>
