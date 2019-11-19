@@ -48,6 +48,10 @@ const renderSingleCheckbox = ({
                     <Form.Check.Input
                         type="checkbox"
                         {...input}
+                        onChange={e => {
+                            input.onChange(e);
+                            this.props.onChange(e);
+                        }}
                         disabled={disabled}
                     />
                     <span dangerouslySetInnerHTML={{ __html: option }} />{' '}
