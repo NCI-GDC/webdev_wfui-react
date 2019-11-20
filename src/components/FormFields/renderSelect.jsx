@@ -3,7 +3,14 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { FormGroup, FormControl, ControlLabel, HelpBlock } from '../index';
+import {
+    FormGroup,
+    FormControl,
+    ControlLabel,
+    HelpBlock,
+    Form,
+    Col,
+} from '../index';
 
 const renderSelect = ({
     className,
@@ -17,10 +24,11 @@ const renderSelect = ({
     globalError,
     descDisplay,
     fullWidth,
+    inline,
     meta: { touched, error },
     onChange,
 }) => (
-    <div
+    <Form.Row
         className={classNames(
             className,
             'wfui-form-item',
@@ -28,18 +36,30 @@ const renderSelect = ({
             { 'wfui-form-disabled': disabled },
             { 'wfui-form-preview': preview },
             { answered: input.value },
-            { 'wfui-form-item-full-width': fullWidth }
+            { 'wfui-form-item-full-width': fullWidth },
+            { 'wfui-form-with-description': descDisplay }
         )}
     >
         {label && (
-            <div className="wfui-form-label">
+            <Col xs={12} lg={inline ? 2 : 12} className="wfui-form-label">
                 <ControlLabel>
                     {label}
                     {required && <b className="required"> *</b>}
                 </ControlLabel>
-            </div>
+            </Col>
         )}
         <FormGroup
+            as={Col}
+            xs={12}
+            lg={
+                inline && label
+                    ? descDisplay && !preview
+                        ? 4
+                        : 10
+                    : descDisplay && !preview
+                    ? 6
+                    : 12
+            }
             className={`wfui-form-field ${
                 descDisplay
                     ? 'wfui-form-field-with-description'
@@ -54,6 +74,7 @@ const renderSelect = ({
                     if (typeof onChange === 'function') onChange(e);
                 }}
                 as="select"
+                isInvalid={touched && (error || globalError)}
             >
                 {options.map((option, i) => {
                     const _key =
@@ -74,24 +95,33 @@ const renderSelect = ({
                 })}
             </FormControl>
             {touched && error && (
-                <HelpBlock className="wfui-form-error">
+                <Form.Control.Feedback
+                    className="wfui-form-error"
+                    type="invalid"
+                >
                     <span>{error}</span>
-                </HelpBlock>
+                </Form.Control.Feedback>
             )}
             {touched && globalError && (
-                <HelpBlock className="wfui-form-error">
+                <Form.Control.Feedback
+                    className="wfui-form-error"
+                    type="invalid"
+                >
                     <span>{globalError}</span>
-                </HelpBlock>
+                </Form.Control.Feedback>
             )}
             {help && !preview && (
-                <div
-                    className="wfui-form-help"
-                    dangerouslySetInnerHTML={{ __html: help }}
-                />
+                <HelpBlock className="wfui-form-help text-muted">
+                    <div dangerouslySetInnerHTML={{ __html: help }} />
+                </HelpBlock>
             )}
         </FormGroup>
-        {descDisplay && !preview ? cloneElement(descDisplay) : ''}
-    </div>
+        {descDisplay && !preview ? (
+            <Col className="wfui-form-description" xs={12} lg={6}>
+                {cloneElement(descDisplay)}
+            </Col>
+        ) : null}
+    </Form.Row>
 );
 
 export default renderSelect;

@@ -131,14 +131,27 @@ class DraggableItem extends React.Component {
                                 return connectDragSource(
                                     <div
                                         key={i}
-                                        className="wfui-draggable-handle"
+                                        className="wfui-form-addAnother-draggable wfui-draggable-handle"
+                                    >
+                                        {child}
+                                    </div>
+                                );
+                            }
+                            if (child.props.type === 'DeleteButton') {
+                                return (
+                                    <div
+                                        className="wfui-form-addAnother-delete wfui-draggable-delete"
+                                        key={i}
                                     >
                                         {child}
                                     </div>
                                 );
                             }
                             return (
-                                <div className="wfui-draggable-content" key={i}>
+                                <div
+                                    className="wfui-form-addAnother-content wfui-draggable-content"
+                                    key={i}
+                                >
                                     {child}
                                 </div>
                             );

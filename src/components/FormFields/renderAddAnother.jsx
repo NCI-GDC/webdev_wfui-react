@@ -7,6 +7,9 @@ import {
     Draggable,
     DraggableWithContext,
     Button,
+    Form,
+    Col,
+    Row,
     FormGroup,
     ControlLabel,
     HelpBlock,
@@ -19,6 +22,7 @@ class renderAddAnother extends React.Component {
         this.init = false;
         this.touched = false;
     }
+
     componentDidUpdate() {
         const { fields, minimumItem, defaultValue } = this.props;
         if (!this.init) {
@@ -35,6 +39,7 @@ class renderAddAnother extends React.Component {
             this.init = true;
         }
     }
+
     render() {
         const {
             className,
@@ -55,13 +60,15 @@ class renderAddAnother extends React.Component {
             descDisplay,
             fullWidth,
             defaultValue,
+            inline,
         } = this.props;
 
         const Comp = withContext ? DraggableWithContext : Draggable;
         const DeleteButton = ({ index }) => {
             if (!disabled && fields.length > minimumItem) {
                 return (
-                    <a
+                    <Button
+                        variant="link"
                         className="delete-icon"
                         onClick={() => {
                             fields.remove(index);
@@ -69,14 +76,14 @@ class renderAddAnother extends React.Component {
                         }}
                     >
                         Delete
-                    </a>
+                    </Button>
                 );
             }
             return null;
         };
 
         return (
-            <div
+            <Form.Row
                 className={classNames(
                     className,
                     'wfui-form-item',
@@ -86,23 +93,38 @@ class renderAddAnother extends React.Component {
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
-                    { 'wfui-form-item-full-width': fullWidth },
+                    { 'wfui-form-item-full-width': fullWidth }
                 )}
             >
                 {label && (
-                    <div className="wfui-form-label">
+                    <Col
+                        xs={12}
+                        lg={inline ? 2 : 12}
+                        className="wfui-form-label"
+                    >
                         <ControlLabel>
                             {label}
                             {required && <b className="required"> *</b>}
                         </ControlLabel>
-                    </div>
+                    </Col>
                 )}
                 <FormGroup
+                    as={Col}
+                    xs={12}
+                    lg={
+                        inline && label
+                            ? descDisplay && !preview
+                                ? 4
+                                : 10
+                            : descDisplay && !preview
+                            ? 6
+                            : 9
+                    }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                        } wfui-form-addAnother`}
+                    } wfui-form-addAnother`}
                     validationState={
                         this.touched && (error || globalError) ? 'error' : null
                     }
@@ -121,15 +143,15 @@ class renderAddAnother extends React.Component {
                             {fields.map((field, i) => (
                                 <Comp.Item key={i} id={field}>
                                     <Comp.Handle>
-                                        <Icon
-                                            glyph="expand-arrows-alt"
-                                            style={{
-                                                transform: 'rotate(45deg)',
-                                            }}
-                                        />
+                                        <Icon icon="arrows-alt" />
                                     </Comp.Handle>
                                     {childComponent(field, i)}
-                                    {<DeleteButton index={i} />}
+                                    {
+                                        <DeleteButton
+                                            type="DeleteButton"
+                                            index={i}
+                                        />
+                                    }
                                 </Comp.Item>
                             ))}
                         </Comp>
@@ -137,30 +159,42 @@ class renderAddAnother extends React.Component {
                     {(!draggable || disabled) &&
                         fields.map((field, i) => (
                             <div className="wfui-form-addAnother-item" key={i}>
-                                {childComponent(field, i)}
-                                {<DeleteButton index={i} />}
+                                <div className="wfui-form-addAnother-content">
+                                    {childComponent(field, i)}
+                                </div>
+                                <div className="wfui-form-addAnother-delete">
+                                    <DeleteButton
+                                        type="DeleteButton"
+                                        index={i}
+                                    />
+                                </div>
                             </div>
                         ))}
                     {!disabled && (
-                        <Button
-                            variant="default"
-                            onClick={() => {
-                                fields.push(defaultValue);
-                            }}
-                        >
-                            <span className="span-plus">{labelAddAnother}</span>
-                        </Button>
+                        <div className="wfui-form-addAnother-btn-container">
+                            <Button
+                                variant="outline-primary"
+                                onClick={() => {
+                                    fields.push(defaultValue);
+                                }}
+                                plus
+                            >
+                                <span className="span-plus">
+                                    {labelAddAnother}
+                                </span>
+                            </Button>
+                        </div>
                     )}
                     {/* MUSTDO: Check if this error is needed */}
                     {/* {error && (
-                        <HelpBlock className="wfui-form-error">
+                        <Form.Control.Feedback className="wfui-form-error">
                             <span>{error}</span>
-                        </HelpBlock>
+                        </Form.Control.Feedback>
                     )} */}
                     {(this.touched || submitFailed) && globalError && (
-                        <HelpBlock className="wfui-form-error">
+                        <Form.Control.Feedback className="wfui-form-error">
                             <span>{globalError}</span>
-                        </HelpBlock>
+                        </Form.Control.Feedback>
                     )}
                     {help && !preview && (
                         <div
@@ -169,8 +203,16 @@ class renderAddAnother extends React.Component {
                         />
                     )}
                 </FormGroup>
-                {descDisplay && !preview ? cloneElement(descDisplay) : ''}
-            </div>
+                {descDisplay && !preview ? (
+                    <Col
+                        className="wfui-form-description"
+                        xs={12}
+                        lg={{ span: 6, offset: 0 }}
+                    >
+                        {cloneElement(descDisplay)}
+                    </Col>
+                ) : null}
+            </Form.Row>
         );
     }
 }

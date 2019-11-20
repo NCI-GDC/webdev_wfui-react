@@ -7,8 +7,8 @@ import uncontrollable from 'uncontrollable';
 
 import * as Popper from 'react-popper';
 import DropdownContext from 'react-overlays/DropdownContext';
-import DropdownMenu from './DropdownMenu';
 import DropdownToggle from 'react-overlays/DropdownToggle';
+import DropdownMenu from './DropdownMenu';
 
 const propTypes = {
     /**
@@ -151,7 +151,7 @@ class Dropdown extends React.Component {
         if (!this.menu) return null;
 
         const { itemSelector } = this.props;
-        let items = qsa(this.menu, itemSelector);
+        const items = qsa(this.menu, itemSelector);
 
         let index = items.indexOf(current) + offset;
         index = Math.max(0, Math.min(index, items.length));
@@ -185,7 +185,7 @@ class Dropdown extends React.Component {
         }
 
         const { itemSelector } = this.props;
-        let first = qsa(this.menu, itemSelector)[0];
+        const first = qsa(this.menu, itemSelector)[0];
         if (first && first.focus) first.focus();
     }
 
@@ -210,7 +210,7 @@ class Dropdown extends React.Component {
 
         switch (key) {
             case 'ArrowUp': {
-                let next = this.getNextFocusedChild(target, -1);
+                const next = this.getNextFocusedChild(target, -1);
                 if (next && next.focus) next.focus();
                 event.preventDefault();
 
@@ -221,7 +221,7 @@ class Dropdown extends React.Component {
                 if (!this.props.show) {
                     this.toggleOpen(event);
                 } else {
-                    let next = this.getNextFocusedChild(target, 1);
+                    const next = this.getNextFocusedChild(target, 1);
                     if (next && next.focus) next.focus();
                 }
                 return;
@@ -234,7 +234,7 @@ class Dropdown extends React.Component {
     };
 
     toggleOpen(event) {
-        let show = !this.props.show;
+        const show = !this.props.show;
         this.props.onToggle(show, event);
     }
 

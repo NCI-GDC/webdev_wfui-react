@@ -1,5 +1,6 @@
 import React, { cloneElement, Component } from 'react';
 import PropTypes from 'prop-types';
+import { Row } from 'react-bootstrap';
 import DrawerButton from '../Drawer/DrawerButton';
 import DefaultGroupsItem from './DefaultGroupsItem';
 import DefaultFooterItem from './DefaultFooterItem';
@@ -25,7 +26,7 @@ class GroupsDrawer extends Component {
             })
         );
         return cloneElement(groupsContainer, {
-            className: 'groups-drawer-body row',
+            className: 'groups-drawer-body',
             children: groupsComponent,
         });
     }
@@ -43,11 +44,10 @@ class GroupsDrawer extends Component {
             })
         );
 
-        return (
-            <ul className="groups-drawer-footer links-list--primary">
-                {cloneElement(footerContainer, { children: footerComponent })}
-            </ul>
-        );
+        return cloneElement(footerContainer, {
+            className: 'groups-drawer-footer',
+            children: footerComponent,
+        });
     }
 
     renderPopover() {
@@ -112,8 +112,8 @@ GroupsDrawer.defaultProps = {
     useCaret: false,
     placement: 'bottom',
     popoverTitle: 'MY GROUPS',
-    groupsContainer: <div />,
-    footerContainer: <li className="list-inline" />,
+    groupsContainer: <Row />,
+    footerContainer: <Row />,
     spinnerFormat: defaultSpinner,
     groupsItemFormat: <DefaultGroupsItem />,
     footerItemFormat: <DefaultFooterItem />,

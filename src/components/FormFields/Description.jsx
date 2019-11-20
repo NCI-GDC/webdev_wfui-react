@@ -17,6 +17,7 @@ class Description extends Component {
         this._onClickCloseViewImage = this._onClickCloseViewImage.bind(this);
         this.onESCKeyup = this.onESCKeyup.bind(this);
     }
+
     _onClickToggleViewImage(e) {
         if (this.state.descriptionImagePopUpIsOpen) {
             this._onClickCloseViewImage();
@@ -26,20 +27,23 @@ class Description extends Component {
             ReactDOM.render(this.portalContent, this.PORTAL);
         }
     }
+
     _onClickCloseViewImage(e) {
         this.setState({ descriptionImagePopUpIsOpen: false });
-        var portalNode = document.getElementById('descriptionImagePortalId');
+        const portalNode = document.getElementById('descriptionImagePortalId');
         document.body.removeChild(portalNode);
     }
+
     onESCKeyup(e) {
         if (e.keyCode == 27 && this.state.descriptionImagePopUpIsOpen) {
             this._onClickCloseViewImage();
         }
     }
+
     componentWillMount() {
         const { src, maxImageWidth, maxImageHeight } = this.props;
         if (src) {
-            var img = new Image();
+            const img = new Image();
             img.src = src;
             img.onload = e => {
                 if (e.target.width > maxImageWidth) {
@@ -62,41 +66,40 @@ class Description extends Component {
         }
         document.addEventListener('keyup', this.onESCKeyup);
     }
+
     componentWillUnmount() {
         document.removeEventListener('keyup', this.onESCKeyup);
     }
+
     render() {
-        var { src, imageTitle, content, type, classNames, errors } = this.props;
-        var { imgWidth, imgHeight } = this.state;
+        const { src, imageTitle, content, type, classNames, errors } = this.props;
+        const { imgWidth, imgHeight } = this.state;
         if (!content && !src) {
             return <noscript />;
         }
 
-        var image_config = {
+        const image_config = {
             onClick: this._onClickToggleViewImage,
         };
 
-        //check error flag
-        var errorClassName = '';
+        // check error flag
+        let errorClassName = '';
         if (errors) {
             errorClassName += ' wfui-description--theme-error';
         }
 
-        var containerClassName =
-            'wfui-description wfui-description--' +
-            type +
-            errorClassName +
-            ' ' +
-            classNames;
+        const containerClassName = `wfui-description ${classNames}${errorClassName} ${
+            type ? `wfui-description--${type}` : ''
+        }`;
 
-        //based off of adding the dialog to the <body> tag,
-        //we remove/add the content directly instead of toggling --theme-visible.
-        var imageDialogClassName =
+        // based off of adding the dialog to the <body> tag,
+        // we remove/add the content directly instead of toggling --theme-visible.
+        const imageDialogClassName =
             'wfui-description__imageDialog--theme-visible';
-        var imageDialogOverlayClassName =
+        const imageDialogOverlayClassName =
             'wfui-description__imageDialogOverlay--theme-visible';
 
-        //if imageSrc is passed, setup all image content and dialog
+        // if imageSrc is passed, setup all image content and dialog
         if (src) {
             var imageContent = (
                 <div
@@ -110,7 +113,7 @@ class Description extends Component {
                     />
                 </div>
             );
-            var imageDialogContent = (
+            const imageDialogContent = (
                 <div
                     className="wfui-description__imageDialog"
                     onClick={this._onClickCloseViewImage}
@@ -146,7 +149,7 @@ class Description extends Component {
                 </div>
             );
 
-            //content to be rendered for the dialog and overlay/blanket
+            // content to be rendered for the dialog and overlay/blanket
             this.portalContent = (
                 <div>
                     {imageDialogContent}
@@ -157,14 +160,14 @@ class Description extends Component {
                 </div>
             );
 
-            //create div node for where the dialog will be
+            // create div node for where the dialog will be
             this.PORTAL = document.createElement('div');
-            //add appropriate id so we can track it
+            // add appropriate id so we can track it
             this.PORTAL.setAttribute('id', 'descriptionImagePortalId');
         } /* END IF IMAGESRC ====== */
 
-        //RENDER
-        if (typeof content == 'string' && !src) {
+        // RENDER
+        if (typeof content === 'string' && !src) {
             return (
                 <div
                     className={containerClassName}
@@ -173,7 +176,8 @@ class Description extends Component {
                     }}
                 />
             );
-        } else if (typeof content == 'string' && src) {
+        }
+        if (typeof content === 'string' && src) {
             return (
                 <div className={containerClassName}>
                     <div
@@ -187,7 +191,8 @@ class Description extends Component {
                     </div>
                 </div>
             );
-        } else if (typeof content == 'object' && src) {
+        }
+        if (typeof content === 'object' && src) {
             return (
                 <div className={containerClassName}>
                     <div className="wfui-description__textContainer">
@@ -198,10 +203,9 @@ class Description extends Component {
                     </div>
                 </div>
             );
-        } else {
-            //typeof(content)==object && !src
-            return <div className={containerClassName}>{content}</div>;
         }
+        // typeof(content)==object && !src
+        return <div className={containerClassName}>{content}</div>;
     }
 }
 
@@ -223,7 +227,7 @@ Description.propTypes = {
 
 Description.defaultProps = {
     content: '',
-    type: 'theme-grey',
+    type: '',
     classNames: '',
     errors: '',
     maxImageWidth: 800,

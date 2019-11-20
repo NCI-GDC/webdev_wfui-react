@@ -57,5 +57,5 @@ const data = {
     ],
 };
 
-const example = <GroupsDrawer data={data} />;
+const example = <GroupsDrawer data={data} variant="light" />;
 export default example;
