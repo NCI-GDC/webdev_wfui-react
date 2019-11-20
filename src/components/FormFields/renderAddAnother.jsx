@@ -13,7 +13,6 @@ import {
     FormGroup,
     ControlLabel,
     HelpBlock,
-    Glyphicon,
     Icon,
 } from '../index';
 
@@ -186,11 +185,12 @@ class renderAddAnother extends React.Component {
                             </Button>
                         </div>
                     )}
-                    {error && (
+                    {/* MUSTDO: Check if this error is needed */}
+                    {/* {error && (
                         <Form.Control.Feedback className="wfui-form-error">
                             <span>{error}</span>
                         </Form.Control.Feedback>
-                    )}
+                    )} */}
                     {(this.touched || submitFailed) && globalError && (
                         <Form.Control.Feedback className="wfui-form-error">
                             <span>{globalError}</span>

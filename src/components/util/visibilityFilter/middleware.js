@@ -4,14 +4,12 @@ import merge from 'deepmerge';
 
 const switchurl = state => {
     const flattenedState = Object.keys(state).reduce(
-        (obj, key) =>
-            ({
-                
-                ...obj,
-                ...(typeof state[key] === 'string'
-                    ? { [key]: state[key] }
-                    : state[key])
-            }),
+        (obj, key) => ({
+            ...obj,
+            ...(typeof state[key] === 'string'
+                ? { [key]: state[key] }
+                : state[key]),
+        }),
         {}
     );
     const parsedURL = urlParse(window.location.href.split('#/').pop(), true);

@@ -26,6 +26,7 @@ const renderSelect = ({
     fullWidth,
     inline,
     meta: { touched, error },
+    onChange,
 }) => (
     <Form.Row
         className={classNames(
@@ -68,7 +69,10 @@ const renderSelect = ({
         >
             <FormControl
                 {...input}
-                onChange={input.onChange}
+                onChange={e => {
+                    input.onChange(e);
+                    if (typeof onChange === 'function') onChange(e);
+                }}
                 as="select"
                 isInvalid={touched && (error || globalError)}
             >

@@ -16,6 +16,7 @@ const renderCheckboxes = ({
     meta: { touched, error },
     descDisplay,
     fullWidth,
+    onChange,
     inline,
 }) => (
     <Form.Row
@@ -96,6 +97,8 @@ const renderCheckboxes = ({
                                             );
                                         }
                                         input.onBlur();
+                                        if (typeof onChange === 'function')
+                                            onChange(newValue);
                                         return input.onChange(newValue);
                                     }}
                                     isInvalid={

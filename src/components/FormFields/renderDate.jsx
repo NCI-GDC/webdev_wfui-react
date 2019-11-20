@@ -23,6 +23,7 @@ const renderDate = ({
     meta: { touched, error },
     utcOffsetNumber,
     datePickerProps,
+    onChange,
     inline,
 }) => (
     <Form.Row
@@ -79,7 +80,10 @@ const renderDate = ({
                         selected={
                             input.value ? moment(input.value).toDate() : ''
                         }
-                        onChange={input.onChange}
+                        onChange={e => {
+                            input.onChange(e);
+                            if (typeof onChange === 'function') onChange(e);
+                        }}
                         onBlur={input.onBlur}
                         placeholderText={placeholder || 'Choose Date'}
                     />

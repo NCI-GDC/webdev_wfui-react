@@ -19,9 +19,10 @@ class renderTags extends React.Component {
     }
 
     handleChange(tags) {
-        const { input } = this.props;
+        const { input, onChange } = this.props;
         this.setState({ tags });
         input.onChange(tags);
+        if (typeof onChange === 'function') onChange(tags);
     }
 
     render() {
@@ -82,7 +83,7 @@ class renderTags extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-form-tags`}
+                        } wfui-form-tags`}
                     validationState={touched && error ? 'error' : null}
                 >
                     {disabled ? (
@@ -94,12 +95,12 @@ class renderTags extends React.Component {
                                     ))}
                                 </ul>
                             ) : (
-                                <span className="no-item">( No Items )</span>
-                            )}
+                                    <span className="no-item">( No Items )</span>
+                                )}
                         </div>
                     ) : (
-                        <TagsInput value={tags} onChange={this.handleChange} />
-                    )}
+                            <TagsInput value={tags} onChange={this.handleChange} />
+                        )}
 
                     {touched && error && (
                         <HelpBlock className="wfui-form-error">

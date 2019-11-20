@@ -28,6 +28,7 @@ const renderField = ({
     max,
     min,
     onHandleChange,
+    onChange,
     required,
     disabled,
     preview,
@@ -89,6 +90,7 @@ const renderField = ({
                 disabled={disabled}
                 onChange={e => {
                     input.onChange(e);
+                    if (onChange) onChange(e);
                     if (onHandleChange) onHandleChange(e);
                 }}
                 isInvalid={touched && (error || globalError)}

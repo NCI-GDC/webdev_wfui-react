@@ -16,6 +16,7 @@ const renderTimezone = ({
     preview,
     descDisplay,
     fullWidth,
+    onChange,
     meta: { touched, error },
     inline,
 }) => (
@@ -62,7 +63,10 @@ const renderTimezone = ({
                 <TimezonePicker
                     className="wfui-form-timezone"
                     {...input}
-                    onChange={timezone => input.onChange(timezone)}
+                    onChange={timezone => {
+                        input.onChange(timezone);
+                        if (typeof onChange === 'function') onChange(timezone);
+                    }}
                     inputProps={{
                         placeholder,
                     }}
