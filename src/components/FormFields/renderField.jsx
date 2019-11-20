@@ -23,7 +23,6 @@ const renderField = ({
     postfix,
     help,
     placeholder,
-    type,
     maxlength,
     max,
     min,
@@ -83,7 +82,6 @@ const renderField = ({
                 placeholder={
                     placeholder || placeholder === '' ? placeholder : label
                 }
-                type={type}
                 maxLength={maxlength}
                 min={min}
                 max={max}

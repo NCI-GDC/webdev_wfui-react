@@ -18,7 +18,6 @@ const renderTextArea = ({
     label,
     help,
     placeholder,
-    type,
     onHandleChange,
     required,
     disabled,
@@ -110,7 +109,6 @@ const renderTextArea = ({
                 >
                     <FormControl
                         {...input}
-                        type={type}
                         placeholder={
                             placeholder || placeholder === '' ? placeholder : label
                         }
