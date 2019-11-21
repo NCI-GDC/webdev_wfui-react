@@ -11,6 +11,7 @@ export const extLink = ($, _config) => {
         extSpanClass: '',
         extCssExclude: '',
         extCssExplicit: '',
+        extPageExclude: [],
         extExclude: '',
         extImgClass: 0,
         extInclude: '',
@@ -29,6 +30,12 @@ export const extLink = ($, _config) => {
                 'jQuery is not found: extlink is dependent on jQuery.'
             );
             return false;
+        }
+
+        let pageExclude = false;
+        if (config.extPageExclude.includes(window.location.pathname)) {
+            console.log('excluded!');
+            pageExclude = true;
         }
 
         // Strip the host name down, removing ports, subdomains, or www.
@@ -106,10 +113,10 @@ export const extLink = ($, _config) => {
 
         $(
             `a:not(.${config.extClass}, .${config.mailtoClass}), area:not(.${
-                config.extClass
+            config.extClass
             }, .${config.mailtoClass})`,
             context
-        ).each(function(el) {
+        ).each(function (el) {
             try {
                 let url = '';
                 if (typeof this.href === 'string') {
@@ -206,8 +213,8 @@ export const extLink = ($, _config) => {
             }
         }
 
-        $(external_links).click(function(e) {
-            if (!promptExclude || !this.href.match(promptExclude)) {
+        $(external_links).click(function (e) {
+            if (!pageExclude && (!promptExclude || !this.href.match(promptExclude))) {
                 return popupClickHandler(e, this);
             }
         });
@@ -245,17 +252,17 @@ export const extLink = ($, _config) => {
                     if (config.extSpanClass === config.mailtoClass) {
                         $link.append(
                             `<span class="${
-                                config.extSpanClass
+                            config.extSpanClass
                             }"><span class="element-invisible sr-only"> ${
-                                config.mailtoLabel
+                            config.mailtoLabel
                             }</span></span>`
                         );
                     } else {
                         $link.append(
                             `<span class="${
-                                config.extSpanClass
+                            config.extSpanClass
                             }"><span class="element-invisible sr-only"> ${
-                                config.extLabel
+                            config.extLabel
                             }</span></span>`
                         );
                     }
