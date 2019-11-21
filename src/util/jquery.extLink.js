@@ -11,7 +11,6 @@ export const extLink = ($, _config) => {
         extSpanClass: '',
         extCssExclude: '',
         extCssExplicit: '',
-        extPageExclude: [],
         extExclude: '',
         extImgClass: 0,
         extInclude: '',
@@ -21,6 +20,7 @@ export const extLink = ($, _config) => {
         mailtoClass: 0,
         mailtoLabel: '(link sends e-mail)',
         promptExclude: false,
+        promptExcludePage: [],
     };
     const config = Object.assign({}, defaultConfig, _config);
 
@@ -32,10 +32,9 @@ export const extLink = ($, _config) => {
             return false;
         }
 
-        let pageExclude = false;
-        if (config.extPageExclude.includes(window.location.pathname)) {
-            console.log('excluded!');
-            pageExclude = true;
+        let promptPageExclude = false;
+        if (config.promptExcludePage.includes(window.location.pathname)) {
+            promptPageExclude = true;
         }
 
         // Strip the host name down, removing ports, subdomains, or www.
@@ -214,7 +213,7 @@ export const extLink = ($, _config) => {
         }
 
         $(external_links).click(function (e) {
-            if (!pageExclude && (!promptExclude || !this.href.match(promptExclude))) {
+            if (!promptPageExclude && (!promptExclude || !this.href.match(promptExclude))) {
                 return popupClickHandler(e, this);
             }
         });
