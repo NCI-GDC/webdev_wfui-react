@@ -10,16 +10,19 @@ class AdvanceModeButton extends React.Component {
     }
 
     render() {
-        const { onChange, label } = this.props;
+        const { onChange, label, id } = this.props;
         const { advanced } = this.state;
+
         return (
             <div className="advance-mode-button">
-                <span className="title">{label}</span>
-                <label className="switch">
+                {label && label.length ? (
+                    <span className="title">{label}</span>
+                ) : null}
+                <label htmlFor={id || 'togBtn-advance-mode'} className="switch">
                     <input
                         name="advance"
                         type="checkbox"
-                        id="togBtn-advance-mode"
+                        id={id || 'togBtn-advance-mode'}
                         value={advanced}
                         onChange={() => {
                             this.setState({ advanced: !advanced });
@@ -38,6 +41,8 @@ class AdvanceModeButton extends React.Component {
 
 AdvanceModeButton.propTypes = {
     onChange: PropTypes.func,
+    label: PropTypes.string,
+    id: PropTypes.string,
 };
 AdvanceModeButton.defaultProps = {
     onChange: f => f,
