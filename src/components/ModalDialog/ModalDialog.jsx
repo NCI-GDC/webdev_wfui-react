@@ -8,7 +8,7 @@ import deepEqual from 'deep-equal';
 import * as modalReducers from './reducer';
 import * as modalSelectors from './selector';
 import * as modalActions from './action';
-import ModalDialogFinalForm from './ModalDialogFinalForm';
+import FinalForm from './FinalForm';
 
 class ModalDialog extends React.Component {
     constructor() {
@@ -108,24 +108,24 @@ class ModalDialog extends React.Component {
                             </Button>
                         </div>
                     ) : (
-                        <div>
-                            <Button
-                                type="submit"
-                                variant={btnSubmitStyle || 'primary'}
-                                onClick={
-                                    handleSubmit
-                                        ? handleSubmit(this.onHandleSubmit)
-                                        : this.onHandleSubmit
-                                }
-                                disabled={invalid || submitting}
-                            >
-                                {txtSubmit}
-                            </Button>
-                            <Button onClick={this.onHandleCancel}>
-                                {txtCancel}
-                            </Button>
-                        </div>
-                    )}
+                            <div>
+                                <Button
+                                    type="submit"
+                                    variant={btnSubmitStyle || 'primary'}
+                                    onClick={
+                                        handleSubmit
+                                            ? handleSubmit(this.onHandleSubmit)
+                                            : this.onHandleSubmit
+                                    }
+                                    disabled={invalid || submitting}
+                                >
+                                    {txtSubmit}
+                                </Button>
+                                <Button onClick={this.onHandleCancel}>
+                                    {txtCancel}
+                                </Button>
+                            </div>
+                        )}
                 </Modal.Footer>
             </Modal>
         );
@@ -179,6 +179,6 @@ const ModalDialogContainer = connect(
 ModalDialogContainer.actions = modalActions;
 ModalDialogContainer.selectors = modalSelectors;
 ModalDialogContainer.reducers = modalReducers;
-ModalDialogContainer.ModalDialogFinalForm = ModalDialogFinalForm;
+ModalDialogContainer.FinalForm = FinalForm;
 
 export default ModalDialogContainer;
