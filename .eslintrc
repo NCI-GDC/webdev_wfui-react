@@ -8,12 +8,6 @@
       "indent": 0,
       "no-console": "warn",
       "no-underscore-dangle": "off",
-      "prefer-promise-reject-errors": [
-         "error",
-         {
-            "allowEmptyReject": true
-         }
-      ],
       "import/prefer-default-export": 0,
       "react/require-default-props": 0,
       "react/jsx-indent": 0,
@@ -32,13 +26,12 @@
       "react/jsx-wrap-multilines": [
          "error",
          {
-            "assignment": "parens-new-line"
+            "default": "parens-new-line"
          }
       ],
       "prettier/prettier": [
          "error"
-      ],
-      "import/no-webpack-loader-syntax": "off",
+      ]
    },
    "plugins": [
       "prettier"

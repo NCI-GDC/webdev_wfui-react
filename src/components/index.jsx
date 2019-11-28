@@ -44,6 +44,7 @@ import * as CascadingPane from './CascadingPane';
 import ThreeColumnView from './ThreeColumnView/ThreeColumnView';
 import * as Search from './Search';
 import * as FormFields from './FormFields';
+import Field from './FormFields/Field';
 import * as FilterFields from './Filters/renderFilterItem';
 import Description from './FormFields/Description';
 import WFUIDropdown from './WFUIDropdown/WFUIDropdown';
@@ -106,6 +107,7 @@ export {
     Search,
     CollapsibleFilter,
     ReactMarkdown,
+    Field,
     Filters,
     FilterItem,
     FilterFields,
