@@ -10,12 +10,7 @@ import StorySelection from './StorySelection';
 import { Description, Grid } from '../../components';
 
 // Load Styles for development
-import '!style-loader!css-loader!sass-loader!../../components/CaGForms/Description/description.scss';
-import '!style-loader!css-loader!sass-loader!../../components/CaGForms/Grid/grid.scss';
-import '!style-loader!css-loader!sass-loader!../../components/CaGForms/InputField/input_field.scss';
-import '!style-loader!css-loader!sass-loader!../../components/CaGForms/InputTable/input_table.scss';
-import '!style-loader!css-loader!sass-loader!../../components/CaGForms/Listbox/listbox.scss';
-import '!style-loader!css-loader!sass-loader!../../components/CaGForms/Selection/selection.scss';
+import '!style-loader!css-loader!sass-loader!../../components/bootstrap-styles.scss';
 
 storiesOf('CaG Forms', module)
     .add('Description', () => StoryDescription)

@@ -3,9 +3,8 @@ import { storiesOf } from '@storybook/react';
 import StoryFormField from './StoryFormField';
 import StoryDisabled from './StoryDisabled';
 import StoryPreview from './StoryPreview';
-import 'bootstrap/dist/css/bootstrap.css';
-import '!style-loader!css-loader!sass-loader!../../components/Button/index.scss';
-import '!style-loader!css-loader!sass-loader!../../components/FormFields/index.scss';
+
+import '!style-loader!css-loader!sass-loader!../../components/bootstrap-styles.scss';
 
 // import { WebFormWithContext, reducers } from '../../components/Forms/';
 

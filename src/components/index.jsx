@@ -49,7 +49,7 @@ import Description from './FormFields/Description';
 import WFUIDropdown from './WFUIDropdown/WFUIDropdown';
 import Notifications from './Notifications/Notifications';
 import Query from './util/Query';
-import AdvanceModeButton from './AdvanceModeButton/AdvanceModeButton';
+import SwitchButton from './SwitchButton/SwitchButton';
 import Button from './Button/Button';
 
 import * as Utils from './util';
@@ -132,7 +132,7 @@ export {
     BarLoader,
     BeatLoader,
     Query,
-    AdvanceModeButton,
+    SwitchButton,
     // React Bootstrap Hubs
     Glyphicon,
     Icon,

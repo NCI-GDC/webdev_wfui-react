@@ -1,26 +1,11 @@
 .wfui-description {
     display: table;
-    &--theme-blue {
-        background-color: none;
-        color: blue;
-        border: 1px solid #b1b1b1;
-        padding: 10px;
-        margin: 10px 0;
-    }
-    &--theme-red {
-        background-color: #fddcd9;
-        color: black;
-        border: none;
-        padding: 10px;
-        margin: 10px 0;
-    }
-    &--theme-purple {
-        background-color: #f6f1f8;
-        color: black;
-        border: none;
-        padding: 10px;
-        margin: 10px 0;
-    }
+    color: #000;
+    padding: $CaG-description-padding-y $CaG-description-padding-x;
+    margin-bottom: $CaG-description-margin-bottom;
+    border: $CaG-description-border-width solid transparent;
+    @include border-radius($CaG-description-border-radius);
+
     &__textContainer {
         display: table-cell;
 
@@ -44,9 +29,7 @@
         -webkit-hyphens: auto;
         hyphens: auto;
     }
-    &--theme-error {
-        border: 1px solid #c62828;
-    }
+
     &__imageContainer {
         display: table-cell;
 
@@ -85,6 +68,7 @@
             }
         }
     }
+
     &__imageDialog {
         position: fixed;
         top: 30%;
@@ -158,4 +142,14 @@
             filter: alpha(opacity=0); /* For IE8 and earlier */
         }
     }
+
+    > *:last-child {
+        margin-bottom: 0;
+    }
 }
+
+@each $color, $value in $CaG-colors {
+    .wfui-description--theme-#{$color} {
+      @include wfui-description-variant(CaG-color-level($color, $CaG-description-bg-level), CaG-color-level($color, $CaG-description-border-level), $black);
+    }
+  }

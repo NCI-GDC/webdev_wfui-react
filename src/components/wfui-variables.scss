@@ -1,0 +1,26 @@
+// Icon Button
+$btn-icon-margin: 10px;
+
+// CaGForms
+$CaG-colors: () !default;
+$CaG-colors: map-merge(
+    (
+        "blue":       $blue,
+        "purple":     $purple,
+        "red":        $red,
+        "error":      $danger
+    ),
+    $CaG-colors
+);
+
+$CaG-color-interval:      8% !default;
+
+$CaG-description-padding-y:                   .75rem !default;
+$CaG-description-padding-x:                   1.25rem !default;
+$CaG-description-margin-bottom:               1rem !default;
+$CaG-description-border-radius:               $border-radius !default;
+$CaG-description-link-font-weight:            $font-weight-bold !default;
+$CaG-description-border-width:                $border-width !default;
+
+$CaG-description-bg-level:                    -10 !default;
+$CaG-description-border-level:                -9 !default;

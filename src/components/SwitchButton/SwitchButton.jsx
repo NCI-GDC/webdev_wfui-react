@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class AdvanceModeButton extends React.Component {
+class SwitchButton extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -10,26 +10,35 @@ class AdvanceModeButton extends React.Component {
     }
 
     render() {
-        const { onChange, label, id } = this.props;
+        const { onChange, label, id, disabled } = this.props;
         const { advanced } = this.state;
 
         return (
-            <div className="advance-mode-button">
+            <div className="switch-container">
                 {label && label.length ? (
-                    <span className="title">{label}</span>
+                    <span className="switch-title">{label}</span>
                 ) : null}
-                <label htmlFor={id || 'togBtn-advance-mode'} className="switch">
+                <label
+                    htmlFor={id || 'switch'}
+                    className={`switch-btn ${disabled ? 'disabled' : ''}`}
+                >
                     <input
                         name="advance"
                         type="checkbox"
-                        id={id || 'togBtn-advance-mode'}
+                        id={id || 'switch'}
+                        className="switch-input"
                         value={advanced}
+                        disabled={disabled}
                         onChange={() => {
                             this.setState({ advanced: !advanced });
                             onChange(!advanced);
                         }}
                     />
-                    <div className="slider round">
+                    <div
+                        className={`switch-slider round ${
+                            disabled ? 'disabled' : ''
+                        }`}
+                    >
                         <span className="on">ON</span>
                         <span className="off">OFF</span>
                     </div>
@@ -39,13 +48,14 @@ class AdvanceModeButton extends React.Component {
     }
 }
 
-AdvanceModeButton.propTypes = {
+SwitchButton.propTypes = {
     onChange: PropTypes.func,
     label: PropTypes.string,
     id: PropTypes.string,
+    disabled: PropTypes.bool,
 };
-AdvanceModeButton.defaultProps = {
+SwitchButton.defaultProps = {
     onChange: f => f,
 };
 
-export default AdvanceModeButton;
+export default SwitchButton;

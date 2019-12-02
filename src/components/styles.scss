@@ -1,7 +1,13 @@
 // Load Styles for development
+@import './wfui-functions.scss';
+@import './wfui-variables.scss';
+@import './wfui-mixins.scss';
+
 @import './Flexbox/index.scss';
 
-@import './AdvanceModeButton/index.scss';
+@import './Button/index.scss';
+
+@import './SwitchButton/index.scss';
 
 @import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 @import './CaGForms/Description/description.scss';
@@ -13,7 +19,6 @@
 
 // @import './FullCalendar/fullcalendar.min.css';
 @import './DashboardBox/index.scss';
-@import './Button/index.scss';
 @import './DashboardCard/index.scss';
 @import './UserDrawer/index.scss';
 @import './FormFields/index.scss';
