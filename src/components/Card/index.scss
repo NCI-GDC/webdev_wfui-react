@@ -1,7 +1,9 @@
-.wfui-card-container {
-    position: relative;
+.wfui-card {
+    &-container {
+        position: relative;
+    }
 
-    .wfui-card-hover {
+    &-hover {
         display: block;
         position: absolute;
         top: 0;
@@ -13,74 +15,88 @@
         background: white;
     }
 
-    .card-none {
-        display: none;
+    .card {
+        &-none {
+            display: none;
+        }
+
+        &-fade {
+            opacity: 0;
+            transition: .3s ease;
+        }
+
+        &-slide-in {
+            &-top,
+            &-bottom {
+                overflow: hidden;
+                height: 0;
+                transition: 0.5s ease;
+            }
+
+            &-right,
+            &-left {
+                overflow: hidden;
+                width: 0;
+                transition: 0.5s ease;
+            }
+
+            &-top {
+                bottom: 100%;
+            }
+            
+            &-bottom {
+                top: 100%;
+            }
+
+            &-right {
+                left: 100%;
+            }
+        }
     }
 
-    &:hover .card-none {
-        display: block;
+    &:hover {
+        .card {
+            &-none {
+                display: block;
+            }
+
+            &-fade {
+                opacity: 1;
+            }
+
+            &-slide-in{
+                &-top,
+                &-bottom {
+                    height: 100%;
+                }
+
+                &-right,
+                &-left {
+                    width: 100%;
+                }
+
+                &-top {
+                    bottom: 0;
+                }
+
+                &-bottom {
+                    top: 0;
+                }
+
+                &-right {
+                    left: 0;
+                }
+            }
+        }
     }
 
-    .card-fade {
-        opacity: 0;
-        transition: .3s ease;
-    }
-
-    &:hover .card-fade {
-        opacity: 1;
-    }
-
-    .card-slide-in-top {
-        bottom: 100%;
-        overflow: hidden;
-        height: 0;
-        transition: 0.5s ease;
-    }
-
-    &:hover .card-slide-in-top {
-        height: 100%;
-        bottom: 0;
-    }
-
-    .card-slide-in-bottom {
-        top: 100%;
-        overflow: hidden;
-        height: 0;
-        transition: 0.5s ease;
-    }
-
-    &:hover .card-slide-in-bottom {
-        height: 100%;
-        top: 0;
-    }
-
-    .card-slide-in-right {
-        left: 100%;
-        overflow: hidden;
-        width: 0;
-        transition: 0.5s ease;
-    }
-
-    &:hover .card-slide-in-right {
-        width: 100%;
-        left: 0;
-    }
-
-    .card-slide-in-left {
-        overflow: hidden;
-        width: 0;
-        transition: 0.5s ease;
-    }
-
-    &:hover .card-slide-in-left {
-        width: 100%;
-    }
-
-    .middle {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
+    &-hover {
+        .middle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+        }
     }
 }
