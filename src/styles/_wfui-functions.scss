@@ -1,0 +1,12 @@
+@function CaG-color($key: "blue") {
+    @return map-get($CaG-colors, $key);
+}
+
+// Request a theme color level
+@function CaG-color-level($color-name: "blue", $level: 0) {
+    $color: CaG-color($color-name);
+    $color-base: if($level > 0, $black, $white);
+    $level: abs($level);
+  
+    @return mix($color-base, $color, $level * $CaG-color-interval);
+}

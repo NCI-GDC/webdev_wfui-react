@@ -1,0 +1,64 @@
+// Icon Button
+$btn-icon-margin: 10px;
+
+// CaGForms
+$CaG-colors: () !default;
+$CaG-colors: map-merge(
+    (
+        "grey":       $gray-600,
+        "blue":       $blue,
+        "purple":     $purple,
+        "red":        $red,
+        "error":      $danger
+    ),
+    $CaG-colors
+);
+
+$CaG-color-interval:      8% !default;
+
+$CaG-description-padding-y:                   .75rem !default;
+$CaG-description-padding-x:                   1.25rem !default;
+$CaG-description-margin-bottom:               1rem !default;
+$CaG-description-border-radius:               $border-radius !default;
+$CaG-description-link-font-weight:            $font-weight-bold !default;
+$CaG-description-border-width:                $border-width !default;
+
+$CaG-description-bg-level:                    -10 !default;
+$CaG-description-border-level:                -9 !default;
+
+// Dashboard Box
+
+$dashboard-box-spacer-y:                     .75rem !default;
+$dashboard-box-spacer-x:                     1.25rem !default;
+$dashboard-box-border-width:                 $border-width !default;
+$dashboard-box-border-color:                 rgba($black, .125) !default;
+
+$dashboard-box-margin:                       $grid-gutter-width / 2 !default;
+
+$dashboard-box-cap-bg:                       rgba($black, .03) !default;
+$dashboard-box-highlight-bg:                 $dashboard-box-cap-bg !default;
+
+// Dashboard Card
+
+$dashboard-card-spacer-y:                     .75rem !default;
+$dashboard-card-spacer-x:                     1.25rem !default;
+$dashboard-card-border-width:                 $border-width !default;
+$dashboard-card-border-color:                 rgba($black, .125) !default;
+
+$dashboard-card-border-top-width:                 5px !default;
+$dashboard-card-border-top-color:                 $black !default;
+
+$dashboard-card-cap-bg:                       rgba($black, .03) !default;
+$dashboard-card-highlight-bg:                 $dashboard-card-cap-bg !default;
+$dashboard-card-highlight-border-radius:      $border-radius !default;
+$dashboard-card-cap-color:                    null !default;
+$dashboard-card-color:                        null !default;
+$dashboard-card-bg:                           $white !default;
+
+$dashboard-card-img-overlay-padding:          1.25rem !default;
+
+$dashboard-card-margin:                       $grid-gutter-width / 2 !default;
+
+$dashboard-card-columns-count:                3 !default;
+$dashboard-card-columns-gap:                  1.25rem !default;
+$dashboard-card-columns-margin:               $dashboard-card-spacer-y !default;

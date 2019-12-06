@@ -1,0 +1,10 @@
+// _header.scss
+
+.header {
+  @include box-shadow-base;
+  background-color: $white;
+  margin: {
+    bottom: 1rem;
+  }
+  overflow: auto;
+}

@@ -10,24 +10,24 @@
   border-radius: 0;
 
   .popover-title {
-    @include font-base(13px, 600);
+    // @include font-base(13px, 600);
     background-color: $white;
     border-bottom: none;
     display: flex;
     text-align: center;
   }
   .popover-content {
-    h4 {
-      margin: {
-        top: $spacer-sm;
-        bottom: $spacer-sm;
-      }
-    }
+    // h4 {
+    //   margin: {
+    //     top: $spacer-sm;
+    //     bottom: $spacer-sm;
+    //   }
+    // }
     .row {
-      margin: {
-        top: $spacer-md;
-        bottom: $spacer-md;
-      }
+    //   margin: {
+    //     top: $spacer-md;
+    //     bottom: $spacer-md;
+    //   }
       &:first-child {
         margin-top: 0;
       }

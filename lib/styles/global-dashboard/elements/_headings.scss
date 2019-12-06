@@ -1,0 +1,25 @@
+// _headings.scss
+
+h1 {
+  @include font-base(20px, 600);
+  margin: $spacer-lg auto;
+}
+
+h2 {
+  @include font-base(13px, 600);
+  text-transform: uppercase;
+  margin: $spacer-md auto;
+}
+
+h3 {
+  @include font-base(13px, 600);
+  text-transform: uppercase;
+  margin: $spacer-md auto;
+}
+
+h4 {
+  @include font-base(13px);
+  text-transform: uppercase;
+  display: inline;
+  margin: 0;
+}

@@ -9,8 +9,7 @@ import StoryListbox from './StoryListbox';
 import StorySelection from './StorySelection';
 import { Description, Grid } from '../../components';
 
-// Load Styles for development
-import '!style-loader!css-loader!sass-loader!../../components/bootstrap-styles.scss';
+import '!style-loader!css-loader!sass-loader!../../styles/_wfui-bootstrap-styles.scss';
 
 storiesOf('CaG Forms', module)
     .add('Description', () => StoryDescription)

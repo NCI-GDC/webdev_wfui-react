@@ -1,6 +1,5 @@
 import React from 'react';
 import UserDrawer from '../../components/UserDrawer/UserDrawer';
-// import '!style-loader!css-loader!sass-loader!../../components/UserDrawer/index.scss';
 
 const userInfo = {
     uid: 1,
@@ -14,19 +13,19 @@ const userMenu = [
         title: 'User Profile',
         link: '#',
         icon: 'user',
-    }, {
+    },
+    {
         title: 'Account Settings',
         link: '#',
         icon: 'cog',
-    }, {
+    },
+    {
         title: 'Log Out',
         link: '#',
         icon: 'log-out',
-    }
-]
+    },
+];
 
-const example = (
-    <UserDrawer userInfo={userInfo} userMenu={userMenu} />
-);
+const example = <UserDrawer userInfo={userInfo} userMenu={userMenu} />;
 
 export default example;

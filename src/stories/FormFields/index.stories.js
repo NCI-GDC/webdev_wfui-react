@@ -4,8 +4,6 @@ import StoryFormField from './StoryFormField';
 import StoryDisabled from './StoryDisabled';
 import StoryPreview from './StoryPreview';
 
-import '!style-loader!css-loader!sass-loader!../../components/bootstrap-styles.scss';
-
 // import { WebFormWithContext, reducers } from '../../components/Forms/';
 
 storiesOf('FormFields', module)

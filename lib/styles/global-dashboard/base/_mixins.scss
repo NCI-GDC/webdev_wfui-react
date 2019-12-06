@@ -1,0 +1,57 @@
+// _mixins.scss
+
+// Layout
+@mixin no-margin {
+  margin: 0;
+}
+
+@mixin no-padding {
+  padding: 0;
+}
+
+@mixin margin-rt-lt-base($size-rt: $spacer-md, $size-lt: $spacer-md) {
+  margin: {
+    right: $size-rt;
+    left: $size-lt;
+  }
+  // &:first-child,
+  // &:first-of-type {
+  //   margin-left: 0;
+  // }
+  // &:last-child,
+  // &:last-of-type  {
+  //   margin-right: 0;
+  // }  
+}
+
+@mixin border-base($width: 1px, $style: solid, $color: $primary-main-med) {
+  border: {
+    width: $width;
+    style: $style;
+    color: $color;
+  }
+}
+
+@mixin padding-base($size-tb: $spacer-md, $size-rl: $spacer-md) {
+  padding: {
+    top: $size-tb;
+    right: $size-rl;
+    bottom: $size-tb;
+    left: $size-rl;
+  }
+}
+
+// Fonts
+@mixin font-base($size: 12px, $weight: 400, $family: $sans-serif, $color: $font-color-main) {
+  color: $color;
+  font: {
+    family: $family;
+    size: $size / $base-font-size * 1rem;
+    weight: $weight;
+  }  
+}
+
+// Misc.
+@mixin box-shadow-base($x: 0, $y: 3px, $blur: 3px, $spread: 0, $color: $black, $alpha: 0.15) {
+  box-shadow: $x $y $blur $spread rgba($color, $alpha);
+}

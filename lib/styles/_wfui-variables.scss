@@ -26,6 +26,18 @@ $CaG-description-border-width:                $border-width !default;
 $CaG-description-bg-level:                    -10 !default;
 $CaG-description-border-level:                -9 !default;
 
+// Dashboard Box
+
+$dashboard-box-spacer-y:                     .75rem !default;
+$dashboard-box-spacer-x:                     1.25rem !default;
+$dashboard-box-border-width:                 $border-width !default;
+$dashboard-box-border-color:                 rgba($black, .125) !default;
+
+$dashboard-box-margin:                       $grid-gutter-width / 2 !default;
+
+$dashboard-box-cap-bg:                       rgba($black, .03) !default;
+$dashboard-box-highlight-bg:                 $dashboard-box-cap-bg !default;
+
 // Dashboard Card
 
 $dashboard-card-spacer-y:                     .75rem !default;
@@ -45,7 +57,7 @@ $dashboard-card-bg:                           $white !default;
 
 $dashboard-card-img-overlay-padding:          1.25rem !default;
 
-$dashboard-card-margin:                 $grid-gutter-width / 2 !default;
+$dashboard-card-margin:                       $grid-gutter-width / 2 !default;
 
 $dashboard-card-columns-count:                3 !default;
 $dashboard-card-columns-gap:                  1.25rem !default;

@@ -1,0 +1,17 @@
+a {
+  @include font-base($color: $font-color-accent-primary);
+  text-decoration: underline;
+
+  &.is-secondary {
+    color: $font-color-accent-secondary;
+    &:hover,
+    &:focus {
+      color: darken($font-color-accent-secondary, 10%);
+    }    
+  }
+
+  &:hover,
+  &:focus {
+    color: darken($font-color-accent-primary, 10%);
+  }
+}
