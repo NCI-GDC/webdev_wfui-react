@@ -1,2 +1,2 @@
 // Load Styles for development
-require('./styles');
+require('./styles.scss');
