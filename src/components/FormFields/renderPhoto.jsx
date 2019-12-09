@@ -72,14 +72,14 @@ class renderPhoto extends React.Component {
                                 ? 4
                                 : 10
                             : descDisplay && !preview
-                            ? 6
-                            : 12
+                                ? 6
+                                : 12
                     }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-form-photo file-chosen`}
+                        } wfui-form-photo file-chosen`}
                 >
                     <p className="image-preview">
                         <img style={{ height: 100 }} src={value.src} />
@@ -100,7 +100,7 @@ class renderPhoto extends React.Component {
                                     title: e.target.value,
                                 };
                                 this.setState({ value: newValue });
-                                onStateChange(newValue);
+                                onStateChange(newValue, input);
                                 input.onChange(newValue);
                             }}
                             disabled={disabled}
@@ -112,7 +112,7 @@ class renderPhoto extends React.Component {
                             className="btn-remove"
                             onClick={() => {
                                 input.onChange();
-                                onStateChange();
+                                onStateChange(undefined, input);
                                 this.setState({ value: undefined });
                             }}
                         >
@@ -131,80 +131,80 @@ class renderPhoto extends React.Component {
                 ) : null}
             </Form.Row>
         ) : (
-            <Form.Row className={classNames(className, 'wfui-form-item')}>
-                {label && (
+                <Form.Row className={classNames(className, 'wfui-form-item')}>
+                    {label && (
+                        <Col
+                            xs={12}
+                            lg={inline ? 2 : 12}
+                            className="wfui-form-label"
+                        >
+                            <ControlLabel>
+                                {label}
+                                {required && <b className="required"> *</b>}
+                            </ControlLabel>
+                        </Col>
+                    )}
                     <Col
                         xs={12}
-                        lg={inline ? 2 : 12}
-                        className="wfui-form-label"
+                        lg={
+                            inline && label
+                                ? descDisplay && !preview
+                                    ? 4
+                                    : 10
+                                : descDisplay && !preview
+                                    ? 6
+                                    : 12
+                        }
+                        className={`wfui-form-field ${
+                            descDisplay
+                                ? 'wfui-form-field-with-description'
+                                : 'wfui-form-field-no-description'
+                            } wfui-form-photo`}
                     >
-                        <ControlLabel>
-                            {label}
-                            {required && <b className="required"> *</b>}
-                        </ControlLabel>
-                    </Col>
-                )}
-                <Col
-                    xs={12}
-                    lg={
-                        inline && label
-                            ? descDisplay && !preview
-                                ? 4
-                                : 10
-                            : descDisplay && !preview
-                            ? 6
-                            : 12
-                    }
-                    className={`wfui-form-field ${
-                        descDisplay
-                            ? 'wfui-form-field-with-description'
-                            : 'wfui-form-field-no-description'
-                    } wfui-form-photo`}
-                >
-                    <Dropzone
-                        {...input}
-                        name={input.name}
-                        accept="image/png,image/jpeg,image/pjpeg,image/gif"
-                        className="btn btn-primary choose-file"
-                        onDrop={acceptedFiles => {
-                            const reader = new FileReader();
-                            reader.readAsDataURL(acceptedFiles[0]);
-                            reader.onloadend = () => {
-                                const newValue = {
-                                    ...value,
-                                    src: reader.result,
+                        <Dropzone
+                            {...input}
+                            name={input.name}
+                            accept="image/png,image/jpeg,image/pjpeg,image/gif"
+                            className="btn btn-primary choose-file"
+                            onDrop={acceptedFiles => {
+                                const reader = new FileReader();
+                                reader.readAsDataURL(acceptedFiles[0]);
+                                reader.onloadend = () => {
+                                    const newValue = {
+                                        ...value,
+                                        src: reader.result,
+                                    };
+                                    this.setState({ value: newValue });
+                                    onStateChange(newValue);
+                                    return input.onChange(newValue);
                                 };
-                                this.setState({ value: newValue });
-                                onStateChange(newValue);
-                                return input.onChange(newValue);
-                            };
-                            this.setState({ hasFile: true });
-                        }}
-                    >
-                        Choose File
+                                this.setState({ hasFile: true });
+                            }}
+                        >
+                            Choose File
                     </Dropzone>
-                    {touched && error && (
-                        <HelpBlock className="wfui-form-error">
-                            <span>{error}</span>
-                        </HelpBlock>
-                    )}
-                    {help && !preview && (
-                        <HelpBlock className="wfui-form-help text-muted">
-                            <div dangerouslySetInnerHTML={{ __html: help }} />
-                        </HelpBlock>
-                    )}
-                </Col>
-                {descDisplay && !preview ? (
-                    <Col
-                        className="wfui-form-description"
-                        xs={12}
-                        lg={{ span: 6, offset: 0 }}
-                    >
-                        {cloneElement(descDisplay)}
+                        {touched && error && (
+                            <HelpBlock className="wfui-form-error">
+                                <span>{error}</span>
+                            </HelpBlock>
+                        )}
+                        {help && !preview && (
+                            <HelpBlock className="wfui-form-help text-muted">
+                                <div dangerouslySetInnerHTML={{ __html: help }} />
+                            </HelpBlock>
+                        )}
                     </Col>
-                ) : null}
-            </Form.Row>
-        );
+                    {descDisplay && !preview ? (
+                        <Col
+                            className="wfui-form-description"
+                            xs={12}
+                            lg={{ span: 6, offset: 0 }}
+                        >
+                            {cloneElement(descDisplay)}
+                        </Col>
+                    ) : null}
+                </Form.Row>
+            );
     }
 }
 renderPhoto.propTypes = {

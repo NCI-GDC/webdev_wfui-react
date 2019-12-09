@@ -116,8 +116,8 @@ const renderTextArea = ({
                         readOnly={readOnly}
                         onChange={e => {
                             input.onChange(e);
-                            if (onChange) onChange(e);
-                            if (onHandleChange) onHandleChange(e);
+                            if (onChange) onChange(e, input);
+                            if (onHandleChange) onHandleChange(e, input);
                         }}
                         as="textarea"
                         rows={rows || (disabled || preview ? 0 : 5)}

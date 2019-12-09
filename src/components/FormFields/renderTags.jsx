@@ -22,7 +22,7 @@ class renderTags extends React.Component {
         const { input, onChange } = this.props;
         this.setState({ tags });
         input.onChange(tags);
-        if (typeof onChange === 'function') onChange(tags);
+        if (typeof onChange === 'function') onChange(tags, input);
     }
 
     render() {
@@ -76,8 +76,8 @@ class renderTags extends React.Component {
                                 ? 4
                                 : 10
                             : descDisplay && !preview
-                            ? 6
-                            : 12
+                                ? 6
+                                : 12
                     }
                     className={`wfui-form-field ${
                         descDisplay
