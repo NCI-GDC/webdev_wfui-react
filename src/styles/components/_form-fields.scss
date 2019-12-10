@@ -76,7 +76,8 @@ $form-tag-color-hover: $form-active-color;
 
 /* Form Label
 -------------------------------------------------------------- */
-.wfui-form-label {
+.wfui-form-label,
+.form-check-label {
     .required {
         color: $danger;
     }
@@ -1166,6 +1167,10 @@ button.delete-icon {
         .input-group-btn {
             z-index: 11;
         }
+    }
+
+    input[type='text'] {
+        border-radius: $input-border-radius 0 0 $input-border-radius;
     }
 }
 
