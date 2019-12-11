@@ -110,11 +110,16 @@ class PasswordValidator extends Component {
                                         validated ? style.li_active : style.li
                                     }
                                 >
-                                    {validated ? (
-                                        <Icon name="check" style={style.icon} />
-                                    ) : (
-                                        <Icon name="times" style={style.icon} />
-                                    )}
+                                    <span
+                                        className="icon-wrapper"
+                                        style={style.icon}
+                                    >
+                                        {validated ? (
+                                            <Icon name="check" />
+                                        ) : (
+                                            <Icon name="times" />
+                                        )}
+                                    </span>
                                     {validation.title}
                                 </li>
                             );
