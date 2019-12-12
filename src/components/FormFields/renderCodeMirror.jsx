@@ -5,14 +5,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import * as ReactCodeMirror from 'react-codemirror2';
 
-import {
-    FormGroup,
-    ControlLabel,
-    HelpBlock,
-} from '../index';
+import { FormGroup, ControlLabel, HelpBlock } from '../index';
 
 const { Controlled: CodeMirror } = ReactCodeMirror;
-
 
 class renderCodeMirror extends React.Component {
     constructor(props) {
@@ -50,7 +45,7 @@ class renderCodeMirror extends React.Component {
             preview,
             descDisplay,
             fullWidth,
-            meta: { touched, error },
+            meta: { touched, error, data },
             onCursor,
             help,
             defaultValue,
@@ -65,6 +60,9 @@ class renderCodeMirror extends React.Component {
                     'wfui-form-item',
                     {
                         'wfui-form-item-error': error,
+                    },
+                    {
+                        'wfui-form-item-warning': touched && data.warning,
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
@@ -103,9 +101,20 @@ class renderCodeMirror extends React.Component {
                         <p className="wfui-value">{bodyText}</p>
                     )}
                     {touched && error && (
-                        <HelpBlock className="wfui-form-error">
+                        <Form.Control.Feedback
+                            className="wfui-form-error"
+                            type="invalid"
+                        >
                             <span>{error}</span>
-                        </HelpBlock>
+                        </Form.Control.Feedback>
+                    )}
+                    {touched && data.warning && (
+                        <Form.Control.Feedback
+                            className="wfui-form-warning"
+                            type="valid"
+                        >
+                            <span>{data.warning}</span>
+                        </Form.Control.Feedback>
                     )}
                     {help && !preview && (
                         <HelpBlock className="wfui-form-help">

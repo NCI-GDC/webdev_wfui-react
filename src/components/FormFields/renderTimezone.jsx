@@ -17,7 +17,7 @@ const renderTimezone = ({
     descDisplay,
     fullWidth,
     onChange,
-    meta: { touched, error },
+    meta: { touched, error, data },
     inline,
 }) => (
         <Form.Row
@@ -26,6 +26,9 @@ const renderTimezone = ({
                 'wfui-form-item',
                 {
                     'wfui-form-item-error': touched && error,
+                },
+                {
+                    'wfui-form-item-warning': touched && data.warning,
                 },
                 { 'wfui-form-disabled': disabled },
                 { 'wfui-form-preview': preview },
@@ -77,6 +80,11 @@ const renderTimezone = ({
                 {touched && error && (
                     <HelpBlock className="wfui-form-error">
                         <span>{error}</span>
+                    </HelpBlock>
+                )}
+                {touched && data.warning && (
+                    <HelpBlock className="wfui-form-warning">
+                        <span>{data.warning}</span>
                     </HelpBlock>
                 )}
                 {help && !preview && (

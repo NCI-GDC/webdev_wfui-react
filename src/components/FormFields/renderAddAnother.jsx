@@ -55,7 +55,7 @@ class renderAddAnother extends React.Component {
             withContext,
             globalError,
             name,
-            meta: { error, submitFailed },
+            meta: { error, submitFailed, data },
             minimumItem,
             descDisplay,
             fullWidth,
@@ -90,6 +90,9 @@ class renderAddAnother extends React.Component {
                     {
                         'wfui-form-item-error':
                             this.touched && (error || globalError),
+                    },
+                    {
+                        'wfui-form-item-warning': touched && data.warning,
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
@@ -191,6 +194,14 @@ class renderAddAnother extends React.Component {
                             <span>{error}</span>
                         </Form.Control.Feedback>
                     )} */}
+                    {touched && data.warning && (
+                        <Form.Control.Feedback
+                            className="wfui-form-warning"
+                            type="valid"
+                        >
+                            <span>{data.warning}</span>
+                        </Form.Control.Feedback>
+                    )}
                     {(this.touched || submitFailed) && globalError && (
                         <Form.Control.Feedback className="wfui-form-error">
                             <span>{globalError}</span>

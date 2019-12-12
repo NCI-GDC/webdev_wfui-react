@@ -40,7 +40,7 @@ class renderTags extends React.Component {
             descDisplay,
             fullWidth,
             inline,
-            meta: { touched, error },
+            meta: { touched, error, data },
         } = this.props;
         const { suggestions, tags } = this.state;
 
@@ -50,6 +50,9 @@ class renderTags extends React.Component {
                     className,
                     'wfui-form-item',
                     { 'wfui-form-item-error': touched && error },
+                    {
+                        'wfui-form-item-warning': touched && data.warning,
+                    },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
                     { 'wfui-form-item-full-width': fullWidth }
@@ -76,14 +79,14 @@ class renderTags extends React.Component {
                                 ? 4
                                 : 10
                             : descDisplay && !preview
-                                ? 6
-                                : 12
+                            ? 6
+                            : 12
                     }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                        } wfui-form-tags`}
+                    } wfui-form-tags`}
                     validationState={touched && error ? 'error' : null}
                 >
                     {disabled ? (
@@ -95,22 +98,35 @@ class renderTags extends React.Component {
                                     ))}
                                 </ul>
                             ) : (
-                                    <span className="no-item">( No Items )</span>
-                                )}
+                                <span className="no-item">( No Items )</span>
+                            )}
                         </div>
                     ) : (
-                            <TagsInput value={tags} onChange={this.handleChange} />
-                        )}
-
+                        <TagsInput value={tags} onChange={this.handleChange} />
+                    )}
                     {touched && error && (
-                        <HelpBlock className="wfui-form-error">
+                        <Form.Control.Feedback
+                            className="wfui-form-error"
+                            type="invalid"
+                        >
                             <span>{error}</span>
-                        </HelpBlock>
+                        </Form.Control.Feedback>
+                    )}
+                    {touched && data.warning && (
+                        <Form.Control.Feedback
+                            className="wfui-form-warning"
+                            type="valid"
+                        >
+                            <span>{data.warning}</span>
+                        </Form.Control.Feedback>
                     )}
                     {touched && globalError && (
-                        <HelpBlock className="wfui-form-error">
+                        <Form.Control.Feedback
+                            className="wfui-form-error"
+                            type="invalid"
+                        >
                             <span>{globalError}</span>
-                        </HelpBlock>
+                        </Form.Control.Feedback>
                     )}
                     {help && !preview && (
                         <HelpBlock className="wfui-form-help text-muted">

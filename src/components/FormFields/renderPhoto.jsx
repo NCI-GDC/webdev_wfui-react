@@ -35,7 +35,7 @@ class renderPhoto extends React.Component {
             preview,
             descDisplay,
             fullWidth,
-            meta: { touched, error },
+            meta: { touched, error, data },
         } = this.props;
         const { value } = this.state;
 
@@ -46,6 +46,9 @@ class renderPhoto extends React.Component {
                     'wfui-form-item',
                     {
                         'wfui-form-item-error': error,
+                    },
+                    {
+                        'wfui-form-item-warning': touched && data.warning,
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
@@ -72,14 +75,14 @@ class renderPhoto extends React.Component {
                                 ? 4
                                 : 10
                             : descDisplay && !preview
-                                ? 6
-                                : 12
+                            ? 6
+                            : 12
                     }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                        } wfui-form-photo file-chosen`}
+                    } wfui-form-photo file-chosen`}
                 >
                     <p className="image-preview">
                         <img style={{ height: 100 }} src={value.src} />
@@ -131,80 +134,91 @@ class renderPhoto extends React.Component {
                 ) : null}
             </Form.Row>
         ) : (
-                <Form.Row className={classNames(className, 'wfui-form-item')}>
-                    {label && (
-                        <Col
-                            xs={12}
-                            lg={inline ? 2 : 12}
-                            className="wfui-form-label"
-                        >
-                            <ControlLabel>
-                                {label}
-                                {required && <b className="required"> *</b>}
-                            </ControlLabel>
-                        </Col>
-                    )}
+            <Form.Row className={classNames(className, 'wfui-form-item')}>
+                {label && (
                     <Col
                         xs={12}
-                        lg={
-                            inline && label
-                                ? descDisplay && !preview
-                                    ? 4
-                                    : 10
-                                : descDisplay && !preview
-                                    ? 6
-                                    : 12
-                        }
-                        className={`wfui-form-field ${
-                            descDisplay
-                                ? 'wfui-form-field-with-description'
-                                : 'wfui-form-field-no-description'
-                            } wfui-form-photo`}
+                        lg={inline ? 2 : 12}
+                        className="wfui-form-label"
                     >
-                        <Dropzone
-                            {...input}
-                            name={input.name}
-                            accept="image/png,image/jpeg,image/pjpeg,image/gif"
-                            className="btn btn-primary choose-file"
-                            onDrop={acceptedFiles => {
-                                const reader = new FileReader();
-                                reader.readAsDataURL(acceptedFiles[0]);
-                                reader.onloadend = () => {
-                                    const newValue = {
-                                        ...value,
-                                        src: reader.result,
-                                    };
-                                    this.setState({ value: newValue });
-                                    onStateChange(newValue);
-                                    return input.onChange(newValue);
-                                };
-                                this.setState({ hasFile: true });
-                            }}
-                        >
-                            Choose File
-                    </Dropzone>
-                        {touched && error && (
-                            <HelpBlock className="wfui-form-error">
-                                <span>{error}</span>
-                            </HelpBlock>
-                        )}
-                        {help && !preview && (
-                            <HelpBlock className="wfui-form-help text-muted">
-                                <div dangerouslySetInnerHTML={{ __html: help }} />
-                            </HelpBlock>
-                        )}
+                        <ControlLabel>
+                            {label}
+                            {required && <b className="required"> *</b>}
+                        </ControlLabel>
                     </Col>
-                    {descDisplay && !preview ? (
-                        <Col
-                            className="wfui-form-description"
-                            xs={12}
-                            lg={{ span: 6, offset: 0 }}
+                )}
+                <Col
+                    xs={12}
+                    lg={
+                        inline && label
+                            ? descDisplay && !preview
+                                ? 4
+                                : 10
+                            : descDisplay && !preview
+                            ? 6
+                            : 12
+                    }
+                    className={`wfui-form-field ${
+                        descDisplay
+                            ? 'wfui-form-field-with-description'
+                            : 'wfui-form-field-no-description'
+                    } wfui-form-photo`}
+                >
+                    <Dropzone
+                        {...input}
+                        name={input.name}
+                        accept="image/png,image/jpeg,image/pjpeg,image/gif"
+                        className="btn btn-primary choose-file"
+                        onDrop={acceptedFiles => {
+                            const reader = new FileReader();
+                            reader.readAsDataURL(acceptedFiles[0]);
+                            reader.onloadend = () => {
+                                const newValue = {
+                                    ...value,
+                                    src: reader.result,
+                                };
+                                this.setState({ value: newValue });
+                                onStateChange(newValue);
+                                return input.onChange(newValue);
+                            };
+                            this.setState({ hasFile: true });
+                        }}
+                    >
+                        Choose File
+                    </Dropzone>
+                    {touched && error && (
+                        <Form.Control.Feedback
+                            className="wfui-form-error"
+                            type="invalid"
                         >
-                            {cloneElement(descDisplay)}
-                        </Col>
-                    ) : null}
-                </Form.Row>
-            );
+                            <span>{error}</span>
+                        </Form.Control.Feedback>
+                    )}
+                    {touched && data.warning && (
+                        <Form.Control.Feedback
+                            className="wfui-form-warning"
+                            type="valid"
+                        >
+                            <span>{data.warning}</span>
+                        </Form.Control.Feedback>
+                    )}
+                    {help && !preview && (
+                        <HelpBlock className="wfui-form-help text-muted">
+                            <div dangerouslySetInnerHTML={{ __html: help }} />
+                        </HelpBlock>
+                    )}
+                </Col>
+                {descDisplay && !preview ? (
+                    <Col
+                        className="wfui-form-description"
+                        xs={12}
+                        lg={{ span: 6, offset: 0 }}
+                    >
+                        {cloneElement(descDisplay)}
+                    </Col>
+                ) : null}
+            </Form.Row>
+        );
     }
 }
 renderPhoto.propTypes = {

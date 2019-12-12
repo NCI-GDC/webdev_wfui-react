@@ -1,7 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { Spinner, FormGroup, FormControl, ControlLabel, HelpBlock } from '../index';
+import {
+    Spinner,
+    FormGroup,
+    FormControl,
+    ControlLabel,
+    HelpBlock,
+} from '../index';
 
 /**
  * Autocomplete component.
@@ -14,50 +20,50 @@ const Autocomplete = ({
     textNoResult,
     autoFetched,
 }) => (
-        <div className="navbar-form">
-            <div className="form-group">
-                <ul
-                    id="ui-autocomplete"
-                    className="autocomplete-ps ui-menu ui-widget ui-widget-content ui-autocomplete ui-front"
-                >
-                    {!fetching && autoFetched && (!items || items.length === 0) && (
-                        <li className="ui-menu-item">{textNoResult}</li>
+    <div className="navbar-form">
+        <div className="form-group">
+            <ul
+                id="ui-autocomplete"
+                className="autocomplete-ps ui-menu ui-widget ui-widget-content ui-autocomplete ui-front"
+            >
+                {!fetching && autoFetched && (!items || items.length === 0) && (
+                    <li className="ui-menu-item">{textNoResult}</li>
+                )}
+                {!fetching &&
+                    autoFetched &&
+                    items &&
+                    items.map((item, idx) =>
+                        itemDisplay ? (
+                            React.cloneElement(
+                                <li key={idx} className="ui-menu-item">
+                                    {itemDisplay(item, onClickItem)}
+                                </li>,
+                                Object.assign({}, {}, { key: idx })
+                            )
+                        ) : (
+                            <li key={idx} className="ui-menu-item">
+                                <div className="ui-menu-item-wrapper">
+                                    <a onClick={onClickItem} data-key={item}>
+                                        {`${item}`}
+                                    </a>
+                                </div>
+                            </li>
+                        )
                     )}
-                    {!fetching &&
-                        autoFetched &&
-                        items &&
-                        items.map((item, idx) =>
-                            itemDisplay ? (
-                                React.cloneElement(
-                                    <li key={idx} className="ui-menu-item">
-                                        {itemDisplay(item, onClickItem)}
-                                    </li>,
-                                    Object.assign({}, {}, { key: idx }),
-                                )
-                            ) : (
-                                    <li key={idx} className="ui-menu-item">
-                                        <div className="ui-menu-item-wrapper">
-                                            <a onClick={onClickItem} data-key={item}>
-                                                {`${item}`}
-                                            </a>
-                                        </div>
-                                    </li>
-                                ),
-                        )}
-                    {fetching && (
-                        <li className="mp ps">
-                            <Spinner
-                                type={1}
-                                color="#0072c6"
-                                fontSize={'5px'}
-                                margin={'10px auto'}
-                            />
-                        </li>
-                    )}
-                </ul>
-            </div>
+                {fetching && (
+                    <li className="mp ps">
+                        <Spinner
+                            type={1}
+                            color="#0072c6"
+                            fontSize={'5px'}
+                            margin={'10px auto'}
+                        />
+                    </li>
+                )}
+            </ul>
         </div>
-    );
+    </div>
+);
 
 /**
  * Reusable field component.
@@ -130,7 +136,7 @@ class renderAutocomplete extends React.Component {
             itemDisplay,
             textNoResult,
             fullWidth,
-            meta: { touched, error },
+            meta: { touched, error, data },
         } = this.props;
         const { fetching, autoFetched, term, autoCompleteItems } = this.state;
 
@@ -143,11 +149,14 @@ class renderAutocomplete extends React.Component {
                         'wfui-form-item-error':
                             touched && (error || globalError),
                     },
+                    {
+                        'wfui-form-item-warning': touched && data.warning,
+                    },
                     { 'wfui-form-inline': inline },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
                     { answered: input.value },
-                    { 'wfui-form-item-full-width': fullWidth },
+                    { 'wfui-form-item-full-width': fullWidth }
                 )}
             >
                 <div className="wfui-form-label">
@@ -217,16 +226,29 @@ class renderAutocomplete extends React.Component {
                             textNoResult={textNoResult}
                         />
                     )}
-                    <FormControl.Feedback />
                     {touched && error && (
-                        <HelpBlock className="wfui-form-error">
+                        <Form.Control.Feedback
+                            className="wfui-form-error"
+                            type="invalid"
+                        >
                             <span>{error}</span>
-                        </HelpBlock>
+                        </Form.Control.Feedback>
+                    )}
+                    {touched && data.warning && (
+                        <Form.Control.Feedback
+                            className="wfui-form-warning"
+                            type="valid"
+                        >
+                            <span>{data.warning}</span>
+                        </Form.Control.Feedback>
                     )}
                     {touched && globalError && (
-                        <HelpBlock className="wfui-form-error">
+                        <Form.Control.Feedback
+                            className="wfui-form-error"
+                            type="invalid"
+                        >
                             <span>{globalError}</span>
-                        </HelpBlock>
+                        </Form.Control.Feedback>
                     )}
                     {help && (
                         <div

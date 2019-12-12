@@ -378,7 +378,7 @@ class renderFileUpload extends React.Component {
             input,
             maxFileSize,
             disabled,
-            meta: { touched, error },
+            meta: { touched, error, data },
             preview,
             descDisplay,
             maxFileSizeText,
@@ -399,6 +399,9 @@ class renderFileUpload extends React.Component {
                     {
                         'wfui-form-item-error':
                             touched && (error || globalError),
+                    },
+                    {
+                        'wfui-form-item-warning': touched && data.warning,
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
@@ -485,6 +488,14 @@ class renderFileUpload extends React.Component {
                                     __html: fileError,
                                 }}
                             />
+                        </Form.Control.Feedback>
+                    )}
+                    {touched && data.warning && (
+                        <Form.Control.Feedback
+                            className="wfui-form-warning"
+                            type="valid"
+                        >
+                            <span>{data.warning}</span>
                         </Form.Control.Feedback>
                     )}
                     {touched && globalError && (
