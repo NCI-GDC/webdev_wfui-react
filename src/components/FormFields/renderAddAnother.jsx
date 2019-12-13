@@ -133,13 +133,13 @@ class renderAddAnother extends React.Component {
                         this.touched && (error || globalError) ? 'error' : null
                     }
                 >
-                    <FormControl isInvalid={touched && (error || globalError)}
-                        isValid={touched && data.warning}
+                    <FormControl isInvalid={this.touched && (error || globalError)}
+                        isValid={this.touched && data.warning}
                         className={
                             classNames(
                                 'd-none',
                                 'custom-form-control',
-                                { 'is-valid-warning': touched && data.warning }
+                                { 'is-valid-warning': this.touched && data.warning }
                             )
                         } />
 
@@ -215,7 +215,7 @@ class renderAddAnother extends React.Component {
                             <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
                         </Form.Control.Feedback>
                     )}
-                    {touched && data.warning && (
+                    {this.touched && data.warning && (
                         <Form.Control.Feedback
                             className="wfui-form-warning"
                             type="valid"
