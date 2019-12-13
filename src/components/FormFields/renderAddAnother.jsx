@@ -203,7 +203,9 @@ class renderAddAnother extends React.Component {
                     {/* MUSTDO: Check if this error is needed */}
                     {/* {error && (
                         <Form.Control.Feedback className="wfui-form-error">
-                            <span>{Array.isArray(error) ? error.join(', ') : error}</span>
+                            {Array.isArray(error)
+                                        ? error.map(item => <div>{item}</div>)
+                                        : error}
                         </Form.Control.Feedback>
                     )} */}
 
@@ -217,7 +219,9 @@ class renderAddAnother extends React.Component {
                             className="wfui-form-warning"
                             type="valid"
                         >
-                            <span>{Array.isArray(data.warning) ? data.warning.join(', ') : data.warning}</span>
+                            {Array.isArray(data.warning)
+                                ? data.warning.map(item => <div>{item}</div>)
+                                : data.warning}
                         </Form.Control.Feedback>
                     )}
                     {help && !preview && (

@@ -546,7 +546,9 @@ class renderFilterTable extends React.Component {
                     />
                     {error && (
                         <HelpBlock className="wfui-form-error">
-                            <span>{Array.isArray(error) ? error.join(', ') : error}</span>
+                            {Array.isArray(error)
+                                ? error.map(item => <div>{item}</div>)
+                                : error}
                         </HelpBlock>
                     )}
                     {help && (
