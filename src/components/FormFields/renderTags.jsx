@@ -79,14 +79,14 @@ class renderTags extends React.Component {
                                 ? 4
                                 : 10
                             : descDisplay && !preview
-                            ? 6
-                            : 12
+                                ? 6
+                                : 12
                     }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-form-tags`}
+                        } wfui-form-tags`}
                     validationState={touched && error ? 'error' : null}
                 >
                     {disabled ? (
@@ -98,12 +98,20 @@ class renderTags extends React.Component {
                                     ))}
                                 </ul>
                             ) : (
-                                <span className="no-item">( No Items )</span>
-                            )}
+                                    <span className="no-item">( No Items )</span>
+                                )}
                         </div>
                     ) : (
-                        <TagsInput value={tags} onChange={this.handleChange} />
-                    )}
+                            <TagsInput value={tags} onChange={this.handleChange} />
+                        )}
+                    <FormControl isInvalid={touched && (error || globalError)}
+                        isValid={touched && data.warning}
+                        className={
+                            classNames(
+                                'd-none',
+                                { 'is-valid-warning': touched && data.warning }
+                            )
+                        } />
                     {touched && error && (
                         <Form.Control.Feedback
                             className="wfui-form-error"
@@ -112,20 +120,20 @@ class renderTags extends React.Component {
                             <span>{error}</span>
                         </Form.Control.Feedback>
                     )}
-                    {touched && data.warning && (
-                        <Form.Control.Feedback
-                            className="wfui-form-warning"
-                            type="valid"
-                        >
-                            <span>{data.warning}</span>
-                        </Form.Control.Feedback>
-                    )}
                     {touched && globalError && (
                         <Form.Control.Feedback
                             className="wfui-form-error"
                             type="invalid"
                         >
                             <span>{globalError}</span>
+                        </Form.Control.Feedback>
+                    )}
+                    {touched && data.warning && (
+                        <Form.Control.Feedback
+                            className="wfui-form-warning"
+                            type="valid"
+                        >
+                            <span>{data.warning}</span>
                         </Form.Control.Feedback>
                     )}
                     {help && !preview && (

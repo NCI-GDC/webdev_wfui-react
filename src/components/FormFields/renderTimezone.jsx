@@ -17,6 +17,7 @@ const renderTimezone = ({
     descDisplay,
     fullWidth,
     onChange,
+    globalError,
     meta: { touched, error, data },
     inline,
 }) => (
@@ -77,15 +78,37 @@ const renderTimezone = ({
                 ) : (
                         <p className="timezone-value">{input.value}</p>
                     )}
+                <FormControl isInvalid={touched && (error || globalError)}
+                    isValid={touched && data.warning}
+                    className={
+                        classNames(
+                            'd-none',
+                            { 'is-valid-warning': touched && data.warning }
+                        )
+                    } />
                 {touched && error && (
-                    <HelpBlock className="wfui-form-error">
+                    <Form.Control.Feedback
+                        className="wfui-form-error"
+                        type="invalid"
+                    >
                         <span>{error}</span>
-                    </HelpBlock>
+                    </Form.Control.Feedback>
+                )}
+                {touched && globalError && (
+                    <Form.Control.Feedback
+                        className="wfui-form-error"
+                        type="invalid"
+                    >
+                        <span>{globalError}</span>
+                    </Form.Control.Feedback>
                 )}
                 {touched && data.warning && (
-                    <HelpBlock className="wfui-form-warning">
+                    <Form.Control.Feedback
+                        className="wfui-form-warning"
+                        type="valid"
+                    >
                         <span>{data.warning}</span>
-                    </HelpBlock>
+                    </Form.Control.Feedback>
                 )}
                 {help && !preview && (
                     <HelpBlock className="wfui-form-help text-muted">

@@ -120,14 +120,14 @@ class renderAddAnother extends React.Component {
                                 ? 4
                                 : 10
                             : descDisplay && !preview
-                            ? 6
-                            : 9
+                                ? 6
+                                : 9
                     }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-form-addAnother`}
+                        } wfui-form-addAnother`}
                     validationState={
                         this.touched && (error || globalError) ? 'error' : null
                     }
@@ -194,17 +194,25 @@ class renderAddAnother extends React.Component {
                             <span>{error}</span>
                         </Form.Control.Feedback>
                     )} */}
+                    <FormControl isInvalid={touched && (error || globalError)}
+                        isValid={touched && data.warning}
+                        className={
+                            classNames(
+                                'd-none',
+                                { 'is-valid-warning': touched && data.warning }
+                            )
+                        } />
+                    {(this.touched || submitFailed) && globalError && (
+                        <Form.Control.Feedback className="wfui-form-error">
+                            <span>{globalError}</span>
+                        </Form.Control.Feedback>
+                    )}
                     {touched && data.warning && (
                         <Form.Control.Feedback
                             className="wfui-form-warning"
                             type="valid"
                         >
                             <span>{data.warning}</span>
-                        </Form.Control.Feedback>
-                    )}
-                    {(this.touched || submitFailed) && globalError && (
-                        <Form.Control.Feedback className="wfui-form-error">
-                            <span>{globalError}</span>
                         </Form.Control.Feedback>
                     )}
                     {help && !preview && (
