@@ -9,6 +9,7 @@ import {
     HelpBlock,
     Form,
     Col,
+    FormControl,
 } from '../index';
 
 const renderTextArea = ({

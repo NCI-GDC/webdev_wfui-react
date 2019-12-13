@@ -14,6 +14,7 @@ import {
     ControlLabel,
     HelpBlock,
     Icon,
+    FormControl,
 } from '../index';
 
 class renderAddAnother extends React.Component {
