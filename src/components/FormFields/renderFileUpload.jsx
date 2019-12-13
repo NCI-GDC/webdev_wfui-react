@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
 import {
+    FormControl,
     FormGroup,
     ControlLabel,
     HelpBlock,

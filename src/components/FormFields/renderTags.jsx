@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TagsInput from 'react-tagsinput';
 
-import { FormGroup, ControlLabel, HelpBlock, Form, Col } from '../index';
+import { FormControl, FormGroup, ControlLabel, HelpBlock, Form, Col } from '../index';
 
 class renderTags extends React.Component {
     constructor(props) {

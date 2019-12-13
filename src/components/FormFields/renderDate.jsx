@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import classNames from 'classnames';
 import moment from 'moment';
-import { FormGroup, ControlLabel, HelpBlock, Form, Col } from '../index';
+import { FormControl, FormGroup, ControlLabel, HelpBlock, Form, Col } from '../index';
 
 const renderDate = ({
     className,
