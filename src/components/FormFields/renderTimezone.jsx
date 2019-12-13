@@ -63,35 +63,38 @@ const renderTimezone = ({
                     } wfui-form-time-zone`}
                 validationState={touched && error ? 'error' : null}
             >
-                {!disabled ? (
-                    <TimezonePicker
-                        className="wfui-form-timezone"
-                        {...input}
-                        onChange={timezone => {
-                            input.onChange(timezone);
-                            if (typeof onChange === 'function') onChange(timezone, input);
-                        }}
-                        inputProps={{
-                            placeholder,
-                        }}
-                    />
-                ) : (
-                        <p className="timezone-value">{input.value}</p>
-                    )}
                 <FormControl isInvalid={touched && (error || globalError)}
                     isValid={touched && data.warning}
                     className={
                         classNames(
                             'd-none',
+                            'custom-form-control',
                             { 'is-valid-warning': touched && data.warning }
                         )
                     } />
+                <div className="custom-form-control-wrapper">
+                    {!disabled ? (
+                        <TimezonePicker
+                            className="wfui-form-timezone"
+                            {...input}
+                            onChange={timezone => {
+                                input.onChange(timezone);
+                                if (typeof onChange === 'function') onChange(timezone, input);
+                            }}
+                            inputProps={{
+                                placeholder,
+                            }}
+                        />
+                    ) : (
+                            <p className="timezone-value">{input.value}</p>
+                        )}
+                </div>
                 {touched && error && (
                     <Form.Control.Feedback
                         className="wfui-form-error"
                         type="invalid"
                     >
-                        <span>{error}</span>
+                        <span>{Array.isArray(error) ? error.join(', ') : error}</span>
                     </Form.Control.Feedback>
                 )}
                 {touched && globalError && (
@@ -99,7 +102,7 @@ const renderTimezone = ({
                         className="wfui-form-error"
                         type="invalid"
                     >
-                        <span>{globalError}</span>
+                        <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
                     </Form.Control.Feedback>
                 )}
                 {touched && data.warning && (
@@ -107,7 +110,7 @@ const renderTimezone = ({
                         className="wfui-form-warning"
                         type="valid"
                     >
-                        <span>{data.warning}</span>
+                        <span>{Array.isArray(data.warning) ? data.warning.join(', ') : data.warning}</span>
                     </Form.Control.Feedback>
                 )}
                 {help && !preview && (

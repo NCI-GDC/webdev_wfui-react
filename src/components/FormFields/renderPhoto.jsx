@@ -165,28 +165,6 @@ class renderPhoto extends React.Component {
                                 : 'wfui-form-field-no-description'
                             } wfui-form-photo`}
                     >
-                        <Dropzone
-                            {...input}
-                            name={input.name}
-                            accept="image/png,image/jpeg,image/pjpeg,image/gif"
-                            className="btn btn-primary choose-file"
-                            onDrop={acceptedFiles => {
-                                const reader = new FileReader();
-                                reader.readAsDataURL(acceptedFiles[0]);
-                                reader.onloadend = () => {
-                                    const newValue = {
-                                        ...value,
-                                        src: reader.result,
-                                    };
-                                    this.setState({ value: newValue });
-                                    onStateChange(newValue);
-                                    return input.onChange(newValue);
-                                };
-                                this.setState({ hasFile: true });
-                            }}
-                        >
-                            Choose File
-                        </Dropzone>
                         <FormControl isInvalid={touched && (error || globalError)}
                             isValid={touched && data.warning}
                             className={
@@ -196,12 +174,36 @@ class renderPhoto extends React.Component {
                                 )
                             }
                         />
+                        <div className="custom-form-control-wrapper">
+                            <Dropzone
+                                {...input}
+                                name={input.name}
+                                accept="image/png,image/jpeg,image/pjpeg,image/gif"
+                                className="btn btn-primary choose-file"
+                                onDrop={acceptedFiles => {
+                                    const reader = new FileReader();
+                                    reader.readAsDataURL(acceptedFiles[0]);
+                                    reader.onloadend = () => {
+                                        const newValue = {
+                                            ...value,
+                                            src: reader.result,
+                                        };
+                                        this.setState({ value: newValue });
+                                        onStateChange(newValue);
+                                        return input.onChange(newValue);
+                                    };
+                                    this.setState({ hasFile: true });
+                                }}
+                            >
+                                Choose File
+                            </Dropzone>
+                        </div>
                         {touched && error && (
                             <Form.Control.Feedback
                                 className="wfui-form-error"
                                 type="invalid"
                             >
-                                <span>{error}</span>
+                                <span>{Array.isArray(error) ? error.join(', ') : error}</span>
                             </Form.Control.Feedback>
                         )}
                         {touched && globalError && (
@@ -209,7 +211,7 @@ class renderPhoto extends React.Component {
                                 className="wfui-form-error"
                                 type="invalid"
                             >
-                                <span>{globalError}</span>
+                                <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
                             </Form.Control.Feedback>
                         )}
                         {touched && data.warning && (
@@ -217,7 +219,7 @@ class renderPhoto extends React.Component {
                                 className="wfui-form-warning"
                                 type="valid"
                             >
-                                <span>{data.warning}</span>
+                                <span>{Array.isArray(data.warning) ? data.warning.join(', ') : data.warning}</span>
                             </Form.Control.Feedback>
                         )}
                         {help && !preview && (

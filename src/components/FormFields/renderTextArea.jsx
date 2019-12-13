@@ -135,7 +135,7 @@ const renderTextArea = ({
                             className="wfui-form-error"
                             type="invalid"
                         >
-                            <span>{error}</span>
+                            <span>{Array.isArray(error) ? error.join(', ') : error}</span>
                             {textLimit && !preview ? (
                                 <span className="wfui-form-char-count">
                                     {`${
@@ -152,7 +152,7 @@ const renderTextArea = ({
                             className="wfui-form-error"
                             type="invalid"
                         >
-                            <span>{globalError}</span>
+                            <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
                             {textLimit && !preview ? (
                                 <span className="wfui-form-char-count">
                                     {`${
@@ -178,7 +178,7 @@ const renderTextArea = ({
                             className="wfui-form-warning"
                             type="valid"
                         >
-                            <span>{data.warning}</span>
+                            <span>{Array.isArray(data.warning) ? data.warning.join(', ') : data.warning}</span>
                         </Form.Control.Feedback>
                     )}
                     {help && !preview && (

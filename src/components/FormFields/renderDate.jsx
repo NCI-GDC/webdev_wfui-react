@@ -70,8 +70,18 @@ const renderDate = ({
                     }`}
                 validationState={touched && (error || globalError) ? 'error' : null}
             >
+                <FormControl isInvalid={touched && (error || globalError)}
+                    isValid={touched && data.warning}
+                    className={
+                        classNames(
+                            'd-none',
+                            'custom-form-control',
+                            { 'is-valid-warning': touched && data.warning }
+                        )
+                    }
+                />
                 {!disabled ? (
-                    <div className="wfui-form-datepicker">
+                    <div className="wfui-form-datepicker custom-form-control-wrapper">
                         <DatePicker
                             {...datePickerProps}
                             className="form-control"
@@ -100,21 +110,12 @@ const renderDate = ({
                             {input.value ? new Date(input.value).toString() : ''}
                         </p>
                     )}
-                <FormControl isInvalid={touched && (error || globalError)}
-                    isValid={touched && data.warning}
-                    className={
-                        classNames(
-                            'd-none',
-                            { 'is-valid-warning': touched && data.warning }
-                        )
-                    }
-                />
                 {touched && error && (
                     <Form.Control.Feedback
                         className="wfui-form-error"
                         type="invalid"
                     >
-                        <span>{error}</span>
+                        <span>{Array.isArray(error) ? error.join(', ') : error}</span>
                     </Form.Control.Feedback>
                 )}
                 {touched && globalError && (
@@ -122,7 +123,7 @@ const renderDate = ({
                         className="wfui-form-error"
                         type="invalid"
                     >
-                        <span>{globalError}</span>
+                        <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
                     </Form.Control.Feedback>
                 )}
                 {touched && data.warning && (
@@ -130,7 +131,7 @@ const renderDate = ({
                         className="wfui-form-warning"
                         type="valid"
                     >
-                        <span>{data.warning}</span>
+                        <span>{Array.isArray(data.warning) ? data.warning.join(', ') : data.warning}</span>
                     </Form.Control.Feedback>
                 )}
                 {help && !preview && (
@@ -139,16 +140,18 @@ const renderDate = ({
                     </HelpBlock>
                 )}
             </FormGroup>
-            {descDisplay && !preview ? (
-                <Col
-                    className="wfui-form-description"
-                    xs={12}
-                    lg={{ span: 6, offset: 0 }}
-                >
-                    {cloneElement(descDisplay)}
-                </Col>
-            ) : null}
-        </Form.Row>
+            {
+                descDisplay && !preview ? (
+                    <Col
+                        className="wfui-form-description"
+                        xs={12}
+                        lg={{ span: 6, offset: 0 }}
+                    >
+                        {cloneElement(descDisplay)}
+                    </Col>
+                ) : null
+            }
+        </Form.Row >
     );
 
 renderDate.propTypes = {

@@ -61,7 +61,16 @@ const renderCheckboxes = ({
                     } wfui-form-checkboxes`}
                 validationState={touched && (error || globalError) ? 'error' : null}
             >
-                <div className="wfui-form-checkbox-group-container">
+                <FormControl isInvalid={touched && (error || globalError)}
+                    isValid={touched && data.warning}
+                    className={
+                        classNames(
+                            'd-none',
+                            'custom-form-control',
+                            { 'is-valid-warning': touched && data.warning }
+                        )
+                    } />
+                <div className="wfui-form-checkbox-group-container custom-form-control-wrapper">
                     {options.map((option, i) => {
                         const _key =
                             typeof option === 'string' ? option : option.key;
@@ -121,20 +130,12 @@ const renderCheckboxes = ({
                         );
                     })}
                 </div>
-                <FormControl isInvalid={touched && (error || globalError)}
-                    isValid={touched && data.warning}
-                    className={
-                        classNames(
-                            'd-none',
-                            { 'is-valid-warning': touched && data.warning }
-                        )
-                    } />
                 {touched && error && (
                     <Form.Control.Feedback
                         className="wfui-form-error"
                         type="invalid"
                     >
-                        <span>{error}</span>
+                        <span>{Array.isArray(error) ? error.join(', ') : error}</span>
                     </Form.Control.Feedback>
                 )}
                 {touched && globalError && (
@@ -142,7 +143,7 @@ const renderCheckboxes = ({
                         className="wfui-form-error"
                         type="invalid"
                     >
-                        <span>{globalError}</span>
+                        <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
                     </Form.Control.Feedback>
                 )}
                 {touched && data.warning && (
@@ -150,7 +151,7 @@ const renderCheckboxes = ({
                         className="wfui-form-warning"
                         type="valid"
                     >
-                        <span>{data.warning}</span>
+                        <span>{Array.isArray(data.warning) ? data.warning.join(', ') : data.warning}</span>
                     </Form.Control.Feedback>
                 )}
                 {help && !preview && (
