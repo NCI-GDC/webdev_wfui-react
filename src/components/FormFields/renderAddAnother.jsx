@@ -93,7 +93,7 @@ class renderAddAnother extends React.Component {
                             this.touched && (error || globalError),
                     },
                     {
-                        'wfui-form-item-warning': touched && data.warning,
+                        'wfui-form-item-warning': this.touched && data.warning,
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
