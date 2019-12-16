@@ -14,6 +14,7 @@ import {
     ControlLabel,
     HelpBlock,
     Icon,
+    FormControl,
 } from '../index';
 
 class renderAddAnother extends React.Component {
@@ -55,7 +56,7 @@ class renderAddAnother extends React.Component {
             withContext,
             globalError,
             name,
-            meta: { error, submitFailed },
+            meta: { error, submitFailed, data },
             minimumItem,
             descDisplay,
             fullWidth,
@@ -91,6 +92,9 @@ class renderAddAnother extends React.Component {
                         'wfui-form-item-error':
                             this.touched && (error || globalError),
                     },
+                    {
+                        'wfui-form-item-warning': this.touched && data.warning,
+                    },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
                     { 'wfui-form-item-full-width': fullWidth }
@@ -117,83 +121,108 @@ class renderAddAnother extends React.Component {
                                 ? 4
                                 : 10
                             : descDisplay && !preview
-                            ? 6
-                            : 9
+                                ? 6
+                                : 9
                     }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-form-addAnother`}
+                        } wfui-form-addAnother`}
                     validationState={
                         this.touched && (error || globalError) ? 'error' : null
                     }
                 >
-                    {!disabled && draggable && fields.length > 0 && (
-                        <Comp
-                            onHandleItemMove={(from, to) => {
-                                fields.move(from, to);
-                                setTimeout(() => this.forceUpdate(), 1);
-                            }}
-                            onHandleEndDrag={() => {
-                                this.forceUpdate();
-                            }}
-                            className="wfui-form-addAnother-item"
-                        >
-                            {fields.map((field, i) => (
-                                <Comp.Item key={i} id={field}>
-                                    <Comp.Handle>
-                                        <Icon icon="arrows-alt" />
-                                    </Comp.Handle>
-                                    {childComponent(field, i)}
-                                    {
+                    <FormControl isInvalid={this.touched && (error || globalError)}
+                        isValid={this.touched && data.warning}
+                        className={
+                            classNames(
+                                'd-none',
+                                'custom-form-control',
+                                { 'is-valid-warning': this.touched && data.warning }
+                            )
+                        } />
+
+                    <div className="custom-form-control-wrapper">
+                        {!disabled && draggable && fields.length > 0 && (
+                            <Comp
+                                onHandleItemMove={(from, to) => {
+                                    fields.move(from, to);
+                                    setTimeout(() => this.forceUpdate(), 1);
+                                }}
+                                onHandleEndDrag={() => {
+                                    this.forceUpdate();
+                                }}
+                                className="wfui-form-addAnother-item"
+                            >
+                                {fields.map((field, i) => (
+                                    <Comp.Item key={i} id={field}>
+                                        <Comp.Handle>
+                                            <Icon icon="arrows-alt" />
+                                        </Comp.Handle>
+                                        {childComponent(field, i)}
+                                        {
+                                            <DeleteButton
+                                                type="DeleteButton"
+                                                index={i}
+                                            />
+                                        }
+                                    </Comp.Item>
+                                ))}
+                            </Comp>
+                        )}
+                        {(!draggable || disabled) &&
+                            fields.map((field, i) => (
+                                <div className="wfui-form-addAnother-item" key={i}>
+                                    <div className="wfui-form-addAnother-content">
+                                        {childComponent(field, i)}
+                                    </div>
+                                    <div className="wfui-form-addAnother-delete">
                                         <DeleteButton
                                             type="DeleteButton"
                                             index={i}
                                         />
-                                    }
-                                </Comp.Item>
+                                    </div>
+                                </div>
                             ))}
-                        </Comp>
-                    )}
-                    {(!draggable || disabled) &&
-                        fields.map((field, i) => (
-                            <div className="wfui-form-addAnother-item" key={i}>
-                                <div className="wfui-form-addAnother-content">
-                                    {childComponent(field, i)}
-                                </div>
-                                <div className="wfui-form-addAnother-delete">
-                                    <DeleteButton
-                                        type="DeleteButton"
-                                        index={i}
-                                    />
-                                </div>
+                        {!disabled && (
+                            <div className="wfui-form-addAnother-btn-container">
+                                <Button
+                                    variant="outline-primary"
+                                    onClick={() => {
+                                        fields.push(defaultValue);
+                                    }}
+                                    plus
+                                >
+                                    <span className="span-plus">
+                                        {labelAddAnother}
+                                    </span>
+                                </Button>
                             </div>
-                        ))}
-                    {!disabled && (
-                        <div className="wfui-form-addAnother-btn-container">
-                            <Button
-                                variant="outline-primary"
-                                onClick={() => {
-                                    fields.push(defaultValue);
-                                }}
-                                plus
-                            >
-                                <span className="span-plus">
-                                    {labelAddAnother}
-                                </span>
-                            </Button>
-                        </div>
-                    )}
+                        )}
+                    </div>
                     {/* MUSTDO: Check if this error is needed */}
                     {/* {error && (
                         <Form.Control.Feedback className="wfui-form-error">
-                            <span>{error}</span>
+                            {Array.isArray(error)
+                                        ? error.map(item => <div>{item}</div>)
+                                        : error}
                         </Form.Control.Feedback>
                     )} */}
+
                     {(this.touched || submitFailed) && globalError && (
                         <Form.Control.Feedback className="wfui-form-error">
-                            <span>{globalError}</span>
+                            <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
+                        </Form.Control.Feedback>
+                    )}
+                    {this.touched && data.warning && (
+                        <Form.Control.Feedback
+                            className="wfui-form-warning"
+                            type="valid"
+                        >
+                            {Array.isArray(data.warning)
+                                ? data.warning.map(item => <div>{item}</div>)
+                                : data.warning}
                         </Form.Control.Feedback>
                     )}
                     {help && !preview && (

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TagsInput from 'react-tagsinput';
 
-import { FormGroup, ControlLabel, HelpBlock, Form, Col } from '../index';
+import { FormControl, FormGroup, ControlLabel, HelpBlock, Form, Col } from '../index';
 
 class renderTags extends React.Component {
     constructor(props) {
@@ -22,7 +22,7 @@ class renderTags extends React.Component {
         const { input, onChange } = this.props;
         this.setState({ tags });
         input.onChange(tags);
-        if (typeof onChange === 'function') onChange(tags);
+        if (typeof onChange === 'function') onChange(tags, input);
     }
 
     render() {
@@ -40,7 +40,7 @@ class renderTags extends React.Component {
             descDisplay,
             fullWidth,
             inline,
-            meta: { touched, error },
+            meta: { touched, error, data },
         } = this.props;
         const { suggestions, tags } = this.state;
 
@@ -50,6 +50,9 @@ class renderTags extends React.Component {
                     className,
                     'wfui-form-item',
                     { 'wfui-form-item-error': touched && error },
+                    {
+                        'wfui-form-item-warning': touched && data.warning,
+                    },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
                     { 'wfui-form-item-full-width': fullWidth }
@@ -76,8 +79,8 @@ class renderTags extends React.Component {
                                 ? 4
                                 : 10
                             : descDisplay && !preview
-                            ? 6
-                            : 12
+                                ? 6
+                                : 12
                     }
                     className={`wfui-form-field ${
                         descDisplay
@@ -86,31 +89,58 @@ class renderTags extends React.Component {
                         } wfui-form-tags`}
                     validationState={touched && error ? 'error' : null}
                 >
-                    {disabled ? (
-                        <div>
-                            {input.value ? (
-                                <ul>
-                                    {input.value.map((tag, i) => (
-                                        <li key={i}>{tag}</li>
-                                    ))}
-                                </ul>
-                            ) : (
-                                    <span className="no-item">( No Items )</span>
-                                )}
-                        </div>
-                    ) : (
-                            <TagsInput value={tags} onChange={this.handleChange} />
-                        )}
-
+                    <FormControl isInvalid={touched && (error || globalError)}
+                        isValid={touched && data.warning}
+                        className={
+                            classNames(
+                                'd-none',
+                                { 'is-valid-warning': touched && data.warning }
+                            )
+                        } />
+                    <div className="custom-form-control-wrapper">
+                        {disabled ? (
+                            <div>
+                                {input.value ? (
+                                    <ul>
+                                        {input.value.map((tag, i) => (
+                                            <li key={i}>{tag}</li>
+                                        ))}
+                                    </ul>
+                                ) : (
+                                        <span className="no-item">( No Items )</span>
+                                    )}
+                            </div>
+                        ) : (
+                                <TagsInput value={tags} onChange={this.handleChange} />
+                            )}
+                    </div>
                     {touched && error && (
-                        <HelpBlock className="wfui-form-error">
-                            <span>{error}</span>
-                        </HelpBlock>
+                        <Form.Control.Feedback
+                            className="wfui-form-error"
+                            type="invalid"
+                        >
+                            {Array.isArray(error)
+                                ? error.map(item => <div>{item}</div>)
+                                : error}
+                        </Form.Control.Feedback>
                     )}
                     {touched && globalError && (
-                        <HelpBlock className="wfui-form-error">
-                            <span>{globalError}</span>
-                        </HelpBlock>
+                        <Form.Control.Feedback
+                            className="wfui-form-error"
+                            type="invalid"
+                        >
+                            <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
+                        </Form.Control.Feedback>
+                    )}
+                    {touched && data.warning && (
+                        <Form.Control.Feedback
+                            className="wfui-form-warning"
+                            type="valid"
+                        >
+                            {Array.isArray(data.warning)
+                                ? data.warning.map(item => <div>{item}</div>)
+                                : data.warning}
+                        </Form.Control.Feedback>
                     )}
                     {help && !preview && (
                         <HelpBlock className="wfui-form-help text-muted">
