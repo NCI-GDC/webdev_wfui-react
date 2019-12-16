@@ -93,7 +93,8 @@ class renderAddAnother extends React.Component {
                             this.touched && (error || globalError),
                     },
                     {
-                        'wfui-form-item-warning': this.touched && data.warning,
+                        'wfui-form-item-warning':
+                            this.touched && data && data.warning,
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
@@ -121,27 +122,26 @@ class renderAddAnother extends React.Component {
                                 ? 4
                                 : 10
                             : descDisplay && !preview
-                                ? 6
-                                : 9
+                            ? 6
+                            : 9
                     }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                        } wfui-form-addAnother`}
+                    } wfui-form-addAnother`}
                     validationState={
                         this.touched && (error || globalError) ? 'error' : null
                     }
                 >
-                    <FormControl isInvalid={this.touched && (error || globalError)}
-                        isValid={this.touched && data.warning}
-                        className={
-                            classNames(
-                                'd-none',
-                                'custom-form-control',
-                                { 'is-valid-warning': this.touched && data.warning }
-                            )
-                        } />
+                    <FormControl
+                        isInvalid={this.touched && (error || globalError)}
+                        isValid={this.touched && data && data.warning}
+                        className={classNames('d-none', 'custom-form-control', {
+                            'is-valid-warning':
+                                this.touched && data && data.warning,
+                        })}
+                    />
 
                     <div className="custom-form-control-wrapper">
                         {!disabled && draggable && fields.length > 0 && (
@@ -173,7 +173,10 @@ class renderAddAnother extends React.Component {
                         )}
                         {(!draggable || disabled) &&
                             fields.map((field, i) => (
-                                <div className="wfui-form-addAnother-item" key={i}>
+                                <div
+                                    className="wfui-form-addAnother-item"
+                                    key={i}
+                                >
                                     <div className="wfui-form-addAnother-content">
                                         {childComponent(field, i)}
                                     </div>
@@ -212,10 +215,14 @@ class renderAddAnother extends React.Component {
 
                     {(this.touched || submitFailed) && globalError && (
                         <Form.Control.Feedback className="wfui-form-error">
-                            <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
+                            <span>
+                                {Array.isArray(globalError)
+                                    ? globalError.join(', ')
+                                    : globalError}
+                            </span>
                         </Form.Control.Feedback>
                     )}
-                    {this.touched && data.warning && (
+                    {this.touched && data && data.warning && (
                         <Form.Control.Feedback
                             className="wfui-form-warning"
                             type="valid"
