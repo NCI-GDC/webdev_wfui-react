@@ -117,7 +117,10 @@ class ModalDialog extends React.Component {
                             >
                                 {txtSubmit}
                             </Button>
-                            <Button onClick={this.onHandleCancel}>
+                            <Button
+                                variant={btnCancelStyle || 'outline-primary'}
+                                onClick={this.onHandleCancel}
+                            >
                                 {txtCancel}
                             </Button>
                         </>
