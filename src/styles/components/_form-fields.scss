@@ -1165,15 +1165,16 @@ button.delete-icon {
         @extend .flexbox;
         @extend .flexbox-align-center;
 
-        @include media-breakpoint-down(md) {
+        @include media-breakpoint-down(sm) {
             flex-wrap: wrap;
         }
 
         .remove-file {
             margin: 0 0 0 15px;
     
-            @include media-breakpoint-down(md) {
+            @include media-breakpoint-down(sm) {
                 margin: 15px 0 0 0;
+                width: 100%;
             }
         }
     }
