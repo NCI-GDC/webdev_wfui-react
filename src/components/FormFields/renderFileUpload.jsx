@@ -148,7 +148,7 @@ class renderFileUpload extends React.Component {
             // Image File
             if (input.value.type && input.value.type.indexOf('image') === 0) {
                 return (
-                    <div>
+                    <div className="file-upload__loaded">
                         {src ? (
                             <a
                                 className={`${
