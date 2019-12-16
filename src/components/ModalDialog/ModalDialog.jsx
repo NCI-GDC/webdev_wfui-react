@@ -98,7 +98,7 @@ class ModalDialog extends React.Component {
                 </Modal.Body>
                 <Modal.Footer>
                     {notForm ? (
-                        <div>
+                        <>
                             <Button
                                 variant={btnCancelStyle || 'outline-primary'}
                                 className="text-uppercase"
@@ -106,26 +106,26 @@ class ModalDialog extends React.Component {
                             >
                                 {txtCancel}
                             </Button>
-                        </div>
+                        </>
                     ) : (
-                            <div>
-                                <Button
-                                    type="submit"
-                                    variant={btnSubmitStyle || 'primary'}
-                                    onClick={
-                                        handleSubmit
-                                            ? handleSubmit(this.onHandleSubmit)
-                                            : this.onHandleSubmit
-                                    }
-                                    disabled={invalid || submitting}
-                                >
-                                    {txtSubmit}
-                                </Button>
-                                <Button onClick={this.onHandleCancel}>
-                                    {txtCancel}
-                                </Button>
-                            </div>
-                        )}
+                        <>
+                            <Button
+                                type="submit"
+                                variant={btnSubmitStyle || 'primary'}
+                                onClick={
+                                    handleSubmit
+                                        ? handleSubmit(this.onHandleSubmit)
+                                        : this.onHandleSubmit
+                                }
+                                disabled={invalid || submitting}
+                            >
+                                {txtSubmit}
+                            </Button>
+                            <Button onClick={this.onHandleCancel}>
+                                {txtCancel}
+                            </Button>
+                        </>
+                    )}
                 </Modal.Footer>
             </Modal>
         );
