@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
     FormGroup,
-    FormControl,
     ControlLabel,
     HelpBlock,
     Form,
     Col,
+    FormControl,
 } from '../index';
 
 const renderTextArea = ({
@@ -23,7 +23,7 @@ const renderTextArea = ({
     disabled,
     preview,
     globalError,
-    meta: { touched, error },
+    meta: { touched, error, data },
     rows,
     readOnly,
     descDisplay,
@@ -39,6 +39,9 @@ const renderTextArea = ({
                 className,
                 'wfui-form-item',
                 { 'wfui-form-item-error': touched && (error || globalError) },
+                {
+                    'wfui-form-item-warning': touched && data.warning,
+                },
                 { 'wfui-form-disabled': disabled },
                 { 'wfui-form-preview': preview },
                 { answered: input.value },
@@ -122,14 +125,19 @@ const renderTextArea = ({
                         as="textarea"
                         rows={rows || (disabled || preview ? 0 : 5)}
                         isInvalid={touched && (error || globalError)}
+                        isValid={touched && data.warning}
+                        className={classNames({
+                            'is-valid-warning': touched && data.warning,
+                        })}
                     />
-                    <FormControl.Feedback />
                     {touched && error && (
                         <Form.Control.Feedback
                             className="wfui-form-error"
                             type="invalid"
                         >
-                            <span>{error}</span>
+                            {Array.isArray(error)
+                                ? error.map(item => <div>{item}</div>)
+                                : error}
                             {textLimit && !preview ? (
                                 <span className="wfui-form-char-count">
                                     {`${
@@ -146,7 +154,7 @@ const renderTextArea = ({
                             className="wfui-form-error"
                             type="invalid"
                         >
-                            <span>{globalError}</span>
+                            <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
                             {textLimit && !preview ? (
                                 <span className="wfui-form-char-count">
                                     {`${
@@ -167,6 +175,16 @@ const renderTextArea = ({
                                     } / ${textLimit} characters`}
                             </span>
                         ) : null}
+                    {touched && data.warning && (
+                        <Form.Control.Feedback
+                            className="wfui-form-warning"
+                            type="valid"
+                        >
+                            {Array.isArray(data.warning)
+                                ? data.warning.map(item => <div>{item}</div>)
+                                : data.warning}
+                        </Form.Control.Feedback>
+                    )}
                     {help && !preview && (
                         <HelpBlock className="wfui-form-help text-muted">
                             <div dangerouslySetInnerHTML={{ __html: help }} />

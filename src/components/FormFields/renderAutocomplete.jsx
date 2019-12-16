@@ -1,7 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { Spinner, FormGroup, FormControl, ControlLabel, HelpBlock } from '../index';
+import {
+    Spinner,
+    FormGroup,
+    FormControl,
+    ControlLabel,
+    HelpBlock,
+} from '../index';
 
 /**
  * Autocomplete component.
@@ -32,7 +38,7 @@ const Autocomplete = ({
                                     <li key={idx} className="ui-menu-item">
                                         {itemDisplay(item, onClickItem)}
                                     </li>,
-                                    Object.assign({}, {}, { key: idx }),
+                                    Object.assign({}, {}, { key: idx })
                                 )
                             ) : (
                                     <li key={idx} className="ui-menu-item">
@@ -42,7 +48,7 @@ const Autocomplete = ({
                                             </a>
                                         </div>
                                     </li>
-                                ),
+                                )
                         )}
                     {fetching && (
                         <li className="mp ps">
@@ -130,7 +136,7 @@ class renderAutocomplete extends React.Component {
             itemDisplay,
             textNoResult,
             fullWidth,
-            meta: { touched, error },
+            meta: { touched, error, data },
         } = this.props;
         const { fetching, autoFetched, term, autoCompleteItems } = this.state;
 
@@ -143,11 +149,14 @@ class renderAutocomplete extends React.Component {
                         'wfui-form-item-error':
                             touched && (error || globalError),
                     },
+                    {
+                        'wfui-form-item-warning': touched && data.warning,
+                    },
                     { 'wfui-form-inline': inline },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
                     { answered: input.value },
-                    { 'wfui-form-item-full-width': fullWidth },
+                    { 'wfui-form-item-full-width': fullWidth }
                 )}
             >
                 <div className="wfui-form-label">
@@ -190,6 +199,13 @@ class renderAutocomplete extends React.Component {
                             }
                             if (onHandleChange) onHandleChange(e);
                         }}
+                        isInvalid={touched && (error || globalError)}
+                        isValid={touched && data.warning}
+                        className={
+                            classNames(
+                                { 'is-valid-warning': touched && data.warning }
+                            )
+                        }
                         autoComplete="off"
                     />
                     {postfix && (
@@ -217,16 +233,33 @@ class renderAutocomplete extends React.Component {
                             textNoResult={textNoResult}
                         />
                     )}
-                    <FormControl.Feedback />
                     {touched && error && (
-                        <HelpBlock className="wfui-form-error">
-                            <span>{error}</span>
-                        </HelpBlock>
+                        <Form.Control.Feedback
+                            className="wfui-form-error"
+                            type="invalid"
+                        >
+                            {Array.isArray(error)
+                                        ? error.map(item => <div>{item}</div>)
+                                        : error}
+                        </Form.Control.Feedback>
+                    )}
+                    {touched && data.warning && (
+                        <Form.Control.Feedback
+                            className="wfui-form-warning"
+                            type="valid"
+                        >
+                            {Array.isArray(data.warning)
+                                        ? data.warning.map(item => <div>{item}</div>)
+                                        : data.warning}
+                        </Form.Control.Feedback>
                     )}
                     {touched && globalError && (
-                        <HelpBlock className="wfui-form-error">
-                            <span>{globalError}</span>
-                        </HelpBlock>
+                        <Form.Control.Feedback
+                            className="wfui-form-error"
+                            type="invalid"
+                        >
+                            <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
+                        </Form.Control.Feedback>
                     )}
                     {help && (
                         <div

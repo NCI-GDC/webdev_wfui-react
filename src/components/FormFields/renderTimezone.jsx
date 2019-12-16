@@ -17,7 +17,8 @@ const renderTimezone = ({
     descDisplay,
     fullWidth,
     onChange,
-    meta: { touched, error },
+    globalError,
+    meta: { touched, error, data },
     inline,
 }) => (
         <Form.Row
@@ -26,6 +27,9 @@ const renderTimezone = ({
                 'wfui-form-item',
                 {
                     'wfui-form-item-error': touched && error,
+                },
+                {
+                    'wfui-form-item-warning': touched && data.warning,
                 },
                 { 'wfui-form-disabled': disabled },
                 { 'wfui-form-preview': preview },
@@ -59,25 +63,59 @@ const renderTimezone = ({
                     } wfui-form-time-zone`}
                 validationState={touched && error ? 'error' : null}
             >
-                {!disabled ? (
-                    <TimezonePicker
-                        className="wfui-form-timezone"
-                        {...input}
-                        onChange={timezone => {
-                            input.onChange(timezone);
-                            if (typeof onChange === 'function') onChange(timezone, input);
-                        }}
-                        inputProps={{
-                            placeholder,
-                        }}
-                    />
-                ) : (
-                        <p className="timezone-value">{input.value}</p>
-                    )}
+                <FormControl isInvalid={touched && (error || globalError)}
+                    isValid={touched && data.warning}
+                    className={
+                        classNames(
+                            'd-none',
+                            'custom-form-control',
+                            { 'is-valid-warning': touched && data.warning }
+                        )
+                    } />
+                <div className="custom-form-control-wrapper">
+                    {!disabled ? (
+                        <TimezonePicker
+                            className="wfui-form-timezone"
+                            {...input}
+                            onChange={timezone => {
+                                input.onChange(timezone);
+                                if (typeof onChange === 'function') onChange(timezone, input);
+                            }}
+                            inputProps={{
+                                placeholder,
+                            }}
+                        />
+                    ) : (
+                            <p className="timezone-value">{input.value}</p>
+                        )}
+                </div>
                 {touched && error && (
-                    <HelpBlock className="wfui-form-error">
-                        <span>{error}</span>
-                    </HelpBlock>
+                    <Form.Control.Feedback
+                        className="wfui-form-error"
+                        type="invalid"
+                    >
+                        {Array.isArray(error)
+                            ? error.map(item => <div>{item}</div>)
+                            : error}
+                    </Form.Control.Feedback>
+                )}
+                {touched && globalError && (
+                    <Form.Control.Feedback
+                        className="wfui-form-error"
+                        type="invalid"
+                    >
+                        <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
+                    </Form.Control.Feedback>
+                )}
+                {touched && data.warning && (
+                    <Form.Control.Feedback
+                        className="wfui-form-warning"
+                        type="valid"
+                    >
+                        {Array.isArray(data.warning)
+                            ? data.warning.map(item => <div>{item}</div>)
+                            : data.warning}
+                    </Form.Control.Feedback>
                 )}
                 {help && !preview && (
                     <HelpBlock className="wfui-form-help text-muted">

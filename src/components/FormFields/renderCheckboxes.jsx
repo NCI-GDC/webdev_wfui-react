@@ -1,7 +1,7 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Form, FormGroup, ControlLabel, HelpBlock, Col } from '../index';
+import { FormControl, Form, FormGroup, ControlLabel, HelpBlock, Col } from '../index';
 
 const renderCheckboxes = ({
     className,
@@ -13,7 +13,7 @@ const renderCheckboxes = ({
     disabled,
     preview,
     globalError,
-    meta: { touched, error },
+    meta: { touched, error, data },
     descDisplay,
     fullWidth,
     onChange,
@@ -25,6 +25,9 @@ const renderCheckboxes = ({
                 'wfui-form-item',
                 {
                     'wfui-form-item-error': touched && (error || globalError),
+                },
+                {
+                    'wfui-form-item-warning': touched && data.warning,
                 },
                 { 'wfui-form-disabled': disabled },
                 { 'wfui-form-preview': preview },
@@ -58,7 +61,16 @@ const renderCheckboxes = ({
                     } wfui-form-checkboxes`}
                 validationState={touched && (error || globalError) ? 'error' : null}
             >
-                <div className="wfui-form-checkbox-group-container">
+                <FormControl isInvalid={touched && (error || globalError)}
+                    isValid={touched && data.warning}
+                    className={
+                        classNames(
+                            'd-none',
+                            'custom-form-control',
+                            { 'is-valid-warning': touched && data.warning }
+                        )
+                    } />
+                <div className="wfui-form-checkbox-group-container custom-form-control-wrapper">
                     {options.map((option, i) => {
                         const _key =
                             typeof option === 'string' ? option : option.key;
@@ -97,7 +109,7 @@ const renderCheckboxes = ({
                                                 );
                                             }
                                             input.onBlur();
-                                            input.onChange(newValue)
+                                            input.onChange(newValue);
                                             if (typeof onChange === 'function')
                                                 onChange(newValue, input);
                                         }}
@@ -123,7 +135,9 @@ const renderCheckboxes = ({
                         className="wfui-form-error"
                         type="invalid"
                     >
-                        <span>{error}</span>
+                        {Array.isArray(error)
+                            ? error.map(item => <div>{item}</div>)
+                            : error}
                     </Form.Control.Feedback>
                 )}
                 {touched && globalError && (
@@ -131,7 +145,17 @@ const renderCheckboxes = ({
                         className="wfui-form-error"
                         type="invalid"
                     >
-                        <span>{globalError}</span>
+                        <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
+                    </Form.Control.Feedback>
+                )}
+                {touched && data.warning && (
+                    <Form.Control.Feedback
+                        className="wfui-form-warning"
+                        type="valid"
+                    >
+                        {Array.isArray(data.warning)
+                            ? data.warning.map(item => <div>{item}</div>)
+                            : data.warning}
                     </Form.Control.Feedback>
                 )}
                 {help && !preview && (

@@ -246,7 +246,7 @@ class renderSelectionHybridCheckbox extends React.Component {
                     <HelpBlock>
                         {' '}
                         {allTouched && globalError && (
-                            <span>{globalError}</span>
+                            <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
                         )}
 {' '}
                     </HelpBlock>

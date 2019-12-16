@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import classNames from 'classnames';
 import moment from 'moment';
-import { FormGroup, ControlLabel, HelpBlock, Form, Col } from '../index';
+import { FormControl, FormGroup, ControlLabel, HelpBlock, Form, Col } from '../index';
 
 const renderDate = ({
     className,
@@ -20,7 +20,7 @@ const renderDate = ({
     globalError,
     fullWidth,
     timeZone,
-    meta: { touched, error },
+    meta: { touched, error, data },
     utcOffsetNumber,
     datePickerProps,
     onChange,
@@ -32,6 +32,9 @@ const renderDate = ({
                 'wfui-form-item',
                 {
                     'wfui-form-item-error': touched && (error || globalError),
+                },
+                {
+                    'wfui-form-item-warning': touched && data.warning,
                 },
                 { 'wfui-form-disabled': disabled },
                 { 'wfui-form-preview': preview },
@@ -67,8 +70,18 @@ const renderDate = ({
                     }`}
                 validationState={touched && (error || globalError) ? 'error' : null}
             >
+                <FormControl isInvalid={touched && (error || globalError)}
+                    isValid={touched && data.warning}
+                    className={
+                        classNames(
+                            'd-none',
+                            'custom-form-control',
+                            { 'is-valid-warning': touched && data.warning }
+                        )
+                    }
+                />
                 {!disabled ? (
-                    <div className="wfui-form-datepicker">
+                    <div className="wfui-form-datepicker custom-form-control-wrapper">
                         <DatePicker
                             {...datePickerProps}
                             className="form-control"
@@ -82,7 +95,8 @@ const renderDate = ({
                             }
                             onChange={e => {
                                 input.onChange(e);
-                                if (typeof onChange === 'function') onChange(e, input);
+                                if (typeof onChange === 'function')
+                                    onChange(e, input);
                             }}
                             onBlur={input.onBlur}
                             placeholderText={placeholder || 'Choose Date'}
@@ -101,7 +115,9 @@ const renderDate = ({
                         className="wfui-form-error"
                         type="invalid"
                     >
-                        <span>{error}</span>
+                        {Array.isArray(error)
+                            ? error.map(item => <div>{item}</div>)
+                            : error}
                     </Form.Control.Feedback>
                 )}
                 {touched && globalError && (
@@ -109,7 +125,17 @@ const renderDate = ({
                         className="wfui-form-error"
                         type="invalid"
                     >
-                        <span>{globalError}</span>
+                        <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
+                    </Form.Control.Feedback>
+                )}
+                {touched && data.warning && (
+                    <Form.Control.Feedback
+                        className="wfui-form-warning"
+                        type="valid"
+                    >
+                        {Array.isArray(data.warning)
+                            ? data.warning.map(item => <div>{item}</div>)
+                            : data.warning}
                     </Form.Control.Feedback>
                 )}
                 {help && !preview && (
@@ -118,16 +144,18 @@ const renderDate = ({
                     </HelpBlock>
                 )}
             </FormGroup>
-            {descDisplay && !preview ? (
-                <Col
-                    className="wfui-form-description"
-                    xs={12}
-                    lg={{ span: 6, offset: 0 }}
-                >
-                    {cloneElement(descDisplay)}
-                </Col>
-            ) : null}
-        </Form.Row>
+            {
+                descDisplay && !preview ? (
+                    <Col
+                        className="wfui-form-description"
+                        xs={12}
+                        lg={{ span: 6, offset: 0 }}
+                    >
+                        {cloneElement(descDisplay)}
+                    </Col>
+                ) : null
+            }
+        </Form.Row >
     );
 
 renderDate.propTypes = {

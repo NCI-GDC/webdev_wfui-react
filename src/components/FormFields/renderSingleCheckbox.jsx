@@ -16,7 +16,7 @@ const renderSingleCheckbox = ({
     descDisplay,
     fullWidth,
     inline,
-    meta: { touched, error },
+    meta: { touched, error, data },
     onChange,
 }) => (
         <Form.Row
@@ -24,6 +24,9 @@ const renderSingleCheckbox = ({
                 className,
                 'wfui-form-item wfui-form-singlecheckbox',
                 { 'wfui-form-item-error': touched && (error || globalError) },
+                {
+                    'wfui-form-item-warning': touched && data.warning,
+                },
                 { 'wfui-form-disabled': disabled },
                 { 'wfui-form-preview': preview },
                 { 'wfui-form-item-full-width': fullWidth }
@@ -55,9 +58,14 @@ const renderSingleCheckbox = ({
             >
                 <Form.Check
                     type="checkbox"
-                    className={`wfui-form-checkbox-container${
-                        input.checked ? ' active' : ''
-                        }${disabled ? ' disabled' : ''}${preview ? ' preview' : ''}`}
+                    isInvalid={touched && (error || globalError)}
+                    isValid={touched && data.warning}
+                    className={classNames('wfui-form-checkbox-container', {
+                        'active': input.checked,
+                        'disabled': disabled,
+                        'preview': preview,
+                        'is-valid-warning': touched && data.warning,
+                    })}
                 >
                     <Form.Check.Label>
                         <Form.Check.Input
@@ -65,25 +73,43 @@ const renderSingleCheckbox = ({
                             {...input}
                             onChange={e => {
                                 input.onChange(e);
-                                if (typeof onChange === 'function') onChange(e, input);
+                                if (typeof onChange === 'function')
+                                    onChange(e, input);
                             }}
                             disabled={disabled}
                         />
-                        <span dangerouslySetInnerHTML={{ __html: option }} />
-                        {' '}
+                        <span dangerouslySetInnerHTML={{ __html: option }} />{' '}
                         {required && <b className="required">*</b>}
                     </Form.Check.Label>
+                    {touched && error && (
+                        <Form.Control.Feedback
+                            className="wfui-form-error"
+                            type="invalid"
+                        >
+                            {Array.isArray(error)
+                                ? error.map(item => <div>{item}</div>)
+                                : error}
+                        </Form.Control.Feedback>
+                    )}
+                    {touched && data.warning && (
+                        <Form.Control.Feedback
+                            className="wfui-form-warning"
+                            type="valid"
+                        >
+                            {Array.isArray(data.warning)
+                                ? data.warning.map(item => <div>{item}</div>)
+                                : data.warning}
+                        </Form.Control.Feedback>
+                    )}
+                    {touched && globalError && (
+                        <Form.Control.Feedback
+                            className="wfui-form-error"
+                            type="invalid"
+                        >
+                            <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
+                        </Form.Control.Feedback>
+                    )}
                 </Form.Check>
-                {touched && error && (
-                    <HelpBlock className="wfui-form-error">
-                        <span>{error}</span>
-                    </HelpBlock>
-                )}
-                {touched && globalError && (
-                    <HelpBlock className="wfui-form-error">
-                        <span>{globalError}</span>
-                    </HelpBlock>
-                )}
                 {help && !preview && (
                     <HelpBlock className="wfui-form-help text-muted">
                         <div dangerouslySetInnerHTML={{ __html: help }} />

@@ -33,9 +33,10 @@ class renderPhoto extends React.Component {
             onStateChange,
             disabled,
             preview,
+            globalError,
             descDisplay,
             fullWidth,
-            meta: { touched, error },
+            meta: { touched, error, data },
         } = this.props;
         const { value } = this.state;
 
@@ -46,6 +47,9 @@ class renderPhoto extends React.Component {
                     'wfui-form-item',
                     {
                         'wfui-form-item-error': error,
+                    },
+                    {
+                        'wfui-form-item-warning': touched && data.warning,
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
@@ -161,32 +165,66 @@ class renderPhoto extends React.Component {
                                 : 'wfui-form-field-no-description'
                             } wfui-form-photo`}
                     >
-                        <Dropzone
-                            {...input}
-                            name={input.name}
-                            accept="image/png,image/jpeg,image/pjpeg,image/gif"
-                            className="btn btn-primary choose-file"
-                            onDrop={acceptedFiles => {
-                                const reader = new FileReader();
-                                reader.readAsDataURL(acceptedFiles[0]);
-                                reader.onloadend = () => {
-                                    const newValue = {
-                                        ...value,
-                                        src: reader.result,
+                        <FormControl isInvalid={touched && (error || globalError)}
+                            isValid={touched && data.warning}
+                            className={
+                                classNames(
+                                    'd-none',
+                                    { 'is-valid-warning': touched && data.warning }
+                                )
+                            }
+                        />
+                        <div className="custom-form-control-wrapper">
+                            <Dropzone
+                                {...input}
+                                name={input.name}
+                                accept="image/png,image/jpeg,image/pjpeg,image/gif"
+                                className="btn btn-primary choose-file"
+                                onDrop={acceptedFiles => {
+                                    const reader = new FileReader();
+                                    reader.readAsDataURL(acceptedFiles[0]);
+                                    reader.onloadend = () => {
+                                        const newValue = {
+                                            ...value,
+                                            src: reader.result,
+                                        };
+                                        this.setState({ value: newValue });
+                                        onStateChange(newValue);
+                                        return input.onChange(newValue);
                                     };
-                                    this.setState({ value: newValue });
-                                    onStateChange(newValue);
-                                    return input.onChange(newValue);
-                                };
-                                this.setState({ hasFile: true });
-                            }}
-                        >
-                            Choose File
-                    </Dropzone>
+                                    this.setState({ hasFile: true });
+                                }}
+                            >
+                                Choose File
+                            </Dropzone>
+                        </div>
                         {touched && error && (
-                            <HelpBlock className="wfui-form-error">
-                                <span>{error}</span>
-                            </HelpBlock>
+                            <Form.Control.Feedback
+                                className="wfui-form-error"
+                                type="invalid"
+                            >
+                                {Array.isArray(error)
+                                    ? error.map(item => <div>{item}</div>)
+                                    : error}
+                            </Form.Control.Feedback>
+                        )}
+                        {touched && globalError && (
+                            <Form.Control.Feedback
+                                className="wfui-form-error"
+                                type="invalid"
+                            >
+                                <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
+                            </Form.Control.Feedback>
+                        )}
+                        {touched && data.warning && (
+                            <Form.Control.Feedback
+                                className="wfui-form-warning"
+                                type="valid"
+                            >
+                                {Array.isArray(data.warning)
+                                    ? data.warning.map(item => <div>{item}</div>)
+                                    : data.warning}
+                            </Form.Control.Feedback>
                         )}
                         {help && !preview && (
                             <HelpBlock className="wfui-form-help text-muted">

@@ -25,7 +25,7 @@ const renderSelect = ({
     descDisplay,
     fullWidth,
     inline,
-    meta: { touched, error },
+    meta: { touched, error, data },
     onChange,
 }) => (
         <Form.Row
@@ -33,6 +33,9 @@ const renderSelect = ({
                 className,
                 'wfui-form-item',
                 { 'wfui-form-item-error': touched && (error || globalError) },
+                {
+                    'wfui-form-item-warning': touched && data.warning,
+                },
                 { 'wfui-form-disabled': disabled },
                 { 'wfui-form-preview': preview },
                 { answered: input.value },
@@ -75,6 +78,10 @@ const renderSelect = ({
                     }}
                     as="select"
                     isInvalid={touched && (error || globalError)}
+                    isValid={touched && data.warning}
+                    className={classNames({
+                        'is-valid-warning': touched && data.warning,
+                    })}
                 >
                     {options.map((option, i) => {
                         const _key =
@@ -99,7 +106,9 @@ const renderSelect = ({
                         className="wfui-form-error"
                         type="invalid"
                     >
-                        <span>{error}</span>
+                        {Array.isArray(error)
+                            ? error.map(item => <div>{item}</div>)
+                            : error}
                     </Form.Control.Feedback>
                 )}
                 {touched && globalError && (
@@ -107,7 +116,17 @@ const renderSelect = ({
                         className="wfui-form-error"
                         type="invalid"
                     >
-                        <span>{globalError}</span>
+                        <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
+                    </Form.Control.Feedback>
+                )}
+                {touched && data.warning && (
+                    <Form.Control.Feedback
+                        className="wfui-form-warning"
+                        type="valid"
+                    >
+                        {Array.isArray(data.warning)
+                            ? data.warning.map(item => <div>{item}</div>)
+                            : data.warning}
                     </Form.Control.Feedback>
                 )}
                 {help && !preview && (
