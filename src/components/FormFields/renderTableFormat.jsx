@@ -101,16 +101,16 @@ class renderTableFormat extends React.Component {
                                 ? 4
                                 : 10
                             : descDisplay && !preview
-                            ? 6
-                            : 12
+                                ? 6
+                                : 12
                     }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-table-format multiple-inputs-${
+                        } wfui-table-format multiple-inputs-${
                         Object.keys(fieldMap).length
-                    }`}
+                        }`}
                     validationState={allTouched && globalError ? 'error' : null}
                 >
                     <ul className="wfui-input-table__ul">
@@ -148,7 +148,7 @@ class renderTableFormat extends React.Component {
                             className="wfui-form-error"
                             type="invalid"
                         >
-                            <span>{globalError}</span>
+                            <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
                         </Form.Control.Feedback>
                     )}
                     {help && !preview && (

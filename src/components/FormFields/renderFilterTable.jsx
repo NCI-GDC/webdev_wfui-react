@@ -251,10 +251,10 @@ class renderFilterTable extends React.Component {
                                         // Get option value & assigned input field value.
                                         return `${
                                             values[assignedField[0].cid]
-                                        }(${getValByKey(
-                                            key,
-                                            q.values[lang].options
-                                        )})`;
+                                            }(${getValByKey(
+                                                key,
+                                                q.values[lang].options
+                                            )})`;
                                     }
                                     // Get option value by key
                                     return getValByKey(
@@ -455,7 +455,7 @@ class renderFilterTable extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-form-addAnother`}
+                        } wfui-form-addAnother`}
                     validationState={error ? 'error' : null}
                 >
                     <div className="col-header">
@@ -546,7 +546,9 @@ class renderFilterTable extends React.Component {
                     />
                     {error && (
                         <HelpBlock className="wfui-form-error">
-                            <span>{error}</span>
+                            {Array.isArray(error)
+                                ? error.map(item => <div>{item}</div>)
+                                : error}
                         </HelpBlock>
                     )}
                     {help && (
