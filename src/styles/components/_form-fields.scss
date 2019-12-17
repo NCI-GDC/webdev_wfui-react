@@ -155,6 +155,10 @@ $form-tag-color-hover: $form-active-color;
         &.disabled, &.preview {
             cursor: not-allowed;
             background-color: $input-disabled-bg;
+
+            & * {
+                cursor: not-allowed;
+            }
         }
     }
 }
@@ -191,6 +195,10 @@ $form-tag-color-hover: $form-active-color;
             &.disabled, &.preview {
                 cursor: not-allowed;
                 background-color: $input-disabled-bg;
+
+                & * {
+                    cursor: not-allowed;
+                }
             }
         }
     }
