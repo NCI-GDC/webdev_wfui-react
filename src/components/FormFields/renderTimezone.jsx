@@ -4,12 +4,12 @@ import React, { cloneElement } from 'react';
 import TimezonePicker from 'react-timezone';
 import classNames from 'classnames';
 import {
+    FormControl,
     FormGroup,
     ControlLabel,
     HelpBlock,
     Form,
     Col,
-    FormControl,
 } from '../index';
 
 const renderTimezone = ({

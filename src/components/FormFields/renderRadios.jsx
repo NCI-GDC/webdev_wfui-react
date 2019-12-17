@@ -83,7 +83,7 @@ const renderRadios = ({
                             type="radio"
                             key={i}
                             className={classNames('wfui-form-radio-container', {
-                                active: input.checked,
+                                active: checked,
                                 disabled: disabled,
                                 preview: preview,
                                 'is-valid-warning':
@@ -106,11 +106,6 @@ const renderRadios = ({
                                             input.onChange(
                                                 e.target.value === 'true'
                                             );
-                                            if (typeof onChange === 'function')
-                                                onChange(
-                                                    e.target.value === 'true',
-                                                    input
-                                                );
                                         } else {
                                             input.onChange(e.target.value);
                                             if (typeof onChange === 'function')
