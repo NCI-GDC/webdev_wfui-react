@@ -83,7 +83,7 @@ const renderRadios = ({
                                 type="radio"
                                 key={i}
                                 className={classNames('wfui-form-radio-container', {
-                                    'active': input.checked,
+                                    'active': checked,
                                     'disabled': disabled,
                                     'preview': preview,
                                     'is-valid-warning': touched && data.warning,
