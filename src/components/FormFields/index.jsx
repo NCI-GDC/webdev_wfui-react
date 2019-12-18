@@ -20,7 +20,7 @@ import renderDate from './renderDate';
 // import renderEventSelect from './renderEventSelect';
 import renderCodeMirror from './renderCodeMirror';
 // import RenderFee from './RenderFee';
-// import renderFieldWithAutoAlias from './renderFieldWithAutoAlias';
+import renderFieldWithAutoAlias from './renderFieldWithAutoAlias';
 
 export {
     Description,
@@ -45,5 +45,5 @@ export {
     // renderEventSelect,
     renderCodeMirror,
     // RenderFee,
-    // renderFieldWithAutoAlias,
+    renderFieldWithAutoAlias,
 };
