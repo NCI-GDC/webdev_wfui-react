@@ -4,8 +4,8 @@ import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import classNames from 'classnames';
-import { Field } from 'redux-form';
 import {
+    Field,
     FormFields,
     FormGroup,
     FormControl,
