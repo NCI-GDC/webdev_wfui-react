@@ -6,7 +6,6 @@ import { injectIntl } from 'react-intl';
 import classNames from 'classnames';
 import {
     Form,
-    Field,
     FormFields,
     FormGroup,
     FormControl,
@@ -14,6 +13,7 @@ import {
     HelpBlock,
 } from '../index';
 
+import Field from './Field';
 import renderSingleCheckbox from './renderSingleCheckbox';
 
 /**
