@@ -82,7 +82,7 @@ class ModalDialog extends React.Component {
             <Modal
                 show={show}
                 onHide={this.onHandleCancel}
-                bsSize="large"
+                // bsSize="large"
                 className={classNames(`modal-${id}`, className)}
             >
                 <Modal.Header closeButton>
