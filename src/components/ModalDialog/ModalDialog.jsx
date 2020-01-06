@@ -76,13 +76,14 @@ class ModalDialog extends React.Component {
             btnCancelStyle,
             className,
             centered,
+            size,
         } = this.props;
 
         return (
             <Modal
                 show={show}
                 onHide={this.onHandleCancel}
-                size="lg"
+                size={size}
                 className={classNames(`modal-${id}`, className)}
                 centered={centered}
             >
@@ -156,6 +157,7 @@ ModalDialog.propTypes = {
     btnCancelStyle: PropTypes.string,
     className: PropTypes.string,
     centered: PropTypes.bool,
+    size: PropTypes.string,
 };
 
 ModalDialog.defaultProps = {
@@ -170,6 +172,7 @@ ModalDialog.defaultProps = {
     submitting: false,
     destroy: f => f,
     initialize: f => f,
+    size: 'lg',
 };
 
 const ModalDialogContainer = connect(
