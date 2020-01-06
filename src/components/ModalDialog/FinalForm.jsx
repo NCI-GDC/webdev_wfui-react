@@ -58,7 +58,7 @@ class ModalDialog extends React.Component {
         } = this.props;
         hideModal(id);
         onHide();
-        form.destroy();
+        // form.destroy();
         form.initialize(initialValues);
     }
 
@@ -106,20 +106,20 @@ class ModalDialog extends React.Component {
                             </Button>
                         </div>
                     ) : (
-                        <div>
-                            <Button
-                                type="submit"
-                                bsStyle={btnSubmitStyle || 'primary'}
-                                onClick={() => this.onHandleSubmit(values)}
-                                disabled={invalid || submitting}
-                            >
-                                {txtSubmit}
-                            </Button>
-                            <Button onClick={this.onHandleCancel}>
-                                {txtCancel}
-                            </Button>
-                        </div>
-                    )}
+                            <div>
+                                <Button
+                                    type="submit"
+                                    bsStyle={btnSubmitStyle || 'primary'}
+                                    onClick={() => this.onHandleSubmit(values)}
+                                    disabled={invalid || submitting}
+                                >
+                                    {txtSubmit}
+                                </Button>
+                                <Button onClick={this.onHandleCancel}>
+                                    {txtCancel}
+                                </Button>
+                            </div>
+                        )}
                 </Modal.Footer>
             </Modal>
         );

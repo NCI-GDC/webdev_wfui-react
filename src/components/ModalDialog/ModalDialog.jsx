@@ -25,7 +25,7 @@ class ModalDialog extends React.Component {
     componentWillReceiveProps(nextProps) {
         const { destroy, initialize } = this.props;
         if (!deepEqual(this.props.initialValues, nextProps.initialValues)) {
-            // destroy();
+            destroy();
             initialize(nextProps.initialValues);
         }
     }
@@ -41,7 +41,7 @@ class ModalDialog extends React.Component {
         } = this.props;
         onSubmit(values, this.props);
         hideModal(id);
-        // destroy();
+        destroy();
         initialize(initialValues);
     }
 
@@ -56,7 +56,7 @@ class ModalDialog extends React.Component {
         } = this.props;
         hideModal(id);
         onHide();
-        // destroy();
+        destroy();
         initialize(initialValues);
     }
 
