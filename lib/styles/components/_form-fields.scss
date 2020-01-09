@@ -1828,6 +1828,48 @@ div.wfui-form-item {
     }
 }
 
+.wfui-form-item.wfui-form-disabled {
+    .no-item {
+        color: #bbb;
+    }
+
+    .wfui-form-input input {
+        background-color: #edf0f2;
+        border: 1px solid #e0e0e0;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .wfui-form-textarea .wfui-form-textarea-preview-value {
+      background-color: #edf0f2;
+      border: 1px solid #e0e0e0;
+      padding: 10px;
+      min-height: 80px;
+  }
+
+    .wfui-form-addAnother.no-item {
+        width: auto !important;
+    }
+
+  .wfui-form-addAnother-item {
+    .list-group-item{
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .list-title {
+        padding-top: 15px;
+    }
+    .list-title.open {
+        div.wfui-form-item{
+            margin-bottom: 0;
+        }
+    }
+  }
+}
+
+
 // /* Tables: Buttons
 // /-------------------------------------------------------------- */
 // a.btn-add-col {
@@ -2738,43 +2780,3 @@ div.wfui-form-item {
 // }
 
 // // Disabled input fields
-// .wfui-form-item.wfui-form-disabled {
-//     .no-item {
-//         color: #bbb;
-//     }
-
-//     .wfui-form-input input {
-//         background-color: #edf0f2;
-//         border: 1px solid #e0e0e0;
-//         padding-left: 10px;
-//         padding-right: 10px;
-//     }
-
-//     .wfui-form-textarea .wfui-form-textarea-preview-value {
-//       background-color: #edf0f2;
-//       border: 1px solid #e0e0e0;
-//       padding: 10px;
-//       min-height: 80px;
-//   }
-
-//     .wfui-form-addAnother.no-item {
-//         width: auto !important;
-//     }
-
-//   .wfui-form-addAnother-item {
-//     .list-group-item{
-//         margin-top: 0;
-//         margin-bottom: 0;
-//         padding-top: 0;
-//         padding-bottom: 0;
-//     }
-//     .list-title {
-//         padding-top: 15px;
-//     }
-//     .list-title.open {
-//         div.wfui-form-item{
-//             margin-bottom: 0;
-//         }
-//     }
-//   }
-// }
