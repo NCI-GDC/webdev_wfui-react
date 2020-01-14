@@ -1869,6 +1869,14 @@ div.wfui-form-item {
   }
 }
 
+/* Disabled
+/-------------------------------------------------------------- */
+input:disabled,
+.wfui-form-disabled .wfui-form-textarea-preview-value,
+.wfui-form-disabled .form-check,
+.wfui-form-disabled .form-check * {
+    cursor: not-allowed;
+}
 
 // /* Tables: Buttons
 // /-------------------------------------------------------------- */
