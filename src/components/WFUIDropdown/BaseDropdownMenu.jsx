@@ -144,7 +144,6 @@ class DropdownMenu extends React.Component {
             close: this.handleClose,
         };
 
-        console.log(usePopper, 'usePopper')
         if (!usePopper) {
             menu = this.props.children({ ...childArgs, props: menuProps });
         } else if (this.popperIsInitialized || show) {

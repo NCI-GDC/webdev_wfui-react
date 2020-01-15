@@ -58,7 +58,7 @@ class ModalDialog extends React.Component {
         } = this.props;
         hideModal(id);
         onHide();
-        form.destroy();
+        // form.destroy();
         form.initialize(initialValues);
     }
 
