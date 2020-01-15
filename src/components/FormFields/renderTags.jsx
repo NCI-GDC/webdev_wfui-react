@@ -5,7 +5,14 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TagsInput from 'react-tagsinput';
 
-import { FormControl, FormGroup, ControlLabel, HelpBlock, Form, Col } from '../index';
+import {
+    FormControl,
+    FormGroup,
+    ControlLabel,
+    HelpBlock,
+    Form,
+    Col,
+} from '../index';
 
 class renderTags extends React.Component {
     constructor(props) {
@@ -51,7 +58,8 @@ class renderTags extends React.Component {
                     'wfui-form-item',
                     { 'wfui-form-item-error': touched && error },
                     {
-                        'wfui-form-item-warning': touched && data.warning,
+                        'wfui-form-item-warning':
+                            touched && data && data.warning,
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
@@ -79,24 +87,23 @@ class renderTags extends React.Component {
                                 ? 4
                                 : 10
                             : descDisplay && !preview
-                                ? 6
-                                : 12
+                            ? 6
+                            : 12
                     }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                        } wfui-form-tags`}
+                    } wfui-form-tags`}
                     validationState={touched && error ? 'error' : null}
                 >
-                    <FormControl isInvalid={touched && (error || globalError)}
-                        isValid={touched && data.warning}
-                        className={
-                            classNames(
-                                'd-none',
-                                { 'is-valid-warning': touched && data.warning }
-                            )
-                        } />
+                    <FormControl
+                        isInvalid={touched && (error || globalError)}
+                        isValid={touched && data && data.warning}
+                        className={classNames('d-none', {
+                            'is-valid-warning': touched && data && data.warning,
+                        })}
+                    />
                     <div className="custom-form-control-wrapper">
                         {disabled ? (
                             <div>
@@ -107,12 +114,17 @@ class renderTags extends React.Component {
                                         ))}
                                     </ul>
                                 ) : (
-                                        <span className="no-item">( No Items )</span>
-                                    )}
+                                    <span className="no-item">
+                                        ( No Items )
+                                    </span>
+                                )}
                             </div>
                         ) : (
-                                <TagsInput value={tags} onChange={this.handleChange} />
-                            )}
+                            <TagsInput
+                                value={tags}
+                                onChange={this.handleChange}
+                            />
+                        )}
                     </div>
                     {touched && error && (
                         <Form.Control.Feedback
@@ -129,10 +141,14 @@ class renderTags extends React.Component {
                             className="wfui-form-error"
                             type="invalid"
                         >
-                            <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
+                            <span>
+                                {Array.isArray(globalError)
+                                    ? globalError.join(', ')
+                                    : globalError}
+                            </span>
                         </Form.Control.Feedback>
                     )}
-                    {touched && data.warning && (
+                    {touched && data && data.warning && (
                         <Form.Control.Feedback
                             className="wfui-form-warning"
                             type="valid"

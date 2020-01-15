@@ -5,6 +5,7 @@ import {
     Spinner,
     FormGroup,
     FormControl,
+    Form,
     ControlLabel,
     HelpBlock,
 } from '../index';
@@ -20,50 +21,50 @@ const Autocomplete = ({
     textNoResult,
     autoFetched,
 }) => (
-        <div className="navbar-form">
-            <div className="form-group">
-                <ul
-                    id="ui-autocomplete"
-                    className="autocomplete-ps ui-menu ui-widget ui-widget-content ui-autocomplete ui-front"
-                >
-                    {!fetching && autoFetched && (!items || items.length === 0) && (
-                        <li className="ui-menu-item">{textNoResult}</li>
+    <div className="navbar-form">
+        <div className="form-group">
+            <ul
+                id="ui-autocomplete"
+                className="autocomplete-ps ui-menu ui-widget ui-widget-content ui-autocomplete ui-front"
+            >
+                {!fetching && autoFetched && (!items || items.length === 0) && (
+                    <li className="ui-menu-item">{textNoResult}</li>
+                )}
+                {!fetching &&
+                    autoFetched &&
+                    items &&
+                    items.map((item, idx) =>
+                        itemDisplay ? (
+                            React.cloneElement(
+                                <li key={idx} className="ui-menu-item">
+                                    {itemDisplay(item, onClickItem)}
+                                </li>,
+                                Object.assign({}, {}, { key: idx })
+                            )
+                        ) : (
+                            <li key={idx} className="ui-menu-item">
+                                <div className="ui-menu-item-wrapper">
+                                    <a onClick={onClickItem} data-key={item}>
+                                        {`${item}`}
+                                    </a>
+                                </div>
+                            </li>
+                        )
                     )}
-                    {!fetching &&
-                        autoFetched &&
-                        items &&
-                        items.map((item, idx) =>
-                            itemDisplay ? (
-                                React.cloneElement(
-                                    <li key={idx} className="ui-menu-item">
-                                        {itemDisplay(item, onClickItem)}
-                                    </li>,
-                                    Object.assign({}, {}, { key: idx })
-                                )
-                            ) : (
-                                    <li key={idx} className="ui-menu-item">
-                                        <div className="ui-menu-item-wrapper">
-                                            <a onClick={onClickItem} data-key={item}>
-                                                {`${item}`}
-                                            </a>
-                                        </div>
-                                    </li>
-                                )
-                        )}
-                    {fetching && (
-                        <li className="mp ps">
-                            <Spinner
-                                type={1}
-                                color="#0072c6"
-                                fontSize={'5px'}
-                                margin={'10px auto'}
-                            />
-                        </li>
-                    )}
-                </ul>
-            </div>
+                {fetching && (
+                    <li className="mp ps">
+                        <Spinner
+                            type={1}
+                            color="#0072c6"
+                            fontSize={'5px'}
+                            margin={'10px auto'}
+                        />
+                    </li>
+                )}
+            </ul>
         </div>
-    );
+    </div>
+);
 
 /**
  * Reusable field component.
@@ -150,7 +151,8 @@ class renderAutocomplete extends React.Component {
                             touched && (error || globalError),
                     },
                     {
-                        'wfui-form-item-warning': touched && data.warning,
+                        'wfui-form-item-warning':
+                            touched && data && data.warning,
                     },
                     { 'wfui-form-inline': inline },
                     { 'wfui-form-disabled': disabled },
@@ -200,12 +202,10 @@ class renderAutocomplete extends React.Component {
                             if (onHandleChange) onHandleChange(e);
                         }}
                         isInvalid={touched && (error || globalError)}
-                        isValid={touched && data.warning}
-                        className={
-                            classNames(
-                                { 'is-valid-warning': touched && data.warning }
-                            )
-                        }
+                        isValid={touched && data && data.warning}
+                        className={classNames({
+                            'is-valid-warning': touched && data && data.warning,
+                        })}
                         autoComplete="off"
                     />
                     {postfix && (
@@ -239,18 +239,18 @@ class renderAutocomplete extends React.Component {
                             type="invalid"
                         >
                             {Array.isArray(error)
-                                        ? error.map(item => <div>{item}</div>)
-                                        : error}
+                                ? error.map(item => <div>{item}</div>)
+                                : error}
                         </Form.Control.Feedback>
                     )}
-                    {touched && data.warning && (
+                    {touched && data && data.warning && (
                         <Form.Control.Feedback
                             className="wfui-form-warning"
                             type="valid"
                         >
                             {Array.isArray(data.warning)
-                                        ? data.warning.map(item => <div>{item}</div>)
-                                        : data.warning}
+                                ? data.warning.map(item => <div>{item}</div>)
+                                : data.warning}
                         </Form.Control.Feedback>
                     )}
                     {touched && globalError && (
@@ -258,7 +258,11 @@ class renderAutocomplete extends React.Component {
                             className="wfui-form-error"
                             type="invalid"
                         >
-                            <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
+                            <span>
+                                {Array.isArray(globalError)
+                                    ? globalError.join(', ')
+                                    : globalError}
+                            </span>
                         </Form.Control.Feedback>
                     )}
                     {help && (

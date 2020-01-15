@@ -74,15 +74,17 @@ class ModalDialog extends React.Component {
             submitting,
             notForm,
             btnSubmitStyle,
+            btnCancelStyle,
             className,
             values,
+            size,
         } = this.props;
 
         return (
             <Modal
                 show={show}
                 onHide={this.onHandleCancel}
-                // bsSize="large"
+                size={size}
                 className={classNames(`modal-${id}`, className)}
             >
                 <Modal.Header closeButton>
@@ -97,29 +99,33 @@ class ModalDialog extends React.Component {
                 </Modal.Body>
                 <Modal.Footer>
                     {notForm ? (
-                        <div>
+                        <>
                             <Button
+                                variant={btnCancelStyle || 'outline-primary'}
                                 className="text-uppercase"
                                 onClick={this.onHandleCancel}
                             >
                                 {txtCancel}
                             </Button>
-                        </div>
+                        </>
                     ) : (
-                            <div>
-                                <Button
-                                    type="submit"
-                                    bsStyle={btnSubmitStyle || 'primary'}
-                                    onClick={() => this.onHandleSubmit(values)}
-                                    disabled={invalid || submitting}
-                                >
-                                    {txtSubmit}
-                                </Button>
-                                <Button onClick={this.onHandleCancel}>
-                                    {txtCancel}
-                                </Button>
-                            </div>
-                        )}
+                        <>
+                            <Button
+                                type="submit"
+                                variant={btnSubmitStyle || 'primary'}
+                                onClick={() => this.onHandleSubmit(values)}
+                                disabled={invalid || submitting}
+                            >
+                                {txtSubmit}
+                            </Button>
+                            <Button
+                                variant={btnCancelStyle || 'outline-primary'}
+                                onClick={this.onHandleCancel}
+                            >
+                                {txtCancel}
+                            </Button>
+                        </>
+                    )}
                 </Modal.Footer>
             </Modal>
         );
@@ -144,8 +150,10 @@ ModalDialog.propTypes = {
     initialValues: PropTypes.object,
     notForm: PropTypes.bool,
     btnSubmitStyle: PropTypes.string,
+    btnCancelStyle: PropTypes.string,
     className: PropTypes.string,
     form: PropTypes.object,
+    size: PropTypes.string,
 };
 
 ModalDialog.defaultProps = {
@@ -160,6 +168,7 @@ ModalDialog.defaultProps = {
     submitting: false,
     destroy: f => f,
     initialize: f => f,
+    size: 'lg',
 };
 
 const ModalDialogContainer = connect(

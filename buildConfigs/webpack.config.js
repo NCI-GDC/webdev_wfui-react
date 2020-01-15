@@ -7,7 +7,7 @@ module.exports = {
     entry: './src/components/styles.js',
     plugins: [
         new MiniCssExtractPlugin({
-            filename: '_wfui-react.scss',
+            filename: 'wfui-react.css',
         }),
         new CleanUpStatsPlugin(),
     ],

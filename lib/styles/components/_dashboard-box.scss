@@ -1,0 +1,37 @@
+.widget {
+    border: $dashboard-box-border-width solid $dashboard-box-border-color;
+    margin: ($dashboard-box-margin / 2) 0;
+  
+    &__header {
+        @extend .flexbox;
+        @extend .flexbox-wrap;
+        @extend .flexbox-justify-space-between;
+        border-bottom: $dashboard-box-border-width solid $dashboard-box-border-color;
+        padding: $dashboard-box-spacer-y $dashboard-box-spacer-x;
+        align-items: center;
+        background-color: $dashboard-box-highlight-bg;
+
+        &__title {
+            display: inline-flex;
+            @extend .flexbox-wrap;
+            margin: 0;
+
+            &__img_container {
+                @extend .flexbox;
+                @extend .flexbox-align-center;
+            }
+
+            img {
+                vertical-align: baseline;
+            }
+        }
+
+        &__buttons {
+            @extend .flexbox;
+            @extend .flexbox-wrap;
+        }
+    }
+    .widget__body {
+        padding: $dashboard-box-spacer-y $dashboard-box-spacer-x;
+    }
+}

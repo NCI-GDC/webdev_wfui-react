@@ -3,7 +3,6 @@
 
 import { storiesOf } from '@storybook/react';
 import StoryBasicExample from './StoryBasicExample';
-import '!style-loader!css-loader!sass-loader!../../components/DashboardCard/index.scss';
 
 storiesOf('DashboardCard', module).add(
     'Basic Example',

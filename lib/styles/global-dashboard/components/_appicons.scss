@@ -1,0 +1,23 @@
+.appicon {
+  @include margin-rt-lt-base;
+  display: block;
+  min-height: 2rem;
+  min-width: 2rem;
+  background-repeat: no-repeat;
+
+  &.appicon-GA {
+    background-image: url(../img/icons/dashboard-icon-global-alliance.svg);
+  }
+  &.appicon-JIRA {
+    background-image: url(../img/icons/dashboard-icon-jira.svg);
+  }
+  &.appicon-OICR-Events {
+    background-image: url(../img/icons/dashboard-icon-oicr-events.svg);
+  }  
+  &.appicon-OICR-IR {
+    background-image: url(../img/icons/dashboard-icon-oicr-IR.svg);
+  }    
+  &.appicon-OICR-Labs {
+    background-image: url(../img/icons/dashboard-icon-oicr-labs.svg);
+  }
+}

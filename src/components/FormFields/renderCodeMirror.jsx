@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import * as ReactCodeMirror from 'react-codemirror2';
 
-import { FormGroup, ControlLabel, HelpBlock } from '../index';
+import { Form, FormGroup, ControlLabel, HelpBlock } from '../index';
 
 const { Controlled: CodeMirror } = ReactCodeMirror;
 
@@ -63,7 +63,8 @@ class renderCodeMirror extends React.Component {
                         'wfui-form-item-error': error,
                     },
                     {
-                        'wfui-form-item-warning': touched && data.warning,
+                        'wfui-form-item-warning':
+                            touched && data && data.warning,
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
@@ -83,7 +84,7 @@ class renderCodeMirror extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                        } wfui-form-date`}
+                    } wfui-form-date`}
                     validationState={touched && error ? 'error' : null}
                 >
                     {!disabled ? (
@@ -99,8 +100,8 @@ class renderCodeMirror extends React.Component {
                             />
                         </div>
                     ) : (
-                            <p className="wfui-value">{bodyText}</p>
-                        )}
+                        <p className="wfui-value">{bodyText}</p>
+                    )}
                     {touched && error && (
                         <Form.Control.Feedback
                             className="wfui-form-error"
@@ -116,10 +117,14 @@ class renderCodeMirror extends React.Component {
                             className="wfui-form-error"
                             type="invalid"
                         >
-                            <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
+                            <span>
+                                {Array.isArray(globalError)
+                                    ? globalError.join(', ')
+                                    : globalError}
+                            </span>
                         </Form.Control.Feedback>
                     )}
-                    {touched && data.warning && (
+                    {touched && data && data.warning && (
                         <Form.Control.Feedback
                             className="wfui-form-warning"
                             type="valid"

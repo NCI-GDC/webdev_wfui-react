@@ -487,7 +487,7 @@ class Forms extends React.Component {
                         disabled
                         preview
                     />
-                    <IntlProvider locale="en">
+                    {/* <IntlProvider locale="en">
                         <Fields
                             name="s-a58460e0-fe38-11e8-9b5d-ed7302dc0e63"
                             names={[
@@ -509,7 +509,7 @@ class Forms extends React.Component {
                             preview={false}
                             placeholder=""
                         />
-                    </IntlProvider>
+                    </IntlProvider> */}
                     <input type="submit" />
                 </form>
             </Container>

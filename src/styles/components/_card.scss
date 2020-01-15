@@ -1,0 +1,102 @@
+.wfui-card {
+    &-container {
+        position: relative;
+    }
+
+    &-hover {
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        background: white;
+    }
+
+    .card {
+        &-none {
+            display: none;
+        }
+
+        &-fade {
+            opacity: 0;
+            transition: .3s ease;
+        }
+
+        &-slide-in {
+            &-top,
+            &-bottom {
+                overflow: hidden;
+                height: 0;
+                transition: 0.5s ease;
+            }
+
+            &-right,
+            &-left {
+                overflow: hidden;
+                width: 0;
+                transition: 0.5s ease;
+            }
+
+            &-top {
+                bottom: 100%;
+            }
+            
+            &-bottom {
+                top: 100%;
+            }
+
+            &-right {
+                left: 100%;
+            }
+        }
+    }
+
+    &:hover {
+        .card {
+            &-none {
+                display: block;
+            }
+
+            &-fade {
+                opacity: 1;
+            }
+
+            &-slide-in{
+                &-top,
+                &-bottom {
+                    height: 100%;
+                }
+
+                &-right,
+                &-left {
+                    width: 100%;
+                }
+
+                &-top {
+                    bottom: 0;
+                }
+
+                &-bottom {
+                    top: 0;
+                }
+
+                &-right {
+                    left: 0;
+                }
+            }
+        }
+    }
+
+    &-hover {
+        .middle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+        }
+    }
+}

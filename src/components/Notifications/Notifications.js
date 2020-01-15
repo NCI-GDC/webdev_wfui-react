@@ -57,7 +57,7 @@ class StaticNotification extends React.Component {
     render() {
         const { withTitle } = this.props;
         const { notifications } = this.state;
-        return (
+        return notifications && notifications.length ? (
             <div className="wfui-notification-static">
                 <ReactCSSTransitionGroup
                     transitionName="wfui-notification-fadeout"
@@ -85,7 +85,7 @@ class StaticNotification extends React.Component {
                     ))}
                 </ReactCSSTransitionGroup>
             </div>
-        );
+        ) : null;
     }
 }
 StaticNotification.propTypes = {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ButtonToolbar, Button, DropdownButton, Panel } from 'react-bootstrap';
 import classNames from 'classnames';
-import { MenuItem, Glyphicon } from "..";
+import { MenuItem, Glyphicon } from '..';
 
 class DashboardBox extends React.Component {
     renderConfigs() {
@@ -30,17 +30,19 @@ class DashboardBox extends React.Component {
 
         return (
             <header className="widget__header">
-                <span>
-                    {imageURL && (
-                        <img
-                            src={imageURL}
-                            width="32"
-                            height="32"
-                            alt={`${title} Logo`}
-                        />
-                    )}
-                </span>
-                <h2 className="widget__header__title">{title}</h2>
+                <h2 className="widget__header__title">
+                    <div className="widget__header__title__img_container">
+                        {imageURL && (
+                            <img
+                                src={imageURL}
+                                width="32"
+                                height="32"
+                                alt={`${title} Logo`}
+                            />
+                        )}
+                    </div>
+                    <div className="widget__header__title__text">{title}</div>
+                </h2>
                 <div className="widget__header__buttons">
                     {buttons &&
                         buttons.map((item, idx) => (
@@ -53,8 +55,9 @@ class DashboardBox extends React.Component {
                                 {item.name}
                             </Button>
                         ))}
+
+                    {configs && this.renderConfigs()}
                 </div>
-                {configs && this.renderConfigs()}
             </header>
         );
     }

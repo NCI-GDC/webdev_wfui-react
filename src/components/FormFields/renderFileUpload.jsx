@@ -148,12 +148,12 @@ class renderFileUpload extends React.Component {
             // Image File
             if (input.value.type && input.value.type.indexOf('image') === 0) {
                 return (
-                    <div>
+                    <div className="file-upload__loaded">
                         {src ? (
                             <a
                                 className={`${
                                     review ? 'review-page' : ''
-                                    } ${this.getFileKey(input.value.type)}`}
+                                } ${this.getFileKey(input.value.type)}`}
                                 type="button"
                                 href={src}
                                 target="_blank"
@@ -165,8 +165,8 @@ class renderFileUpload extends React.Component {
                                 />
                             </a>
                         ) : (
-                                <span>The image is not available.</span>
-                            )}
+                            <span>The image is not available.</span>
+                        )}
                         {!review && this.renderRemoveBtn()}
                     </div>
                 );
@@ -179,7 +179,7 @@ class renderFileUpload extends React.Component {
                         <a
                             className={`btn btn-outline-primary ${
                                 review ? 'review-page' : ''
-                                } ${this.getFileKey(input.value.type)}`}
+                            } ${this.getFileKey(input.value.type)}`}
                             href={src}
                             target="_blank"
                         >
@@ -402,7 +402,8 @@ class renderFileUpload extends React.Component {
                             touched && (error || globalError),
                     },
                     {
-                        'wfui-form-item-warning': touched && data.warning,
+                        'wfui-form-item-warning':
+                            touched && data && data.warning,
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
@@ -431,29 +432,26 @@ class renderFileUpload extends React.Component {
                                 ? 4
                                 : 10
                             : descDisplay && !preview
-                                ? 6
-                                : 12
+                            ? 6
+                            : 12
                     }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                        } wfui-file-upload`}
+                    } wfui-file-upload`}
                     validationState={
                         touched && (error || globalError || fileError)
                             ? 'error'
                             : null
                     }
                 >
-                    <FormControl isInvalid={touched && (error || globalError)}
-                        isValid={touched && data.warning}
-                        className={
-                            classNames(
-                                'd-none',
-                                'custom-form-control',
-                                { 'is-valid-warning': touched && data.warning }
-                            )
-                        }
+                    <FormControl
+                        isInvalid={touched && (error || globalError)}
+                        isValid={touched && data && data.warning}
+                        className={classNames('d-none', 'custom-form-control', {
+                            'is-valid-warning': touched && data && data.warning,
+                        })}
                     />
 
                     <div className="custom-form-control-wrapper">
@@ -472,13 +470,15 @@ class renderFileUpload extends React.Component {
                                             '{maxFileSize}',
                                             fileSizeTextConvert > 1000
                                                 ? Math.floor(
-                                                    fileSizeTextConvert / 1000
-                                                )
+                                                      fileSizeTextConvert / 1000
+                                                  )
                                                 : fileSizeTextConvert
                                         )
                                         .replace(
                                             '{unit}',
-                                            fileSizeTextConvert > 1000 ? 'GB' : 'MB'
+                                            fileSizeTextConvert > 1000
+                                                ? 'GB'
+                                                : 'MB'
                                         )}
                                 </span>
                                 {fileTypes && fileTypes.length > 0 && (
@@ -509,10 +509,14 @@ class renderFileUpload extends React.Component {
                             className="wfui-form-error"
                             type="invalid"
                         >
-                            <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
+                            <span>
+                                {Array.isArray(globalError)
+                                    ? globalError.join(', ')
+                                    : globalError}
+                            </span>
                         </Form.Control.Feedback>
                     )}
-                    {touched && data.warning && (
+                    {touched && data && data.warning && (
                         <Form.Control.Feedback
                             className="wfui-form-warning"
                             type="valid"
@@ -556,8 +560,8 @@ renderFileUpload.propTypes = {
     isPublic: PropTypes.bool,
 };
 renderFileUpload.defaultProps = {
-    onUpload: () => { },
-    onRemove: () => { },
+    onUpload: () => {},
+    onRemove: () => {},
     maxFileSize: 100000000,
     txtRemove: 'Remove',
     txtUpload: 'Upload',
