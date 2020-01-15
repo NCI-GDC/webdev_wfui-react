@@ -67,7 +67,7 @@ const renderTextArea = ({
                 className={classNames(
                     className,
                     'wfui-form-item',
-                    { 'wfui-form-item-error': touched && (error || globalError) },
+                    { 'wfui-form-item-error': (touched || showErrors) && (error || globalError) },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
                     { answered: input.value },
@@ -92,7 +92,7 @@ const renderTextArea = ({
                             : 'wfui-form-field-no-description'
                         } wfui-form-textarea`}
                     validationState={
-                        touched && (error || globalError) ? 'error' : null
+                        (touched || showErrors) && (error || globalError) ? 'error' : null
                     }
                 >
                     <FormControl
