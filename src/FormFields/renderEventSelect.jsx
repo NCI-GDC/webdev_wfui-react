@@ -61,6 +61,7 @@ class renderEventSelect extends React.Component {
             names,
             feeCategories,
             eventFullLabel,
+            showErrors
         } = this.props;
 
         let anyTouched = false;
@@ -114,7 +115,7 @@ class renderEventSelect extends React.Component {
                                                 dangerouslySetInnerHTML={{
                                                     __html:
                                                         event.eventStatusText[
-                                                            event.eventStatus
+                                                        event.eventStatus
                                                         ],
                                                 }}
                                             />
@@ -142,7 +143,7 @@ class renderEventSelect extends React.Component {
                                                 className={classNames(
                                                     'event-price',
                                                     `category-${
-                                                        feeCat.category
+                                                    feeCat.category
                                                     }`,
                                                 )}
                                             >
@@ -161,7 +162,7 @@ class renderEventSelect extends React.Component {
                                         const needToolTip =
                                             event.eventStatusText &&
                                             event.eventStatusText[
-                                                event.eventStatus
+                                            event.eventStatus
                                             ];
 
                                         return (
@@ -179,10 +180,10 @@ class renderEventSelect extends React.Component {
                                                 })}${
                                                     event.eventStatus
                                                         ? ` event-${
-                                                              event.eventStatus
-                                                          }`
+                                                        event.eventStatus
+                                                        }`
                                                         : ''
-                                                }`}
+                                                    }`}
                                             >
                                                 {!disabled && (
                                                     <td className="event-checkbox">
@@ -212,8 +213,8 @@ class renderEventSelect extends React.Component {
                                                     data-for={
                                                         needToolTip
                                                             ? `tool-${
-                                                                  event.eventStatus
-                                                              }`
+                                                            event.eventStatus
+                                                            }`
                                                             : ''
                                                     }
                                                 >
@@ -229,8 +230,8 @@ class renderEventSelect extends React.Component {
                                                     />
                                                     {event.eventStatus ===
                                                         'full' && (
-                                                        <span className="event-full-label">{eventFullLabel}</span>
-                                                    )}
+                                                            <span className="event-full-label">{eventFullLabel}</span>
+                                                        )}
                                                 </td>
                                                 {feeCategories.map(
                                                     (feeCat, i) => {
@@ -258,7 +259,7 @@ class renderEventSelect extends React.Component {
                             </table>
                         </div>
                     </div>
-                    {(!allPristine || anyTouched) && (
+                    {(!allPristine || anyTouched || showErrors) && (
                         <HelpBlock>
                             {' '}
                             {globalError && <span>{globalError}</span>}{' '}
