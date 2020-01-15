@@ -98,6 +98,7 @@ class renderSelectionHybridCheckbox extends React.Component {
             preview,
             descDisplay,
             fullWidth,
+            showErrors,
         } = this.props;
 
         const { options } = this.state;
@@ -122,7 +123,7 @@ class renderSelectionHybridCheckbox extends React.Component {
                 className={classNames(
                     className,
                     'wfui-form-item',
-                    { 'wfui-form-item-error': allTouched && globalError },
+                    { 'wfui-form-item-error': (allTouched || showErrors) && globalError },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
                     { 'wfui-form-item-full-width': fullWidth }
@@ -141,8 +142,8 @@ class renderSelectionHybridCheckbox extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-checkboxes-hybrid column-count-${columnCount}`}
-                    validationState={allTouched && globalError ? 'error' : null}
+                        } wfui-checkboxes-hybrid column-count-${columnCount}`}
+                    validationState={(allTouched || showErrors) && globalError ? 'error' : null}
                 >
                     {options.map((option, i) => {
                         const _key =
@@ -161,14 +162,14 @@ class renderSelectionHybridCheckbox extends React.Component {
                                 }
                                 className={`${
                                     checkboxProps.input.value &&
-                                    checkboxProps.input.value.includes(_key)
+                                        checkboxProps.input.value.includes(_key)
                                         ? 'active'
                                         : ''
-                                } ${
+                                    } ${
                                     fieldMap[_key]
                                         ? 'checkbox-with-checkboxHybrid'
                                         : ''
-                                }`}
+                                    }`}
                                 onChange={e => {
                                     const newValue = [
                                         ...checkboxProps.input.value,
@@ -201,7 +202,7 @@ class renderSelectionHybridCheckbox extends React.Component {
                                             {...fieldMap[_key]}
                                             name={`${name}.${
                                                 fieldMap[_key].cid
-                                            }`}
+                                                }`}
                                             type={
                                                 fieldMap[_key].field_type ||
                                                 'text'
@@ -235,7 +236,7 @@ class renderSelectionHybridCheckbox extends React.Component {
                     )}
                     <HelpBlock>
                         {' '}
-                        {allTouched && globalError && (
+                        {(allTouched || showErrors) && globalError && (
                             <span>{globalError}</span>
                         )}{' '}
                     </HelpBlock>

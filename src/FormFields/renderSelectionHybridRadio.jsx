@@ -69,6 +69,7 @@ export default class renderSelectionHybridRadio extends React.Component {
             preview,
             descDisplay,
             fullWidth,
+            showErrors
         } = this.props;
         const { options } = this.state;
 
@@ -91,7 +92,7 @@ export default class renderSelectionHybridRadio extends React.Component {
                 className={classNames(
                     className,
                     'wfui-form-item',
-                    { 'wfui-form-item-error': allTouched && globalError },
+                    { 'wfui-form-item-error': (allTouched || showErrors) && globalError },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
                     { 'wfui-form-item-full-width': fullWidth }
@@ -110,8 +111,8 @@ export default class renderSelectionHybridRadio extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-radios-hybrid column-count-${columnCount}`}
-                    validationState={allTouched && globalError ? 'error' : null}
+                        } wfui-radios-hybrid column-count-${columnCount}`}
+                    validationState={(allTouched || showErrors) && globalError ? 'error' : null}
                 >
                     {options.map((option, i) => {
                         const _key =
@@ -125,11 +126,11 @@ export default class renderSelectionHybridRadio extends React.Component {
                                     radioProps.input.value === _key
                                         ? 'active'
                                         : ''
-                                } ${
+                                    } ${
                                     fieldMap[_key]
                                         ? 'radio-with-radioHybrid'
                                         : ''
-                                }`}
+                                    }`}
                                 name={`${name}.${radioCid}`}
                                 value={_key}
                                 checked={radioProps.input.value === _key}
@@ -149,7 +150,7 @@ export default class renderSelectionHybridRadio extends React.Component {
                                             {...fieldMap[_key]}
                                             name={`${name}.${
                                                 fieldMap[_key].cid
-                                            }`}
+                                                }`}
                                             type={
                                                 fieldMap[_key].field_type ||
                                                 'text'
@@ -169,7 +170,7 @@ export default class renderSelectionHybridRadio extends React.Component {
                     })}
                     <HelpBlock>
                         {' '}
-                        {allTouched && globalError && (
+                        {(allTouched || showErrors) && globalError && (
                             <span>{globalError}</span>
                         )}{' '}
                     </HelpBlock>

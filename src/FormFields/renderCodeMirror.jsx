@@ -48,6 +48,7 @@ class renderCodeMirror extends React.Component {
             onCursor,
             help,
             defaultValue,
+            showErrors
         } = this.props;
 
         const { bodyText } = this.state;
@@ -78,8 +79,8 @@ class renderCodeMirror extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-form-date`}
-                    validationState={touched && error ? 'error' : null}
+                        } wfui-form-date`}
+                    validationState={(touched || showErrors) && error ? 'error' : null}
                 >
                     {!disabled ? (
                         <div className="wfui-quill">
@@ -94,9 +95,9 @@ class renderCodeMirror extends React.Component {
                             />
                         </div>
                     ) : (
-                        <p className="wfui-value">{bodyText}</p>
-                    )}
-                    {touched && error && (
+                            <p className="wfui-value">{bodyText}</p>
+                        )}
+                    {(touched || showErrors) && error && (
                         <HelpBlock className="wfui-form-error">
                             <span>{error}</span>
                         </HelpBlock>
