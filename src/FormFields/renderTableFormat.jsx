@@ -94,7 +94,7 @@ class renderTableFormat extends React.Component {
                         } wfui-table-format multiple-inputs-${
                         Object.keys(fieldMap).length
                         }`}
-                    validationState={allTouched && globalError ? 'error' : null}
+                    validationState={(allTouched || showErrors) && globalError ? 'error' : null}
                 >
                     <ul className="wfui-input-table__ul">
                         {Object.keys(fieldMap).map((key, i) => {

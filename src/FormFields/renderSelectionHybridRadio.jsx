@@ -112,7 +112,7 @@ export default class renderSelectionHybridRadio extends React.Component {
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
                         } wfui-radios-hybrid column-count-${columnCount}`}
-                    validationState={allTouched && globalError ? 'error' : null}
+                    validationState={(allTouched || showErrors) && globalError ? 'error' : null}
                 >
                     {options.map((option, i) => {
                         const _key =
