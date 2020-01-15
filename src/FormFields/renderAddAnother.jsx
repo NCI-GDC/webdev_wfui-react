@@ -55,6 +55,7 @@ class renderAddAnother extends React.Component {
             descDisplay,
             fullWidth,
             defaultValue,
+            showErrors,
         } = this.props;
 
         const Comp = withContext ? DraggableWithContext : Draggable;
@@ -82,7 +83,7 @@ class renderAddAnother extends React.Component {
                     'wfui-form-item',
                     {
                         'wfui-form-item-error':
-                            this.touched && (error || globalError),
+                            (this.touched || showErrors) && (error || globalError),
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
@@ -102,9 +103,9 @@ class renderAddAnother extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-form-addAnother`}
+                        } wfui-form-addAnother`}
                     validationState={
-                        this.touched && (error || globalError) ? 'error' : null
+                        (this.touched || showErrors) && (error || globalError) ? 'error' : null
                     }
                 >
                     {!disabled && draggable && fields.length > 0 && (
@@ -156,7 +157,7 @@ class renderAddAnother extends React.Component {
                             <span>{error}</span>
                         </HelpBlock>
                     )}
-                    {(this.touched || submitFailed) && globalError && (
+                    {(this.touched || submitFailed || showErrors) && globalError && (
                         <HelpBlock className="wfui-form-error">
                             <span>{globalError}</span>
                         </HelpBlock>

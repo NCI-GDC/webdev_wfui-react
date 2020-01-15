@@ -53,6 +53,7 @@ class renderTableFormat extends React.Component {
             disabled,
             preview,
             descDisplay,
+            showErrors
         } = this.props;
 
         const components = [];
@@ -72,7 +73,7 @@ class renderTableFormat extends React.Component {
                 className={classNames(
                     className,
                     'wfui-form-item',
-                    { 'wfui-form-item-error': allTouched && globalError },
+                    { 'wfui-form-item-error': (allTouched || showErrors) && globalError },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
                 )}
@@ -90,9 +91,9 @@ class renderTableFormat extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-table-format multiple-inputs-${
+                        } wfui-table-format multiple-inputs-${
                         Object.keys(fieldMap).length
-                    }`}
+                        }`}
                     validationState={allTouched && globalError ? 'error' : null}
                 >
                     <ul className="wfui-input-table__ul">
@@ -127,7 +128,7 @@ class renderTableFormat extends React.Component {
                     </ul>
                     <HelpBlock>
                         {' '}
-                        {allTouched && globalError && (
+                        {(allTouched || showErrors) && globalError && (
                             <span>{globalError}</span>
                         )}{' '}
                     </HelpBlock>

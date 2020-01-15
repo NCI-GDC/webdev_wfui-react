@@ -17,55 +17,56 @@ const renderTimezone = ({
     descDisplay,
     fullWidth,
     meta: { touched, error },
+    showErrors
 }) => (
-    <div
-        className={classNames(
-            className,
-            'wfui-form-item',
-            {
-                'wfui-form-item-error': touched && error,
-            },
-            { 'wfui-form-disabled': disabled },
-            { 'wfui-form-preview': preview },
-            { 'wfui-form-item-full-width': fullWidth },
-        )}
-    >
-        {label && (
-            <div className="wfui-form-label">
-                <ControlLabel>
-                    {label}
-                    {required && <b className="required"> *</b>}
-                </ControlLabel>
-            </div>
-        )}
-        <FormGroup
-            className={`wfui-form-field ${
-                descDisplay
-                    ? 'wfui-form-field-with-description'
-                    : 'wfui-form-field-no-description'
-            } wfui-form-time-zone`}
-            validationState={touched && error ? 'error' : null}
+        <div
+            className={classNames(
+                className,
+                'wfui-form-item',
+                {
+                    'wfui-form-item-error': (touched || showErrors) && error,
+                },
+                { 'wfui-form-disabled': disabled },
+                { 'wfui-form-preview': preview },
+                { 'wfui-form-item-full-width': fullWidth },
+            )}
         >
-            {!disabled ? (
-                <TimezonePicker
-                    className="wfui-form-timezone"
-                    {...input}
-                    onChange={timezone => input.onChange(timezone)}
-                    inputProps={{
-                        placeholder,
-                    }}
-                />
-            ) : (
-                <p className="timezone-value">{input.value}</p>
+            {label && (
+                <div className="wfui-form-label">
+                    <ControlLabel>
+                        {label}
+                        {required && <b className="required"> *</b>}
+                    </ControlLabel>
+                </div>
             )}
-            {touched && error && (
-                <HelpBlock className="wfui-form-error">
-                    <span>{error}</span>
-                </HelpBlock>
-            )}
-        </FormGroup>
-        {descDisplay && !preview ? cloneElement(descDisplay) : ''}
-    </div>
-);
+            <FormGroup
+                className={`wfui-form-field ${
+                    descDisplay
+                        ? 'wfui-form-field-with-description'
+                        : 'wfui-form-field-no-description'
+                    } wfui-form-time-zone`}
+                validationState={(touched || showErrors) && error ? 'error' : null}
+            >
+                {!disabled ? (
+                    <TimezonePicker
+                        className="wfui-form-timezone"
+                        {...input}
+                        onChange={timezone => input.onChange(timezone)}
+                        inputProps={{
+                            placeholder,
+                        }}
+                    />
+                ) : (
+                        <p className="timezone-value">{input.value}</p>
+                    )}
+                {(touched || showErrors) && error && (
+                    <HelpBlock className="wfui-form-error">
+                        <span>{error}</span>
+                    </HelpBlock>
+                )}
+            </FormGroup>
+            {descDisplay && !preview ? cloneElement(descDisplay) : ''}
+        </div>
+    );
 
 export default renderTimezone;

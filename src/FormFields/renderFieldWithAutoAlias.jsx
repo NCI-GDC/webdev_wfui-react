@@ -55,6 +55,7 @@ class renderFieldWithAutoAlias extends React.Component {
             descDisplay,
             meta: { touched, error },
             fullWidth,
+            showErrors
         } = this.props;
 
         return (
@@ -64,7 +65,7 @@ class renderFieldWithAutoAlias extends React.Component {
                     'wfui-form-item',
                     {
                         'wfui-form-item-error':
-                            touched && (error || globalError),
+                            (touched || showErrors) && (error || globalError),
                     },
                     { 'wfui-form-inline': inline },
                     { 'wfui-form-disabled': disabled },
@@ -87,7 +88,7 @@ class renderFieldWithAutoAlias extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-form-input`}
+                        } wfui-form-input`}
                     validationState={
                         touched && (error || globalError) ? 'error' : null
                     }
@@ -143,12 +144,12 @@ class renderFieldWithAutoAlias extends React.Component {
                     )}
                     {!disabled && this.renderAutoAlias()}
                     <FormControl.Feedback />
-                    {touched && error && (
+                    {(touched || showErrors) && error && (
                         <HelpBlock className="wfui-form-error">
                             <span>{error}</span>
                         </HelpBlock>
                     )}
-                    {touched && globalError && (
+                    {(touched || showErrors) && globalError && (
                         <HelpBlock className="wfui-form-error">
                             <span>{globalError}</span>
                         </HelpBlock>

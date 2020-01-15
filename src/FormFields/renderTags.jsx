@@ -39,6 +39,7 @@ class renderTags extends React.Component {
             descDisplay,
             fullWidth,
             meta: { touched, error },
+            showErrors
         } = this.props;
         const { suggestions, tags } = this.state;
 
@@ -47,7 +48,7 @@ class renderTags extends React.Component {
                 className={classNames(
                     className,
                     'wfui-form-item',
-                    { 'wfui-form-item-error': touched && error },
+                    { 'wfui-form-item-error': (touched || showErrors) && error },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
                     { 'wfui-form-item-full-width': fullWidth }
@@ -66,7 +67,7 @@ class renderTags extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-form-tags`}
+                        } wfui-form-tags`}
                     validationState={touched && error ? 'error' : null}
                 >
                     {disabled ? (
@@ -78,19 +79,19 @@ class renderTags extends React.Component {
                                     ))}
                                 </ul>
                             ) : (
-                                <span className="no-item">( No Items )</span>
-                            )}
+                                    <span className="no-item">( No Items )</span>
+                                )}
                         </div>
                     ) : (
-                        <TagsInput value={tags} onChange={this.handleChange} />
-                    )}
+                            <TagsInput value={tags} onChange={this.handleChange} />
+                        )}
 
-                    {touched && error && (
+                    {(touched || showErrors) && error && (
                         <HelpBlock className="wfui-form-error">
                             <span>{error}</span>
                         </HelpBlock>
                     )}
-                    {touched && globalError && (
+                    {(touched || showErrors) && globalError && (
                         <HelpBlock className="wfui-form-error">
                             <span>{globalError}</span>
                         </HelpBlock>
