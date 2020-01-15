@@ -1232,18 +1232,6 @@ div.wfui-form-item {
     float: right;
 }
 
-.wfui-type-field-table span.status {
-    content: '';
-    padding: 6px;
-    border-radius: 6px;
-    display: inline-block;
-    margin-left: 5px;
-    vertical-align: middle;
-    &.invalid {
-        background-color: $forms-status-invalid;
-    }
-}
-
 div.col-table {
     position: relative;
 }
