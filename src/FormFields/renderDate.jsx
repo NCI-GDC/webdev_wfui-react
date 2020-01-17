@@ -41,39 +41,14 @@ class renderDate extends React.Component {
         /**
          * If UI is with time, do timezone convertion. If not, use UTC all the time.
          */
-        let utcOffset = 0;
-        if (datePickerProps.showTimeSelect) {
-            utcOffset = datePickerProps.utcOffset
-                ? datePickerProps.utcOffset
-                : Number(utcOffsetNumber) / 100;
-        }
-        let selectedValue;
-        if (datePickerProps.showTimeSelect) {
-            selectedValue = input.value ? moment(input.value) : null
-        } else {
-            selectedValue = input.value ? moment.utc(input.value) : null
-        }
+        const utcOffset = datePickerProps.utcOffset
+            ? datePickerProps.utcOffset
+            : Number(utcOffsetNumber) / 100;
+        const selectedValue = input.value ? moment(input.value) : null
 
         const convertToISOString = (e) => {
             if (!isNaN(e._d)) {
-                if (datePickerProps.showTimeSelect) {
-                    /**
-                        Calendar with time (Localtime)
-                    */
-                    input.onChange(e._d.toISOString());
-                } else {
-                    /**
-                        Calendar without time (UTC)
-                    */
-
-                    // There is a bug in DatePicker that the Moment object is not UTC. In that case, use e._i ('20XX-XX-XX' string) to get new ISOString.
-                    if (e._isValid && !e._isUTC && e._i) {
-                        input.onChange(new Date(e._i).toISOString());
-
-                    } else {
-                        input.onChange(e._d.toISOString());
-                    }
-                }
+                input.onChange(e.toISOString());
             }
         }
 
@@ -123,31 +98,15 @@ class renderDate extends React.Component {
                                     if (!input.value.match(isISOString) && input.value.match(dateFormatString)) {
                                         const parsedDate = new Date(input.value);
                                         if (!isNaN(parsedDate)) {
-                                            if (datePickerProps.showTimeSelect) {
-                                                /**
-                                                    Calendar with time (Localtime)
-                                                    ---------------------------
-                                                    new Date with the string and get ISO string.
-                                                */
-                                                input.onChange(parsedDate.toISOString());
-                                            } else {
-                                                /**
-                                                    Calendar without time (UTC)
-                                                    ---------------------------
-                                                    There is a bug in a browser that new Date('2020-01-01') and new Date('2020-1-1') generates different time.
-                                                    So use Date.UTC to make sure that time is always 00:00:00
-                                                 */
-                                                const dates = input.value.split('-');
-                                                input.onChange(new Date(Date.UTC(Number(dates[0]), Number(dates[1] - 1), Number(dates[2]), 0, 0, 0)).toISOString())
-                                            }
+                                            input.onChange(parsedDate.toISOString());
                                         }
                                     }
                                 }}
                                 placeholderText={placeholder}
                             />
-                            {datePickerProps.showTimeSelect && (<span className="timezone">
+                            <span className="timezone">
                                 {timeZone} ({utcOffsetNumber})
-                            </span>)}
+                            </span>
                         </div>
                     ) : (
                             <p className="date-value">
