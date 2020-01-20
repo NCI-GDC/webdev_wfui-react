@@ -118,7 +118,7 @@ class FormattedDateRange extends React.Component {
                         {(withTimeFull || onlyTime) && (
                             <FormattedTime value={startDate} />
                         )}
-                        {displayTimezone && ` (${timezone})`}
+                        {withTimeFull && displayTimezone && ` (${timezone})`}
                     </div>
                 </IntlProvider>
             );
