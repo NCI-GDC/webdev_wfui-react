@@ -47,6 +47,7 @@ import WFUIDropdown from './WFUIDropdown/WFUIDropdown';
 import Notifications from './Notifications/Notifications';
 import Query from './util/Query';
 import AdvanceModeButton from './AdvanceModeButton/AdvanceModeButton';
+import FormattedDateRange from './FormattedDateRange/FormattedDateRange';
 
 import * as Utils from './util';
 
@@ -110,4 +111,5 @@ export {
     BeatLoader,
     Query,
     AdvanceModeButton,
+    FormattedDateRange,
 };
