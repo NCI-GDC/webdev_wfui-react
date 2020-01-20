@@ -10,7 +10,7 @@ const sameDay = (d1, d2) => {
       d1.getDate() === d2.getDate();
 }
 
-export class FormattedDateRange extends React.Component {
+export default class FormattedDateRange extends React.Component {
     constructor(props){
         super();
         let isSameTime = false;
