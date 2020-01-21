@@ -8,6 +8,7 @@ import Search from '../../util/searchUtil';
 /*
  * Applies the filtering to the articles and then passes its' props to List for display.
  */
+
 class FilteredTable extends React.Component {
     constructor(props) {
         super(props);
@@ -28,6 +29,8 @@ class FilteredTable extends React.Component {
         this.lastFilteredData = [];
         this.filteredData = [];
     }
+
+    
 
     componentDidMount() {
         this.onFilter(this.generateFilteredArticles(this.applySearch(this.props.data)));
@@ -185,11 +188,11 @@ class FilteredTable extends React.Component {
     }
 
     applySearch(articles) {
-        const { searchTerm, simpleSearch, searchKeys, wholeWord, searchLogic } = this.props;
+        const { searchTerm, simpleSearch, searchKeys, wholeWord, searchLogic, exclProps } = this.props;
         if (searchTerm) {
             const filteredArticles = simpleSearch
-                ? Search.simpleSearch(articles, searchTerm, searchKeys, wholeWord, searchLogic)
-                : Search.search(articles, searchTerm);
+                ? Search.simpleSearch(articles, searchTerm, searchKeys, wholeWord, searchLogic, true, exclProps)
+                : Search.search(articles, searchTerm, exclProps);
             return filteredArticles;
         }
 
@@ -399,6 +402,7 @@ FilteredTable.propTypes = {
     rowClassNameGetter: PropTypes.func,
     style: PropTypes.string,
     onColumnResizeEndCallback: PropTypes.func,
+    exclProps: PropTypes.arrayOf(PropTypes.string),
 };
 
 FilteredTable.defaultProps = {
@@ -416,6 +420,7 @@ FilteredTable.defaultProps = {
     noTableHeader: false,
     rowHeight: 50,
     headerHeight: 50,
+    exclProps: [],
 };
 
 const ResponsiveFilteredTable = props => <FilteredTable {...props} isResponsive />;
