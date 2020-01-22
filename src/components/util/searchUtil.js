@@ -7,8 +7,8 @@
    to allow to mandate matches in particlar fields.  Unfortunately more
    advanced (n-gram, filtering etc.) is not possible since we cannot
    have a precomputed index. */
-const Search = {
-    search: (data, searchTerm) => {
+   const Search = {
+    search: (data, searchTerm, exclProps = []) => {
         /* Runs a version of knuth morris pratt that continues even when
        * it finds a match to efficiently find the number of substrings
        * in the given string. */
@@ -60,6 +60,7 @@ const Search = {
                 ct += occurrences(item, subStr);
                 const keys = Object.keys(item);
                 for (const key of keys) {
+                    if (exclProps.includes(key)) return;
                     if (typeof item !== 'string') {
                         ct += getTotalStringMatches(
                             item[key],
@@ -86,6 +87,7 @@ const Search = {
                 /* Find the key */
                 const keys = Object.keys(item);
                 for (const key of keys) {
+                    if (exclProps.includes(key)) return;
                     if (fieldToken.left.toLowerCase() === key.toLowerCase()) {
                         /* Checks how many times the right side of the expression appears as a subsring */
                         const occurenceCt = occurrences(
@@ -157,6 +159,7 @@ const Search = {
         wholeWord = false,
         searchLogic = 'and',
         wholeWords = true,
+        exclProps = []
     ) => {
         function searchField(item, term) {
             if (!item) return false;
@@ -171,7 +174,7 @@ const Search = {
             } else {
                 const keys = Object.keys(item);
                 return keys.some(key => {
-                    if (!item || !item[key]) return false;
+                    if (!item || !item[key] || exclProps.includes(key)) return false;
                     if (typeof item[key] === 'boolean' && item[key]) {
                         return key.toLowerCase().indexOf(term) >= 0;
                     }
@@ -194,7 +197,7 @@ const Search = {
             } else {
                 const keys = Object.keys(item);
                 return keys.some(key => {
-                    if (!item || !item[key]) return false;
+                    if (!item || !item[key] || exclProps.includes(key)) return false;
                     if (typeof item[key] === 'boolean' && item[key]) {
                         return key.toLowerCase().indexOf(term) >= 0;
                     }
@@ -214,7 +217,7 @@ const Search = {
 
             const _searchWholeWord = term => {
                 return keys.some(key => {
-                    if (!item || !item[key]) return false;
+                    if (!item || !item[key] || exclProps.includes(key)) return false;
                     if (typeof item[key] === 'boolean' && item[key]) {
                         return key.toLowerCase().indexOf(term) >= 0;
                     }
@@ -224,7 +227,7 @@ const Search = {
 
             const _searchField = term => {
                 return keys.some(key => {
-                    if (!item || !item[key]) return false;
+                    if (!item || !item[key] || exclProps.includes(key)) return false;
                     if (item)
                         if (typeof item[key] === 'boolean' && item[key]) {
                             return key.toLowerCase().indexOf(term) >= 0;
