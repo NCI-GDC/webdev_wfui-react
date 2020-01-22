@@ -30,6 +30,7 @@ const renderTextArea = ({
     fullWidth,
     textLimit,
     textLimitLabel,
+    autoComplete,
     onChange,
     inline,
     showErrors
@@ -130,6 +131,7 @@ const renderTextArea = ({
                         className={classNames({
                             'is-valid-warning': (touched || showErrors) && data && data.warning,
                         })}
+                        autoComplete={autoComplete}
                     />
                     {(touched || showErrors) && error && (
                         <Form.Control.Feedback
