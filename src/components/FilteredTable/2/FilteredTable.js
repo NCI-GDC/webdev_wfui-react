@@ -219,6 +219,7 @@ class FilteredTable extends React.Component {
             searchKeys,
             wholeWord,
             searchLogic,
+            exclProps,
         } = this.props;
         if (searchTerm) {
             const filteredArticles = simpleSearch
@@ -227,9 +228,11 @@ class FilteredTable extends React.Component {
                       searchTerm,
                       searchKeys,
                       wholeWord,
-                      searchLogic
+                      searchLogic,
+                      true,
+                      exclProps
                   )
-                : Search.search(articles, searchTerm);
+                : Search.search(articles, searchTerm, exclProps);
             return filteredArticles;
         }
 
@@ -447,6 +450,7 @@ FilteredTable.propTypes = {
     rowClassNameGetter: PropTypes.func,
     style: PropTypes.string,
     onColumnResizeEndCallback: PropTypes.func,
+    exclProps: PropTypes.arrayOf(PropTypes.string),
 };
 
 FilteredTable.defaultProps = {
@@ -464,6 +468,7 @@ FilteredTable.defaultProps = {
     noTableHeader: false,
     rowHeight: 50,
     headerHeight: 50,
+    exclProps: [],
 };
 
 const ResponsiveFilteredTable = props => (

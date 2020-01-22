@@ -62,6 +62,7 @@ class renderAddAnother extends React.Component {
             fullWidth,
             defaultValue,
             inline,
+            showErrors,
         } = this.props;
 
         const Comp = withContext ? DraggableWithContext : Draggable;
@@ -90,11 +91,11 @@ class renderAddAnother extends React.Component {
                     'wfui-form-item',
                     {
                         'wfui-form-item-error':
-                            this.touched && (error || globalError),
+                            (this.touched || showErrors) && (error || globalError),
                     },
                     {
                         'wfui-form-item-warning':
-                            this.touched && data && data.warning,
+                            (this.touched || showErrors) && data && data.warning,
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
@@ -122,24 +123,24 @@ class renderAddAnother extends React.Component {
                                 ? 4
                                 : 10
                             : descDisplay && !preview
-                            ? 6
-                            : 9
+                                ? 6
+                                : 9
                     }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-form-addAnother`}
+                        } wfui-form-addAnother`}
                     validationState={
-                        this.touched && (error || globalError) ? 'error' : null
+                        (this.touched || showErrors) && (error || globalError) ? 'error' : null
                     }
                 >
                     <FormControl
-                        isInvalid={this.touched && (error || globalError)}
-                        isValid={this.touched && data && data.warning}
+                        isInvalid={(this.touched || showErrors) && (error || globalError)}
+                        isValid={(this.touched || showErrors) && data && data.warning}
                         className={classNames('d-none', 'custom-form-control', {
                             'is-valid-warning':
-                                this.touched && data && data.warning,
+                                (this.touched || showErrors) && data && data.warning,
                         })}
                     />
 
@@ -213,7 +214,7 @@ class renderAddAnother extends React.Component {
                         </Form.Control.Feedback>
                     )} */}
 
-                    {(this.touched || submitFailed) && globalError && (
+                    {(this.touched || showErrors || submitFailed) && globalError && (
                         <Form.Control.Feedback className="wfui-form-error">
                             <span>
                                 {Array.isArray(globalError)
@@ -222,7 +223,7 @@ class renderAddAnother extends React.Component {
                             </span>
                         </Form.Control.Feedback>
                     )}
-                    {this.touched && data && data.warning && (
+                    {(this.touched || showErrors) && data && data.warning && (
                         <Form.Control.Feedback
                             className="wfui-form-warning"
                             type="valid"

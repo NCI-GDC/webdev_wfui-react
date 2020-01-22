@@ -1868,6 +1868,12 @@ div.wfui-form-item {
   }
 }
 
+.wfui-form-error{
+    .help-block {
+        color: #a94442;
+    }
+}
+
 /* Disabled
 /-------------------------------------------------------------- */
 input:disabled,
