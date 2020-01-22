@@ -56,6 +56,7 @@ class renderFieldWithAutoAlias extends React.Component {
             descDisplay,
             meta: { touched, error, data },
             fullWidth,
+            showErrors
         } = this.props;
 
         return (
@@ -65,10 +66,10 @@ class renderFieldWithAutoAlias extends React.Component {
                     'wfui-form-item',
                     {
                         'wfui-form-item-error':
-                            touched && (error || globalError),
+                            (touched || showErrors) && (error || globalError),
                     },
                     {
-                        'wfui-form-item-warning': touched && data.warning,
+                        'wfui-form-item-warning': (touched || showErrors) && data.warning,
                     },
                     { 'wfui-form-inline': inline },
                     { 'wfui-form-disabled': disabled },
@@ -93,7 +94,7 @@ class renderFieldWithAutoAlias extends React.Component {
                             : 'wfui-form-field-no-description'
                         } wfui-form-input`}
                     validationState={
-                        touched && (error || globalError) ? 'error' : null
+                        (touched || showErrors) && (error || globalError) ? 'error' : null
                     }
                 >
                     <FormControl
@@ -141,17 +142,17 @@ class renderFieldWithAutoAlias extends React.Component {
                             );
                             if (onHandleChange) onHandleChange(e);
                         }}
-                        isInvalid={touched && (error || globalError)}
-                        isValid={touched && data.warning}
+                        isInvalid={(touched || showErrors) && (error || globalError)}
+                        isValid={(touched || showErrors) && data.warning}
                         className={classNames({
-                            'is-valid-warning': touched && data.warning,
+                            'is-valid-warning': (touched || showErrors) && data.warning,
                         })}
                     />
                     {postfix && (
                         <div className="wfui-form-postfix">{postfix}</div>
                     )}
                     {!disabled && this.renderAutoAlias()}
-                    {touched && error && (
+                    {(touched || showErrors) && error && (
                         <Form.Control.Feedback
                             className="wfui-form-error"
                             type="invalid"
@@ -161,7 +162,7 @@ class renderFieldWithAutoAlias extends React.Component {
                                 : error}
                         </Form.Control.Feedback>
                     )}
-                    {touched && globalError && (
+                    {(touched || showErrors) && globalError && (
                         <Form.Control.Feedback
                             className="wfui-form-error"
                             type="invalid"
@@ -169,7 +170,7 @@ class renderFieldWithAutoAlias extends React.Component {
                             <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
                         </Form.Control.Feedback>
                     )}
-                    {touched && data.warning && (
+                    {(touched || showErrors) && data.warning && (
                         <Form.Control.Feedback
                             className="wfui-form-warning"
                             type="valid"

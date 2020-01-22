@@ -30,17 +30,19 @@ const renderTextArea = ({
     fullWidth,
     textLimit,
     textLimitLabel,
+    autoComplete,
     onChange,
     inline,
+    showErrors
 }) =>
     preview ? (
         <Form.Row
             className={classNames(
                 className,
                 'wfui-form-item',
-                { 'wfui-form-item-error': touched && (error || globalError) },
+                { 'wfui-form-item-error': (touched || showErrors) && (error || globalError) },
                 {
-                    'wfui-form-item-warning': touched && data && data.warning,
+                    'wfui-form-item-warning': (touched || showErrors) && data && data.warning,
                 },
                 { 'wfui-form-disabled': disabled },
                 { 'wfui-form-preview': preview },
@@ -67,7 +69,7 @@ const renderTextArea = ({
                     descDisplay
                         ? 'wfui-form-field-with-description'
                         : 'wfui-form-field-no-description'
-                } wfui-form-textarea`}
+                    } wfui-form-textarea`}
             >
                 <div className="wfui-form-textarea-preview-value">
                     {input.value}
@@ -75,136 +77,137 @@ const renderTextArea = ({
             </FormGroup>
         </Form.Row>
     ) : (
-        <Form.Row
-            className={classNames(
-                className,
-                'wfui-form-item',
-                { 'wfui-form-item-error': touched && (error || globalError) },
-                { 'wfui-form-disabled': disabled },
-                { 'wfui-form-preview': preview },
-                { answered: input.value },
-                { 'wfui-form-item-full-width': fullWidth }
-            )}
-        >
-            {label && (
-                <Col xs={12} lg={inline ? 2 : 12} className="wfui-form-label">
-                    <ControlLabel>
-                        {label}
-                        {textLimitLabel ? (
-                            <span className="text-muted">{textLimitLabel}</span>
-                        ) : null}
-                        {required && <b className="required"> *</b>}
-                    </ControlLabel>
-                </Col>
-            )}
-            <FormGroup
-                as={Col}
-                xs={12}
-                lg={inline ? (descDisplay ? 4 : 10) : descDisplay ? 6 : 12}
-                className={`wfui-form-field ${
-                    descDisplay
-                        ? 'wfui-form-field-with-description'
-                        : 'wfui-form-field-no-description'
-                } wfui-form-textarea`}
-                validationState={
-                    touched && (error || globalError) ? 'error' : null
-                }
+            <Form.Row
+                className={classNames(
+                    className,
+                    'wfui-form-item',
+                    { 'wfui-form-item-error': (touched || showErrors) && (error || globalError) },
+                    { 'wfui-form-disabled': disabled },
+                    { 'wfui-form-preview': preview },
+                    { answered: input.value },
+                    { 'wfui-form-item-full-width': fullWidth }
+                )}
             >
-                <FormControl
-                    {...input}
-                    placeholder={
-                        placeholder || placeholder === '' ? placeholder : label
-                    }
-                    disabled={readOnly ? false : disabled}
-                    readOnly={readOnly}
-                    onChange={e => {
-                        input.onChange(e);
-                        if (onChange) onChange(e, input);
-                        if (onHandleChange) onHandleChange(e, input);
-                    }}
-                    as="textarea"
-                    rows={rows || (disabled || preview ? 0 : 5)}
-                    isInvalid={touched && (error || globalError)}
-                    isValid={touched && data && data.warning}
-                    className={classNames({
-                        'is-valid-warning': touched && data && data.warning,
-                    })}
-                />
-                {touched && error && (
-                    <Form.Control.Feedback
-                        className="wfui-form-error"
-                        type="invalid"
-                    >
-                        {Array.isArray(error)
-                            ? error.map(item => <div>{item}</div>)
-                            : error}
-                        {textLimit && !preview ? (
-                            <span className="wfui-form-char-count">
-                                {`${
-                                    input && input.value
-                                        ? input.value.length
-                                        : 0
-                                } / ${textLimit} characters`}
-                            </span>
-                        ) : null}
-                    </Form.Control.Feedback>
+                {label && (
+                    <Col xs={12} lg={inline ? 2 : 12} className="wfui-form-label">
+                        <ControlLabel>
+                            {label}
+                            {textLimitLabel ? (
+                                <span className="text-muted">{textLimitLabel}</span>
+                            ) : null}
+                            {required && <b className="required"> *</b>}
+                        </ControlLabel>
+                    </Col>
                 )}
-                {touched && globalError && (
-                    <Form.Control.Feedback
-                        className="wfui-form-error"
-                        type="invalid"
-                    >
-                        <span>
-                            {Array.isArray(globalError)
-                                ? globalError.join(', ')
-                                : globalError}
-                        </span>
-                        {textLimit && !preview ? (
-                            <span className="wfui-form-char-count">
-                                {`${
-                                    input && input.value
-                                        ? input.value.length
-                                        : 0
-                                } / ${textLimit} characters`}
-                            </span>
-                        ) : null}
-                    </Form.Control.Feedback>
-                )}
-                {!(touched && (error || globalError)) &&
-                textLimit &&
-                !preview ? (
-                    <span className="wfui-form-char-count text-muted">
-                        {`${
-                            input && input.value ? input.value.length : 0
-                        } / ${textLimit} characters`}
-                    </span>
-                ) : null}
-                {touched && data && data.warning && (
-                    <Form.Control.Feedback
-                        className="wfui-form-warning"
-                        type="valid"
-                    >
-                        {Array.isArray(data.warning)
-                            ? data.warning.map(item => <div>{item}</div>)
-                            : data.warning}
-                    </Form.Control.Feedback>
-                )}
-                {help && !preview && (
-                    <HelpBlock className="wfui-form-help text-muted">
-                        <div dangerouslySetInnerHTML={{ __html: help }} />
-                    </HelpBlock>
-                )}
-            </FormGroup>
-            {descDisplay && !preview ? (
-                <Col
-                    className="wfui-form-description"
+                <FormGroup
+                    as={Col}
                     xs={12}
-                    lg={{ span: 6, offset: 0 }}
+                    lg={inline ? (descDisplay ? 4 : 10) : descDisplay ? 6 : 12}
+                    className={`wfui-form-field ${
+                        descDisplay
+                            ? 'wfui-form-field-with-description'
+                            : 'wfui-form-field-no-description'
+                        } wfui-form-textarea`}
+                    validationState={
+                        (touched || showErrors) && (error || globalError) ? 'error' : null
+                    }
                 >
-                    {cloneElement(descDisplay)}
-                </Col>
-            ) : null}
-        </Form.Row>
-    );
+                    <FormControl
+                        {...input}
+                        placeholder={
+                            placeholder || placeholder === '' ? placeholder : label
+                        }
+                        disabled={readOnly ? false : disabled}
+                        readOnly={readOnly}
+                        onChange={e => {
+                            input.onChange(e);
+                            if (onChange) onChange(e, input);
+                            if (onHandleChange) onHandleChange(e, input);
+                        }}
+                        as="textarea"
+                        rows={rows || (disabled || preview ? 0 : 5)}
+                        isInvalid={(touched || showErrors) && (error || globalError)}
+                        isValid={(touched || showErrors) && data && data.warning}
+                        className={classNames({
+                            'is-valid-warning': (touched || showErrors) && data && data.warning,
+                        })}
+                        autoComplete={autoComplete}
+                    />
+                    {(touched || showErrors) && error && (
+                        <Form.Control.Feedback
+                            className="wfui-form-error"
+                            type="invalid"
+                        >
+                            {Array.isArray(error)
+                                ? error.map(item => <div>{item}</div>)
+                                : error}
+                            {textLimit && !preview ? (
+                                <span className="wfui-form-char-count">
+                                    {`${
+                                        input && input.value
+                                            ? input.value.length
+                                            : 0
+                                        } / ${textLimit} characters`}
+                                </span>
+                            ) : null}
+                        </Form.Control.Feedback>
+                    )}
+                    {(touched || showErrors) && globalError && (
+                        <Form.Control.Feedback
+                            className="wfui-form-error"
+                            type="invalid"
+                        >
+                            <span>
+                                {Array.isArray(globalError)
+                                    ? globalError.join(', ')
+                                    : globalError}
+                            </span>
+                            {textLimit && !preview ? (
+                                <span className="wfui-form-char-count">
+                                    {`${
+                                        input && input.value
+                                            ? input.value.length
+                                            : 0
+                                        } / ${textLimit} characters`}
+                                </span>
+                            ) : null}
+                        </Form.Control.Feedback>
+                    )}
+                    {!((touched || showErrors) && (error || globalError)) &&
+                        textLimit &&
+                        !preview ? (
+                            <span className="wfui-form-char-count text-muted">
+                                {`${
+                                    input && input.value ? input.value.length : 0
+                                    } / ${textLimit} characters`}
+                            </span>
+                        ) : null}
+                    {(touched || showErrors) && data && data.warning && (
+                        <Form.Control.Feedback
+                            className="wfui-form-warning"
+                            type="valid"
+                        >
+                            {Array.isArray(data.warning)
+                                ? data.warning.map(item => <div>{item}</div>)
+                                : data.warning}
+                        </Form.Control.Feedback>
+                    )}
+                    {help && !preview && (
+                        <HelpBlock className="wfui-form-help text-muted">
+                            <div dangerouslySetInnerHTML={{ __html: help }} />
+                        </HelpBlock>
+                    )}
+                </FormGroup>
+                {descDisplay && !preview ? (
+                    <Col
+                        className="wfui-form-description"
+                        xs={12}
+                        lg={{ span: 6, offset: 0 }}
+                    >
+                        {cloneElement(descDisplay)}
+                    </Col>
+                ) : null}
+            </Form.Row>
+        );
 
 export default renderTextArea;

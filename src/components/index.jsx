@@ -53,6 +53,7 @@ import Notifications from './Notifications/Notifications';
 import Query from './util/Query';
 import SwitchButton from './SwitchButton/SwitchButton';
 import Button from './Button/Button';
+import FormattedDateRange from './FormattedDateRange/FormattedDateRange';
 
 import * as Utils from './util';
 
@@ -137,6 +138,7 @@ export {
     BeatLoader,
     Query,
     SwitchButton,
+    FormattedDateRange,
     // React Bootstrap Hubs
     Glyphicon,
     Icon,

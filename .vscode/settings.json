@@ -4,6 +4,8 @@
     "[javascript]": {
         "editor.formatOnSave": false // We use "eslint" formatting instead of "editor" for javascript.
     },
-    "eslint.autoFixOnSave": true,
     "eslint.alwaysShowStatus": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
 }
