@@ -50,6 +50,7 @@ class renderCodeMirror extends React.Component {
             onCursor,
             help,
             defaultValue,
+            showErrors
         } = this.props;
 
         const { bodyText } = this.state;
@@ -60,11 +61,11 @@ class renderCodeMirror extends React.Component {
                     className,
                     'wfui-form-item',
                     {
-                        'wfui-form-item-error': error,
+                        'wfui-form-item-error': (touched || showErrors) && error,
                     },
                     {
                         'wfui-form-item-warning':
-                            touched && data && data.warning,
+                            (touched || showErrors) && data && data.warning,
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
@@ -84,8 +85,8 @@ class renderCodeMirror extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-form-date`}
-                    validationState={touched && error ? 'error' : null}
+                        } wfui-form-date`}
+                    validationState={(touched || showErrors) && error ? 'error' : null}
                 >
                     {!disabled ? (
                         <div className="wfui-quill">
@@ -100,9 +101,9 @@ class renderCodeMirror extends React.Component {
                             />
                         </div>
                     ) : (
-                        <p className="wfui-value">{bodyText}</p>
-                    )}
-                    {touched && error && (
+                            <p className="wfui-value">{bodyText}</p>
+                        )}
+                    {(touched || showErrors) && error && (
                         <Form.Control.Feedback
                             className="wfui-form-error"
                             type="invalid"
@@ -112,7 +113,7 @@ class renderCodeMirror extends React.Component {
                                 : error}
                         </Form.Control.Feedback>
                     )}
-                    {touched && globalError && (
+                    {(touched || showErrors) && globalError && (
                         <Form.Control.Feedback
                             className="wfui-form-error"
                             type="invalid"
@@ -124,7 +125,7 @@ class renderCodeMirror extends React.Component {
                             </span>
                         </Form.Control.Feedback>
                     )}
-                    {touched && data && data.warning && (
+                    {(touched || showErrors) && data && data.warning && (
                         <Form.Control.Feedback
                             className="wfui-form-warning"
                             type="valid"

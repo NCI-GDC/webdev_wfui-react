@@ -153,7 +153,7 @@ class renderFileUpload extends React.Component {
                             <a
                                 className={`${
                                     review ? 'review-page' : ''
-                                } ${this.getFileKey(input.value.type)}`}
+                                    } ${this.getFileKey(input.value.type)}`}
                                 type="button"
                                 href={src}
                                 target="_blank"
@@ -165,8 +165,8 @@ class renderFileUpload extends React.Component {
                                 />
                             </a>
                         ) : (
-                            <span>The image is not available.</span>
-                        )}
+                                <span>The image is not available.</span>
+                            )}
                         {!review && this.renderRemoveBtn()}
                     </div>
                 );
@@ -179,7 +179,7 @@ class renderFileUpload extends React.Component {
                         <a
                             className={`btn btn-outline-primary ${
                                 review ? 'review-page' : ''
-                            } ${this.getFileKey(input.value.type)}`}
+                                } ${this.getFileKey(input.value.type)}`}
                             href={src}
                             target="_blank"
                         >
@@ -387,6 +387,7 @@ class renderFileUpload extends React.Component {
             fileTypes,
             fullWidth,
             inline,
+            showErrors,
         } = this.props;
         const { fileError } = this.state;
 
@@ -399,11 +400,11 @@ class renderFileUpload extends React.Component {
                     'wfui-form-item',
                     {
                         'wfui-form-item-error':
-                            touched && (error || globalError),
+                            (touched || showErrors) && (error || globalError),
                     },
                     {
                         'wfui-form-item-warning':
-                            touched && data && data.warning,
+                            (touched || showErrors) && data && data.warning,
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
@@ -432,25 +433,25 @@ class renderFileUpload extends React.Component {
                                 ? 4
                                 : 10
                             : descDisplay && !preview
-                            ? 6
-                            : 12
+                                ? 6
+                                : 12
                     }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-file-upload`}
+                        } wfui-file-upload`}
                     validationState={
-                        touched && (error || globalError || fileError)
+                        (touched || showErrors) && (error || globalError || fileError)
                             ? 'error'
                             : null
                     }
                 >
                     <FormControl
-                        isInvalid={touched && (error || globalError)}
-                        isValid={touched && data && data.warning}
+                        isInvalid={(touched || showErrors) && (error || globalError)}
+                        isValid={(touched || showErrors) && data && data.warning}
                         className={classNames('d-none', 'custom-form-control', {
-                            'is-valid-warning': touched && data && data.warning,
+                            'is-valid-warning': (touched || showErrors) && data && data.warning,
                         })}
                     />
 
@@ -470,8 +471,8 @@ class renderFileUpload extends React.Component {
                                             '{maxFileSize}',
                                             fileSizeTextConvert > 1000
                                                 ? Math.floor(
-                                                      fileSizeTextConvert / 1000
-                                                  )
+                                                    fileSizeTextConvert / 1000
+                                                )
                                                 : fileSizeTextConvert
                                         )
                                         .replace(
@@ -504,7 +505,7 @@ class renderFileUpload extends React.Component {
                             />
                         </Form.Control.Feedback>
                     )}
-                    {touched && globalError && (
+                    {(touched || showErrors) && globalError && (
                         <Form.Control.Feedback
                             className="wfui-form-error"
                             type="invalid"
@@ -516,7 +517,7 @@ class renderFileUpload extends React.Component {
                             </span>
                         </Form.Control.Feedback>
                     )}
-                    {touched && data && data.warning && (
+                    {(touched || showErrors) && data && data.warning && (
                         <Form.Control.Feedback
                             className="wfui-form-warning"
                             type="valid"
@@ -560,8 +561,8 @@ renderFileUpload.propTypes = {
     isPublic: PropTypes.bool,
 };
 renderFileUpload.defaultProps = {
-    onUpload: () => {},
-    onRemove: () => {},
+    onUpload: () => { },
+    onRemove: () => { },
     maxFileSize: 100000000,
     txtRemove: 'Remove',
     txtUpload: 'Upload',
