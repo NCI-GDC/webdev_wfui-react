@@ -131,8 +131,8 @@ $form-tag-color-hover: $form-active-color;
 
 /* Checkbox, Radio
 -------------------------------------------------------------- */
-.wfui-form-checkbox-container,
-.wfui-form-radio-container {
+.form-check.wfui-form-checkbox-container,
+.form-check.wfui-form-radio-container {
     @extend .form-control;
     padding: $input-padding-y $input-padding-x $input-padding-y calc(#{$input-padding-x} + #{$form-check-input-gutter});
     padding-left: calc(#{$input-padding-x} + #{$form-check-input-gutter});
