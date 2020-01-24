@@ -67,7 +67,7 @@ const renderCheckboxes = ({
                         ? 'wfui-form-field-with-description'
                         : 'wfui-form-field-no-description'
                     } wfui-form-checkboxes`}
-                validationState={(touched || showErrors) && (error || globalError) ? 'error' : null}
+            // validationState={(touched || showErrors) && (error || globalError) ? 'error' : null}
             >
                 <FormControl
                     isInvalid={(touched || showErrors) && (error || globalError)}

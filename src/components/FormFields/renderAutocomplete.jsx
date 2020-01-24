@@ -170,9 +170,9 @@ class renderAutocomplete extends React.Component {
                 </div>
                 <FormGroup
                     className="wfui-form-input wfui-form-autocomplete"
-                    validationState={
-                        (touched || showErrors) && (error || globalError) ? 'error' : null
-                    }
+                // validationState={
+                //     (touched || showErrors) && (error || globalError) ? 'error' : null
+                // }
                 >
                     <FormControl
                         {...input}

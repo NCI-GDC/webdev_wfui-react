@@ -86,7 +86,7 @@ class renderCodeMirror extends React.Component {
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
                         } wfui-form-date`}
-                    validationState={(touched || showErrors) && error ? 'error' : null}
+                // validationState={(touched || showErrors) && error ? 'error' : null}
                 >
                     {!disabled ? (
                         <div className="wfui-quill">

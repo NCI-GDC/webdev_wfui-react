@@ -131,9 +131,9 @@ class renderAddAnother extends React.Component {
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
                         } wfui-form-addAnother`}
-                    validationState={
-                        (this.touched || showErrors) && (error || globalError) ? 'error' : null
-                    }
+                // validationState={
+                //     (this.touched || showErrors) && (error || globalError) ? 'error' : null
+                // }
                 >
                     <FormControl
                         isInvalid={(this.touched || showErrors) && (error || globalError)}
