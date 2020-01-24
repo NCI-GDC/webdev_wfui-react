@@ -1,7 +1,7 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Form, FormGroup, ControlLabel, HelpBlock, Col } from '../index';
+import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Col } from '../index';
 
 const renderSingleCheckbox = ({
     className,
@@ -56,13 +56,7 @@ const renderSingleCheckbox = ({
                         : 'wfui-form-field-no-description'
                     } wfui-form-single-checkbox`}
             // validationState={(touched || showErrors) && (error || globalError) ? 'error' : null}
-            ><FormControl
-                    isInvalid={(touched || showErrors) && (error || globalError)}
-                    isValid={(touched || showErrors) && data && data.warning}
-                    className={classNames('d-none', 'custom-form-control', {
-                        'is-valid-warning': (touched || showErrors) && data && data.warning,
-                    })}
-                />
+            >
                 <Form.Check
                     type="checkbox"
                     isInvalid={(touched || showErrors) && (error || globalError)}
