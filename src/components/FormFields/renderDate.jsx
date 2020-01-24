@@ -97,7 +97,7 @@ const renderDate = ({
                     } wfui-form-date ${
                     (touched || showErrors) && (error || globalError) ? 'wfui-form-with-error' : ''
                     }`}
-                validationState={(touched || showErrors) && (error || globalError) ? 'error' : null}
+            // validationState={(touched || showErrors) && (error || globalError) ? 'error' : null}
             >
                 <FormControl
                     isInvalid={(touched || showErrors) && (error || globalError)}

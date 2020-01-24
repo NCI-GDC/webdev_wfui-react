@@ -55,8 +55,14 @@ const renderSingleCheckbox = ({
                         ? 'wfui-form-field-with-description'
                         : 'wfui-form-field-no-description'
                     } wfui-form-single-checkbox`}
-                validationState={(touched || showErrors) && (error || globalError) ? 'error' : null}
-            >
+            // validationState={(touched || showErrors) && (error || globalError) ? 'error' : null}
+            ><FormControl
+                    isInvalid={(touched || showErrors) && (error || globalError)}
+                    isValid={(touched || showErrors) && data && data.warning}
+                    className={classNames('d-none', 'custom-form-control', {
+                        'is-valid-warning': (touched || showErrors) && data && data.warning,
+                    })}
+                />
                 <Form.Check
                     type="checkbox"
                     isInvalid={(touched || showErrors) && (error || globalError)}

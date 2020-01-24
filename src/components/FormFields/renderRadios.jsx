@@ -61,7 +61,7 @@ const renderRadios = ({
                         ? 'wfui-form-field-with-description'
                         : 'wfui-form-field-no-description'
                     } wfui-form-radios`}
-                validationState={(touched || showErrors) && (error || globalError) ? 'error' : null}
+            // validationState={(touched || showErrors) && (error || globalError) ? 'error' : null}
             >
                 <div className="wfui-form-radio-group-container">
                     {options.map((option, i) => {

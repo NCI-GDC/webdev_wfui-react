@@ -93,9 +93,9 @@ class renderFieldWithAutoAlias extends React.Component {
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
                         } wfui-form-input`}
-                    validationState={
-                        (touched || showErrors) && (error || globalError) ? 'error' : null
-                    }
+                // validationState={
+                //     (touched || showErrors) && (error || globalError) ? 'error' : null
+                // }
                 >
                     <FormControl
                         {...input}

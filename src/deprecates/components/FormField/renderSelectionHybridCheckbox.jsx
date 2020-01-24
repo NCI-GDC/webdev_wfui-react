@@ -142,8 +142,8 @@ class renderSelectionHybridCheckbox extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-checkboxes-hybrid column-count-${columnCount}`}
-                    validationState={allTouched && globalError ? 'error' : null}
+                        } wfui-checkboxes-hybrid column-count-${columnCount}`}
+                // validationState={allTouched && globalError ? 'error' : null}
                 >
                     {options.map((option, i) => {
                         const _key =
@@ -156,14 +156,14 @@ class renderSelectionHybridCheckbox extends React.Component {
                                 key={i}
                                 className={`${
                                     checkboxProps.input.value &&
-                                    checkboxProps.input.value.includes(_key)
+                                        checkboxProps.input.value.includes(_key)
                                         ? 'active'
                                         : ''
-                                } ${
+                                    } ${
                                     fieldMap[_key]
                                         ? 'checkbox-with-checkboxHybrid'
                                         : ''
-                                }`}
+                                    }`}
                             >
                                 <Form.Check.Label>
                                     <Form.Check.Input
@@ -192,7 +192,7 @@ class renderSelectionHybridCheckbox extends React.Component {
                                             return this.onHandleChange(
                                                 newValue,
                                                 e.target.checked &&
-                                                    e.target.value
+                                                e.target.value
                                             );
                                         }}
                                     />
@@ -248,7 +248,7 @@ class renderSelectionHybridCheckbox extends React.Component {
                         {allTouched && globalError && (
                             <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
                         )}
-{' '}
+                        {' '}
                     </HelpBlock>
                     {help && !preview && (
                         <div

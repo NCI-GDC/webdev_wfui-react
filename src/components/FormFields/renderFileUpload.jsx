@@ -441,11 +441,11 @@ class renderFileUpload extends React.Component {
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
                         } wfui-file-upload`}
-                    validationState={
-                        (touched || showErrors) && (error || globalError || fileError)
-                            ? 'error'
-                            : null
-                    }
+                // validationState={
+                //     (touched || showErrors) && (error || globalError || fileError)
+                //         ? 'error'
+                //         : null
+                // }
                 >
                     <FormControl
                         isInvalid={(touched || showErrors) && (error || globalError)}

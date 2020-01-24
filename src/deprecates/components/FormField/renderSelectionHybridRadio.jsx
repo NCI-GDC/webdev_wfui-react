@@ -111,8 +111,8 @@ export default class renderSelectionHybridRadio extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                    } wfui-radios-hybrid column-count-${columnCount}`}
-                    validationState={allTouched && globalError ? 'error' : null}
+                        } wfui-radios-hybrid column-count-${columnCount}`}
+                // validationState={allTouched && globalError ? 'error' : null}
                 >
                     {options.map((option, i) => {
                         const _key =
@@ -127,11 +127,11 @@ export default class renderSelectionHybridRadio extends React.Component {
                                     radioProps.input.value === _key
                                         ? 'active'
                                         : ''
-                                } ${
+                                    } ${
                                     fieldMap[_key]
                                         ? 'radio-with-radioHybrid'
                                         : ''
-                                }`}
+                                    }`}
                             >
                                 <Form.Check.Label>
                                     <Form.Check.Input

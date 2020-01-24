@@ -96,7 +96,7 @@ class renderTags extends React.Component {
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
                         } wfui-form-tags`}
-                    validationState={(touched || showErrors) && error ? 'error' : null}
+                // validationState={(touched || showErrors) && error ? 'error' : null}
                 >
                     <FormControl
                         isInvalid={(touched || showErrors) && (error || globalError)}
