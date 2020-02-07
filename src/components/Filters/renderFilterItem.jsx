@@ -1,6 +1,6 @@
 /* eslint react/prop-types : 0 */
 import React from 'react';
-import { FormControl, Glyphicon } from '../index';
+import { FormControl, Icon } from '../index';
 
 /**
  * Reusable field component.
@@ -60,9 +60,9 @@ export const renderTextFilter = ({
                 placeholder={placeholder || ''}
             />
             {value && (
-                <Glyphicon
+                <Icon
                     className="input-clear"
-                    glyph="remove"
+                    name="times"
                     bsSize="xsmall"
                     onClick={onHandleChange}
                 />
