@@ -35,6 +35,7 @@ class renderFileUpload extends React.Component {
             removing: [],
             initialValue: props.input.value,
         };
+        this.touched = false;
         this.getFileKey = this.getFileKey.bind(this);
         this.renderFile = this.renderFile.bind(this);
         this.renderRemoveBtn = this.renderRemoveBtn.bind(this);
@@ -362,6 +363,7 @@ class renderFileUpload extends React.Component {
                             });
                         }
                     }
+                    this.setState({ touched: true });
                 }}
             >
                 {this.renderChildComponets()}
@@ -379,7 +381,7 @@ class renderFileUpload extends React.Component {
             input,
             maxFileSize,
             disabled,
-            meta: { touched, error, data },
+            meta: { error, data },
             preview,
             descDisplay,
             maxFileSizeText,
@@ -389,7 +391,7 @@ class renderFileUpload extends React.Component {
             inline,
             showErrors,
         } = this.props;
-        const { fileError } = this.state;
+        const { fileError, touched } = this.state;
 
         const fileSizeTextConvert = Math.floor(maxFileSize / 1000000);
 
@@ -448,7 +450,7 @@ class renderFileUpload extends React.Component {
                 // }
                 >
                     <FormControl
-                        isInvalid={(touched || showErrors) && (error || globalError)}
+                        isInvalid={(touched || showErrors) && (error || globalError || fileError)}
                         isValid={(touched || showErrors) && data && data.warning}
                         className={classNames('d-none', 'custom-form-control', {
                             'is-valid-warning': (touched || showErrors) && data && data.warning,
