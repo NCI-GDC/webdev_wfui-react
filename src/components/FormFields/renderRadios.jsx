@@ -114,7 +114,7 @@ const renderRadios = ({
                                             }
                                         }}
                                     />
-                                    {_option}
+                                    <span dangerouslySetInnerHTML={{ __html: _option }} />
                                 </Form.Check.Label>
                                 {(touched || showErrors) && error && (
                                     <Form.Control.Feedback
