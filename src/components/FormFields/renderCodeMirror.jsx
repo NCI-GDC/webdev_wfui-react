@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import * as ReactCodeMirror from 'react-codemirror2';
 
-import { Form, FormGroup, ControlLabel, HelpBlock } from '../index';
+import { Form, FormGroup, ControlLabel, HelpBlock, FormControl } from '../index';
 
 const { Controlled: CodeMirror } = ReactCodeMirror;
 
@@ -88,6 +88,13 @@ class renderCodeMirror extends React.Component {
                         } wfui-form-date`}
                 // validationState={(touched || showErrors) && error ? 'error' : null}
                 >
+                    <FormControl
+                        isInvalid={(this.touched || showErrors) && (error || globalError)}
+                        isValid={(this.touched || showErrors) && data && data.warning}
+                        className={classNames('d-none', 'custom-form-control', {
+                            'is-valid-warning': (this.touched || showErrors) && data && data.warning,
+                        })}
+                    />
                     {!disabled ? (
                         <div className="wfui-quill">
                             <CodeMirror
@@ -96,6 +103,7 @@ class renderCodeMirror extends React.Component {
                                     lineWrapping: true,
                                     lineNumbers: true,
                                 }}
+                                onBlur={(e) => { this.touched = true }}
                                 onBeforeChange={this.onHandleChange}
                                 onCursor={onCursor}
                             />
