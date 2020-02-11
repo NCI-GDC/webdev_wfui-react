@@ -49,9 +49,7 @@ const renderDate = ({
     const selectedValue = input.value ? moment(input.value).toDate() : ''
 
     const convertToISOString = (e) => {
-        if (!isNaN(e._d)) {
-            input.onChange(e.toISOString());
-        }
+        input.onChange(e.toISOString());
     }
 
     return (
