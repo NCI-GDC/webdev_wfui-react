@@ -18,7 +18,7 @@ import { useState } from 'react';
 const isISOString = /^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$/;
 const dateFormatString = /([12]\d{3}-(0*[1-9]|1[0-2])-(0*[1-9]|[12]\d|3[01]))/;
 
-const renderDate = ({
+const RenderDate = ({
     className,
     label,
     placeholder,
@@ -46,11 +46,11 @@ const renderDate = ({
     const utcOffset = datePickerProps.utcOffset
         ? datePickerProps.utcOffset
         : Number(utcOffsetNumber) / 100;
-    const selectedValue = input.value ? moment(input.value).toDate() : ''
+    const selectedValue = input.value ? moment(input.value).toDate() : '';
 
-    const convertToISOString = (e) => {
+    const convertToISOString = e => {
         input.onChange(e.toISOString());
-    }
+    };
 
     return (
         <Form.Row
@@ -58,10 +58,12 @@ const renderDate = ({
                 className,
                 'wfui-form-item',
                 {
-                    'wfui-form-item-error': (touched || showErrors) && (error || globalError),
+                    'wfui-form-item-error':
+                        (touched || showErrors) && (error || globalError),
                 },
                 {
-                    'wfui-form-item-warning': (touched || showErrors) && data && data.warning,
+                    'wfui-form-item-warning':
+                        (touched || showErrors) && data && data.warning,
                 },
                 { 'wfui-form-disabled': disabled },
                 { 'wfui-form-preview': preview },
@@ -85,23 +87,28 @@ const renderDate = ({
                             ? 4
                             : 10
                         : descDisplay && !preview
-                            ? 6
-                            : 12
+                        ? 6
+                        : 12
                 }
                 className={`wfui-form-field ${
                     descDisplay
                         ? 'wfui-form-field-with-description'
                         : 'wfui-form-field-no-description'
-                    } wfui-form-date ${
-                    (touched || showErrors) && (error || globalError) ? 'wfui-form-with-error' : ''
-                    }`}
-            // validationState={(touched || showErrors) && (error || globalError) ? 'error' : null}
+                } wfui-form-date ${
+                    (touched || showErrors) && (error || globalError)
+                        ? 'wfui-form-with-error'
+                        : ''
+                }`}
+                // validationState={(touched || showErrors) && (error || globalError) ? 'error' : null}
             >
                 <FormControl
-                    isInvalid={(touched || showErrors) && (error || globalError)}
+                    isInvalid={
+                        (touched || showErrors) && (error || globalError)
+                    }
                     isValid={(touched || showErrors) && data && data.warning}
                     className={classNames('d-none', 'custom-form-control', {
-                        'is-valid-warning': (touched || showErrors) && data && data.warning,
+                        'is-valid-warning':
+                            (touched || showErrors) && data && data.warning,
                     })}
                 />
                 {!disabled ? (
@@ -111,18 +118,23 @@ const renderDate = ({
                             className="form-control"
                             utcOffset={utcOffset}
                             selected={selectedValue}
-                            onChangeRaw={(e) => {
+                            onChangeRaw={e => {
                                 input.onChange(e.target.value);
                             }}
                             onSelect={convertToISOString}
                             onChange={convertToISOString}
-                            onBlur={(e) => {
+                            onBlur={e => {
                                 setTouched(true);
                                 // This logic is needed when user manually type date string in UI and not exactly following the format 20XX-XX-XX (something like 2020-1-1 )
-                                if (!input.value.match(isISOString) && input.value.match(dateFormatString)) {
+                                if (
+                                    !input.value.match(isISOString) &&
+                                    input.value.match(dateFormatString)
+                                ) {
                                     const parsedDate = new Date(input.value);
                                     if (!isNaN(parsedDate)) {
-                                        input.onChange(parsedDate.toISOString());
+                                        input.onChange(
+                                            parsedDate.toISOString()
+                                        );
                                     }
                                 }
                             }}
@@ -133,10 +145,10 @@ const renderDate = ({
                         </span>
                     </div>
                 ) : (
-                        <p className="date-value">
-                            {input.value ? new Date(input.value).toString() : ''}
-                        </p>
-                    )}
+                    <p className="date-value">
+                        {input.value ? new Date(input.value).toString() : ''}
+                    </p>
+                )}
                 {(touched || showErrors) && error && (
                     <Form.Control.Feedback
                         className="wfui-form-error"
@@ -186,12 +198,12 @@ const renderDate = ({
             ) : null}
         </Form.Row>
     );
-}
+};
 
-renderDate.propTypes = {
+RenderDate.propTypes = {
     datePickerProps: PropTypes.object,
 };
-renderDate.defaultProps = {
+RenderDate.defaultProps = {
     datePickerProps: {
         timeFormat: 'HH:mm',
         dateFormat: 'yyyy-MM-dd HH:mm',
@@ -201,4 +213,4 @@ renderDate.defaultProps = {
     timeZone: new Date().toString().match(/\(([A-Za-z\s].*)\)/)[1],
 };
 
-export default renderDate;
+export default RenderDate;
