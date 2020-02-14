@@ -38,7 +38,7 @@ import CollapsibleFilter from './CollapsibleFilter/CollapsibleFilter';
 import PanelFilter from './PanelFilter/PanelFilter';
 import Filters from './Filters/Filters';
 import FilterItem from './Filters/FilterItem';
-import Card from './Card/Card';
+import * as WFUICard from './Card/Card';
 import ModalDialog from './ModalDialog/ModalDialog';
 import * as CascadingPane from './CascadingPane';
 import ThreeColumnView from './ThreeColumnView/ThreeColumnView';
@@ -114,7 +114,7 @@ export {
     Filters,
     FilterItem,
     FilterFields,
-    Card,
+    WFUICard,
     ModalDialog,
     CascadingPane,
     PanelFilter,
