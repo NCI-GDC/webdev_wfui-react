@@ -1,38 +1,104 @@
+/* global FileReader */
 /* eslint react/prop-types : 0 */
-import _ from 'lodash';
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import * as ReactCodeMirror from 'react-codemirror2';
-
-import { Form, FormGroup, ControlLabel, HelpBlock, FormControl } from '../index';
+import {
+    Form,
+    Col,
+    FormGroup,
+    ControlLabel,
+    HelpBlock,
+    ReactCodeMirror,
+    Utils,
+    FormControl,
+} from '../index';
+import { connect } from 'react-redux';
+import S from 'string';
+import * as actionCreators from '../../actions';
 
 const { Controlled: CodeMirror } = ReactCodeMirror;
 
 class renderCodeMirror extends React.Component {
     constructor(props) {
         super();
+        this.touched = false;
+        this.state = { pandocParseFailed: false, bodyText: props.input.value };
         this.onHandleChange = this.onHandleChange.bind(this);
-        const initValue = props.input.value || props.defaultValue;
-        this.state = { bodyText: initValue };
-        props.input.onChange(initValue);
+        this.stripHTMLTimer = undefined;
     }
 
-    componentWillReceiveProps(nextProps) {
-        const { input } = this.props;
-        const { bodyText } = this.state;
-        if (
-            nextProps.input.value &&
-            !_.isEqual(nextProps.input.value, bodyText)
-        ) {
-            this.setState({ bodyText: nextProps.input.value });
-        }
+    componentWillMount() {
+        const {
+            parseWithPandoc,
+            input,
+            pandocParseFailed,
+            isIE,
+            enableMarkdownParser,
+        } = this.props;
+
+        this.setState({ bodyText: input.value });
     }
 
     onHandleChange(editor, data, value) {
         const { input } = this.props;
+
         this.setState({ bodyText: value });
-        input.onChange(value);
+        this.touched = true;
+
+        if (this.stripHTMLTimer) {
+            clearTimeout(this.stripHTMLTimer);
+        }
+
+        // Strip HTML Tag
+        this.stripHTMLTimer = setTimeout(() => {
+            const _value = S(value).stripTags(
+                'object',
+                'script',
+                'style',
+                'embed',
+                'object',
+                'iframe',
+                'canvas'
+            ).s;
+            input.onChange(_value);
+            this.setState({ bodyText: _value });
+        }, 1000);
+
+        // Update redux form state 1s after when typing is stopped.
+        // Did this due to the performance issue on CodeMirror x Redux conbination.
+        if (this.setReduxFormTimer) clearTimeout(this.setReduxFormTimer);
+        this.setReduxFormTimer = setTimeout(() => {
+            input.onChange(value);
+        }, 10);
+    }
+
+    renderTextLimit() {
+        const { textLimit, wordLimit, input, preview } = this.props;
+        if (wordLimit && !preview) {
+            const words =
+                input && input.value
+                    ? input.value
+                          .replace(/\n/g, ' ')
+                          .split(' ')
+                          .filter(f => f).length
+                    : 0;
+            return (
+                <span className="wfui-form-char-count">
+                    {`${words} / ${wordLimit} words`}
+                </span>
+            );
+        }
+        if (textLimit && !preview) {
+            return (
+                <span className="wfui-form-char-count">
+                    {`${
+                        input && input.value ? input.value.length : 0
+                    } / ${textLimit} characters`}
+                </span>
+            );
+        }
+        return null;
     }
 
     render() {
@@ -45,54 +111,71 @@ class renderCodeMirror extends React.Component {
             preview,
             descDisplay,
             fullWidth,
-            globalError,
             meta: { touched, error, data },
-            onCursor,
             help,
-            defaultValue,
-            showErrors
+            globalError,
+            textLimitLabel,
+            showErrors,
         } = this.props;
-
         const { bodyText } = this.state;
 
         return (
-            <div
+            <Form.Row
                 className={classNames(
                     className,
                     'wfui-form-item',
                     {
-                        'wfui-form-item-error': (touched || showErrors) && error,
-                    },
-                    {
-                        'wfui-form-item-warning':
-                            (touched || showErrors) && data && data.warning,
+                        'wfui-form-item-error':
+                            (this.touched || showErrors) &&
+                            (error || globalError),
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
-                    { 'wfui-form-item-full-width': fullWidth }
+                    { 'wfui-form-item-full-width': fullWidth },
+                    { 'wfui-form-with-description': descDisplay }
                 )}
             >
                 {label && (
-                    <div className="wfui-form-label">
+                    <Col xs={12} className="wfui-form-label">
                         <ControlLabel>
                             {label}
                             {required && <b className="required"> *</b>}
+                            {textLimitLabel ? (
+                                <span className="text-muted">
+                                    {textLimitLabel}
+                                </span>
+                            ) : null}
                         </ControlLabel>
-                    </div>
+                    </Col>
                 )}
                 <FormGroup
+                    as={Col}
+                    xs={12}
+                    lg={descDisplay && !preview ? 6 : 12}
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                        } wfui-form-date`}
-                // validationState={(touched || showErrors) && error ? 'error' : null}
+                    } wfui-form-textarea`}
+                    // validationState={
+                    //     (this.touched || showErrors) && (error || globalError)
+                    //         ? 'error'
+                    //         : null
+                    // }
                 >
                     <FormControl
-                        isInvalid={(this.touched || showErrors) && (error || globalError)}
-                        isValid={(this.touched || showErrors) && data && data.warning}
+                        isInvalid={
+                            (this.touched || showErrors) &&
+                            (error || globalError)
+                        }
+                        isValid={
+                            (this.touched || showErrors) && data && data.warning
+                        }
                         className={classNames('d-none', 'custom-form-control', {
-                            'is-valid-warning': (this.touched || showErrors) && data && data.warning,
+                            'is-valid-warning':
+                                (this.touched || showErrors) &&
+                                data &&
+                                data.warning,
                         })}
                     />
                     {!disabled ? (
@@ -103,63 +186,71 @@ class renderCodeMirror extends React.Component {
                                     lineWrapping: true,
                                     lineNumbers: true,
                                 }}
-                                onBlur={(e) => { this.touched = true }}
+                                onBlur={e => {
+                                    this.touched = true;
+                                }}
                                 onBeforeChange={this.onHandleChange}
-                                onCursor={onCursor}
                             />
                         </div>
                     ) : (
-                            <p className="wfui-value">{bodyText}</p>
-                        )}
-                    {(touched || showErrors) && error && (
+                        <div className="wfui-form-textarea-preview-value">
+                            {input.value}
+                        </div>
+                    )}
+                    {(this.touched || showErrors) && error && (
                         <Form.Control.Feedback
                             className="wfui-form-error"
                             type="invalid"
                         >
-                            {Array.isArray(error)
-                                ? error.map(item => <div>{item}</div>)
-                                : error}
+                            <span>{error}</span>
+                            {this.renderTextLimit()}
                         </Form.Control.Feedback>
                     )}
-                    {(touched || showErrors) && globalError && (
+                    {(this.touched || showErrors) && globalError && (
                         <Form.Control.Feedback
                             className="wfui-form-error"
                             type="invalid"
                         >
-                            <span>
-                                {Array.isArray(globalError)
-                                    ? globalError.join(', ')
-                                    : globalError}
-                            </span>
+                            <span>{globalError}</span>
+                            {this.renderTextLimit()}
                         </Form.Control.Feedback>
                     )}
-                    {(touched || showErrors) && data && data.warning && (
-                        <Form.Control.Feedback
-                            className="wfui-form-warning"
-                            type="valid"
-                        >
-                            {Array.isArray(data.warning)
-                                ? data.warning.map(item => <div>{item}</div>)
-                                : data.warning}
-                        </Form.Control.Feedback>
-                    )}
+                    {!(
+                        (this.touched || showErrors) &&
+                        (error || globalError)
+                    ) && this.renderTextLimit()}
                     {help && !preview && (
-                        <HelpBlock className="wfui-form-help">
+                        <HelpBlock className="wfui-form-help text-muted">
                             <div dangerouslySetInnerHTML={{ __html: help }} />
                         </HelpBlock>
                     )}
                 </FormGroup>
-                {descDisplay && !preview ? cloneElement(descDisplay) : ''}
-            </div>
+                {descDisplay && !preview ? (
+                    <Col className="wfui-form-description" xs={12} lg={6}>
+                        {cloneElement(descDisplay)}
+                    </Col>
+                ) : null}
+            </Form.Row>
         );
     }
 }
 
 renderCodeMirror.propTypes = {
-    onCursor: PropTypes.func,
+    enableMarkdownParser: PropTypes.bool,
 };
 renderCodeMirror.defaultProps = {
-    onCursor: f => f,
+    enableMarkdownParser: true,
 };
 
-export default renderCodeMirror;
+export default connect((state, props) => {
+    const { pandocParseFailed, isIE } = props;
+    let fetchPandoc;
+    if (pandocParseFailed || isIE) {
+        fetchPandoc = { status: 'success' };
+    } else {
+        fetchPandoc = Utils.fetchSelector('parseHTMLToMD')(state) || {};
+    }
+    return {
+        fetchPandoc,
+    };
+}, actionCreators)(renderCodeMirror);
