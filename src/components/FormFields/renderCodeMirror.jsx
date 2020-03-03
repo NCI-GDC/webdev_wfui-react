@@ -5,7 +5,13 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import * as ReactCodeMirror from 'react-codemirror2';
 
-import { Form, FormGroup, ControlLabel, HelpBlock, FormControl } from '../index';
+import {
+    Form,
+    FormGroup,
+    ControlLabel,
+    HelpBlock,
+    FormControl,
+} from '../index';
 
 const { Controlled: CodeMirror } = ReactCodeMirror;
 
@@ -50,7 +56,7 @@ class renderCodeMirror extends React.Component {
             onCursor,
             help,
             defaultValue,
-            showErrors
+            showErrors,
         } = this.props;
 
         const { bodyText } = this.state;
@@ -61,7 +67,8 @@ class renderCodeMirror extends React.Component {
                     className,
                     'wfui-form-item',
                     {
-                        'wfui-form-item-error': (touched || showErrors) && error,
+                        'wfui-form-item-error':
+                            (touched || showErrors) && error,
                     },
                     {
                         'wfui-form-item-warning':
@@ -85,14 +92,22 @@ class renderCodeMirror extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                        } wfui-form-date`}
-                // validationState={(touched || showErrors) && error ? 'error' : null}
+                    } wfui-form-date`}
+                    // validationState={(touched || showErrors) && error ? 'error' : null}
                 >
                     <FormControl
-                        isInvalid={(this.touched || showErrors) && (error || globalError)}
-                        isValid={(this.touched || showErrors) && data && data.warning}
+                        isInvalid={
+                            (this.touched || showErrors) &&
+                            (error || globalError)
+                        }
+                        isValid={
+                            (this.touched || showErrors) && data && data.warning
+                        }
                         className={classNames('d-none', 'custom-form-control', {
-                            'is-valid-warning': (this.touched || showErrors) && data && data.warning,
+                            'is-valid-warning':
+                                (this.touched || showErrors) &&
+                                data &&
+                                data.warning,
                         })}
                     />
                     {!disabled ? (
@@ -103,14 +118,16 @@ class renderCodeMirror extends React.Component {
                                     lineWrapping: true,
                                     lineNumbers: true,
                                 }}
-                                onBlur={(e) => { this.touched = true }}
+                                onBlur={e => {
+                                    this.touched = true;
+                                }}
                                 onBeforeChange={this.onHandleChange}
                                 onCursor={onCursor}
                             />
                         </div>
                     ) : (
-                            <p className="wfui-value">{bodyText}</p>
-                        )}
+                        <p className="wfui-value">{bodyText}</p>
+                    )}
                     {(touched || showErrors) && error && (
                         <Form.Control.Feedback
                             className="wfui-form-error"
