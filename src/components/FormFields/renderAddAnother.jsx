@@ -56,7 +56,7 @@ class renderAddAnother extends React.Component {
             withContext,
             globalError,
             name,
-            meta: { error, submitFailed, data },
+            meta: { submitFailed, data },
             minimumItem,
             descDisplay,
             fullWidth,
@@ -91,11 +91,13 @@ class renderAddAnother extends React.Component {
                     'wfui-form-item',
                     {
                         'wfui-form-item-error':
-                            (this.touched || showErrors) && (error || globalError),
+                            (this.touched || showErrors) && globalError,
                     },
                     {
                         'wfui-form-item-warning':
-                            (this.touched || showErrors) && data && data.warning,
+                            (this.touched || showErrors) &&
+                            data &&
+                            data.warning,
                     },
                     { 'wfui-form-disabled': disabled },
                     { 'wfui-form-preview': preview },
@@ -123,24 +125,25 @@ class renderAddAnother extends React.Component {
                                 ? 4
                                 : 10
                             : descDisplay && !preview
-                                ? 6
-                                : 9
+                            ? 6
+                            : 9
                     }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                        } wfui-form-addAnother`}
-                // validationState={
-                //     (this.touched || showErrors) && (error || globalError) ? 'error' : null
-                // }
+                    } wfui-form-addAnother`}
                 >
                     <FormControl
-                        isInvalid={(this.touched || showErrors) && (error || globalError)}
-                        isValid={(this.touched || showErrors) && data && data.warning}
+                        isInvalid={(this.touched || showErrors) && globalError}
+                        isValid={
+                            (this.touched || showErrors) && data && data.warning
+                        }
                         className={classNames('d-none', 'custom-form-control', {
                             'is-valid-warning':
-                                (this.touched || showErrors) && data && data.warning,
+                                (this.touched || showErrors) &&
+                                data &&
+                                data.warning,
                         })}
                     />
 
@@ -205,24 +208,19 @@ class renderAddAnother extends React.Component {
                             </div>
                         )}
                     </div>
-                    {/* MUSTDO: Check if this error is needed */}
-                    {/* {error && (
-                        <Form.Control.Feedback className="wfui-form-error">
-                            {Array.isArray(error)
-                                        ? error.map(item => <div>{item}</div>)
-                                        : error}
-                        </Form.Control.Feedback>
-                    )} */}
-
-                    {(this.touched || showErrors || submitFailed) && globalError && (
-                        <Form.Control.Feedback className="wfui-form-error">
-                            <span>
-                                {Array.isArray(globalError)
-                                    ? globalError.join(', ')
-                                    : globalError}
-                            </span>
-                        </Form.Control.Feedback>
-                    )}
+                    {(this.touched || showErrors || submitFailed) &&
+                        globalError && (
+                            <Form.Control.Feedback
+                                className="wfui-form-error"
+                                type="invalid"
+                            >
+                                <span>
+                                    {Array.isArray(globalError)
+                                        ? globalError.join(', ')
+                                        : globalError}
+                                </span>
+                            </Form.Control.Feedback>
+                        )}
                     {(this.touched || showErrors) && data && data.warning && (
                         <Form.Control.Feedback
                             className="wfui-form-warning"
