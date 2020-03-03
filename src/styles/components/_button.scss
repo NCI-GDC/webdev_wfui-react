@@ -9,3 +9,9 @@
         margin-left: $btn-icon-margin;
     }
 }
+
+.wfui-dropdown-menu {
+    .dropdown-menu {
+        z-index: $zindex-wfuidropdown;
+    }
+}
