@@ -1486,6 +1486,62 @@ div.wfui-checkboxes-hybrid label div.checkboxHybrid input {
 
     .table-responsive {
         overflow: visible;
+
+        .table {
+            background-color: #fff;
+        }
+    }
+}
+
+.wfui-type-field-table {
+    > .wfui-form-item {
+        @extend .flexbox;
+        @extend .flexbox-align-start;
+
+        @include media-breakpoint-down(md) {
+            flex-wrap: wrap;
+        }
+
+        > .wfui-description {
+            order: 3;
+            display: flex;
+            flex-grow: 1;
+            margin-top: 20px;
+            width: 30%;
+        }
+    }
+
+    .wfui-form-addAnother {
+        &.wfui-form-field-no-description {
+            width: 100%;
+        }
+    
+        &.wfui-form-field-with-description {
+            width: 70%;
+
+            @include media-breakpoint-down(md) {
+                width: 100%;
+            }
+        }
+    
+        .wfui-form-addAnother-item {
+            padding: 20px;
+            position: relative;
+    
+            .wfui-draggable-item {
+                position: relative;
+            }
+    
+            .wfui-form-field {
+                width: 100%;
+            }
+    
+            button.delete-icon {
+                position: absolute;
+                top: 30px;
+                right: 15px;
+            }
+        }
     }
 }
 
