@@ -71,9 +71,10 @@
 
     &__imageDialog {
         position: fixed;
-        top: 30%;
+        top: 0;
         left: 0;
         right: 0;
+        bottom: 0;
         margin-left: auto;
         margin-right: auto;
         z-index: 3000;
@@ -118,8 +119,11 @@
             img {
                 text-align: center;
                 margin-top: 26px;
-                max-height: 75px;
-                object-fit: contain;
+                width: auto;
+                height: auto;
+                // max-height: 80vh;
+                // max-width: 80vw;
+                // object-fit: contain;
             }
         }
         &__footer {

@@ -46,15 +46,17 @@ class Description extends Component {
             const img = new Image();
             img.src = src;
             img.onload = e => {
-                if (e.target.width > maxImageWidth) {
+                const maxWidth = min(maxImageWidth, window.innerWidth * 0.8);
+                const maxHeight = min(maxImageHeight, window.innerHeight * 0.8);
+                if (e.target.width > maxWidth) {
                     this.setState({
-                        imgWidth: maxImageWidth,
+                        imgWidth: maxWidth,
                         imgHeight: 'auto',
                     });
-                } else if (e.target.height > maxImageHeight) {
+                } else if (e.target.height > maxHeight) {
                     this.setState({
                         imgWidth: 'auto',
-                        imgHeight: maxImageHeight,
+                        imgHeight: maxHeight,
                     });
                 } else {
                     this.setState({
@@ -72,7 +74,14 @@ class Description extends Component {
     }
 
     render() {
-        const { src, imageTitle, content, type, classNames, errors } = this.props;
+        const {
+            src,
+            imageTitle,
+            content,
+            type,
+            classNames,
+            errors,
+        } = this.props;
         const { imgWidth, imgHeight } = this.state;
         if (!content && !src) {
             return <noscript />;
