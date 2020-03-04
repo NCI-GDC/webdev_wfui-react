@@ -48,8 +48,14 @@ class Description extends Component {
             img.onload = e => {
                 const imgWidth = e.target.width;
                 const imgHeight = e.target.height;
-                const maxWidth = min(maxImageWidth, window.innerWidth * 0.8);
-                const maxHeight = min(maxImageHeight, window.innerHeight * 0.8);
+                const maxWidth = Math.min(
+                    maxImageWidth,
+                    window.innerWidth * 0.8
+                );
+                const maxHeight = Math.min(
+                    maxImageHeight,
+                    window.innerHeight * 0.8
+                );
 
                 if (imgWidth > maxWidth && imgHeight > maxHeight) {
                     const widthRatio = maxWidth / imgWidth;
@@ -257,7 +263,7 @@ Description.defaultProps = {
     classNames: '',
     errors: '',
     maxImageWidth: 800,
-    maxImageHeight: 400,
+    maxImageHeight: 800,
 };
 
 export default Description;
