@@ -52,8 +52,8 @@ class Description extends Component {
                 const maxHeight = min(maxImageHeight, window.innerHeight * 0.8);
 
                 if (imgWidth > maxWidth && imgHeight > maxHeight) {
-                    const widthRatio = imgWidth / maxWidth;
-                    const heightRatio = imgHeight / maxHeight;
+                    const widthRatio = maxWidth / imgWidth;
+                    const heightRatio = maxHeight / imgHeight;
                     if (widthRatio < heightRatio) {
                         this.setState({
                             imgWidth: maxWidth,
