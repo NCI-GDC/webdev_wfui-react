@@ -1,0 +1,22 @@
+/* - Loading Indicator ----------------------------------------------------------------------------------- */
+
+.spinner-wrapper-overwrap {
+    @extend .flexbox;
+    @extend .flexbox-column;
+    @extend .flexbox-justify-center;
+    @extend .flexbox-align-center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    
+
+    .loading-5s {
+        &:not(:first-child) {
+            margin-top: 1rem;
+        }
+    }
+}

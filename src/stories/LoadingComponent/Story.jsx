@@ -28,7 +28,7 @@ class Example extends React.Component {
     }
     render() {
         return (
-            <LoadingComponent {...this.state} enableIntl={false}>
+            <LoadingComponent {...this.state} enableIntl={false} coverWholePage>
                 <div>Content is loaded.</div>
             </LoadingComponent>
         );
