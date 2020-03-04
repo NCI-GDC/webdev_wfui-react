@@ -1,5 +1,6 @@
 /* global window */
 import React from 'react';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
@@ -10,7 +11,7 @@ class FilterItem extends React.Component {
     constructor() {
         super();
         this.onHandleChange = this.onHandleChange.bind(this);
-        this.applyFilters = this.applyFilters.bind(this);
+        this.applyFilters = _.debounce(this.applyFilters.bind(this), 250);
     }
 
     componentWillMount() {
