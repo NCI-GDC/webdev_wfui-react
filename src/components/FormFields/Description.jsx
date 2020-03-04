@@ -46,22 +46,39 @@ class Description extends Component {
             const img = new Image();
             img.src = src;
             img.onload = e => {
+                const imgWidth = e.target.width;
+                const imgHeight = e.target.height;
                 const maxWidth = min(maxImageWidth, window.innerWidth * 0.8);
                 const maxHeight = min(maxImageHeight, window.innerHeight * 0.8);
-                if (e.target.width > maxWidth) {
+
+                if (imgWidth > maxWidth && imgHeight > maxHeight) {
+                    const widthRatio = imgWidth / maxWidth;
+                    const heightRatio = imgHeight / maxHeight;
+                    if (widthRatio < heightRatio) {
+                        this.setState({
+                            imgWidth: maxWidth,
+                            imgHeight: 'auto',
+                        });
+                    } else {
+                        this.setState({
+                            imgWidth: 'auto',
+                            imgHeight: maxHeight,
+                        });
+                    }
+                } else if (imgWidth > maxWidth) {
                     this.setState({
                         imgWidth: maxWidth,
                         imgHeight: 'auto',
                     });
-                } else if (e.target.height > maxHeight) {
+                } else if (imgHeight > maxHeight) {
                     this.setState({
                         imgWidth: 'auto',
                         imgHeight: maxHeight,
                     });
                 } else {
                     this.setState({
-                        imgWidth: e.target.width,
-                        imgHeight: e.target.height,
+                        imgWidth: imgWidth,
+                        imgHeight: imgHeight,
                     });
                 }
             };
