@@ -84,6 +84,7 @@ const RenderTextFilter = ({ name, category, onHandleChange, placeholder }) => {
                     name="times"
                     bsSize="xsmall"
                     onClick={onChange}
+                    value=""
                 />
             )}
         </div>
