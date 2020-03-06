@@ -68,6 +68,15 @@ const RenderTextFilter = ({ name, category, onHandleChange, placeholder }) => {
         });
     };
 
+    const onReset = () => {
+        setValue('');
+        debouce({
+            target: {
+                value: '',
+            },
+        });
+    };
+
     return (
         <div className="wfui-text-filter">
             <FormControl
@@ -79,7 +88,7 @@ const RenderTextFilter = ({ name, category, onHandleChange, placeholder }) => {
                 placeholder={placeholder || ''}
             />
             {value && (
-                <button className="input-clear" onClick={onChange} value="">
+                <button className="input-clear" onClick={onReset}>
                     <Icon name="times" bsSize="xsmall" />
                 </button>
             )}

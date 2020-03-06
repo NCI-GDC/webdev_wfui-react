@@ -5,13 +5,17 @@
         .form-control {
             padding-right: 20px;
         }
-        
+
         .input-clear {
             position: absolute;
             top: 50%;
             margin-top: -8px;
             right: 15px;
             color: #ccc;
+            padding: 0;
+            background-color: transparent;
+            border: none;
+            line-height: 1;
         }
     }
     
