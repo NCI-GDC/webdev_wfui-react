@@ -73,6 +73,7 @@ class renderAddAnother extends React.Component {
                         variant="link"
                         className="delete-icon"
                         onClick={() => {
+                            debugger;
                             fields.remove(index);
                             this.touched = true;
                         }}
