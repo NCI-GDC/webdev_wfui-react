@@ -199,8 +199,8 @@ class renderAddAnother extends React.Component {
                                     onClick={() => {
                                         fields.push(defaultValue);
                                     }}
+                                    plus
                                 >
-                                    <Icon icon="plus"></Icon>
                                     <span>{labelAddAnother}</span>
                                 </Button>
                             </div>
