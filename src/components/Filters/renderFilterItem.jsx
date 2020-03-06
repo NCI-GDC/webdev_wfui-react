@@ -1,5 +1,6 @@
 /* eslint react/prop-types : 0 */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import _ from 'lodash';
 import { FormControl, Icon } from '../index';
 
 /**
@@ -42,13 +43,31 @@ export const renderDateFilter = ({ name, category, onHandleChange }) => (
     />
 );
 
-export const renderTextFilter = ({
-    name,
-    category,
-    onHandleChange,
-    placeholder,
-}) => {
-    const value = (category && category[name]) || '';
+const RenderTextFilter = ({ name, category, onHandleChange, placeholder }) => {
+    const [initialized, setInitialized] = useState(false);
+    const [value, setValue] = useState((category && category[name]) || '');
+
+    useEffect(() => {
+        if (!initialized) {
+            if (category && category[name]) {
+                setInitialized(true);
+                setValue((category && category[name]) || '');
+            }
+        }
+    }, [category, initialized, name, value]);
+
+    const debouce = _.debounce(e => {
+        onHandleChange(e);
+    }, 150);
+    const onChange = e => {
+        setValue(e.target.value);
+        debouce({
+            target: {
+                value: e.target.value,
+            },
+        });
+    };
+
     return (
         <div className="wfui-text-filter">
             <FormControl
@@ -56,7 +75,7 @@ export const renderTextFilter = ({
                 name={name}
                 id={name}
                 value={value}
-                onChange={onHandleChange}
+                onChange={onChange}
                 placeholder={placeholder || ''}
             />
             {value && (
@@ -64,9 +83,10 @@ export const renderTextFilter = ({
                     className="input-clear"
                     name="times"
                     bsSize="xsmall"
-                    onClick={onHandleChange}
+                    onClick={onChange}
                 />
             )}
         </div>
     );
 };
+export const renderTextFilter = RenderTextFilter;
