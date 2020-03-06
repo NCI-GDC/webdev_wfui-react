@@ -328,7 +328,7 @@ $form-tag-color-hover: $form-active-color;
     }
 
     .react-datepicker {
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        // font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         font-size: 0.8rem;
         background-color: #fff;
         color: #000;
@@ -336,6 +336,7 @@ $form-tag-color-hover: $form-active-color;
         border-radius: 0.3rem;
         display: inline-block;
         position: relative;
+        z-index: 15;
     }
 
     .react-datepicker--time-only .react-datepicker__triangle {
