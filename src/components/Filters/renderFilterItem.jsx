@@ -50,7 +50,7 @@ export const renderTextFilter = ({
 }) => {
     const value = (category && category[name]) || '';
     return (
-        <div>
+        <div className="wfui-text-filter">
             <FormControl
                 type="text"
                 name={name}

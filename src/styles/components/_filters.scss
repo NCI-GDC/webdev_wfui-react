@@ -1,9 +1,18 @@
 .wfui-filters-item {
-    .input-clear {
-        position: absolute;
-        top: 50%;
-        margin-top: -8px;
-        right: 20px;
-        color: #ccc;
+    .wfui-text-filter{
+        position: relative;
+
+        .form-control {
+            padding-right: 20px;
+        }
+        
+        .input-clear {
+            position: absolute;
+            top: 50%;
+            margin-top: -8px;
+            right: 15px;
+            color: #ccc;
+        }
     }
+    
 }
