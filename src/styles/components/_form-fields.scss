@@ -38,6 +38,8 @@ $form-tag-color-hover: $form-active-color;
         display: flex;
 
         .wfui-description {
+            width: 100%;
+            flex-shrink: 1;
             flex-grow: 1;
         }
     }
@@ -557,6 +559,7 @@ $form-tag-color-hover: $form-active-color;
         height: calc(195px + (1.7rem / 2));
         overflow-y: scroll;
         padding-right: 30px;
+        padding-left: 0;
         width: 100%;
         box-sizing: content-box;
     }
