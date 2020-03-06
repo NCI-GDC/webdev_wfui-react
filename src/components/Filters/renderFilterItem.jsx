@@ -53,8 +53,12 @@ const RenderTextFilter = ({ name, category, onHandleChange, placeholder }) => {
                 setInitialized(true);
                 setValue((category && category[name]) || '');
             }
+        } else {
+            if (category && !category[name]) {
+                setValue('');
+            }
         }
-    }, [category, initialized, name, value]);
+    }, [category, initialized, name]);
 
     const debouce = _.debounce(e => {
         onHandleChange(e);

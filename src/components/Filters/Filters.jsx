@@ -4,6 +4,10 @@ import classNames from 'classnames';
 import { Form, FormGroup, ControlLabel, Button } from '../index';
 
 class Filters extends React.Component {
+    componentWillUnmount() {
+        const { onClickReset } = this.props;
+        onClickReset();
+    }
     render() {
         const {
             className,
