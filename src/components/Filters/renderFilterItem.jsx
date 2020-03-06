@@ -69,7 +69,7 @@ const RenderTextFilter = ({ name, category, onHandleChange, placeholder }) => {
     };
 
     return (
-        <div>
+        <div className="wfui-text-filter">
             <FormControl
                 type="text"
                 name={name}
