@@ -79,13 +79,9 @@ const RenderTextFilter = ({ name, category, onHandleChange, placeholder }) => {
                 placeholder={placeholder || ''}
             />
             {value && (
-                <Icon
-                    className="input-clear"
-                    name="times"
-                    bsSize="xsmall"
-                    onClick={onChange}
-                    value=""
-                />
+                <button className="input-clear" onClick={onChange} value="">
+                    <Icon name="times" bsSize="xsmall" />
+                </button>
             )}
         </div>
     );
