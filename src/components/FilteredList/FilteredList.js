@@ -14,6 +14,13 @@ class FilteredList extends React.Component {
             currentPage: props.currentPage,
         };
     }
+    
+    componentWillReceiveProps(nextProps) {
+        const {currentPage} = this.props;
+        if (currentPage !== nextProps.currentPage) {
+            this.setState({ currentPage });
+        }
+    }
 
     generateFilteredArticles(articles) {
         const { filterList } = this.props;
