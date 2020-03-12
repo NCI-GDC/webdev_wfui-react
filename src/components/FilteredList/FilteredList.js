@@ -15,6 +15,21 @@ class FilteredList extends React.Component {
         };
     }
 
+    goto(page) {
+        const { currentPage } = this.state;
+        const { pageSize, data } = this.props;
+
+        const filteredData = this.applySearch(
+            this.generateFilteredArticles(data)
+        );
+        const dataLength = filteredData ? filteredData.length : 0;
+        const numPages = Math.ceil(dataLength / pageSize);
+
+        if (page > 0 && page <= numPages) {
+            this.setState({ currentPage: page });
+        }
+    }
+
     generateFilteredArticles(articles) {
         const { filterList } = this.props;
         let filteredArticles = articles;
