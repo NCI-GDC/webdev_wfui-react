@@ -63,6 +63,7 @@ class renderAddAnother extends React.Component {
             defaultValue,
             inline,
             showErrors,
+            maximumItem,
         } = this.props;
 
         const Comp = withContext ? DraggableWithContext : Draggable;
@@ -193,7 +194,7 @@ class renderAddAnother extends React.Component {
                                     </div>
                                 </div>
                             ))}
-                        {!disabled && (
+                        {!disabled && maximumItem > fields.length && (
                             <div className="wfui-form-addAnother-btn-container">
                                 <Button
                                     variant="outline-primary"
@@ -270,6 +271,7 @@ renderAddAnother.propTypes = {
 renderAddAnother.defaultProps = {
     labelAddAnother: 'Add Another Item',
     minimumItem: 0,
+    maximumItem: 9999,
     fullWidth: false,
     defaultValue: null,
 };
