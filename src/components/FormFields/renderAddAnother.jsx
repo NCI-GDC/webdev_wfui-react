@@ -194,19 +194,20 @@ class renderAddAnother extends React.Component {
                                     </div>
                                 </div>
                             ))}
-                        {!disabled && maximumItem > fields.length && (
-                            <div className="wfui-form-addAnother-btn-container">
-                                <Button
-                                    variant="outline-primary"
-                                    onClick={() => {
-                                        fields.push(defaultValue);
-                                    }}
-                                    plus
-                                >
-                                    <span>{labelAddAnother}</span>
-                                </Button>
-                            </div>
-                        )}
+                        {!disabled &&
+                            (!maximumItem || maximumItem > fields.length) && (
+                                <div className="wfui-form-addAnother-btn-container">
+                                    <Button
+                                        variant="outline-primary"
+                                        onClick={() => {
+                                            fields.push(defaultValue);
+                                        }}
+                                        plus
+                                    >
+                                        <span>{labelAddAnother}</span>
+                                    </Button>
+                                </div>
+                            )}
                     </div>
                     {(this.touched || showErrors || submitFailed) &&
                         globalError && (
