@@ -161,8 +161,14 @@ class IsotopeGrid extends React.Component {
         const props = this.props;
 
         const reg = wholeWord
-            ? RegExp(`\\b${searchTerm.toLowerCase().trim()}\\b`, 'i')
-            : RegExp(`${searchTerm.toLowerCase().trim()}`, 'i');
+            ? RegExp(
+                  `\\b${searchTerm ? searchTerm.toLowerCase().trim() : ''}\\b`,
+                  'i'
+              )
+            : RegExp(
+                  `${searchTerm ? searchTerm.toLowerCase().trim() : ''}`,
+                  'i'
+              );
 
         if (!isotope) {
             const isotope = new Isotope(ReactDOM.findDOMNode(this), {
