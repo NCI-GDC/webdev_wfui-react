@@ -70,8 +70,9 @@ class IsotopeGrid extends React.Component {
         const reload = oldElems.length !== newElems.length;
         const options = {};
         if (
-            this.props.searchTerm.toLowerCase().trim() !==
-                nextProps.searchTerm.toLowerCase().trim() ||
+            (typeof this.props.searchTerm === 'string' &&
+                this.props.searchTerm.toLowerCase().trim() !==
+                    nextProps.searchTerm.toLowerCase().trim()) ||
             JSON.stringify(this.props.filterList) !==
                 JSON.stringify(nextProps.filterList) ||
             JSON.stringify(this.props.category) !==
