@@ -142,6 +142,7 @@ const Dropdown = React.forwardRef((uncontrolledProps, ref) => {
                 onToggle={handleToggle}
                 focusFirstItemOnShow={focusFirstItemOnShow}
                 itemSelector={`.${prefix}-item:not(.disabled):not(:disabled)`}
+                contentWindow={contentWindow}
             >
                 {({ props: dropdownProps }) => (
                     <Component
