@@ -82,10 +82,12 @@ const propTypes = {
 
     /** @private */
     navbar: PropTypes.bool,
+    contentWindow: PropTypes.object,
 };
 
 const defaultProps = {
     navbar: false,
+    contentWindow: window,
 };
 
 const Dropdown = React.forwardRef((uncontrolledProps, ref) => {
@@ -101,6 +103,7 @@ const Dropdown = React.forwardRef((uncontrolledProps, ref) => {
         // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
         as: Component = 'div',
         navbar: _4,
+        contentWindow,
         ...props
     } = useUncontrolled(uncontrolledProps, { show: 'onToggle' });
 
@@ -122,11 +125,11 @@ const Dropdown = React.forwardRef((uncontrolledProps, ref) => {
 
     useEffect(() => {
         // Create container for dropdown menu
-        let el = document.getElementById('wfui-dropdown-menu');
+        let el = contentWindow.document.getElementById('wfui-dropdown-menu');
         if (!el) {
-            el = document.createElement('div');
+            el = contentWindow.document.createElement('div');
             el.setAttribute('id', 'wfui-dropdown-menu');
-            document.body.appendChild(el);
+            contentWindow.document.body.appendChild(el);
         }
     });
 
@@ -153,6 +156,7 @@ const Dropdown = React.forwardRef((uncontrolledProps, ref) => {
                             drop === 'right' && 'dropright',
                             drop === 'left' && 'dropleft'
                         )}
+                        contentWindow={contentWindow}
                     />
                 )}
             </BaseDropdown.ControlledComponent>

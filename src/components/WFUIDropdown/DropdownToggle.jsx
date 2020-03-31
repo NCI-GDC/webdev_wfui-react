@@ -72,7 +72,7 @@ class DropdownToggle extends React.Component {
                                 className={classNames(
                                     className,
                                     bsPrefix,
-                                    split && `${bsPrefix}-split`,
+                                    split && `${bsPrefix}-split`
                                 )}
                                 {...wrapRef(toggleProps)}
                                 ref={ref}
