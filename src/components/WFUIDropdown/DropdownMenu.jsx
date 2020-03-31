@@ -114,14 +114,14 @@ const DropdownMenu = React.forwardRef(
                                 className,
                                 prefix,
                                 show && 'show',
-                                alignEnd && `${prefix}-right`,
+                                alignEnd && `${prefix}-right`
                             )}
                         />
                     );
                 }}
             </BaseDropdownMenu>
         );
-    },
+    }
 );
 
 DropdownMenu.displayName = 'DropdownMenu';

@@ -76,10 +76,12 @@ class DropdownMenu extends React.Component {
         drop: PropTypes.string,
         /** @private */
         toggleNode: PropTypes.any,
+        contentWindow: PropTypes.object,
     };
 
     static defaultProps = {
         usePopper: true,
+        contentWindow: window,
     };
 
     state = { toggleId: null };
@@ -96,7 +98,11 @@ class DropdownMenu extends React.Component {
             // a new reference node will already trigger this internally
             prevProps.toggleNode === this.props.toggleNode;
 
-        if (this.props.show && this.props.usePopper && !this.popperIsInitialized) {
+        if (
+            this.props.show &&
+            this.props.usePopper &&
+            !this.popperIsInitialized
+        ) {
             this.popperIsInitialized = true;
         }
 
@@ -126,11 +132,13 @@ class DropdownMenu extends React.Component {
             toggleNode,
             rootCloseEvent,
             popperConfig = {},
+            contentWindow,
         } = this.props;
 
         let placement = alignEnd ? 'bottom-end' : 'bottom-start';
         if (drop === 'up') placement = alignEnd ? 'top-end' : 'top-start';
-        if (drop === 'right') placement = alignEnd ? 'right-end' : 'right-start';
+        if (drop === 'right')
+            placement = alignEnd ? 'right-end' : 'right-start';
         if (drop === 'left') placement = alignEnd ? 'left-end' : 'left-start';
 
         let menu = null;
@@ -186,10 +194,12 @@ class DropdownMenu extends React.Component {
                                 });
                             }}
                         </Popper>,
-                        document.querySelector('#wfui-dropdown-menu')
+                        contentWindow.document.querySelector(
+                            '#wfui-dropdown-menu'
+                        )
                     )}
                 </div>
-            )
+            );
         }
 
         return (
@@ -208,15 +218,19 @@ class DropdownMenu extends React.Component {
 
 const DecoratedDropdownMenu = mapContextToProps(
     DropdownContext,
-    ({ show, alignEnd, toggle, drop, menuRef, toggleNode }, props) => ({
+    (
+        { show, alignEnd, toggle, drop, menuRef, toggleNode, contentWindow },
+        props
+    ) => ({
         drop,
         menuRef,
         toggleNode,
         onToggle: toggle,
         show: show == null ? props.show : show,
         alignEnd: alignEnd == null ? props.alignEnd : alignEnd,
+        contentWindow,
     }),
-    DropdownMenu,
+    DropdownMenu
 );
 
 export default DecoratedDropdownMenu;

@@ -72,10 +72,12 @@ const propTypes = {
      * @controllable show
      */
     onToggle: PropTypes.func,
+    contentWindow: PropTypes.object,
 };
 
 const defaultProps = {
     itemSelector: '* > *',
+    contentWindow: window,
 };
 
 /**
@@ -124,6 +126,7 @@ class Dropdown extends React.Component {
                         context: { ...context, toggleNode },
                     }));
                 },
+                contentWindow: props.contentWindow,
             },
         };
     }
