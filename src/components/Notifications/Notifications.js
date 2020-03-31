@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
@@ -245,6 +246,16 @@ class Notifications extends React.Component {
             });
     }
 
+    componentWillMount() {
+        // Create container for dropdown menu
+        let el = document.getElementById('wfui-notifications');
+        if (!el) {
+            el = document.createElement('div');
+            el.setAttribute('id', 'wfui-notifications');
+            document.body.appendChild(el);
+        }
+    }
+
     render() {
         const {
             fetches,
@@ -265,13 +276,18 @@ class Notifications extends React.Component {
                         withTitle
                     />
                 ) : (
-                    <NotificationSystem
-                        ref={ref => {
-                            this.notificationRef = ref;
-                            notificationRef(ref);
-                        }}
-                        withTitle
-                    />
+                    ReactDOM.createPortal(
+                        <NotificationSystem
+                            ref={ref => {
+                                this.notificationRef = ref;
+                                notificationRef(ref);
+                            }}
+                            withTitle
+                        />,
+                        document.querySelector(
+                            '#wfui-notifications'
+                        )
+                    )
                 )}
             </div>
         );
