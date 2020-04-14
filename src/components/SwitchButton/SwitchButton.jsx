@@ -10,7 +10,7 @@ class SwitchButton extends React.Component {
     }
 
     render() {
-        const { onChange, label, id, disabled } = this.props;
+        const { onChange, label, id, disabled, name } = this.props;
         const { advanced } = this.state;
 
         return (
@@ -23,7 +23,7 @@ class SwitchButton extends React.Component {
                     className={`switch-btn ${disabled ? 'disabled' : ''}`}
                 >
                     <input
-                        name="advance"
+                        name={name}
                         type="checkbox"
                         id={id || 'switch'}
                         className="switch-input"
@@ -53,9 +53,11 @@ SwitchButton.propTypes = {
     label: PropTypes.string,
     id: PropTypes.string,
     disabled: PropTypes.bool,
+    name: PropTypes.string,
 };
 SwitchButton.defaultProps = {
     onChange: f => f,
+    name: 'advance',
 };
 
 export default SwitchButton;
