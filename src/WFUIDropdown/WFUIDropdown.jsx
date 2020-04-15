@@ -118,6 +118,7 @@ const propTypes = {
      * @private
      */
     onMouseLeave: PropTypes.func,
+    forcePosition: PropTypes.string,
 };
 
 const defaultProps = {
@@ -212,6 +213,7 @@ class WFUIDropdown extends React.Component {
     }
 
     onShow(e) {
+        const { forcePosition } = this.props;
         const { uid } = this.state;
         // Broadcast event to other dropdown menus.
         const event = new CustomEvent('wfui-dropdown-menu-clicked', {
@@ -252,8 +254,10 @@ class WFUIDropdown extends React.Component {
                         'dropdown-menu'
                     )[0];
                     if (
-                        window.innerWidth <
-                        dropdown.getBoundingClientRect().right
+                        forcePosition !== 'left' &&
+                        (window.innerWidth <
+                            dropdown.getBoundingClientRect().right ||
+                            forcePosition === 'right')
                     ) {
                         el.setAttribute(
                             'style',
