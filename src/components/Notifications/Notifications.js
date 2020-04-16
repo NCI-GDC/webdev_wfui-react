@@ -190,10 +190,10 @@ class Notifications extends React.Component {
                                 }
 
                                 const errorData = newFetches[key].error.data || {};
-                                displayingValues = flattenObject(
+                                displayingValues = flattenObject({
                                     ...newFetches[key].data,
                                     ...errorData,
-                                );
+                                });
                             } else {
                                 displayingLevel = 'error';
                                 if (
