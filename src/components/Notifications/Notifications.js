@@ -189,8 +189,10 @@ class Notifications extends React.Component {
                                     displayingDefaultMessage = `You don't have permission to perform this action.`;
                                 }
 
+                                const errorData = newFetches[key].error.data || {};
                                 displayingValues = flattenObject(
-                                    newFetches[key].data
+                                    ...newFetches[key].data,
+                                    ...errorData,
                                 );
                             } else {
                                 displayingLevel = 'error';
