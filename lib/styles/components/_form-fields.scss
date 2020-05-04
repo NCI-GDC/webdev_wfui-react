@@ -335,16 +335,14 @@ $form-tag-color-hover: $form-active-color;
     }
 
     .react-datepicker {
-        // font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         font-size: 0.8rem;
         background-color: #fff;
         color: #000;
         border: 1px solid #aeaeae;
         border-radius: 0.3rem;
-        display: inline-block;
+        display: flex;
         position: relative;
         z-index: 15;
-        min-width: 313px;
     }
 
     .react-datepicker--time-only .react-datepicker__triangle {
