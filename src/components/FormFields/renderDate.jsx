@@ -17,6 +17,9 @@ import { useState } from 'react';
 
 const isISOString = /^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$/;
 const dateFormatString = /([12]\d{3}-(0*[1-9]|1[0-2])-(0*[1-9]|[12]\d|3[01]))/;
+const isValidDate = d => {
+    return d instanceof Date && !isNaN(d);
+};
 
 const RenderDate = ({
     className,
@@ -49,7 +52,9 @@ const RenderDate = ({
     const selectedValue = input.value ? moment(input.value).toDate() : '';
 
     const convertToISOString = e => {
-        input.onChange(e.toISOString());
+        if (e !== null && isValidDate(new Date(e))) {
+            input.onChange(e.toISOString());
+        }
     };
 
     return (
@@ -119,8 +124,16 @@ const RenderDate = ({
                             utcOffset={utcOffset}
                             selected={selectedValue}
                             onChangeRaw={e => {
-                                input.onChange(e.target.value);
+                                if (
+                                    e.target.value !== null &&
+                                    isValidDate(new Date(e))
+                                ) {
+                                    input.onChange(e.target.value);
+                                }
                             }}
+                            showYearDropdown
+                            showMonthDropdown
+                            dropdownMode="select"
                             onSelect={convertToISOString}
                             onChange={convertToISOString}
                             onBlur={e => {
@@ -140,9 +153,11 @@ const RenderDate = ({
                             }}
                             placeholderText={placeholder || 'Choose Date'}
                         />
-                        <span className="timezone">
-                            {`${timeZone} ${utcOffsetNumber}`}
-                        </span>
+                        {datePickerProps.showTimeSelect && (
+                            <span className="timezone">
+                                {`${timeZone} ${utcOffsetNumber}`}
+                            </span>
+                        )}
                     </div>
                 ) : (
                     <p className="date-value">
@@ -199,7 +214,6 @@ const RenderDate = ({
         </Form.Row>
     );
 };
-
 RenderDate.propTypes = {
     datePickerProps: PropTypes.object,
 };
@@ -212,5 +226,4 @@ RenderDate.defaultProps = {
     utcOffsetNumber: new Date().toString().match(/([-\+][0-9]+)\s/)[1],
     timeZone: new Date().toString().match(/\(([A-Za-z\s].*)\)/)[1],
 };
-
 export default RenderDate;
