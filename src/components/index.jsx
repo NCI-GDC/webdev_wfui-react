@@ -48,6 +48,7 @@ import Field from './FormFields/Field';
 import Fields from './FormFields/Fields';
 import * as FilterFields from './Filters/renderFilterItem';
 import Description from './FormFields/Description';
+import * as FormMutators from './FormFields/mutators';
 import WFUIDropdown from './WFUIDropdown/WFUIDropdown';
 import Notifications from './Notifications/Notifications';
 import Query from './util/Query';
@@ -106,6 +107,7 @@ export {
     TimezonePicker,
     LoadingComponent,
     FormFields,
+    FormMutators,
     Search,
     CollapsibleFilter,
     ReactMarkdown,
