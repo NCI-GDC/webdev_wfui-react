@@ -65,13 +65,17 @@ export const urlSwithcerMiddleware = store => next => action => {
                 resetCurrentState, // Nullified current filter
                 store.getState().visibilityFilter, // Default state.
             ]);
-            switchurl(merged);
+            if (!action.skip) {
+                switchurl(merged);
+            }
             return result;
         case 'REFYDRATE_FILTER':
         case 'CHANGE_FILTER':
         case 'TOGGLE_FILTER':
         case 'CHANGE_TERM':
-            switchurl(store.getState().visibilityFilter);
+            if (!action.skip) {
+                switchurl(store.getState().visibilityFilter);
+            }
             return result;
         default:
             return result;
