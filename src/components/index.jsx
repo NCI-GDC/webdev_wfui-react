@@ -49,6 +49,7 @@ import Fields from './FormFields/Fields';
 import * as FilterFields from './Filters/renderFilterItem';
 import Description from './FormFields/Description';
 import * as FormMutators from './FormFields/mutators';
+import * as FormUtils from './FormFields/utils';
 import WFUIDropdown from './WFUIDropdown/WFUIDropdown';
 import Notifications from './Notifications/Notifications';
 import Query from './util/Query';
