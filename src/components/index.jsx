@@ -109,6 +109,7 @@ export {
     LoadingComponent,
     FormFields,
     FormMutators,
+    FormUtils,
     Search,
     CollapsibleFilter,
     ReactMarkdown,
