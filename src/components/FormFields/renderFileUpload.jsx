@@ -11,6 +11,7 @@ import {
     Col,
     Button,
 } from '../index';
+import sanitizeHtml from 'sanitize-html';
 
 const generateAcceptText = props => {
     if (!props.fileTypes) return '';
@@ -511,7 +512,7 @@ class renderFileUpload extends React.Component {
                         >
                             <span
                                 dangerouslySetInnerHTML={{
-                                    __html: fileError,
+                                    __html: sanitizeHtml(fileError),
                                 }}
                             />
                         </Form.Control.Feedback>
@@ -540,7 +541,11 @@ class renderFileUpload extends React.Component {
                     )}
                     {help && !preview && (
                         <HelpBlock className="wfui-form-help text-muted">
-                            <div dangerouslySetInnerHTML={{ __html: help }} />
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: sanitizeHtml(help),
+                                }}
+                            />
                         </HelpBlock>
                     )}
                 </FormGroup>

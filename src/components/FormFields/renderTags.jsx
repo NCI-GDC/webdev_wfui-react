@@ -14,6 +14,8 @@ import {
     Col,
 } from '../index';
 
+import sanitizeHtml from 'sanitize-html';
+
 class renderTags extends React.Component {
     constructor(props) {
         super(props);
@@ -48,7 +50,7 @@ class renderTags extends React.Component {
             fullWidth,
             inline,
             meta: { touched, error, data },
-            showErrors
+            showErrors,
         } = this.props;
         const { suggestions, tags } = this.state;
 
@@ -57,7 +59,10 @@ class renderTags extends React.Component {
                 className={classNames(
                     className,
                     'wfui-form-item',
-                    { 'wfui-form-item-error': (touched || showErrors) && error },
+                    {
+                        'wfui-form-item-error':
+                            (touched || showErrors) && error,
+                    },
                     {
                         'wfui-form-item-warning':
                             (touched || showErrors) && data && data.warning,
@@ -88,21 +93,26 @@ class renderTags extends React.Component {
                                 ? 4
                                 : 10
                             : descDisplay && !preview
-                                ? 6
-                                : 12
+                            ? 6
+                            : 12
                     }
                     className={`wfui-form-field ${
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                        } wfui-form-tags`}
-                // validationState={(touched || showErrors) && error ? 'error' : null}
+                    } wfui-form-tags`}
+                    // validationState={(touched || showErrors) && error ? 'error' : null}
                 >
                     <FormControl
-                        isInvalid={(touched || showErrors) && (error || globalError)}
-                        isValid={(touched || showErrors) && data && data.warning}
+                        isInvalid={
+                            (touched || showErrors) && (error || globalError)
+                        }
+                        isValid={
+                            (touched || showErrors) && data && data.warning
+                        }
                         className={classNames('d-none', {
-                            'is-valid-warning': (touched || showErrors) && data && data.warning,
+                            'is-valid-warning':
+                                (touched || showErrors) && data && data.warning,
                         })}
                     />
                     <div className="custom-form-control-wrapper">
@@ -115,17 +125,17 @@ class renderTags extends React.Component {
                                         ))}
                                     </ul>
                                 ) : (
-                                        <span className="no-item">
-                                            ( No Items )
+                                    <span className="no-item">
+                                        ( No Items )
                                     </span>
-                                    )}
+                                )}
                             </div>
                         ) : (
-                                <TagsInput
-                                    value={tags}
-                                    onChange={this.handleChange}
-                                />
-                            )}
+                            <TagsInput
+                                value={tags}
+                                onChange={this.handleChange}
+                            />
+                        )}
                     </div>
                     {(touched || showErrors) && error && (
                         <Form.Control.Feedback
@@ -161,7 +171,11 @@ class renderTags extends React.Component {
                     )}
                     {help && !preview && (
                         <HelpBlock className="wfui-form-help text-muted">
-                            <div dangerouslySetInnerHTML={{ __html: help }} />
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: sanitizeHtml(help),
+                                }}
+                            />
                         </HelpBlock>
                     )}
                 </FormGroup>

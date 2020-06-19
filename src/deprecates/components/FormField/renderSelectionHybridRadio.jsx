@@ -13,6 +13,7 @@ import {
 } from '../index';
 
 import { renderField } from './index';
+import sanitizeHtml from 'sanitize-html';
 
 export default class renderSelectionHybridRadio extends React.Component {
     constructor(props) {
@@ -111,8 +112,8 @@ export default class renderSelectionHybridRadio extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                        } wfui-radios-hybrid column-count-${columnCount}`}
-                // validationState={allTouched && globalError ? 'error' : null}
+                    } wfui-radios-hybrid column-count-${columnCount}`}
+                    // validationState={allTouched && globalError ? 'error' : null}
                 >
                     {options.map((option, i) => {
                         const _key =
@@ -127,11 +128,11 @@ export default class renderSelectionHybridRadio extends React.Component {
                                     radioProps.input.value === _key
                                         ? 'active'
                                         : ''
-                                    } ${
+                                } ${
                                     fieldMap[_key]
                                         ? 'radio-with-radioHybrid'
                                         : ''
-                                    }`}
+                                }`}
                             >
                                 <Form.Check.Label>
                                     <Form.Check.Input
@@ -148,7 +149,7 @@ export default class renderSelectionHybridRadio extends React.Component {
                                     />
                                     <span
                                         dangerouslySetInnerHTML={{
-                                            __html: _option,
+                                            __html: sanitizeHtml(_option),
                                         }}
                                     />
                                     {fieldMap[_key] && (
@@ -177,13 +178,19 @@ export default class renderSelectionHybridRadio extends React.Component {
                     <HelpBlock>
                         {' '}
                         {allTouched && globalError && (
-                            <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
+                            <span>
+                                {Array.isArray(globalError)
+                                    ? globalError.join(', ')
+                                    : globalError}
+                            </span>
                         )}{' '}
                     </HelpBlock>
                     {help && !preview && (
                         <div
                             className="wfui-form-help"
-                            dangerouslySetInnerHTML={{ __html: help }}
+                            dangerouslySetInnerHTML={{
+                                __html: sanitizeHtml(help),
+                            }}
                         />
                     )}
                 </FormGroup>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import sanitizeHtml from 'sanitize-html';
 
 /**
  * Description
@@ -204,7 +205,7 @@ class Description extends Component {
                 <div
                     className={containerClassName}
                     dangerouslySetInnerHTML={{
-                        __html: content.replace(/\n/g, '<br/>'),
+                        __html: sanitizeHtml(content.replace(/\n/g, '<br/>')),
                     }}
                 />
             );
@@ -215,7 +216,9 @@ class Description extends Component {
                     <div
                         className="wfui-description__textContainer"
                         dangerouslySetInnerHTML={{
-                            __html: content.replace(/\n/g, '<br/>'),
+                            __html: sanitizeHtml(
+                                content.replace(/\n/g, '<br/>')
+                            ),
                         }}
                     />
                     <div className="wfui-description__imageContainer">

@@ -2,6 +2,7 @@ import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import * as form from 'redux-form';
 import classNames from 'classnames';
+import sanitizeHtml from 'sanitize-html';
 
 import {
     Draggable,
@@ -235,7 +236,9 @@ class renderAddAnother extends React.Component {
                     {help && !preview && (
                         <div
                             className="wfui-form-help"
-                            dangerouslySetInnerHTML={{ __html: help }}
+                            dangerouslySetInnerHTML={{
+                                __html: sanitizeHtml(help),
+                            }}
                         />
                     )}
                 </FormGroup>

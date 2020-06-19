@@ -11,6 +11,7 @@ import {
     Form,
     Col,
 } from '../index';
+import sanitizeHtml from 'sanitize-html';
 
 /**
  * Reusable field component.
@@ -144,7 +145,9 @@ const renderField = ({
             )}
             {help && !preview && (
                 <HelpBlock className="wfui-form-help text-muted">
-                    <div dangerouslySetInnerHTML={{ __html: help }} />
+                    <div
+                        dangerouslySetInnerHTML={{ __html: sanitizeHtml(help) }}
+                    />
                 </HelpBlock>
             )}
         </FormGroup>
