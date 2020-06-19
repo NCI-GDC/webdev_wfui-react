@@ -15,6 +15,7 @@ import {
 
 import Field from './Field';
 import renderSingleCheckbox from './renderSingleCheckbox';
+import sanitizeHtml from 'sanitize-html';
 
 /**
  * Reusable field component.
@@ -56,7 +57,7 @@ class renderFieldWithAutoAlias extends React.Component {
             descDisplay,
             meta: { touched, error, data },
             fullWidth,
-            showErrors
+            showErrors,
         } = this.props;
 
         return (
@@ -69,7 +70,8 @@ class renderFieldWithAutoAlias extends React.Component {
                             (touched || showErrors) && (error || globalError),
                     },
                     {
-                        'wfui-form-item-warning': (touched || showErrors) && data.warning,
+                        'wfui-form-item-warning':
+                            (touched || showErrors) && data.warning,
                     },
                     { 'wfui-form-inline': inline },
                     { 'wfui-form-disabled': disabled },
@@ -92,10 +94,10 @@ class renderFieldWithAutoAlias extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                        } wfui-form-input`}
-                // validationState={
-                //     (touched || showErrors) && (error || globalError) ? 'error' : null
-                // }
+                    } wfui-form-input`}
+                    // validationState={
+                    //     (touched || showErrors) && (error || globalError) ? 'error' : null
+                    // }
                 >
                     <FormControl
                         {...input}
@@ -142,10 +144,13 @@ class renderFieldWithAutoAlias extends React.Component {
                             );
                             if (onHandleChange) onHandleChange(e);
                         }}
-                        isInvalid={(touched || showErrors) && (error || globalError)}
+                        isInvalid={
+                            (touched || showErrors) && (error || globalError)
+                        }
                         isValid={(touched || showErrors) && data.warning}
                         className={classNames({
-                            'is-valid-warning': (touched || showErrors) && data.warning,
+                            'is-valid-warning':
+                                (touched || showErrors) && data.warning,
                         })}
                     />
                     {postfix && (
@@ -167,7 +172,11 @@ class renderFieldWithAutoAlias extends React.Component {
                             className="wfui-form-error"
                             type="invalid"
                         >
-                            <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
+                            <span>
+                                {Array.isArray(globalError)
+                                    ? globalError.join(', ')
+                                    : globalError}
+                            </span>
                         </Form.Control.Feedback>
                     )}
                     {(touched || showErrors) && data.warning && (
@@ -183,7 +192,9 @@ class renderFieldWithAutoAlias extends React.Component {
                     {help && !preview && (
                         <div
                             className="wfui-form-help"
-                            dangerouslySetInnerHTML={{ __html: help }}
+                            dangerouslySetInnerHTML={{
+                                __html: sanitizeHtml(help),
+                            }}
                         />
                     )}
                 </FormGroup>

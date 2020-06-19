@@ -12,6 +12,7 @@ import {
     HelpBlock,
     FormControl,
 } from '../index';
+import sanitizeHtml from 'sanitize-html';
 
 const { Controlled: CodeMirror } = ReactCodeMirror;
 
@@ -162,7 +163,11 @@ class renderCodeMirror extends React.Component {
                     )}
                     {help && !preview && (
                         <HelpBlock className="wfui-form-help">
-                            <div dangerouslySetInnerHTML={{ __html: help }} />
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: sanitizeHtml(help),
+                                }}
+                            />
                         </HelpBlock>
                     )}
                 </FormGroup>

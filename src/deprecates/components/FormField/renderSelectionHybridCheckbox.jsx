@@ -13,6 +13,7 @@ import {
 } from '../index';
 
 import { renderField } from './index';
+import sanitizeHtml from 'sanitize-html';
 
 class renderSelectionHybridCheckbox extends React.Component {
     constructor(props) {
@@ -142,8 +143,8 @@ class renderSelectionHybridCheckbox extends React.Component {
                         descDisplay
                             ? 'wfui-form-field-with-description'
                             : 'wfui-form-field-no-description'
-                        } wfui-checkboxes-hybrid column-count-${columnCount}`}
-                // validationState={allTouched && globalError ? 'error' : null}
+                    } wfui-checkboxes-hybrid column-count-${columnCount}`}
+                    // validationState={allTouched && globalError ? 'error' : null}
                 >
                     {options.map((option, i) => {
                         const _key =
@@ -156,14 +157,14 @@ class renderSelectionHybridCheckbox extends React.Component {
                                 key={i}
                                 className={`${
                                     checkboxProps.input.value &&
-                                        checkboxProps.input.value.includes(_key)
+                                    checkboxProps.input.value.includes(_key)
                                         ? 'active'
                                         : ''
-                                    } ${
+                                } ${
                                     fieldMap[_key]
                                         ? 'checkbox-with-checkboxHybrid'
                                         : ''
-                                    }`}
+                                }`}
                             >
                                 <Form.Check.Label>
                                     <Form.Check.Input
@@ -192,13 +193,13 @@ class renderSelectionHybridCheckbox extends React.Component {
                                             return this.onHandleChange(
                                                 newValue,
                                                 e.target.checked &&
-                                                e.target.value
+                                                    e.target.value
                                             );
                                         }}
                                     />
                                     <span
                                         dangerouslySetInnerHTML={{
-                                            __html: _option,
+                                            __html: sanitizeHtml(_option),
                                         }}
                                     />
                                     {!label && required ? (
@@ -246,14 +247,19 @@ class renderSelectionHybridCheckbox extends React.Component {
                     <HelpBlock>
                         {' '}
                         {allTouched && globalError && (
-                            <span>{Array.isArray(globalError) ? globalError.join(', ') : globalError}</span>
-                        )}
-                        {' '}
+                            <span>
+                                {Array.isArray(globalError)
+                                    ? globalError.join(', ')
+                                    : globalError}
+                            </span>
+                        )}{' '}
                     </HelpBlock>
                     {help && !preview && (
                         <div
                             className="wfui-form-help"
-                            dangerouslySetInnerHTML={{ __html: help }}
+                            dangerouslySetInnerHTML={{
+                                __html: sanitizeHtml(help),
+                            }}
                         />
                     )}
                 </FormGroup>

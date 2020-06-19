@@ -11,6 +11,7 @@ import {
     Col,
     FormControl,
 } from '../index';
+import sanitizeHtml from 'sanitize-html';
 
 const renderCharacterLimit = (input, textLimit, isError) => {
     return (
@@ -230,7 +231,11 @@ const renderTextArea = ({
                 )}
                 {help && !preview && (
                     <HelpBlock className="wfui-form-help text-muted">
-                        <div dangerouslySetInnerHTML={{ __html: help }} />
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: sanitizeHtml(help),
+                            }}
+                        />
                     </HelpBlock>
                 )}
             </FormGroup>

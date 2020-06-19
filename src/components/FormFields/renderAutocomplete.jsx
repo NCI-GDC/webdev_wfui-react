@@ -9,6 +9,7 @@ import {
     ControlLabel,
     HelpBlock,
 } from '../index';
+import sanitizeHtml from 'sanitize-html';
 
 /**
  * Autocomplete component.
@@ -21,50 +22,50 @@ const Autocomplete = ({
     textNoResult,
     autoFetched,
 }) => (
-        <div className="navbar-form">
-            <div className="form-group">
-                <ul
-                    id="ui-autocomplete"
-                    className="autocomplete-ps ui-menu ui-widget ui-widget-content ui-autocomplete ui-front"
-                >
-                    {!fetching && autoFetched && (!items || items.length === 0) && (
-                        <li className="ui-menu-item">{textNoResult}</li>
+    <div className="navbar-form">
+        <div className="form-group">
+            <ul
+                id="ui-autocomplete"
+                className="autocomplete-ps ui-menu ui-widget ui-widget-content ui-autocomplete ui-front"
+            >
+                {!fetching && autoFetched && (!items || items.length === 0) && (
+                    <li className="ui-menu-item">{textNoResult}</li>
+                )}
+                {!fetching &&
+                    autoFetched &&
+                    items &&
+                    items.map((item, idx) =>
+                        itemDisplay ? (
+                            React.cloneElement(
+                                <li key={idx} className="ui-menu-item">
+                                    {itemDisplay(item, onClickItem)}
+                                </li>,
+                                Object.assign({}, {}, { key: idx })
+                            )
+                        ) : (
+                            <li key={idx} className="ui-menu-item">
+                                <div className="ui-menu-item-wrapper">
+                                    <a onClick={onClickItem} data-key={item}>
+                                        {`${item}`}
+                                    </a>
+                                </div>
+                            </li>
+                        )
                     )}
-                    {!fetching &&
-                        autoFetched &&
-                        items &&
-                        items.map((item, idx) =>
-                            itemDisplay ? (
-                                React.cloneElement(
-                                    <li key={idx} className="ui-menu-item">
-                                        {itemDisplay(item, onClickItem)}
-                                    </li>,
-                                    Object.assign({}, {}, { key: idx })
-                                )
-                            ) : (
-                                    <li key={idx} className="ui-menu-item">
-                                        <div className="ui-menu-item-wrapper">
-                                            <a onClick={onClickItem} data-key={item}>
-                                                {`${item}`}
-                                            </a>
-                                        </div>
-                                    </li>
-                                )
-                        )}
-                    {fetching && (
-                        <li className="mp ps">
-                            <Spinner
-                                type={1}
-                                color="#0072c6"
-                                fontSize={'5px'}
-                                margin={'10px auto'}
-                            />
-                        </li>
-                    )}
-                </ul>
-            </div>
+                {fetching && (
+                    <li className="mp ps">
+                        <Spinner
+                            type={1}
+                            color="#0072c6"
+                            fontSize={'5px'}
+                            margin={'10px auto'}
+                        />
+                    </li>
+                )}
+            </ul>
         </div>
-    );
+    </div>
+);
 
 /**
  * Reusable field component.
@@ -170,9 +171,9 @@ class renderAutocomplete extends React.Component {
                 </div>
                 <FormGroup
                     className="wfui-form-input wfui-form-autocomplete"
-                // validationState={
-                //     (touched || showErrors) && (error || globalError) ? 'error' : null
-                // }
+                    // validationState={
+                    //     (touched || showErrors) && (error || globalError) ? 'error' : null
+                    // }
                 >
                     <FormControl
                         {...input}
@@ -202,10 +203,15 @@ class renderAutocomplete extends React.Component {
                             }
                             if (onHandleChange) onHandleChange(e);
                         }}
-                        isInvalid={(touched || showErrors) && (error || globalError)}
-                        isValid={(touched || showErrors) && data && data.warning}
+                        isInvalid={
+                            (touched || showErrors) && (error || globalError)
+                        }
+                        isValid={
+                            (touched || showErrors) && data && data.warning
+                        }
                         className={classNames({
-                            'is-valid-warning': (touched || showErrors) && data && data.warning,
+                            'is-valid-warning':
+                                (touched || showErrors) && data && data.warning,
                         })}
                         autoComplete="off"
                     />
@@ -269,7 +275,9 @@ class renderAutocomplete extends React.Component {
                     {help && (
                         <div
                             className="wfui-form-help"
-                            dangerouslySetInnerHTML={{ __html: help }}
+                            dangerouslySetInnerHTML={{
+                                __html: sanitizeHtml(help),
+                            }}
                         />
                     )}
                 </FormGroup>

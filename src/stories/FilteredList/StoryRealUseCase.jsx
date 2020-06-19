@@ -1,12 +1,24 @@
 import React from 'react';
 import FilteredList from '../../components/FilteredList/FilteredList';
+import sanitizeHtml from 'sanitize-html';
 
 const collaboratoryPubmedAPI = '/list_pub_pre.json';
 
-const ItemDisplay = (props) => {
-    const { type, title, body, date, pmid, link, topic, author, contributor } = props;
+const ItemDisplay = props => {
+    const {
+        type,
+        title,
+        body,
+        date,
+        pmid,
+        link,
+        topic,
+        author,
+        contributor,
+    } = props;
     const capitalizedType = type.charAt(0).toUpperCase() + type.slice(1);
-    const url = link || (pmid ? `https://www.ncbi.nlm.nih.gov/pubmed/${pmid}` : null);
+    const url =
+        link || (pmid ? `https://www.ncbi.nlm.nih.gov/pubmed/${pmid}` : null);
 
     let authorStr = '';
     for (let i = 0; i < author.length; i += 1) {
@@ -19,9 +31,15 @@ const ItemDisplay = (props) => {
     return (
         <div>
             <p>{capitalizedType}</p>
-            <p>{authorStr} | {type === 'presentation' ? `Date : ${date}` : ''} </p>
-            {url ? <p><a href={url}>{title}</a></p> : null}
-            <p dangerouslySetInnerHTML={{ __html: body }} />
+            <p>
+                {authorStr} | {type === 'presentation' ? `Date : ${date}` : ''}{' '}
+            </p>
+            {url ? (
+                <p>
+                    <a href={url}>{title}</a>
+                </p>
+            ) : null}
+            <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(body) }} />
         </div>
     );
 };
@@ -42,7 +60,7 @@ class FilteredListContainer extends React.Component {
         this.mounted = true;
         fetch(collaboratoryPubmedAPI)
             .then(response => response.json())
-            .then((response) => {
+            .then(response => {
                 if (this.mounted) {
                     const data = response.pub_pre;
                     this.setState({ data });
@@ -55,21 +73,34 @@ class FilteredListContainer extends React.Component {
     getFilters() {
         const { filteredContributor, filteredTopic, filteredType } = this.state;
         return [
-            item => (!filteredContributor ||
-                (item.contributor.length > 0 && item.contributor[0].name === filteredContributor)),
-            item => (!filteredTopic ||
-                (item.topic.length > 0 && item.topic[0].gname === filteredTopic)),
-            item => (!filteredType || item.type === filteredType),
+            item =>
+                !filteredContributor ||
+                (item.contributor.length > 0 &&
+                    item.contributor[0].name === filteredContributor),
+            item =>
+                !filteredTopic ||
+                (item.topic.length > 0 &&
+                    item.topic[0].gname === filteredTopic),
+            item => !filteredType || item.type === filteredType,
         ];
     }
     generateFilterUI() {
-        const { filteredContributor, filteredTopic, filteredType, searchTerm } = this.state;
+        const {
+            filteredContributor,
+            filteredTopic,
+            filteredType,
+            searchTerm,
+        } = this.state;
         const contributors = [];
         const topics = [];
         const types = [];
         for (const item of this.state.data) {
-            const contributor = item.contributor.length > 0 ? item.contributor[0].name : undefined;
-            const topic = item.topic.length > 0 ? item.topic[0].gname : undefined;
+            const contributor =
+                item.contributor.length > 0
+                    ? item.contributor[0].name
+                    : undefined;
+            const topic =
+                item.topic.length > 0 ? item.topic[0].gname : undefined;
             const type = item.type;
             if (contributor && contributors.indexOf(contributor) === -1) {
                 contributors.push(contributor);
@@ -81,28 +112,55 @@ class FilteredListContainer extends React.Component {
                 types.push(type);
             }
         }
-        const contributorOptions = contributors.map(
-            contributor => <option key={contributor} value={contributor}>{contributor}</option>,
-        );
-        const topicOptions = topics.map(
-            topic => <option key={topic} value={topic}>{topic}</option>,
-        );
-        const typeOptions = types.map(
-            type => <option key={type} value={type}>{type}</option>,
-        );
+        const contributorOptions = contributors.map(contributor => (
+            <option key={contributor} value={contributor}>
+                {contributor}
+            </option>
+        ));
+        const topicOptions = topics.map(topic => (
+            <option key={topic} value={topic}>
+                {topic}
+            </option>
+        ));
+        const typeOptions = types.map(type => (
+            <option key={type} value={type}>
+                {type}
+            </option>
+        ));
 
         return (
             <div>
-                <input type="text" value={searchTerm} onChange={e => this.setState({ searchTerm: e.target.value })} />
-                <select selected={filteredContributor} onChange={e => this.setState({ filteredContributor: e.target.value })}>
+                <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={e =>
+                        this.setState({ searchTerm: e.target.value })
+                    }
+                />
+                <select
+                    selected={filteredContributor}
+                    onChange={e =>
+                        this.setState({ filteredContributor: e.target.value })
+                    }
+                >
                     <option value="">All Contributors</option>
                     {contributorOptions}
                 </select>
-                <select selected={filteredTopic} onChange={e => this.setState({ filteredTopic: e.target.value })}>
+                <select
+                    selected={filteredTopic}
+                    onChange={e =>
+                        this.setState({ filteredTopic: e.target.value })
+                    }
+                >
                     <option value="">All Topics</option>
                     {topicOptions}
                 </select>
-                <select selected={filteredType} onChange={e => this.setState({ filteredType: e.target.value })}>
+                <select
+                    selected={filteredType}
+                    onChange={e =>
+                        this.setState({ filteredType: e.target.value })
+                    }
+                >
                     <option value="">All Types</option>
                     {typeOptions}
                 </select>
@@ -117,7 +175,9 @@ class FilteredListContainer extends React.Component {
                     searchTerm={this.state.searchTerm}
                     filterList={this.getFilters()}
                     data={this.state.data}
-                    onListDidMount={(data) => { console.log('list did mount', data); }}
+                    onListDidMount={data => {
+                        console.log('list did mount', data);
+                    }}
                     itemDisplay={<ItemDisplay />}
                     simpleSearch
                 />
@@ -126,4 +186,4 @@ class FilteredListContainer extends React.Component {
     }
 }
 
-export default <FilteredListContainer />
+export default <FilteredListContainer />;

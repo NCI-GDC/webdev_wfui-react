@@ -14,6 +14,7 @@ import {
     Col,
 } from '../index';
 import { useState } from 'react';
+import sanitizeHtml from 'sanitize-html';
 
 const isISOString = /^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$/;
 const dateFormatString = /([12]\d{3}-(0*[1-9]|1[0-2])-(0*[1-9]|[12]\d|3[01]))/;
@@ -198,7 +199,11 @@ const RenderDate = ({
                 )}
                 {help && !preview && (
                     <HelpBlock className="wfui-form-help text-muted">
-                        <div dangerouslySetInnerHTML={{ __html: help }} />
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: sanitizeHtml(help),
+                            }}
+                        />
                     </HelpBlock>
                 )}
             </FormGroup>
