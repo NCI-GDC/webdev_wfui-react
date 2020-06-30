@@ -1,0 +1,18 @@
+// _span.scss
+
+span {
+  &.is-faded {
+    color: $primary-main-dark;
+  }
+  &.is-lower-case {
+    text-transform: capitalize;
+  }
+  &.is-not-underlined,
+  a &.is-not-underlined,
+  &.is-not-underlined a {
+    text-decoration: none;
+  }
+  &.is-aligned-left {
+    text-align: left;
+  }  
+}

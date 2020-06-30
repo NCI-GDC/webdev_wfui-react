@@ -1,4 +1,0 @@
-const example = (
-    <Test ver="0" />
-);
-return example;

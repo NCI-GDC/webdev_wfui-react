@@ -1,0 +1,54 @@
+// .wfui-input-table{
+//     p, ul{
+//         margin: 0;
+//     }
+//     &__form{
+//         border: 1px solid #aaa;
+//         padding: 10px;
+//     }
+//     &__label{
+//         font-weight: bold;
+//         display: inline-block;
+//     }
+//     &__ul{
+//         display: inline-block;
+//         list-style-type: none;
+//         padding-left: 0;
+//     }
+//     &__li{
+//         display: inline-block;
+//     }
+//     &__condition{
+//         font-weight: bold;
+//         margin: 0;
+//     }
+//     &__li div{
+//         display: inline-block;
+//     }
+// }
+
+/* WFUI Form Item: Table
+-------------------------------------------------------------- */
+.wfui-input-table__ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding-left: 0;
+
+    .wfui-input-table__li {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: .375rem;
+    }
+
+    .wfui-form-field, .wfui-form-item {
+        margin-bottom: 0;
+    }
+
+    .wfui-input-table__li {
+        .wfui-input-table__condition {
+            margin: 0 5px;
+            line-height: calc(1.5em + .75rem + 2px);
+        }
+    }
+}

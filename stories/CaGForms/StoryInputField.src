@@ -1,8 +1,0 @@
-class Example extends React.Component {
-    render() {
-        return (
-            <InputField type="text" name="input1" errors={true} label="Type Text:" description={<Description content="This is description" />} />
-        )
-    }
-}
-return <Example />

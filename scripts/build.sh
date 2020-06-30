@@ -6,7 +6,8 @@
 #./node_modules/.bin/webpack --output-filename=dist/WFUI.min.js --optimize-minimize
 
 rm -rf lib
-./node_modules/.bin/babel src --out-dir lib
+npx babel --verbose --config-file=./buildConfigs/babel.config.js src/components --out-dir lib
+cp -R src/styles lib/styles/
 
-rm -rf dist
-./node_modules/.bin/webpack
+# rm -rf dist
+./node_modules/.bin/webpack --quiet --config ./buildConfigs/webpack.config.js --mode=production

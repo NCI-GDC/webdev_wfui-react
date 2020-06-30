@@ -1,0 +1,109 @@
+.switch {
+    &-container {
+        @extend .flexbox;
+        @extend .flexbox-wrap;
+        @extend .flexbox-align-center;
+    }
+
+    &-title {
+        margin-right: 10px;
+        font-size: 1rem;
+    }
+
+    &-btn {
+        @extend .flexbox;
+        position: relative;
+        min-width: 4.5rem;
+        height: 2rem;
+        margin: 0;
+    }
+
+    &-input {
+        // display: none;
+        position: absolute;
+        left: 0;
+        z-index: -1;
+        width: 1rem;
+        height: 1.25rem;
+        opacity: 0;
+    }
+
+    /* The slider */
+    &-slider {
+        @extend .flexbox;
+        width: 100%;
+        cursor: pointer;
+        background: grey;
+        -webkit-transition: 0.1s;
+        transition: 0.1s;
+
+        /* Disabled sliders */
+        &.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        /* Rounded sliders */
+        &.round {
+            border-radius: calc(1rem + 4px);
+
+            &:before {
+                border-radius: 50%;
+            }
+        }
+
+        &:before {
+            position: absolute;
+            content: '';
+            height: calc(2rem - 4px);
+            width: calc(2rem - 4px);
+            top: 2px;
+            left: 2px;
+            background-color: white;
+            -webkit-transition: 0.1s;
+            transition: 0.1s;
+        }
+        
+        .on,
+        .off {
+            color: white;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            font-size: 10px;
+        }
+    
+        .off {
+            left: 70%;
+        }
+    
+        .on {
+            display: none;
+            left: 30%;
+        }
+    }
+
+    &-input:checked + .switch-slider {
+        background-color: $success;
+        
+        &:before {
+            -webkit-transform: translateX(calc(2.5rem));
+            -ms-transform: translateX(calc(2.5rem));
+            transform: translateX(calc(2.5rem));
+        }
+
+        .on {
+            display: block;
+        }
+
+        .off {
+            display: none;
+        }
+    }
+
+    &-input:focus:checked + .switch-slider {
+        box-shadow: 0 0 0 $input-focus-width rgba($success, .25);
+        -webkit-transition: 0.1s;
+        transition: 0.1s;
+    }
+}

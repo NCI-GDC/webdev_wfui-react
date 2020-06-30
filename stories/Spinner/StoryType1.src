@@ -1,4 +1,0 @@
-const example = (
-    <Spinner type={1} fontSize="20" margin="100px auto" />
-);
-return example;

@@ -1,0 +1,45 @@
+.wfui-grid{
+    &__container{
+        display: table;
+        border-collapse: collapse;
+        width: 100%;
+        &--last{
+            margin-top: -1px;
+        }
+    }
+    //error messages
+    &__main{
+        &--error{
+            border: 2px solid #c62828;
+        }
+    }
+    
+    &__row{
+        display: table-row;
+    }
+    &__column{
+        display: table-cell;
+        vertical-align: middle;
+        border: 1px solid #000;
+    }
+    &--col-1{
+        width: 100%;
+    }
+    &--col-2{
+        width: 50%;
+    }
+    &--col-3{
+        width: 33.3%;
+    }
+    &--col-4{
+        width: 25%;
+    }
+    &--col-5{
+        width: 20%;
+    }
+    //Selection under grid
+    .wfui-selection__label{
+        display: block;
+        height: 100%;
+    }
+}

@@ -1,0 +1,30 @@
+import React from 'react';
+import { NotificationSystem } from '../../components/';
+
+class Example extends React.Component {
+    constructor() {
+        super();
+        this._addNotification = this._addNotification.bind(this);
+    }
+    _addNotification(event) {
+        event.preventDefault();
+        this._notificationSystem.addNotification({
+            title: 'Test',
+            message: 'Notification message',
+            level: 'success',
+            autoDismiss: 100
+        });
+    }
+    componentDidMount() {
+        this._notificationSystem = this.refs.notificationSystem;
+    }
+    render() {
+        return (
+            <div>
+                <button onClick={this._addNotification}>Add notification</button>
+                <NotificationSystem ref="notificationSystem" withTitle autoDismiss={100} duration={100000} />
+            </div>
+        )
+    }
+}
+export default <Example />
