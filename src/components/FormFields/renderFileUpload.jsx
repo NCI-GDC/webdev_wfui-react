@@ -617,6 +617,12 @@ renderFileUpload.defaultProps = {
         jpg: ['image/jpeg', 'image/pjpeg'],
         gif: ['image/gif'],
         svg: ['image/svg+xml'],
+        ico: [
+            'image/vnd.microsoft.icon',
+            'image/x-icon',
+            'application/ico',
+            'image/ico',
+        ],
     },
     fileDownloadPath: '',
     fallbackPath: '',
