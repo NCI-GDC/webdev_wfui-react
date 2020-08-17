@@ -77,6 +77,8 @@ class ModalDialog extends React.Component {
             className,
             centered,
             size,
+            backdrop,
+            keyboard,
         } = this.props;
 
         return (
@@ -86,6 +88,8 @@ class ModalDialog extends React.Component {
                 size={size}
                 className={classNames(`modal-${id}`, className)}
                 centered={centered}
+                backdrop={backdrop}
+                keyboard={keyboard}
             >
                 <Modal.Header closeButton>
                     <h2 className="modaltitle">{label}</h2>
@@ -158,6 +162,8 @@ ModalDialog.propTypes = {
     className: PropTypes.string,
     centered: PropTypes.bool,
     size: PropTypes.string,
+    backdrop: PropTypes.bool,
+    keyboard: PropTypes.bool,
 };
 
 ModalDialog.defaultProps = {
@@ -173,6 +179,8 @@ ModalDialog.defaultProps = {
     destroy: f => f,
     initialize: f => f,
     size: 'lg',
+    backdrop: true,
+    keyboard: true,
 };
 
 const ModalDialogContainer = connect(
