@@ -93,19 +93,19 @@ const RenderDate = ({
                             ? 4
                             : 10
                         : descDisplay && !preview
-                        ? 6
-                        : 12
+                            ? 6
+                            : 12
                 }
                 className={`wfui-form-field ${
                     descDisplay
                         ? 'wfui-form-field-with-description'
                         : 'wfui-form-field-no-description'
-                } wfui-form-date ${
+                    } wfui-form-date ${
                     (touched || showErrors) && (error || globalError)
                         ? 'wfui-form-with-error'
                         : ''
-                }`}
-                // validationState={(touched || showErrors) && (error || globalError) ? 'error' : null}
+                    }`}
+            // validationState={(touched || showErrors) && (error || globalError) ? 'error' : null}
             >
                 <FormControl
                     isInvalid={
@@ -117,54 +117,49 @@ const RenderDate = ({
                             (touched || showErrors) && data && data.warning,
                     })}
                 />
-                {!disabled ? (
-                    <div className="wfui-form-datepicker custom-form-control-wrapper">
-                        <DatePicker
-                            {...datePickerProps}
-                            className="form-control"
-                            utcOffset={utcOffset}
-                            selected={selectedValue}
-                            onChangeRaw={e => {
-                                if (
-                                    e.target.value !== null &&
-                                    isValidDate(new Date(e))
-                                ) {
-                                    input.onChange(e.target.value);
+                <div className="wfui-form-datepicker custom-form-control-wrapper">
+                    <DatePicker
+                        {...datePickerProps}
+                        className="form-control"
+                        utcOffset={utcOffset}
+                        selected={selectedValue}
+                        onChangeRaw={e => {
+                            if (
+                                e.target.value !== null &&
+                                isValidDate(new Date(e))
+                            ) {
+                                input.onChange(e.target.value);
+                            }
+                        }}
+                        showYearDropdown
+                        showMonthDropdown
+                        dropdownMode="select"
+                        onSelect={convertToISOString}
+                        onChange={convertToISOString}
+                        disabled={disabled}
+                        onBlur={e => {
+                            setTouched(true);
+                            // This logic is needed when user manually type date string in UI and not exactly following the format 20XX-XX-XX (something like 2020-1-1 )
+                            if (
+                                !input.value.match(isISOString) &&
+                                input.value.match(dateFormatString)
+                            ) {
+                                const parsedDate = new Date(input.value);
+                                if (!isNaN(parsedDate)) {
+                                    input.onChange(
+                                        parsedDate.toISOString()
+                                    );
                                 }
-                            }}
-                            showYearDropdown
-                            showMonthDropdown
-                            dropdownMode="select"
-                            onSelect={convertToISOString}
-                            onChange={convertToISOString}
-                            onBlur={e => {
-                                setTouched(true);
-                                // This logic is needed when user manually type date string in UI and not exactly following the format 20XX-XX-XX (something like 2020-1-1 )
-                                if (
-                                    !input.value.match(isISOString) &&
-                                    input.value.match(dateFormatString)
-                                ) {
-                                    const parsedDate = new Date(input.value);
-                                    if (!isNaN(parsedDate)) {
-                                        input.onChange(
-                                            parsedDate.toISOString()
-                                        );
-                                    }
-                                }
-                            }}
-                            placeholderText={placeholder || 'Choose Date'}
-                        />
-                        {datePickerProps.showTimeSelect && (
-                            <span className="timezone">
-                                {`${timeZone} ${utcOffsetNumber}`}
-                            </span>
-                        )}
-                    </div>
-                ) : (
-                    <p className="date-value">
-                        {input.value ? new Date(input.value).toString() : ''}
-                    </p>
-                )}
+                            }
+                        }}
+                        placeholderText={placeholder || 'Choose Date'}
+                    />
+                    {datePickerProps.showTimeSelect && (
+                        <span className="timezone">
+                            {`${timeZone} ${utcOffsetNumber}`}
+                        </span>
+                    )}
+                </div>
                 {(touched || showErrors) && error && (
                     <Form.Control.Feedback
                         className="wfui-form-error"

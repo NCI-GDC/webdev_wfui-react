@@ -393,6 +393,18 @@ class Forms extends React.Component {
                     />
 
                     <Field
+                        name="renderDate3"
+                        label="renderDate3"
+                        component={renderDate}
+                        help="Help Texts Help Texts Help Texts Help Texts Help Texts Help Texts"
+                        datePickerProps={{
+                            dateFormat: 'yyyy-MM-dd',
+                            showTimeSelect: false,
+                        }}
+                        disabled
+                    />
+
+                    <Field
                         name="renderTags"
                         label="renderTags"
                         component={renderTags}
@@ -546,6 +558,7 @@ const FormsReduxForm = reduxForm({
                 'https://www.google.co.jp/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png',
         },
         renderDate2: '2018-04-10T14:30:00.000Z',
+        renderDate3: '2018-04-10T14:30:00.000Z',
     },
 })(Forms);
 
