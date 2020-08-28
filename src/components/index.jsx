@@ -42,6 +42,7 @@ import * as WFUICard from './Card/Card';
 import ModalDialog from './ModalDialog/ModalDialog';
 import * as CascadingPane from './CascadingPane';
 import ThreeColumnView from './ThreeColumnView/ThreeColumnView';
+import MultiColumnView from './MultiColumnView/MultiColumnView';
 import * as Search from './Search';
 import * as FormFields from './FormFields';
 import Field from './FormFields/Field';
@@ -134,6 +135,7 @@ export {
     AnimateHeight,
     SplitPane,
     ThreeColumnView,
+    MultiColumnView,
     Checkbox,
     ClipLoader,
     ClipLoaderWithContext,
