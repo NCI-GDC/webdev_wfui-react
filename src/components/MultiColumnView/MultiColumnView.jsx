@@ -44,10 +44,10 @@ class MultiColumnView extends React.Component {
                     )}
                 >
                     {React.cloneElement(displayChild[0], { key: 1 })}
-                    {visibleColCount === 2
+                    {visibleColCount >= 2
                         ? React.cloneElement(displayChild[1], { key: 2 })
                         : null}
-                    {visibleColCount === 3 ? (
+                    {visibleColCount >= 3 ? (
                         <SplitPane
                             className={classNames('split-pane', splitClassName)}
                             split="vertical"
@@ -73,8 +73,8 @@ class MultiColumnView extends React.Component {
                 )}
             >
                 {React.cloneElement(displayChild[0], { key: 1 })}
-                {visibleColCount === 2 ? React.cloneElement(displayChild[1], { key: 2 }) : null}
-                {visibleColCount === 3 ? React.cloneElement(displayChild[2], { key: 3 }) : null}
+                {visibleColCount >= 2 ? React.cloneElement(displayChild[1], { key: 2 }) : null}
+                {visibleColCount >= 3 ? React.cloneElement(displayChild[2], { key: 3 }) : null}
             </div>
         );
     }
