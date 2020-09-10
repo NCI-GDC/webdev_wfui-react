@@ -38,9 +38,10 @@ class MultiColumnView extends React.Component {
                 <div
                     id={id}
                     className={classNames(
-                        'three-column-view three-column-resize-view',
+                        'multi-column-view multi-column-resize-view three-column-view three-column-resize-view',
                         className,
                         `${visibleColCount}-column-visible`,
+                        `${displayChild.map((c) => (`${c.props.className}-visible`)).join(' ')}`
                     )}
                 >
                     {React.cloneElement(displayChild[0], { key: 1 })}
@@ -67,9 +68,10 @@ class MultiColumnView extends React.Component {
             <div
                 id={id}
                 className={classNames(
-                    'three-column-view three-column-noresize-view',
+                    'multi-column-view multi-column-noresize-view three-column-view three-column-noresize-view',
                     className,
                     `${visibleColCount}-column-visible`,
+                    `${displayChild.map((c) => (`${c.props.className}-visible`)).join(' ')}`
                 )}
             >
                 {React.cloneElement(displayChild[0], { key: 1 })}
