@@ -80,7 +80,7 @@ class StaticNotification extends React.Component {
                             <Glyphicon
                                 className="remove"
                                 onClick={() => this.removeNotification(i)}
-                                glyph="remove-circle"
+                                glyph="times"
                             />
                         </Alert>
                     ))}
