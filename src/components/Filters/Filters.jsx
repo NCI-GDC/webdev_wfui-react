@@ -5,8 +5,8 @@ import { Form, FormGroup, ControlLabel, Button } from '../index';
 
 class Filters extends React.Component {
     componentWillUnmount() {
-        const { onClickReset } = this.props;
-        onClickReset();
+        const { onUnmount } = this.props;
+        onUnmount();
     }
     render() {
         const {
@@ -42,6 +42,7 @@ Filters.propTypes = {
     label: PropTypes.string,
     textReset: PropTypes.string,
     onClickReset: PropTypes.func,
+    onUnmount: PropTypes.func,
     children: PropTypes.node,
     resetVariant: PropTypes.string,
 };
@@ -50,6 +51,7 @@ Filters.defaultProps = {
     label: 'Filters:',
     textReset: 'Reset',
     onClickReset: f => f,
+    onUnmount: f => f,
     disableReset: false,
     resetVariant: 'outline-primary',
 };
