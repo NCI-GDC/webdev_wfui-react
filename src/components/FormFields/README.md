@@ -4,7 +4,7 @@ This is a common component used by all form field render components to display d
 *renderAddAnother*
 
 |Name|Type (default value)|Desc|
-|****|********************|****|
+|----|--------------------|----|
 |className|string|Class name of the wrapper|
 |help|string|Help text to be displayed below the component|
 |label|string|Label|
@@ -19,3 +19,16 @@ This is a common component used by all form field render components to display d
 |fullWidth|Bool (false)|If true, the field is full width|
 |defaultValue|Object (null)|Set default values|
 
+*renderAutoComplete*
+This component is used to display autocomplete list given a part of a keyword. (E.g. for search, for cud search)
+
+* Point to the code 
+
+|Name|Type (default value)|Description|
+|----|--------------------|-----------|
+|queryInterval|Number (100)|Number of milliseconds before next auto-complete search request|
+|textNoResult|String (‘No results available’)|Text to be displayed when there is no result available|
+|fullWidth|Bool (false)|If yes, the component is full width (100%)|
+
+*renderCheckboxes*
+This component is for checkbox form field.
