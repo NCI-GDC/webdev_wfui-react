@@ -3,7 +3,7 @@ This is a common component used by all form field render components to display d
 
 *renderAddAnother*
 
-|Name|Type (default value)|Desc||
+|Name|Type (default value)|Desc|
 |****|********************|****|
 |className|string|Class name of the wrapper|
 |help|string|Help text to be displayed below the component|
