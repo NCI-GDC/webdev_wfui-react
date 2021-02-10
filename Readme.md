@@ -11,9 +11,6 @@ Most up-to-date production version with React15 stack.
 ### react16 (Branch) 
 Most up-to-date production version with React16 stack.
 
-### v2.4.0 (Tag)
-CBW uses this version 
-
 ### facit-v1.0 (Tag)
 Latest ui-core fork for OTIS
 
