@@ -15,7 +15,6 @@ function loadStories() {
     require('../stories/Card');
     require('../stories/DashboardCard');
     require('../stories/Editor');
-    require('../stories/IsotopeGrid');
     require('../stories/Drawer');
     require('../stories/GroupsDrawer');
     require('../stories/UserDrawer');
