@@ -15,7 +15,6 @@ module.exports = function(config, env) {
   );
 
   config.resolve.alias.masonry = 'masonry-layout';
-  config.resolve.alias.isotope = 'isotope-layout';
 
   return config;
 };

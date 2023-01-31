@@ -21,7 +21,6 @@ import FilteredTableV2, {
 } from './FilteredTable/2/FilteredTable';
 // import FilteredTableV2 from './FilteredTable/2/FilteredTable';
 // import ResponsiveFilteredTable from './ResponsiveFilteredTable/FilteredTable';
-import IsotopeGrid from './IsotopeGrid/IsotopeGrid';
 import PasswordValidator, * as PasswordValidatorUtils from './PasswordValidator/PasswordValidator';
 import Draggable, { withContext } from './Draggable/Draggable';
 import DashboardBox from './DashboardBox/DashboardBox';
@@ -65,7 +64,6 @@ export {
     FilteredTable,
     FilteredTableV2,
     ResponsiveFilteredTable,
-    IsotopeGrid,
     PasswordValidator,
     PasswordValidatorUtils,
     Draggable,
