@@ -1,4 +1,4 @@
-node_modules
+node_modules*
 .DS_Store
 npm-debug.log
 bundle.log
@@ -12,3 +12,4 @@ ehthumbs.db
 Thumbs.db
 yarn-error.log
 storybook-static
+venv*
