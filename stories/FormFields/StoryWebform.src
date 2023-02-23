@@ -29,7 +29,7 @@ class Example extends React.Component {
                         survey_data={sections}
                         survey_info={info}
                         allowPublish={false}
-                        recaptchaSiteKey="6LdU_C8UAAAAAKuomqs1T4_EFWX_iHeblyBB8BYs"
+                        recaptchaSiteKey=""
                         onComplete={() => { console.log('submit') }}
                         getConfig={() => ({ API_HOST: '' })}
                         user={{
